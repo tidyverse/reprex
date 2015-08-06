@@ -1,8 +1,18 @@
 Package: reprex
-Title: What the Package Does (one line, title case)
+Title: Prepare Reproducible Example Code for the Web
 Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Authors@R: person("Jennifer", "Bryan", role=c("aut", "cre"),
+  email = "jenny@stat.ubc.ca")
+Description: Render reproducible example code to Markdown suitable for use in
+  code-oriented websites, such as StackOverflow.com or GitHub.
 Depends: R (>= 3.2.1)
-License: What license is it under?
+License: MIT + file LICENSE
 LazyData: true
+VignetteBuilder: knitr
+URL: https://github.com/jennybc/reprex
+BugReports: https://github.com/jennybc/reprex/issues
+Imports:
+    rmarkdown
+Suggests:
+    fortunes,
+    knitr
