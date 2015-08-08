@@ -4,14 +4,55 @@
 <!-- [![Build Status](https://travis-ci.org/jennybc/reprex.svg?branch=master)](https://travis-ci.org/jennybc/reprex) -->
 ### reprex
 
-Prepare reproducible examples for posting to stackoverflow, github issues, etc.:
+Prepare reproducible examples for posting to github issues, stackoverflow, etc.:
 
 -   given R code on the clipboard or in a file
 -   run it via `rmarkdown::render()`
 -   with deliberate choices re: arguments and setup chunk
 -   get resulting runnable code + output as markdown
--   formatted for target venue, e.g. `so` or `gh`
--   on the clipboard and/or in a file
+-   formatted for target venue, e.g. `gh` or `so`
+-   on the clipboard and, optionally, in a file
+-   preview an HTML version in RStudio viewer or default browser
+
+**WARNING**: currently this package assumes it's running on Mac OS! It's not very mature yet.
+
+### Quick demo
+
+Let's say you copy this code onto your clipboard:
+
+    (y <- 1:4)
+    mean(y)
+
+Then you load the `reprex` package and call the main function `reprex()`, where the default target venue is GitHub:
+
+``` r
+library(reprex)
+reprex()
+```
+
+A nicely rendered HTML preview will display in RStudio's Viewer (if you're in RStudio) or your default browser otherwise. The relevant bit of GitHub-flavored Markdown is ready to be pasted from your clipboard:
+
+    ``` r
+    (y <- 1:4)
+    #> [1] 1 2 3 4
+    mean(y)
+    #> [1] 2.5
+    ```
+
+Here's what that Markdown would look like rendered in a GitHub issue:
+
+``` r
+(y <- 1:4)
+#> [1] 1 2 3 4
+mean(y)
+#> [1] 2.5
+```
+
+There are a few more options already, such as:
+
+You can set the target venue to stackoverflow with `reprex(venue = "so")`.
+
+You can read the code from file with `reprex("my_reprex.R")`.
 
 #### Reproducible examples
 
@@ -19,8 +60,8 @@ What is a `reprex`? It's a {rep}roducible {ex}ample. Coined by Romain Francois [
 
 Where and why are they used?
 
--   A stackoverflow question that includes a proper reprex is [much more likely to get answered](http://stackoverflow.com/help/no-one-answers), by the most knowledgeable and therefore busy people.
--   A [GitHub issue](https://guides.github.com/features/issues/) that includes a proper reprex is more likely to achieve your goals: getting a bug fixed, getting a new feature, in a finite amount of time.
+-   A stackoverflow question that includes a proper reprex is [much more likely to get answered](http://stackoverflow.com/help/no-one-answers), by the most knowledgeable (and therefore busy!) people.
+-   A [GitHub issue](https://guides.github.com/features/issues/) that includes a proper reprex is more likely to achieve your goal: getting a bug fixed or getting a new feature, in a finite amount of time.
 
 Read the stackoverflow thread ["How to make a great R reproducible example?"](http://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example/16532098) to learn important guiding principles! That is NOT what this package is about. This package helps with the fiddly mechanics of preparing runnable bits of code for posting.
 
@@ -29,10 +70,10 @@ Read the stackoverflow thread ["How to make a great R reproducible example?"](ht
 The reprex code:
 
 -   Must run and, therefore, should be run **by the person posting**. No faking it.
--   Should be easy for others to digest, so **they don't necessarily have to run it**. We might include selected bits of output. :scream:
+-   Should be easy for others to digest, so **they don't necessarily have to run it**. You are encouraged to include selected bits of output. :scream:
 -   Should be easy for others to copy + paste + run, **iff they so choose**. Don't let inclusion of output break executability.
 
-Accomplish this like so:
+Accomplished like so:
 
 -   use `rmarkdown::render` or, under the hood, `knitr::spin` to run the code and capture output that would display in R console
 -   use chunk option `comment = "#>"` to include the output while retaining executability
@@ -48,17 +89,17 @@ stackoverflow
 
 github
 
--   github issues use github-flavored markdown
+-   github issues use [github-flavored markdown](https://help.github.com/articles/github-flavored-markdown/)
 
 gist.github.com
 
--   In theory, this is the domain of [`gistr`](), but people also tend to post `.R` or `.Rmd` and NOT resulting `.md` ... is there a gap in tools or is this just a behavior?
+-   In theory, this is the domain of [`gistr`](https://github.com/ropensci/gistr), but people also tend to post `.R` or `.Rmd` and NOT resulting `.md` ... is there a gap in tools or is this just an unfortunate behavior pattern? I don't always want to render these files to see what someone's trying to show me.
 
 #### Other work
 
 The "great R reproducible example" stackoverflow thread referenced above has some discussion of practical details, such as [this comment](http://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example/16532098#16532098).
 
-The "Code to import data from a Stack overflow query into R" [stackoverflow thread](http://stackoverflow.com/questions/10849270/code-to-import-data-from-a-stack-overflow-query-into-r/10849315). This is from the perspective of someone considering answering a question, in which the OP has not provided a proper reprex. Specifically: the input data is in suboptimal form.
+The "Code to import data from a Stack overflow query into R" [stackoverflow thread](http://stackoverflow.com/questions/10849270/code-to-import-data-from-a-stack-overflow-query-into-r/10849315). This is from the perspective of someone considering *answering* a question, in which the OP has not provided a proper reprex. Specifically: it addresses input data that is in suboptimal form.
 
 The [github package `overflow`](https://github.com/sebastian-c/overflow/). Appears to also emphasize the difficulty above, e.g., getting data out of stackoverflow questions that don't follow reprex best practices. A bit hard to tell what's there, not much in README, no vignette.
 
@@ -69,6 +110,8 @@ Clipboard stuff
 -   sadly, implementation is very OS specific
 -   The psych package has a function `read.clipboard()` that takes the OS into account. Not on github but gzipped tarballs of devel version available here, if I decide to take a look: <http://personality-project.org/r/src/contrib/>.
 -   <http://stackoverflow.com/questions/9035674/r-function-to-copy-to-clipboard-on-mac-osx?lq=1>
+-   The Kmisc package has functions that should work on Mac and Windows. Clipboard reading is [here](https://github.com/kevinushey/Kmisc/blob/b9a340ecef5bdd61fb09f462c179ccb86aff4e31/R/misc.R#L143-L169) and clipboard writing is [there](https://github.com/kevinushey/Kmisc/blob/b9a340ecef5bdd61fb09f462c179ccb86aff4e31/R/misc.R#L215-L234).
+-   there really should be a little package with clipboard utility functions, that does a nice job across all OSes, then I would just use that
 
 Lines where a `.R` file gets spun in `render()`: [render.R\#L129-L154](https://github.com/rstudio/rmarkdown/blob/88afb8d4d6f4371d67b82059baaee1052d2bc55f/R/render.R#L129-L154)
 
