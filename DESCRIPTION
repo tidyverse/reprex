@@ -11,8 +11,8 @@ LazyData: true
 VignetteBuilder: knitr
 URL: https://github.com/jennybc/reprex
 BugReports: https://github.com/jennybc/reprex/issues
-Imports:
+Imports: 
     rmarkdown
-Suggests:
+Suggests: 
     fortunes,
     knitr
