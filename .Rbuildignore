@@ -4,3 +4,5 @@
 ^README\.html$
 ^README-.*\.png$
 ^README-tmp.R$
+^.*REPREX_gh\.html$
+^.*REPREX_so\.html$
