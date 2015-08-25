@@ -3,6 +3,7 @@
 ^README\.Rmd$
 ^README\.html$
 ^README-.*\.png$
-^README-tmp.R$
+^README-tmp\.R$
 ^.*REPREX_gh\.html$
 ^.*REPREX_so\.html$
+^README-viewer-screenshot\..*$
