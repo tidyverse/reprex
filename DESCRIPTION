@@ -15,6 +15,7 @@ Imports:
     rmarkdown,
     stringr
 Suggests:
+    devtools,
     fortunes,
     knitr,
     testthat

@@ -20,6 +20,8 @@
 #'   are deposited in current working directory, but the goal is to consult
 #'   options for a place where you keep all such snippets.
 #' @param show Whether to show the output in a viewer (RStudio or browser)
+#' @param session_info Whether to include the results of devtools::sessioninfo()
+#'   at the end of the copied chunk
 #'
 #' @examples
 #' \dontrun{
@@ -43,7 +45,7 @@
 #'
 #' @export
 reprex <- function(x, infile = NULL, venue = c("gh", "so"), outfile = NULL,
-                   show = TRUE) {
+                   show = TRUE, session_info = FALSE) {
   deparsed <- deparse(substitute(x))
   if (identical(deparsed, "")) {
     # no argument was given; use either infile or clipboard
@@ -60,13 +62,13 @@ reprex <- function(x, infile = NULL, venue = c("gh", "so"), outfile = NULL,
     the_source <- format_deparsed(deparsed)
   }
 
-  reprex_(the_source, venue, outfile, show)
+  reprex_(the_source, venue, outfile, show, session_info)
 }
 
 #' @rdname reprex
 #' @export
 reprex_ <- function(x, venue = c("gh", "so"), outfile = NULL,
-                    show = TRUE) {
+                    show = TRUE, session_info = FALSE) {
   venue <- match.arg(venue)
 
   if (length(x) < 1)
@@ -86,6 +88,11 @@ reprex_ <- function(x, venue = c("gh", "so"), outfile = NULL,
   if(!grepl("reprex-header", x[1])) {
     HEADER <- read_from_template("HEADER")
     x <- c(HEADER, x)
+  }
+
+  # if requested, add devtools::session_info() to the end
+  if (session_info) {
+    x <- c(x, "devtools::session_info()")
   }
 
   outfile <- if (!is.null(outfile)) { outfile } else { tempfile() }
@@ -112,7 +119,7 @@ reprex_ <- function(x, venue = c("gh", "so"), outfile = NULL,
 
   if (!is.null(viewer) && show)
     viewer(html_outfile)
-  else
+  else if (show)
     utils::browseURL(html_outfile)
 
   # return the string output invisibly, useful in tests

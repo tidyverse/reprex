@@ -6,9 +6,10 @@
 \title{Render a reprex}
 \usage{
 reprex(x, infile = NULL, venue = c("gh", "so"), outfile = NULL,
-  show = TRUE)
+  show = TRUE, session_info = FALSE)
 
-reprex_(x, venue = c("gh", "so"), outfile = NULL, show = TRUE)
+reprex_(x, venue = c("gh", "so"), outfile = NULL, show = TRUE,
+  session_info = FALSE)
 }
 \arguments{
 \item{x}{A code expression. If not given, retrieves code from the clipboard.
@@ -24,6 +25,9 @@ are deposited in current working directory, but the goal is to consult
 options for a place where you keep all such snippets.}
 
 \item{show}{Whether to show the output in a viewer (RStudio or browser)}
+
+\item{session_info}{Whether to include the results of devtools::sessioninfo()
+  at the end of the copied chunk}
 }
 \description{
 Given some R code on the clipboard, in an expression, or in a file, this function
