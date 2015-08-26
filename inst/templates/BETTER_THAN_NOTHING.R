@@ -5,10 +5,3 @@ fortunes::fortune()
 
 #+ no-fortunes, include = !requireNamespace("fortunes", quietly = TRUE)
 sprintf("Happy %s!", weekdays(Sys.Date()))
-
-#+ safety-net, include = FALSE
-# if(requireNamespace("fortunes", quietly = TRUE)) {
-#   fortunes::fortune()
-# } else {
-#   sprintf("Happy %s!", weekdays(Sys.Date()))
-# }
