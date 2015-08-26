@@ -2,34 +2,41 @@
 % Please edit documentation in R/reprex.R
 \name{reprex}
 \alias{reprex}
+\alias{reprex_}
 \title{Render a reprex}
 \usage{
-reprex(x = NULL, slug = "REPREX", venue = c("gh", "so"),
-  outfiles = NULL)
+reprex(x, infile = NULL, venue = c("gh", "so"), outfile = NULL,
+  show = TRUE)
+
+reprex_(x, venue = c("gh", "so"), outfile = NULL, show = TRUE)
 }
 \arguments{
-\item{x}{Path to \code{.R} file containing reprex code or \code{NULL}, if the
-code is on the clipboard}
+\item{x}{A code expression. If not given, retrieves code from the clipboard.
+To \code{reprex_}, given as a character vector.}
 
-\item{slug}{Evocative words that are used to create a slug for the resulting,
-possibly temporary, \code{.R} file. Sorry, file stuff implemented in a
-half-baked way at this point.}
+\item{infile}{Path to \code{.R} file containing reprex code}
 
 \item{venue}{"gh" for GitHub or "so" for stackoverflow}
 
-\item{outfiles}{Logical indicating if the \code{.R} and \code{.md} files
-should be left behind. Default to \code{FALSE} if code provided via
-clipboard and \code{TRUE} if code read from file. At this point, outfiles
+\item{outfile}{Desired stub for output .R, .md, and .HTML files for reproducible
+example. If NULL, keeps them in temporary files. At this point, outfiles
 are deposited in current working directory, but the goal is to consult
 options for a place where you keep all such snippets.}
+
+\item{show}{Whether to show the output in a viewer (RStudio or browser)}
 }
 \description{
-Given some R code on the clipboard or in a file, this function runs it via
+Given some R code on the clipboard, in an expression, or in a file, this function
+runs it via
 \code{\link[rmarkdown]{render}}. The resulting bit of Markdown is the primary
 output. It will be ready and waiting on the clipboard, for pasting into a
 GitHub issue or to stackoverflow. Optionally, the R code and Markdown will be
 left behind in files. An HTML preview will display in RStudio's Viewer pane,
 if available, or in the default browser otherwise.
+}
+\details{
+\code{reprex_} is a version of the function that takes a character vector
+with the desired reproducibility code; \code{reprex} is a wrapper around it.
 }
 \examples{
 \dontrun{
@@ -37,6 +44,16 @@ if available, or in the default browser otherwise.
 # (y <- 1:4)
 # mean(y)
 reprex()
+
+# or provide it as code in brackets:
+reprex({y <- 1:4; mean(y)})
+
+# note that you can include newlines in those brackets
+reprex({
+  x <- 1:4
+  y <- 2:5
+  x + y
+})
 }
 }
 
