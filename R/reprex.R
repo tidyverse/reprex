@@ -28,7 +28,10 @@
 #' @export
 reprex <- function(x = NULL, slug = "REPREX", venue = c("gh", "so"),
                    outfiles = NULL) {
-
+  
+  ### Set image upload to imgur
+  knitr::opts_knit$set(upload.fun = knitr::imgur_upload, base.url = NULL)
+  
   venue <- match.arg(venue)
 
   the_source <- if(is.null(x)) cb_read() else readLines(x)
