@@ -31,7 +31,7 @@ reprex <- function(x = NULL, slug = "REPREX", venue = c("gh", "so"),
 
   venue <- match.arg(venue)
 
-  the_source <- if(is.null(x)) cb_read() else readLines(x)
+  the_source <- if(is.null(x)) clipr::read_clip() else readLines(x)
 
   if(is.null(outfiles))
     outfiles <- !is.null(x)
@@ -69,7 +69,7 @@ reprex <- function(x = NULL, slug = "REPREX", venue = c("gh", "so"),
     md_safe <- readLines(md_outfile)
     writeLines(c("<!-- language: lang-r -->\n", md_safe), md_outfile)
   }
-  cb_write(readLines(md_outfile))
+  clipr::write_clip(readLines(md_outfile))
 
   tmp_html_outfile <- add_ext(tempfile(filename), ".html")
   rmarkdown::render(md_outfile, output_file = tmp_html_outfile, quiet = TRUE)
