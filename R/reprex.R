@@ -92,10 +92,9 @@ reprex_ <- function(x, venue = c("gh", "so"), outfile = NULL,
     x <- c(HEADER, x)
   }
 
-  # if requested, add devtools::session_info() to the end
-  if (session_info) {
-    x <- c(x, "devtools::session_info()")
-  }
+  # if requested, append "devtools::session_info()" or "sessionInfo()"
+  if (session_info)
+    x <- c(x, si())
 
   ## TO DO: come back here once it's clear how outfile will be used
   ## for example, we should check for .R extension before we add another!

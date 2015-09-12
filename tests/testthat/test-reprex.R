@@ -45,10 +45,10 @@ test_that("The reprex function from an expression returns a knitr-d output", {
   expect_match(ret[2], "y <-")
 })
 
-test_that("The session_info = TRUE option adds a devtools::session_info line", {
+test_that("The session_info = TRUE option adds session info line", {
   ret <- reprex({y <- 2}, show = FALSE, session_info = TRUE)
 
-  expect_true(any(ret == "devtools::session_info()"))
+  expect_true(any(ret %in% c("devtools::session_info()", "sessionInfo()")))
 })
 
 
