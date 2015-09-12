@@ -19,24 +19,26 @@ To \code{reprex_}, given as a character vector.}
 
 \item{venue}{"gh" for GitHub or "so" for stackoverflow}
 
-\item{outfile}{Desired stub for output .R, .md, and .HTML files for reproducible
-example. If NULL, keeps them in temporary files. At this point, outfiles
-are deposited in current working directory, but the goal is to consult
-options for a place where you keep all such snippets.}
+\item{outfile}{Desired stub for output \code{.R}, \code{.md}, and
+\code{.html} files for reproducible example. If \code{NULL}, keeps them in
+temporary files. At this point, outfiles are deposited in current working
+directory, but the goal is to consult options for a place where you keep
+all such snippets.}
 
 \item{show}{Whether to show the output in a viewer (RStudio or browser)}
 
-\item{session_info}{Whether to include the results of devtools::sessioninfo()
-  at the end of the copied chunk}
+\item{session_info}{Whether to include the results of
+  \code{\link[devtools]{session_info}}, if available, or
+  \code{\link{sessionInfo}} at the end of the copied chunk.}
 }
 \description{
-Given some R code on the clipboard, in an expression, or in a file, this function
-runs it via
-\code{\link[rmarkdown]{render}}. The resulting bit of Markdown is the primary
-output. It will be ready and waiting on the clipboard, for pasting into a
-GitHub issue or to stackoverflow. Optionally, the R code and Markdown will be
-left behind in files. An HTML preview will display in RStudio's Viewer pane,
-if available, or in the default browser otherwise.
+Given some R code on the clipboard, in an expression, or in a file, this
+function runs it via \code{\link[rmarkdown]{render}}. The resulting bit of
+Markdown is the primary output. It will be ready and waiting on the
+clipboard, for pasting into a GitHub issue or to stackoverflow. Optionally,
+the R code and Markdown will be left behind in files. An HTML preview will
+display in RStudio's Viewer pane, if available, or in the default browser
+otherwise.
 }
 \details{
 \code{reprex_} is a version of the function that takes a character vector

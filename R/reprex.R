@@ -15,13 +15,15 @@
 #'   To \code{reprex_}, given as a character vector.
 #' @param infile Path to \code{.R} file containing reprex code
 #' @param venue "gh" for GitHub or "so" for stackoverflow
-#' @param outfile Desired stub for output .R, .md, and .HTML files for
-#'   reproducible example. If NULL, keeps them in temporary files. At this
-#'   point, outfiles are deposited in current working directory, but the goal is
-#'   to consult options for a place where you keep all such snippets.
+#' @param outfile Desired stub for output \code{.R}, \code{.md}, and
+#'   \code{.html} files for reproducible example. If \code{NULL}, keeps them in
+#'   temporary files. At this point, outfiles are deposited in current working
+#'   directory, but the goal is to consult options for a place where you keep
+#'   all such snippets.
 #' @param show Whether to show the output in a viewer (RStudio or browser)
-#' @param session_info Whether to include the results of devtools::sessioninfo()
-#'   at the end of the copied chunk
+#' @param session_info Whether to include the results of
+#'   \code{\link[devtools]{session_info}}, if available, or
+#'   \code{\link{sessionInfo}} at the end of the copied chunk.
 #'
 #' @examples
 #' \dontrun{
@@ -95,17 +97,21 @@ reprex_ <- function(x, venue = c("gh", "so"), outfile = NULL,
     x <- c(x, "devtools::session_info()")
   }
 
+  ## TO DO: come back here once it's clear how outfile will be used
+  ## for example, we should check for .R extension before we add another!
   outfile <- if (!is.null(outfile)) { outfile } else { tempfile() }
-  R_file <- add_ext(outfile, "R")
+  file_base <- basename(outfile)
+  R_outfile <- add_ext(outfile, "R")
 
-  writeLines(x, R_file)
+  writeLines(x, R_outfile)
 
   if(venue == "gh") {
     md_outfile <-
-      rmarkdown::render(R_file, rmarkdown::md_document(variant = "markdown_github"),
+      rmarkdown::render(R_outfile,
+                        rmarkdown::md_document(variant = "markdown_github"),
                         quiet = TRUE)
   } else { # venue == "so"
-    md_outfile <- rmarkdown::render(R_file, rmarkdown::md_document(),
+    md_outfile <- rmarkdown::render(R_outfile, rmarkdown::md_document(),
                                     quiet = TRUE)
     md_safe <- readLines(md_outfile)
     writeLines(c("<!-- language: lang-r -->\n", md_safe), md_outfile)
@@ -113,14 +119,16 @@ reprex_ <- function(x, venue = c("gh", "so"), outfile = NULL,
   output_lines <- readLines(md_outfile)
   clipr::write_clip(output_lines)
 
-  html_outfile <- rmarkdown::render(md_outfile, quiet = TRUE)
+  html_outfile <- gsub("\\.R", ".html", R_outfile)
+  rmarkdown::render(md_outfile, output_file = html_outfile, quiet = TRUE)
 
   viewer <- getOption("viewer")
 
-  if (!is.null(viewer) && show)
+  if (!is.null(viewer) && show) {
     viewer(html_outfile)
-  else if (show)
+  } else if (show) {
     utils::browseURL(html_outfile)
+  }
 
   # return the string output invisibly, useful in tests
   invisible(output_lines)
