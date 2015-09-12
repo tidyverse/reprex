@@ -47,7 +47,8 @@
 #'
 #' @export
 reprex <- function(x, infile = NULL, venue = c("gh", "so"), outfile = NULL,
-                   show = TRUE, session_info = FALSE) {
+                   show = TRUE, session_info = FALSE,
+                   upload.fun = knitr::imgur_upload) {
   deparsed <- deparse(substitute(x))
   if (identical(deparsed, "")) {
     # no argument was given; use either infile or clipboard
@@ -70,7 +71,8 @@ reprex <- function(x, infile = NULL, venue = c("gh", "so"), outfile = NULL,
 #' @rdname reprex
 #' @export
 reprex_ <- function(x, venue = c("gh", "so"), outfile = NULL,
-                    show = TRUE, session_info = FALSE) {
+                    show = TRUE, session_info = FALSE,
+                    upload.fun = knitr::imgur_upload) {
   venue <- match.arg(venue)
 
   if (length(x) < 1)
@@ -104,8 +106,7 @@ reprex_ <- function(x, venue = c("gh", "so"), outfile = NULL,
 
   writeLines(x, R_outfile)
 
-  ### Set image upload to imgur
-  knitr::opts_knit$set(upload.fun = knitr::imgur_upload, base.url = NULL)
+  knitr::opts_knit$set(upload.fun = upload.fun)
 
   if(venue == "gh") {
     md_outfile <-
