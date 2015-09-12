@@ -1,8 +1,10 @@
 Package: reprex
 Title: Prepare Reproducible Example Code for the Web
 Version: 0.0.0.9000
-Authors@R: person("Jennifer", "Bryan", role=c("aut", "cre"),
-  email = "jenny@stat.ubc.ca")
+Authors@R: c(
+    person("Jennifer", "Bryan", , "jenny@stat.ubc.ca", role = c("aut", "cre")),
+    person("David", "Robinson", , "admiral.david@gmail.com", role = "aut")
+    )
 Description: Render reproducible example code to Markdown suitable for use in
   code-oriented websites, such as StackOverflow.com or GitHub.
 Depends: R (>= 3.2.1)
