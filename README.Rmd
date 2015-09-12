@@ -153,14 +153,6 @@ The "great R reproducible example" Stack Overflow thread referenced above has so
 
 The "Code to import data from a Stack overflow query into R" [stackoverflow thread](http://stackoverflow.com/questions/10849270/code-to-import-data-from-a-stack-overflow-query-into-r/10849315). This is from the perspective of someone considering *answering* a question, in which the OP has not provided a proper reprex. Specifically: it addresses input data that is in suboptimal form.
 
-A collection of R scripts by GitHub user rsaporta contains some functions related to Stack Overflow (note: there is no license on any of this): [so\_functions.r](https://github.com/rsaporta/pubR/blob/fe487d7020311b19b92d80e214800813188ad793/so_functions.r).
+A collection of R scripts by GitHub user rsaporta contains some functions related to Stack Overflow: [so\_functions.r](https://github.com/rsaporta/pubR/blob/fe487d7020311b19b92d80e214800813188ad793/so_functions.r). No license.
 
-The [GitHub package `overflow`](https://github.com/sebastian-c/overflow/). Appears to also emphasize the difficulty above, e.g., getting data out of Stack Overflow questions that don't follow reprex best practices. A bit hard to tell what's there, not much in README, no vignette.
-
-#### Clipboard stuff
-
-  * sadly, implementation is very OS specific
-  * The psych package has a function `read.clipboard()` that takes the OS into account. Not on GitHub but gzipped tarballs of devel version available here, if I decide to take a look: <http://personality-project.org/r/src/contrib/>.
-  * <http://stackoverflow.com/questions/9035674/r-function-to-copy-to-clipboard-on-mac-osx?lq=1>
--   The Kmisc package has functions that should work on Mac and Windows. Clipboard reading is [here](https://github.com/kevinushey/Kmisc/blob/b9a340ecef5bdd61fb09f462c179ccb86aff4e31/R/misc.R#L143-L169) and clipboard writing is [there](https://github.com/kevinushey/Kmisc/blob/b9a340ecef5bdd61fb09f462c179ccb86aff4e31/R/misc.R#L215-L234).
-  * There really should be a little package with clipboard utility functions, that does a nice job across all OSes, then I would just use that.
+The [GitHub package `overflow`](https://github.com/sebastian-c/overflow/). Appears to also emphasize the difficulty above, e.g., getting data out of Stack Overflow questions that don't follow reprex best practices. A bit hard to tell what's there, not much in README, no vignette. License is GPL-3.
