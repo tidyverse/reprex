@@ -13,7 +13,10 @@ URL: https://github.com/jennybc/reprex
 BugReports: https://github.com/jennybc/reprex/issues
 Imports:
     clipr,
-    rmarkdown
+    rmarkdown,
+    stringr
 Suggests:
+    devtools,
     fortunes,
-    knitr
+    knitr,
+    testthat
