@@ -1,12 +1,12 @@
 #' Render a reprex
 #'
-#' Given some R code on the clipboard, in an expression, or in a file, this function
-#' runs it via
-#' \code{\link[rmarkdown]{render}}. The resulting bit of Markdown is the primary
-#' output. It will be ready and waiting on the clipboard, for pasting into a
-#' GitHub issue or to stackoverflow. Optionally, the R code and Markdown will be
-#' left behind in files. An HTML preview will display in RStudio's Viewer pane,
-#' if available, or in the default browser otherwise.
+#' Given some R code on the clipboard, in an expression, or in a file, this
+#' function runs it via \code{\link[rmarkdown]{render}}. The resulting bit of
+#' Markdown is the primary output. It will be ready and waiting on the
+#' clipboard, for pasting into a GitHub issue or to stackoverflow. Optionally,
+#' the R code and Markdown will be left behind in files. An HTML preview will
+#' display in RStudio's Viewer pane, if available, or in the default browser
+#' otherwise.
 #'
 #' \code{reprex_} is a version of the function that takes a character vector
 #' with the desired reproducibility code; \code{reprex} is a wrapper around it.
@@ -15,10 +15,10 @@
 #'   To \code{reprex_}, given as a character vector.
 #' @param infile Path to \code{.R} file containing reprex code
 #' @param venue "gh" for GitHub or "so" for stackoverflow
-#' @param outfile Desired stub for output .R, .md, and .HTML files for reproducible
-#'   example. If NULL, keeps them in temporary files. At this point, outfiles
-#'   are deposited in current working directory, but the goal is to consult
-#'   options for a place where you keep all such snippets.
+#' @param outfile Desired stub for output .R, .md, and .HTML files for
+#'   reproducible example. If NULL, keeps them in temporary files. At this
+#'   point, outfiles are deposited in current working directory, but the goal is
+#'   to consult options for a place where you keep all such snippets.
 #' @param show Whether to show the output in a viewer (RStudio or browser)
 #' @param session_info Whether to include the results of devtools::sessioninfo()
 #'   at the end of the copied chunk

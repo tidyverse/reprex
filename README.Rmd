@@ -35,8 +35,6 @@ Prepare reproducible examples for posting to [GitHub issues](https://guides.gith
   * on the clipboard and, optionally, in a file.
   * Preview an HTML version in RStudio viewer or default browser.
   
-**WARNING**: currently this package assumes it's running on Mac OS! It's not very mature yet.
-
 ### Installation
 
 ```{r installation, eval = FALSE}
@@ -73,10 +71,10 @@ A nicely rendered HTML preview will display in RStudio's Viewer (if you're in RS
 The relevant bit of GitHub-flavored Markdown is ready to be pasted from your clipboard:
 
 ```{r load-and-call, include = FALSE}
-writeLines('reprex::reprex("README-tmp.R", slug = "readme-tmp")',
+writeLines('reprex::reprex(infile = "README-tmp.R", outfile = "README-tmp_gh")',
            "README-tmp-wrapper.R")
 devtools::clean_source("README-tmp-wrapper.R", quiet = TRUE)
-md_file <- list.files(pattern = "readme-tmp_gh.md")
+md_file <- list.files(pattern = "README-tmp_gh.md")
 md_content <- readLines(md_file)
 ```
 
@@ -95,7 +93,7 @@ There are a few more options already, such as:
 
 You can set the target venue to Stack Overflow with `reprex(venue = "so")`.
 
-You can read the code from file with `reprex("my_reprex.R")`.
+You can read the code from file with `reprex(infile = "my_reprex.R")`.
 
 ```{r clean-up, include = FALSE}
 leftovers <- list.files(pattern = "README-tmp", ignore.case = TRUE)

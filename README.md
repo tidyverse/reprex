@@ -14,8 +14,6 @@ Prepare reproducible examples for posting to [GitHub issues](https://guides.gith
 -   on the clipboard and, optionally, in a file.
 -   Preview an HTML version in RStudio viewer or default browser.
 
-**WARNING**: currently this package assumes it's running on Mac OS! It's not very mature yet.
-
 ### Installation
 
 ``` r
@@ -64,7 +62,7 @@ There are a few more options already, such as:
 
 You can set the target venue to Stack Overflow with `reprex(venue = "so")`.
 
-You can read the code from file with `reprex("my_reprex.R")`.
+You can read the code from file with `reprex(infile = "my_reprex.R")`.
 
 ### Reproducible examples
 
