@@ -1,6 +1,6 @@
 Package: reprex
 Title: Prepare Reproducible Example Code for the Web
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: c(
     person("Jennifer", "Bryan", , "jenny@stat.ubc.ca", role = c("aut", "cre")),
     person("David", "Robinson", , "admiral.david@gmail.com", role = "aut")

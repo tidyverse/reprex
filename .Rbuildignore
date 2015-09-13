@@ -7,3 +7,4 @@
 ^.*REPREX_gh\.html$
 ^.*REPREX_so\.html$
 ^README-viewer-screenshot\..*$
+^foo.R$

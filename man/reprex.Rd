@@ -6,10 +6,10 @@
 \title{Render a reprex}
 \usage{
 reprex(x, infile = NULL, venue = c("gh", "so"), outfile = NULL,
-  show = TRUE, session_info = FALSE)
+  show = TRUE, session_info = FALSE, upload.fun = knitr::imgur_upload)
 
 reprex_(x, venue = c("gh", "so"), outfile = NULL, show = TRUE,
-  session_info = FALSE)
+  session_info = FALSE, upload.fun = knitr::imgur_upload)
 }
 \arguments{
 \item{x}{A code expression. If not given, retrieves code from the clipboard.
@@ -28,8 +28,13 @@ all such snippets.}
 \item{show}{Whether to show the output in a viewer (RStudio or browser)}
 
 \item{session_info}{Whether to include the results of
-  \code{\link[devtools]{session_info}}, if available, or
-  \code{\link{sessionInfo}} at the end of the copied chunk.}
+\code{\link[devtools]{session_info}}, if available, or
+\code{\link{sessionInfo}} at the end of the copied chunk.}
+
+\item{upload.fun}{Function that is valid for the \code{upload.fun}
+  \href{http://yihui.name/knitr/options/}{\code{knitr} option}, for uploading
+  and linking images stored on the web. Defaults to
+  \code{\link[knitr]{imgur_upload}}.}
 }
 \description{
 Given some R code on the clipboard, in an expression, or in a file, this

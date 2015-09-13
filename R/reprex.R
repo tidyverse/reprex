@@ -24,6 +24,10 @@
 #' @param session_info Whether to include the results of
 #'   \code{\link[devtools]{session_info}}, if available, or
 #'   \code{\link{sessionInfo}} at the end of the copied chunk.
+#' @param upload.fun Function that is valid for the \code{upload.fun}
+#'   \href{http://yihui.name/knitr/options/}{\code{knitr} option}, for uploading
+#'   and linking images stored on the web. Defaults to
+#'   \code{\link[knitr]{imgur_upload}}.
 #'
 #' @examples
 #' \dontrun{
