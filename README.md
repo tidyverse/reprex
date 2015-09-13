@@ -4,6 +4,8 @@
 <!-- [![Build Status](https://travis-ci.org/jennybc/reprex.svg?branch=master)](https://travis-ci.org/jennybc/reprex) -->
 ### reprex
 
+<a href="https://nypdecider.files.wordpress.com/2014/08/help-me-help-you.gif"> <img src="internal/help-me-help-you-still-500-c256.png" width="300" height="100" align="right">
+
 Prepare reproducible examples for posting to [GitHub issues](https://guides.github.com/features/issues/), [Stack Overflow](https://stackoverflow.com), etc.
 
 -   Given R code on the clipboard, in a file, or as expression,
@@ -77,7 +79,7 @@ Where and why are they used?
 
 Read the Stack Overflow thread ["How to make a great R reproducible example?"](http://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example/16532098) to learn important guiding principles! That is NOT what this package is about. This package helps with the fiddly mechanics of preparing runnable bits of code for posting.
 
-### Philosophy
+### Package philosophy
 
 The reprex code:
 
