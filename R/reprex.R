@@ -8,11 +8,7 @@
 #' display in RStudio's Viewer pane, if available, or in the default browser
 #' otherwise.
 #'
-#' \code{reprex_} is a version of the function that takes a character vector
-#' with the desired reproducibility code; \code{reprex} is a wrapper around it.
-#'
 #' @param x A code expression. If not given, retrieves code from the clipboard.
-#'   To \code{reprex_}, given as a character vector.
 #' @param infile Path to \code{.R} file containing reprex code
 #' @param venue "gh" for GitHub or "so" for stackoverflow
 #' @param outfile Desired stub for output \code{.R}, \code{.md}, and
@@ -47,12 +43,11 @@
 #' })
 #' }
 #'
-#' @name reprex
-#'
 #' @export
 reprex <- function(x, infile = NULL, venue = c("gh", "so"), outfile = NULL,
                    show = TRUE, session_info = FALSE,
                    upload.fun = knitr::imgur_upload) {
+
   deparsed <- deparse(substitute(x))
   if (identical(deparsed, "")) {
     # no argument was given; use either infile or clipboard
@@ -69,56 +64,35 @@ reprex <- function(x, infile = NULL, venue = c("gh", "so"), outfile = NULL,
     the_source <- format_deparsed(deparsed)
   }
 
-  reprex_(the_source, venue, outfile, show, session_info)
-}
-
-#' @rdname reprex
-#' @export
-reprex_ <- function(x, venue = c("gh", "so"), outfile = NULL,
-                    show = TRUE, session_info = FALSE,
-                    upload.fun = knitr::imgur_upload) {
-  venue <- match.arg(venue)
-
-  if (length(x) < 1)
-    x <- read_from_template("BETTER_THAN_NOTHING")
-
-  if(grepl("```", x[1])) {
-    stop(paste("\nFirst line of putative code is:",
-               x[1],
-               "which is not going to fly.",
-               "Are we going in circles?",
-               "Did you perhaps just run reprex()?",
-               "In that case, the clipboard now holds the *rendered* result.",
-               sep = "\n"))
-  }
-
-  ## don't prepend HEADER if it's already there
-  if(!grepl("reprex-header", x[1])) {
-    HEADER <- read_from_template("HEADER")
-    x <- c(HEADER, x)
-  }
-
-  # if requested, append "devtools::session_info()" or "sessionInfo()"
-  if (session_info)
-    x <- c(x, si())
+  the_source <- ensure_not_empty(the_source)
+  the_source <- ensure_not_dogfood(the_source)
+  the_source <- ensure_header(the_source)
+  the_source <- ensure_si(the_source, session_info)
 
   ## TO DO: come back here once it's clear how outfile will be used
-  ## for example, we should check for .R extension before we add another!
-  outfile <- if (!is.null(outfile)) { outfile } else { tempfile() }
-  file_base <- basename(outfile)
-  R_outfile <- add_ext(outfile, "R")
+  ## i.e., is it going to be like original slug concept?
+  R_outfile <- if (!is.null(outfile)) { outfile } else { tempfile() }
+  R_outfile <- add_ext(R_outfile)
 
-  writeLines(x, R_outfile)
+  writeLines(the_source, R_outfile)
+
+  reprex_(R_outfile, venue, show, upload.fun)
+}
+
+reprex_ <- function(x, venue = c("gh", "so"), show = TRUE,
+                    upload.fun = knitr::imgur_upload) {
+
+  venue <- match.arg(venue)
 
   knitr::opts_knit$set(upload.fun = upload.fun)
 
   if(venue == "gh") {
     md_outfile <-
-      rmarkdown::render(R_outfile,
+      rmarkdown::render(x,
                         rmarkdown::md_document(variant = "markdown_github"),
                         quiet = TRUE)
   } else { # venue == "so"
-    md_outfile <- rmarkdown::render(R_outfile, rmarkdown::md_document(),
+    md_outfile <- rmarkdown::render(x, rmarkdown::md_document(),
                                     quiet = TRUE)
     md_safe <- readLines(md_outfile)
     writeLines(c("<!-- language: lang-r -->\n", md_safe), md_outfile)
@@ -126,7 +100,7 @@ reprex_ <- function(x, venue = c("gh", "so"), outfile = NULL,
   output_lines <- readLines(md_outfile)
   clipr::write_clip(output_lines)
 
-  html_outfile <- gsub("\\.R", ".html", R_outfile)
+  html_outfile <- gsub("\\.R", ".html", x)
   rmarkdown::render(md_outfile, output_file = html_outfile, quiet = TRUE)
 
   viewer <- getOption("viewer")

@@ -2,18 +2,13 @@
 % Please edit documentation in R/reprex.R
 \name{reprex}
 \alias{reprex}
-\alias{reprex_}
 \title{Render a reprex}
 \usage{
 reprex(x, infile = NULL, venue = c("gh", "so"), outfile = NULL,
   show = TRUE, session_info = FALSE, upload.fun = knitr::imgur_upload)
-
-reprex_(x, venue = c("gh", "so"), outfile = NULL, show = TRUE,
-  session_info = FALSE, upload.fun = knitr::imgur_upload)
 }
 \arguments{
-\item{x}{A code expression. If not given, retrieves code from the clipboard.
-To \code{reprex_}, given as a character vector.}
+\item{x}{A code expression. If not given, retrieves code from the clipboard.}
 
 \item{infile}{Path to \code{.R} file containing reprex code}
 
@@ -44,10 +39,6 @@ clipboard, for pasting into a GitHub issue or to stackoverflow. Optionally,
 the R code and Markdown will be left behind in files. An HTML preview will
 display in RStudio's Viewer pane, if available, or in the default browser
 otherwise.
-}
-\details{
-\code{reprex_} is a version of the function that takes a character vector
-with the desired reproducibility code; \code{reprex} is a wrapper around it.
 }
 \examples{
 \dontrun{

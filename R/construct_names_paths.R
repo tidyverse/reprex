@@ -12,8 +12,14 @@ construct_filename <- function(slug = "REPREX", venue = c("gh", "so")) {
   paste(Sys.Date(), slug, venue, sep = "_")
 }
 
-add_ext <- function(x, ext) {
-  paste(x, ext, sep = ".")
+add_ext <- function(x, ext = "R", force = FALSE) {
+  suffix <- paste0(".", ext)
+  suffix_re <- paste0(suffix, "$")
+  if (grep(suffix_re, x, invert = TRUE) || force) {
+    paste0(x, suffix)
+  } else {
+    x
+  }
 }
 
 construct_directory <- function(rrdir = NULL) {
