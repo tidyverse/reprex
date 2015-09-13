@@ -104,6 +104,9 @@ reprex_ <- function(x, venue = c("gh", "so"), outfile = NULL,
 
   writeLines(x, R_outfile)
 
+  ### Set image upload to imgur
+  knitr::opts_knit$set(upload.fun = knitr::imgur_upload, base.url = NULL)
+
   if(venue == "gh") {
     md_outfile <-
       rmarkdown::render(R_outfile,
