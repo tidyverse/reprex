@@ -6,7 +6,7 @@
 
 Prepare reproducible examples for posting to [GitHub issues](https://guides.github.com/features/issues/), [Stack Overflow](https://stackoverflow.com), etc.
 
--   Given R code on the clipboard or in a file,
+-   Given R code on the clipboard, in a file, or as expression,
 -   run it via `rmarkdown::render()`,
 -   with deliberate choices re: arguments and setup chunk.
 -   Get resulting runnable code + output as markdown,
@@ -58,11 +58,13 @@ mean(y)
 
 Anyone else can copy, paste, and run this immediately.
 
-There are a few more options already, such as:
+But wait, there's more!
 
-You can set the target venue to Stack Overflow with `reprex(venue = "so")`.
-
-You can read the code from file with `reprex(infile = "my_reprex.R")`.
+-   Set the target venue to Stack Overflow with `reprex(venue = "so")`.
+-   By default, figures are uploaded to [imgur.com](http://imgur.com) and resulting URL is dropped into an inline image tag.
+-   Alternatives to clipboard input:
+    -   `reprex(infile = "my_reprex.R")` gets the code from file
+    -   `reprex({(y <- 1:4); mean(y)})` gets code from expression
 
 ### Reproducible examples
 
