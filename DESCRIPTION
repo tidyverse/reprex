@@ -7,7 +7,7 @@ Authors@R: c(
     )
 Description: Render reproducible example code to Markdown suitable for use in
   code-oriented websites, such as StackOverflow.com or GitHub.
-Depends: R (>= 3.2.1)
+Depends: R (>= 3.0.2)
 License: MIT + file LICENSE
 LazyData: true
 VignetteBuilder: knitr
