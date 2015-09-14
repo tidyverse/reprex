@@ -63,10 +63,15 @@ test_that("The si = TRUE option adds session info line", {
   expect_true(any(ret %in% c("devtools::session_info()", "sessionInfo()")))
 })
 
-test_that("Circular use is detected", {
+test_that("Circular use is detected before render", {
   ret <- reprex({y <- 2}, show = FALSE)
-  clipr::write_clip(ret)
   expect_error(reprex(show = FALSE), "isn't valid R code")
+})
+
+test_that("We catch error from rendering garbage input", {
+  clipr::write_clip(
+    "It really is hard to anticipate just how silly users can be.")
+  expect_error(reprex(show = FALSE), "Cannot render this code.")
 })
 
 # put original back

@@ -88,18 +88,32 @@ reprex_ <- function(r_file, venue = c("gh", "so"), show = TRUE,
 
   knitr::opts_knit$set(upload.fun = upload.fun)
 
-  if(venue == "gh") {
-    md_outfile <-
-      rmarkdown::render(r_file,
-                        rmarkdown::md_document(variant = "markdown_github"),
-                        envir = new.env(parent = baseenv()), quiet = TRUE)
-  } else { # venue == "so"
-    md_outfile <-
-      rmarkdown::render(r_file, rmarkdown::md_document(),
-                        envir = new.env(parent = baseenv()), quiet = TRUE)
+  rendargs <- list(
+    input = r_file,
+    output_format = switch(
+      venue,
+      gh = rmarkdown::md_document(variant = "markdown_github"),
+      so = rmarkdown::md_document()
+    ),
+    envir = new.env(parent = baseenv()),
+    quiet = TRUE)
+
+  rendout <-
+    suppressMessages(try(do.call(rmarkdown::render, rendargs), silent = TRUE))
+
+  if(inherits(rendout, "try-error")) {
+    stop("\nCannot render this code. Maybe the clipboard contents",
+         " are not what you think?\n",
+         rendout)
+  } else {
+    md_outfile <- rendout
+  }
+
+  if(venue == "so") {
     md_safe <- readLines(md_outfile)
     writeLines(c("<!-- language: lang-r -->\n", md_safe), md_outfile)
   }
+
   output_lines <- readLines(md_outfile)
   clipr::write_clip(output_lines)
 
