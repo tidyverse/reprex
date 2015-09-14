@@ -57,8 +57,8 @@ test_that("The reprex is executed in its own environment", {
 
 })
 
-test_that("The session_info = TRUE option adds session info line", {
-  ret <- reprex({y <- 2}, show = FALSE, session_info = TRUE)
+test_that("The si = TRUE option adds session info line", {
+  ret <- reprex({y <- 2}, show = FALSE, si = TRUE)
 
   expect_true(any(ret %in% c("devtools::session_info()", "sessionInfo()")))
 })

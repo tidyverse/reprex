@@ -17,9 +17,9 @@
 #'   directory, but the goal is to consult options for a place where you keep
 #'   all such snippets.
 #' @param show Whether to show the output in a viewer (RStudio or browser)
-#' @param session_info Whether to include the results of
+#' @param si Whether to include the results of
 #'   \code{\link[devtools]{session_info}}, if available, or
-#'   \code{\link{sessionInfo}} at the end of the copied chunk.
+#'   \code{\link{sessionInfo}} at the end of the reprex.
 #' @param upload.fun Function that is valid for the \code{upload.fun}
 #'   \href{http://yihui.name/knitr/options/}{\code{knitr} option}, for uploading
 #'   and linking images stored on the web. Defaults to
@@ -45,7 +45,7 @@
 #'
 #' @export
 reprex <- function(x, infile = NULL, venue = c("gh", "so"), outfile = NULL,
-                   show = TRUE, session_info = FALSE,
+                   show = TRUE, si = FALSE,
                    upload.fun = knitr::imgur_upload) {
 
   venue <- match.arg(venue)
@@ -69,16 +69,16 @@ reprex <- function(x, infile = NULL, venue = c("gh", "so"), outfile = NULL,
   the_source <- ensure_not_empty(the_source)
   the_source <- ensure_not_dogfood(the_source)
   the_source <- ensure_header(the_source)
-  the_source <- ensure_si(the_source, session_info)
+  the_source <- ensure_si(the_source, si)
 
   ## TO DO: come back here once it's clear how outfile will be used
   ## i.e., is it going to be like original slug concept?
-  r_outfile <- if (!is.null(outfile)) { outfile } else { tempfile() }
-  r_outfile <- add_ext(r_outfile)
+  r_file <- if (!is.null(outfile)) { outfile } else { tempfile() }
+  r_file <- add_ext(r_file)
 
-  writeLines(the_source, r_outfile)
+  writeLines(the_source, r_file)
 
-  reprex_(r_outfile, venue, show, upload.fun)
+  reprex_(r_file, venue, show, upload.fun)
 }
 
 reprex_ <- function(r_file, venue = c("gh", "so"), show = TRUE,

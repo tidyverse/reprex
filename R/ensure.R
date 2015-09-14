@@ -24,5 +24,4 @@ ensure_header <- function(x) {
   }
 }
 
-ensure_si <- function(x, session_info = FALSE)
-  if (session_info) c(x, si()) else x
+ensure_si <- function(x, si = FALSE) if (si) c(x, si()) else x
