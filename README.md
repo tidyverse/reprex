@@ -77,7 +77,36 @@ Where and why are they used?
 -   A Stack Overflow question that includes a proper reprex is [much more likely to get answered](http://stackoverflow.com/help/no-one-answers), by the most knowledgeable (and therefore busy!) people.
 -   A [GitHub issue](https://guides.github.com/features/issues/) that includes a proper reprex is more likely to achieve your goal: getting a bug fixed or getting a new feature, in a finite amount of time.
 
-Read the Stack Overflow thread ["How to make a great R reproducible example?"](http://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example/16532098) to learn important guiding principles! That is NOT what this package is about. This package helps with the fiddly mechanics of preparing runnable bits of code for posting.
+What are the main requirements?
+
+-   Use the smallest, simplest, most [built-in data](https://stat.ethz.ch/R-manual/R-patched/library/datasets/html/00Index.html) possible.
+    -   Think: `iris` or `mtcars`. Bore me.
+    -   If you must make some objects, minimize their size and complexity.
+    -   Get just a bit of something with `head()` or by indexing with the result of `sample()`. If anything is random, consider using `set.seed()` to make it repeatable.
+    -   `dput()` is a good way to get the code to create an object you have lying around. Copy and paste the *result* of this into your reprex. *(We might try to facilitate this in future, see [\#7](https://github.com/jennybc/reprex/issues/7).)*
+    -   Look at official examples and try to write in that style. Consider adapting one.
+-   Include commands on a strict "need to run" basis.
+    -   Ruthlessly strip out anything unrelated to the specific matter at hand.
+    -   Include every single command that is required, e.g. loading specific packages via `library(foo)`.
+-   Consider including info on your OS and your versions of R version and add-on packages, if it's conceivable that it matters. Use `reprex(..., si = TRUE)` for this.
+-   Pack it in, pack it out, and don't take liberties with other people's computers.
+    -   If you change options, store original values at the start, do your thing, then restore them: `opar <- par(pch = 19) <blah blah blah> par(opar)`.
+    -   If you create files, delete them when you're done: `write(x, "foo.txt") <blah blah blah> file.remove("foo.txt")`.
+    -   Don't delete files or objects that you didn't create in the first place.
+    -   Don't mask built-in functions, i.e. don't define a new function named `c`.
+    -   Take advantage of R's built-in ability to create temporary files and directories. Read up on [`tempfile()` and `tempdir()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/tempfile.html).
+-   Whitespace rationing is not in effect. Use good [coding style](http://adv-r.had.co.nz/Style.html).
+
+But won't that take time and effort?
+
+-   Yes, yes it will!
+-   80% of the time you will solve your own problem in the course of writing an excellent reprex. YMMV.
+-   The remaining 20% of the time, you will create a reprex that is more likely to elicit the desired behavior in others.
+
+Get more concrete details here:
+
+-   ["How to make a great R reproducible example?"](http://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example/16532098) thread on StackOverflow
+-   [How to write a reproducible example](http://adv-r.had.co.nz/Reproducibility.html) from Hadley Wickham's [Advanced R book](http://adv-r.had.co.nz)
 
 ### Package philosophy
 
