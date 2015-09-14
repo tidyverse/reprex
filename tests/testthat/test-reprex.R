@@ -45,6 +45,18 @@ test_that("The reprex function from an expression returns a knitr-d output", {
   expect_match(ret[2], "y <-")
 })
 
+test_that("The reprex is executed in its own environment", {
+
+  z <- "don't touch me"
+  ret <- reprex({
+    print(paste0(z, "!!!"))
+  }, show = FALSE)
+  expect_match(ret, "object 'z' not found", all = FALSE)
+
+  expect_match(reprex(r_file <- 0L, show = FALSE), "r_file <- 0L", all = FALSE)
+
+})
+
 test_that("The session_info = TRUE option adds session info line", {
   ret <- reprex({y <- 2}, show = FALSE, session_info = TRUE)
 

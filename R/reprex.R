@@ -48,6 +48,8 @@ reprex <- function(x, infile = NULL, venue = c("gh", "so"), outfile = NULL,
                    show = TRUE, session_info = FALSE,
                    upload.fun = knitr::imgur_upload) {
 
+  venue <- match.arg(venue)
+
   deparsed <- deparse(substitute(x))
   if (identical(deparsed, "")) {
     # no argument was given; use either infile or clipboard
@@ -71,15 +73,15 @@ reprex <- function(x, infile = NULL, venue = c("gh", "so"), outfile = NULL,
 
   ## TO DO: come back here once it's clear how outfile will be used
   ## i.e., is it going to be like original slug concept?
-  R_outfile <- if (!is.null(outfile)) { outfile } else { tempfile() }
-  R_outfile <- add_ext(R_outfile)
+  r_outfile <- if (!is.null(outfile)) { outfile } else { tempfile() }
+  r_outfile <- add_ext(r_outfile)
 
-  writeLines(the_source, R_outfile)
+  writeLines(the_source, r_outfile)
 
-  reprex_(R_outfile, venue, show, upload.fun)
+  reprex_(r_outfile, venue, show, upload.fun)
 }
 
-reprex_ <- function(x, venue = c("gh", "so"), show = TRUE,
+reprex_ <- function(r_file, venue = c("gh", "so"), show = TRUE,
                     upload.fun = knitr::imgur_upload) {
 
   venue <- match.arg(venue)
@@ -88,19 +90,20 @@ reprex_ <- function(x, venue = c("gh", "so"), show = TRUE,
 
   if(venue == "gh") {
     md_outfile <-
-      rmarkdown::render(x,
+      rmarkdown::render(r_file,
                         rmarkdown::md_document(variant = "markdown_github"),
-                        quiet = TRUE)
+                        envir = new.env(parent = baseenv()), quiet = TRUE)
   } else { # venue == "so"
-    md_outfile <- rmarkdown::render(x, rmarkdown::md_document(),
-                                    quiet = TRUE)
+    md_outfile <-
+      rmarkdown::render(r_file, rmarkdown::md_document(),
+                        envir = new.env(parent = baseenv()), quiet = TRUE)
     md_safe <- readLines(md_outfile)
     writeLines(c("<!-- language: lang-r -->\n", md_safe), md_outfile)
   }
   output_lines <- readLines(md_outfile)
   clipr::write_clip(output_lines)
 
-  html_outfile <- gsub("\\.R", ".html", x)
+  html_outfile <- gsub("\\.R", ".html", r_file)
   rmarkdown::render(md_outfile, output_file = html_outfile, quiet = TRUE)
 
   viewer <- getOption("viewer")
