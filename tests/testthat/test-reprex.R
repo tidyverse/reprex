@@ -63,6 +63,11 @@ test_that("The session_info = TRUE option adds session info line", {
   expect_true(any(ret %in% c("devtools::session_info()", "sessionInfo()")))
 })
 
+test_that("Circular use is detected", {
+  ret <- reprex({y <- 2}, show = FALSE)
+  clipr::write_clip(ret)
+  expect_error(reprex(show = FALSE), "isn't valid R code")
+})
 
 # put original back
 clipr::write_clip(original)
