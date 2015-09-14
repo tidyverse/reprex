@@ -95,7 +95,7 @@ reprex_ <- function(r_file, venue = c("gh", "so"), show = TRUE,
       gh = rmarkdown::md_document(variant = "markdown_github"),
       so = rmarkdown::md_document()
     ),
-    envir = new.env(parent = globalenv()),
+    envir = new.env(parent = as.environment(2)),
     quiet = TRUE)
 
   rendout <-

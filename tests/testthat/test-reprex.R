@@ -11,7 +11,8 @@ test_that("Writing to, reading from, and clearing the clipboard work", {
   expect_equal(clipr::read_clip(), "test clipboard string")
 
   cb_clear()
-  expect_equal(length(clipr::read_clip()), 0)
+  expect_warning(ret <- clipr::read_clip())
+  expect_equal(length(ret), 0)
 })
 
 context("reprex")
