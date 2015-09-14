@@ -53,6 +53,13 @@ test_that("The reprex is executed in its own environment", {
   }, show = FALSE)
   expect_match(ret, "object 'z' not found", all = FALSE)
 
+  ret <- reprex({
+    (z <- "I touched it")
+  }, show = FALSE)
+  expect_identical(z, "don't touch me")
+
+  ## we assign to r_file because if rendering affect caller's environment, this
+  ## will break reprex_()
   expect_match(reprex(r_file <- 0L, show = FALSE), "r_file <- 0L", all = FALSE)
 
 })
