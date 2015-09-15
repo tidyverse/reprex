@@ -4,9 +4,9 @@
 <!-- [![Build Status](https://travis-ci.org/jennybc/reprex.svg?branch=master)](https://travis-ci.org/jennybc/reprex) -->
 ### reprex
 
-<a href="https://nypdecider.files.wordpress.com/2014/08/help-me-help-you.gif"> <img src="internal/help-me-help-you-still-500-c256.png" width="275" align="right">
+<a href="https://nypdecider.files.wordpress.com/2014/08/help-me-help-you.gif"> <img src="internal/help-me-help-you-still-500-c256.png" width="275" align="right"> </a>
 
-Prepare reproducible examples for posting to [GitHub issues](https://guides.github.com/features/issues/), [Stack Overflow](https://stackoverflow.com), etc.
+Prepare reproducible examples for posting to [GitHub issues](https://guides.github.com/features/issues/), [Stack Overflow](http://stackoverflow.com/questions/tagged/r), etc.
 
 -   Given R code on the clipboard, in a file, or as expression,
 -   run it via `rmarkdown::render()`,
@@ -105,7 +105,7 @@ But won't that take time and effort?
 
 Get more concrete details here:
 
--   ["How to make a great R reproducible example?"](http://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example/16532098) thread on StackOverflow
+-   [How to make a great R reproducible example?](http://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example/16532098) thread on StackOverflow
 -   [How to write a reproducible example](http://adv-r.had.co.nz/Reproducibility.html) from Hadley Wickham's [Advanced R book](http://adv-r.had.co.nz)
 
 ### Package philosophy
