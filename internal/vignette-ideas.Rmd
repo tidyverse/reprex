@@ -1,0 +1,27 @@
+Tricks beyond basic usage in README
+
+Show a multi-line expression example
+
+```{r eval = FALSE}
+reprex({
+  x <- 1:4
+  y <- 2:5
+  x + y
+})
+```
+
+and point out one can then "select all" + RStudio Run button or keyboard shortcut. Or, with cursor in reprex-containing source editor, RStudio Source button or keyboard shortcut.
+
+Remind people you can use all your usual `knitr::spin` tricks, like create headings, insert regular prose, and set chunk options. Put this code on the clipboard and the `reprex()` it. (Hey, our expression parsing doesn't handle this but probably should...)
+
+```{r eval = FALSE}
+#' ## Hey I'm a heading
+x <- 1:4
+#' blah blah
+#+ eval = FALSE
+y <- 2:5
+x + y
+```
+
+
+
