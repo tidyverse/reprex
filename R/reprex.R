@@ -68,8 +68,8 @@ reprex <- function(x, infile = NULL, venue = c("gh", "so"), outfile = NULL,
 
   the_source <- ensure_not_empty(the_source)
   the_source <- ensure_not_dogfood(the_source)
-  the_source <- ensure_header(the_source)
-  the_source <- ensure_si(the_source, si)
+  the_source <- add_header(the_source)
+  the_source <- add_si(the_source, si)
 
   ## TO DO: come back here once it's clear how outfile will be used
   ## i.e., is it going to be like original slug concept?

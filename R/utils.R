@@ -27,12 +27,3 @@ format_deparsed <- function(deparsed) {
 
   deparsed
 }
-
-si <- function() {
-  if (requireNamespace("devtools", quietly = TRUE)) {
-    "devtools::session_info()"
-  } else {
-    "sessionInfo()"
-  }
-}
-
