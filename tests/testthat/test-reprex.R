@@ -10,7 +10,7 @@ test_that("Writing to, reading from, and clearing the clipboard work", {
   clipr::write_clip("test clipboard string")
   expect_equal(clipr::read_clip(), "test clipboard string")
 
-  cb_clear()
+  clipr::clear_clip()
   expect_warning(ret <- clipr::read_clip())
   expect_equal(length(ret), 0)
 })
