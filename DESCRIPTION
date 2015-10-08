@@ -14,7 +14,7 @@ VignetteBuilder: knitr
 URL: https://github.com/jennybc/reprex
 BugReports: https://github.com/jennybc/reprex/issues
 Imports:
-    clipr,
+    clipr (>= 0.2.0),
     rmarkdown,
     stringr
 Suggests:
