@@ -16,9 +16,11 @@ BugReports: https://github.com/jennybc/reprex/issues
 Imports:
     clipr,
     rmarkdown,
-    stringr
+    stringr,
+    utils
 Suggests:
     devtools,
     fortunes,
     knitr,
     testthat
+RoxygenNote: 5.0.1.9000

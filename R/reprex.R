@@ -86,6 +86,7 @@ reprex_ <- function(r_file, venue = c("gh", "so"), show = TRUE,
 
   venue <- match.arg(venue)
 
+  ## why am I not setting this inside output_format below?
   knitr::opts_knit$set(upload.fun = upload.fun)
 
   rendargs <- list(

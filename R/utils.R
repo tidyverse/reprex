@@ -12,8 +12,8 @@ format_deparsed <- function(deparsed) {
   # if surrounded by brackets, remove them
   if (length(deparsed) > 0 &&
       deparsed[1] == "{" &&
-      tail(deparsed, 1) == "}") {
-    deparsed <- tail(head(deparsed, -1), -1)
+      utils::tail(deparsed, 1) == "}") {
+    deparsed <- utils::tail(utils::head(deparsed, -1), -1)
   }
 
   # if all lines are indented (such as in expression), indent them to same degree
