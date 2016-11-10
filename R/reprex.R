@@ -8,15 +8,16 @@
 #' display in RStudio's Viewer pane, if available, or in the default browser
 #' otherwise.
 #'
-#' @param x A code expression. If not given, retrieves code from the clipboard.
-#' @param infile Path to \code{.R} file containing reprex code
-#' @param venue "gh" for GitHub or "so" for stackoverflow
+#' @param x An expression. If not given, \code{reprex} will look for code in
+#'   \code{infile}, if provided, or on the clipboard.
+#' @param infile Path to \code{.R} file containing reprex code.
+#' @param venue "gh" for GitHub or "so" for stackoverflow.
 #' @param outfile Desired stub for output \code{.R}, \code{.md}, and
 #'   \code{.html} files for reproducible example. If \code{NULL}, keeps them in
 #'   temporary files. At this point, outfiles are deposited in current working
-#'   directory, but the goal is to consult options for a place where you keep
-#'   all such snippets.
-#' @param show Whether to show the output in a viewer (RStudio or browser)
+#'   directory, but the goal is to consult options for a place to store all
+#'   reprexes.
+#' @param show Whether to show rendered output in a viewer (RStudio or browser).
 #' @param si Whether to include the results of
 #'   \code{\link[devtools]{session_info}}, if available, or
 #'   \code{\link{sessionInfo}} at the end of the reprex.
@@ -44,26 +45,27 @@
 #' }
 #'
 #' @export
-reprex <- function(x, infile = NULL, venue = c("gh", "so"), outfile = NULL,
+reprex <- function(x = NULL, infile = NULL, venue = c("gh", "so"),
+                   outfile = NULL,
                    show = TRUE, si = FALSE,
                    upload.fun = knitr::imgur_upload) {
 
   venue <- match.arg(venue)
 
-  deparsed <- deparse(substitute(x))
-  if (identical(deparsed, "")) {
-    # no argument was given; use either infile or clipboard
-    if (!is.null(infile)) {
-      the_source <- readLines(infile)
-    } else {
+  ## Do not rearrange this block lightly. If x is expression, take care to not
+  ## evaluate in this frame.
+  x_uneval <- substitute(x)
+  if (is.null(x_uneval)) {
+    if (is.null(infile)) {
       the_source <- clipr::read_clip()
+    } else {
+      the_source <- readLines(infile)
     }
   } else {
     if (!is.null(infile)) {
-      stop("Cannot provide both expression and input file")
+      message("Input file ignored in favor of expression input in `x`.")
     }
-    # adjust the deparsed expression
-    the_source <- format_deparsed(deparsed)
+    the_source <- format_deparsed(deparse(x_uneval))
   }
 
   the_source <- ensure_not_empty(the_source)
@@ -73,10 +75,12 @@ reprex <- function(x, infile = NULL, venue = c("gh", "so"), outfile = NULL,
 
   ## TO DO: come back here once it's clear how outfile will be used
   ## i.e., is it going to be like original slug concept?
-  r_file <- if (!is.null(outfile)) { outfile } else { tempfile() }
+  r_file <- outfile %||% tempfile()
   r_file <- add_ext(r_file)
 
   writeLines(the_source, r_file)
+
+  r_file <- normalizePath(r_file)
 
   reprex_(r_file, venue, show, upload.fun)
 }
@@ -86,23 +90,24 @@ reprex_ <- function(r_file, venue = c("gh", "so"), show = TRUE,
 
   venue <- match.arg(venue)
 
-  ## why am I not setting this inside output_format below?
   knitr::opts_knit$set(upload.fun = upload.fun)
 
-  rendargs <- list(
-    input = r_file,
-    output_format = switch(
-      venue,
-      gh = rmarkdown::md_document(variant = "markdown_github"),
-      so = rmarkdown::md_document()
-    ),
-    envir = new.env(parent = as.environment(2)),
-    quiet = TRUE)
+  suppressMessages(
+    try(
+      rendout <- callr::r_safe(function(input, output_format) {
+        rmarkdown::render(input = input, output_format = output_format,
+                          quiet = TRUE)
+      },
+      args = list(input = r_file,
+                  output_format = switch(
+                    venue,
+                    gh = rmarkdown::md_document(variant = "markdown_github"),
+                    so = rmarkdown::md_document()
+                  ))),
+      silent = TRUE)
+    )
 
-  rendout <-
-    suppressMessages(try(do.call(rmarkdown::render, rendargs), silent = TRUE))
-
-  if(inherits(rendout, "try-error")) {
+  if (inherits(rendout, "try-error") || identical(rendout, FALSE)) {
     stop("\nCannot render this code. Maybe the clipboard contents",
          " are not what you think?\n",
          rendout)
@@ -110,7 +115,7 @@ reprex_ <- function(r_file, venue = c("gh", "so"), show = TRUE,
     md_outfile <- rendout
   }
 
-  if(venue == "so") {
+  if (venue == "so") {
     md_safe <- readLines(md_outfile)
     writeLines(c("<!-- language: lang-r -->\n", md_safe), md_outfile)
   }

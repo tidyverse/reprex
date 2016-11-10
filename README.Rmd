@@ -1,7 +1,5 @@
 ---
-output:
-  md_document:
-    variant: markdown_github
+output: github_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -11,16 +9,13 @@ output:
 <!-- [![Build Status](https://travis-ci.org/jennybc/reprex.svg?branch=master)](https://travis-ci.org/jennybc/reprex) -->
 
 ```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "README-"
-)
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>",
+                      fig.path = "README-")
 
 ## delete any crap left behind by previous unsuccessful attempts to render this
 ## file
 leftovers <- list.files(pattern = "README-tmp", ignore.case = TRUE)
-if(length(leftovers)) file.remove(leftovers)
+if (length(leftovers)) file.remove(leftovers)
 ```
 
 ### reprex

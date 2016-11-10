@@ -27,3 +27,12 @@ format_deparsed <- function(deparsed) {
 
   deparsed
 }
+
+## from purrr, among other places
+`%||%` <- function(x, y) {
+  if (is.null(x)) {
+    y
+  } else {
+    x
+  }
+}

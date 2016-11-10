@@ -4,23 +4,24 @@
 \alias{reprex}
 \title{Render a reprex}
 \usage{
-reprex(x, infile = NULL, venue = c("gh", "so"), outfile = NULL,
+reprex(x = NULL, infile = NULL, venue = c("gh", "so"), outfile = NULL,
   show = TRUE, si = FALSE, upload.fun = knitr::imgur_upload)
 }
 \arguments{
-\item{x}{A code expression. If not given, retrieves code from the clipboard.}
+\item{x}{An expression. If not given, \code{reprex} will look for code in
+\code{infile}, if provided, or on the clipboard.}
 
-\item{infile}{Path to \code{.R} file containing reprex code}
+\item{infile}{Path to \code{.R} file containing reprex code.}
 
-\item{venue}{"gh" for GitHub or "so" for stackoverflow}
+\item{venue}{"gh" for GitHub or "so" for stackoverflow.}
 
 \item{outfile}{Desired stub for output \code{.R}, \code{.md}, and
 \code{.html} files for reproducible example. If \code{NULL}, keeps them in
 temporary files. At this point, outfiles are deposited in current working
-directory, but the goal is to consult options for a place where you keep
-all such snippets.}
+directory, but the goal is to consult options for a place to store all
+reprexes.}
 
-\item{show}{Whether to show the output in a viewer (RStudio or browser)}
+\item{show}{Whether to show rendered output in a viewer (RStudio or browser).}
 
 \item{si}{Whether to include the results of
 \code{\link[devtools]{session_info}}, if available, or
