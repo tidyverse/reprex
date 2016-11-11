@@ -52,6 +52,7 @@ reprex()
 reprex({y <- 1:4; mean(y)})
 
 # note that you can include newlines in those brackets
+# in fact, that is probably a good idea
 reprex({
   x <- 1:4
   y <- 2:5

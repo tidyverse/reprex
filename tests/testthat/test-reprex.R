@@ -34,7 +34,7 @@ test_that("expression input is not evaluated in environment of caller", {
 
 test_that("reprex doesn't write into environment of caller", {
   z <- "don't touch me"
-  ret <- reprex((z <- "I touched it!"))#,show = FALSE)
+  ret <- reprex((z <- "I touched it!"), show = FALSE)
   expect_identical(ret[3], "#> [1] \"I touched it!\"")
   expect_identical(z, "don't touch me")
 

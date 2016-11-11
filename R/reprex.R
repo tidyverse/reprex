@@ -37,6 +37,7 @@
 #' reprex({y <- 1:4; mean(y)})
 #'
 #' # note that you can include newlines in those brackets
+#' # in fact, that is probably a good idea
 #' reprex({
 #'   x <- 1:4
 #'   y <- 2:5
@@ -54,8 +55,8 @@ reprex <- function(x = NULL, infile = NULL, venue = c("gh", "so"),
 
   ## Do not rearrange this block lightly. If x is expression, take care to not
   ## evaluate in this frame.
-  x_uneval <- substitute(x)
-  if (is.null(x_uneval)) {
+  x_captured <- substitute(x)
+  if (is.null(x_captured)) {
     if (is.null(infile)) {
       the_source <- clipr::read_clip()
     } else {
@@ -65,7 +66,7 @@ reprex <- function(x = NULL, infile = NULL, venue = c("gh", "so"),
     if (!is.null(infile)) {
       message("Input file ignored in favor of expression input in `x`.")
     }
-    the_source <- format_deparsed(deparse(x_uneval))
+    the_source <- stringify_expression(x_captured)
   }
 
   the_source <- ensure_not_empty(the_source)
