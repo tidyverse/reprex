@@ -2,8 +2,6 @@
 
 # reprex 0.0.0.9001
 
-  * The `sandbox` argument is gone. All reprexes are run in a clean R session now via `callr::r_safe()`.
-
   * Reprex code can be provided as an R expression. (#6 @dgrtwo)
 
   * `reprex()` gains the `si` argument to request that `devtools::session_info()` or `sessionInfo()` be appended to reprex code. (#6 @dgrtwo)
