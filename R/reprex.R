@@ -58,7 +58,7 @@ reprex <- function(x = NULL, infile = NULL, venue = c("gh", "so"),
   x_captured <- substitute(x)
   if (is.null(x_captured)) {
     if (is.null(infile)) {
-      the_source <- clipr::read_clip()
+      suppressWarnings(the_source <- clipr::read_clip())
     } else {
       the_source <- readLines(infile)
     }
@@ -92,8 +92,8 @@ reprex_ <- function(r_file, venue = c("gh", "so"), show = TRUE,
   venue <- match.arg(venue)
 
   suppressMessages(
-    try(
-      rendout <- callr::r_safe(function(input, output_format) {
+    rendout <- try(
+      callr::r_safe(function(input, output_format) {
         rmarkdown::render(input = input, output_format = output_format,
                           quiet = TRUE)
       },
@@ -104,7 +104,7 @@ reprex_ <- function(r_file, venue = c("gh", "so"), show = TRUE,
                     so = rmarkdown::md_document()
                   ))),
       silent = TRUE)
-    )
+  )
 
   if (inherits(rendout, "try-error") || identical(rendout, FALSE)) {
     stop("\nCannot render this code. Maybe the clipboard contents",
