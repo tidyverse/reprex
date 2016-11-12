@@ -2,6 +2,8 @@
 
 # reprex 0.0.0.9001
 
+  * `reprex()` gains optional arguments `opts_chunk` and `opts_knit`, taking named list as input, in order to supplement or override default knitr chunk and package options, respectively. This made the  `upload.fun` argument unnecessary.
+
   * Order of `reprex()` arguments has changed.
 
   * `reprex()` gains the `si` argument to request that `devtools::session_info()` or `sessionInfo()` be appended to reprex code. (#6 @dgrtwo) When `si = TRUE` and `venue = "gh"` (the default), session info is wrapped in a collapsible details tag. See [an example](https://github.com/jennybc/reprex/issues/34#issuecomment-260106103) (#34)

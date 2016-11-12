@@ -12,3 +12,15 @@ read_from_template <- function(SLUG) {
     x
   }
 }
+
+## deparse that turns NULL into "" instead of "NULL"
+deparse2 <- function(expr, ...) {
+  if (is.null(expr)) return("")
+  deparse(expr, ...)
+}
+
+prep_opts <- function(txt, which = "chunk") {
+  txt <- deparse2(txt)
+  setter <- paste0("knitr::opts_", which, "$set")
+  sub("^list", setter, txt)
+}

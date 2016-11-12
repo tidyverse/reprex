@@ -5,7 +5,7 @@
 \title{Render a reprex}
 \usage{
 reprex(x = NULL, venue = c("gh", "so"), si = FALSE, show = TRUE,
-  infile = NULL, outfile = NULL, upload.fun = knitr::imgur_upload)
+  infile = NULL, outfile = NULL, opts_chunk = NULL, opts_knit = NULL)
 }
 \arguments{
 \item{x}{An expression. If not given, \code{reprex} will look for code in
@@ -28,10 +28,9 @@ temporary files. At this point, outfiles are deposited in current working
 directory, but the goal is to consult options for a place to store all
 reprexes.}
 
-\item{upload.fun}{Function that is valid for the \code{upload.fun}
-\href{http://yihui.name/knitr/options/}{\code{knitr} option}, for uploading
-and linking images stored on the web. Defaults to
-\code{\link[knitr]{imgur_upload}}.}
+\item{opts_chunk, opts_knit}{Named list. Optional
+\href{http://yihui.name/knitr/options/}{knitr chunk and package options},
+respectively, to supplement or override reprex defaults. See Details.}
 }
 \description{
 Given some R code on the clipboard, in an expression, or in a file, this
@@ -41,6 +40,21 @@ clipboard, for pasting into a GitHub issue or to stackoverflow. Optionally,
 the R code and Markdown will be left behind in files. An HTML preview will
 display in RStudio's Viewer pane, if available, or in the default browser
 otherwise.
+}
+\details{
+reprex sets specific \href{http://yihui.name/knitr/options/}{knitr
+options}, which you can supplement or override via the \code{opts_chunk} and
+\code{opts_knit} arguments.
+
+\itemize{
+\item Chunk options: \code{collapse = TRUE}, \code{comment = '#>'},
+\code{error = TRUE}. Chunk options are typically set via
+\code{knitr::opts_chunk$set()}.
+\item Package options: \code{upload.fun = knitr::imgur_upload}. Package
+options are typically set via \code{knitr::opts_knit$set()}. The
+\code{upload.fun} defaults to \code{\link[knitr]{imgur_upload}} so figures
+produced by the reprex appear properly on GitHub.
+}
 }
 \examples{
 \dontrun{
@@ -59,6 +73,9 @@ reprex({
   y <- 2:5
   x + y
 })
+
+# overriding a default chunk option
+ reprex({y <- 1:4; mean(y)}, opts_chunk = list(comment = "#;-)"))
 }
 
 }

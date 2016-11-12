@@ -8,6 +8,20 @@
 #' display in RStudio's Viewer pane, if available, or in the default browser
 #' otherwise.
 #'
+#' reprex sets specific \href{http://yihui.name/knitr/options/}{knitr
+#' options}, which you can supplement or override via the \code{opts_chunk} and
+#' \code{opts_knit} arguments.
+#'
+#' \itemize{
+#' \item Chunk options: \code{collapse = TRUE}, \code{comment = '#>'},
+#' \code{error = TRUE}. Chunk options are typically set via
+#' \code{knitr::opts_chunk$set()}.
+#' \item Package options: \code{upload.fun = knitr::imgur_upload}. Package
+#' options are typically set via \code{knitr::opts_knit$set()}. The
+#' \code{upload.fun} defaults to \code{\link[knitr]{imgur_upload}} so figures
+#' produced by the reprex appear properly on GitHub.
+#' }
+#'
 #' @param x An expression. If not given, \code{reprex} will look for code in
 #'   \code{infile}, if provided, or on the clipboard.
 #' @param venue "gh" for GitHub (default) or "so" for stackoverflow.
@@ -22,10 +36,9 @@
 #'   temporary files. At this point, outfiles are deposited in current working
 #'   directory, but the goal is to consult options for a place to store all
 #'   reprexes.
-#' @param upload.fun Function that is valid for the \code{upload.fun}
-#'   \href{http://yihui.name/knitr/options/}{\code{knitr} option}, for uploading
-#'   and linking images stored on the web. Defaults to
-#'   \code{\link[knitr]{imgur_upload}}.
+#' @param opts_chunk,opts_knit Named list. Optional
+#'   \href{http://yihui.name/knitr/options/}{knitr chunk and package options},
+#'   respectively, to supplement or override reprex defaults. See Details.
 #'
 #' @examples
 #' \dontrun{
@@ -44,15 +57,16 @@
 #'   y <- 2:5
 #'   x + y
 #' })
+#'
+#' # overriding a default chunk option
+#'  reprex({y <- 1:4; mean(y)}, opts_chunk = list(comment = "#;-)"))
 #' }
 #'
 #' @export
-reprex <- function(x = NULL, venue = c("gh", "so"), si = FALSE, show = TRUE,
-                   infile = NULL, outfile = NULL,
-                   upload.fun = knitr::imgur_upload) {
-
-  # knitr::opts_chunk$set(collapse = TRUE, comment = '#>', error = TRUE)
-  # knitr::opts_knit$set(upload.fun = knitr::imgur_upload)
+reprex <- function(
+  x = NULL, venue = c("gh", "so"), si = FALSE, show = TRUE,
+  infile = NULL, outfile = NULL,
+  opts_chunk = NULL, opts_knit = NULL) {
 
   venue <- match.arg(venue)
 
@@ -71,13 +85,18 @@ reprex <- function(x = NULL, venue = c("gh", "so"), si = FALSE, show = TRUE,
     }
     the_source <- stringify_expression(x_captured)
   }
-
   the_source <- ensure_not_empty(the_source)
   the_source <- ensure_not_dogfood(the_source)
-  the_source <- add_header(the_source)
   if (isTRUE(si)) {
     the_source <- add_si(the_source, venue = venue)
   }
+
+  opts_chunk <- prep_opts(substitute(opts_chunk), which = "chunk")
+  opts_knit <- prep_opts(substitute(opts_knit), which = "knit")
+  the_source <-
+    add_header(the_source,
+               data = list(user_opts_chunk = opts_chunk,
+                           user_opts_knit = opts_knit))
 
   ## TO DO: come back here once it's clear how outfile will be used
   ## i.e., is it going to be like original slug concept?
@@ -88,11 +107,10 @@ reprex <- function(x = NULL, venue = c("gh", "so"), si = FALSE, show = TRUE,
 
   r_file <- normalizePath(r_file)
 
-  reprex_(r_file, venue, show, upload.fun)
+  reprex_(r_file, venue, show)
 }
 
-reprex_ <- function(r_file, venue = c("gh", "so"), show = TRUE,
-                    upload.fun = knitr::imgur_upload) {
+reprex_ <- function(r_file, venue = c("gh", "so"), show = TRUE) {
 
   venue <- match.arg(venue)
 
