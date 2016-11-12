@@ -6,7 +6,7 @@ ensure_not_dogfood <- function(x) {
     stop(paste(
       "\nFirst three lines of putative code are:\n",
       x[1], x[2], x[3],
-      "\nwhich isn't valid R code. Look more like Markdown.",
+      "\nwhich isn't valid R code. Looks more like Markdown.",
       "Are we going in circles? Did you just run reprex()?",
       "In that case, the clipboard now holds the *rendered* result.",
       sep = "\n"))
