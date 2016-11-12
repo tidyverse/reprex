@@ -109,13 +109,10 @@ reprex_ <- function(r_file, venue = c("gh", "so"), show = TRUE,
       silent = TRUE)
   )
 
-  if (inherits(rendout, "try-error") || identical(rendout, FALSE)) {
-    stop("\nCannot render this code. Maybe the clipboard contents",
-         " are not what you think?\n",
-         rendout)
-  } else {
-    md_outfile <- rendout
+  if (inherits(rendout, "try-error")) {
+    stop("\nCannot render this code.", rendout)
   }
+  md_outfile <- rendout
 
   if (venue == "so") {
     md_safe <- readLines(md_outfile)
@@ -125,17 +122,16 @@ reprex_ <- function(r_file, venue = c("gh", "so"), show = TRUE,
   output_lines <- readLines(md_outfile)
   clipr::write_clip(output_lines)
 
-  html_outfile <- gsub("\\.R", ".html", r_file)
-  rmarkdown::render(md_outfile, output_file = html_outfile, quiet = TRUE)
-
-  viewer <- getOption("viewer")
-
-  if (!is.null(viewer) && show) {
-    viewer(html_outfile)
-  } else if (show) {
-    utils::browseURL(html_outfile)
+  if (show) {
+    html_outfile <- gsub("\\.R", ".html", r_file)
+    rmarkdown::render(md_outfile, output_file = html_outfile, quiet = TRUE)
+    viewer <- getOption("viewer")
+    if (!is.null(viewer)) {
+      viewer(html_outfile)
+    } else {
+      utils::browseURL(html_outfile)
+    }
   }
 
-  # return the string output invisibly, useful in tests
   invisible(output_lines)
 }

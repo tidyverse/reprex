@@ -1,4 +1,4 @@
-## input is quoted()'ed expression
+## input is quote()'ed expression
 ## reprex() takes care of that or, to use directly:
 ## q <- quote({a + b})
 stringify_expression <- function(q) {
