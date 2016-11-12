@@ -18,8 +18,8 @@ Imports:
     clipr,
     knitr,
     rmarkdown,
-    stringr,
-    utils
+    utils,
+    whisker
 Suggests:
     devtools,
     fortunes,
