@@ -16,12 +16,12 @@ BugReports: https://github.com/jennybc/reprex/issues
 Imports:
     callr,
     clipr,
+    knitr,
     rmarkdown,
     stringr,
     utils
 Suggests:
     devtools,
     fortunes,
-    knitr,
     testthat
 RoxygenNote: 5.0.1.9000
