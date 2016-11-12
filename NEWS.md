@@ -2,6 +2,8 @@
 
 # reprex 0.0.0.9001
 
+  * When session info is requested and `venue = "gh"` (the default), it is wrapped in a collapsible details tag. See [an example](https://github.com/jennybc/reprex/issues/34#issuecomment-260106103) (#34)
+
   * Reprex code can be provided as an R expression. (#6 @dgrtwo)
 
   * `reprex()` gains the `si` argument to request that `devtools::session_info()` or `sessionInfo()` be appended to reprex code. (#6 @dgrtwo)

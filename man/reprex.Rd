@@ -25,7 +25,8 @@ reprexes.}
 
 \item{si}{Whether to include the results of
 \code{\link[devtools]{session_info}}, if available, or
-\code{\link{sessionInfo}} at the end of the reprex.}
+\code{\link{sessionInfo}} at the end of the reprex. When \code{venue =
+"gh"} (the default), session info is wrapped in a collapsible details tag.}
 
 \item{upload.fun}{Function that is valid for the \code{upload.fun}
 \href{http://yihui.name/knitr/options/}{\code{knitr} option}, for uploading

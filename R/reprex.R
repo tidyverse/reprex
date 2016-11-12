@@ -20,7 +20,8 @@
 #' @param show Whether to show rendered output in a viewer (RStudio or browser).
 #' @param si Whether to include the results of
 #'   \code{\link[devtools]{session_info}}, if available, or
-#'   \code{\link{sessionInfo}} at the end of the reprex.
+#'   \code{\link{sessionInfo}} at the end of the reprex. When \code{venue =
+#'   "gh"} (the default), session info is wrapped in a collapsible details tag.
 #' @param upload.fun Function that is valid for the \code{upload.fun}
 #'   \href{http://yihui.name/knitr/options/}{\code{knitr} option}, for uploading
 #'   and linking images stored on the web. Defaults to
@@ -72,7 +73,9 @@ reprex <- function(x = NULL, infile = NULL, venue = c("gh", "so"),
   the_source <- ensure_not_empty(the_source)
   the_source <- ensure_not_dogfood(the_source)
   the_source <- add_header(the_source)
-  the_source <- add_si(the_source, si)
+  if (isTRUE(si)) {
+    the_source <- add_si(the_source, venue = venue)
+  }
 
   ## TO DO: come back here once it's clear how outfile will be used
   ## i.e., is it going to be like original slug concept?

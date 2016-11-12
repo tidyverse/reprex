@@ -2,7 +2,7 @@ ensure_not_empty <- function(x)
   if (length(x) < 1) read_from_template("BETTER_THAN_NOTHING") else x
 
 ensure_not_dogfood <- function(x) {
-  if(grepl("```", x[[length(x)]])) {
+  if (grepl("```", x[[length(x)]])) {
     stop(paste(
       "\nFirst three lines of putative code are:",
       x[1], x[2], x[3],
