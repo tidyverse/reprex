@@ -4,29 +4,29 @@
 \alias{reprex}
 \title{Render a reprex}
 \usage{
-reprex(x = NULL, infile = NULL, venue = c("gh", "so"), outfile = NULL,
-  show = TRUE, si = FALSE, upload.fun = knitr::imgur_upload)
+reprex(x = NULL, venue = c("gh", "so"), si = FALSE, show = TRUE,
+  infile = NULL, outfile = NULL, upload.fun = knitr::imgur_upload)
 }
 \arguments{
 \item{x}{An expression. If not given, \code{reprex} will look for code in
 \code{infile}, if provided, or on the clipboard.}
 
-\item{infile}{Path to \code{.R} file containing reprex code.}
+\item{venue}{"gh" for GitHub (default) or "so" for stackoverflow.}
 
-\item{venue}{"gh" for GitHub or "so" for stackoverflow.}
+\item{si}{Whether to include the results of
+\code{\link[devtools]{session_info}}, if available, or
+\code{\link{sessionInfo}} at the end of the reprex. When \code{venue =
+"gh"} (the default), session info is wrapped in a collapsible details tag.}
+
+\item{show}{Whether to show rendered output in a viewer (RStudio or browser).}
+
+\item{infile}{Path to \code{.R} file containing reprex code.}
 
 \item{outfile}{Desired stub for output \code{.R}, \code{.md}, and
 \code{.html} files for reproducible example. If \code{NULL}, keeps them in
 temporary files. At this point, outfiles are deposited in current working
 directory, but the goal is to consult options for a place to store all
 reprexes.}
-
-\item{show}{Whether to show rendered output in a viewer (RStudio or browser).}
-
-\item{si}{Whether to include the results of
-\code{\link[devtools]{session_info}}, if available, or
-\code{\link{sessionInfo}} at the end of the reprex. When \code{venue =
-"gh"} (the default), session info is wrapped in a collapsible details tag.}
 
 \item{upload.fun}{Function that is valid for the \code{upload.fun}
 \href{http://yihui.name/knitr/options/}{\code{knitr} option}, for uploading
