@@ -91,8 +91,6 @@ reprex_ <- function(r_file, venue = c("gh", "so"), show = TRUE,
 
   venue <- match.arg(venue)
 
-  knitr::opts_knit$set(upload.fun = upload.fun)
-
   suppressMessages(
     try(
       rendout <- callr::r_safe(function(input, output_format) {
