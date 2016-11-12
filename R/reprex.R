@@ -125,12 +125,8 @@ reprex_ <- function(r_file, venue = c("gh", "so"), show = TRUE,
   if (show) {
     html_outfile <- gsub("\\.R", ".html", r_file)
     rmarkdown::render(md_outfile, output_file = html_outfile, quiet = TRUE)
-    viewer <- getOption("viewer")
-    if (!is.null(viewer)) {
-      viewer(html_outfile)
-    } else {
-      utils::browseURL(html_outfile)
-    }
+    viewer <- getOption("viewer") %||% utils::browseURL
+    viewer(html_outfile)
   }
 
   invisible(output_lines)
