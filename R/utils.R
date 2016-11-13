@@ -28,11 +28,7 @@ prep_opts <- function(txt, which = "chunk") {
 ## if input was expression AND formatR is available, tidy the code
 ## leading whitespace will have been stripped inside stringify_expression()
 prep_tidy <- function(expr_input) {
-  if (expr_input && requireNamespace("formatR", quietly = TRUE)) {
-    "knitr::opts_chunk$set(tidy = TRUE, tidy.opts = list(indent = 2))"
-  } else {
-    ""
-  }
+  expr_input && requireNamespace("formatR", quietly = TRUE)
 }
 
 trim_ws <- function(x) {

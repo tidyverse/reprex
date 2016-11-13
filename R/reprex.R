@@ -98,7 +98,8 @@ reprex <- function(
   chunk_tidy <- prep_tidy(expr_input)
   the_source <-
     add_header(the_source,
-               data = list(user_opts_chunk = opts_chunk,
+               data = list(so_syntax_highlighting = identical(venue, "so"),
+                           user_opts_chunk = opts_chunk,
                            user_opts_knit = opts_knit,
                            chunk_tidy = chunk_tidy))
 
@@ -137,12 +138,6 @@ reprex_ <- function(r_file, venue = c("gh", "so"), show = TRUE) {
     stop("\nCannot render this code.\n", rendout)
   }
   md_outfile <- rendout
-
-  if (venue == "so") {
-    md_safe <- readLines(md_outfile)
-    writeLines(c("<!-- language: lang-r -->\n", md_safe), md_outfile)
-  }
-
   output_lines <- readLines(md_outfile)
   clipr::write_clip(output_lines)
 
