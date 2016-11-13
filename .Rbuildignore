@@ -11,3 +11,4 @@
 ^internal$
 ^img$
 ^\.travis\.yml$
+^appveyor\.yml$
