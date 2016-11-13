@@ -168,7 +168,7 @@ What are the main requirements?
   * Include commands on a strict "need to run" basis.
     - Ruthlessly strip out anything unrelated to the specific matter at hand.
     - Include every single command that is required, e.g. loading specific packages via `library(foo)`.
-  * Consider including so-called "session info", i.e. your OS and versions of R version and add-on packages, if it's conceivable that it matters. Use `reprex(..., si = TRUE)` for this.
+  * Consider including so-called "session info", i.e. your OS and versions of R and add-on packages, if it's conceivable that it matters. Use `reprex(..., si = TRUE)` for this.
   * Pack it in, pack it out, and don't take liberties with other people's computers.
     - If you change options, store original values at the start, do your thing, then restore them: `opar <- par(pch = 19) <blah blah blah> par(opar)`.
     - If you create files, delete them when you're done: `write(x, "foo.txt") <blah blah blah> file.remove("foo.txt")`.

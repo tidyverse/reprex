@@ -47,7 +47,7 @@
 #' # mean(y)
 #' reprex()
 #'
-#' # or provide it as code in brackets:
+#' # or provide it as code in brackets, i.e. as an expression:
 #' reprex({y <- 1:4; mean(y)})
 #'
 #' # note that you can include newlines in those brackets
@@ -58,8 +58,17 @@
 #'   x + y
 #' })
 #'
-#' # overriding a default chunk option
-#'  reprex({y <- 1:4; mean(y)}, opts_chunk = list(comment = "#;-)"))
+#' # how to override a default chunk option
+#' reprex({y <- 1:4; mean(y)}, opts_chunk = list(comment = "#;-)"))
+#' # the above is simply shorthand for this and produces same result
+#' reprex({
+#'   #+ setup, include = FALSE
+#'   knitr::opts_chunk$set(comment = '#;-)')
+#'
+#'   #+ actual-reprex-code
+#'   y <- 1:4
+#'   mean(y)
+#' })
 #' }
 #'
 #' @export
@@ -142,7 +151,7 @@ reprex_ <- function(r_file, venue = c("gh", "so"), show = TRUE) {
   clipr::write_clip(output_lines)
 
   if (show) {
-    html_outfile <- gsub("\\.R", ".html", r_file)
+    html_outfile <- gsub("\\.R$", ".html", r_file)
     rmarkdown::render(md_outfile, output_file = html_outfile, quiet = TRUE)
     viewer <- getOption("viewer") %||% utils::browseURL
     viewer(html_outfile)
