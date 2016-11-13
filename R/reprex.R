@@ -134,7 +134,7 @@ reprex_ <- function(r_file, venue = c("gh", "so"), show = TRUE) {
   )
 
   if (inherits(rendout, "try-error")) {
-    stop("\nCannot render this code.", rendout)
+    stop("\nCannot render this code.\n", rendout)
   }
   md_outfile <- rendout
 

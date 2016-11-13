@@ -15,6 +15,9 @@ cache:
 
 # Adapt as necessary starting from here
 
+before_test:
+  - cinst pandoc
+
 build_script:
   - travis-tool.sh install_deps
 
