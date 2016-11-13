@@ -44,11 +44,6 @@ test_that("reprex doesn't write into environment of caller", {
 
 })
 
-test_that("The si = TRUE option adds session info line", {
-  ret <- reprex(y <- 2, show = FALSE, si = TRUE)
-  expect_true(any(ret %in% c("devtools::session_info()", "sessionInfo()")))
-})
-
 test_that("Circular use is detected before render", {
   ret <- reprex(y <- 2, show = FALSE)
   expect_error(reprex(show = FALSE), "isn't valid R code")

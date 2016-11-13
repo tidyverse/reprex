@@ -39,6 +39,7 @@ test_that("one statement, brackets, multiple lines, take 3", {
 # })
 # print(stringify_expression(quote({1:3;4:6})))
 # I have to use quote, but then that causes extra stuff to be absorbed into expr
+# update: I think the semicolon is a big part of the story/problem
 
 test_that("leading comment", {
   ret <- stringify_expression(quote({
