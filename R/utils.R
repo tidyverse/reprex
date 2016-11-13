@@ -24,3 +24,17 @@ prep_opts <- function(txt, which = "chunk") {
   setter <- paste0("knitr::opts_", which, "$set")
   sub("^list", setter, txt)
 }
+
+## if input was expression AND formatR is available, tidy the code
+## leading whitespace will have been stripped inside stringify_expression()
+prep_tidy <- function(expr_input) {
+  if (expr_input && requireNamespace("formatR", quietly = TRUE)) {
+    "knitr::opts_chunk$set(tidy = TRUE, tidy.opts = list(indent = 2))"
+  } else {
+    ""
+  }
+}
+
+trim_ws <- function(x) {
+  sub("\\s*$", "", sub("^\\s*", "", x))
+}

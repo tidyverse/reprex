@@ -54,5 +54,13 @@ stringify_expression <- function(q) {
   if (lines[1] == "" || grepl("^\\s+$", lines[1])) {
     lines <- lines[-1]
   }
+
+  ## overall, I think it's better to trim leading whitespace here and let
+  ## knitr re-tidy code that came via expression
+  ## but that requires the suggested package formatR
+  if (requireNamespace("formatR", quietly = TRUE)) {
+    lines <- trim_ws(lines)
+  }
   lines
+
 }

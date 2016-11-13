@@ -72,6 +72,7 @@ reprex <- function(
 
   ## Do not rearrange this block lightly. If x is expression, take care to not
   ## evaluate in this frame.
+  expr_input <- FALSE
   x_captured <- substitute(x)
   if (is.null(x_captured)) {
     if (is.null(infile)) {
@@ -84,6 +85,7 @@ reprex <- function(
       message("Input file ignored in favor of expression input in `x`.")
     }
     the_source <- stringify_expression(x_captured)
+    expr_input <- TRUE
   }
   the_source <- ensure_not_empty(the_source)
   the_source <- ensure_not_dogfood(the_source)
@@ -93,10 +95,12 @@ reprex <- function(
 
   opts_chunk <- prep_opts(substitute(opts_chunk), which = "chunk")
   opts_knit <- prep_opts(substitute(opts_knit), which = "knit")
+  chunk_tidy <- prep_tidy(expr_input)
   the_source <-
     add_header(the_source,
                data = list(user_opts_chunk = opts_chunk,
-                           user_opts_knit = opts_knit))
+                           user_opts_knit = opts_knit,
+                           chunk_tidy = chunk_tidy))
 
   ## TO DO: come back here once it's clear how outfile will be used
   ## i.e., is it going to be like original slug concept?
