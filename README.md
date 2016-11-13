@@ -1,11 +1,21 @@
 
+-   [reprex](#reprex)
+-   [Install and load](#install-and-load)
+-   [Quick start](#quick-start)
+-   [More control](#more-control)
+    -   [knitr options](#knitr-options)
+    -   [Embedded prose](#embedded-prose)
+-   [What is a reprex?](#what-is-a-reprex)
+-   [Package philosophy](#package-philosophy)
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 [![Project Status: Wip - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/0.1.0/wip.svg)](http://www.repostatus.org/#wip) [![](http://www.r-pkg.org/badges/version/reprex)](http://www.r-pkg.org/pkg/reprex)
 
 <!-- [![Build Status](https://travis-ci.org/jennybc/reprex.svg?branch=master)](https://travis-ci.org/jennybc/reprex) -->
-### reprex
+reprex
+------
 
-<a href="https://nypdecider.files.wordpress.com/2014/08/help-me-help-you.gif"> <img src="internal/help-me-help-you-still-500-c256.png" width="275" align="right"> </a>
+<a href="https://nypdecider.files.wordpress.com/2014/08/help-me-help-you.gif"> <img src="https://github.com/jennybc/reprex/raw/master/internal/help-me-help-you-still-500-c256.png" width="275" align="right"> </a>
 
 Prepare reproducible examples for posting to [GitHub issues](https://guides.github.com/features/issues/), [Stack Overflow](http://stackoverflow.com/questions/tagged/r), etc.
 
@@ -17,23 +27,25 @@ Prepare reproducible examples for posting to [GitHub issues](https://guides.gith
 -   on the clipboard and, optionally, in a file.
 -   Preview an HTML version in RStudio viewer or default browser.
 
-### Installation
+Install and load
+----------------
 
 ``` r
 devtools::install_github("jennybc/reprex")
+library(reprex)
 ```
 
-### Quick demo
+Quick start
+-----------
 
 Let's say you copy this code onto your clipboard:
 
     (y <- 1:4)
     mean(y)
 
-Then you load the `reprex` package and call the main function `reprex()`, where the default target venue is GitHub:
+Then call `reprex()`, where the default target venue is GitHub:
 
 ``` r
-library(reprex)
 reprex()
 ```
 
@@ -69,7 +81,51 @@ But wait, there's more!
     -   `reprex(infile = "my_reprex.R")` gets the code from file
     -   `reprex({(y <- 1:4); mean(y)})` gets code from expression
 
-### Reproducible examples
+More control
+------------
+
+Examples of how to take greater control of your reprex.
+
+### knitr options
+
+Supplement or override reprex defaults for [knitr chunk and package options](http://yihui.name/knitr/options/) via the arguments `opts_chunk` and `opts_knit`. Example: change the prefix used to comment out the output. This call:
+
+``` r
+reprex({y <- 1:4; mean(y)}, opts_chunk = list(comment = "#¯\\_(ツ)_/¯"))
+```
+
+yields this output:
+
+``` r
+y <- 1:4; mean(y)
+#¯\_(ツ)_/¯ [1] 2.5
+```
+
+### Embedded prose
+
+Sometime you want to mingle rendered code and prose. Put the embedded code in as roxygen comments, i.e. comment lines that start with `#'`. This reprex code:
+
+    ## a regular comment
+    x <- 1:100
+    #' Here is some embedded prose, as a roxygen comment.
+    mean(x)
+
+renders to this this result:
+
+``` r
+## a regular comment
+x <- 1:100
+```
+
+Here is some embedded prose, as a roxygen comment.
+
+``` r
+mean(x)
+#> [1] 50.5
+```
+
+What is a reprex?
+-----------------
 
 What is a `reprex`? It's a {repr}oducible {ex}ample. Coined by Romain Francois [on twitter](https://twitter.com/romain_francois/status/530011023743655936).
 
@@ -89,7 +145,7 @@ What are the main requirements?
 -   Include commands on a strict "need to run" basis.
     -   Ruthlessly strip out anything unrelated to the specific matter at hand.
     -   Include every single command that is required, e.g. loading specific packages via `library(foo)`.
--   Consider including info on your OS and your versions of R version and add-on packages, if it's conceivable that it matters. Use `reprex(..., si = TRUE)` for this.
+-   Consider including so-called "session info", i.e. your OS and versions of R version and add-on packages, if it's conceivable that it matters. Use `reprex(..., si = TRUE)` for this.
 -   Pack it in, pack it out, and don't take liberties with other people's computers.
     -   If you change options, store original values at the start, do your thing, then restore them: `opar <- par(pch = 19) <blah blah blah> par(opar)`.
     -   If you create files, delete them when you're done: `write(x, "foo.txt") <blah blah blah> file.remove("foo.txt")`.
@@ -109,7 +165,8 @@ Get more concrete details here:
 -   [How to make a great R reproducible example?](http://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example/16532098) thread on StackOverflow
 -   [How to write a reproducible example](http://adv-r.had.co.nz/Reproducibility.html) from Hadley Wickham's [Advanced R book](http://adv-r.had.co.nz)
 
-### Package philosophy
+Package philosophy
+------------------
 
 The reprex code:
 

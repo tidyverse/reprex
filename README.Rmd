@@ -1,5 +1,7 @@
 ---
-output: github_document
+output:
+  github_document:
+    toc: true
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -8,19 +10,18 @@ output: github_document
 
 <!-- [![Build Status](https://travis-ci.org/jennybc/reprex.svg?branch=master)](https://travis-ci.org/jennybc/reprex) -->
 
-```{r setup, include = FALSE}
+```{r include = FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>",
                       fig.path = "README-")
 
-## delete any crap left behind by previous unsuccessful attempts to render this
-## file
+## delete anything leftover from a previous aborted render
 leftovers <- list.files(pattern = "README-tmp", ignore.case = TRUE)
 if (length(leftovers)) file.remove(leftovers)
 ```
 
-### reprex
+## reprex
 
-<a href="https://nypdecider.files.wordpress.com/2014/08/help-me-help-you.gif"> <img src="internal/help-me-help-you-still-500-c256.png" width="275" align="right"> </a>
+<a href="https://nypdecider.files.wordpress.com/2014/08/help-me-help-you.gif"> <img src="https://github.com/jennybc/reprex/raw/master/internal/help-me-help-you-still-500-c256.png" width="275" align="right"> </a>
 
 Prepare reproducible examples for posting to [GitHub issues](https://guides.github.com/features/issues/), [Stack Overflow](http://stackoverflow.com/questions/tagged/r), etc.
 
@@ -32,17 +33,22 @@ Prepare reproducible examples for posting to [GitHub issues](https://guides.gith
   * on the clipboard and, optionally, in a file.
   * Preview an HTML version in RStudio viewer or default browser.
 
-### Installation
+## Install and load
 
-```{r installation, eval = FALSE}
+```{r eval = FALSE}
 devtools::install_github("jennybc/reprex")
+library(reprex)
 ```
   
-### Quick demo
+```{r include = FALSE}
+library(reprex)
+```
+  
+## Quick start
 
 Let's say you copy this code onto your clipboard:
 
-```{r define-demo-code, include = FALSE}
+```{r include = FALSE}
 demo_code <- c(
   "(y <- 1:4)",
   "mean(y)"
@@ -50,14 +56,13 @@ demo_code <- c(
 writeLines(demo_code, "README-tmp.R")
 ```
 
-```{r reveal-demo-code, asis = TRUE, echo = FALSE, comment = NA}
-cat(paste(demo_code, collapse = "\n"))
+```{r asis = TRUE, echo = FALSE, comment = NA}
+cat(demo_code, sep = "\n")
 ```
 
-Then you load the `reprex` package and call the main function `reprex()`, where the default target venue is GitHub:
+Then call `reprex()`, where the default target venue is GitHub:
 
-```{r simulate-load-and-call, eval = FALSE}
-library(reprex)
+```{r eval = FALSE}
 reprex()
 ```
 
@@ -67,21 +72,15 @@ A nicely rendered HTML preview will display in RStudio's Viewer (if you're in RS
 
 The relevant bit of GitHub-flavored Markdown is ready to be pasted from your clipboard:
 
-```{r load-and-call, include = FALSE}
-writeLines('reprex::reprex(infile = "README-tmp.R", outfile = "README-tmp_gh")',
-           "README-tmp-wrapper.R")
-devtools::clean_source("README-tmp-wrapper.R", quiet = TRUE)
-md_file <- list.files(pattern = "README-tmp_gh.md")
-md_content <- readLines(md_file)
-```
-
-```{r reveal-md-content, asis = TRUE, echo = FALSE, comment = NA}
-cat(paste(md_content, collapse = "\n"))
+```{r asis = TRUE, echo = FALSE, comment = NA}
+md_content <-
+  reprex(infile = "README-tmp.R", outfile = "README-tmp_gh", show = FALSE)
+cat(md_content, sep = "\n")
 ```
 
 Here's what that Markdown would look like rendered in a GitHub issue:
 
-```{r render-md-content, child = md_file}
+```{r child = "README-tmp_gh.md"}
 ```
 
 Anyone else can copy, paste, and run this immediately.
@@ -94,12 +93,64 @@ But wait, there's more!
     - `reprex(infile = "my_reprex.R")` gets the code from file
     - `reprex({(y <- 1:4); mean(y)})` gets code from expression
 
-```{r clean-up, include = FALSE}
+```{r include = FALSE}
 leftovers <- list.files(pattern = "README-tmp", ignore.case = TRUE)
-if(length(leftovers)) file.remove(leftovers)
+if (length(leftovers)) file.remove(leftovers)
 ```
 
-### Reproducible examples
+## More control
+
+Examples of how to take greater control of your reprex.
+
+### knitr options
+
+Supplement or override reprex defaults for [knitr chunk and package options](http://yihui.name/knitr/options/) via the arguments `opts_chunk` and `opts_knit`. Example: change the prefix used to comment out the output. This call:
+
+```{r eval = FALSE}
+reprex({y <- 1:4; mean(y)}, opts_chunk = list(comment = "#¯\\_(ツ)_/¯"))
+```
+
+```{r include = FALSE}
+reprex({y <- 1:4; mean(y)}, opts_chunk = list(comment = "#¯\\_(ツ)_/¯"),
+       show = FALSE, outfile = "README-tmp")
+```
+
+yields this output:
+
+```{r child = "README-tmp.md"}
+```
+
+### Embedded prose
+
+Sometime you want to mingle rendered code and prose. Put the embedded code in as roxygen comments, i.e. comment lines that start with `#'`. This reprex code:
+
+```{r include = FALSE}
+demo_code <- c(
+  "## a regular comment",
+  "x <- 1:100",
+  "#' Here is some embedded prose, as a roxygen comment.",
+  "mean(x)"
+)
+writeLines(demo_code, "README-tmp.R")
+md_content <-
+  reprex(infile = "README-tmp.R", outfile = "README-tmp_gh", show = FALSE)
+```
+
+```{r asis = TRUE, echo = FALSE, comment = NA}
+cat(demo_code, sep = "\n")
+```
+
+renders to this this result:
+
+```{r child = "README-tmp_gh.md"}
+```
+
+```{r cleanup, include = FALSE}
+leftovers <- list.files(pattern = "README-tmp", ignore.case = TRUE)
+if (length(leftovers)) file.remove(leftovers)
+```
+
+## What is a reprex?
 
 What is a `reprex`? It's a {repr}oducible {ex}ample. Coined by Romain Francois [on twitter](https://twitter.com/romain_francois/status/530011023743655936).
 
@@ -119,7 +170,7 @@ What are the main requirements?
   * Include commands on a strict "need to run" basis.
     - Ruthlessly strip out anything unrelated to the specific matter at hand.
     - Include every single command that is required, e.g. loading specific packages via `library(foo)`.
-  * Consider including info on your OS and your versions of R version and add-on packages, if it's conceivable that it matters. Use `reprex(..., si = TRUE)` for this.
+  * Consider including so-called "session info", i.e. your OS and versions of R version and add-on packages, if it's conceivable that it matters. Use `reprex(..., si = TRUE)` for this.
   * Pack it in, pack it out, and don't take liberties with other people's computers.
     - If you change options, store original values at the start, do your thing, then restore them: `opar <- par(pch = 19) <blah blah blah> par(opar)`.
     - If you create files, delete them when you're done: `write(x, "foo.txt") <blah blah blah> file.remove("foo.txt")`.
@@ -139,7 +190,7 @@ Get more concrete details here:
   * [How to make a great R reproducible example?](http://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example/16532098) thread on StackOverflow
   * [How to write a reproducible example](http://adv-r.had.co.nz/Reproducibility.html) from Hadley Wickham's [Advanced R book](http://adv-r.had.co.nz)
 
-### Package philosophy
+## Package philosophy
 
 The reprex code:
 
