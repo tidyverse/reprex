@@ -1,0 +1,19 @@
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+
+language: r
+r:
+  - oldrel
+  - release
+  - devel
+sudo: false
+cache: packages
+
+addons:
+  apt:
+    packages:
+      - xclip
+
+before_script:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - sleep 3
