@@ -15,7 +15,7 @@
 reprex
 ------
 
-<a href="https://nypdecider.files.wordpress.com/2014/08/help-me-help-you.gif"> <img src="https://github.com/jennybc/reprex/raw/master/internal/help-me-help-you-still-500-c256.png" width="275" align="right"> </a>
+<a href="https://nypdecider.files.wordpress.com/2014/08/help-me-help-you.gif"> <img src="https://raw.githubusercontent.com/jennybc/reprex/master/img/help-me-help-you-still-500-c256.png" width="275" align="right"> </a>
 
 Prepare reproducible examples for posting to [GitHub issues](https://guides.github.com/features/issues/), [Stack Overflow](http://stackoverflow.com/questions/tagged/r), etc.
 
@@ -51,7 +51,7 @@ reprex()
 
 A nicely rendered HTML preview will display in RStudio's Viewer (if you're in RStudio) or your default browser otherwise.
 
-![html-preview](README-viewer-screenshot.png "HTML preview in RStudio")
+![html-preview](https://raw.githubusercontent.com/jennybc/reprex/master/img/README-viewer-screenshot.png)
 
 The relevant bit of GitHub-flavored Markdown is ready to be pasted from your clipboard:
 
