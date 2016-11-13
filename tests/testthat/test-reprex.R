@@ -2,7 +2,7 @@ context("reprex")
 
 test_that("Render character vectors", {
   single <- "hello, world!"
-  expect_equivalent(write_clip(single), single)
+  expect_equivalent(clipr::write_clip(single), single)
 })
 
 out <- c("``` r", "1:5", "#> [1] 1 2 3 4 5", "```")
