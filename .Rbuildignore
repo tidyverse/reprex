@@ -10,3 +10,4 @@
 ^foo.R$
 ^internal$
 ^img$
+^\.travis\.yml$
