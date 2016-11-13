@@ -1,4 +1,7 @@
 library(testthat)
 library(reprex)
 
-test_check("reprex")
+## don't run tests on appveyor til pandoc sorted out
+if (!identical(tolower(Sys.getenv("APPVEYOR")), "true")) {
+  test_check("reprex")
+}
