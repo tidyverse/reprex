@@ -1,18 +1,10 @@
 context("reprex")
 
-test_that("Render character vectors", {
-  single <- "hello, world!"
-  expect_equivalent(clipr::write_clip(single), single)
-})
-
 out <- c("``` r", "1:5", "#> [1] 1 2 3 4 5", "```")
 
 test_that("clipboard input works", {
   clipr::write_clip("1:5")
-  cat(clipr::read_clip())
   ret <- reprex(show = FALSE)
-  cat(ret, sep = "\n")
-  cat(out, sep = "\n")
   expect_identical(ret, out)
 })
 
@@ -59,6 +51,5 @@ test_that("The si = TRUE option adds session info line", {
 
 test_that("Circular use is detected before render", {
   ret <- reprex(y <- 2, show = FALSE)
-  cat(clipr::read_clip())
   expect_error(reprex(show = FALSE), "isn't valid R code")
 })
