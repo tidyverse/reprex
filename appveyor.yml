@@ -17,7 +17,7 @@ cache:
 
 before_test:
   - cinst pandoc
-  - $env:Path += ";C:\Program Files (x86)\Pandoc\"
+  - ps: $env:Path += ";C:\Program Files (x86)\Pandoc\"
 #  - $env:Path
 #  - refreshenv
   - pandoc -v
