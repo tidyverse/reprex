@@ -12,7 +12,7 @@ install:
 
 cache:
   - C:\RLibrary
-  - C:\Program Files (x86)\Pandoc\
+  - C:\Program Files (x86)\Pandoc\ -> appveyor.yml
 
 # Adapt as necessary starting from here
 
