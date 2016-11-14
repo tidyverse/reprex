@@ -19,7 +19,8 @@ before_test:
   - cinst pandoc
   - echo %PATH%
 #  - refreshenv
-  - set PATH="%PATH%;C:\Program Files (x86)\Pandoc\"
+#  - set PATH="%PATH%;C:\Program Files (x86)\Pandoc\"
+  - $env:Path += ";C:\Program Files (x86)\Pandoc\"
   - echo %PATH%
   - pandoc -v
 
