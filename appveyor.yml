@@ -7,6 +7,9 @@ init:
         Invoke-WebRequest http://raw.github.com/krlmlr/r-appveyor/master/scripts/appveyor-tool.ps1 -OutFile "..\appveyor-tool.ps1"
         Import-Module '..\appveyor-tool.ps1'
 
+cache:
+  - C:\Program Files (x86)\Pandoc\
+
 install:
   ps: Bootstrap
 
