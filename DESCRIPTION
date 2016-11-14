@@ -21,6 +21,7 @@ Imports:
     utils,
     whisker
 Suggests:
+    covr,
     devtools,
     formatR,
     fortunes,

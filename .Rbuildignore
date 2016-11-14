@@ -12,3 +12,4 @@
 ^img$
 ^\.travis\.yml$
 ^appveyor\.yml$
+^codecov\.yml$
