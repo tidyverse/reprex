@@ -12,6 +12,7 @@ install:
 
 cache:
   - C:\RLibrary
+  - C:\Program Files (x86)\Pandoc\
 
 # Adapt as necessary starting from here
 
