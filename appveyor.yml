@@ -17,11 +17,9 @@ cache:
 
 before_test:
   - cinst pandoc
-  - echo %PATH%
+  - $env:Path
 #  - refreshenv
-#  - set PATH="%PATH%;C:\Program Files (x86)\Pandoc\"
-  - $env:Path += ";C:\Program Files (x86)\Pandoc\"
-  - echo %PATH%
+  - $env:Path
   - pandoc -v
 
 build_script:
