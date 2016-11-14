@@ -17,7 +17,9 @@ cache:
 
 before_test:
   - cinst pandoc
+  - echo %PATH%
   - refreshenv
+  - echo %PATH%
   - pandoc -v
 
 build_script:
