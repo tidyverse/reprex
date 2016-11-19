@@ -17,7 +17,7 @@ cache:
 # Adapt as necessary starting from here
 before_test:
 - ps: >-
-    if ((Get-Command "pandoc.exe" -ErrorAction SilentlyContinue) -eq $null) {
+    if (Test-Path "C:\Program Files (x86)\Pandoc\") {} else {
       cinst pandoc
       ps: $env:Path += ";C:\Program Files (x86)\Pandoc\"
     }
