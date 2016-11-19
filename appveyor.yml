@@ -16,9 +16,11 @@ cache:
 
 # Adapt as necessary starting from here
 before_test:
-  - cinst pandoc
-  - ps: $env:Path += ";C:\Program Files (x86)\Pandoc\"
-  - pandoc -v
+- ps: >-
+    if ((Get-Command "pandoc.exe" -ErrorAction SilentlyContinue) -eq $null) {
+      cinst pandoc
+      ps: $env:Path += ";C:\Program Files (x86)\Pandoc\"
+    }
 
 build_script:
   - travis-tool.sh install_deps
