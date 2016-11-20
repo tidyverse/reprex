@@ -81,20 +81,26 @@ reprex <- function(
 
   ## Do not rearrange this block lightly. If x is expression, take care to not
   ## evaluate in this frame.
-  expr_input <- FALSE
   x_captured <- substitute(x)
   if (is.null(x_captured)) {
+    expr_input <- FALSE
     if (is.null(infile)) {
-      suppressWarnings(the_source <- clipr::read_clip())
+      if (clipboard_available()) {
+        suppressWarnings(the_source <- clipr::read_clip())
+      } else {
+        message("No input provided via `x` or `infile` and clipboard is ",
+                "not available.")
+        the_source <- character()
+      }
     } else {
       the_source <- readLines(infile)
     }
   } else {
+    expr_input <- TRUE
     if (!is.null(infile)) {
       message("Input file ignored in favor of expression input in `x`.")
     }
     the_source <- stringify_expression(x_captured)
-    expr_input <- TRUE
   }
   the_source <- ensure_not_empty(the_source)
   the_source <- ensure_not_dogfood(the_source)
@@ -148,7 +154,15 @@ reprex_ <- function(r_file, venue = c("gh", "so"), show = TRUE) {
   }
   md_outfile <- rendout
   output_lines <- readLines(md_outfile)
-  clipr::write_clip(output_lines)
+  if (clipboard_available()) {
+    clipr::write_clip(output_lines)
+  } else {
+    message("Unable to put result on the clipboard. How to get it:\n",
+            "  * Capture what reprex() returns.\n",
+            "  * Use `outfile` argument to specify where to store the result.\n",
+            "  * See the temp file:\n",
+            md_outfile)
+  }
 
   if (show) {
     html_outfile <- gsub("\\.R$", ".html", r_file)

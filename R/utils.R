@@ -34,3 +34,11 @@ prep_tidy <- function(expr_input) {
 trim_ws <- function(x) {
   sub("\\s*$", "", sub("^\\s*", "", x))
 }
+
+## wrap clipr::clipr_available() so I can mock it
+clipboard_available <- function() {
+  if (Sys.getenv("CLIPBOARD_AVAILABLE", unset = TRUE)) {
+    return(clipr::clipr_available())
+  }
+  FALSE
+}
