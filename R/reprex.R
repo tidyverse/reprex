@@ -136,12 +136,12 @@ reprex_ <- function(r_file, venue = c("gh", "so"), show = TRUE) {
 
   suppressMessages(
     rendout <- try(
-      callr::r_safe(function(input, output_format) {
-        rmarkdown::render(input = input, output_format = output_format,
+      callr::r_safe(function(.input, .output_format) {
+        rmarkdown::render(input = .input, output_format = .output_format,
                           quiet = TRUE)
       },
-      args = list(input = r_file,
-                  output_format = switch(
+      args = list(.input = r_file,
+                  .output_format = switch(
                     venue,
                     gh = rmarkdown::md_document(variant = "markdown_github"),
                     so = rmarkdown::md_document()

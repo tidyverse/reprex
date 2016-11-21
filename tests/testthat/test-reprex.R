@@ -39,6 +39,13 @@ test_that("reprex doesn't write into environment of caller", {
 
 })
 
+test_that("I understand exactly what I'm putting in reprex env", {
+  ret <- reprex(ls(all.names = TRUE), show = FALSE)
+  out <- c("``` r", "ls(all.names = TRUE)",
+           "#> [1] \".input\"         \".output_format\"", "```")
+  expect_identical(ret, out)
+})
+
 test_that("Circular use is detected before render", {
   ret <- reprex(y <- 2, show = FALSE)
   write(ret, "foo.md")
