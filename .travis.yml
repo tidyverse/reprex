@@ -5,6 +5,9 @@ r:
   - oldrel
   - release
   - devel
+env:
+  - DISPLAY=""
+  - DISPLAY=:90.0
 sudo: false
 cache: packages
 
@@ -14,7 +17,6 @@ addons:
       - xclip
 
 before_script:
-  - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - sleep 3
 
