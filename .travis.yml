@@ -6,8 +6,11 @@ r:
   - release
   - devel
 env:
-  - DISPLAY=""
   - DISPLAY=:90.0
+matrix:
+  include:
+  - r: release
+    env: DISPLAY=""
 sudo: false
 cache: packages
 
