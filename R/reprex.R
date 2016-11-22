@@ -118,8 +118,6 @@ reprex <- function(
                            user_opts_knit = opts_knit,
                            chunk_tidy = chunk_tidy))
 
-  ## TO DO: come back here once it's clear how outfile will be used
-  ## i.e., is it going to be like original slug concept?
   r_file <- outfile %||% tempfile()
   r_file <- add_ext(r_file)
 
@@ -166,6 +164,12 @@ reprex_ <- function(r_file, venue = c("gh", "so"), show = TRUE) {
 
   if (show) {
     html_outfile <- gsub("\\.R$", ".html", r_file)
+    ## if md_outfile is foo.md and there is also a directory foo_files?
+    ## it will be deleted right here
+    ## if opts_knit = list(upload.fun = identity), this could hold local figs
+    ## until this becomes a problem, just allow that to happen
+    ## clean = FALSE causes more than I want to be left behind
+    ## no easy way to leave foo_files in the post-md state
     rmarkdown::render(md_outfile, output_file = html_outfile, quiet = TRUE)
     viewer <- getOption("viewer") %||% utils::browseURL
     viewer(html_outfile)
