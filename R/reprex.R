@@ -96,6 +96,7 @@
 #' file.remove(list.files(pattern = "foofy"))
 #' }
 #'
+#' @importFrom knitr opts_chunk
 #' @export
 reprex <- function(
   x = NULL, venue = c("gh", "so"), si = FALSE, show = TRUE,
