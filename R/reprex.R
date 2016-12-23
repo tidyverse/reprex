@@ -137,11 +137,38 @@ reprex <- function(
   writeLines(the_source, r_file)
   r_file <- normalizePath(r_file)
 
-  ## render
-  reprex_(r_file, venue, show)
+  ## render to .md file
+  md_file <- reprex_(r_file, venue)
+
+  ## put output on clipboard
+  output_lines <- readLines(md_file)
+  if (clipboard_available()) {
+    clipr::write_clip(output_lines)
+  } else {
+    message("Unable to put result on the clipboard. How to get it:\n",
+            "  * Capture what reprex() returns.\n",
+            "  * Use `outstub = \"foo\"` to write output to `foo.md` in current working directory.\n",
+            "  * See the temp file:\n",
+            md_file)
+  }
+
+  if (show) {
+    html_file <- gsub("\\.R$", ".html", r_file)
+    ## if md_file is foo.md and there is also a directory foo_files?
+    ## it will be deleted right here
+    ## if opts_knit = list(upload.fun = identity), this could hold local figs
+    ## until this becomes a problem, just allow that to happen
+    ## clean = FALSE causes more than I want to be left behind
+    ## no easy way to leave foo_files in the post-md state
+    rmarkdown::render(md_file, output_file = html_file, quiet = TRUE)
+    viewer <- getOption("viewer") %||% utils::browseURL
+    viewer(html_file)
+  }
+
+  invisible(output_lines)
 }
 
-reprex_ <- function(r_file, venue = c("gh", "so"), show = TRUE) {
+reprex_ <- function(r_file, venue = c("gh", "so")) {
 
   venue <- match.arg(venue)
 
@@ -163,30 +190,6 @@ reprex_ <- function(r_file, venue = c("gh", "so"), show = TRUE) {
   if (inherits(rendout, "try-error")) {
     stop("\nCannot render this code.\n", rendout)
   }
-  md_outfile <- rendout
-  output_lines <- readLines(md_outfile)
-  if (clipboard_available()) {
-    clipr::write_clip(output_lines)
-  } else {
-    message("Unable to put result on the clipboard. How to get it:\n",
-            "  * Capture what reprex() returns.\n",
-            "  * Use `outfile` argument to specify where to store the result.\n",
-            "  * See the temp file:\n",
-            md_outfile)
-  }
+  rendout
 
-  if (show) {
-    html_outfile <- gsub("\\.R$", ".html", r_file)
-    ## if md_outfile is foo.md and there is also a directory foo_files?
-    ## it will be deleted right here
-    ## if opts_knit = list(upload.fun = identity), this could hold local figs
-    ## until this becomes a problem, just allow that to happen
-    ## clean = FALSE causes more than I want to be left behind
-    ## no easy way to leave foo_files in the post-md state
-    rmarkdown::render(md_outfile, output_file = html_outfile, quiet = TRUE)
-    viewer <- getOption("viewer") %||% utils::browseURL
-    viewer(html_outfile)
-  }
-
-  invisible(output_lines)
 }
