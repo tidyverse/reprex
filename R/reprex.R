@@ -32,10 +32,11 @@
 #'   "gh"} (the default), session info is wrapped in a collapsible details tag.
 #' @param show Whether to show rendered output in a viewer (RStudio or browser).
 #' @param infile Path to \code{.R} file containing reprex code.
-#' @param outstub Desired stub for output \code{.R}, \code{.md}, and
-#'   \code{.html} files for reproducible example. All are written to current
-#'   working directory. If \code{NULL}, reprex writes them below the session
-#'   temp directory.
+#' @param outfile Desired basename for output \code{.R}, \code{.md}, and
+#'   \code{.html} files for reproducible example, all written to current
+#'   working directory. Any existing \code{.md} extension is stripped to get a
+#'   file basename. If \code{NULL}, reprex writes to temp files below the
+#'   session temp directory.
 #' @param opts_chunk,opts_knit Named list. Optional
 #'   \href{http://yihui.name/knitr/options/}{knitr chunk and package options},
 #'   respectively, to supplement or override reprex defaults. See Details.
@@ -79,6 +80,20 @@
 #'   y <- 1:4
 #'   mean(y)
 #' })
+#'
+#' # read reprex from file
+#' writeLines(c("x <- 1:4", "mean(x)"), "foofy.R")
+#' reprex(infile = "foofy.R")
+#' file.remove("foofy.R")
+#'
+#' # write rendered reprex to file
+#' reprex({
+#'   x <- 1:4
+#'   y <- 2:5
+#'   x + y
+#' }, outfile = "foofy")
+#' list.files(pattern = "foofy")
+#' file.remove(list.files(pattern = "foofy"))
 #' }
 #'
 #' @export
@@ -132,7 +147,7 @@ reprex <- function(
                            chunk_tidy = chunk_tidy))
 
   ## write source to .R file
-  r_file <- outfile %||% tempfile()
+  r_file <- strip_ext(outfile) %||% tempfile()
   r_file <- add_ext(r_file)
   writeLines(the_source, r_file)
   r_file <- normalizePath(r_file)
@@ -147,7 +162,7 @@ reprex <- function(
   } else {
     message("Unable to put result on the clipboard. How to get it:\n",
             "  * Capture what reprex() returns.\n",
-            "  * Use `outstub = \"foo\"` to write output to `foo.md` in current working directory.\n",
+            "  * Use `outfile = \"foo\"` to write output to `foo.md` in current working directory.\n",
             "  * See the temp file:\n",
             md_file)
   }

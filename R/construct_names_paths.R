@@ -12,11 +12,19 @@ construct_filename <- function(slug = "REPREX", venue = c("gh", "so")) {
   paste(Sys.Date(), slug, venue, sep = "_")
 }
 
+strip_ext <- function(x, ext = "md") {
+  if (is.null(x)) return(NULL)
+  if (grepl(ext, tools::file_ext(x))) {
+    tools::file_path_sans_ext(x)
+  } else {
+    x
+  }
+}
+
 add_ext <- function(x, ext = "R", force = FALSE) {
-  suffix <- paste0(".", ext)
-  suffix_re <- paste0(suffix, "$")
-  if (grep(suffix_re, x, invert = TRUE) || force) {
-    paste0(x, suffix)
+  lacks_ext <- !grepl(ext, tools::file_ext(x), ignore.case = TRUE)
+  if (lacks_ext || force) {
+    paste(x, ext, sep = ".")
   } else {
     x
   }

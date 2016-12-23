@@ -52,3 +52,15 @@ test_that("Circular use is detected before render", {
   expect_error(reprex(infile = "foo.md", show = FALSE), "isn't valid R code")
   file.remove("foo.md")
 })
+
+test_that("reprex is written to outfile", {
+  ret <- reprex("1:5", show = FALSE, outfile = "foo")
+  expect_identical(ret, readLines("foo.md"))
+  expect_match(tail(readLines("foo.R"), 1), "\"1:5\"")
+  file.remove("foo.R", "foo.md")
+
+  ## make sure `.md` extension gets stripped
+  ret <- reprex("1:5", show = FALSE, outfile = "foo.md")
+  expect_identical(ret, readLines("foo.md"))
+  file.remove("foo.R", "foo.md")
+})

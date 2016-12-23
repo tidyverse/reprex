@@ -22,14 +22,15 @@ reprex(x = NULL, venue = c("gh", "so"), si = FALSE, show = TRUE,
 
 \item{infile}{Path to \code{.R} file containing reprex code.}
 
+\item{outfile}{Desired basename for output \code{.R}, \code{.md}, and
+\code{.html} files for reproducible example, all written to current
+working directory. Any existing \code{.md} extension is stripped to get a
+file basename. If \code{NULL}, reprex writes to temp files below the
+session temp directory.}
+
 \item{opts_chunk, opts_knit}{Named list. Optional
 \href{http://yihui.name/knitr/options/}{knitr chunk and package options},
 respectively, to supplement or override reprex defaults. See Details.}
-
-\item{outstub}{Desired stub for output \code{.R}, \code{.md}, and
-\code{.html} files for reproducible example. All are written to current
-working directory. If \code{NULL}, reprex writes them below the session
-temp directory.}
 }
 \description{
 Given some R code on the clipboard, in an expression, or in a file, this
@@ -95,6 +96,20 @@ reprex({
   y <- 1:4
   mean(y)
 })
+
+# read reprex from file
+writeLines(c("x <- 1:4", "mean(x)"), "foofy.R")
+reprex(infile = "foofy.R")
+file.remove("foofy.R")
+
+# write rendered reprex to file
+reprex({
+  x <- 1:4
+  y <- 2:5
+  x + y
+}, outfile = "foofy")
+list.files(pattern = "foofy")
+file.remove(list.files(pattern = "foofy"))
 }
 
 }
