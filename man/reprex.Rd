@@ -8,7 +8,7 @@ reprex(x = NULL, venue = c("gh", "so"), si = FALSE, show = TRUE,
   infile = NULL, outfile = NULL, opts_chunk = NULL, opts_knit = NULL)
 }
 \arguments{
-\item{x}{An expression. If not given, \code{reprex} will look for code in
+\item{x}{An expression. If not given, \code{reprex} looks for code in
 \code{infile}, if provided, or on the clipboard.}
 
 \item{venue}{"gh" for GitHub (default) or "so" for stackoverflow.}
@@ -22,36 +22,36 @@ reprex(x = NULL, venue = c("gh", "so"), si = FALSE, show = TRUE,
 
 \item{infile}{Path to \code{.R} file containing reprex code.}
 
-\item{outfile}{Desired stub for output \code{.R}, \code{.md}, and
-\code{.html} files for reproducible example. If \code{NULL}, keeps them in
-temporary files. At this point, outfiles are deposited in current working
-directory, but the goal is to consult options for a place to store all
-reprexes.}
-
 \item{opts_chunk, opts_knit}{Named list. Optional
 \href{http://yihui.name/knitr/options/}{knitr chunk and package options},
 respectively, to supplement or override reprex defaults. See Details.}
+
+\item{outstub}{Desired stub for output \code{.R}, \code{.md}, and
+\code{.html} files for reproducible example. All are written to current
+working directory. If \code{NULL}, reprex writes them below the session
+temp directory.}
 }
 \description{
 Given some R code on the clipboard, in an expression, or in a file, this
 function runs it via \code{\link[rmarkdown]{render}}. The resulting bit of
-Markdown is the primary output. It will be ready and waiting on the
-clipboard, for pasting into a GitHub issue or to stackoverflow. Optionally,
-the R code and Markdown will be left behind in files. An HTML preview will
-display in RStudio's Viewer pane, if available, or in the default browser
-otherwise.
+Markdown is the primary output. It is ready and waiting on the clipboard, for
+pasting into a GitHub issue, for example. Optionally, the R code and Markdown
+are left behind in files. An HTML preview displays in RStudio's Viewer pane,
+if available, or in the default browser otherwise.
 }
 \details{
-reprex sets specific \href{http://yihui.name/knitr/options/}{knitr
-options}, which you can supplement or override via the \code{opts_chunk} and
-\code{opts_knit} arguments.
+reprex sets specific \href{http://yihui.name/knitr/options/}{knitr options},
+which you can supplement or override via the \code{opts_chunk} and
+\code{opts_knit} arguments or via explicit calls to knitr in your reprex
+code (see examples).
 
 \itemize{
 \item Chunk options: \code{collapse = TRUE}, \code{comment = '#>'},
-\code{error = TRUE}. Chunk options are typically set via
-\code{knitr::opts_chunk$set()}.
-\item Package options: \code{upload.fun = knitr::imgur_upload}. Package
-options are typically set via \code{knitr::opts_knit$set()}. The
+\code{error = TRUE}. These are options you normally set via
+\code{knitr::opts_chunk$set()}. Note that \code{error = TRUE} because a
+common use case is bug reporting.
+\item Package options: \code{upload.fun = knitr::imgur_upload}. These are
+options you normally set via \code{knitr::opts_knit$set()}. The
 \code{upload.fun} defaults to \code{\link[knitr]{imgur_upload}} so figures
 produced by the reprex appear properly on GitHub.
 }
@@ -85,7 +85,16 @@ reprex({
   y <- 1:4
   mean(y)
 })
+
+# how to add some prose and use general markdown formatting
+reprex({
+  #' # A Big Heading
+  #'
+  #' Look at my cute example. I love the
+  #' [reprex](https://github.com/jennybc/reprex#readme) package!
+  y <- 1:4
+  mean(y)
+})
 }
 
 }
-

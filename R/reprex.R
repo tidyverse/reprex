@@ -2,27 +2,28 @@
 #'
 #' Given some R code on the clipboard, in an expression, or in a file, this
 #' function runs it via \code{\link[rmarkdown]{render}}. The resulting bit of
-#' Markdown is the primary output. It will be ready and waiting on the
-#' clipboard, for pasting into a GitHub issue or to stackoverflow. Optionally,
-#' the R code and Markdown will be left behind in files. An HTML preview will
-#' display in RStudio's Viewer pane, if available, or in the default browser
-#' otherwise.
+#' Markdown is the primary output. It is ready and waiting on the clipboard, for
+#' pasting into a GitHub issue, for example. Optionally, the R code and Markdown
+#' are left behind in files. An HTML preview displays in RStudio's Viewer pane,
+#' if available, or in the default browser otherwise.
 #'
-#' reprex sets specific \href{http://yihui.name/knitr/options/}{knitr
-#' options}, which you can supplement or override via the \code{opts_chunk} and
-#' \code{opts_knit} arguments.
+#' reprex sets specific \href{http://yihui.name/knitr/options/}{knitr options},
+#' which you can supplement or override via the \code{opts_chunk} and
+#' \code{opts_knit} arguments or via explicit calls to knitr in your reprex
+#' code (see examples).
 #'
 #' \itemize{
 #' \item Chunk options: \code{collapse = TRUE}, \code{comment = '#>'},
-#' \code{error = TRUE}. Chunk options are typically set via
-#' \code{knitr::opts_chunk$set()}.
-#' \item Package options: \code{upload.fun = knitr::imgur_upload}. Package
-#' options are typically set via \code{knitr::opts_knit$set()}. The
+#' \code{error = TRUE}. These are options you normally set via
+#' \code{knitr::opts_chunk$set()}. Note that \code{error = TRUE} because a
+#' common use case is bug reporting.
+#' \item Package options: \code{upload.fun = knitr::imgur_upload}. These are
+#' options you normally set via \code{knitr::opts_knit$set()}. The
 #' \code{upload.fun} defaults to \code{\link[knitr]{imgur_upload}} so figures
 #' produced by the reprex appear properly on GitHub.
 #' }
 #'
-#' @param x An expression. If not given, \code{reprex} will look for code in
+#' @param x An expression. If not given, \code{reprex} looks for code in
 #'   \code{infile}, if provided, or on the clipboard.
 #' @param venue "gh" for GitHub (default) or "so" for stackoverflow.
 #' @param si Whether to include the results of
@@ -31,11 +32,10 @@
 #'   "gh"} (the default), session info is wrapped in a collapsible details tag.
 #' @param show Whether to show rendered output in a viewer (RStudio or browser).
 #' @param infile Path to \code{.R} file containing reprex code.
-#' @param outfile Desired stub for output \code{.R}, \code{.md}, and
-#'   \code{.html} files for reproducible example. If \code{NULL}, keeps them in
-#'   temporary files. At this point, outfiles are deposited in current working
-#'   directory, but the goal is to consult options for a place to store all
-#'   reprexes.
+#' @param outstub Desired stub for output \code{.R}, \code{.md}, and
+#'   \code{.html} files for reproducible example. All are written to current
+#'   working directory. If \code{NULL}, reprex writes them below the session
+#'   temp directory.
 #' @param opts_chunk,opts_knit Named list. Optional
 #'   \href{http://yihui.name/knitr/options/}{knitr chunk and package options},
 #'   respectively, to supplement or override reprex defaults. See Details.
@@ -69,6 +69,16 @@
 #'   y <- 1:4
 #'   mean(y)
 #' })
+#'
+#' # how to add some prose and use general markdown formatting
+#' reprex({
+#'   #' # A Big Heading
+#'   #'
+#'   #' Look at my cute example. I love the
+#'   #' [reprex](https://github.com/jennybc/reprex#readme) package!
+#'   y <- 1:4
+#'   mean(y)
+#' })
 #' }
 #'
 #' @export
@@ -79,6 +89,8 @@ reprex <- function(
 
   venue <- match.arg(venue)
 
+  ## capture source in character vector
+  ##
   ## Do not rearrange this block lightly. If x is expression, take care to not
   ## evaluate in this frame.
   x_captured <- substitute(x)
@@ -108,6 +120,7 @@ reprex <- function(
     the_source <- add_si(the_source, venue = venue)
   }
 
+  ## decorate and clean up source
   opts_chunk <- prep_opts(substitute(opts_chunk), which = "chunk")
   opts_knit <- prep_opts(substitute(opts_knit), which = "knit")
   chunk_tidy <- prep_tidy(expr_input)
@@ -118,13 +131,13 @@ reprex <- function(
                            user_opts_knit = opts_knit,
                            chunk_tidy = chunk_tidy))
 
+  ## write source to .R file
   r_file <- outfile %||% tempfile()
   r_file <- add_ext(r_file)
-
   writeLines(the_source, r_file)
-
   r_file <- normalizePath(r_file)
 
+  ## render
   reprex_(r_file, venue, show)
 }
 
