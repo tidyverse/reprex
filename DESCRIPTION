@@ -18,6 +18,7 @@ Imports:
     clipr (>= 0.3.0),
     knitr,
     rmarkdown,
+    tools,
     utils,
     whisker
 Suggests:
