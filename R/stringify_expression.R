@@ -55,11 +55,12 @@ stringify_expression <- function(q) {
     lines <- lines[-1]
   }
 
-  ## overall, I think it's better to trim leading whitespace here and let
-  ## knitr re-tidy code that came via expression
-  ## but that requires the suggested package formatR
-  if (requireNamespace("formatR", quietly = TRUE)) {
-    lines <- trim_ws(lines)
+  lines <- trim_ws(lines)
+  ## knitr will re-tidy code that came via expression,
+  ## if suggested package formatR is available
+  ## format() is a back up plan
+  if (!requireNamespace("formatR", quietly = TRUE)) {
+    lines <- format(lines)
   }
   lines
 

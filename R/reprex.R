@@ -184,6 +184,8 @@ reprex <- function(
   invisible(output_lines)
 }
 
+## primary input: path to .R
+## output: path to .md
 reprex_ <- function(r_file, venue = c("gh", "so")) {
 
   venue <- match.arg(venue)
