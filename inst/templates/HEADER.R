@@ -1,8 +1,17 @@
-{{#so_syntax_highlighting}}
+{{#gh}}
+#' ---
+#' output:
+#'   md_document:
+#'     variant: markdown_github
+#' ---
+{{/gh}}
+{{#so}}
+#' ---
+#' output:
+#'   md_document
+#' ---
 #'<!-- language-all: lang-r -->
-{{/so_syntax_highlighting}}
-#+ reprex-header, include = FALSE
-
+{{/so}}
 #+ reprex-setup, include = FALSE
 knitr::opts_chunk$set(collapse = TRUE, comment = '#>', error = TRUE)
 knitr::opts_knit$set(upload.fun = knitr::imgur_upload)

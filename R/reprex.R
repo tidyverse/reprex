@@ -142,7 +142,8 @@ reprex <- function(
   chunk_tidy <- prep_tidy(expr_input)
   the_source <-
     add_header(the_source,
-               data = list(so_syntax_highlighting = identical(venue, "so"),
+               data = list(so = identical(venue, "so"),
+                           gh = identical(venue, "gh"),
                            user_opts_chunk = opts_chunk,
                            user_opts_knit = opts_knit,
                            chunk_tidy = chunk_tidy))
@@ -154,7 +155,7 @@ reprex <- function(
   r_file <- normalizePath(r_file)
 
   ## render to .md file
-  md_file <- reprex_(r_file, venue)
+  md_file <- reprex_(r_file)
 
   ## put output on clipboard
   output_lines <- readLines(md_file)
@@ -186,23 +187,16 @@ reprex <- function(
 
 ## primary input: path to .R
 ## output: path to .md
-reprex_ <- function(r_file, venue = c("gh", "so")) {
-
-  venue <- match.arg(venue)
+reprex_ <- function(r_file) {
 
   suppressMessages(
     rendout <- try(
-      callr::r_safe(function(.input, .output_format) {
-        rmarkdown::render(input = .input, output_format = .output_format,
-                          quiet = TRUE)
+      callr::r_safe(function(.input) {
+        rmarkdown::render(input = .input, quiet = TRUE)
       },
-      args = list(.input = r_file,
-                  .output_format = switch(
-                    venue,
-                    gh = rmarkdown::md_document(variant = "markdown_github"),
-                    so = rmarkdown::md_document()
-                  ))),
-      silent = TRUE)
+      args = list(.input = r_file)),
+      silent = TRUE
+    )
   )
 
   if (inherits(rendout, "try-error")) {
