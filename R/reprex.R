@@ -151,6 +151,12 @@ reprex <- function(
   ## write source to .R file
   r_file <- strip_ext(outfile) %||% tempfile()
   r_file <- add_ext(r_file)
+  if (file.exists(r_file)) {
+    message("Writing output files to '",
+            paste0(basename(tools::file_path_sans_ext(r_file)), "-reprex.*'"),
+            " to protect '", basename(r_file), "'.")
+    r_file <- gsub("\\.R$", "-reprex.R", r_file)
+  }
   writeLines(the_source, r_file)
   r_file <- normalizePath(r_file)
 
