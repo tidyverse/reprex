@@ -15,15 +15,15 @@ test_that("expression input works", {
 })
 
 test_that("file input works", {
+  on.exit(file.remove("foo.R"))
   write("1:5", "foo.R")
   ret <- reprex(infile = "foo.R", show = FALSE)
   expect_identical(ret, out)
-  file.remove("foo.R")
 })
 
 test_that("Circular use is detected before render", {
+  on.exit(file.remove("foo.md"))
   ret <- reprex(y <- 2, show = FALSE)
   write(ret, "foo.md")
   expect_error(reprex(infile = "foo.md", show = FALSE), "isn't valid R code")
-  file.remove("foo.md")
 })
