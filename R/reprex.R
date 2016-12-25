@@ -176,14 +176,13 @@ reprex <- function(
   }
 
   if (show) {
-    html_file <- gsub("\\.R$", ".html", r_file)
     ## if md_file is foo.md and there is also a directory foo_files?
     ## it will be deleted right here
     ## if opts_knit = list(upload.fun = identity), this could hold local figs
     ## until this becomes a problem, just allow that to happen
     ## clean = FALSE causes more than I want to be left behind
     ## no easy way to leave foo_files in the post-md state
-    rmarkdown::render(md_file, output_file = html_file, quiet = TRUE)
+    html_file <- rmarkdown::render(md_file, quiet = TRUE)
     viewer <- getOption("viewer") %||% utils::browseURL
     viewer(html_file)
   }
@@ -191,7 +190,7 @@ reprex <- function(
   invisible(output_lines)
 }
 
-## primary input: path to .R
+##  input: path to .R
 ## output: path to .md
 reprex_ <- function(r_file) {
 
