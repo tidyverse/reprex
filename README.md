@@ -7,6 +7,7 @@
     -   [Embedded prose](#embedded-prose)
 -   [What is a reprex?](#what-is-a-reprex)
 -   [Package philosophy](#package-philosophy)
+-   [Other work](#other-work)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 [![Travis-CI Build Status](https://travis-ci.org/jennybc/reprex.svg?branch=master)](https://travis-ci.org/jennybc/reprex) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jennybc/reprex?branch=master&svg=true)](https://ci.appveyor.com/project/jennybc/reprex) [![Project Status: Wip - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/0.1.0/wip.svg)](http://www.repostatus.org/#wip) [![](http://www.r-pkg.org/badges/version/reprex)](http://www.r-pkg.org/pkg/reprex) [![Coverage Status](https://img.shields.io/codecov/c/github/jennybc/reprex/master.svg)](https://codecov.io/github/jennybc/reprex?branch=master)
@@ -139,19 +140,21 @@ What are the main requirements?
     -   Think: `iris` or `mtcars`. Bore me.
     -   If you must make some objects, minimize their size and complexity.
     -   Get just a bit of something with `head()` or by indexing with the result of `sample()`. If anything is random, consider using `set.seed()` to make it repeatable.
-    -   `dput()` is a good way to get the code to create an object you have lying around. Copy and paste the *result* of this into your reprex. *(We might try to facilitate this in future, see [\#7](https://github.com/jennybc/reprex/issues/7).)*
+    -   `dput()` is a good way to get the code to create an object you have lying around. Copy and paste the *result* of this into your reprex.
     -   Look at official examples and try to write in that style. Consider adapting one.
 -   Include commands on a strict "need to run" basis.
     -   Ruthlessly strip out anything unrelated to the specific matter at hand.
     -   Include every single command that is required, e.g. loading specific packages via `library(foo)`.
 -   Consider including so-called "session info", i.e. your OS and versions of R and add-on packages, if it's conceivable that it matters. Use `reprex(..., si = TRUE)` for this.
--   Pack it in, pack it out, and don't take liberties with other people's computers.
+-   Whitespace rationing is not in effect. Use good [coding style](http://adv-r.had.co.nz/Style.html).
+-   Pack it in, pack it out, and don't take liberties with other people's computers. You are asking people to run this code!
     -   If you change options, store original values at the start, do your thing, then restore them: `opar <- par(pch = 19) <blah blah blah> par(opar)`.
     -   If you create files, delete them when you're done: `write(x, "foo.txt") <blah blah blah> file.remove("foo.txt")`.
     -   Don't delete files or objects that you didn't create in the first place.
     -   Don't mask built-in functions, i.e. don't define a new function named `c`.
     -   Take advantage of R's built-in ability to create temporary files and directories. Read up on [`tempfile()` and `tempdir()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/tempfile.html).
--   Whitespace rationing is not in effect. Use good [coding style](http://adv-r.had.co.nz/Style.html).
+    -   Don't start with `setwd("C:\Users\jenny\path\that\only\I\have")`, because it won't work on anyone else's computer.
+    -   Don't start with `rm(list = ls())`, because it is anti-social to clobber other people's workspaces.
 
 But won't that take time and effort?
 
@@ -177,3 +180,12 @@ Accomplished like so:
 
 -   use `rmarkdown::render` or, under the hood, `knitr::spin` to run the code and capture output that would display in R console
 -   use chunk option `comment = "#>"` to include the output while retaining executability
+
+Other work
+----------
+
+If I had known about [`formatR::tidy_eval()`](http://yihui.name/formatR/), I probably would never had made reprex! But alas I did not. AFAICT there are 3 main differences:
+
+-   `reprex()` accepts an expression as primary input, in addition to code on the clipboard or in a file.
+-   `reprex()` runs the reprex in a separate R process, via [callr](https://cran.r-project.org/web/packages/callr/index.html). `tidy_eval()` uses the existing R process and offers an `envir` argument.
+-   `reprex()` writes the code to a `.R` file and calls `rmarkdown::render()`. `tidy_eval()` runs the code line-by-line via `capture.output(eval(..., envir = envir))`.
