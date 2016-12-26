@@ -1,11 +1,11 @@
 #' Render a reprex
 #'
-#' Given some R code on the clipboard, in an expression, or in a file, this
-#' function runs it via \code{\link[rmarkdown]{render}}. The resulting bit of
-#' Markdown is the primary output. It is ready and waiting on the clipboard, for
-#' pasting into a GitHub issue, for example. Optionally, the R code and Markdown
-#' are left behind in files. An HTML preview displays in RStudio's Viewer pane,
-#' if available, or in the default browser otherwise.
+#' Given some R code on the clipboard, in an expression, in a character vector,
+#' or in a file, this function runs it via \code{\link[rmarkdown]{render}}. The
+#' resulting bit of Markdown is the primary output. It is ready and waiting on
+#' the clipboard, for pasting into a GitHub issue, for example. Optionally, the
+#' R code and Markdown are left behind in files. An HTML preview displays in
+#' RStudio's Viewer pane, if available, or in the default browser otherwise.
 #'
 #' reprex sets specific \href{http://yihui.name/knitr/options/}{knitr options},
 #' which you can supplement or override via the \code{opts_chunk} and
@@ -24,7 +24,7 @@
 #' }
 #'
 #' @param x An expression. If not given, \code{reprex} looks for code in
-#'   \code{infile}, \code{src}, and, eventually, on the clipboard.
+#'   \code{src}, \code{infile}, and, eventually, on the clipboard.
 #' @param venue "gh" for GitHub (default) or "so" for stackoverflow.
 #' @param si Whether to include the results of
 #'   \code{\link[devtools]{session_info}}, if available, or
@@ -59,6 +59,9 @@
 #'   y <- 2:5
 #'   x + y
 #' })
+#'
+#' ## provide code via character vector
+#' reprex(src = c("x <- 1:4", "y <- 2:5", "x + y"))
 #'
 #' # how to override a default chunk option
 #' reprex({y <- 1:4; mean(y)}, opts_chunk = list(comment = "#;-)"))
@@ -126,7 +129,7 @@ reprex <- function(
       if (clipboard_available()) {
         suppressWarnings(the_source <- clipr::read_clip())
       } else {
-        message("No input provided via `x`,`src`, or  `infile` and ",
+        message("No input provided via `x`, `src`, or `infile` and ",
                 "clipboard is not available.")
         the_source <- character()
       }
@@ -137,11 +140,11 @@ reprex <- function(
 
   the_source <- ensure_not_empty(the_source)
   the_source <- ensure_not_dogfood(the_source)
+
+  ## decorate and clean up source
   if (isTRUE(si)) {
     the_source <- add_si(the_source, venue = venue)
   }
-
-  ## decorate and clean up source
   opts_chunk <- prep_opts(substitute(opts_chunk), which = "chunk")
   opts_knit <- prep_opts(substitute(opts_knit), which = "knit")
   chunk_tidy <- prep_tidy(expr_input)
