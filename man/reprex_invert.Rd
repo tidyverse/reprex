@@ -17,7 +17,9 @@ character vector holding just the clean R code, invisibly
 }
 \description{
 A crude function to recover the input of \code{\link{reprex}()} from its
-output, i.e. Markdown in a character vector.
+output. Currently assumes that the target venue was GitHub, i.e. that the
+call was \code{reprex(..., venue = "gh")} and therefore input is
+GitHub-flavored Markdown with code in backtick blocks.
 }
 \examples{
 x <- reprex({

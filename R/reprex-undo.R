@@ -29,7 +29,9 @@ reprex_clean <- function(x = NULL, comment = "^#>") {
 #' Un-render a reprex
 #'
 #' A crude function to recover the input of \code{\link{reprex}()} from its
-#' output, i.e. Markdown in a character vector.
+#' output. Currently assumes that the target venue was GitHub, i.e. that the
+#' call was \code{reprex(..., venue = "gh")} and therefore input is
+#' GitHub-flavored Markdown with code in backtick blocks.
 #'
 #' @inherit reprex_clean
 #'
@@ -75,7 +77,8 @@ reprex_undo <- function(x, comment, is_md = FALSE) {
 }
 
 ## classify_lines()
-## x = presumably output of reprex(), i.e. md as character vector
+## x = presumably output of reprex(..., venue = "gh"), i.e. Github-flavored
+## markdown in a character vector
 ## returns character vector
 ## calls each line of x like so:
 ##   * bt = backticks
