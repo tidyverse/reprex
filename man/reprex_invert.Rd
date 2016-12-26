@@ -4,11 +4,13 @@
 \alias{reprex_invert}
 \title{Un-render a reprex}
 \usage{
-reprex_invert(x = NULL, comment = "^#>")
+reprex_invert(x = NULL, venue = c("gh", "so"), comment = "^#>")
 }
 \arguments{
 \item{x}{character, holding the lines of a rendered or displayed reprex. If
 not provided, the clipboard is consulted for input.}
+
+\item{venue}{"gh" for GitHub (default) or "so" for stackoverflow.}
 
 \item{comment}{regular expression that matches commented output lines}
 }
@@ -16,10 +18,11 @@ not provided, the clipboard is consulted for input.}
 character vector holding just the clean R code, invisibly
 }
 \description{
-A crude function to recover the input of \code{\link{reprex}()} from its
-output. Currently assumes that the target venue was GitHub, i.e. that the
-call was \code{reprex(..., venue = "gh")} and therefore input is
-GitHub-flavored Markdown with code in backtick blocks.
+Recover the input of \code{\link{reprex}()} from its output, at least
+approximately. Make sure to specify the same venue, because code chunks are
+handled differently. In GitHub-flavored Markdown, code blocks are placed
+within triple backticks, whereas they are indented by four spaces in other
+Markdown dialects, such as the one used on stackoverflow.
 }
 \examples{
 x <- reprex({
