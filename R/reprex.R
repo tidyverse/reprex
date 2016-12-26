@@ -24,13 +24,14 @@
 #' }
 #'
 #' @param x An expression. If not given, \code{reprex} looks for code in
-#'   \code{infile}, if provided, or on the clipboard.
+#'   \code{infile}, \code{src}, and, eventually, on the clipboard.
 #' @param venue "gh" for GitHub (default) or "so" for stackoverflow.
 #' @param si Whether to include the results of
 #'   \code{\link[devtools]{session_info}}, if available, or
 #'   \code{\link{sessionInfo}} at the end of the reprex. When \code{venue =
 #'   "gh"} (the default), session info is wrapped in a collapsible details tag.
 #' @param show Whether to show rendered output in a viewer (RStudio or browser).
+#' @param src Character vector holding lines of reprex code.
 #' @param infile Path to \code{.R} file containing reprex code.
 #' @param outfile Desired basename for output \code{.R}, \code{.md}, and
 #'   \code{.html} files for reproducible example, all written to current
@@ -100,36 +101,40 @@
 #' @export
 reprex <- function(
   x = NULL, venue = c("gh", "so"), si = FALSE, show = TRUE,
-  infile = NULL, outfile = NULL,
+  src = NULL, infile = NULL, outfile = NULL,
   opts_chunk = NULL, opts_knit = NULL) {
 
   venue <- match.arg(venue)
+  the_source <- NULL
 
   ## capture source in character vector
   ##
   ## Do not rearrange this block lightly. If x is expression, take care to not
   ## evaluate in this frame.
   x_captured <- substitute(x)
-  if (is.null(x_captured)) {
-    expr_input <- FALSE
+  expr_input <- !is.null(x_captured)
+  if (expr_input) {
+    if (!is.null(infile) || !is.null(src)) {
+      message("`src` and/or `infile` ignored in favor of expression input in `x`.")
+    }
+    the_source <- stringify_expression(x_captured)
+  }
+
+  the_source <- the_source %||% src
+  if (is.null(the_source)) {
     if (is.null(infile)) {
       if (clipboard_available()) {
         suppressWarnings(the_source <- clipr::read_clip())
       } else {
-        message("No input provided via `x` or `infile` and clipboard is ",
-                "not available.")
+        message("No input provided via `x`,`src`, or  `infile` and ",
+                "clipboard is not available.")
         the_source <- character()
       }
     } else {
       the_source <- readLines(infile)
     }
-  } else {
-    expr_input <- TRUE
-    if (!is.null(infile)) {
-      message("Input file ignored in favor of expression input in `x`.")
-    }
-    the_source <- stringify_expression(x_captured)
   }
+
   the_source <- ensure_not_empty(the_source)
   the_source <- ensure_not_dogfood(the_source)
   if (isTRUE(si)) {

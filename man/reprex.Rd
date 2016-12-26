@@ -5,11 +5,12 @@
 \title{Render a reprex}
 \usage{
 reprex(x = NULL, venue = c("gh", "so"), si = FALSE, show = TRUE,
-  infile = NULL, outfile = NULL, opts_chunk = NULL, opts_knit = NULL)
+  src = NULL, infile = NULL, outfile = NULL, opts_chunk = NULL,
+  opts_knit = NULL)
 }
 \arguments{
 \item{x}{An expression. If not given, \code{reprex} looks for code in
-\code{infile}, if provided, or on the clipboard.}
+\code{infile}, \code{src}, and, eventually, on the clipboard.}
 
 \item{venue}{"gh" for GitHub (default) or "so" for stackoverflow.}
 
@@ -19,6 +20,8 @@ reprex(x = NULL, venue = c("gh", "so"), si = FALSE, show = TRUE,
 "gh"} (the default), session info is wrapped in a collapsible details tag.}
 
 \item{show}{Whether to show rendered output in a viewer (RStudio or browser).}
+
+\item{src}{Character vector holding lines of reprex code.}
 
 \item{infile}{Path to \code{.R} file containing reprex code.}
 

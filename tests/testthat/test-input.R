@@ -14,6 +14,11 @@ test_that("expression input works", {
   expect_identical(ret, out)
 })
 
+test_that("character input works", {
+  ret <- reprex(src = "1:5", show = FALSE)
+  expect_identical(ret, out)
+})
+
 test_that("file input works", {
   on.exit(file.remove("foo.R"))
   write("1:5", "foo.R")
