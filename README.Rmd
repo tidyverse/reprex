@@ -205,8 +205,9 @@ Accomplished like so:
 
 ## Other work
 
-If I had known about [`formatR::tidy_eval()`](http://yihui.name/formatR/), I probably would never had made reprex! But alas I did not. AFAICT there are 3 main differences:
+If I had known about [`formatR::tidy_eval()`](http://yihui.name/formatR/), I probably would never had made reprex! But alas I did not. AFAICT here are the main differences:
 
-  * `reprex()` accepts an expression as primary input, in addition to code on the clipboard or in a file.
-  * `reprex()` runs the reprex in a separate R process, via [callr](https://cran.r-project.org/web/packages/callr/index.html). `tidy_eval()` uses the existing R process and offers an `envir` argument.
+  * `reprex()` accepts an expression as primary input, in addition to code on the clipboard, in a character vector, or in a file.
+  * `reprex()` runs the reprex in a separate R process, via [callr](https://cran.r-project.org/package=callr). `tidy_eval()` uses the existing R process and offers an `envir` argument.
   * `reprex()` writes the code to a `.R` file and calls `rmarkdown::render()`. `tidy_eval()` runs the code line-by-line via `capture.output(eval(..., envir = envir))`.
+  * `reprex()` uploads figures to imgur and inserts the necessary link.
