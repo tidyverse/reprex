@@ -51,7 +51,6 @@ demo_code <- c(
   "(y <- 1:4)",
   "mean(y)"
 )
-writeLines(demo_code, "README-tmp.R")
 ```
 
 ```{r asis = TRUE, echo = FALSE, comment = NA}
@@ -71,8 +70,7 @@ A nicely rendered HTML preview will display in RStudio's Viewer (if you're in RS
 The relevant bit of GitHub-flavored Markdown is ready to be pasted from your clipboard:
 
 ```{r asis = TRUE, echo = FALSE, comment = NA}
-md_content <-
-  reprex(infile = "README-tmp.R", outfile = "README-tmp_gh", show = FALSE)
+md_content <- reprex(src = demo_code, outfile = "README-tmp_gh", show = FALSE)
 cat(md_content, sep = "\n")
 ```
 
@@ -88,8 +86,10 @@ But wait, there's more!
   * Set the target venue to Stack Overflow with `reprex(venue = "so")`.
   * By default, figures are uploaded to [imgur.com](http://imgur.com) and resulting URL is dropped into an inline image tag.
   * Alternatives to clipboard input:
-    - `reprex(infile = "my_reprex.R")` gets the code from file
     - `reprex({(y <- 1:4); mean(y)})` gets code from expression
+    - `reprex(src = c("(y <- 1:4)", "mean(y)"))` gets code from character vector
+    - `reprex(infile = "my_reprex.R")` gets code from file
+  * Undo `reprex()` with `reprex_clean()` and `reprex_invert()`.
 
 ```{r include = FALSE}
 leftovers <- list.files(pattern = "README-tmp", ignore.case = TRUE)
@@ -120,7 +120,7 @@ yields this output:
 
 ### Embedded prose
 
-Sometime you want to mingle rendered code and prose. Put the embedded code in as roxygen comments, i.e. comment lines that start with `#'`. This reprex code:
+Sometime you want to mingle rendered code and prose. Put the embedded prose in as roxygen comments, i.e. comment lines that start with `#'`. This reprex code:
 
 ```{r include = FALSE}
 demo_code <- c(
@@ -129,9 +129,7 @@ demo_code <- c(
   "#' Here is some embedded prose, as a roxygen comment.",
   "mean(x)"
 )
-writeLines(demo_code, "README-tmp.R")
-md_content <-
-  reprex(infile = "README-tmp.R", outfile = "README-tmp_gh", show = FALSE)
+md_content <- reprex(src = demo_code, outfile = "README-tmp_gh", show = FALSE)
 ```
 
 ```{r asis = TRUE, echo = FALSE, comment = NA}

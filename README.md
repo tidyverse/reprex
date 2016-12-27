@@ -78,8 +78,10 @@ But wait, there's more!
 -   Set the target venue to Stack Overflow with `reprex(venue = "so")`.
 -   By default, figures are uploaded to [imgur.com](http://imgur.com) and resulting URL is dropped into an inline image tag.
 -   Alternatives to clipboard input:
-    -   `reprex(infile = "my_reprex.R")` gets the code from file
     -   `reprex({(y <- 1:4); mean(y)})` gets code from expression
+    -   `reprex(src = c("(y <- 1:4)", "mean(y)"))` gets code from character vector
+    -   `reprex(infile = "my_reprex.R")` gets code from file
+-   Undo `reprex()` with `reprex_clean()` and `reprex_invert()`.
 
 More control
 ------------
@@ -97,13 +99,14 @@ reprex({y <- 1:4; mean(y)}, opts_chunk = list(comment = "#¯\\_(ツ)_/¯"))
 yields this output:
 
 ``` r
-y <- 1:4; mean(y)
+y <- 1:4
+mean(y)
 #¯\_(ツ)_/¯ [1] 2.5
 ```
 
 ### Embedded prose
 
-Sometime you want to mingle rendered code and prose. Put the embedded code in as roxygen comments, i.e. comment lines that start with `#'`. This reprex code:
+Sometime you want to mingle rendered code and prose. Put the embedded prose in as roxygen comments, i.e. comment lines that start with `#'`. This reprex code:
 
     ## a regular comment
     x <- 1:100
