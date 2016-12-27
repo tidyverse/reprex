@@ -29,5 +29,6 @@ Suggests:
     miniUI,
     rstudioapi,
     shiny,
+    shinyjs,
     testthat
 RoxygenNote: 5.0.1.9000

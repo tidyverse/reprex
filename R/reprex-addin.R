@@ -1,67 +1,102 @@
+#' Render a reprex
+#'
+#' An \href{https://shiny.rstudio.com/articles/gadgets.html}{RStudio gadget} and
+#' \href{http://rstudio.github.io/rstudioaddins/}{addin} to call
+#' \code{\link{reprex}()}. Meant to be activated from the RStudio Addins menu.
+#' Prepare in one of these ways:
+#' \enumerate{
+#' \item Copy reprex source to clipboard.
+#' \item Select reprex source.
+#' \item Activate the file containing reprex source.
+#' }
+#' Call \code{\link{reprex}()} directly for more control via additional
+#' arguments.
+#'
+#' @export
 reprex_addin <- function() {
 
-  reprex_link <- tags$a(href = "https://github.com/jennybc/reprex#readme", "reprex")
+  dep_ok <- vapply(c("rstudioapi", "shiny", "miniUI", "shinyjs"),
+                   requireNamespace, logical(1), quietly = TRUE)
+  if (any(!dep_ok)) {
+    stop("Install these packages in order to use the reprex addin:\n",
+         paste(names(dep_ok[!dep_ok]), collapse = "\n"), call. = FALSE)
+  }
 
   ui <- miniUI::miniPage(
-    miniUI::gadgetTitleBar("Prepare a reprex"),
+    shinyjs::useShinyjs(),
+    miniUI::gadgetTitleBar(
+      shiny::p("Use",
+               shiny::a(href = "https://github.com/jennybc/reprex#readme",
+                        "reprex"),
+               "to render a bit of code"),
+      right = miniUI::miniTitleBarButton("done", "Render", primary = TRUE)
+    ),
     miniUI::miniContentPanel(
-      h4("Use ", reprex_link, " to render snippets of code."),
-      hr(),
-      selectInput("source",
-                  "Where is reprex source?",
-                  c("clipboard", "current selection",
-                    "current file", "another file")
+      shiny::radioButtons(
+        "source",
+        "Where is reprex source?",
+        c("on the clipboard" = "clipboard",
+          "current selection" = "cur_sel",
+          "current file" = "cur_file")
+        # TO DO
+        # "another file" = "infile")
       ),
-      uiOutput("document", container = rCodeContainer),
-      miniUI::miniButtonBlock(
-        actionButton("reprex", "Render")
+      shiny::radioButtons(
+        "venue",
+        "Target venue:",
+        c("GitHub" = "gh",
+          "StackOverflow" = "so")
+      ),
+      shiny::tags$hr(),
+      shiny::checkboxInput(
+        "si",
+        "Append session info:",
+        FALSE
+      ),
+      shiny::checkboxInput(
+        "show",
+        "Preview HTML",
+        TRUE
       )
     )
   )
 
   server <- function(input, output, session) {
 
-    context <- rstudioapi::getActiveDocumentContext()
-
-    reactiveDocument <- reactive({
-
-      reprex_source <- input$source
-
-      if (identical(reprex_source, "clipboard")) {
-        res <- reprex()
-      } else {
-        res <- reprex(src = "mean(rnorm(10))")
-      }
-      res
-    })
-
-    output$document <- renderCode({
-      document <- reactiveDocument()
-      document
-    })
-
     shiny::observeEvent(input$done, {
-      contents <- paste(reactiveDocument(), collapse = "\n")
-      rstudioapi::setDocumentContents(contents, id = context$id)
+
+      context <- rstudioapi::getSourceEditorContext()
+
+      reprex_input <- shiny::reactive({
+        switch(
+          input$source,
+          cur_sel = list(src = rstudioapi::primary_selection(context)[["text"]]),
+          cur_file = list(src = context$contents),
+          ## TODO: figure out how to get a file selection dialog
+          infile = list(src = "mean(rnorm(10))")
+        )
+      })
+
+      ## make my list of args here, like so
+      reprex_args <- c(
+        reprex_input(),
+        list(
+          venue = input$venue,
+          si = as.logical(input$si),
+          show = as.logical(input$show)
+        )
+      )
+
+      reprex_output <- do.call(reprex, reprex_args)
+      shinyjs::info("reprex() output ready on clipboard")
+      #reprex_output <- paste(reprex_output, collapse = "\n")
+      #rstudioapi::insertText(Inf, reprex_output, id = context$id)
       invisible(shiny::stopApp())
+
     })
 
   }
 
-  viewer <- shiny::dialogViewer("Reformat Code", width = 1000, height = 800)
-  shiny::runGadget(ui, server, viewer = viewer)
+  shiny::runGadget(ui, server, viewer = shiny::dialogViewer("Render reprex"))
 
-}
-
-rCodeContainer <- function(...) {
-  code <- shiny::HTML(as.character(tags$code(class = "language-r", ...)))
-  shiny::div(shiny::pre(code))
-}
-
-renderCode <- function(expr, env = parent.frame(), quoted = FALSE) {
-  func <- NULL
-  shiny::installExprFunction(expr, "func", env, quoted)
-  shiny::markRenderFunction(textOutput, function() {
-    paste(func(), collapse = "\n")
-  })
 }
