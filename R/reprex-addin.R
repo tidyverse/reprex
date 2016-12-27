@@ -48,9 +48,7 @@ reprex_addin <- function() {
 
   }
 
-  # We'll use a pane viwer, and set the minimum height at
-  # 300px to ensure we get enough screen space to display the clock.
-  viewer <- shiny::paneViewer(300)
+  viewer <- shiny::dialogViewer("reprex")
   shiny::runGadget(ui, server, viewer = viewer)
 
 }
