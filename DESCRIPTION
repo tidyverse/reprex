@@ -26,5 +26,8 @@ Suggests:
     devtools,
     formatR,
     fortunes,
+    miniUI,
+    rstudioapi,
+    shiny,
     testthat
 RoxygenNote: 5.0.1.9000

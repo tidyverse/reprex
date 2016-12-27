@@ -1,0 +1,4 @@
+Name: reprex
+Description: Prepare a reproducible example for sharing
+Binding: reprex_addin
+Interactive: true
