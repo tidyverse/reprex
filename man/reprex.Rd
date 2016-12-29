@@ -42,7 +42,8 @@ The resulting bit of Markdown is the primary output. It is ready and waiting
 on the clipboard, for pasting into a GitHub issue, for example. Optionally,
 the R code and Markdown are left behind in files. An HTML preview displays in
 RStudio's Viewer pane, if available, or in the default browser otherwise. In
-RStudio, \code{reprex()} can be called from the "Render reprex" addin.
+RStudio, \code{reprex()} can be called from the \link[=reprex_addin]{"Render
+reprex" addin}.
 }
 \details{
 reprex sets specific \href{http://yihui.name/knitr/options/}{knitr options},

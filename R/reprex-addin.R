@@ -2,7 +2,8 @@
 #'
 #' An \href{https://shiny.rstudio.com/articles/gadgets.html}{RStudio gadget} and
 #' \href{http://rstudio.github.io/rstudioaddins/}{addin} to call
-#' \code{\link{reprex}()}. Meant to be activated from the RStudio Addins menu.
+#' \code{\link{reprex}()}. Appears as "Render reprex" in the RStudio Addins
+#' menu.
 #' Prepare in one of these ways:
 #' \enumerate{
 #' \item Copy reprex source to clipboard.
