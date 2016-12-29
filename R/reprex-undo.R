@@ -32,10 +32,10 @@ reprex_clean <- function(x = NULL, comment = "^#>") {
 #' approximately. Make sure to specify the same venue, because code chunks are
 #' handled differently. In GitHub-flavored Markdown, code blocks are placed
 #' within triple backticks, whereas they are indented by four spaces in other
-#' Markdown dialects, such as the one used on stackoverflow.
+#' Markdown dialects, such as the one used on StackOverflow.
 #'
 #' @inherit reprex_clean
-#' @param venue "gh" for GitHub (default) or "so" for stackoverflow.
+#' @param venue "gh" for GitHub (default) or "so" for StackOverflow.
 #'
 #' @seealso \code{\link{reprex_clean}()} if the input is not Markdown, i.e. if
 #'   it's just a rendered code chunk copied from a GitHub issue.

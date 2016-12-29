@@ -5,25 +5,25 @@
 \title{Render a reprex}
 \usage{
 reprex(x = NULL, venue = c("gh", "so"), si = FALSE, show = TRUE,
-  src = NULL, infile = NULL, outfile = NULL, opts_chunk = NULL,
-  opts_knit = NULL)
+  input = NULL, outfile = NULL, opts_chunk = NULL, opts_knit = NULL)
 }
 \arguments{
-\item{x}{An expression. If not given, \code{reprex} looks for code in
-\code{src}, \code{infile}, and, eventually, on the clipboard.}
+\item{x}{An expression. If not given, \code{reprex()} looks for code in
+\code{input} or on the clipboard, in that order.}
 
-\item{venue}{"gh" for GitHub (default) or "so" for stackoverflow.}
+\item{venue}{"gh" for GitHub (default) or "so" for StackOverflow.}
 
 \item{si}{Whether to include the results of
-\code{\link[devtools]{session_info}}, if available, or
-\code{\link{sessionInfo}} at the end of the reprex. When \code{venue =
+\code{\link[devtools]{session_info}()}, if available, or
+\code{\link{sessionInfo}()} at the end of the reprex. When \code{venue =
 "gh"} (the default), session info is wrapped in a collapsible details tag.}
 
 \item{show}{Whether to show rendered output in a viewer (RStudio or browser).}
 
-\item{src}{Character vector holding lines of reprex code.}
-
-\item{infile}{Path to \code{.R} file containing reprex code.}
+\item{input}{Character. If has length one and lacks a terminating newline,
+interpreted as the path to a file containing reprex code. Otherwise assumed
+to hold reprex code as character vector (length greater than one) or string
+(with embedded newlines).}
 
 \item{outfile}{Desired basename for output \code{.R}, \code{.md}, and
 \code{.html} files for reproducible example, all written to current
@@ -36,11 +36,11 @@ session temp directory.}
 respectively, to supplement or override reprex defaults. See Details.}
 }
 \description{
-Given some R code on the clipboard, in an expression, in a character vector,
-or in a file, this function runs it via \code{\link[rmarkdown]{render}}. The
-resulting bit of Markdown is the primary output. It is ready and waiting on
-the clipboard, for pasting into a GitHub issue, for example. Optionally, the
-R code and Markdown are left behind in files. An HTML preview displays in
+Given some R code on the clipboard or in an expression, character vector,
+string, or file, this function runs it via \code{\link[rmarkdown]{render}()}.
+The resulting bit of Markdown is the primary output. It is ready and waiting
+on the clipboard, for pasting into a GitHub issue, for example. Optionally,
+the R code and Markdown are left behind in files. An HTML preview displays in
 RStudio's Viewer pane, if available, or in the default browser otherwise.
 }
 \details{
@@ -79,10 +79,13 @@ reprex({
 })
 
 ## provide code via character vector
-reprex(src = c("x <- 1:4", "y <- 2:5", "x + y"))
+reprex(input = c("x <- 1:4", "y <- 2:5", "x + y"))
+
+## if just one line, terminate with '\\n'
+reprex(input = "rnorm(3)\\n")
 
 # how to override a default chunk option
-reprex({y <- 1:4; mean(y)}, opts_chunk = list(comment = "#;-)"))
+reprex({y <- 1:4; median(y)}, opts_chunk = list(comment = "#;-)"))
 # the above is simply shorthand for this and produces same result
 reprex({
   #+ setup, include = FALSE
@@ -105,7 +108,7 @@ reprex({
 
 # read reprex from file
 writeLines(c("x <- 1:4", "mean(x)"), "foofy.R")
-reprex(infile = "foofy.R")
+reprex(input = "foofy.R")
 file.remove("foofy.R")
 
 # write rendered reprex to file

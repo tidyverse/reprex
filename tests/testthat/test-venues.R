@@ -16,6 +16,6 @@ test_that("venue = 'so' works", {
     "    1:5",
     "    #> [1] 1 2 3 4 5"
   )
-  ret <- reprex(src = input, venue = "so", show = FALSE)
+  ret <- reprex(input = input, venue = "so", show = FALSE)
   expect_identical(ret, output)
 })

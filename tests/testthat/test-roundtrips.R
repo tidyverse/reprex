@@ -6,7 +6,8 @@ test_that("round trip with simple code works, clean text", {
     "(x <- 1:4)",
     "median(x)"
   )
-  output <- reprex(src = input, show = FALSE, opts_chunk = list(comment = "#!"))
+  output <-
+    reprex(input = input, show = FALSE, opts_chunk = list(comment = "#!"))
   output <- output[!grepl("^```", output)]
   expect_output(res <- reprex_clean(output, "^#!"))
   expect_identical(res, input)
@@ -20,7 +21,7 @@ test_that("round trip with simple code works, invert md, venue gh", {
     "y <- 2:5",
     "x + y"
   )
-  output <- reprex(src = input, show = FALSE)
+  output <- reprex(input = input, show = FALSE)
   expect_output(res <- reprex_invert(output))
   expect_identical(input, res)
 })
@@ -33,7 +34,7 @@ test_that("round trip with simple code works, invert md, venue so", {
     "y <- 2:5",
     "x + y"
   )
-  output <- reprex(src = input, venue = "so", show = FALSE)
+  output <- reprex(input = input, venue = "so", show = FALSE)
   expect_output(res <- reprex_invert(output, venue = "so"))
   expect_identical(input, res)
 })

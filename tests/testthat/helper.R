@@ -8,4 +8,3 @@ skip_if_no_clipboard <- function() {
   }
   return(invisible(TRUE))
 }
-

@@ -9,8 +9,7 @@ output:
 [![Travis-CI Build Status](https://travis-ci.org/jennybc/reprex.svg?branch=master)](https://travis-ci.org/jennybc/reprex) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jennybc/reprex?branch=master&svg=true)](https://ci.appveyor.com/project/jennybc/reprex) [![Project Status: Wip - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/0.1.0/wip.svg)](http://www.repostatus.org/#wip) [![](http://www.r-pkg.org/badges/version/reprex)](http://www.r-pkg.org/pkg/reprex) [![Coverage Status](https://img.shields.io/codecov/c/github/jennybc/reprex/master.svg)](https://codecov.io/github/jennybc/reprex?branch=master)
 
 ```{r include = FALSE}
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>",
-                      fig.path = "README-")
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.path = "README-")
 
 ## delete anything leftover from a previous aborted render
 leftovers <- list.files(pattern = "README-tmp", ignore.case = TRUE)
@@ -21,12 +20,12 @@ if (length(leftovers)) file.remove(leftovers)
 
 <a href="https://nypdecider.files.wordpress.com/2014/08/help-me-help-you.gif"> <img src="https://raw.githubusercontent.com/jennybc/reprex/master/img/help-me-help-you-still-500-c256.png" width="275" align="right"> </a>
 
-Prepare reproducible examples for posting to [GitHub issues](https://guides.github.com/features/issues/), [Stack Overflow](http://stackoverflow.com/questions/tagged/r), etc.
+Prepare reproducible examples for posting to [GitHub issues](https://guides.github.com/features/issues/), [StackOverflow](http://stackoverflow.com/questions/tagged/r), etc.
 
-  * Given R code on the clipboard, in a file, or as expression,
+  * Given R code on the clipboard, as an expression (quoted or not), or in a file ...
   * run it via `rmarkdown::render()`,
   * with deliberate choices re: arguments and setup chunk.
-  * Get resulting runnable code + output as markdown,
+  * Get resulting runnable code + output as Markdown,
   * formatted for target venue, e.g. `gh` or `so`,
   * on the clipboard and, optionally, in a file.
   * Preview an HTML version in RStudio viewer or default browser.
@@ -70,7 +69,8 @@ A nicely rendered HTML preview will display in RStudio's Viewer (if you're in RS
 The relevant bit of GitHub-flavored Markdown is ready to be pasted from your clipboard:
 
 ```{r asis = TRUE, echo = FALSE, comment = NA}
-md_content <- reprex(src = demo_code, outfile = "README-tmp_gh", show = FALSE)
+md_content <-
+  reprex(input = demo_code, outfile = "README-tmp_gh", show = FALSE)
 cat(md_content, sep = "\n")
 ```
 
@@ -83,12 +83,12 @@ Anyone else can copy, paste, and run this immediately.
 
 But wait, there's more!
 
-  * Set the target venue to Stack Overflow with `reprex(venue = "so")`.
+  * Set the target venue to StackOverflow with `reprex(venue = "so")`.
   * By default, figures are uploaded to [imgur.com](http://imgur.com) and resulting URL is dropped into an inline image tag.
   * Alternatives to clipboard input:
     - `reprex({(y <- 1:4); mean(y)})` gets code from expression
-    - `reprex(src = c("(y <- 1:4)", "mean(y)"))` gets code from character vector
-    - `reprex(infile = "my_reprex.R")` gets code from file
+    - `reprex(input = c("(y <- 1:4)", "mean(y)"))` gets code from character vector (detected via length or terminating newline)
+    - `reprex(input = "my_reprex.R")` gets code from file
   * Undo `reprex()` with `reprex_clean()` and `reprex_invert()`.
 
 ```{r include = FALSE}
@@ -129,7 +129,8 @@ demo_code <- c(
   "#' Here is some embedded prose, as a roxygen comment.",
   "mean(x)"
 )
-md_content <- reprex(src = demo_code, outfile = "README-tmp_gh", show = FALSE)
+md_content <-
+  reprex(input = demo_code, outfile = "README-tmp_gh", show = FALSE)
 ```
 
 ```{r asis = TRUE, echo = FALSE, comment = NA}
@@ -152,7 +153,7 @@ What is a `reprex`? It's a {repr}oducible {ex}ample. Coined by Romain Francois [
 
 Where and why are they used?
 
--   A Stack Overflow question that includes a proper reprex is [much more likely to get answered](http://stackoverflow.com/help/no-one-answers), by the most knowledgeable (and therefore busy!) people.
+-   A StackOverflow question that includes a proper reprex is [much more likely to get answered](http://stackoverflow.com/help/no-one-answers), by the most knowledgeable (and therefore busy!) people.
 -   A [GitHub issue](https://guides.github.com/features/issues/) that includes a proper reprex is more likely to achieve your goal: getting a bug fixed or getting a new feature, in a finite amount of time.
 
 What are the main requirements?

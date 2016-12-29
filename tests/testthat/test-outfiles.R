@@ -18,6 +18,6 @@ test_that("`.md` extension is stripped from outfile", {
 test_that(".R outfile doesn't clobber .R infile", {
   writeLines("1:5", "foo.R")
   on.exit(file.remove("foo.R", "foo-reprex.R", "foo-reprex.md"))
-  expect_message(ret <- reprex(infile = "foo.R", show = FALSE, outfile = "foo"),
+  expect_message(ret <- reprex(input = "foo.R", show = FALSE, outfile = "foo"),
                  "Writing output files to 'foo-reprex.*' to protect 'foo.R'.")
 })
