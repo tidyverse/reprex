@@ -13,7 +13,7 @@
 #' arguments.
 #'
 #' @export
-reprex_addin <- function() {
+reprex_addin <- function() { # nocov start
 
   dep_ok <- vapply(c("rstudioapi", "shiny", "miniUI", "shinyjs"),
                    requireNamespace, logical(1), quietly = TRUE)
@@ -101,4 +101,4 @@ reprex_addin <- function() {
 
   shiny::runGadget(ui, server, viewer = shiny::dialogViewer("Render reprex"))
 
-}
+} # nocov end
