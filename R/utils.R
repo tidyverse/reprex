@@ -60,3 +60,10 @@ add_ext <- function(x, ext = "R", force = FALSE) {
     x
   }
 }
+
+newlined <- function(x) {
+  if (!grepl("\n$", x[[length(x)]])) {
+    x[[length(x)]] <- paste0(x[[length(x)]], "\n")
+  }
+  x
+}

@@ -17,12 +17,12 @@ reprex
 
 <a href="https://nypdecider.files.wordpress.com/2014/08/help-me-help-you.gif"> <img src="https://raw.githubusercontent.com/jennybc/reprex/master/img/help-me-help-you-still-500-c256.png" width="275" align="right"> </a>
 
-Prepare reproducible examples for posting to [GitHub issues](https://guides.github.com/features/issues/), [Stack Overflow](http://stackoverflow.com/questions/tagged/r), etc.
+Prepare reproducible examples for posting to [GitHub issues](https://guides.github.com/features/issues/), [StackOverflow](http://stackoverflow.com/questions/tagged/r), etc.
 
--   Given R code on the clipboard, in a file, or as expression,
+-   Given R code on the clipboard, as an expression (quoted or not), or in a file ...
 -   run it via `rmarkdown::render()`,
 -   with deliberate choices re: arguments and setup chunk.
--   Get resulting runnable code + output as markdown,
+-   Get resulting runnable code + output as Markdown,
 -   formatted for target venue, e.g. `gh` or `so`,
 -   on the clipboard and, optionally, in a file.
 -   Preview an HTML version in RStudio viewer or default browser.
@@ -75,12 +75,12 @@ Anyone else can copy, paste, and run this immediately.
 
 But wait, there's more!
 
--   Set the target venue to Stack Overflow with `reprex(venue = "so")`.
+-   Set the target venue to StackOverflow with `reprex(venue = "so")`.
 -   By default, figures are uploaded to [imgur.com](http://imgur.com) and resulting URL is dropped into an inline image tag.
 -   Alternatives to clipboard input:
     -   `reprex({(y <- 1:4); mean(y)})` gets code from expression
-    -   `reprex(src = c("(y <- 1:4)", "mean(y)"))` gets code from character vector
-    -   `reprex(infile = "my_reprex.R")` gets code from file
+    -   `reprex(input = c("(y <- 1:4)", "mean(y)"))` gets code from character vector (detected via length or terminating newline)
+    -   `reprex(input = "my_reprex.R")` gets code from file
 -   Undo `reprex()` with `reprex_clean()` and `reprex_invert()`.
 
 More control
@@ -134,7 +134,7 @@ What is a `reprex`? It's a {repr}oducible {ex}ample. Coined by Romain Francois [
 
 Where and why are they used?
 
--   A Stack Overflow question that includes a proper reprex is [much more likely to get answered](http://stackoverflow.com/help/no-one-answers), by the most knowledgeable (and therefore busy!) people.
+-   A StackOverflow question that includes a proper reprex is [much more likely to get answered](http://stackoverflow.com/help/no-one-answers), by the most knowledgeable (and therefore busy!) people.
 -   A [GitHub issue](https://guides.github.com/features/issues/) that includes a proper reprex is more likely to achieve your goal: getting a bug fixed or getting a new feature, in a finite amount of time.
 
 What are the main requirements?

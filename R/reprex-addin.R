@@ -70,10 +70,12 @@ reprex_addin <- function() {
       reprex_input <- shiny::reactive({
         switch(
           input$source,
-          cur_sel = list(src = rstudioapi::primary_selection(context)[["text"]]),
-          cur_file = list(src = context$contents),
+          cur_sel = list(input = newlined(
+            rstudioapi::primary_selection(context)[["text"]]
+            )),
+          cur_file = list(input = newlined(context$contents)),
           ## TODO: figure out how to get a file selection dialog
-          infile = list(src = "mean(rnorm(10))")
+          infile = list(input = "mean(rnorm(10))\n")
         )
       })
 

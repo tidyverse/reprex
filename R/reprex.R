@@ -1,10 +1,10 @@
 #' Render a reprex
 #'
-#' Given some R code on the clipboard, in an expression, in a character vector,
-#' or in a file, this function runs it via \code{\link[rmarkdown]{render}}. The
-#' resulting bit of Markdown is the primary output. It is ready and waiting on
-#' the clipboard, for pasting into a GitHub issue, for example. Optionally, the
-#' R code and Markdown are left behind in files. An HTML preview displays in
+#' Given some R code on the clipboard or in an expression, character vector,
+#' string, or file, this function runs it via \code{\link[rmarkdown]{render}()}.
+#' The resulting bit of Markdown is the primary output. It is ready and waiting
+#' on the clipboard, for pasting into a GitHub issue, for example. Optionally,
+#' the R code and Markdown are left behind in files. An HTML preview displays in
 #' RStudio's Viewer pane, if available, or in the default browser otherwise.
 #'
 #' reprex sets specific \href{http://yihui.name/knitr/options/}{knitr options},
@@ -23,16 +23,18 @@
 #' produced by the reprex appear properly on GitHub.
 #' }
 #'
-#' @param x An expression. If not given, \code{reprex} looks for code in
-#'   \code{src}, \code{infile}, and, eventually, on the clipboard.
-#' @param venue "gh" for GitHub (default) or "so" for stackoverflow.
+#' @param x An expression. If not given, \code{reprex()} looks for code in
+#'   \code{input} or on the clipboard, in that order.
+#' @param venue "gh" for GitHub (default) or "so" for StackOverflow.
 #' @param si Whether to include the results of
-#'   \code{\link[devtools]{session_info}}, if available, or
-#'   \code{\link{sessionInfo}} at the end of the reprex. When \code{venue =
+#'   \code{\link[devtools]{session_info}()}, if available, or
+#'   \code{\link{sessionInfo}()} at the end of the reprex. When \code{venue =
 #'   "gh"} (the default), session info is wrapped in a collapsible details tag.
 #' @param show Whether to show rendered output in a viewer (RStudio or browser).
-#' @param src Character vector holding lines of reprex code.
-#' @param infile Path to \code{.R} file containing reprex code.
+#' @param input Character. If has length one and lacks a terminating newline,
+#'   interpreted as the path to a file containing reprex code. Otherwise assumed
+#'   to hold reprex code as character vector (length greater than one) or string
+#'   (with embedded newlines).
 #' @param outfile Desired basename for output \code{.R}, \code{.md}, and
 #'   \code{.html} files for reproducible example, all written to current
 #'   working directory. Any existing \code{.md} extension is stripped to get a
@@ -61,10 +63,13 @@
 #' })
 #'
 #' ## provide code via character vector
-#' reprex(src = c("x <- 1:4", "y <- 2:5", "x + y"))
+#' reprex(input = c("x <- 1:4", "y <- 2:5", "x + y"))
+#'
+#' ## if just one line, terminate with '\n'
+#' reprex(input = "rnorm(3)\n")
 #'
 #' # how to override a default chunk option
-#' reprex({y <- 1:4; mean(y)}, opts_chunk = list(comment = "#;-)"))
+#' reprex({y <- 1:4; median(y)}, opts_chunk = list(comment = "#;-)"))
 #' # the above is simply shorthand for this and produces same result
 #' reprex({
 #'   #+ setup, include = FALSE
@@ -87,7 +92,7 @@
 #'
 #' # read reprex from file
 #' writeLines(c("x <- 1:4", "mean(x)"), "foofy.R")
-#' reprex(infile = "foofy.R")
+#' reprex(input = "foofy.R")
 #' file.remove("foofy.R")
 #'
 #' # write rendered reprex to file
@@ -104,7 +109,7 @@
 #' @export
 reprex <- function(
   x = NULL, venue = c("gh", "so"), si = FALSE, show = TRUE,
-  src = NULL, infile = NULL, outfile = NULL,
+  input = NULL, outfile = NULL,
   opts_chunk = NULL, opts_knit = NULL) {
 
   venue <- match.arg(venue)
@@ -117,24 +122,27 @@ reprex <- function(
   x_captured <- substitute(x)
   expr_input <- !is.null(x_captured)
   if (expr_input) {
-    if (!is.null(infile) || !is.null(src)) {
-      message("`src` and/or `infile` ignored in favor of expression input in `x`.")
+    if (!is.null(input)) {
+      message("`input` ignored in favor of expression input in `x`.")
     }
     the_source <- stringify_expression(x_captured)
   }
 
-  the_source <- the_source %||% src
-  if (is.null(the_source)) {
-    if (is.null(infile)) {
-      if (clipboard_available()) {
-        suppressWarnings(the_source <- clipr::read_clip())
-      } else {
-        message("No input provided via `x`, `src`, or `infile` and ",
-                "clipboard is not available.")
-        the_source <- character()
-      }
+  if (is.null(the_source) && is.null(input)) {
+    if (clipboard_available()) {
+      suppressWarnings(the_source <- clipr::read_clip())
     } else {
-      the_source <- readLines(infile)
+      message("No input provided via `x` or `input` and ",
+              "clipboard is not available.")
+      the_source <- character()
+    }
+  }
+
+  if (is.null(the_source)) {
+    if (length(input) > 1 || grepl("\n$", input)) {
+      the_source <- unlist(strsplit(input, "\n"))
+    } else {
+      the_source <- readLines(input)
     }
   }
 

@@ -10,7 +10,7 @@ reprex_invert(x = NULL, venue = c("gh", "so"), comment = "^#>")
 \item{x}{character, holding the lines of a rendered or displayed reprex. If
 not provided, the clipboard is consulted for input.}
 
-\item{venue}{"gh" for GitHub (default) or "so" for stackoverflow.}
+\item{venue}{"gh" for GitHub (default) or "so" for StackOverflow.}
 
 \item{comment}{regular expression that matches commented output lines}
 }
@@ -22,7 +22,7 @@ Recover the input of \code{\link{reprex}()} from its output, at least
 approximately. Make sure to specify the same venue, because code chunks are
 handled differently. In GitHub-flavored Markdown, code blocks are placed
 within triple backticks, whereas they are indented by four spaces in other
-Markdown dialects, such as the one used on stackoverflow.
+Markdown dialects, such as the one used on StackOverflow.
 }
 \examples{
 x <- reprex({
