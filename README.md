@@ -82,6 +82,7 @@ But wait, there's more!
     -   `reprex(input = c("(y <- 1:4)", "mean(y)"))` gets code from character vector (detected via length or terminating newline)
     -   `reprex(input = "my_reprex.R")` gets code from file
 -   Undo `reprex()` with `reprex_clean()` and `reprex_invert()`.
+-   In RStudio, `reprex()` can be called from the "Render reprex" addin.
 
 More control
 ------------
