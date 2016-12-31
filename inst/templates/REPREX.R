@@ -23,3 +23,19 @@ knitr::opts_chunk$set(tidy = TRUE, tidy.opts = list(indent = 2))
 {{/chunk_tidy}}
 
 #+ reprex-body
+{{{body}}}
+
+{{#si}}
+{{#gh}}
+#'<details><summary>Session info</summary>
+{{/gh}}
+{{#devtools}}
+devtools::session_info()
+{{/devtools}}
+{{^devtools}}
+sessionInfo()
+{{/devtools}}
+{{#gh}}
+#'</details>
+{{/gh}}
+{{/si}}

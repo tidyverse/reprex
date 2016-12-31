@@ -6,7 +6,7 @@ test_that("reprex is written to outfile", {
   ret <- reprex("1:5", show = FALSE, outfile = "foo")
   on.exit(file.remove("foo.R", "foo.md"))
   expect_identical(ret, readLines("foo.md"))
-  expect_match(tail(readLines("foo.R"), 1), "\"1:5\"")
+  expect_match(readLines("foo.R"), "\"1:5\"", all = FALSE)
 })
 
 test_that("`.md` extension is stripped from outfile", {

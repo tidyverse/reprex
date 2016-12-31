@@ -155,26 +155,6 @@ reprex <- function(
     }
   }
 
-  the_source <- ensure_not_empty(the_source)
-  the_source <- ensure_not_dogfood(the_source)
-
-  ## decorate and clean up source
-  if (isTRUE(si)) {
-    the_source <- add_si(the_source, venue = venue)
-  }
-  opts_chunk <- prep_opts(substitute(opts_chunk), which = "chunk")
-  opts_knit <- prep_opts(substitute(opts_knit), which = "knit")
-  chunk_tidy <- prep_tidy(expr_input)
-  the_source <-
-    add_header(the_source,
-               data = list(so = identical(venue, "so"),
-                           gh = identical(venue, "gh"),
-                           comment = comment,
-                           user_opts_chunk = opts_chunk,
-                           user_opts_knit = opts_knit,
-                           chunk_tidy = chunk_tidy))
-
-  ## write source to .R file
   r_file <- strip_ext(outfile) %||% tempfile()
   r_file <- add_ext(r_file)
   if (file.exists(r_file)) {
@@ -183,13 +163,29 @@ reprex <- function(
             " to protect '", basename(r_file), "'.")
     r_file <- gsub("\\.R$", "-reprex.R", r_file)
   }
+
+  the_source <- ensure_not_empty(the_source)
+  the_source <- ensure_not_dogfood(the_source)
+  opts_chunk <- prep_opts(substitute(opts_chunk), which = "chunk")
+  opts_knit <- prep_opts(substitute(opts_knit), which = "knit")
+  the_source <-
+    apply_template(list(
+      so = identical(venue, "so"),
+      gh = identical(venue, "gh"),
+      si = isTRUE(si),
+      devtools = requireNamespace("devtools", quietly = TRUE),
+      comment = comment,
+      user_opts_chunk = opts_chunk,
+      user_opts_knit = opts_knit,
+      chunk_tidy = prep_tidy(expr_input),
+      body = paste(the_source, collapse = "\n")
+    ))
+
   writeLines(the_source, r_file)
   r_file <- normalizePath(r_file)
 
-  ## render to .md file
   md_file <- reprex_(r_file)
 
-  ## put output on clipboard
   output_lines <- readLines(md_file)
   if (clipboard_available()) {
     clipr::write_clip(output_lines)
