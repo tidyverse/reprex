@@ -5,7 +5,8 @@
 \title{Render a reprex}
 \usage{
 reprex(x = NULL, venue = c("gh", "so"), si = FALSE, show = TRUE,
-  input = NULL, outfile = NULL, opts_chunk = NULL, opts_knit = NULL)
+  input = NULL, outfile = NULL, comment = "#>", opts_chunk = NULL,
+  opts_knit = NULL)
 }
 \arguments{
 \item{x}{An expression. If not given, \code{reprex()} looks for code in
@@ -31,6 +32,9 @@ working directory. Any existing \code{.md} extension is stripped to get a
 file basename. If \code{NULL}, reprex writes to temp files below the
 session temp directory.}
 
+\item{comment}{character. Prefix with which to comment out output, defaults
+to \code{"#>"}.}
+
 \item{opts_chunk, opts_knit}{Named list. Optional
 \href{http://yihui.name/knitr/options/}{knitr chunk and package options},
 respectively, to supplement or override reprex defaults. See Details.}
@@ -48,16 +52,17 @@ reprex" addin}.
 \details{
 reprex sets specific \href{http://yihui.name/knitr/options/}{knitr options},
 which you can supplement or override via the \code{opts_chunk} and
-\code{opts_knit} arguments or via explicit calls to knitr in your reprex
-code (see examples).
+\code{opts_knit} arguments or via explicit calls to knitr in your reprex code
+(see examples). If all you want to override is the \code{comment} option, use
+the dedicated argument, e.g.\code{commment = "#;-)"}.
 
 \itemize{
-\item Chunk options: \code{collapse = TRUE}, \code{comment = '#>'},
+\item Chunk options default to \code{collapse = TRUE}, \code{comment = "#>"},
 \code{error = TRUE}. These are options you normally set via
 \code{knitr::opts_chunk$set()}. Note that \code{error = TRUE} because a
 common use case is bug reporting.
-\item Package options: \code{upload.fun = knitr::imgur_upload}. These are
-options you normally set via \code{knitr::opts_knit$set()}. The
+\item Package options default to \code{upload.fun = knitr::imgur_upload}.
+These are options you normally set via \code{knitr::opts_knit$set()}. The
 \code{upload.fun} defaults to \code{\link[knitr]{imgur_upload}} so figures
 produced by the reprex appear properly on GitHub.
 }
@@ -69,7 +74,8 @@ produced by the reprex appear properly on GitHub.
 # mean(y)
 reprex()
 
-# or provide it as code in brackets, i.e. as an expression:
+# provide code as an expression
+reprex(rbinom(3, size = 10, prob = 0.5))
 reprex({y <- 1:4; mean(y)})
 
 # note that you can include newlines in those brackets
@@ -86,19 +92,22 @@ reprex(input = c("x <- 1:4", "y <- 2:5", "x + y"))
 ## if just one line, terminate with '\\n'
 reprex(input = "rnorm(3)\\n")
 
-# how to override a default chunk option
-reprex({y <- 1:4; median(y)}, opts_chunk = list(comment = "#;-)"))
+## customize the output comment prefix
+reprex(rbinom(3, size = 10, prob = 0.5), comment = "#;-)")
+
+# override a default chunk option, in general
+reprex({y <- 1:4; median(y)}, opts_chunk = list(collapse = FALSE))
 # the above is simply shorthand for this and produces same result
 reprex({
   #+ setup, include = FALSE
-  knitr::opts_chunk$set(comment = '#;-)')
+  knitr::opts_chunk$set(collapse = FALSE)
 
   #+ actual-reprex-code
   y <- 1:4
-  mean(y)
+  median(y)
 })
 
-# how to add some prose and use general markdown formatting
+# add prose, use general markdown formatting
 reprex({
   #' # A Big Heading
   #'
