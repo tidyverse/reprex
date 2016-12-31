@@ -1,5 +1,5 @@
-add_header <- function(x, data) {
-  if (grepl("reprex-header", x[1])) {
+add_header <- function(x, data = NULL) {
+  if (any(grepl("#+ reprex-setup", x, fixed = TRUE))) {
     return(x)
   }
   HEADER <- read_from_template("HEADER")

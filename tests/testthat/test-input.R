@@ -27,7 +27,8 @@ test_that("file input works", {
 })
 
 test_that("Circular use is detected before render", {
-  on.exit(file.remove(c("foo.R", "foo.md")))
-  ret <- reprex(y <- 2, outfile = "foo", show = FALSE)
-  expect_error(reprex(input = "foo.md", show = FALSE), "isn't valid R code")
+  ret <- reprex(y <- 2, venue = "gh", show = FALSE)
+  expect_error(reprex(input = ret, show = FALSE), "isn't valid R code")
+  ret <- reprex(y <- 2, venue = "so", show = FALSE)
+  expect_error(reprex(input = ret, show = FALSE), "isn't valid R code")
 })
