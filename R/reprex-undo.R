@@ -1,19 +1,22 @@
-#' Delete commented output from a reprex
+#' Un-render a reprex
 #'
-#' Cleans commented output out of a displayed reprex, such as code copied from a
-#' GitHub issue. The clean reprex code is printed, returned invisibly, and
+#' Recover the input of \code{\link{reprex}()} from its output, at least
+#' approximately. The clean reprex code is printed, returned invisibly, and
 #' written to the clipboard, if possible.
 #'
-#' @param x character, holding the lines of a rendered or displayed reprex. If
+#' @param x character, holding the lines of a displayed or rendered reprex. If
 #'   not provided, the clipboard is consulted for input.
 #' @param comment regular expression that matches commented output lines
 #'
 #' @return character vector holding just the clean R code, invisibly
-#' @seealso \code{\link{reprex_invert}()} if the input is actual Markdown, i.e.
-#'   the direct output of \code{\link{reprex}()}.
+#' @name un-reprex
+NULL
+
+#' @describeIn un-reprex Removes lines of commented output from a displayed
+#'   reprex, such as code copied from a GitHub issue.
 #' @export
-#'
 #' @examples
+#' ## a displayed reprex can be cleaned of commented output
 #' x <- c(
 #'   "## a regular comment, which is retained",
 #'   "(x <- 1:4)",
@@ -26,22 +29,16 @@ reprex_clean <- function(x = NULL, comment = "^#>") {
   reprex_undo(x, comment = comment, is_md = FALSE)
 }
 
-#' Un-render a reprex
-#'
-#' Recover the input of \code{\link{reprex}()} from its output, at least
-#' approximately. Make sure to specify the same venue, because code chunks are
-#' handled differently. In GitHub-flavored Markdown, code blocks are placed
-#' within triple backticks, whereas they are indented by four spaces in other
-#' Markdown dialects, such as the one used on StackOverflow.
-#'
-#' @inherit reprex_clean
+#' @describeIn un-reprex Attempts to reverse the effect of
+#'   \code{\link{reprex}()}. The input should be Markdown, presumably the output
+#'   of \code{\link{reprex}()}. \code{venue} matters because, in GitHub-flavored
+#'   Markdown, code blocks are placed within triple backticks. In other Markdown
+#'   dialects, such as the one used on StackOverflow, code is indented by four
+#'   spaces.
 #' @param venue "gh" for GitHub (default) or "so" for StackOverflow.
-#'
-#' @seealso \code{\link{reprex_clean}()} if the input is not Markdown, i.e. if
-#'   it's just a rendered code chunk copied from a GitHub issue.
 #' @export
-#'
 #' @examples
+#' ## a rendered reprex can be inverted, at least approximately
 #' x <- reprex({
 #'   #' Some text
 #'   #+ chunk-label-and-options-cannot-be-recovered, message = TRUE
