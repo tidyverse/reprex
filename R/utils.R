@@ -46,6 +46,10 @@ strip_ext <- function(x, ext = "md") {
   }
 }
 
+add_suffix <- function(x, suffix = "") {
+  paste(x, suffix, sep = "_")
+}
+
 add_ext <- function(x, ext = "R", force = FALSE) {
   lacks_ext <- !grepl(ext, tools::file_ext(x), ignore.case = TRUE)
   if (lacks_ext || force) {

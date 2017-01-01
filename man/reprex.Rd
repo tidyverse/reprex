@@ -26,10 +26,10 @@ interpreted as the path to a file containing reprex code. Otherwise assumed
 to hold reprex code as character vector (length greater than one) or string
 (with embedded newlines).}
 
-\item{outfile}{Desired basename for output \code{.R}, \code{.md}, and
-\code{.html} files for reproducible example, all written to current
-working directory. Any existing \code{.md} extension is stripped to get a
-file basename. If \code{NULL}, reprex writes to temp files below the
+\item{outfile}{Desired basename for output files. If \code{outfile = "foo"},
+expect output files like \code{foo_reprex.R}, \code{foo_reprex.md}, and
+\code{foo_reprex.html}. Any existing \code{.md} extension is stripped to
+get a file basename. If \code{NULL}, reprex writes to temp files below the
 session temp directory.}
 
 \item{comment}{character. Prefix with which to comment out output, defaults
@@ -39,15 +39,17 @@ to \code{"#>"}.}
 \href{http://yihui.name/knitr/options/}{knitr chunk and package options},
 respectively, to supplement or override reprex defaults. See Details.}
 }
+\value{
+Character vector of rendered reprex, invisibly.
+}
 \description{
-Given some R code on the clipboard or in an expression, character vector,
-string, or file, this function runs it via \code{\link[rmarkdown]{render}()}.
-The resulting bit of Markdown is the primary output. It is ready and waiting
-on the clipboard, for pasting into a GitHub issue, for example. Optionally,
-the R code and Markdown are left behind in files. An HTML preview displays in
-RStudio's Viewer pane, if available, or in the default browser otherwise. In
-RStudio, \code{reprex()} can be called from the \link[=reprex_addin]{"Render
-reprex" addin}.
+Run a bit of R code using \code{\link[rmarkdown]{render}()}. Source can be on
+the clipboard, read from file, or provided as expression, character vector,
+or string. The resulting Markdown is the primary output. It is returned
+invisibly and is also placed on the clipboard, ready to paste into a GitHub
+issue, for example. An HTML preview displays in RStudio's Viewer pane, if
+available, or in the default browser otherwise. In RStudio, \code{reprex()}
+can be called from the \link[=reprex_addin]{"Render reprex" addin}.
 }
 \details{
 reprex sets specific \href{http://yihui.name/knitr/options/}{knitr options},
@@ -96,14 +98,14 @@ reprex(input = "rnorm(3)\\n")
 reprex(rbinom(3, size = 10, prob = 0.5), comment = "#;-)")
 
 # override a default chunk option, in general
-reprex({y <- 1:4; median(y)}, opts_chunk = list(collapse = FALSE))
+reprex({(y <- 1:4); median(y)}, opts_chunk = list(collapse = FALSE))
 # the above is simply shorthand for this and produces same result
 reprex({
   #+ setup, include = FALSE
   knitr::opts_chunk$set(collapse = FALSE)
 
   #+ actual-reprex-code
-  y <- 1:4
+  (y <- 1:4)
   median(y)
 })
 
