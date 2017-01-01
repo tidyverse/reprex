@@ -46,7 +46,8 @@ reprex_addin <- function() { # nocov start
         "venue",
         "Target venue:",
         c("GitHub" = "gh",
-          "StackOverflow" = "so")
+          "StackOverflow" = "so",
+          "R script" = "r")
       ),
       shiny::tags$hr(),
       shiny::checkboxInput(

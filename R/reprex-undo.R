@@ -13,7 +13,8 @@
 NULL
 
 #' @describeIn un-reprex Removes lines of commented output from a displayed
-#'   reprex, such as code copied from a GitHub issue.
+#'   reprex, such as code copied from a GitHub issue or \code{reprex}'ed with
+#'   \code{venue = "R"}.
 #' @export
 #' @examples
 #' ## a displayed reprex can be cleaned of commented output
@@ -25,6 +26,15 @@ NULL
 #'   "#> [1] 2.5"
 #'   )
 #' reprex_clean(x)
+#'
+#' \dontrun{
+#' ## round trip with reprex(..., venue = "R")
+#' code_in <- c("x <- rnorm(2)", "min(x)")
+#' res <- reprex(input = code_in, venue = "R")
+#' res
+#' (code_out <- reprex_clean(res))
+#' identical(code_in, code_out)
+#' }
 reprex_clean <- function(x = NULL, comment = "^#>") {
   reprex_undo(x, comment = comment, is_md = FALSE)
 }
@@ -35,7 +45,7 @@ reprex_clean <- function(x = NULL, comment = "^#>") {
 #'   Markdown, code blocks are placed within triple backticks. In other Markdown
 #'   dialects, such as the one used on StackOverflow, code is indented by four
 #'   spaces.
-#' @param venue "gh" for GitHub (default) or "so" for StackOverflow.
+#' @template venue
 #' @export
 #' @examples
 #' ## a rendered reprex can be inverted, at least approximately

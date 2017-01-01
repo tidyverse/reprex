@@ -37,9 +37,9 @@ clipboard_available <- function() {
   FALSE
 }
 
-strip_ext <- function(x, ext = "md") {
+strip_ext <- function(x, ext = "md|r|html") {
   if (is.null(x)) return(NULL)
-  if (grepl(ext, tools::file_ext(x))) {
+  if (grepl(ext, tolower(tools::file_ext(x)))) {
     tools::file_path_sans_ext(x)
   } else {
     x
@@ -51,7 +51,7 @@ add_suffix <- function(x, suffix = "") {
 }
 
 add_ext <- function(x, ext = "R", force = FALSE) {
-  lacks_ext <- !grepl(ext, tools::file_ext(x), ignore.case = TRUE)
+  lacks_ext <- !grepl(ext, toupper(tools::file_ext(x)))
   if (lacks_ext || force) {
     paste(x, ext, sep = ".")
   } else {

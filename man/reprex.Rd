@@ -4,36 +4,35 @@
 \alias{reprex}
 \title{Render a reprex}
 \usage{
-reprex(x = NULL, venue = c("gh", "so"), si = FALSE, show = TRUE,
-  input = NULL, outfile = NULL, comment = "#>", opts_chunk = NULL,
-  opts_knit = NULL)
+reprex(x = NULL, venue = c("gh", "so", "r", "R"), si = FALSE,
+  show = TRUE, input = NULL, outfile = NULL, comment = "#>",
+  opts_chunk = NULL, opts_knit = NULL)
 }
 \arguments{
 \item{x}{An expression. If not given, \code{reprex()} looks for code in
 \code{input} or on the clipboard, in that order.}
 
-\item{venue}{"gh" for GitHub (default) or "so" for StackOverflow.}
+\item{venue}{"gh" for GitHub (default), "so" for StackOverflow, "r" or "R"
+for a runnable R script, with commented output interleaved.}
 
 \item{si}{Whether to include the results of
 \code{\link[devtools]{session_info}()}, if available, or
 \code{\link{sessionInfo}()} at the end of the reprex. When \code{venue =
 "gh"} (the default), session info is wrapped in a collapsible details tag.}
 
-\item{show}{Whether to show rendered output in a viewer (RStudio or browser).}
+\item{show}{Whether to show rendered output in a viewer (RStudio or browser).
+Defaults to \code{TRUE}.}
 
 \item{input}{Character. If has length one and lacks a terminating newline,
-interpreted as the path to a file containing reprex code. Otherwise assumed
-to hold reprex code as character vector (length greater than one) or string
-(with embedded newlines).}
+interpreted as the path to a file containing reprex code. Otherwise,
+assumed to hold reprex code as character vector (length greater than one)
+or string (with embedded newlines).}
 
-\item{outfile}{Desired basename for output files. If \code{outfile = "foo"},
-expect output files like \code{foo_reprex.R}, \code{foo_reprex.md}, and
-\code{foo_reprex.html}. Any existing \code{.md} extension is stripped to
-get a file basename. If \code{NULL}, reprex writes to temp files below the
-session temp directory.}
-
-\item{comment}{character. Prefix with which to comment out output, defaults
-to \code{"#>"}.}
+\item{outfile}{Optional basename for output files. When \code{NULL}
+(default), reprex writes to temp files below the session temp directory. If
+\code{outfile = "foo"}, expect output files in current working directory,
+like \code{foo_reprex.R}, \code{foo_reprex.md}, \code{foo_reprex.html},
+and, if \code{venue = "R"}, \code{foo_rendered.R}.}
 
 \item{opts_chunk, opts_knit}{Named list. Optional
 \href{http://yihui.name/knitr/options/}{knitr chunk and package options},
@@ -43,13 +42,19 @@ respectively, to supplement or override reprex defaults. See Details.}
 Character vector of rendered reprex, invisibly.
 }
 \description{
-Run a bit of R code using \code{\link[rmarkdown]{render}()}. Source can be on
-the clipboard, read from file, or provided as expression, character vector,
-or string. The resulting Markdown is the primary output. It is returned
-invisibly and is also placed on the clipboard, ready to paste into a GitHub
-issue, for example. An HTML preview displays in RStudio's Viewer pane, if
-available, or in the default browser otherwise. In RStudio, \code{reprex()}
-can be called from the \link[=reprex_addin]{"Render reprex" addin}.
+Run a bit of R code using \code{\link[rmarkdown]{render}()}. The goal is to
+make it easy to share a small reproducible example ("reprex"), e.g., in a
+GitHub issue. Reprex source can be
+\itemize{
+\item read from clipboard
+\item read from current selection or active document
+(\link[=reprex_addin]{"Render reprex" RStudio addin})
+\item provided directly as expression, character vector, or string
+\item read from file
+}
+The usual "code + commented output" is returned invisibly, put on the
+clipboard, and written to file. An HTML preview displays in RStudio's Viewer
+pane, if available, or in the default browser, otherwise.
 }
 \details{
 reprex sets specific \href{http://yihui.name/knitr/options/}{knitr options},
@@ -61,7 +66,7 @@ the dedicated argument, e.g.\code{commment = "#;-)"}.
 \itemize{
 \item Chunk options default to \code{collapse = TRUE}, \code{comment = "#>"},
 \code{error = TRUE}. These are options you normally set via
-\code{knitr::opts_chunk$set()}. Note that \code{error = TRUE} because a
+\code{knitr::opts_chunk$set()}. Note that \code{error = TRUE}, because a
 common use case is bug reporting.
 \item Package options default to \code{upload.fun = knitr::imgur_upload}.
 These are options you normally set via \code{knitr::opts_knit$set()}. The
@@ -132,6 +137,23 @@ reprex({
 }, outfile = "foofy")
 list.files(pattern = "foofy")
 file.remove(list.files(pattern = "foofy"))
+
+## target venue = StackOverflow
+## http://stackoverflow.com/editing-help
+ret <- reprex({
+  x <- 1:4
+  y <- 2:5
+  x + y
+}, venue = "so")
+ret
+
+## target venue = R, also good for email or Slack snippets
+ret <- reprex({
+  x <- 1:4
+  y <- 2:5
+  x + y
+}, venue = "R")
+ret
 }
 
 }

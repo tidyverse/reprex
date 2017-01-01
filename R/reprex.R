@@ -1,12 +1,18 @@
 #' Render a reprex
 #'
-#' Run a bit of R code using \code{\link[rmarkdown]{render}()}. Source can be on
-#' the clipboard, read from file, or provided as expression, character vector,
-#' or string. The resulting Markdown is the primary output. It is returned
-#' invisibly and is also placed on the clipboard, ready to paste into a GitHub
-#' issue, for example. An HTML preview displays in RStudio's Viewer pane, if
-#' available, or in the default browser otherwise. In RStudio, \code{reprex()}
-#' can be called from the \link[=reprex_addin]{"Render reprex" addin}.
+#' Run a bit of R code using \code{\link[rmarkdown]{render}()}. The goal is to
+#' make it easy to share a small reproducible example ("reprex"), e.g., in a
+#' GitHub issue. Reprex source can be
+#' \itemize{
+#' \item read from clipboard
+#' \item read from current selection or active document
+#' (\link[=reprex_addin]{"Render reprex" RStudio addin})
+#' \item provided directly as expression, character vector, or string
+#' \item read from file
+#' }
+#' The usual "code + commented output" is returned invisibly, put on the
+#' clipboard, and written to file. An HTML preview displays in RStudio's Viewer
+#' pane, if available, or in the default browser, otherwise.
 #'
 #' reprex sets specific \href{http://yihui.name/knitr/options/}{knitr options},
 #' which you can supplement or override via the \code{opts_chunk} and
@@ -17,7 +23,7 @@
 #' \itemize{
 #' \item Chunk options default to \code{collapse = TRUE}, \code{comment = "#>"},
 #' \code{error = TRUE}. These are options you normally set via
-#' \code{knitr::opts_chunk$set()}. Note that \code{error = TRUE} because a
+#' \code{knitr::opts_chunk$set()}. Note that \code{error = TRUE}, because a
 #' common use case is bug reporting.
 #' \item Package options default to \code{upload.fun = knitr::imgur_upload}.
 #' These are options you normally set via \code{knitr::opts_knit$set()}. The
@@ -27,23 +33,22 @@
 #'
 #' @param x An expression. If not given, \code{reprex()} looks for code in
 #'   \code{input} or on the clipboard, in that order.
-#' @param venue "gh" for GitHub (default) or "so" for StackOverflow.
+#' @template venue
 #' @param si Whether to include the results of
 #'   \code{\link[devtools]{session_info}()}, if available, or
 #'   \code{\link{sessionInfo}()} at the end of the reprex. When \code{venue =
 #'   "gh"} (the default), session info is wrapped in a collapsible details tag.
 #' @param show Whether to show rendered output in a viewer (RStudio or browser).
+#'   Defaults to \code{TRUE}.
 #' @param input Character. If has length one and lacks a terminating newline,
-#'   interpreted as the path to a file containing reprex code. Otherwise assumed
-#'   to hold reprex code as character vector (length greater than one) or string
-#'   (with embedded newlines).
-#' @param outfile Desired basename for output files. If \code{outfile = "foo"},
-#'   expect output files like \code{foo_reprex.R}, \code{foo_reprex.md}, and
-#'   \code{foo_reprex.html}. Any existing \code{.md} extension is stripped to
-#'   get a file basename. If \code{NULL}, reprex writes to temp files below the
-#'   session temp directory.
-#' @param comment character. Prefix with which to comment out output, defaults
-#'   to \code{"#>"}.
+#'   interpreted as the path to a file containing reprex code. Otherwise,
+#'   assumed to hold reprex code as character vector (length greater than one)
+#'   or string (with embedded newlines).
+#' @param outfile Optional basename for output files. When \code{NULL}
+#'   (default), reprex writes to temp files below the session temp directory. If
+#'   \code{outfile = "foo"}, expect output files in current working directory,
+#'   like \code{foo_reprex.R}, \code{foo_reprex.md}, \code{foo_reprex.html},
+#'   and, if \code{venue = "R"}, \code{foo_rendered.R}.
 #' @param opts_chunk,opts_knit Named list. Optional
 #'   \href{http://yihui.name/knitr/options/}{knitr chunk and package options},
 #'   respectively, to supplement or override reprex defaults. See Details.
@@ -112,16 +117,33 @@
 #' }, outfile = "foofy")
 #' list.files(pattern = "foofy")
 #' file.remove(list.files(pattern = "foofy"))
+#'
+#' ## target venue = StackOverflow
+#' ## http://stackoverflow.com/editing-help
+#' ret <- reprex({
+#'   x <- 1:4
+#'   y <- 2:5
+#'   x + y
+#' }, venue = "so")
+#' ret
+#'
+#' ## target venue = R, also good for email or Slack snippets
+#' ret <- reprex({
+#'   x <- 1:4
+#'   y <- 2:5
+#'   x + y
+#' }, venue = "R")
+#' ret
 #' }
 #'
 #' @importFrom knitr opts_chunk
 #' @export
 reprex <- function(
-  x = NULL, venue = c("gh", "so"), si = FALSE, show = TRUE,
+  x = NULL, venue = c("gh", "so", "r", "R"), si = FALSE, show = TRUE,
   input = NULL, outfile = NULL,
   comment = "#>", opts_chunk = NULL, opts_knit = NULL) {
 
-  venue <- match.arg(venue)
+  venue <- tolower(match.arg(venue))
   the_source <- NULL
 
   ## capture source in character vector
@@ -129,7 +151,7 @@ reprex <- function(
   ## Do not rearrange this block lightly. If x is expression, take care to not
   ## evaluate in this frame.
   x_captured <- substitute(x)
-  expr_input <- !is.null(x_captured)
+  expr_input <- !is.null(x_captured) ## signals code may need re-formatting
   if (expr_input) {
     if (!is.null(input)) {
       message("`input` ignored in favor of expression input in `x`.")
@@ -156,8 +178,8 @@ reprex <- function(
   }
 
   r_file <- strip_ext(outfile) %||% tempfile() ## foo or foo.md --> foo
-  r_file <- add_suffix(r_file, "reprex")       ## foo --> foo-reprex
-  r_file <- add_ext(r_file)                    ## foo-reprex.R
+  r_file <- add_suffix(r_file, "reprex")       ## foo --> foo_reprex
+  r_file <- add_ext(r_file)                    ## foo_reprex.R
 
   if (file.exists(r_file)) {
     stop("`", r_file, "` already exists.", call. = FALSE)
@@ -170,7 +192,7 @@ reprex <- function(
   the_source <-
     apply_template(list(
       so = identical(venue, "so"),
-      gh = identical(venue, "gh"),
+      gh = venue %in% c("gh", "r"),
       si = isTRUE(si),
       devtools = requireNamespace("devtools", quietly = TRUE),
       comment = comment,
@@ -183,17 +205,27 @@ reprex <- function(
   writeLines(the_source, r_file)
   r_file <- normalizePath(r_file)
 
-  md_file <- reprex_(r_file)
+  output_file <- md_file <- reprex_(r_file)
 
   output_lines <- readLines(md_file)
+  if (identical(venue, "r")) {
+    lns <- output_lines
+    line_info <- classify_lines_bt(lns, comment = comment)
+    lns <- ifelse(line_info == "prose" & nzchar(lns), paste("#'", lns), lns)
+    lns <- lns[line_info != "bt" & nzchar(lns)]
+    output_lines <- lns
+    output_file <- gsub("_reprex", "_rendered", r_file)
+    writeLines(output_lines, output_file)
+  }
+
   if (clipboard_available()) {
     clipr::write_clip(output_lines)
   } else {
     message("Unable to put result on the clipboard. How to get it:\n",
             "  * Capture what reprex() returns.\n",
-            "  * Use `outfile = \"foo\"` to write output to `foo.md` in current working directory.\n",
+            "  * Use `outfile = \"foo\"` to write output to current working directory.\n",
             "  * See the temp file:\n",
-            md_file)
+            output_file)
   }
 
   if (show) {

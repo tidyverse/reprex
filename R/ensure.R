@@ -12,5 +12,11 @@ ensure_not_dogfood <- function(x) {
          "In that case, the clipboard now holds the *rendered* result.\n",
          call. = FALSE)
   }
+  looks_like_r <- any(grepl("^#>", x))
+  if (looks_like_r) {
+    message("Putative code contains lines that start with `#>`.\n",
+            "Are we going in circles? Did you just run `reprex(..., venue = \"r\")`?\n",
+            "In that case, the clipboard now holds the *rendered* result.\n")
+  }
   x
 }

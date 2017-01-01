@@ -24,6 +24,7 @@ Prepare reproducible examples for posting to [GitHub issues](https://guides.gith
 -   with deliberate choices re: arguments and setup chunk.
 -   Get resulting runnable code + output as Markdown,
 -   formatted for target venue, e.g. `gh` or `so`,
+-   or as an output-augmented R script,
 -   on the clipboard and, optionally, in a file.
 -   Preview an HTML version in RStudio viewer or default browser.
 
@@ -75,7 +76,8 @@ Anyone else can copy, paste, and run this immediately.
 
 But wait, there's more!
 
--   Set the target venue to StackOverflow with `reprex(venue = "so")`.
+-   Set the target venue to StackOverflow with `reprex(..., venue = "so")`.
+-   Get a runnable R script, augmented with commented output, with `reprex(..., venue = "R")`.
 -   By default, figures are uploaded to [imgur.com](http://imgur.com) and resulting URL is dropped into an inline image tag.
 -   Alternatives to clipboard input:
     -   `reprex({(y <- 1:4); mean(y)})` gets code from expression

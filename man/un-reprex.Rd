@@ -16,7 +16,8 @@ not provided, the clipboard is consulted for input.}
 
 \item{comment}{regular expression that matches commented output lines}
 
-\item{venue}{"gh" for GitHub (default) or "so" for StackOverflow.}
+\item{venue}{"gh" for GitHub (default), "so" for StackOverflow, "r" or "R"
+for a runnable R script, with commented output interleaved.}
 }
 \value{
 character vector holding just the clean R code, invisibly
@@ -29,7 +30,8 @@ written to the clipboard, if possible.
 \section{Functions}{
 \itemize{
 \item \code{reprex_clean}: Removes lines of commented output from a displayed
-reprex, such as code copied from a GitHub issue.
+reprex, such as code copied from a GitHub issue or \code{reprex}'ed with
+\code{venue = "R"}.
 
 \item \code{reprex_invert}: Attempts to reverse the effect of
 \code{\link{reprex}()}. The input should be Markdown, presumably the output
@@ -49,6 +51,15 @@ x <- c(
   "#> [1] 2.5"
   )
 reprex_clean(x)
+
+\dontrun{
+## round trip with reprex(..., venue = "R")
+code_in <- c("x <- rnorm(2)", "min(x)")
+res <- reprex(input = code_in, venue = "R")
+res
+(code_out <- reprex_clean(res))
+identical(code_in, code_out)
+}
 ## a rendered reprex can be inverted, at least approximately
 x <- reprex({
   #' Some text

@@ -38,3 +38,16 @@ test_that("round trip with simple code works, invert md, venue so", {
   expect_output(res <- reprex_invert(output, venue = "so"))
   expect_identical(input, res)
 })
+
+test_that("round trip with simple code works, clean .R, venue r", {
+  input <- c(
+    "## a comment",
+    "x <- 1:4",
+    "#' hi",
+    "y <- 2:5",
+    "x + y"
+  )
+  output <- reprex(input = input, venue = "R", show = FALSE)
+  expect_output(res <- reprex_clean(output))
+  expect_identical(input, res)
+})
