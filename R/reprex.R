@@ -209,8 +209,8 @@ reprex <- function(
   r_file <- normalizePath(r_file)
 
   output_file <- md_file <- reprex_(r_file)
-
   output_lines <- readLines(md_file)
+
   if (identical(venue, "r")) {
     lns <- output_lines
     line_info <- classify_lines_bt(lns, comment = comment)
@@ -232,13 +232,20 @@ reprex <- function(
   }
 
   if (show) {
-    ## if md_file is foo.md and there is also a directory foo_files?
-    ## it will be deleted right here
-    ## if opts_knit = list(upload.fun = identity), this could hold local figs
-    ## until this becomes a problem, just allow that to happen
-    ## clean = FALSE causes more than I want to be left behind
-    ## no easy way to leave foo_files in the post-md state
-    html_file <- rmarkdown::render(md_file, quiet = TRUE)
+    ## I want the html to live in session temp dir for two reasons:
+    ##   * causes display in RStudio Viewer, if available
+    ##   * retains foo_reprex_files but not other html-related intermediates
+    ## if outfile = NULL, this happens by default; otherwise, must force it
+    ## and `clean = FALSE` does too much (deletes foo_reprex_files, which might
+    ## hold local figs)
+    if (is.null(outfile)) {
+      html_file <- rmarkdown::render(md_file, quiet = TRUE)
+    } else {
+      html_file <- strip_ext(basename(md_file))
+      html_file <- tempfile(pattern = paste0(html_file, "_"), fileext = ".html")
+      html_file <-
+        rmarkdown::render(md_file, output_file = html_file, quiet = TRUE)
+    }
     viewer <- getOption("viewer") %||% utils::browseURL
     viewer(html_file)
   }
