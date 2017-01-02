@@ -34,6 +34,9 @@ or string (with embedded newlines).}
 like \code{foo_reprex.R}, \code{foo_reprex.md}, \code{foo_reprex.html},
 and, if \code{venue = "R"}, \code{foo_rendered.R}.}
 
+\item{comment}{character. Prefix with which to comment out output, defaults
+to \code{"#>"}.}
+
 \item{opts_chunk, opts_knit}{Named list. Optional
 \href{http://yihui.name/knitr/options/}{knitr chunk and package options},
 respectively, to supplement or override reprex defaults. See Details.}
