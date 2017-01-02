@@ -49,5 +49,5 @@ test_that("round trip with simple code works, clean .R, venue r", {
   )
   output <- reprex(input = input, venue = "R", show = FALSE)
   expect_output(res <- reprex_clean(output))
-  expect_identical(input, res)
+  expect_identical(input, res[nzchar(res)])
 })

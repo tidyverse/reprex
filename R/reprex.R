@@ -215,7 +215,7 @@ reprex <- function(
     lns <- output_lines
     line_info <- classify_lines_bt(lns, comment = comment)
     lns <- ifelse(line_info == "prose" & nzchar(lns), paste("#'", lns), lns)
-    lns <- lns[line_info != "bt" & nzchar(lns)]
+    lns <- lns[line_info != "bt"]
     output_lines <- lns
     output_file <- gsub("_reprex", "_rendered", r_file)
     writeLines(output_lines, output_file)

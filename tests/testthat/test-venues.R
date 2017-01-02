@@ -33,7 +33,7 @@ test_that("venue = 'R' works", {
     "#> [1] 1 2 3 4 5"
   )
   ret <- reprex(input = input, venue = "R", show = FALSE)
-  expect_identical(ret, output)
+  expect_identical(ret[nzchar(ret)], output)
   ret <- reprex(input = input, venue = "r", show = FALSE)
-  expect_identical(ret, output)
+  expect_identical(ret[nzchar(ret)], output)
 })
