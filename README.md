@@ -19,14 +19,19 @@ reprex
 
 Prepare reproducible examples for posting to [GitHub issues](https://guides.github.com/features/issues/), [StackOverflow](http://stackoverflow.com/questions/tagged/r), etc.
 
--   Given R code on the clipboard, as an expression (quoted or not), or in a file ...
+Given R code on the clipboard, as an expression (quoted or not), or in a file ...
+
 -   run it via `rmarkdown::render()`,
 -   with deliberate choices re: arguments and setup chunk.
--   Get resulting runnable code + output as Markdown,
--   formatted for target venue, e.g. `gh` or `so`,
--   or as an output-augmented R script,
--   on the clipboard and, optionally, in a file.
--   Preview an HTML version in RStudio viewer or default browser.
+
+Get resulting runnable code + output as
+
+-   Markdown, formatted for target venue, e.g. `gh` or `so`, or as
+-   R code, augmented with commented output.
+
+Result is returned invisibly, placed on the clipboard and written to file.
+
+Preview an HTML version in RStudio viewer or default browser.
 
 Install and load
 ----------------
@@ -93,23 +98,25 @@ Examples of how to take greater control of your reprex.
 
 ### knitr options
 
-Supplement or override reprex defaults for [knitr chunk and package options](http://yihui.name/knitr/options/) via the arguments `opts_chunk` and `opts_knit`. Example: change the prefix used to comment out the output. This call:
+You can change the prefix used to comment the output with the `comment` argument.
 
 ``` r
-reprex({y <- 1:4; mean(y)}, opts_chunk = list(comment = "#¯\\_(ツ)_/¯"))
+reprex({y <- 1:4; mean(y)}, comment = "#;-)")
 ```
 
-yields this output:
+leads to this:
 
 ``` r
 y <- 1:4
 mean(y)
-#¯\_(ツ)_/¯ [1] 2.5
+#;-) [1] 2.5
 ```
+
+Supplement or override reprex defaults for any [knitr chunk or package option](http://yihui.name/knitr/options/) via the arguments `opts_chunk` and `opts_knit`.
 
 ### Embedded prose
 
-Sometime you want to mingle rendered code and prose. Put the embedded prose in as roxygen comments, i.e. comment lines that start with `#'`. This reprex code:
+Sometimes you want to mingle rendered code and prose. Put the embedded prose in as roxygen comments, i.e. comment lines that start with `#'`. This reprex code:
 
     ## a regular comment
     x <- 1:100
@@ -184,7 +191,7 @@ The reprex code:
 
 Accomplished like so:
 
--   use `rmarkdown::render` or, under the hood, `knitr::spin` to run the code and capture output that would display in R console
+-   use `rmarkdown::render()` or, under the hood, `knitr::spin()` to run the code and capture output that would display in R console
 -   use chunk option `comment = "#>"` to include the output while retaining executability
 
 Other work
