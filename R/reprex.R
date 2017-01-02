@@ -1,8 +1,9 @@
 #' Render a reprex
 #'
-#' Run a bit of R code using \code{\link[rmarkdown]{render}()}. The goal is to
-#' make it easy to share a small reproducible example ("reprex"), e.g., in a
-#' GitHub issue. Reprex source can be
+#' Run a bit of R code using
+#' \code{\link[rmarkdown:render]{rmarkdown::render}()}. The goal is to make it
+#' easy to share a small reproducible example ("reprex"), e.g., in a GitHub
+#' issue. Reprex source can be
 #' \itemize{
 #' \item read from clipboard
 #' \item read from current selection or active document
@@ -35,7 +36,7 @@
 #'   \code{input} or on the clipboard, in that order.
 #' @template venue
 #' @param si Whether to include the results of
-#'   \code{\link[devtools]{session_info}()}, if available, or
+#'   \code{\link[devtools:session_info]{devtools::session_info}()}, if available, or
 #'   \code{\link{sessionInfo}()} at the end of the reprex. When \code{venue =
 #'   "gh"} (the default), session info is wrapped in a collapsible details tag.
 #' @param show Whether to show rendered output in a viewer (RStudio or browser).
