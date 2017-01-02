@@ -2,6 +2,16 @@
 
 # reprex 0.0.0.9001
 
+  * `venue = "R"` (or `"r"`) can be used to get an R script back, augmented with commented output.
+
+  * `comment` argument added to specify prefix for commented output.
+
+  * Added an RStudio addin, accessed via "Render reprex".
+
+  * `input` argument to `reprex()` handles code as string, character vector, or file path.
+
+  * Added functions `reprex_clean()` and `reprex_invert()` in order to go backwards, i.e. recover source from a rendered reprex.
+
   * The reprex is rendered via `callr::r_safe()` and is thus run in a clean, separate R process, eliminating any leakage of objects or loaded packages to/from the calling session.
 
   * `reprex()` gains optional arguments `opts_chunk` and `opts_knit`, taking named list as input, in order to supplement or override default knitr chunk and package options, respectively. (#33)
