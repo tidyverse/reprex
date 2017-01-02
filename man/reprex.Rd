@@ -31,10 +31,10 @@ or string (with embedded newlines).}
 \item{outfile}{Optional basename for output files. When \code{NULL}
 (default), reprex writes to temp files below the session temp directory. If
 \code{outfile = "foo"}, expect output files in current working directory,
-like \code{foo_reprex.R}, \code{foo_reprex.md}, \code{foo_reprex.html},
-and, if \code{venue = "R"}, \code{foo_rendered.R}.}
+like \code{foo_reprex.R}, \code{foo_reprex.md}, and, if \code{venue = "R"},
+\code{foo_rendered.R}.}
 
-\item{comment}{character. Prefix with which to comment out output, defaults
+\item{comment}{Character. Prefix with which to comment out output, defaults
 to \code{"#>"}.}
 
 \item{opts_chunk, opts_knit}{Named list. Optional
@@ -141,6 +141,17 @@ reprex({
 }, outfile = "foofy")
 list.files(pattern = "foofy")
 file.remove(list.files(pattern = "foofy"))
+
+# write reprex to file AND keep figure local too, i.e. don't post to imgur
+reprex({
+  #' Some prose
+  ## regular comment
+  (x <- 1:4)
+  median(x)
+  plot(x)
+  }, outfile = "blarg", opts_knit = list(upload.fun = identity))
+list.files(pattern = "blarg")
+unlink(list.files(pattern = "blarg"), recursive = TRUE)
 
 ## target venue = StackOverflow
 ## http://stackoverflow.com/editing-help
