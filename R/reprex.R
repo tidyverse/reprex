@@ -13,7 +13,8 @@
 #' }
 #' The usual "code + commented output" is returned invisibly, put on the
 #' clipboard, and written to file. An HTML preview displays in RStudio's Viewer
-#' pane, if available, or in the default browser, otherwise.
+#' pane, if available, or in the default browser, otherwise. Leading prompts,
+#' e.g., \code{"> "}, are stripped from the input code.
 #'
 #' reprex sets specific \href{http://yihui.name/knitr/options/}{knitr options},
 #' which you can supplement or override via the \code{opts_chunk} and
@@ -156,6 +157,9 @@
 #'   y <- 2:5
 #'   x + y
 #' }, opts_chunk = list(comment = NA, prompt = TRUE))
+#'
+#' ## leading prompts are stripped from source
+#' reprex(input = c("> x <- 1:3", "> median(x)"))
 #' }
 #'
 #' @importFrom knitr opts_chunk
@@ -209,6 +213,7 @@ reprex <- function(
 
   the_source <- ensure_not_empty(the_source)
   the_source <- ensure_not_dogfood(the_source)
+  the_source <- ensure_no_prompts(the_source)
   opts_chunk <- prep_opts(substitute(opts_chunk), which = "chunk")
   opts_knit <- prep_opts(substitute(opts_knit), which = "knit")
   the_source <-

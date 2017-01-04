@@ -58,7 +58,8 @@ issue. Reprex source can be
 }
 The usual "code + commented output" is returned invisibly, put on the
 clipboard, and written to file. An HTML preview displays in RStudio's Viewer
-pane, if available, or in the default browser, otherwise.
+pane, if available, or in the default browser, otherwise. Leading prompts,
+e.g., \code{"> "}, are stripped from the input code.
 }
 \details{
 reprex sets specific \href{http://yihui.name/knitr/options/}{knitr options},
@@ -177,6 +178,9 @@ reprex({
   y <- 2:5
   x + y
 }, opts_chunk = list(comment = NA, prompt = TRUE))
+
+## leading prompts are stripped from source
+reprex(input = c("> x <- 1:3", "> median(x)"))
 }
 
 }

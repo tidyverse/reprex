@@ -96,7 +96,8 @@ issue. Reprex source can be
 
     <p>The usual &quot;code + commented output&quot; is returned invisibly, put on the
 clipboard, and written to file. An HTML preview displays in RStudio&#39;s Viewer
-pane, if available, or in the default browser, otherwise.</p>
+pane, if available, or in the default browser, otherwise. Leading prompts,
+e.g., <code>&quot;&gt; &quot;</code>, are stripped from the input code.</p>
     
 
     <pre><span class='fu'>reprex</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"gh"</span>, <span class='st'>"so"</span>, <span class='st'>"r"</span>, <span class='st'>"R"</span>), <span class='kw'>si</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -263,6 +264,9 @@ produced by the reprex appear properly on GitHub.
 <span class='co'>#   y &lt;- 2:5</span>
 <span class='co'>#   x + y</span>
 <span class='co'># }, opts_chunk = list(comment = NA, prompt = TRUE))</span>
+<span class='co'># </span>
+<span class='co'># ## leading prompts are stripped from source</span>
+<span class='co'># reprex(input = c("&gt; x &lt;- 1:3", "&gt; median(x)"))</span>
 <span class='co'>## ---------------------------------------------</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

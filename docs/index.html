@@ -122,6 +122,13 @@ mean(y)
 <code><a href="reference/reprex.html">reprex(input = "my_reprex.R")</a></code> gets code from file</li>
 </ul>
 </li>
+<li>Leading prompts are stripped from input source.
+<ul>
+<li>
+<code><a href="reference/reprex.html">reprex(input = "&gt; median(1:3)\n")</a></code> produces same output as <code><a href="reference/reprex.html">reprex(input = "median(1:3)\n")</a></code>
+</li>
+</ul>
+</li>
 <li>Undo <code><a href="reference/reprex.html">reprex()</a></code> with <code><a href="reference/un-reprex.html">reprex_clean()</a></code> and <code><a href="reference/un-reprex.html">reprex_invert()</a></code>.</li>
 <li>In RStudio, <code><a href="reference/reprex.html">reprex()</a></code> can be called from the “Render reprex” addin.</li>
 </ul>

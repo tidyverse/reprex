@@ -32,3 +32,11 @@ test_that("Circular use is detected before render", {
   ret <- reprex(y <- 2, venue = "so", show = FALSE)
   expect_error(reprex(input = ret, show = FALSE), "isn't valid R code")
 })
+
+test_that("Leading prompts are removed", {
+  input <- c("x <- 1:3", "median(x)")
+  res <- reprex(input = input)
+  input2 <- paste0(getOption("prompt"), input)
+  expect_message(res2 <- reprex(input = input2), "Removing leading prompts")
+  expect_identical(res, res2)
+})

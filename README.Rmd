@@ -100,6 +100,8 @@ But wait, there's more!
     - `reprex(mean(rnorm(10)))` gets code from expression
     - `reprex(input = "mean(rnorm(10))\n")` gets code from character vector (detected via length or terminating newline)
     - `reprex(input = "my_reprex.R")` gets code from file
+  * Leading prompts are stripped from input source.
+    - `reprex(input = "> median(1:3)\n")` produces same output as `reprex(input = "median(1:3)\n")`
   * Undo `reprex()` with `reprex_clean()` and `reprex_invert()`.
   * In RStudio, `reprex()` can be called from the "Render reprex" addin.
 
