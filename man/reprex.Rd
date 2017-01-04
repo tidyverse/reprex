@@ -169,6 +169,14 @@ ret <- reprex({
   x + y
 }, venue = "R")
 ret
+
+## include prompt and don't comment the output
+## for when you don't want to make your code easy to execute :)
+reprex({
+  x <- 1:4
+  y <- 2:5
+  x + y
+}, opts_chunk = list(comment = NA, prompt = TRUE))
 }
 
 }
