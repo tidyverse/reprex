@@ -6,7 +6,7 @@ output:
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-[![Travis-CI Build Status](https://travis-ci.org/jennybc/reprex.svg?branch=master)](https://travis-ci.org/jennybc/reprex) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jennybc/reprex?branch=master&svg=true)](https://ci.appveyor.com/project/jennybc/reprex) [![Project Status: Wip - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/0.1.0/wip.svg)](http://www.repostatus.org/#wip) [![](http://www.r-pkg.org/badges/version/reprex)](http://www.r-pkg.org/pkg/reprex) [![Coverage Status](https://img.shields.io/codecov/c/github/jennybc/reprex/master.svg)](https://codecov.io/github/jennybc/reprex?branch=master)
+[![Travis-CI Build Status](https://travis-ci.org/jennybc/reprex.svg?branch=master)](https://travis-ci.org/jennybc/reprex) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jennybc/reprex?branch=master&svg=true)](https://ci.appveyor.com/project/jennybc/reprex) [![Project Status: Wip - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/0.1.0/wip.svg)](http://www.repostatus.org/#wip) [![](https://www.r-pkg.org/badges/version/reprex)](https://www.r-pkg.org/pkg/reprex) [![Coverage Status](https://img.shields.io/codecov/c/github/jennybc/reprex/master.svg)](https://codecov.io/github/jennybc/reprex?branch=master)
 
 ```{r include = FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.path = "README-")
@@ -94,6 +94,9 @@ But wait, there's more!
   * By default, figures are uploaded to [imgur.com](http://imgur.com) and resulting URL is dropped into an inline image tag.
   * Alternatives to clipboard input:
     - `reprex({(y <- 1:4); mean(y)})` gets code from expression
+```{r}
+knitr::knit_exit()
+```
     - `reprex(input = c("(y <- 1:4)", "mean(y)"))` gets code from character vector (detected via length or terminating newline)
     - `reprex(input = "my_reprex.R")` gets code from file
   * Undo `reprex()` with `reprex_clean()` and `reprex_invert()`.
@@ -103,6 +106,7 @@ But wait, there's more!
 leftovers <- list.files(pattern = "README-tmp", ignore.case = TRUE)
 if (length(leftovers)) file.remove(leftovers)
 ```
+
 
 ## More control
 
