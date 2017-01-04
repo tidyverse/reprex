@@ -90,7 +90,10 @@ But wait, there's more!
     -   `reprex(input = "my_reprex.R")` gets code from file
 -   Leading prompts are stripped from input source.
     -   `reprex(input = "> median(1:3)\n")` produces same output as `reprex(input = "median(1:3)\n")`
--   Undo `reprex()` with `reprex_clean()` and `reprex_invert()`.
+-   Get clean, runnable code from wild-caught reprexes with
+    -   `reprex_invert()` = the opposite of `reprex()`
+    -   `reprex_clean()`, e.g. when you copy/paste from GitHub or StackOverflow
+    -   `reprex_rescue()`, when you're dealing with copy/paste from R Console
 -   In RStudio, `reprex()` can be called from the "Render reprex" addin.
 
 More control
