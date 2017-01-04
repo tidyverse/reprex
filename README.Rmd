@@ -71,7 +71,10 @@ reprex()
 
 A nicely rendered HTML preview will display in RStudio's Viewer (if you're in RStudio) or your default browser otherwise.
 
-![html-preview](https://raw.githubusercontent.com/jennybc/reprex/master/img/README-viewer-screenshot.png)
+```{r out.width = '100%', echo = FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/jennybc/reprex/master/img/README-viewer-screenshot.png")
+```
+
 
 The relevant bit of GitHub-flavored Markdown is ready to be pasted from your clipboard:
 
@@ -94,11 +97,8 @@ But wait, there's more!
   * Get a runnable R script, augmented with commented output, with `reprex(..., venue = "R")`.
   * By default, figures are uploaded to [imgur.com](http://imgur.com) and resulting URL is dropped into an inline image tag.
   * Alternatives to clipboard input:
-    - `reprex({(y <- 1:4); mean(y)})` gets code from expression
-```{r}
-knitr::knit_exit()
-```
-    - `reprex(input = c("(y <- 1:4)", "mean(y)"))` gets code from character vector (detected via length or terminating newline)
+    - `reprex(mean(rnorm(10)))` gets code from expression
+    - `reprex(input = "mean(rnorm(10))\n")` gets code from character vector (detected via length or terminating newline)
     - `reprex(input = "my_reprex.R")` gets code from file
   * Undo `reprex()` with `reprex_clean()` and `reprex_invert()`.
   * In RStudio, `reprex()` can be called from the "Render reprex" addin.
