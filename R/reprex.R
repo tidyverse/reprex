@@ -185,22 +185,8 @@ reprex <- function(
     the_source <- stringify_expression(x_captured)
   }
 
-  if (is.null(the_source) && is.null(input)) {
-    if (clipboard_available()) {
-      suppressWarnings(the_source <- clipr::read_clip())
-    } else {
-      message("No input provided via `x` or `input` and ",
-              "clipboard is not available.")
-      the_source <- character()
-    }
-  }
-
   if (is.null(the_source)) {
-    if (length(input) > 1 || grepl("\n$", input)) {
-      the_source <- unlist(strsplit(input, "\n"))
-    } else {
-      the_source <- readLines(input)
-    }
+    the_source <- ingest_input(input)
   }
 
   r_file <- strip_ext(outfile) %||% tempfile() ## foo or foo.md --> foo

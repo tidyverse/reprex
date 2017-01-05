@@ -40,3 +40,19 @@ test_that("Leading prompts are removed", {
   expect_message(res2 <- reprex(input = input2), "Removing leading prompts")
   expect_identical(res, res2)
 })
+
+test_that("ingest_input() works", {
+  input <- c("line 1", "line 2")
+
+  expect_identical(input, ingest_input(input))
+
+  input_collapsed <- paste0(input, "\n", collapse = "")
+  expect_identical(input, ingest_input(input_collapsed))
+
+  input_first_elem <- paste0(input[1], "\n")
+  expect_identical(input[1], ingest_input(input_first_elem))
+
+  on.exit(file.remove("foo.R"))
+  writeLines(input, "foo.R")
+  expect_identical(input, ingest_input("foo.R"))
+})

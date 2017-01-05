@@ -65,3 +65,28 @@ newlined <- function(x) {
   }
   x
 }
+
+## read from
+##   1 clipboard
+##   2 `input`, which could be
+##      character vector or string
+##      path
+ingest_input <- function(input = NULL) {
+
+  if (is.null(input)) {                            ## clipboard or bust
+    if (clipboard_available()) {
+      return(suppressWarnings(clipr::read_clip()))
+    } else {
+      message("No input provided and clipboard is not available.")
+      return(character())
+    }
+  }
+
+  if (length(input) > 1 || grepl("\n$", input)) { ## vector or string
+    return(unlist(strsplit(input, "\n")))
+  }
+
+  ## input must be path to file
+  readLines(input)
+
+}
