@@ -7,15 +7,17 @@
 \alias{reprex_rescue}
 \title{Un-render a reprex}
 \usage{
-reprex_invert(x = NULL, venue = c("gh", "so"), comment = "^#>")
+reprex_invert(input = NULL, venue = c("gh", "so"), comment = "^#>")
 
-reprex_clean(x = NULL, comment = "^#>")
+reprex_clean(input = NULL, comment = "^#>")
 
-reprex_rescue(x = NULL, prompt = getOption("prompt"))
+reprex_rescue(input = NULL, prompt = getOption("prompt"))
 }
 \arguments{
-\item{x}{character, holding the lines of a displayed or rendered reprex. If
-not provided, the clipboard is consulted for input.}
+\item{input}{character, holding a wild-caught reprex as a character vector
+(length greater than one), string (length one with terminating newline), or
+file path (length one with no terminating newline). If not provided, the
+clipboard is consulted for input.}
 
 \item{venue}{"gh" for GitHub (default), "so" for StackOverflow, "r" or "R"
 for a runnable R script, with commented output interleaved.}

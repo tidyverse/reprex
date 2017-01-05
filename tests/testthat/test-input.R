@@ -2,24 +2,24 @@ context("input")
 
 out <- c("``` r", "1:5", "#> [1] 1 2 3 4 5", "```")
 
-test_that("clipboard input works", {
+test_that("reprex: clipboard input works", {
   skip_if_no_clipboard()
   clipr::write_clip("1:5")
   ret <- reprex(show = FALSE)
   expect_identical(ret, out)
 })
 
-test_that("expression input works", {
+test_that("reprex: expression input works", {
   ret <- reprex(1:5, show = FALSE)
   expect_identical(ret, out)
 })
 
-test_that("character input works", {
+test_that("reprex: character input works", {
   ret <- reprex(input = "1:5\n", show = FALSE)
   expect_identical(ret, out)
 })
 
-test_that("file input works", {
+test_that("reprex: file input works", {
   on.exit(file.remove("foo.R"))
   write("1:5", "foo.R")
   ret <- reprex(input = "foo.R", show = FALSE)
@@ -35,9 +35,10 @@ test_that("Circular use is detected before render", {
 
 test_that("Leading prompts are removed", {
   input <- c("x <- 1:3", "median(x)")
-  res <- reprex(input = input)
+  res <- reprex(input = input, show = FALSE)
   input2 <- paste0(getOption("prompt"), input)
-  expect_message(res2 <- reprex(input = input2), "Removing leading prompts")
+  expect_message(res2 <- reprex(input = input2, show = FALSE),
+                 "Removing leading prompts")
   expect_identical(res, res2)
 })
 

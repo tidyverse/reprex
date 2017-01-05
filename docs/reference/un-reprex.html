@@ -98,17 +98,19 @@ Console.
 </ul></p>
     
 
-    <pre><span class='fu'>reprex_invert</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"gh"</span>, <span class='st'>"so"</span>), <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>"^#&gt;"</span>)
+    <pre><span class='fu'>reprex_invert</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"gh"</span>, <span class='st'>"so"</span>), <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>"^#&gt;"</span>)
 
-<span class='fu'>reprex_clean</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>"^#&gt;"</span>)
+<span class='fu'>reprex_clean</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>"^#&gt;"</span>)
 
-<span class='fu'>reprex_rescue</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>prompt</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"prompt"</span>))</pre>
+<span class='fu'>reprex_rescue</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>prompt</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"prompt"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd>character, holding the lines of a displayed or rendered reprex. If
-not provided, the clipboard is consulted for input.</dd>
+      <dt>input</dt>
+      <dd>character, holding a wild-caught reprex as a character vector
+(length greater than one), string (length one with terminating newline), or
+file path (length one with no terminating newline). If not provided, the
+clipboard is consulted for input.</dd>
       <dt>venue</dt>
       <dd>&quot;gh&quot; for GitHub (default), &quot;so&quot; for StackOverflow, &quot;r&quot; or &quot;R&quot;
 for a runnable R script, with commented output interleaved.</dd>

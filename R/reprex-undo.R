@@ -16,8 +16,10 @@
 #' Console.
 #' }
 #'
-#' @param x character, holding the lines of a displayed or rendered reprex. If
-#'   not provided, the clipboard is consulted for input.
+#' @param input character, holding a wild-caught reprex as a character vector
+#'   (length greater than one), string (length one with terminating newline), or
+#'   file path (length one with no terminating newline). If not provided, the
+#'   clipboard is consulted for input.
 #' @param comment regular expression that matches commented output lines
 #' @param prompt character, the prompt at the start of R commands
 #'
@@ -45,7 +47,8 @@ NULL
 #' }, show = FALSE)
 #' writeLines(x)
 #' reprex_invert(x)
-reprex_invert <- function(x = NULL, venue = c("gh", "so"), comment = "^#>") {
+reprex_invert <- function(input = NULL, venue = c("gh", "so"), comment = "^#>") {
+  x <- ingest_input(input)
   venue <- match.arg(venue)
   reprex_undo(x, is_md = TRUE, venue = venue, comment = comment)
 }
@@ -73,7 +76,8 @@ reprex_invert <- function(x = NULL, venue = c("gh", "so"), comment = "^#>") {
 #' (code_out <- reprex_clean(res))
 #' identical(code_in, code_out)
 #' }
-reprex_clean <- function(x = NULL, comment = "^#>") {
+reprex_clean <- function(input = NULL, comment = "^#>") {
+  x <- ingest_input(input)
   reprex_undo(x, is_md = FALSE, comment = comment)
 }
 
@@ -90,19 +94,13 @@ reprex_clean <- function(x = NULL, comment = "^#>") {
 #'   "[1] 2.5"
 #' )
 #' reprex_rescue(x)
-reprex_rescue <- function(x = NULL, prompt = getOption("prompt")) {
+reprex_rescue <- function(input = NULL, prompt = getOption("prompt")) {
+  x <- ingest_input(input)
   reprex_undo(x, is_md = FALSE, prompt = prompt)
 }
 
 reprex_undo <- function(x = NULL, is_md = FALSE, venue,
                         comment = NULL, prompt = NULL) {
-  if (is.null(x)) {
-    if (clipboard_available()) {
-      suppressWarnings(x <- clipr::read_clip())
-    } else {
-      stop("No input provided via `x` and clipboard is not available.")
-    }
-  }
   if (is_md) {
     if (identical(venue, "gh")) {      ## reprex_invert
       line_info <- classify_lines_bt(x, comment = comment)
@@ -159,9 +157,9 @@ classify_lines <- function(x, comment = "^#>") {
   wut <- ifelse(grepl("^    ", x), "code", "prose")
   wut <- ifelse(wut == "code" & grepl(comment, x), "output", wut)
 
-  so_special <- c("<!-- language-all: lang-r -->", "<br/>", "")
-  if (identical(x[1:3], so_special)) {
-    wut[1:3] <- "so_header"
+  so_special <- c("<!-- language-all: lang-r -->", "<br/>")
+  if (identical(x[1:2], so_special)) {
+    wut[1:2] <- "so_header"
   }
 
   wut

@@ -86,18 +86,18 @@
     <div id="reprex-0-0-0-9001" class="section level1">
 <h1 class="hasAnchor">
 <a href="#reprex-0-0-0-9001" class="anchor"> </a>reprex 0.0.0.9001</h1>
-<ul><li><p><code>venue = "R"</code> (or <code>"r"</code>) can be used to get an R script back, augmented with commented output.</p></li>
+<ul><li><p>Added functions <code><a href="../reference/un-reprex.html">reprex_clean()</a></code>, <code><a href="../reference/un-reprex.html">reprex_invert()</a></code>, and <code><a href="../reference/un-reprex.html">reprex_rescue()</a></code> in order to go backwards, i.e. recover source from a wild-caught reprex.</p></li>
+<li><p><code>venue = "R"</code> (or <code>"r"</code>) can be used to get an R script back, augmented with commented output.</p></li>
 <li><p><code>comment</code> argument added to specify prefix for commented output.</p></li>
 <li><p>Added an RStudio addin, accessed via “Render reprex”.</p></li>
-<li><p><code>input</code> argument to <code><a href="../reference/reprex.html">reprex()</a></code> handles code as string, character vector, or file path.</p></li>
-<li><p>Added functions <code><a href="../reference/un-reprex.html">reprex_clean()</a></code> and <code><a href="../reference/un-reprex.html">reprex_invert()</a></code> in order to go backwards, i.e. recover source from a rendered reprex.</p></li>
+<li><p><code>input</code> argument to <code><a href="../reference/reprex.html">reprex()</a></code> and friends handles code as string, character vector, or file path.</p></li>
 <li><p>The reprex is rendered via <code>callr::r_safe()</code> and is thus run in a clean, separate R process, eliminating any leakage of objects or loaded packages to/from the calling session.</p></li>
 <li>
 <code><a href="../reference/reprex.html">reprex()</a></code> gains optional arguments <code>opts_chunk</code> and <code>opts_knit</code>, taking named list as input, in order to supplement or override default knitr chunk and package options, respectively. (#33)
 <ul><li>This made the explicit <code>upload.fun</code> argument unnecessary, so it’s gone. The <code>upload.fun</code> option defaults to <code>knitr::imgur_upload</code>, which means figures produced by the reprex will be uploaded to <a href="http://imgur.com">imgur.com</a> and the associated image syntax will be put into the Markdown, e.g. <code>![](http://i.imgur.com/QPU5Cg9.png)</code>. (#15 @paternogbc)</li>
 </ul></li>
 <li><p>Order of <code><a href="../reference/reprex.html">reprex()</a></code> arguments has changed.</p></li>
-<li><p><code><a href="../reference/reprex.html">reprex()</a></code> gains the <code>si</code> argument to request that <code>devtools::session_info()</code> or <code>sessionInfo()</code> be appended to reprex code (#6 @dgrtwo). When <code>si = TRUE</code> and <code>venue = "gh"</code> (the default), session info is wrapped in a collapsible details tag. See <a href="https://github.com/jennybc/reprex/issues/34#issuecomment-260106103">an example</a> (#34).</p></li>
+<li><p><code><a href="../reference/reprex.html">reprex()</a></code> gains the <code>si</code> argument to request that <code>devtools::session_info()</code> or <code>sessionInfo()</code> be appended to reprex code (#6 @dgrtwo). When <code>si = TRUE</code> and <code>venue = "gh"</code> (the default), session info is wrapped in a collapsible details tag. See <a href="https://github.com/jennybc/reprex/issues/55">an example</a> (#55).</p></li>
 <li><p>Reprex code can be provided as an R expression. (#6 @dgrtwo, #35)</p></li>
 <li><p><code><a href="../reference/reprex.html">reprex()</a></code> uses clipboard functionality from <a href="https://CRAN.R-project.org/package=clipr"><code>clipr</code></a> and thus should work on Windows and suitably prepared Unix-like systems, in addition to Mac OS. (#16 @mdlincoln)</p></li>
 </ul></div>

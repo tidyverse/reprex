@@ -2,15 +2,15 @@
 
 # reprex 0.0.0.9001
 
+  * Added functions `reprex_clean()`, `reprex_invert()`, and `reprex_rescue()` in order to go backwards, i.e. recover source from a wild-caught reprex.
+
   * `venue = "R"` (or `"r"`) can be used to get an R script back, augmented with commented output.
 
   * `comment` argument added to specify prefix for commented output.
 
   * Added an RStudio addin, accessed via "Render reprex".
 
-  * `input` argument to `reprex()` handles code as string, character vector, or file path.
-
-  * Added functions `reprex_clean()` and `reprex_invert()` in order to go backwards, i.e. recover source from a rendered reprex.
+  * `input` argument to `reprex()` and friends handles code as string, character vector, or file path.
 
   * The reprex is rendered via `callr::r_safe()` and is thus run in a clean, separate R process, eliminating any leakage of objects or loaded packages to/from the calling session.
 
@@ -19,7 +19,7 @@
 
   * Order of `reprex()` arguments has changed.
 
-  * `reprex()` gains the `si` argument to request that `devtools::session_info()` or `sessionInfo()` be appended to reprex code (#6 @dgrtwo). When `si = TRUE` and `venue = "gh"` (the default), session info is wrapped in a collapsible details tag. See [an example](https://github.com/jennybc/reprex/issues/34#issuecomment-260106103) (#34).
+  * `reprex()` gains the `si` argument to request that `devtools::session_info()` or `sessionInfo()` be appended to reprex code (#6 @dgrtwo). When `si = TRUE` and `venue = "gh"` (the default), session info is wrapped in a collapsible details tag. See [an example](https://github.com/jennybc/reprex/issues/55) (#55).
 
   * Reprex code can be provided as an R expression. (#6 @dgrtwo, #35)
   

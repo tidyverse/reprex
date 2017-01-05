@@ -1,55 +1,31 @@
 context("round trips")
 
-test_that("round trip with simple code works, clean text", {
-  input <- c(
-    "## a comment",
-    "(x <- 1:4)",
-    "median(x)"
-  )
+input <- c(
+  "## a comment",
+  "x <- 1:4",
+  "#' hi",
+  "y <- 2:5",
+  "x + y"
+)
+
+test_that("round trip: reprex(..., venue = 'R') --> reprex_clean()", {
   output <-
-    reprex(input = input, show = FALSE, opts_chunk = list(comment = "#!"))
-  output <- output[!grepl("^```", output)]
+    reprex(input = input, show = FALSE, venue = "R",
+           opts_chunk = list(comment = "#!"))
   expect_message(res <- reprex_clean(output, "^#!"))
-  expect_identical(res, input)
+  expect_identical(input, res[nzchar(res)])
 })
 
-test_that("round trip with simple code works, invert md, venue gh", {
-  input <- c(
-    "## a comment",
-    "x <- 1:4",
-    "#' hi",
-    "y <- 2:5",
-    "x + y"
-  )
+test_that("round trip: reprex(..., venue = 'gh') --> reprex_invert()", {
   output <- reprex(input = input, show = FALSE)
   expect_message(res <- reprex_invert(output))
   expect_identical(input, res)
 })
 
-test_that("round trip with simple code works, invert md, venue so", {
-  input <- c(
-    "## a comment",
-    "x <- 1:4",
-    "#' hi",
-    "y <- 2:5",
-    "x + y"
-  )
+test_that("round trip: reprex(..., venue = 'so') --> reprex_invert()", {
   output <- reprex(input = input, venue = "so", show = FALSE)
   expect_message(res <- reprex_invert(output, venue = "so"))
   expect_identical(input, res)
-})
-
-test_that("round trip with simple code works, clean .R, venue r", {
-  input <- c(
-    "## a comment",
-    "x <- 1:4",
-    "#' hi",
-    "y <- 2:5",
-    "x + y"
-  )
-  output <- reprex(input = input, venue = "R", show = FALSE)
-  expect_message(res <- reprex_clean(output))
-  expect_identical(input, res[nzchar(res)])
 })
 
 test_that("code can be rescued from R Console copy/paste", {
