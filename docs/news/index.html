@@ -86,7 +86,9 @@
     <div id="reprex-0-0-0-9001" class="section level1">
 <h1 class="hasAnchor">
 <a href="#reprex-0-0-0-9001" class="anchor"> </a>reprex 0.0.0.9001</h1>
-<ul><li><p>Added functions <code><a href="../reference/un-reprex.html">reprex_clean()</a></code>, <code><a href="../reference/un-reprex.html">reprex_invert()</a></code>, and <code><a href="../reference/un-reprex.html">reprex_rescue()</a></code> in order to go backwards, i.e. recover source from a wild-caught reprex.</p></li>
+<ul><li><p><code>outfile = NA</code> causes outfiles to be left in working directory. Filenames will be based on the <code>input</code> file, if there was one.</p></li>
+<li><p><code><a href="../reference/reprex.html">reprex()</a></code> strips any leading prompts from input code.</p></li>
+<li><p>Added functions <code><a href="../reference/un-reprex.html">reprex_clean()</a></code>, <code><a href="../reference/un-reprex.html">reprex_invert()</a></code>, and <code><a href="../reference/un-reprex.html">reprex_rescue()</a></code> in order to go backwards, i.e. recover source from a wild-caught reprex.</p></li>
 <li><p><code>venue = "R"</code> (or <code>"r"</code>) can be used to get an R script back, augmented with commented output.</p></li>
 <li><p><code>comment</code> argument added to specify prefix for commented output.</p></li>
 <li><p>Added an RStudio addin, accessed via “Render reprex”.</p></li>

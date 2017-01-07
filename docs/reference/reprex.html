@@ -96,8 +96,8 @@ issue. Reprex source can be
 
     <p>The usual &quot;code + commented output&quot; is returned invisibly, put on the
 clipboard, and written to file. An HTML preview displays in RStudio&#39;s Viewer
-pane, if available, or in the default browser, otherwise. Leading prompts,
-e.g., <code>&quot;&gt; &quot;</code>, are stripped from the input code.</p>
+pane, if available, or in the default browser, otherwise. Leading <code>&quot;&gt; &quot;</code>
+prompts, are stripped from the input code.</p>
     
 
     <pre><span class='fu'>reprex</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"gh"</span>, <span class='st'>"so"</span>, <span class='st'>"r"</span>, <span class='st'>"R"</span>), <span class='kw'>si</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -130,7 +130,9 @@ or string (with embedded newlines).</dd>
 (default), reprex writes to temp files below the session temp directory. If
 <code>outfile = &quot;foo&quot;</code>, expect output files in current working directory,
 like <code>foo_reprex.R</code>, <code>foo_reprex.md</code>, and, if <code>venue = &quot;R&quot;</code>,
-<code>foo_rendered.R</code>.</dd>
+<code>foo_rendered.R</code>. If <code>outfile = NA</code>, expect output files in
+current working directory with basename derived from the path in
+<code>input</code>, if sensible, otherwise from <code>tempfile()</code>.</dd>
       <dt>comment</dt>
       <dd>Character. Prefix with which to comment out output, defaults
 to <code>&quot;#&gt;&quot;</code>.</dd>
@@ -218,7 +220,11 @@ produced by the reprex appear properly on GitHub.
 <span class='co'># # read reprex from file</span>
 <span class='co'># writeLines(c("x &lt;- 1:4", "mean(x)"), "foofy.R")</span>
 <span class='co'># reprex(input = "foofy.R")</span>
-<span class='co'># file.remove("foofy.R")</span>
+<span class='co'># </span>
+<span class='co'># # read from file and write to similarly-named outfiles</span>
+<span class='co'># reprex(input = "foofy.R", outfile = NA)</span>
+<span class='co'># list.files(pattern = "foofy")</span>
+<span class='co'># file.remove(list.files(pattern = "foofy"))</span>
 <span class='co'># </span>
 <span class='co'># # write rendered reprex to file</span>
 <span class='co'># reprex({</span>
@@ -258,7 +264,7 @@ produced by the reprex appear properly on GitHub.
 <span class='co'># ret</span>
 <span class='co'># </span>
 <span class='co'># ## include prompt and don't comment the output</span>
-<span class='co'># ## for when you don't want to make your code easy to execute :)</span>
+<span class='co'># ## use this when you want to make your code hard to execute :)</span>
 <span class='co'># reprex({</span>
 <span class='co'>#   x &lt;- 1:4</span>
 <span class='co'>#   y &lt;- 2:5</span>
