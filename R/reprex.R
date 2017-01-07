@@ -170,8 +170,11 @@ reprex <- function(
   comment = "#>", opts_chunk = NULL, opts_knit = NULL) {
 
   venue <- tolower(match.arg(venue))
-  the_source <- NULL
+  stopifnot(is.logical(si), is.logical(show), is.character(comment))
+  if (!is.null(input)) stopifnot(is.character(input))
+  if (!is.null(outfile)) stopifnot(is.character(outfile))
 
+  the_source <- NULL
   ## capture source in character vector
   ##
   ## Do not rearrange this block lightly. If x is expression, take care to not

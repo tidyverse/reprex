@@ -77,7 +77,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/jennybc/reprex/master
 
 The relevant bit of GitHub-flavored Markdown is ready to be pasted from your clipboard:
 
-```{r asis = TRUE, echo = FALSE, comment = NA}
+```{r asis = TRUE, echo = FALSE, comment = NA, message = FALSE}
 md_content <-
   reprex(input = demo_code, outfile = "README-tmp_gh", show = FALSE)
 cat(md_content, sep = "\n")
