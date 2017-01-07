@@ -6,7 +6,7 @@ r:
   - release
   - devel
 env:
-  - DISPLAY=:90.0
+  - DISPLAY=:99.0
 matrix:
   include:
   - r: release
