@@ -13,6 +13,33 @@ deparse2 <- function(expr, ...) {
   deparse(expr, ...)
 }
 
+## dirname that returns "" instead of "."
+## e.g., for a file that is in working directory
+dirname2 <- function(path) {
+  out <- dirname(path)
+  if (identical(out, ".")) {
+    return("")
+  }
+  out
+}
+
+## switch to a solution based on pathr::rel_path() when/if it goes to CRAN?
+## the branch consists of a stem + leaves = a normalized file path
+## given the branch and one leaf, what is the stem?
+## input:
+##    leaf =                         foo.R   (wd = /Users/jenny/rrr/reprex)
+##  branch = /Users/jenny/rrr/reprex/foo.md
+## output:
+##  path_stem(leaf, branch) = "/Users/jenny/rrr/reprex/"
+path_stem <- function(leaf, branch) {
+  res <- sub(dirname2(leaf), "", dirname(branch))
+  if (identical(substr(res, nchar(res), nchar(res)), .Platform$file.sep)) {
+    return(res)
+  }
+  paste0(res, .Platform$file.sep)
+}
+
+
 prep_opts <- function(txt, which = "chunk") {
   txt <- deparse2(txt)
   setter <- paste0("knitr::opts_", which, "$set")

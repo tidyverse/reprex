@@ -5,24 +5,35 @@ out <- c("``` r", "1:5", "#> [1] 1 2 3 4 5", "```")
 test_that("reprex: clipboard input works", {
   skip_if_no_clipboard()
   clipr::write_clip("1:5")
-  ret <- reprex(show = FALSE)
+  expect_message(ret <- reprex(show = FALSE), "Rendered reprex ready")
   expect_identical(ret, out)
 })
 
 test_that("reprex: expression input works", {
-  ret <- reprex(1:5, show = FALSE)
+  expect_message(ret <- reprex(1:5, show = FALSE), "Rendered reprex ready")
   expect_identical(ret, out)
 })
 
 test_that("reprex: character input works", {
-  ret <- reprex(input = "1:5\n", show = FALSE)
+  expect_message(ret <- reprex(input = "1:5\n", show = FALSE),
+                 "Rendered reprex ready")
   expect_identical(ret, out)
 })
 
 test_that("reprex: file input works", {
   on.exit(file.remove("foo.R"))
   write("1:5", "foo.R")
-  ret <- reprex(input = "foo.R", show = FALSE)
+  expect_message(ret <- reprex(input = "foo.R", show = FALSE),
+                 "Rendered reprex ready")
+  expect_identical(ret, out)
+})
+
+test_that("reprex: file input in a subdirectory works", {
+  on.exit(unlink("foo", recursive = TRUE))
+  dir.create("foo")
+  write("1:5", file.path("foo", "foo.R"))
+  expect_message(ret <- reprex(input = file.path("foo", "foo.R"), show = FALSE),
+                 "Rendered reprex ready")
   expect_identical(ret, out)
 })
 

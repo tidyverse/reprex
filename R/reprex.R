@@ -189,6 +189,7 @@ reprex <- function(
     the_source <- ingest_input(input)
   }
 
+  outfile_given <- !is.null(outfile)
   r_file <- strip_ext(outfile) %||% tempfile() ## foo or foo.md --> foo
   r_file <- add_suffix(r_file, "reprex")       ## foo --> foo_reprex
   r_file <- add_ext(r_file)                    ## foo_reprex.R
@@ -216,9 +217,15 @@ reprex <- function(
     ))
 
   writeLines(the_source, r_file)
-  r_file <- normalizePath(r_file)
+  if (outfile_given) {
+    message("Preparing reprex as .R file to render:\n  * ", r_file)
+  }
 
   output_file <- md_file <- reprex_(r_file)
+  if (outfile_given) {
+    pathstem <- path_stem(r_file, md_file)
+    message("Writing reprex markdown:\n  * ", sub(pathstem, "", md_file))
+  }
   output_lines <- readLines(md_file)
 
   if (identical(venue, "r")) {
@@ -229,16 +236,20 @@ reprex <- function(
     output_lines <- lns
     output_file <- gsub("_reprex", "_rendered", r_file)
     writeLines(output_lines, output_file)
+    if (outfile_given) {
+      message("Writing reprex as commented R script:\n  * ",
+              sub(pathstem, "", output_file))
+    }
   }
 
   if (clipboard_available()) {
     clipr::write_clip(output_lines)
-    message("Rendered reprex is on the clipboard.")
+    message("Rendered reprex ready on the clipboard.")
   } else {
     message("Unable to put result on the clipboard. How to get it:\n",
             "  * Capture what reprex() returns.\n",
-            "  * Use `outfile = \"foo\"` to write output to current working directory.\n",
-            "  * See the temp file:\n",
+            "  * Use `outfile = \"foo\"` to request output in specific file.\n",
+            "  * See the temp file:\n    - ",
             output_file)
   }
 
@@ -247,7 +258,7 @@ reprex <- function(
     ##   * causes display in RStudio Viewer, if available
     ##   * retains foo_reprex_files but not other html-related intermediates
     ## if outfile = NULL, this happens by default; otherwise, must force it
-    ## and `clean = FALSE` does too much (deletes foo_reprex_files, which might
+    ## `clean = FALSE` does too much (deletes foo_reprex_files, which might
     ## hold local figs)
     if (is.null(outfile)) {
       html_file <- rmarkdown::render(md_file, quiet = TRUE)
