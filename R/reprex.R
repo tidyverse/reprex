@@ -13,8 +13,8 @@
 #' }
 #' The usual "code + commented output" is returned invisibly, put on the
 #' clipboard, and written to file. An HTML preview displays in RStudio's Viewer
-#' pane, if available, or in the default browser, otherwise. Leading prompts,
-#' e.g., \code{"> "}, are stripped from the input code.
+#' pane, if available, or in the default browser, otherwise. Leading \code{"> "}
+#' prompts, are stripped from the input code.
 #'
 #' reprex sets specific \href{http://yihui.name/knitr/options/}{knitr options},
 #' which you can supplement or override via the \code{opts_chunk} and
@@ -50,7 +50,9 @@
 #'   (default), reprex writes to temp files below the session temp directory. If
 #'   \code{outfile = "foo"}, expect output files in current working directory,
 #'   like \code{foo_reprex.R}, \code{foo_reprex.md}, and, if \code{venue = "R"},
-#'   \code{foo_rendered.R}.
+#'   \code{foo_rendered.R}. If \code{outfile = NA}, expect output files in
+#'   current working directory with basename derived from the path in
+#'   \code{input}, if sensible, otherwise from \code{\link{tempfile}()}.
 #' @param comment Character. Prefix with which to comment out output, defaults
 #'   to \code{"#>"}.
 #' @param opts_chunk,opts_knit Named list. Optional
@@ -111,7 +113,11 @@
 #' # read reprex from file
 #' writeLines(c("x <- 1:4", "mean(x)"), "foofy.R")
 #' reprex(input = "foofy.R")
-#' file.remove("foofy.R")
+#'
+#' # read from file and write to similarly-named outfiles
+#' reprex(input = "foofy.R", outfile = NA)
+#' list.files(pattern = "foofy")
+#' file.remove(list.files(pattern = "foofy"))
 #'
 #' # write rendered reprex to file
 #' reprex({
@@ -151,7 +157,7 @@
 #' ret
 #'
 #' ## include prompt and don't comment the output
-#' ## for when you don't want to make your code easy to execute :)
+#' ## use this when you want to make your code hard to execute :)
 #' reprex({
 #'   x <- 1:4
 #'   y <- 2:5
@@ -172,7 +178,7 @@ reprex <- function(
   venue <- tolower(match.arg(venue))
   stopifnot(is.logical(si), is.logical(show), is.character(comment))
   if (!is.null(input)) stopifnot(is.character(input))
-  if (!is.null(outfile)) stopifnot(is.character(outfile))
+  if (!is.null(outfile)) stopifnot(is.character(outfile) || is.na(outfile))
 
   the_source <- NULL
   ## capture source in character vector
@@ -193,6 +199,13 @@ reprex <- function(
   }
 
   outfile_given <- !is.null(outfile)
+  if (outfile_given && is.na(outfile)) {
+    if (length(input) == 1 && !grepl("\n$", input)) {
+      outfile <- basename(input)
+    } else {
+      outfile <- basename(tempfile())
+    }
+  }
   r_file <- strip_ext(outfile) %||% tempfile() ## foo or foo.md --> foo
   r_file <- add_suffix(r_file, "reprex")       ## foo --> foo_reprex
   r_file <- add_ext(r_file)                    ## foo_reprex.R

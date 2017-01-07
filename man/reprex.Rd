@@ -32,7 +32,9 @@ or string (with embedded newlines).}
 (default), reprex writes to temp files below the session temp directory. If
 \code{outfile = "foo"}, expect output files in current working directory,
 like \code{foo_reprex.R}, \code{foo_reprex.md}, and, if \code{venue = "R"},
-\code{foo_rendered.R}.}
+\code{foo_rendered.R}. If \code{outfile = NA}, expect output files in
+current working directory with basename derived from the path in
+\code{input}, if sensible, otherwise from \code{\link{tempfile}()}.}
 
 \item{comment}{Character. Prefix with which to comment out output, defaults
 to \code{"#>"}.}
@@ -58,8 +60,8 @@ issue. Reprex source can be
 }
 The usual "code + commented output" is returned invisibly, put on the
 clipboard, and written to file. An HTML preview displays in RStudio's Viewer
-pane, if available, or in the default browser, otherwise. Leading prompts,
-e.g., \code{"> "}, are stripped from the input code.
+pane, if available, or in the default browser, otherwise. Leading \code{"> "}
+prompts, are stripped from the input code.
 }
 \details{
 reprex sets specific \href{http://yihui.name/knitr/options/}{knitr options},
@@ -132,7 +134,11 @@ reprex({
 # read reprex from file
 writeLines(c("x <- 1:4", "mean(x)"), "foofy.R")
 reprex(input = "foofy.R")
-file.remove("foofy.R")
+
+# read from file and write to similarly-named outfiles
+reprex(input = "foofy.R", outfile = NA)
+list.files(pattern = "foofy")
+file.remove(list.files(pattern = "foofy"))
 
 # write rendered reprex to file
 reprex({
@@ -172,7 +178,7 @@ ret <- reprex({
 ret
 
 ## include prompt and don't comment the output
-## for when you don't want to make your code easy to execute :)
+## use this when you want to make your code hard to execute :)
 reprex({
   x <- 1:4
   y <- 2:5
