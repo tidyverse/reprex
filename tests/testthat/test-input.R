@@ -2,39 +2,45 @@ context("input")
 
 out <- c("``` r", "1:5", "#> [1] 1 2 3 4 5", "```")
 
+exp_msg <- switch(as.character(clipboard_available()),
+                  `TRUE` = "Rendered reprex ready",
+                  "Unable to put result on the clipboard")
+
 test_that("reprex: clipboard input works", {
   skip_if_no_clipboard()
   clipr::write_clip("1:5")
-  expect_message(ret <- reprex(show = FALSE), "Rendered reprex ready")
+  expect_message(ret <- reprex(show = FALSE), exp_msg)
   expect_identical(ret, out)
 })
 
 test_that("reprex: expression input works", {
-  expect_message(ret <- reprex(1:5, show = FALSE), "Rendered reprex ready")
+  msg <- capture_messages(ret <- reprex(1:5, show = FALSE))
   expect_identical(ret, out)
+  expect_match(msg, exp_msg, all = FALSE)
 })
 
 test_that("reprex: character input works", {
-  expect_message(ret <- reprex(input = "1:5\n", show = FALSE),
-                 "Rendered reprex ready")
+  msg <- capture_messages(ret <- reprex(input = "1:5\n", show = FALSE))
   expect_identical(ret, out)
+  expect_match(msg, exp_msg, all = FALSE)
 })
 
 test_that("reprex: file input works", {
   on.exit(file.remove("foo.R"))
   write("1:5", "foo.R")
-  expect_message(ret <- reprex(input = "foo.R", show = FALSE),
-                 "Rendered reprex ready")
+  msg <- capture_messages(ret <- reprex(input = "foo.R", show = FALSE))
   expect_identical(ret, out)
+  expect_match(msg, exp_msg, all = FALSE)
 })
 
 test_that("reprex: file input in a subdirectory works", {
   on.exit(unlink("foo", recursive = TRUE))
   dir.create("foo")
   write("1:5", file.path("foo", "foo.R"))
-  expect_message(ret <- reprex(input = file.path("foo", "foo.R"), show = FALSE),
-                 "Rendered reprex ready")
+  msg <- capture_messages(ret <- reprex(input = file.path("foo", "foo.R"),
+                                        show = FALSE))
   expect_identical(ret, out)
+  expect_match(msg, exp_msg, all = FALSE)
 })
 
 test_that("Circular use is detected before render", {
