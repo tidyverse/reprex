@@ -14,7 +14,6 @@ Description: Convenience wrapper that uses the 'rmarkdown' package to render
 Depends: R (>= 3.0.2)
 License: MIT + file LICENSE
 LazyData: true
-VignetteBuilder: knitr
 URL: https://github.com/jennybc/reprex
 BugReports: https://github.com/jennybc/reprex/issues
 Imports:
