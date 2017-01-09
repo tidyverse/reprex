@@ -14,7 +14,8 @@
 #' The usual "code + commented output" is returned invisibly, put on the
 #' clipboard, and written to file. An HTML preview displays in RStudio's Viewer
 #' pane, if available, or in the default browser, otherwise. Leading \code{"> "}
-#' prompts, are stripped from the input code.
+#' prompts, are stripped from the input code. Read more at
+#' \url{http://jennybc.github.io/reprex/}.
 #'
 #' reprex sets specific \href{http://yihui.name/knitr/options/}{knitr options},
 #' which you can supplement or override via the \code{opts_chunk} and
