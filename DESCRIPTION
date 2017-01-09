@@ -1,12 +1,16 @@
 Package: reprex
 Title: Prepare Reproducible Example Code for the Web
-Version: 0.0.0.9001
+Version: 0.1.0
 Authors@R: c(
     person("Jennifer", "Bryan", , "jenny@stat.ubc.ca", role = c("aut", "cre")),
     person("David", "Robinson", , "admiral.david@gmail.com", role = "aut")
     )
-Description: Render reproducible example code to Markdown suitable for use in
-  code-oriented websites, such as StackOverflow.com or GitHub.
+Description: Convenience wrapper that uses the 'rmarkdown' package to render
+  small snippets of code to target formats that include both code and output.
+  The goal is to encourage the sharing of small, reproducible, and runnable
+  examples on code-oriented websites, such as StackOverflow.com and
+  GitHub.com, or in email. 'reprex' also extracts clean, runnable R code from
+  various common formats, such as copy/paste from an R session.
 Depends: R (>= 3.0.2)
 License: MIT + file LICENSE
 LazyData: true
