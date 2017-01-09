@@ -8,9 +8,9 @@ Authors@R: c(
 Description: Convenience wrapper that uses the 'rmarkdown' package to render
   small snippets of code to target formats that include both code and output.
   The goal is to encourage the sharing of small, reproducible, and runnable
-  examples on code-oriented websites, such as 'StackOverflow.com' and
-  'GitHub.com', or in email. 'reprex' also extracts clean, runnable R code from
-  various common formats, such as copy/paste from an R session.
+  examples on code-oriented websites, such as <http://stackoverflow.com> and
+  <https://github.com>, or in email. 'reprex' also extracts clean, runnable R
+  code from various common formats, such as copy/paste from an R session.
 Depends: R (>= 3.0.2)
 License: MIT + file LICENSE
 LazyData: true
