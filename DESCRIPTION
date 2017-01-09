@@ -1,8 +1,8 @@
 Package: reprex
-Title: Prepare Reproducible Example Code for the Web
+Title: Prepare Reproducible Example Code for Sharing
 Version: 0.1.0
 Authors@R: c(
-    person("Jennifer", "Bryan", , "jenny@stat.ubc.ca", role = c("aut", "cre")),
+    person("Jennifer", "Bryan", , "jenny.f.bryan@gmail.com", role = c("aut", "cre")),
     person("David", "Robinson", , "admiral.david@gmail.com", role = "aut")
     )
 Description: Convenience wrapper that uses the 'rmarkdown' package to render
