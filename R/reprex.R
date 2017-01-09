@@ -210,8 +210,11 @@ reprex <- function(
   r_file <- add_suffix(r_file, "reprex")       ## foo --> foo_reprex
   r_file <- add_ext(r_file)                    ## foo_reprex.R
 
-  if (file.exists(r_file)) {
-    stop("`", r_file, "` already exists.", call. = FALSE)
+  if (file.exists(r_file) &&
+      yesno("Oops, file already exists:\n  * ", r_file, "\n",
+            "Delete it and carry on with this reprex?")) {
+    cat("Exiting.\n")
+    return(invisible())
   }
 
   the_source <- ensure_not_empty(the_source)

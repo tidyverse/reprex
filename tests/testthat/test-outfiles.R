@@ -42,7 +42,7 @@ test_that("`.md` extension is stripped from outfile", {
 test_that(".R outfile doesn't clobber .R infile", {
   on.exit(file.remove("foo.R", "foo_reprex.R", "foo_reprex.md"))
   writeLines("1:5", "foo.R")
-  ret <- reprex(input = "foo.R", show = FALSE, outfile = "foo")
+  ret <- reprex(input = "foo.R", show = FALSE, outfile = NA)
   expect_identical("1:5", readLines("foo.R"))
 })
 
@@ -76,4 +76,13 @@ test_that("outfiles based on tempfile()", {
   expect_true(file.exists(md_file))
   base_msg <- gsub("foo", tempbase, base_msg)
   expect_identical(msg[1:2], base_msg)
+})
+
+test_that("pre-existing foo_reprex.R isn't get clobbered, w/o user's OK", {
+  on.exit(file.remove("foo_reprex.R", "foo_reprex.md"))
+  ret <- reprex(min(1L), show = FALSE, outfile = "foo")
+  expect_match(readLines("foo_reprex.md"), "min(1L)", all = FALSE, fixed = TRUE)
+  expect_output(reprex(max(2L), show = FALSE, outfile = "foo"),
+                "Exiting")
+  expect_match(readLines("foo_reprex.md"), "min(1L)", all = FALSE, fixed = TRUE)
 })

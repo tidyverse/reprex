@@ -117,3 +117,14 @@ ingest_input <- function(input = NULL) {
   readLines(input)
 
 }
+
+## stripped down version of yesno() from devtools
+## returns TRUE if user says "no"
+##         FALSE if user says "yes"
+yesno <- function(..., yes = "yes", no = "no") {
+  if (interactive()) {
+    cat(paste0(..., collapse = ""))
+    return(utils::menu(c(yes, no)) == 2)
+  }
+  TRUE
+}
