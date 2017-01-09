@@ -15,3 +15,4 @@
 ^codecov\.yml$
 ^man-roxygen$
 ^docs$
+^cran-comments\.md$
