@@ -52,7 +52,7 @@ reprex_addin <- function() { # nocov start
       shiny::tags$hr(),
       shiny::checkboxInput(
         "si",
-        "Append session info:",
+        "Append session info",
         FALSE
       ),
       shiny::checkboxInput(
@@ -92,7 +92,7 @@ reprex_addin <- function() { # nocov start
       )
 
       reprex_output <- do.call(reprex, reprex_args)
-      shinyjs::info("reprex() output ready on clipboard")
+      shinyjs::info("Rendered reprex is on the clipboard.")
       #reprex_output <- paste(reprex_output, collapse = "\n")
       #rstudioapi::insertText(Inf, reprex_output, id = context$id)
       invisible(shiny::stopApp())

@@ -7,7 +7,7 @@ base_msg <- c(
 
 clip_msg <- switch(
   as.character(clipboard_available()),
-  `TRUE` = "Rendered reprex ready on the clipboard.\n",
+  `TRUE` = "Rendered reprex is on the clipboard.",
   "Unable to put result on the clipboard")
 
 test_that("expected outfiles are written and messaged, venue = 'gh'", {
