@@ -36,6 +36,14 @@ Preview an HTML version in RStudio viewer or default browser.
 Install and load
 ----------------
 
+Install from CRAN:
+
+``` r
+install.packages("reprex")
+```
+
+or get a development version from GitHub:
+
 ``` r
 devtools::install_github("jennybc/reprex")
 library(reprex)
