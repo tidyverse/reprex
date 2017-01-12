@@ -1,6 +1,8 @@
 This package was just released on CRAN a couple of days ago.
 
 ## R CMD check results
+  		  
+0 errors | 0 warnings | 1 note
 
 The note is either about the fact that the last submission was only two days ago or that and the MIT license.
 
