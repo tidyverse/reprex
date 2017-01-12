@@ -1,20 +1,13 @@
-## Test environments
-* local OS X install, R 3.3.2
-* ubuntu 12.04 (on travis-ci), R 3.2.5, R 3.3.1, and
-    R Under development (unstable) (2016-12-30 r71861)
-* Windows Server 2012 R2 x64 (build 9600) (on appveyor), R 3.3.2
-* win-builder (devel and release)
-
 ## R CMD check results
 
 0 errors | 0 warnings | 1 note
 
-* This is a new release.
-* This is flagged as a possibly invalid URL (https://www.r-pkg.org/pkg/reprex),
-  but it will resolve properly once the package is on CRAN.
-* The word "runnable" is flagged as possibly mis-spelled, but it appears in
-  several dictionaries, including Merriam-Webster.
+The note is either about the fact that the last submission was only two days ago or that and the MIT license.
 
-## Reverse dependencies
+This is a small update in response to a message from Prof. Brian Ripley re: errors from examples and tests on Solaris:
 
-This is a new release, so there are no reverse dependencies.
+https://cran.r-project.org/web/checks/check_results_reprex.html
+
+These are all due to an undeclared system requirement.
+
+I have now declared Pandoc as a system requirement in DESCRIPTION at the same version and in the same manner as the rmarkdown package, which the reprex package imports.

@@ -1,4 +1,8 @@
-# reprex 0.1.0.9000
+# reprex 0.1.1.9000
+
+# reprex 0.1.1
+
+  * pandoc added to SystemRequirements
 
 # reprex 0.1.0
 
