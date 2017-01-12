@@ -1,6 +1,6 @@
 Package: reprex
 Title: Prepare Reproducible Example Code for Sharing
-Version: 0.1.0.9000
+Version: 0.1.1
 Authors@R: c(
     person("Jennifer", "Bryan", , "jenny.f.bryan@gmail.com", role = c("aut", "cre")),
     person("David", "Robinson", , "admiral.david@gmail.com", role = "aut")
@@ -34,4 +34,5 @@ Suggests:
     shiny,
     shinyjs,
     testthat
+SystemRequirements: pandoc (>= 1.12.3) - http://pandoc.org
 RoxygenNote: 5.0.1.9000
