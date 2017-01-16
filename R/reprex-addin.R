@@ -16,7 +16,7 @@
 #' @export
 reprex_addin <- function() { # nocov start
 
-  dep_ok <- vapply(c("rstudioapi", "shiny", "miniUI", "shinyjs"),
+  dep_ok <- vapply(c("rstudioapi", "shiny", "miniUI"),
                    requireNamespace, logical(1), quietly = TRUE)
   if (any(!dep_ok)) {
     stop("Install these packages in order to use the reprex addin:\n",
