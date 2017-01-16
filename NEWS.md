@@ -1,5 +1,7 @@
 # reprex 0.1.1.9000
 
+  * `reprex_addin()` displays notificaton as inline dialog
+
 # reprex 0.1.1
 
   * pandoc added to SystemRequirements

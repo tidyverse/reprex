@@ -32,7 +32,6 @@ Suggests:
     miniUI,
     rstudioapi,
     shiny,
-    shinyjs,
     testthat
 SystemRequirements: pandoc (>= 1.12.3) - http://pandoc.org
 RoxygenNote: 5.0.1.9000

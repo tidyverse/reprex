@@ -16,7 +16,7 @@
 #' @export
 reprex_addin <- function() { # nocov start
 
-  dep_ok <- vapply(c("rstudioapi", "shiny", "miniUI", "shinyjs"),
+  dep_ok <- vapply(c("rstudioapi", "shiny", "miniUI"),
                    requireNamespace, logical(1), quietly = TRUE)
   if (any(!dep_ok)) {
     stop("Install these packages in order to use the reprex addin:\n",
@@ -24,7 +24,6 @@ reprex_addin <- function() { # nocov start
   }
 
   ui <- miniUI::miniPage(
-    shinyjs::useShinyjs(),
     miniUI::gadgetTitleBar(
       shiny::p("Use",
                shiny::a(href = "https://github.com/jennybc/reprex#readme",
@@ -66,37 +65,25 @@ reprex_addin <- function() { # nocov start
   server <- function(input, output, session) {
 
     shiny::observeEvent(input$done, {
-
-      context <- rstudioapi::getSourceEditorContext()
-
-      reprex_input <- shiny::reactive({
-        switch(
-          input$source,
-          cur_sel = list(input = newlined(
-            rstudioapi::primary_selection(context)[["text"]]
-            )),
-          cur_file = list(input = newlined(context$contents)),
-          ## TODO: figure out how to get a file selection dialog
-          infile = list(input = "mean(rnorm(10))\n")
-        )
-      })
-
-      ## make my list of args here, like so
-      reprex_args <- c(
-        reprex_input(),
-        list(
-          venue = input$venue,
-          si = as.logical(input$si),
-          show = as.logical(input$show)
-        )
+      reprex_output <- reprex_guess(
+        input$source,
+        input$venue,
+        as.logical(input$si),
+        as.logical(input$show)
       )
 
-      reprex_output <- do.call(reprex, reprex_args)
-      shinyjs::info("Rendered reprex is on the clipboard.")
+      shiny::showModal(
+        shiny::modalDialog(
+          "Rendered reprex is on the clipboard.",
+          footer = shiny::actionButton("ok", "OK")
+        )
+      )
       #reprex_output <- paste(reprex_output, collapse = "\n")
       #rstudioapi::insertText(Inf, reprex_output, id = context$id)
-      invisible(shiny::stopApp())
+    })
 
+    shiny::observeEvent(input$ok, {
+      invisible(shiny::stopApp())
     })
 
   }
@@ -104,3 +91,22 @@ reprex_addin <- function() { # nocov start
   shiny::runGadget(ui, server, viewer = shiny::dialogViewer("Render reprex"))
 
 } # nocov end
+
+reprex_guess <- function(source, venue = "gh", si = FALSE, show = FALSE) {
+  context <- rstudioapi::getSourceEditorContext()
+
+  reprex_input <- switch(source,
+    clipboard = NULL,
+    cur_sel = newlined(rstudioapi::primary_selection(context)[["text"]]),
+    cur_file = newlined(context$contents),
+    ## TODO: figure out how to get a file selection dialog
+    infile = "mean(rnorm(10))\n"
+  )
+
+  reprex(
+    input = reprex_input,
+    venue = venue,
+    si = si,
+    show = show
+  )
+}
