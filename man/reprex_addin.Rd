@@ -16,6 +16,7 @@ Prepare in one of these ways:
 \item Copy reprex source to clipboard.
 \item Select reprex source.
 \item Activate the file containing reprex source.
+\item Have source in a \code{.R} file.
 }
 Call \code{\link{reprex}()} directly for more control via additional
 arguments.

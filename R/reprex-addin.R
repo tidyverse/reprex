@@ -9,6 +9,7 @@
 #' \item Copy reprex source to clipboard.
 #' \item Select reprex source.
 #' \item Activate the file containing reprex source.
+#' \item Have source in a \code{.R} file.
 #' }
 #' Call \code{\link{reprex}()} directly for more control via additional
 #' arguments.
@@ -23,7 +24,11 @@ reprex_addin <- function() { # nocov start
          paste(names(dep_ok[!dep_ok]), collapse = "\n"), call. = FALSE)
   }
 
+  resource_path <- system.file("addins", package = "reprex")
+  shiny::addResourcePath("reprex_addins", resource_path)
+
   ui <- miniUI::miniPage(
+    shiny::tags$head(shiny::includeCSS(file.path(resource_path, "reprex.css"))),
     miniUI::gadgetTitleBar(
       shiny::p("Use",
                shiny::a(href = "https://github.com/jennybc/reprex#readme",
@@ -37,9 +42,15 @@ reprex_addin <- function() { # nocov start
         "Where is reprex source?",
         c("on the clipboard" = "clipboard",
           "current selection" = "cur_sel",
-          "current file" = "cur_file")
-        # TO DO
-        # "another file" = "infile")
+          "current file" = "cur_file",
+          "another file" = "input_file")
+      ),
+      shiny::conditionalPanel(
+        condition = "input.source == 'input_file'",
+        shiny::fileInput(
+          inputId = "source_file",
+          label = "Source file"
+        )
       ),
       shiny::radioButtons(
         "venue",
@@ -68,6 +79,7 @@ reprex_addin <- function() { # nocov start
       reprex_output <- reprex_guess(
         input$source,
         input$venue,
+        input$source_file,
         as.logical(input$si),
         as.logical(input$show)
       )
@@ -90,17 +102,18 @@ reprex_addin <- function() { # nocov start
 
   shiny::runGadget(ui, server, viewer = shiny::dialogViewer("Render reprex"))
 
-} # nocov end
+}
 
-reprex_guess <- function(source, venue = "gh", si = FALSE, show = FALSE) {
+reprex_guess <- function(source, venue = "gh", source_file = NULL,
+                         si = FALSE, show = FALSE) {
   context <- rstudioapi::getSourceEditorContext()
 
-  reprex_input <- switch(source,
+  reprex_input <- switch(
+    source,
     clipboard = NULL,
     cur_sel = newlined(rstudioapi::primary_selection(context)[["text"]]),
     cur_file = newlined(context$contents),
-    ## TODO: figure out how to get a file selection dialog
-    infile = "mean(rnorm(10))\n"
+    input_file = source_file$datapath
   )
 
   reprex(
@@ -110,3 +123,4 @@ reprex_guess <- function(source, venue = "gh", si = FALSE, show = FALSE) {
     show = show
   )
 }
+# nocov end
