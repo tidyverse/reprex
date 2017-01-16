@@ -1,3 +1,9 @@
 .progress-bar {
   color: transparent;
 }
+
+#top_msg {
+  color: #999;
+  font-style: italic;
+  margin-bottom: 10px;
+}

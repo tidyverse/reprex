@@ -37,6 +37,10 @@ reprex_addin <- function() { # nocov start
       right = miniUI::miniTitleBarButton("done", "Render", primary = TRUE)
     ),
     miniUI::miniContentPanel(
+      shiny::tags$div(
+        id = "top_msg",
+        "Rendered reprex will be on the clipboard"
+      ),
       shiny::radioButtons(
         "source",
         "Where is reprex source?",
@@ -84,17 +88,9 @@ reprex_addin <- function() { # nocov start
         as.logical(input$show)
       )
 
-      shiny::showModal(
-        shiny::modalDialog(
-          "Rendered reprex is on the clipboard.",
-          footer = shiny::actionButton("ok", "OK")
-        )
-      )
       #reprex_output <- paste(reprex_output, collapse = "\n")
       #rstudioapi::insertText(Inf, reprex_output, id = context$id)
-    })
 
-    shiny::observeEvent(input$ok, {
       invisible(shiny::stopApp())
     })
 
