@@ -24,7 +24,6 @@ reprex_addin <- function() { # nocov start
   }
 
   ui <- miniUI::miniPage(
-    shinyjs::useShinyjs(),
     miniUI::gadgetTitleBar(
       shiny::p("Use",
                shiny::a(href = "https://github.com/jennybc/reprex#readme",
@@ -90,13 +89,20 @@ reprex_addin <- function() { # nocov start
           show = as.logical(input$show)
         )
       )
-
       reprex_output <- do.call(reprex, reprex_args)
-      shinyjs::info("Rendered reprex is on the clipboard.")
+
+      shiny::showModal(
+        shiny::modalDialog(
+          "Rendered reprex is on the clipboard.",
+          footer = shiny::actionButton("ok", "OK")
+        )
+      )
       #reprex_output <- paste(reprex_output, collapse = "\n")
       #rstudioapi::insertText(Inf, reprex_output, id = context$id)
-      invisible(shiny::stopApp())
+    })
 
+    shiny::observeEvent(input$ok, {
+      invisible(shiny::stopApp())
     })
 
   }
