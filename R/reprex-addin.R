@@ -96,22 +96,17 @@ reprex_guess <- function(source, venue = "gh", si = FALSE, show = FALSE) {
   context <- rstudioapi::getSourceEditorContext()
 
   reprex_input <- switch(source,
-    cur_sel = list(input = newlined(
-      rstudioapi::primary_selection(context)[["text"]]
-    )),
-    cur_file = list(input = newlined(context$contents)),
+    clipboard = NULL,
+    cur_sel = newlined(rstudioapi::primary_selection(context)[["text"]]),
+    cur_file = newlined(context$contents),
     ## TODO: figure out how to get a file selection dialog
-    infile = list(input = "mean(rnorm(10))\n")
+    infile = "mean(rnorm(10))\n"
   )
 
-  ## make my list of args here, like so
-  reprex_args <- c(
-    reprex_input,
-    list(
-      venue = venue,
-      si = si,
-      show = show
-    )
+  reprex(
+    input = reprex_input,
+    venue = venue,
+    si = si,
+    show = show
   )
-  do.call(reprex, reprex_args)
 }
