@@ -280,14 +280,10 @@ reprex <- function(
     ## if outfile = NULL, this happens by default; otherwise, must force it
     ## `clean = FALSE` does too much (deletes foo_reprex_files, which might
     ## hold local figs)
-    if (is.null(outfile)) {
-      html_file <- rmarkdown::render(md_file, quiet = TRUE)
-    } else {
-      html_file <- strip_ext(basename(md_file))
-      html_file <- tempfile(pattern = paste0(html_file, "_"), fileext = ".html")
-      html_file <-
-        rmarkdown::render(md_file, output_file = html_file, quiet = TRUE)
-    }
+    html_file <- strip_ext(basename(md_file))
+    html_file <- tempfile(pattern = paste0(html_file, "_"), fileext = ".html")
+    rmarkdown::render(md_file, output_file = html_file, quiet = TRUE)
+
     viewer <- getOption("viewer") %||% utils::browseURL
     viewer(html_file)
   }
