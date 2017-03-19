@@ -255,7 +255,7 @@ reprex <- function(
     lns <- lns[line_info != "bt"]
     output_lines <- lns
     output_file <- gsub("_reprex", "_rendered", r_file)
-    writeLines(output_lines, file(output_file, encoding = "UTF-8"))
+    writeLines(output_lines, output_file)
     if (outfile_given) {
       message("Writing reprex as commented R script:\n  * ",
               sub(pathstem, "", output_file))
