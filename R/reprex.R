@@ -246,7 +246,7 @@ reprex <- function(
     pathstem <- path_stem(r_file, md_file)
     message("Writing reprex markdown:\n  * ", sub(pathstem, "", md_file))
   }
-  output_lines <- readLines(md_file)
+  output_lines <- readLines(md_file, encoding = "UTF-8")
 
   if (identical(venue, "r")) {
     lns <- output_lines
@@ -255,7 +255,7 @@ reprex <- function(
     lns <- lns[line_info != "bt"]
     output_lines <- lns
     output_file <- gsub("_reprex", "_rendered", r_file)
-    writeLines(output_lines, output_file)
+    writeLines(output_lines, file(output_file, encoding = "UTF-8"))
     if (outfile_given) {
       message("Writing reprex as commented R script:\n  * ",
               sub(pathstem, "", output_file))
@@ -281,12 +281,12 @@ reprex <- function(
     ## `clean = FALSE` does too much (deletes foo_reprex_files, which might
     ## hold local figs)
     if (is.null(outfile)) {
-      html_file <- rmarkdown::render(md_file, quiet = TRUE)
+      html_file <- rmarkdown::render(md_file, quiet = TRUE, encoding = "UTF-8")
     } else {
       html_file <- strip_ext(basename(md_file))
       html_file <- tempfile(pattern = paste0(html_file, "_"), fileext = ".html")
       html_file <-
-        rmarkdown::render(md_file, output_file = html_file, quiet = TRUE)
+        rmarkdown::render(md_file, output_file = html_file, quiet = TRUE, encoding = "UTF-8")
     }
     viewer <- getOption("viewer") %||% utils::browseURL
     viewer(html_file)
