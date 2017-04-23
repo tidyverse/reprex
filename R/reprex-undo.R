@@ -113,7 +113,7 @@ reprex_undo <- function(x = NULL, is_md = FALSE, venue,
   } else if (is.null(prompt)) {        ## reprex_clean
     x_out <- x[!grepl(comment, x)]
   } else {                             ## reprex_rescue
-    regex <- paste0("^", prompt)
+    regex <- paste0("^\\s*", prompt)
     x_out <- x[grepl(regex, x)]
     x_out <- sub(regex, "", x_out)
   }
