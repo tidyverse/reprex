@@ -1,5 +1,10 @@
 #' Render a reprex
 #'
+#' \code{reprex_addin} opens a gadget that allows you to customise where the
+#' code to reproduce should come from along with a handful of other options.
+#' \code{reprex_selection} reproduces the current selection, optionally
+#' customised by options.
+#'
 #' An \href{https://shiny.rstudio.com/articles/gadgets.html}{RStudio gadget} and
 #' \href{http://rstudio.github.io/rstudioaddins/}{addin} to call
 #' \code{\link{reprex}()}. Appears as "Render reprex" in the RStudio Addins
@@ -57,18 +62,19 @@ reprex_addin <- function() { # nocov start
         "Target venue:",
         c("GitHub" = "gh",
           "StackOverflow" = "so",
-          "R script" = "r")
+          "R script" = "r"),
+        selected = getOption("reprex.venue", FALSE)
       ),
       shiny::tags$hr(),
       shiny::checkboxInput(
         "si",
         "Append session info",
-        FALSE
+        getOption("reprex.si", TRUE)
       ),
       shiny::checkboxInput(
         "show",
         "Preview HTML",
-        TRUE
+        getOption("reprex.show", TRUE)
       )
     )
   )
@@ -118,6 +124,25 @@ reprex_guess <- function(source, venue = "gh", source_file = NULL,
 
   reprex(
     input = reprex_input,
+    venue = venue,
+    si = si,
+    show = show
+  )
+}
+
+#' @export
+#' @rdname reprex_addin
+#' @inheritParams reprex
+reprex_selection <- function(
+                            venue = getOption("reprex.venue", "gh"),
+                            si = getOption("reprex.si", FALSE),
+                            show = getOption("reprex.show", TRUE)
+) {
+  context <- rstudioapi::getSourceEditorContext()
+  selection <- newlined(rstudioapi::primary_selection(context)[["text"]])
+
+  reprex(
+    input = selection,
     venue = venue,
     si = si,
     show = show
