@@ -10,6 +10,10 @@ init:
 install:
   ps: Bootstrap
 
+environment:
+  global:
+    USE_RTOOLS: true
+
 cache:
   - C:\RLibrary
 
