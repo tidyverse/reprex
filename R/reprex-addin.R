@@ -74,25 +74,21 @@ reprex_addin <- function() { # nocov start
   )
 
   server <- function(input, output, session) {
-
     shiny::observeEvent(input$done, {
-      reprex_output <- reprex_guess(
+      shiny::stopApp(list(
         input$source,
         input$venue,
         input$source_file,
         as.logical(input$si),
         as.logical(input$show)
-      )
-
-      shiny::stopApp()
-      #reprex_output <- paste(reprex_output, collapse = "\n")
-      #rstudioapi::insertText(Inf, reprex_output, id = context$id)
+      ))
     })
-
   }
 
   app <- shiny::shinyApp(ui, server, options = list(quiet = TRUE))
-  shiny::runGadget(app, viewer = shiny::dialogViewer("Render reprex"))
+  result <- shiny::runGadget(app, viewer = shiny::dialogViewer("Render reprex"))
+
+  do.call(reprex_guess, result)
 }
 
 reprex_guess <- function(source, venue = "gh", source_file = NULL,
