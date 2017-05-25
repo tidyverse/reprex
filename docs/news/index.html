@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -58,7 +60,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jennybc/reprex">
+  <a href="https://github.com/tidyverse/reprex">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -79,13 +81,27 @@
     </div>
 
     <div class="contents">
+    <div id="reprex-0-1-1-9000" class="section level1">
+<h1 class="hasAnchor">
+<a href="#reprex-0-1-1-9000" class="anchor"></a>reprex 0.1.1.9000</h1>
+<ul>
+<li>
+<p>New <code><a href="../reference/reprex_addin.html">reprex_selection()</a></code> add-in reprexes the current selection, with options controlled by options <code>reprex.venue</code>, <code>reprex.si</code>, and <code>reprex.show</code> (#56,</p>
+<h1 id="section">71, #81)</h1>
+</li>
+<li><p><code><a href="../reference/reprex_addin.html">reprex_addin()</a></code> displays notificaton as inline dialog</p></li>
+</ul>
+</div>
+    <div id="reprex-0-1-1" class="section level1">
+<h1 class="hasAnchor">
+<a href="#reprex-0-1-1" class="anchor"></a>reprex 0.1.1</h1>
+<ul>
+<li>pandoc added to SystemRequirements</li>
+</ul>
+</div>
     <div id="reprex-0-1-0" class="section level1">
 <h1 class="hasAnchor">
-<a href="#reprex-0-1-0" class="anchor"> </a>reprex 0.1.0</h1>
-</div>
-    <div id="reprex-0-0-0-9001" class="section level1">
-<h1 class="hasAnchor">
-<a href="#reprex-0-0-0-9001" class="anchor"> </a>reprex 0.0.0.9001</h1>
+<a href="#reprex-0-1-0" class="anchor"></a>reprex 0.1.0</h1>
 <ul>
 <li><p><code>outfile = NA</code> causes outfiles to be left in working directory. Filenames will be based on the <code>input</code> file, if there was one.</p></li>
 <li><p><code><a href="../reference/reprex.html">reprex()</a></code> strips any leading prompts from input code.</p></li>
@@ -102,14 +118,14 @@
 </ul>
 </li>
 <li><p>Order of <code><a href="../reference/reprex.html">reprex()</a></code> arguments has changed.</p></li>
-<li><p><code><a href="../reference/reprex.html">reprex()</a></code> gains the <code>si</code> argument to request that <code>devtools::session_info()</code> or <code>sessionInfo()</code> be appended to reprex code (#6 @dgrtwo). When <code>si = TRUE</code> and <code>venue = "gh"</code> (the default), session info is wrapped in a collapsible details tag. See <a href="https://github.com/jennybc/reprex/issues/55">an example</a> (#55).</p></li>
+<li><p><code><a href="../reference/reprex.html">reprex()</a></code> gains the <code>si</code> argument to request that <code>devtools::session_info()</code> or <code>sessionInfo()</code> be appended to reprex code (#6 @dgrtwo). When <code>si = TRUE</code> and <code>venue = "gh"</code> (the default), session info is wrapped in a collapsible details tag. See <a href="https://github.com/tidyverse/reprex/issues/55">an example</a> (#55).</p></li>
 <li><p>Reprex code can be provided as an R expression. (#6 @dgrtwo, #35)</p></li>
 <li><p><code><a href="../reference/reprex.html">reprex()</a></code> uses clipboard functionality from <a href="https://CRAN.R-project.org/package=clipr"><code>clipr</code></a> and thus should work on Windows and suitably prepared Unix-like systems, in addition to Mac OS. (#16 @mdlincoln)</p></li>
 </ul>
 </div>
     <div id="reprex-0-0-0-9000" class="section level1">
 <h1 class="hasAnchor">
-<a href="#reprex-0-0-0-9000" class="anchor"> </a>reprex 0.0.0.9000</h1>
+<a href="#reprex-0-0-0-9000" class="anchor"></a>reprex 0.0.0.9000</h1>
 <ul>
 <li>I tweeted about this and some people actually used it!</li>
 </ul>
@@ -121,8 +137,9 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#reprex-0-1-1-9000">0.1.1.9000</a></li>
+        <li><a href="#reprex-0-1-1">0.1.1</a></li>
         <li><a href="#reprex-0-1-0">0.1.0</a></li>
-        <li><a href="#reprex-0-0-0-9001">0.0.0.9001</a></li>
         <li><a href="#reprex-0-0-0-9000">0.0.0.9000</a></li>
       </ul>
     </div>
@@ -132,7 +149,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Jennifer Bryan, David Robinson.</p>
+  <p>Developed by Jennifer Bryan, David Robinson, <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
 </div>
 
 <div class="pkgdown">

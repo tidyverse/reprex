@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -58,7 +60,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jennybc/reprex">
+  <a href="https://github.com/tidyverse/reprex">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -78,39 +80,69 @@
     </div>
 
     
-    <p>An <a href = 'RStudio gadget'>https://shiny.rstudio.com/articles/gadgets.html</a> and
-<a href = 'addin'>http://rstudio.github.io/rstudioaddins/</a> to call
-<code><a href='reprex.html'>reprex</a>()</code>. Appears as &quot;Render reprex&quot; in the RStudio Addins
-menu.
-Prepare in one of these ways:
-<ol>
-<li> Copy reprex source to clipboard.
-</li>
-<li> Select reprex source.
-</li>
-<li> Activate the file containing reprex source.
-</li>
-</ol></p>
-
-    <p>Call <code><a href='reprex.html'>reprex</a>()</code> directly for more control via additional
-arguments.</p>
+    <p><code>reprex_addin</code> opens a gadget that allows you to customise where the
+code to reproduce should come from along with a handful of other options.
+<code>reprex_selection</code> reproduces the current selection, optionally
+customised by options.</p>
     
 
-    <pre><span class='fu'>reprex_addin</span>()</pre>
-        
+    <pre class="usage"><span class='fu'>reprex_addin</span>()
+
+<span class='fu'>reprex_selection</span>(<span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"reprex.venue"</span>, <span class='st'>"gh"</span>),
+  <span class='kw'>si</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"reprex.si"</span>, <span class='fl'>FALSE</span>), <span class='kw'>show</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"reprex.show"</span>, <span class='fl'>TRUE</span>))</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>venue</th>
+      <td><p>"gh" for GitHub (default), "so" for StackOverflow, "r" or "R"
+for a runnable R script, with commented output interleaved.</p></td>
+    </tr>
+    <tr>
+      <th>si</th>
+      <td><p>Whether to include the results of
+<code><a href='http://www.rdocumentation.org/packages/devtools/topics/session_info'>devtools::session_info</a>()</code>, if available, or
+<code>sessionInfo()</code> at the end of the reprex. When <code>venue =
+"gh"</code> (the default), session info is wrapped in a collapsible details tag.</p></td>
+    </tr>
+    <tr>
+      <th>show</th>
+      <td><p>Whether to show rendered output in a viewer (RStudio or browser).
+Defaults to <code>TRUE</code>.</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>An <a href = 'https://shiny.rstudio.com/articles/gadgets.html'>RStudio gadget</a> and
+<a href = 'http://rstudio.github.io/rstudioaddins/'>addin</a> to call
+<code><a href='reprex.html'>reprex</a>()</code>. Appears as "Render reprex" in the RStudio Addins
+menu.
+Prepare in one of these ways:</p><ol>
+<li><p>Copy reprex source to clipboard.</p></li>
+<li><p>Select reprex source.</p></li>
+<li><p>Activate the file containing reprex source.</p></li>
+<li><p>Have source in a <code>.R</code> file.</p></li>
+</ol><p>Call <code><a href='reprex.html'>reprex</a>()</code> directly for more control via additional
+arguments.</p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-                </ul>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Jennifer Bryan, David Robinson.</p>
+  <p>Developed by Jennifer Bryan, David Robinson, <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
 </div>
 
 <div class="pkgdown">

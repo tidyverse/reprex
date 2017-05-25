@@ -9,7 +9,7 @@
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><!-- mathjax --><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
@@ -37,7 +37,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/jennybc/reprex">
+  <a href="https://github.com/tidyverse/reprex">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -62,8 +62,8 @@
 
 <div id="reprex" class="section level2">
 <h2 class="hasAnchor">
-<a href="#reprex" class="anchor"> </a>reprex</h2>
-<p><a href="https://nypdecider.files.wordpress.com/2014/08/help-me-help-you.gif"> <img src="https://raw.githubusercontent.com/jennybc/reprex/master/img/help-me-help-you-still-500-c256.png" width="275" align="right"></a></p>
+<a href="#reprex" class="anchor"></a>reprex</h2>
+<p><a href="https://nypdecider.files.wordpress.com/2014/08/help-me-help-you.gif"> <img src="https://raw.githubusercontent.com/tidyverse/reprex/master/img/help-me-help-you-still-500-c256.png" width="275" align="right"></a></p>
 <p>Prepare reproducible examples for posting to <a href="https://guides.github.com/features/issues/">GitHub issues</a>, <a href="http://stackoverflow.com/questions/tagged/r">StackOverflow</a>, etc.</p>
 <p>Given R code on the clipboard, as an expression (quoted or not), or in a file …</p>
 <ul>
@@ -80,20 +80,23 @@
 </div>
 <div id="install-and-load" class="section level2">
 <h2 class="hasAnchor">
-<a href="#install-and-load" class="anchor"> </a>Install and load</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw">install_github</span>(<span class="st">"jennybc/reprex"</span>)
+<a href="#install-and-load" class="anchor"></a>Install and load</h2>
+<p>Install from CRAN:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"reprex"</span>)</code></pre></div>
+<p>or get a development version from GitHub:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"tidyverse/reprex"</span>)
 <span class="kw">library</span>(reprex)</code></pre></div>
 </div>
 <div id="quick-start" class="section level2">
 <h2 class="hasAnchor">
-<a href="#quick-start" class="anchor"> </a>Quick start</h2>
+<a href="#quick-start" class="anchor"></a>Quick start</h2>
 <p>Let’s say you copy this code onto your clipboard:</p>
 <pre><code>(y &lt;- 1:4)
 mean(y)</code></pre>
 <p>Then call <code><a href="reference/reprex.html">reprex()</a></code>, where the default target venue is GitHub:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/reprex.html">reprex</a></span>()</code></pre></div>
 <p>A nicely rendered HTML preview will display in RStudio’s Viewer (if you’re in RStudio) or your default browser otherwise.</p>
-<p><img src="https://raw.githubusercontent.com/jennybc/reprex/master/img/README-viewer-screenshot.png" width="100%"></p>
+<p><img src="https://raw.githubusercontent.com/tidyverse/reprex/master/img/README-viewer-screenshot.png" width="100%"></p>
 <p>The relevant bit of GitHub-flavored Markdown is ready to be pasted from your clipboard:</p>
 <pre><code>``` r
 (y &lt;- 1:4)
@@ -102,7 +105,7 @@ mean(y)
 #&gt; [1] 2.5
 ```</code></pre>
 <p>Here’s what that Markdown would look like rendered in a GitHub issue:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(y &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">4</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)
 <span class="co">#&gt; [1] 1 2 3 4</span>
 <span class="kw">mean</span>(y)
 <span class="co">#&gt; [1] 2.5</span></code></pre></div>
@@ -146,22 +149,22 @@ mean(y)
 </div>
 <div id="more-control" class="section level2">
 <h2 class="hasAnchor">
-<a href="#more-control" class="anchor"> </a>More control</h2>
+<a href="#more-control" class="anchor"></a>More control</h2>
 <p>Examples of how to take greater control of your reprex.</p>
 <div id="knitr-options" class="section level3">
 <h3 class="hasAnchor">
-<a href="#knitr-options" class="anchor"> </a>knitr options</h3>
+<a href="#knitr-options" class="anchor"></a>knitr options</h3>
 <p>You can change the prefix used to comment the output with the <code>comment</code> argument.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/reprex.html">reprex</a></span>({y &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">4</span>; <span class="kw">mean</span>(y)}, <span class="dt">comment =</span> <span class="st">"#;-)"</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/reprex.html">reprex</a></span>({y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>; <span class="kw">mean</span>(y)}, <span class="dt">comment =</span> <span class="st">"#;-)"</span>)</code></pre></div>
 <p>leads to this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">4</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>
 <span class="kw">mean</span>(y)
 <span class="co">#;-) [1] 2.5</span></code></pre></div>
 <p>Supplement or override reprex defaults for any <a href="http://yihui.name/knitr/options/">knitr chunk or package option</a> via the arguments <code>opts_chunk</code> and <code>opts_knit</code>.</p>
 </div>
 <div id="embedded-prose" class="section level3">
 <h3 class="hasAnchor">
-<a href="#embedded-prose" class="anchor"> </a>Embedded prose</h3>
+<a href="#embedded-prose" class="anchor"></a>Embedded prose</h3>
 <p>Sometimes you want to mingle rendered code and prose. Put the embedded prose in as roxygen comments, i.e. comment lines that start with <code>#'</code>. This reprex code:</p>
 <pre><code>## a regular comment
 x &lt;- 1:100
@@ -169,7 +172,7 @@ x &lt;- 1:100
 mean(x)</code></pre>
 <p>renders to this this result:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## a regular comment
-x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">100</span></code></pre></div>
+x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span></code></pre></div>
 <p>Here is some embedded prose, as a roxygen comment.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(x)
 <span class="co">#&gt; [1] 50.5</span></code></pre></div>
@@ -177,7 +180,7 @@ x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">100</
 </div>
 <div id="what-is-a-reprex" class="section level2">
 <h2 class="hasAnchor">
-<a href="#what-is-a-reprex" class="anchor"> </a>What is a reprex?</h2>
+<a href="#what-is-a-reprex" class="anchor"></a>What is a reprex?</h2>
 <p>What is a <code>reprex</code>? It’s a {repr}oducible {ex}ample. Coined by Romain Francois <a href="https://twitter.com/romain_francois/status/530011023743655936">on twitter</a>.</p>
 <p>Where and why are they used?</p>
 <ul>
@@ -233,7 +236,7 @@ x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">100</
 </div>
 <div id="package-philosophy" class="section level2">
 <h2 class="hasAnchor">
-<a href="#package-philosophy" class="anchor"> </a>Package philosophy</h2>
+<a href="#package-philosophy" class="anchor"></a>Package philosophy</h2>
 <p>The reprex code:</p>
 <ul>
 <li>Must run and, therefore, should be run <strong>by the person posting</strong>. No faking it.</li>
@@ -248,7 +251,7 @@ x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">100</
 </div>
 <div id="other-work" class="section level2">
 <h2 class="hasAnchor">
-<a href="#other-work" class="anchor"> </a>Other work</h2>
+<a href="#other-work" class="anchor"></a>Other work</h2>
 <p>If I had known about <a href="http://yihui.name/formatR/"><code>formatR::tidy_eval()</code></a>, I probably would never had made reprex! But alas I did not. AFAICT here are the main differences:</p>
 <ul>
 <li>
@@ -267,9 +270,11 @@ x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">100</
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/jennybc/reprex">https://​github.com/​jennybc/​reprex</a>
+<li>Download from CRAN at <br><a href="https://cran.r-project.org/package=reprex">https://​cran.r-project.org/​package=reprex</a>
 </li>
-<li>Report a bug at <br><a href="https://github.com/jennybc/reprex/issues">https://​github.com/​jennybc/​reprex/​issues</a>
+<li>Browse source code at <br><a href="https://github.com/tidyverse/reprex">https://​github.com/​tidyverse/​reprex</a>
+</li>
+<li>Report a bug at <br><a href="https://github.com/tidyverse/reprex/issues">https://​github.com/​tidyverse/​reprex/​issues</a>
 </li>
 </ul>
 <h2>License</h2>
@@ -278,24 +283,23 @@ x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">100</
 <ul class="list-unstyled">
 <li>Jennifer Bryan <br><small class="roles"> Author, maintainer </small> </li>
 <li>David Robinson <br><small class="roles"> Author </small> </li>
+<li>
+<a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author </small> </li>
 </ul>
-<html><body>
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.org/jennybc/reprex"><img src="https://travis-ci.org/jennybc/reprex.svg?branch=master" alt="Travis-CI Build Status"></a></li>
-<li><a href="https://ci.appveyor.com/project/jennybc/reprex"><img src="https://ci.appveyor.com/api/projects/status/github/jennybc/reprex?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
-<li><a href="http://www.repostatus.org/#wip"><img src="http://www.repostatus.org/badges/0.1.0/wip.svg" alt="Project Status: Wip - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public."></a></li>
+<li><a href="https://travis-ci.org/tidyverse/reprex"><img src="https://travis-ci.org/tidyverse/reprex.svg?branch=master" alt="Travis-CI Build Status"></a></li>
+<li><a href="https://ci.appveyor.com/project/tidyverse/reprex"><img src="https://ci.appveyor.com/api/projects/status/github/tidyverse/reprex?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
 <li><a href="https://www.r-pkg.org/pkg/reprex"><img src="https://www.r-pkg.org/badges/version/reprex"></a></li>
-<li><a href="https://codecov.io/github/jennybc/reprex?branch=master"><img src="https://img.shields.io/codecov/c/github/jennybc/reprex/master.svg" alt="Coverage Status"></a></li>
+<li><a href="https://codecov.io/github/tidyverse/reprex?branch=master"><img src="https://img.shields.io/codecov/c/github/tidyverse/reprex/master.svg" alt="Coverage Status"></a></li>
 </ul>
-</body></html>
 </div>
 
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Jennifer Bryan, David Robinson.</p>
+  <p>Developed by Jennifer Bryan, David Robinson, <a href="http://hadley.nz">Hadley Wickham</a>.</p>
 </div>
 
 <div class="pkgdown">
