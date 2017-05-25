@@ -127,7 +127,7 @@ reprex({
   #' # A Big Heading
   #'
   #' Look at my cute example. I love the
-  #' [reprex](https://github.com/jennybc/reprex#readme) package!
+  #' [reprex](https://github.com/tidyverse/reprex#readme) package!
   y <- 1:4
   mean(y)
 })

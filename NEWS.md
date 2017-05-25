@@ -33,7 +33,7 @@
     
   * Order of `reprex()` arguments has changed.
 
-  * `reprex()` gains the `si` argument to request that `devtools::session_info()` or `sessionInfo()` be appended to reprex code (#6 @dgrtwo). When `si = TRUE` and `venue = "gh"` (the default), session info is wrapped in a collapsible details tag. See [an example](https://github.com/jennybc/reprex/issues/55) (#55).
+  * `reprex()` gains the `si` argument to request that `devtools::session_info()` or `sessionInfo()` be appended to reprex code (#6 @dgrtwo). When `si = TRUE` and `venue = "gh"` (the default), session info is wrapped in a collapsible details tag. See [an example](https://github.com/tidyverse/reprex/issues/55) (#55).
 
   * Reprex code can be provided as an R expression. (#6 @dgrtwo, #35)
   

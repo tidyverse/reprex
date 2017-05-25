@@ -36,7 +36,7 @@ reprex_addin <- function() { # nocov start
     shiny::tags$head(shiny::includeCSS(file.path(resource_path, "reprex.css"))),
     miniUI::gadgetTitleBar(
       shiny::p("Use",
-               shiny::a(href = "https://github.com/jennybc/reprex#readme",
+               shiny::a(href = "https://github.com/tidyverse/reprex#readme",
                         "reprex"),
                "to render a bit of code"),
       right = miniUI::miniTitleBarButton("done", "Render", primary = TRUE)
