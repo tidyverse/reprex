@@ -241,6 +241,7 @@ reprex <- function(
     message("Preparing reprex as .R file to render:\n  * ", r_file)
   }
 
+  message("Rendering reprex...")
   output_file <- md_file <- reprex_(r_file)
   if (outfile_given) {
     pathstem <- path_stem(r_file, md_file)
@@ -295,23 +296,12 @@ reprex <- function(
   invisible(output_lines)
 }
 
-##  input: path to .R
-## output: path to .md
-reprex_ <- function(r_file) {
-
-  suppressMessages(
-    rendout <- try(
-      callr::r_safe(function(.input) {
-        rmarkdown::render(input = .input, quiet = TRUE)
-      },
-      args = list(.input = r_file)),
-      silent = TRUE
-    )
+reprex_ <- function(input) {
+  callr::r_safe(
+    function(input) {
+      rmarkdown::render(input, quiet = TRUE)
+    },
+    args = list(input = input),
+    spinner = TRUE
   )
-
-  if (inherits(rendout, "try-error")) {
-    stop("\nCannot render this code.\n", rendout)
-  }
-  rendout
-
 }
