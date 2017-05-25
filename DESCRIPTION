@@ -34,4 +34,4 @@ Suggests:
     shiny,
     testthat
 SystemRequirements: pandoc (>= 1.12.3) - http://pandoc.org
-RoxygenNote: 5.0.1.9000
+RoxygenNote: 6.0.1
