@@ -2,6 +2,7 @@ context("outfiles")
 
 base_msg <- c(
   "Preparing reprex as .R file to render:\n  * foo_reprex.R\n",
+  "Rendering reprex...\n",
   "Writing reprex markdown:\n  * foo_reprex.md\n"
 )
 
@@ -13,8 +14,8 @@ clip_msg <- switch(
 test_that("expected outfiles are written and messaged, venue = 'gh'", {
   on.exit(file.remove("foo_reprex.R", "foo_reprex.md"))
   msg <- capture_messages(ret <- reprex(1:5, outfile = "foo", show = FALSE))
-  expect_identical(msg[1:2], base_msg)
-  expect_match(msg[3], clip_msg)
+  expect_identical(msg[1:3], base_msg)
+  expect_match(msg[4], clip_msg)
   expect_match(readLines("foo_reprex.R"), "1:5", all = FALSE)
   expect_identical(ret, readLines("foo_reprex.md"))
 })
@@ -23,10 +24,10 @@ test_that("expected outfiles are written and messaged, venue = 'R'", {
   on.exit(file.remove("foo_reprex.R", "foo_reprex.md", "foo_rendered.R"))
   msg <- capture_messages(ret <- reprex(1:5, outfile = "foo",
                                          show = FALSE, venue = "R"))
-  expect_identical(msg[1:2], base_msg)
-  expect_identical(msg[3],
+  expect_identical(msg[1:3], base_msg)
+  expect_identical(msg[4],
                    "Writing reprex as commented R script:\n  * foo_rendered.R\n")
-  expect_match(msg[4], clip_msg)
+  expect_match(msg[5], clip_msg)
   expect_match(readLines("foo_reprex.R"), "1:5", all = FALSE)
   expect_identical(ret, readLines("foo_rendered.R"))
   expect_match(readLines("foo_reprex.md"), "1:5", all = FALSE)
@@ -51,8 +52,8 @@ test_that("outfiles in a subdirectory works", {
   dir.create("foo")
   msg <- capture_messages(ret <- reprex(1:5, outfile = "foo/foo", show = FALSE))
   base_msg <- gsub("foo", "foo/foo", base_msg)
-  expect_identical(msg[1:2], base_msg)
-  expect_match(msg[3], clip_msg)
+  expect_identical(msg[1:3], base_msg)
+  expect_match(msg[4], clip_msg)
 })
 
 test_that("outfiles based on input file", {
@@ -61,7 +62,7 @@ test_that("outfiles based on input file", {
   msg <-
     capture_messages(ret <- reprex(input = "foo.R", show = FALSE, outfile = NA))
   expect_true(file.exists("foo_reprex.md"))
-  expect_identical(msg[1:2], base_msg)
+  expect_identical(msg[1:3], base_msg)
 })
 
 test_that("outfiles based on tempfile()", {
@@ -75,7 +76,7 @@ test_that("outfiles based on tempfile()", {
   expect_true(file.exists(r_file))
   expect_true(file.exists(md_file))
   base_msg <- gsub("foo", tempbase, base_msg)
-  expect_identical(msg[1:2], base_msg)
+  expect_identical(msg[1:3], base_msg)
 })
 
 test_that("pre-existing foo_reprex.R isn't get clobbered, w/o user's OK", {

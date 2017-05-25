@@ -61,3 +61,20 @@ test_that("prompt argument works", {
   expect_message(res <- reprex_rescue(input, prompt = ":-) "))
   expect_identical(res, output)
 })
+
+test_that("rescue can cope with leading whitespace",{
+  input <- c(
+    "> ## a regular comment, which is retained",
+    " > (x <- 1:4)",
+    "   [1] 1 2 3 4",
+    "   > median(x)",
+    "2.5"
+  )
+  output <- c(
+    "## a regular comment, which is retained",
+    "(x <- 1:4)",
+    "median(x)"
+  )
+  expect_message(res <- reprex_rescue(input))
+  expect_identical(res, output)
+})

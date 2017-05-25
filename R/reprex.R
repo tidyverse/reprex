@@ -106,7 +106,7 @@
 #'   #' # A Big Heading
 #'   #'
 #'   #' Look at my cute example. I love the
-#'   #' [reprex](https://github.com/jennybc/reprex#readme) package!
+#'   #' [reprex](https://github.com/tidyverse/reprex#readme) package!
 #'   y <- 1:4
 #'   mean(y)
 #' })
@@ -241,12 +241,13 @@ reprex <- function(
     message("Preparing reprex as .R file to render:\n  * ", r_file)
   }
 
+  message("Rendering reprex...")
   output_file <- md_file <- reprex_(r_file)
   if (outfile_given) {
     pathstem <- path_stem(r_file, md_file)
     message("Writing reprex markdown:\n  * ", sub(pathstem, "", md_file))
   }
-  output_lines <- readLines(md_file)
+  output_lines <- readLines(md_file, encoding = "UTF-8")
 
   if (identical(venue, "r")) {
     lns <- output_lines
@@ -282,8 +283,7 @@ reprex <- function(
     ## hold local figs)
     html_file <- strip_ext(basename(md_file))
     html_file <- tempfile(pattern = paste0(html_file, "_"), fileext = ".html")
-    rmarkdown::render(md_file, output_file = html_file, quiet = TRUE)
-
+    rmarkdown::render(md_file, output_file = html_file, quiet = TRUE, encoding = "UTF-8")
     viewer <- getOption("viewer") %||% utils::browseURL
     viewer(html_file)
   }
@@ -291,23 +291,12 @@ reprex <- function(
   invisible(output_lines)
 }
 
-##  input: path to .R
-## output: path to .md
-reprex_ <- function(r_file) {
-
-  suppressMessages(
-    rendout <- try(
-      callr::r_safe(function(.input) {
-        rmarkdown::render(input = .input, quiet = TRUE)
-      },
-      args = list(.input = r_file)),
-      silent = TRUE
-    )
+reprex_ <- function(input) {
+  callr::r_safe(
+    function(input) {
+      rmarkdown::render(input, quiet = TRUE)
+    },
+    args = list(input = input),
+    spinner = TRUE
   )
-
-  if (inherits(rendout, "try-error")) {
-    stop("\nCannot render this code.\n", rendout)
-  }
-  rendout
-
 }

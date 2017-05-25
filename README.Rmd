@@ -7,7 +7,7 @@ output:
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-[![Travis-CI Build Status](https://travis-ci.org/jennybc/reprex.svg?branch=master)](https://travis-ci.org/jennybc/reprex) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jennybc/reprex?branch=master&svg=true)](https://ci.appveyor.com/project/jennybc/reprex) [![](https://www.r-pkg.org/badges/version/reprex)](https://www.r-pkg.org/pkg/reprex) [![Coverage Status](https://img.shields.io/codecov/c/github/jennybc/reprex/master.svg)](https://codecov.io/github/jennybc/reprex?branch=master)
+[![Travis-CI Build Status](https://travis-ci.org/tidyverse/reprex.svg?branch=master)](https://travis-ci.org/tidyverse/reprex) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/reprex?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/reprex) [![](https://www.r-pkg.org/badges/version/reprex)](https://www.r-pkg.org/pkg/reprex) [![Coverage Status](https://img.shields.io/codecov/c/github/tidyverse/reprex/master.svg)](https://codecov.io/github/tidyverse/reprex?branch=master)
 
 ```{r include = FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.path = "README-")
@@ -19,7 +19,7 @@ if (length(leftovers)) file.remove(leftovers)
 
 ## reprex
 
-<a href="https://nypdecider.files.wordpress.com/2014/08/help-me-help-you.gif"> <img src="https://raw.githubusercontent.com/jennybc/reprex/master/img/help-me-help-you-still-500-c256.png" width="275" align="right"> </a>
+<a href="https://nypdecider.files.wordpress.com/2014/08/help-me-help-you.gif"> <img src="https://raw.githubusercontent.com/tidyverse/reprex/master/img/help-me-help-you-still-500-c256.png" width="275" align="right"> </a>
 
 Prepare reproducible examples for posting to [GitHub issues](https://guides.github.com/features/issues/), [StackOverflow](http://stackoverflow.com/questions/tagged/r), etc.
 
@@ -48,7 +48,7 @@ install.packages("reprex")
 or get a development version from GitHub:
 
 ```{r eval = FALSE}
-devtools::install_github("jennybc/reprex")
+devtools::install_github("tidyverse/reprex")
 library(reprex)
 ```
   
@@ -80,7 +80,7 @@ reprex()
 A nicely rendered HTML preview will display in RStudio's Viewer (if you're in RStudio) or your default browser otherwise.
 
 ```{r out.width = '100%', echo = FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/jennybc/reprex/master/img/README-viewer-screenshot.png")
+knitr::include_graphics("https://raw.githubusercontent.com/tidyverse/reprex/master/img/README-viewer-screenshot.png")
 ```
 
 The relevant bit of GitHub-flavored Markdown is ready to be pasted from your clipboard:
