@@ -2,11 +2,33 @@
 % Please edit documentation in R/reprex-addin.R
 \name{reprex_addin}
 \alias{reprex_addin}
+\alias{reprex_selection}
 \title{Render a reprex}
 \usage{
 reprex_addin()
+
+reprex_selection(venue = getOption("reprex.venue", "gh"),
+  si = getOption("reprex.si", FALSE), show = getOption("reprex.show", TRUE))
+}
+\arguments{
+\item{venue}{"gh" for GitHub (default), "so" for StackOverflow, "r" or "R"
+for a runnable R script, with commented output interleaved.}
+
+\item{si}{Whether to include the results of
+\code{\link[devtools:session_info]{devtools::session_info}()}, if available, or
+\code{\link{sessionInfo}()} at the end of the reprex. When \code{venue =
+"gh"} (the default), session info is wrapped in a collapsible details tag.}
+
+\item{show}{Whether to show rendered output in a viewer (RStudio or browser).
+Defaults to \code{TRUE}.}
 }
 \description{
+\code{reprex_addin} opens a gadget that allows you to customise where the
+code to reproduce should come from along with a handful of other options.
+\code{reprex_selection} reproduces the current selection, optionally
+customised by options.
+}
+\details{
 An \href{https://shiny.rstudio.com/articles/gadgets.html}{RStudio gadget} and
 \href{http://rstudio.github.io/rstudioaddins/}{addin} to call
 \code{\link{reprex}()}. Appears as "Render reprex" in the RStudio Addins
