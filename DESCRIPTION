@@ -15,8 +15,8 @@ Description: Convenience wrapper that uses the 'rmarkdown' package to render
 Depends: R (>= 3.0.2)
 License: MIT + file LICENSE
 LazyData: true
-URL: https://github.com/jennybc/reprex
-BugReports: https://github.com/jennybc/reprex/issues
+URL: https://github.com/tidyverse/reprex
+BugReports: https://github.com/tidyverse/reprex/issues
 Imports:
     callr,
     clipr (>= 0.3.0),
