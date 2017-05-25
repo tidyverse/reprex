@@ -2,8 +2,9 @@ Package: reprex
 Title: Prepare Reproducible Example Code for Sharing
 Version: 0.1.1.9000
 Authors@R: c(
-    person("Jennifer", "Bryan", , "jenny.f.bryan@gmail.com", role = c("aut", "cre")),
-    person("David", "Robinson", , "admiral.david@gmail.com", role = "aut")
+    person("Jennifer", "Bryan", , "jenny@rstudio.com", role = c("aut", "cre")),
+    person("David", "Robinson", , "admiral.david@gmail.com", role = "aut"),
+    person("Hadley", "Wickham", , "hadley@rstudio.com", role = "aut")
     )
 Description: Convenience wrapper that uses the 'rmarkdown' package to render
   small snippets of code to target formats that include both code and output.
