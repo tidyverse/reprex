@@ -84,24 +84,15 @@ reprex_addin <- function() { # nocov start
         as.logical(input$show)
       )
 
-      shiny::showModal(
-        shiny::modalDialog(
-          "Rendered reprex is on the clipboard.",
-          footer = shiny::actionButton("ok", "OK")
-        )
-      )
+      shiny::stopApp()
       #reprex_output <- paste(reprex_output, collapse = "\n")
       #rstudioapi::insertText(Inf, reprex_output, id = context$id)
     })
 
-    shiny::observeEvent(input$ok, {
-      invisible(shiny::stopApp())
-    })
-
   }
 
-  shiny::runGadget(ui, server, viewer = shiny::dialogViewer("Render reprex"))
-
+  app <- shiny::shinyApp(ui, server, options = list(quiet = TRUE))
+  shiny::runGadget(app, viewer = shiny::dialogViewer("Render reprex"))
 }
 
 reprex_guess <- function(source, venue = "gh", source_file = NULL,
