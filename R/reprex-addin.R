@@ -63,13 +63,13 @@ reprex_addin <- function() { # nocov start
         c("GitHub" = "gh",
           "StackOverflow" = "so",
           "R script" = "r"),
-        selected = getOption("reprex.venue", FALSE)
+        selected = getOption("reprex.venue", "gh")
       ),
       shiny::tags$hr(),
       shiny::checkboxInput(
         "si",
         "Append session info",
-        getOption("reprex.si", TRUE)
+        getOption("reprex.si", FALSE)
       ),
       shiny::checkboxInput(
         "show",
