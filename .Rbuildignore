@@ -1,15 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^README\.Rmd$
-^README\.html$
-^README-.*\.png$
-^README-tmp\.R$
-^.*REPREX_gh\.html$
-^.*REPREX_so\.html$
-^README-viewer-screenshot\..*$
-^foo.R$
 ^internal$
-^img$
 ^\.travis\.yml$
 ^appveyor\.yml$
 ^codecov\.yml$

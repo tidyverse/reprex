@@ -38,3 +38,4 @@ SystemRequirements: pandoc (>= 1.12.3) - http://pandoc.org
 RoxygenNote: 6.0.1
 Remotes: r-pkgs/callr
 Roxygen: list(markdown = TRUE)
+VignetteBuilder: knitr
