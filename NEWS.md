@@ -1,8 +1,8 @@
 # reprex 0.1.1.9000
 
   * New `reprex_selection()` add-in reprexes the current selection, with options
-    controlled by options `reprex.venue`, `reprex.si`, and `reprex.show` (#56, 
-    #71, #81)
+    controlled by options `reprex.venue`, `reprex.si`, and `reprex.show` 
+    (#56, #71, #81)
 
   * `reprex_addin()` displays notificaton as inline dialog
 
