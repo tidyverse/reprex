@@ -303,6 +303,6 @@ reprex_ <- function(input) {
       rmarkdown::render(input, quiet = TRUE)
     },
     args = list(input = input),
-    spinner = TRUE
+    spinner = interactive()
   )
 }
