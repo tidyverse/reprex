@@ -15,9 +15,9 @@ reprex_selection(venue = getOption("reprex.venue", "gh"),
 for a runnable R script, with commented output interleaved.}
 
 \item{si}{Whether to include the results of
-\code{\link[devtools:session_info]{devtools::session_info}()}, if available, or
-\code{\link{sessionInfo}()} at the end of the reprex. When \code{venue =
-"gh"} (the default), session info is wrapped in a collapsible details tag.}
+\code{\link[devtools:session_info]{devtools::session_info()}}, if available, or
+\code{\link[=sessionInfo]{sessionInfo()}} at the end of the reprex. When \code{venue =
+  "gh"} (the default), session info is wrapped in a collapsible details tag.}
 
 \item{show}{Whether to show rendered output in a viewer (RStudio or browser).
 Defaults to \code{TRUE}.}
@@ -31,7 +31,7 @@ customised by options.
 \details{
 An \href{https://shiny.rstudio.com/articles/gadgets.html}{RStudio gadget} and
 \href{http://rstudio.github.io/rstudioaddins/}{addin} to call
-\code{\link{reprex}()}. Appears as "Render reprex" in the RStudio Addins
+\code{\link[=reprex]{reprex()}}. Appears as "Render reprex" in the RStudio Addins
 menu.
 Prepare in one of these ways:
 \enumerate{
@@ -40,6 +40,6 @@ Prepare in one of these ways:
 \item Activate the file containing reprex source.
 \item Have source in a \code{.R} file.
 }
-Call \code{\link{reprex}()} directly for more control via additional
+Call \code{\link[=reprex]{reprex()}} directly for more control via additional
 arguments.
 }

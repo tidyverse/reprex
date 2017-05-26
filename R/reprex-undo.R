@@ -1,20 +1,21 @@
 #' Un-render a reprex
 #'
+#' @description
 #' Recover clean, runnable code from a reprex captured in the wild. The code is
 #' printed, returned invisibly, and written to the clipboard, if possible. Pick
 #' the function that deals with your problem:
-#' \itemize{
-#' \item \code{reprex_invert()} handles Markdown, with code blocks indicated
-#' with backticks or indentation, e.g., the direct output of
-#' \code{\link{reprex}(..., venue = "gh")} or
-#' \code{\link{reprex}(..., venue = "so")}.
-#' \item \code{reprex_clean()} assumes R code is top-level, possibly
-#' interleaved with commented output, e.g., a displayed reprex copied from
-#' GitHub or the direct output of \code{\link{reprex}(..., venue = "R")}.
-#' \item \code{reprex_rescue()} assumes R code lines start with a prompt and
-#' printed output is top-level, e.g., what you'd get by copying from the R
-#' Console.
-#' }
+#'
+#' * `reprex_invert()` handles Markdown, with code blocks indicated
+#'   with backticks or indentation, e.g., the direct output of
+#'   `reprex(..., venue = "gh")` or `reprex(..., venue = "so")`.
+#'
+#' * `reprex_clean()` assumes R code is top-level, possibly
+#'   interleaved with commented output, e.g., a displayed reprex copied from
+#'   GitHub or the direct output of `reprex(..., venue = "R")`.
+#'
+#' * `reprex_rescue()` assumes R code lines start with a prompt and
+#'   printed output is top-level, e.g., what you'd get by copying from the R
+#'   Console.
 #'
 #' @param input character, holding a wild-caught reprex as a character vector
 #'   (length greater than one), string (length one with terminating newline), or
@@ -22,14 +23,13 @@
 #'   clipboard is consulted for input.
 #' @param comment regular expression that matches commented output lines
 #' @param prompt character, the prompt at the start of R commands
-#'
-#' @return character vector holding just the clean R code, invisibly
+#' @return Character vector holding just the clean R code, invisibly
 #' @name un-reprex
 NULL
 
 #' @describeIn un-reprex Attempts to reverse the effect of
-#'   \code{\link{reprex}()}. The input should be Markdown, presumably the output
-#'   of \code{\link{reprex}()}. \code{venue} matters because, in GitHub-flavored
+#'   [reprex()]. The input should be Markdown, presumably the output
+#'   of [reprex()]. `venue` matters because, in GitHub-flavored
 #'   Markdown, code blocks are placed within triple backticks. In other Markdown
 #'   dialects, such as the one used on StackOverflow, code is indented by four
 #'   spaces.
@@ -54,8 +54,8 @@ reprex_invert <- function(input = NULL, venue = c("gh", "so"), comment = "^#>") 
 }
 
 #' @describeIn un-reprex Removes lines of commented output from a displayed
-#'   reprex, such as code copied from a GitHub issue or \code{reprex}'ed with
-#'   \code{venue = "R"}.
+#'   reprex, such as code copied from a GitHub issue or `reprex`'ed with
+#'   `venue = "R"`.
 #' @export
 #' @examples
 #' ## a displayed reprex can be cleaned of commented output

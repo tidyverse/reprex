@@ -1,22 +1,22 @@
 #' Render a reprex
 #'
-#' \code{reprex_addin} opens a gadget that allows you to customise where the
+#' `reprex_addin` opens a gadget that allows you to customise where the
 #' code to reproduce should come from along with a handful of other options.
-#' \code{reprex_selection} reproduces the current selection, optionally
+#' `reprex_selection` reproduces the current selection, optionally
 #' customised by options.
 #'
 #' An \href{https://shiny.rstudio.com/articles/gadgets.html}{RStudio gadget} and
 #' \href{http://rstudio.github.io/rstudioaddins/}{addin} to call
-#' \code{\link{reprex}()}. Appears as "Render reprex" in the RStudio Addins
+#' [reprex()]. Appears as "Render reprex" in the RStudio Addins
 #' menu.
 #' Prepare in one of these ways:
 #' \enumerate{
 #' \item Copy reprex source to clipboard.
 #' \item Select reprex source.
 #' \item Activate the file containing reprex source.
-#' \item Have source in a \code{.R} file.
+#' \item Have source in a `.R` file.
 #' }
-#' Call \code{\link{reprex}()} directly for more control via additional
+#' Call [reprex()] directly for more control via additional
 #' arguments.
 #'
 #' @export

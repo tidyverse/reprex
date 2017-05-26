@@ -1,61 +1,61 @@
 #' Render a reprex
 #'
-#' Run a bit of R code using
-#' \code{\link[rmarkdown:render]{rmarkdown::render}()}. The goal is to make it
+#' @description
+#' Run a bit of R code using [rmarkdown::render()]. The goal is to make it
 #' easy to share a small reproducible example ("reprex"), e.g., in a GitHub
 #' issue. Reprex source can be
-#' \itemize{
-#' \item read from clipboard
-#' \item read from current selection or active document
-#' (\link[=reprex_addin]{"Render reprex" RStudio addin})
-#' \item provided directly as expression, character vector, or string
-#' \item read from file
-#' }
+#'
+#' * read from clipboard
+#' * read from current selection or active document in RStudio
+#'   (with [reprex_addin()])
+#' * provided directly as expression, character vector, or string
+#' * read from file
+#'
+#' @details
 #' The usual "code + commented output" is returned invisibly, put on the
 #' clipboard, and written to file. An HTML preview displays in RStudio's Viewer
-#' pane, if available, or in the default browser, otherwise. Leading \code{"> "}
+#' pane, if available, or in the default browser, otherwise. Leading `"> "`
 #' prompts, are stripped from the input code. Read more at
-#' \url{http://jennybc.github.io/reprex/}.
+#' <http://jennybc.github.io/reprex/>.
 #'
-#' reprex sets specific \href{http://yihui.name/knitr/options/}{knitr options},
-#' which you can supplement or override via the \code{opts_chunk} and
-#' \code{opts_knit} arguments or via explicit calls to knitr in your reprex code
-#' (see examples). If all you want to override is the \code{comment} option, use
-#' the dedicated argument, e.g.\code{commment = "#;-)"}.
+#' reprex sets specific [knitr options](http://yihui.name/knitr/options/),
+#' which you can supplement or override via the `opts_chunk` and
+#' `opts_knit` arguments or via explicit calls to knitr in your reprex code
+#' (see examples). If all you want to override is the `comment` option, use
+#' the dedicated argument, e.g.`commment = "#;-)"`.
 #'
-#' \itemize{
-#' \item Chunk options default to \code{collapse = TRUE}, \code{comment = "#>"},
-#' \code{error = TRUE}. These are options you normally set via
-#' \code{knitr::opts_chunk$set()}. Note that \code{error = TRUE}, because a
-#' common use case is bug reporting.
-#' \item Package options default to \code{upload.fun = knitr::imgur_upload}.
-#' These are options you normally set via \code{knitr::opts_knit$set()}. The
-#' \code{upload.fun} defaults to \code{\link[knitr]{imgur_upload}} so figures
-#' produced by the reprex appear properly on GitHub.
-#' }
+#' * Chunk options default to `collapse = TRUE`, `comment = "#>"`,
+#'   `error = TRUE`. These are options you normally set via
+#'   `knitr::opts_chunk$set()`. Note that `error = TRUE`, because a
+#'   common use case is bug reporting.
 #'
-#' @param x An expression. If not given, \code{reprex()} looks for code in
-#'   \code{input} or on the clipboard, in that order.
+#' * Package options default to `upload.fun = knitr::imgur_upload`.
+#'   These are options you normally set via `knitr::opts_knit$set()`. The
+#'   `upload.fun` defaults to [knitr::imgur_upload()] so figures
+#'   produced by the reprex appear properly on GitHub.
+#'
+#' @param x An expression. If not given, `reprex()` looks for code in
+#'   `input` or on the clipboard, in that order.
 #' @template venue
 #' @param si Whether to include the results of
-#'   \code{\link[devtools:session_info]{devtools::session_info}()}, if available, or
-#'   \code{\link{sessionInfo}()} at the end of the reprex. When \code{venue =
+#'   [devtools::session_info()], if available, or
+#'   [sessionInfo()] at the end of the reprex. When \code{venue =
 #'   "gh"} (the default), session info is wrapped in a collapsible details tag.
 #' @param show Whether to show rendered output in a viewer (RStudio or browser).
-#'   Defaults to \code{TRUE}.
+#'   Defaults to `TRUE`.
 #' @param input Character. If has length one and lacks a terminating newline,
 #'   interpreted as the path to a file containing reprex code. Otherwise,
 #'   assumed to hold reprex code as character vector (length greater than one)
 #'   or string (with embedded newlines).
-#' @param outfile Optional basename for output files. When \code{NULL}
+#' @param outfile Optional basename for output files. When `NULL`
 #'   (default), reprex writes to temp files below the session temp directory. If
-#'   \code{outfile = "foo"}, expect output files in current working directory,
-#'   like \code{foo_reprex.R}, \code{foo_reprex.md}, and, if \code{venue = "R"},
-#'   \code{foo_rendered.R}. If \code{outfile = NA}, expect output files in
+#'   `outfile = "foo"`, expect output files in current working directory,
+#'   like `foo_reprex.R`, `foo_reprex.md`, and, if `venue = "R"`,
+#'   `foo_rendered.R`. If `outfile = NA`, expect output files in
 #'   current working directory with basename derived from the path in
-#'   \code{input}, if sensible, otherwise from \code{\link{tempfile}()}.
+#'   `input`, if sensible, otherwise from [tempfile()].
 #' @param comment Character. Prefix with which to comment out output, defaults
-#'   to \code{"#>"}.
+#'   to `"#>"`.
 #' @param opts_chunk,opts_knit Named list. Optional
 #'   \href{http://yihui.name/knitr/options/}{knitr chunk and package options},
 #'   respectively, to supplement or override reprex defaults. See Details.

@@ -27,7 +27,7 @@ for a runnable R script, with commented output interleaved.}
 \item{prompt}{character, the prompt at the start of R commands}
 }
 \value{
-character vector holding just the clean R code, invisibly
+Character vector holding just the clean R code, invisibly
 }
 \description{
 Recover clean, runnable code from a reprex captured in the wild. The code is
@@ -36,11 +36,10 @@ the function that deals with your problem:
 \itemize{
 \item \code{reprex_invert()} handles Markdown, with code blocks indicated
 with backticks or indentation, e.g., the direct output of
-\code{\link{reprex}(..., venue = "gh")} or
-\code{\link{reprex}(..., venue = "so")}.
+\code{reprex(..., venue = "gh")} or \code{reprex(..., venue = "so")}.
 \item \code{reprex_clean()} assumes R code is top-level, possibly
 interleaved with commented output, e.g., a displayed reprex copied from
-GitHub or the direct output of \code{\link{reprex}(..., venue = "R")}.
+GitHub or the direct output of \code{reprex(..., venue = "R")}.
 \item \code{reprex_rescue()} assumes R code lines start with a prompt and
 printed output is top-level, e.g., what you'd get by copying from the R
 Console.
@@ -49,8 +48,8 @@ Console.
 \section{Functions}{
 \itemize{
 \item \code{reprex_invert}: Attempts to reverse the effect of
-\code{\link{reprex}()}. The input should be Markdown, presumably the output
-of \code{\link{reprex}()}. \code{venue} matters because, in GitHub-flavored
+\code{\link[=reprex]{reprex()}}. The input should be Markdown, presumably the output
+of \code{\link[=reprex]{reprex()}}. \code{venue} matters because, in GitHub-flavored
 Markdown, code blocks are placed within triple backticks. In other Markdown
 dialects, such as the one used on StackOverflow, code is indented by four
 spaces.

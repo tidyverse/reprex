@@ -16,9 +16,9 @@ reprex(x = NULL, venue = c("gh", "so", "r", "R"), si = FALSE,
 for a runnable R script, with commented output interleaved.}
 
 \item{si}{Whether to include the results of
-\code{\link[devtools:session_info]{devtools::session_info}()}, if available, or
-\code{\link{sessionInfo}()} at the end of the reprex. When \code{venue =
-"gh"} (the default), session info is wrapped in a collapsible details tag.}
+\code{\link[devtools:session_info]{devtools::session_info()}}, if available, or
+\code{\link[=sessionInfo]{sessionInfo()}} at the end of the reprex. When \code{venue =
+  "gh"} (the default), session info is wrapped in a collapsible details tag.}
 
 \item{show}{Whether to show rendered output in a viewer (RStudio or browser).
 Defaults to \code{TRUE}.}
@@ -34,7 +34,7 @@ or string (with embedded newlines).}
 like \code{foo_reprex.R}, \code{foo_reprex.md}, and, if \code{venue = "R"},
 \code{foo_rendered.R}. If \code{outfile = NA}, expect output files in
 current working directory with basename derived from the path in
-\code{input}, if sensible, otherwise from \code{\link{tempfile}()}.}
+\code{input}, if sensible, otherwise from \code{\link[=tempfile]{tempfile()}}.}
 
 \item{comment}{Character. Prefix with which to comment out output, defaults
 to \code{"#>"}.}
@@ -47,30 +47,29 @@ respectively, to supplement or override reprex defaults. See Details.}
 Character vector of rendered reprex, invisibly.
 }
 \description{
-Run a bit of R code using
-\code{\link[rmarkdown:render]{rmarkdown::render}()}. The goal is to make it
+Run a bit of R code using \code{\link[rmarkdown:render]{rmarkdown::render()}}. The goal is to make it
 easy to share a small reproducible example ("reprex"), e.g., in a GitHub
 issue. Reprex source can be
 \itemize{
 \item read from clipboard
-\item read from current selection or active document
-(\link[=reprex_addin]{"Render reprex" RStudio addin})
+\item read from current selection or active document in RStudio
+(with \code{\link[=reprex_addin]{reprex_addin()}})
 \item provided directly as expression, character vector, or string
 \item read from file
 }
+}
+\details{
 The usual "code + commented output" is returned invisibly, put on the
 clipboard, and written to file. An HTML preview displays in RStudio's Viewer
 pane, if available, or in the default browser, otherwise. Leading \code{"> "}
 prompts, are stripped from the input code. Read more at
 \url{http://jennybc.github.io/reprex/}.
-}
-\details{
+
 reprex sets specific \href{http://yihui.name/knitr/options/}{knitr options},
 which you can supplement or override via the \code{opts_chunk} and
 \code{opts_knit} arguments or via explicit calls to knitr in your reprex code
 (see examples). If all you want to override is the \code{comment} option, use
 the dedicated argument, e.g.\code{commment = "#;-)"}.
-
 \itemize{
 \item Chunk options default to \code{collapse = TRUE}, \code{comment = "#>"},
 \code{error = TRUE}. These are options you normally set via
@@ -78,7 +77,7 @@ the dedicated argument, e.g.\code{commment = "#;-)"}.
 common use case is bug reporting.
 \item Package options default to \code{upload.fun = knitr::imgur_upload}.
 These are options you normally set via \code{knitr::opts_knit$set()}. The
-\code{upload.fun} defaults to \code{\link[knitr]{imgur_upload}} so figures
+\code{upload.fun} defaults to \code{\link[knitr:imgur_upload]{knitr::imgur_upload()}} so figures
 produced by the reprex appear properly on GitHub.
 }
 }
