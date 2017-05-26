@@ -33,7 +33,7 @@ NULL
 #'   Markdown, code blocks are placed within triple backticks. In other Markdown
 #'   dialects, such as the one used on StackOverflow, code is indented by four
 #'   spaces.
-#' @template venue
+#' @inheritParams reprex
 #' @export
 #' @examples
 #' ## a rendered reprex can be inverted, at least approximately

@@ -36,7 +36,8 @@
 #'
 #' @param x An expression. If not given, `reprex()` looks for code in
 #'   `input` or on the clipboard, in that order.
-#' @template venue
+#' @param venue "gh" for GitHub (default), "so" for StackOverflow, "r" or "R"
+#'   for a runnable R script, with commented output interleaved.
 #' @param si Whether to include the results of
 #'   [devtools::session_info()], if available, or
 #'   [sessionInfo()] at the end of the reprex. When \code{venue =

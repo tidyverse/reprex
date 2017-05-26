@@ -13,6 +13,5 @@
 ^\.travis\.yml$
 ^appveyor\.yml$
 ^codecov\.yml$
-^man-roxygen$
 ^docs$
 ^cran-comments\.md$
