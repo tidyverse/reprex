@@ -4,3 +4,16 @@ template:
 
 home:
   strip_header: true
+
+navbar:
+  type: default
+  left:
+  - text: Intro
+    href: articles/reprex.html
+  - text: Reference
+    href: reference/index.html
+  - text: News
+    href: news/index.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/tidyverse/reprex
