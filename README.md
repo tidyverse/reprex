@@ -1,13 +1,11 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/reprex)](https://cran.r-project.org/package=reprex) [![Travis-CI Build Status](https://travis-ci.org/tidyverse/reprex.svg?branch=master)](https://travis-ci.org/tidyverse/reprex) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/reprex?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/reprex)
-
 reprex
-------
+======
 
-[![](man/figures/help-me-help-you.png)](https://nypdecider.files.wordpress.com/2014/08/help-me-help-you.gif)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/reprex)](https://cran.r-project.org/package=reprex) [![Travis-CI Build Status](https://travis-ci.org/tidyverse/reprex.svg?branch=master)](https://travis-ci.org/tidyverse/reprex) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/reprex?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/reprex) [![Coverage Status](https://img.shields.io/codecov/c/github/tidyverse/reprex/master.svg)](https://codecov.io/github/tidyverse/reprex?branch=master)
 
-Prepare **repr**oducible **ex**amples for posting to [GitHub issues](https://guides.github.com/features/issues/), [StackOverflow](http://stackoverflow.com/questions/tagged/r), etc.
+<a href="https://nypdecider.files.wordpress.com/2014/08/help-me-help-you.gif"><img src="man/figures/help-me-help-you.png" align="right" /></a>Prepare reprexes for posting to [GitHub issues](https://guides.github.com/features/issues/), [StackOverflow](http://stackoverflow.com/questions/tagged/r), or getting help via email. What is a `reprex`? It's a **repr**oducible **ex**ample, as coined by [Romain Francois](https://twitter.com/romain_francois/status/530011023743655936).
 
 Given R code on the clipboard, selected in RStudio, as an expression (quoted or not), or in a file ...
 

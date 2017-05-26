@@ -10,29 +10,26 @@
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- Bootstrap -->
+<link href="../tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
-
-<!-- pkgdown -->
+<!-- tidyverse -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
   </head>
 
   <body>
@@ -46,19 +43,23 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">reprex</a>
+
+      <div class="navbar-brand-container">
+        <a class="navbar-brand" href="../index.html">reprex</a>
+        <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
+      </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
+  <a href="../articles/index.html">Articles</a>
+</li>
+<li>
   <a href="../news/index.html">News</a>
 </li>
-      </ul>
-      
-      <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/tidyverse/reprex">
     <span class="fa fa-github fa-lg"></span>
@@ -80,20 +81,15 @@
     </div>
 
     
-    <p>Run a bit of R code using
-<code><a href='http://www.rdocumentation.org/packages/rmarkdown/topics/render'>rmarkdown::render</a>()</code>. The goal is to make it
+    <p>Run a bit of R code using <code><a href='http://www.rdocumentation.org/packages/rmarkdown/topics/render'>rmarkdown::render()</a></code>. The goal is to make it
 easy to share a small reproducible example ("reprex"), e.g., in a GitHub
 issue. Reprex source can be</p><ul>
 <li><p>read from clipboard</p></li>
-<li><p>read from current selection or active document
-(<a href='reprex_addin.html'>"Render reprex" RStudio addin</a>)</p></li>
+<li><p>read from current selection or active document in RStudio
+(with <code><a href='reprex_addin.html'>reprex_addin()</a></code>)</p></li>
 <li><p>provided directly as expression, character vector, or string</p></li>
 <li><p>read from file</p></li>
-</ul><p>The usual "code + commented output" is returned invisibly, put on the
-clipboard, and written to file. An HTML preview displays in RStudio's Viewer
-pane, if available, or in the default browser, otherwise. Leading <code>"&gt; "</code>
-prompts, are stripped from the input code. Read more at
-<a href = 'http://jennybc.github.io/reprex/'>http://jennybc.github.io/reprex/</a>.</p>
+</ul>
     
 
     <pre class="usage"><span class='fu'>reprex</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"gh"</span>, <span class='st'>"so"</span>, <span class='st'>"r"</span>, <span class='st'>"R"</span>), <span class='kw'>si</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -116,9 +112,9 @@ for a runnable R script, with commented output interleaved.</p></td>
     <tr>
       <th>si</th>
       <td><p>Whether to include the results of
-<code><a href='http://www.rdocumentation.org/packages/devtools/topics/session_info'>devtools::session_info</a>()</code>, if available, or
+<code><a href='http://www.rdocumentation.org/packages/devtools/topics/session_info'>devtools::session_info()</a></code>, if available, or
 <code>sessionInfo()</code> at the end of the reprex. When <code>venue =
-"gh"</code> (the default), session info is wrapped in a collapsible details tag.</p></td>
+  "gh"</code> (the default), session info is wrapped in a collapsible details tag.</p></td>
     </tr>
     <tr>
       <th>show</th>
@@ -161,7 +157,12 @@ respectively, to supplement or override reprex defaults. See Details.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>reprex sets specific <a href = 'http://yihui.name/knitr/options/'>knitr options</a>,
+    <p>The usual "code + commented output" is returned invisibly, put on the
+clipboard, and written to file. An HTML preview displays in RStudio's Viewer
+pane, if available, or in the default browser, otherwise. Leading <code>"&gt; "</code>
+prompts, are stripped from the input code. Read more at
+<a href = 'http://jennybc.github.io/reprex/'>http://jennybc.github.io/reprex/</a>.</p>
+<p>reprex sets specific <a href = 'http://yihui.name/knitr/options/'>knitr options</a>,
 which you can supplement or override via the <code>opts_chunk</code> and
 <code>opts_knit</code> arguments or via explicit calls to knitr in your reprex code
 (see examples). If all you want to override is the <code>comment</code> option, use
@@ -172,7 +173,7 @@ the dedicated argument, e.g.<code>commment = "#;-)"</code>.</p><ul>
 common use case is bug reporting.</p></li>
 <li><p>Package options default to <code>upload.fun = knitr::imgur_upload</code>.
 These are options you normally set via <code>knitr::opts_knit$set()</code>. The
-<code>upload.fun</code> defaults to <code><a href='http://www.rdocumentation.org/packages/knitr/topics/imgur_upload'>imgur_upload</a></code> so figures
+<code>upload.fun</code> defaults to <code><a href='http://www.rdocumentation.org/packages/knitr/topics/imgur_upload'>knitr::imgur_upload()</a></code> so figures
 produced by the reprex appear properly on GitHub.</p></li>
 </ul>
     
@@ -301,14 +302,24 @@ produced by the reprex appear properly on GitHub.</p></li>
 </div>
 
       <footer>
-      <div class="copyright">
+      <div class="tidyverse">
+  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="http://tidyverse.org">tidyverse.org</a>.</p>
+</div>
+
+<div class="author">
   <p>Developed by Jennifer Bryan, David Robinson, <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
+  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
 
-<div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
-</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
+  ga('create', 'UA-67989-18', 'auto');
+  ga('send', 'pageview');
+</script>
       </footer>
    </div>
 
