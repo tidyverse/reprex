@@ -126,7 +126,10 @@ reprex_selection <- function(
                             show = getOption("reprex.show", TRUE)
 ) {
   context <- rstudioapi::getSourceEditorContext()
-  selection <- newlined(rstudioapi::primary_selection(context)[["text"]])
+  text <- rstudioapi::primary_selection(context)[["text"]]
+  # workaround for Windows (https://github.com/tidyverse/reprex/issues/82)
+  Encoding(text) <- "UTF-8"
+  selection <- newlined(text)
 
   reprex(
     input = selection,
