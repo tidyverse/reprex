@@ -86,13 +86,6 @@ add_ext <- function(x, ext = "R", force = FALSE) {
   }
 }
 
-newlined <- function(x) {
-  if (!grepl("\n$", x[[length(x)]])) {
-    x[[length(x)]] <- paste0(x[[length(x)]], "\n")
-  }
-  x
-}
-
 ## read from
 ##   1 clipboard
 ##   2 `input`, which could be
