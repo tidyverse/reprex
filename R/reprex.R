@@ -200,6 +200,8 @@ reprex <- function(
     the_source <- ingest_input(input)
   }
 
+  the_source <- c(get_library_calls(), the_source)
+
   outfile_given <- !is.null(outfile)
   if (outfile_given && is.na(outfile)) {
     if (length(input) == 1 && !grepl("\n$", input)) {
