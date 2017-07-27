@@ -14,7 +14,11 @@ get_library_calls <- function() {
 
 get_loaded_packages <- function() {
   pkg_rx <- "^package:"
-  gsub(pkg_rx, "", grep(pkg_rx, search(), value = TRUE))
+  search_entries <- grep(pkg_rx, search(), value = TRUE)
+  package_names <- gsub(pkg_rx, "", search_entries)
+
+  # Reverse the order to obtain the order of loading:
+  rev(package_names)
 }
 
 filter_base_packages <- function(packages) {
