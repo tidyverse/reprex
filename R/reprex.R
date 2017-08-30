@@ -16,7 +16,7 @@
 #' clipboard, and written to file. An HTML preview displays in RStudio's Viewer
 #' pane, if available, or in the default browser, otherwise. Leading `"> "`
 #' prompts, are stripped from the input code. Read more at
-#' <http://jennybc.github.io/reprex/>.
+#' <http://reprex.tidyverse.org/>.
 #'
 #' reprex sets specific [knitr options](http://yihui.name/knitr/options/),
 #' which you can supplement or override via the `opts_chunk` and
