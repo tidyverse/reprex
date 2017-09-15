@@ -1,5 +1,7 @@
 # reprex 0.1.1.9000
 
+  * custom prompts are now escaped when used in regexes (#98 @jimhester).
+
   * New `reprex_selection()` add-in reprexes the current selection, with options
     controlled by options `reprex.venue`, `reprex.si`, and `reprex.show` 
     (#56, #71, #81)
