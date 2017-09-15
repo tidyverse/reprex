@@ -121,3 +121,8 @@ yesno <- function(..., yes = "yes", no = "no") {
   }
   TRUE
 }
+
+escape_regex <- function(x) {
+  chars <- c("*", ".", "?", "^", "+", "$", "|", "(", ")", "[", "]", "{", "}", "\\")
+  gsub(paste0("([\\", paste0(collapse = "\\", chars), "])"), "\\\\\\1", x, perl = TRUE)
+}
