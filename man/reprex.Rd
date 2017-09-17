@@ -6,7 +6,7 @@
 \usage{
 reprex(x = NULL, venue = c("gh", "so", "r", "R"), si = FALSE,
   show = TRUE, input = NULL, outfile = NULL, comment = "#>",
-  opts_chunk = NULL, opts_knit = NULL)
+  opts_chunk = NULL, opts_knit = NULL, tidyverse_quiet = TRUE)
 }
 \arguments{
 \item{x}{An expression. If not given, \code{reprex()} looks for code in
@@ -42,6 +42,10 @@ to \code{"#>"}.}
 \item{opts_chunk, opts_knit}{Named list. Optional
 \href{http://yihui.name/knitr/options/}{knitr chunk and package options},
 respectively, to supplement or override reprex defaults. See Details.}
+
+\item{tidyverse_quiet}{Logical. Sets the option \code{tidyverse.quiet}, which
+suppresses (\code{TRUE}, the default) or includes (\code{FALSE}) the
+startup message for the tidyverse package.}
 }
 \value{
 Character vector of rendered reprex, invisibly.
