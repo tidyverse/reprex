@@ -8,3 +8,4 @@
 ^docs$
 ^cran-comments\.md$
 ^_pkgdown\.yml$
+^img$
