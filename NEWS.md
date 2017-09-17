@@ -1,5 +1,7 @@
 # reprex 0.1.1.9000
 
+  * `reprex()` gains the argument `tidyverse_quiet`, defaulting to `TRUE`, which affords control of the startup message of the tidyverse meta-package (important special case of #70, #100).
+
   * custom prompts are now escaped when used in regexes (#98 @jimhester).
 
   * New `reprex_selection()` add-in reprexes the current selection, with options
