@@ -129,7 +129,7 @@
 </ul>
 <p>Accomplished like so:</p>
 <ul>
-<li><p>use <code>rmarkdown::render()</code> or, under the hood, <code>knitr::spin()</code> to run the code and capture output that would display in R console</p></li>
+<li><p>use <code><a href="http://www.rdocumentation.org/packages/rmarkdown/topics/render">rmarkdown::render()</a></code> or, under the hood, <code><a href="http://www.rdocumentation.org/packages/knitr/topics/spin">knitr::spin()</a></code> to run the code and capture output that would display in R console</p></li>
 <li><p>use chunk option <code>comment = "#&gt;"</code> to include the output while retaining executability</p></li>
 </ul>
 </div>
@@ -145,24 +145,24 @@ x &lt;- 1:100
 #' Here is some embedded prose, as a roxygen comment.
 mean(x)</code></pre>
 <p>renders to this this result:</p>
-<pre class="sourceCode r"><code class="sourceCode r">## a regular comment
-x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">100</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## a regular comment
+x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span></code></pre></div>
 <p>Here is some embedded prose, as a roxygen comment.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(x)
-<span class="co">#&gt; [1] 50.5</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(x)
+<span class="co">#&gt; [1] 50.5</span></code></pre></div>
 </div>
 </div>
 <div id="other-work" class="section level2">
 <h2 class="hasAnchor">
 <a href="#other-work" class="anchor"></a>Other work</h2>
-<p>If I had known about <a href="http://yihui.name/formatR/"><code>formatR::tidy_eval()</code></a>, I probably would never had made reprex! But alas I did not. AFAICT here are the main differences:</p>
+<p>If I had known about <a href="http://yihui.name/formatR/"><code><a href="http://www.rdocumentation.org/packages/formatR/topics/tidy_eval">formatR::tidy_eval()</a></code></a>, I probably would never had made reprex! But alas I did not. AFAICT here are the main differences:</p>
 <ul>
 <li>
 <code><a href="../reference/reprex.html">reprex()</a></code> accepts an expression as primary input, in addition to code on the clipboard, in a character vector, or in a file.</li>
 <li>
 <code><a href="../reference/reprex.html">reprex()</a></code> runs the reprex in a separate R process, via <a href="https://cran.r-project.org/package=callr">callr</a>. <code>tidy_eval()</code> uses the existing R process and offers an <code>envir</code> argument.</li>
 <li>
-<code><a href="../reference/reprex.html">reprex()</a></code> writes the code to a <code>.R</code> file and calls <code>rmarkdown::render()</code>. <code>tidy_eval()</code> runs the code line-by-line via <code>capture.output(eval(..., envir = envir))</code>.</li>
+<code><a href="../reference/reprex.html">reprex()</a></code> writes the code to a <code>.R</code> file and calls <code><a href="http://www.rdocumentation.org/packages/rmarkdown/topics/render">rmarkdown::render()</a></code>. <code>tidy_eval()</code> runs the code line-by-line via <code>capture.output(eval(..., envir = envir))</code>.</li>
 <li>
 <code><a href="../reference/reprex.html">reprex()</a></code> uploads figures to imgur and inserts the necessary link.</li>
 </ul>
@@ -172,7 +172,8 @@ x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">100</
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
         <div id="tocnav">
-      <h2>Contents</h2>
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#writing-a-good-reprex">Writing a good reprex</a></li>
       <li><a href="#package-philosophy">Package philosophy</a></li>

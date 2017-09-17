@@ -86,10 +86,10 @@ printed, returned invisibly, and written to the clipboard, if possible. Pick
 the function that deals with your problem:</p><ul>
 <li><p><code>reprex_invert()</code> handles Markdown, with code blocks indicated
 with backticks or indentation, e.g., the direct output of
-<code>reprex(..., venue = "gh")</code> or <code>reprex(..., venue = "so")</code>.</p></li>
+<code><a href='reprex.html'>reprex(..., venue = "gh")</a></code> or <code><a href='reprex.html'>reprex(..., venue = "so")</a></code>.</p></li>
 <li><p><code>reprex_clean()</code> assumes R code is top-level, possibly
 interleaved with commented output, e.g., a displayed reprex copied from
-GitHub or the direct output of <code>reprex(..., venue = "R")</code>.</p></li>
+GitHub or the direct output of <code><a href='reprex.html'>reprex(..., venue = "R")</a></code>.</p></li>
 <li><p><code>reprex_rescue()</code> assumes R code lines start with a prompt and
 printed output is top-level, e.g., what you'd get by copying from the R
 Console.</p></li>
@@ -185,15 +185,14 @@ holding R commands. Typical input is copy/paste from R Console.</p></li>
 <span class='fu'>reprex_clean</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='message'>## a regular comment, which is retained</span>
 #&gt; <span class='message'>(x &lt;- 1:4)</span>
 #&gt; <span class='message'>median(x)</span></div><div class='input'>
-<span class='fu'>not_run</span>({
-  <span class='co'>## round trip with reprex(..., venue = "R")</span>
-  <span class='no'>code_in</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"x &lt;- rnorm(2)"</span>, <span class='st'>"min(x)"</span>)
-  <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='reprex.html'>reprex</a></span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='no'>code_in</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='st'>"R"</span>)
-  <span class='no'>res</span>
-  (<span class='no'>code_out</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex_clean</span>(<span class='no'>res</span>))
-  <span class='fu'>identical</span>(<span class='no'>code_in</span>, <span class='no'>code_out</span>)
-})
-<span class='co'>## rescue a reprex that was copied from a live R session</span>
+</div><span class='co'># NOT RUN {</span>
+<span class='co'>## round trip with reprex(..., venue = "R")</span>
+<span class='no'>code_in</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"x &lt;- rnorm(2)"</span>, <span class='st'>"min(x)"</span>)
+<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='reprex.html'>reprex</a></span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='no'>code_in</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='st'>"R"</span>)
+<span class='no'>res</span>
+(<span class='no'>code_out</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex_clean</span>(<span class='no'>res</span>))
+<span class='fu'>identical</span>(<span class='no'>code_in</span>, <span class='no'>code_out</span>)
+<span class='co'># }</span><div class='input'><span class='co'>## rescue a reprex that was copied from a live R session</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(
   <span class='st'>"&gt; ## a regular comment, which is retained"</span>,
   <span class='st'>"&gt; (x &lt;- 1:4)"</span>,
