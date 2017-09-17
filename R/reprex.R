@@ -60,6 +60,9 @@
 #' @param opts_chunk,opts_knit Named list. Optional
 #'   \href{http://yihui.name/knitr/options/}{knitr chunk and package options},
 #'   respectively, to supplement or override reprex defaults. See Details.
+#' @param tidyverse_quiet Logical. Sets the option \code{tidyverse.quiet}, which
+#'   suppresses (\code{TRUE}, the default) or includes (\code{FALSE}) the
+#'   startup message for the tidyverse package.
 #'
 #' @return Character vector of rendered reprex, invisibly.
 #' @examples
@@ -175,12 +178,14 @@
 reprex <- function(
   x = NULL, venue = c("gh", "so", "r", "R"), si = FALSE, show = TRUE,
   input = NULL, outfile = NULL,
-  comment = "#>", opts_chunk = NULL, opts_knit = NULL) {
+  comment = "#>", opts_chunk = NULL, opts_knit = NULL,
+  tidyverse_quiet = TRUE) {
 
   venue <- tolower(match.arg(venue))
   stopifnot(is.logical(si), is.logical(show), is.character(comment))
   if (!is.null(input)) stopifnot(is.character(input))
   if (!is.null(outfile)) stopifnot(is.character(outfile) || is.na(outfile))
+  if (!is.null(tidyverse_quiet)) stopifnot(is.logical(tidyverse_quiet))
 
   the_source <- NULL
   ## capture source in character vector
@@ -233,6 +238,7 @@ reprex <- function(
       comment = comment,
       user_opts_chunk = opts_chunk,
       user_opts_knit = opts_knit,
+      tidyverse_quiet = as.character(tidyverse_quiet),
       chunk_tidy = prep_tidy(expr_input),
       body = paste(the_source, collapse = "\n")
     ))
