@@ -47,7 +47,7 @@ test_that("leading comment", {
     mean(x)
   }))
   out <- c("#hi", "mean(x)")
-  expect_identical(trimws(ret), out)
+  expect_identical(trim_ws(ret), out)
 })
 
 test_that("embedded comment", {
@@ -57,17 +57,17 @@ test_that("embedded comment", {
     ## a comment
     y
   }))
-  expect_identical(trimws(ret), out)
+  expect_identical(trim_ws(ret), out)
 
   ret <- stringify_expression(quote({x <- 1:10
   ## a comment
   y
   }))
-  expect_identical(trimws(ret), out)
+  expect_identical(trim_ws(ret), out)
 
   ret <- stringify_expression(quote({
     x <- 1:10
     ## a comment
     y}))
-  expect_identical(trimws(ret), out)
+  expect_identical(trim_ws(ret), out)
 })
