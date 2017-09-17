@@ -1,16 +1,6 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
-language: r
-r:
-  - oldrel
-  - release
-  - devel
-env:
-  - DISPLAY=:99.0
-matrix:
-  include:
-  - r: release
-    env: DISPLAY=""
+language: R
 sudo: false
 cache: packages
 
@@ -22,6 +12,19 @@ addons:
 before_script:
   - sh -e /etc/init.d/xvfb start
   - sleep 3
+
+r:
+  - 3.1
+  - 3.2
+  - oldrel
+  - release
+  - devel
+env:
+  - DISPLAY=:99.0
+matrix:
+  include:
+  - r: release
+    env: DISPLAY=""
 
 after_success:
   - Rscript -e 'covr::codecov()'
