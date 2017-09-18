@@ -102,11 +102,11 @@ But wait, there's more!
 
 * Set the target venue to StackOverflow with `reprex(..., venue = "so")`.
 
-* Get a runnable R script, augmented with commented output, with `reprex(..., venue = "R")`.
+* Get a runnable R script, augmented with commented output, with `reprex(..., venue = "R")`. This is useful for Slack, email, etc.
 
 * By default, figures are uploaded to [imgur.com](http://imgur.com) and resulting URL is dropped into an inline image tag.
 
-* Use the `outfile` argument to control where results are left behind.
+* Use the `outfile` argument to control where results are left behind. Use `outfile = NA` to work in current working directory.
 
 * Get clean, runnable code from wild-caught reprexes with
     - `reprex_invert()` = the opposite of `reprex()`
