@@ -23,6 +23,7 @@
 #'   clipboard is consulted for input.
 #' @param comment regular expression that matches commented output lines
 #' @param prompt character, the prompt at the start of R commands
+#' @param continue character, the prompt for continuation lines
 #' @return Character vector holding just the clean R code, invisibly
 #' @name un-reprex
 NULL
@@ -94,9 +95,18 @@ reprex_clean <- function(input = NULL, comment = "^#>") {
 #'   "[1] 2.5"
 #' )
 #' reprex_rescue(x)
-reprex_rescue <- function(input = NULL, prompt = getOption("prompt")) {
+reprex_rescue <- function(input = NULL,
+                          prompt = getOption("prompt"),
+                          continue = getOption("continue")) {
   x <- ingest_input(input)
-  reprex_undo(x, is_md = FALSE, prompt = prompt)
+  reprex_undo(x,
+              is_md = FALSE,
+              prompt = paste(
+                escape_regex(prompt),
+                escape_regex(continue),
+                sep = "|"
+              )
+  )
 }
 
 reprex_undo <- function(x = NULL, is_md = FALSE, venue,
@@ -113,7 +123,7 @@ reprex_undo <- function(x = NULL, is_md = FALSE, venue,
   } else if (is.null(prompt)) {        ## reprex_clean
     x_out <- x[!grepl(comment, x)]
   } else {                             ## reprex_rescue
-    regex <- paste0("^\\s*", escape_regex(prompt))
+    regex <- paste0("^\\s*", prompt)
     x_out <- x[grepl(regex, x)]
     x_out <- sub(regex, "", x_out)
   }
