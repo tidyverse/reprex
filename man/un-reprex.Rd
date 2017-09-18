@@ -11,7 +11,8 @@ reprex_invert(input = NULL, venue = c("gh", "so"), comment = "^#>")
 
 reprex_clean(input = NULL, comment = "^#>")
 
-reprex_rescue(input = NULL, prompt = getOption("prompt"))
+reprex_rescue(input = NULL, prompt = getOption("prompt"),
+  continue = getOption("continue"))
 }
 \arguments{
 \item{input}{character, holding a wild-caught reprex as a character vector
@@ -25,6 +26,8 @@ for a runnable R script, with commented output interleaved.}
 \item{comment}{regular expression that matches commented output lines}
 
 \item{prompt}{character, the prompt at the start of R commands}
+
+\item{continue}{character, the prompt for continuation lines}
 }
 \value{
 Character vector holding just the clean R code, invisibly
