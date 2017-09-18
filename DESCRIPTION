@@ -4,7 +4,8 @@ Version: 0.1.1.9000
 Authors@R: c(
     person("Jennifer", "Bryan", , "jenny@rstudio.com", role = c("aut", "cre")),
     person("David", "Robinson", , "admiral.david@gmail.com", role = "aut"),
-    person("Hadley", "Wickham", , "hadley@rstudio.com", role = "aut")
+    person("Hadley", "Wickham", , "hadley@rstudio.com", role = "aut"),
+    person("RStudio", role = c("cph", "fnd"))
     )
 Description: Convenience wrapper that uses the 'rmarkdown' package to render
   small snippets of code to target formats that include both code and output.
