@@ -100,7 +100,8 @@ Console.</p></li>
 
 <span class='fu'>reprex_clean</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>"^#&gt;"</span>)
 
-<span class='fu'>reprex_rescue</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>prompt</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"prompt"</span>))</pre>
+<span class='fu'>reprex_rescue</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>prompt</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"prompt"</span>),
+  <span class='kw'>continue</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"continue"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -124,6 +125,10 @@ for a runnable R script, with commented output interleaved.</p></td>
     <tr>
       <th>prompt</th>
       <td><p>character, the prompt at the start of R commands</p></td>
+    </tr>
+    <tr>
+      <th>continue</th>
+      <td><p>character, the prompt for continuation lines</p></td>
     </tr>
     </table>
     
@@ -225,7 +230,7 @@ holding R commands. Typical input is copy/paste from R Console.</p></li>
 </div>
 
 <div class="author">
-  <p>Developed by Jennifer Bryan, David Robinson, <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
+  <p>Developed by Jennifer Bryan, David Robinson, <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
   <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
 
