@@ -10,6 +10,10 @@ navbar:
   left:
   - text: Intro
     href: articles/reprex.html
+  - text: Articles
+    menu:
+    - text: Magic reprex by N. Tierney
+      href: articles/articles/magic-reprex.html
   - text: Reference
     href: reference/index.html
   - text: News
