@@ -1,17 +1,4 @@
-{{#gh}}
-#' ---
-#' output:
-#'   md_document:
-#'     variant: markdown_github
-#' ---
-{{/gh}}
-{{#so}}
-#' ---
-#' output:
-#'   md_document
-#' ---
-#'<!-- language-all: lang-r --><br/>
-{{/so}}
+{{{yaml}}}
 
 #+ reprex-setup, include = FALSE
 options(tidyverse.quiet = {{{tidyverse_quiet}}})
@@ -27,16 +14,12 @@ knitr::opts_chunk$set(tidy = TRUE, tidy.opts = list(indent = 2))
 {{{body}}}
 
 {{#si}}
-{{#gh}}
-#'<details><summary>Session info</summary>
-{{/gh}}
+{{{si_start}}}
 {{#devtools}}
 devtools::session_info()
 {{/devtools}}
 {{^devtools}}
 sessionInfo()
 {{/devtools}}
-{{#gh}}
-#'</details>
-{{/gh}}
+{{{si_end}}}
 {{/si}}

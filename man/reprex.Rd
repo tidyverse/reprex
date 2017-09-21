@@ -37,7 +37,7 @@ current working directory with basename derived from the path in
 \code{input}, if sensible, otherwise from \code{\link[=tempfile]{tempfile()}}.}
 
 \item{comment}{Character. Prefix with which to comment out output, defaults
-to \code{"#>"}.}
+to \code{"#&gt;"}.}
 
 \item{opts_chunk, opts_knit}{Named list. Optional
 \href{http://yihui.name/knitr/options/}{knitr chunk and package options},
@@ -65,7 +65,7 @@ issue. Reprex source can be
 \details{
 The usual "code + commented output" is returned invisibly, put on the
 clipboard, and written to file. An HTML preview displays in RStudio's Viewer
-pane, if available, or in the default browser, otherwise. Leading \code{"> "}
+pane, if available, or in the default browser, otherwise. Leading \code{"&gt; "}
 prompts, are stripped from the input code. Read more at
 \url{http://reprex.tidyverse.org/}.
 
@@ -75,7 +75,7 @@ which you can supplement or override via the \code{opts_chunk} and
 (see examples). If all you want to override is the \code{comment} option, use
 the dedicated argument, e.g.\code{commment = "#;-)"}.
 \itemize{
-\item Chunk options default to \code{collapse = TRUE}, \code{comment = "#>"},
+\item Chunk options default to \code{collapse = TRUE}, \code{comment = "#&gt;"},
 \code{error = TRUE}. These are options you normally set via
 \code{knitr::opts_chunk$set()}. Note that \code{error = TRUE}, because a
 common use case is bug reporting.

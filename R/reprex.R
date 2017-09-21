@@ -230,9 +230,8 @@ reprex <- function(
   opts_chunk <- prep_opts(substitute(opts_chunk), which = "chunk")
   opts_knit <- prep_opts(substitute(opts_knit), which = "knit")
   the_source <-
-    apply_template(list(
-      so = identical(venue, "so"),
-      gh = venue %in% c("gh", "r"),
+    apply_template(c(
+      fodder[[venue]],
       si = isTRUE(si),
       devtools = requireNamespace("devtools", quietly = TRUE),
       comment = comment,

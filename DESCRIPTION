@@ -36,8 +36,9 @@ Suggests:
     shiny,
     testthat (>= 1.0.2.9000)
 SystemRequirements: pandoc (>= 1.12.3) - http://pandoc.org
-RoxygenNote: 6.0.1
+RoxygenNote: 6.0.1.9000
 Remotes: r-pkgs/callr,
     hadley/testthat
 Roxygen: list(markdown = TRUE)
+Encoding: UTF-8
 VignetteBuilder: knitr
