@@ -36,14 +36,19 @@
 #'
 #' @param x An expression. If not given, `reprex()` looks for code in
 #'   `input` or on the clipboard, in that order.
-#' @param venue "gh" for GitHub (default), "so" for StackOverflow, "r" or "R"
-#'   for a runnable R script, with commented output interleaved.
-#' @param si Whether to include the results of
+#' @param venue Character. Must be one of the following:
+#'     * "gh" for GitHub, the default
+#'     * "so" for Stack Overflow
+#'     * "ds" for Discourse, e.g.,
+#'       [community.rstudio.com](https://community.rstudio.com). Note: this is
+#'       currently just an alias for "gh"!
+#'     * "r" or "R" for a runnable R script, with commented output interleaved
+#' @param si Logical. Whether to include the results of
 #'   [devtools::session_info()], if available, or
-#'   [sessionInfo()] at the end of the reprex. When \code{venue =
-#'   "gh"} (the default), session info is wrapped in a collapsible details tag.
-#' @param show Whether to show rendered output in a viewer (RStudio or browser).
-#'   Defaults to `TRUE`.
+#'   [sessionInfo()] at the end of the reprex. When `venue` is "gh" or "ds",
+#'   the session info is wrapped in a collapsible details tag.
+#' @param show Logical. Whether to show rendered output in a viewer (RStudio or
+#'   browser). Defaults to `TRUE`.
 #' @param input Character. If has length one and lacks a terminating newline,
 #'   interpreted as the path to a file containing reprex code. Otherwise,
 #'   assumed to hold reprex code as character vector (length greater than one)
@@ -51,18 +56,18 @@
 #' @param outfile Optional basename for output files. When `NULL`
 #'   (default), reprex writes to temp files below the session temp directory. If
 #'   `outfile = "foo"`, expect output files in current working directory,
-#'   like `foo_reprex.R`, `foo_reprex.md`, and, if `venue = "R"`,
+#'   like `foo_reprex.R`, `foo_reprex.md`, and, if `venue = "r"`,
 #'   `foo_rendered.R`. If `outfile = NA`, expect output files in
 #'   current working directory with basename derived from the path in
 #'   `input`, if sensible, otherwise from [tempfile()].
 #' @param comment Character. Prefix with which to comment out output, defaults
 #'   to `"#>"`.
 #' @param opts_chunk,opts_knit Named list. Optional
-#'   \href{http://yihui.name/knitr/options/}{knitr chunk and package options},
+#'   [knitr chunk and package options](http://yihui.name/knitr/options/),
 #'   respectively, to supplement or override reprex defaults. See Details.
-#' @param tidyverse_quiet Logical. Sets the option \code{tidyverse.quiet}, which
-#'   suppresses (\code{TRUE}, the default) or includes (\code{FALSE}) the
-#'   startup message for the tidyverse package.
+#' @param tidyverse_quiet Logical. Sets the option `tidyverse.quiet`, which
+#'   suppresses (`TRUE`, the default) or includes (`FALSE`) the startup message
+#'   for the tidyverse package.
 #'
 #' @return Character vector of rendered reprex, invisibly.
 #' @examples
@@ -176,16 +181,23 @@
 #' @importFrom knitr opts_chunk
 #' @export
 reprex <- function(
-  x = NULL, venue = c("gh", "so", "r", "R"), si = FALSE, show = TRUE,
+  x = NULL, venue = c("gh", "so", "ds", "r"), si = FALSE, show = TRUE,
   input = NULL, outfile = NULL,
   comment = "#>", opts_chunk = NULL, opts_knit = NULL,
   tidyverse_quiet = TRUE) {
 
-  venue <- tolower(match.arg(venue))
+  venue <- tolower(venue)
+  venue <- match.arg(venue)
   stopifnot(is.logical(si), is.logical(show), is.character(comment))
   if (!is.null(input)) stopifnot(is.character(input))
   if (!is.null(outfile)) stopifnot(is.character(outfile) || is.na(outfile))
   if (!is.null(tidyverse_quiet)) stopifnot(is.logical(tidyverse_quiet))
+
+  if (venue == "ds") {
+    message("FYI, the Discourse venue \"ds\" is currently an alias for the ",
+            "default GitHub venue \"gh\".\nYou don't need to specify it.")
+    venue <- "gh"
+  }
 
   the_source <- NULL
   ## capture source in character vector

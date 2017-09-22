@@ -20,8 +20,13 @@ reprex_rescue(input = NULL, prompt = getOption("prompt"),
 file path (length one with no terminating newline). If not provided, the
 clipboard is consulted for input.}
 
-\item{venue}{"gh" for GitHub (default), "so" for StackOverflow, "r" or "R"
-for a runnable R script, with commented output interleaved.}
+\item{venue}{Character. Must be one of the following:
+* "gh" for GitHub, the default
+* "so" for Stack Overflow
+* "ds" for Discourse, e.g.,
+\href{https://community.rstudio.com}{community.rstudio.com}. Note: this is
+currently just an alias for "gh"!
+* "r" or "R" for a runnable R script, with commented output interleaved}
 
 \item{comment}{regular expression that matches commented output lines}
 

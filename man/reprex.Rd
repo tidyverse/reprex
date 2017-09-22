@@ -4,7 +4,7 @@
 \alias{reprex}
 \title{Render a reprex}
 \usage{
-reprex(x = NULL, venue = c("gh", "so", "r", "R"), si = FALSE,
+reprex(x = NULL, venue = c("gh", "so", "ds", "r"), si = FALSE,
   show = TRUE, input = NULL, outfile = NULL, comment = "#>",
   opts_chunk = NULL, opts_knit = NULL, tidyverse_quiet = TRUE)
 }
@@ -12,16 +12,21 @@ reprex(x = NULL, venue = c("gh", "so", "r", "R"), si = FALSE,
 \item{x}{An expression. If not given, \code{reprex()} looks for code in
 \code{input} or on the clipboard, in that order.}
 
-\item{venue}{"gh" for GitHub (default), "so" for StackOverflow, "r" or "R"
-for a runnable R script, with commented output interleaved.}
+\item{venue}{Character. Must be one of the following:
+* "gh" for GitHub, the default
+* "so" for Stack Overflow
+* "ds" for Discourse, e.g.,
+\href{https://community.rstudio.com}{community.rstudio.com}. Note: this is
+currently just an alias for "gh"!
+* "r" or "R" for a runnable R script, with commented output interleaved}
 
-\item{si}{Whether to include the results of
+\item{si}{Logical. Whether to include the results of
 \code{\link[devtools:session_info]{devtools::session_info()}}, if available, or
-\code{\link[=sessionInfo]{sessionInfo()}} at the end of the reprex. When \code{venue =
-  "gh"} (the default), session info is wrapped in a collapsible details tag.}
+\code{\link[=sessionInfo]{sessionInfo()}} at the end of the reprex. When \code{venue} is "gh" or "ds",
+the session info is wrapped in a collapsible details tag.}
 
-\item{show}{Whether to show rendered output in a viewer (RStudio or browser).
-Defaults to \code{TRUE}.}
+\item{show}{Logical. Whether to show rendered output in a viewer (RStudio or
+browser). Defaults to \code{TRUE}.}
 
 \item{input}{Character. If has length one and lacks a terminating newline,
 interpreted as the path to a file containing reprex code. Otherwise,
@@ -31,7 +36,7 @@ or string (with embedded newlines).}
 \item{outfile}{Optional basename for output files. When \code{NULL}
 (default), reprex writes to temp files below the session temp directory. If
 \code{outfile = "foo"}, expect output files in current working directory,
-like \code{foo_reprex.R}, \code{foo_reprex.md}, and, if \code{venue = "R"},
+like \code{foo_reprex.R}, \code{foo_reprex.md}, and, if \code{venue = "r"},
 \code{foo_rendered.R}. If \code{outfile = NA}, expect output files in
 current working directory with basename derived from the path in
 \code{input}, if sensible, otherwise from \code{\link[=tempfile]{tempfile()}}.}
@@ -44,8 +49,8 @@ to \code{"#&gt;"}.}
 respectively, to supplement or override reprex defaults. See Details.}
 
 \item{tidyverse_quiet}{Logical. Sets the option \code{tidyverse.quiet}, which
-suppresses (\code{TRUE}, the default) or includes (\code{FALSE}) the
-startup message for the tidyverse package.}
+suppresses (\code{TRUE}, the default) or includes (\code{FALSE}) the startup message
+for the tidyverse package.}
 }
 \value{
 Character vector of rendered reprex, invisibly.
