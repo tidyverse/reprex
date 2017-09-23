@@ -16,24 +16,18 @@ read_from_template <- function(SLUG) {
   readLines(SLUG_path)
 }
 
-## the gsub() gymnastics are to workaround this problem in roxygen2
+## leave the "#' ---" lines in the template, because
 ## https://github.com/klutometis/roxygen/issues/668
-yaml_md <- "
-!#' ---
-!#' output:
-!#'   md_document
-!#' ---
-"
-yaml_md <- gsub("!#'", "#'", trim_ws(yaml_md))
+yaml_md <- trim_ws("
+#' output:
+#'   md_document
+")
 
-yaml_gfm <- "
-!#' ---
-!#' output:
-!#'   md_document:
-!#'     variant: markdown_github
-!#' ---
-"
-yaml_gfm <- gsub("!#'", "#'", trim_ws(yaml_gfm))
+yaml_gfm <- trim_ws("
+#' output:
+#'   md_document:
+#'     variant: markdown_github
+")
 
 fodder <- list(
   gh = list(
@@ -42,7 +36,8 @@ fodder <- list(
     si_end = "#'</details>"
   ),
   so = list(
-    yaml = paste0(yaml_md, "\n#'<!-- language-all: lang-r --><br/>")
+    yaml = yaml_md,
+    so_syntax_highlighting = "#'<!-- language-all: lang-r --><br/>"
   ),
   r = list(
     yaml = yaml_gfm
