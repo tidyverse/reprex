@@ -32,17 +32,19 @@
 #' * Package options default to `upload.fun = knitr::imgur_upload`.
 #'   These are options you normally set via `knitr::opts_knit$set()`. The
 #'   `upload.fun` defaults to [knitr::imgur_upload()] so figures
-#'   produced by the reprex appear properly on GitHub.
+#'   produced by the reprex appear properly on GitHub. Note that this function
+#'   requires installation of the packages httr & xml2 or RCurl & XML, depending
+#'   on which version of knitr is present.
 #'
 #' @param x An expression. If not given, `reprex()` looks for code in
 #'   `input` or on the clipboard, in that order.
 #' @param venue Character. Must be one of the following:
-#'     * "gh" for GitHub, the default
-#'     * "so" for Stack Overflow
-#'     * "ds" for Discourse, e.g.,
-#'       [community.rstudio.com](https://community.rstudio.com). Note: this is
-#'       currently just an alias for "gh"!
-#'     * "r" or "R" for a runnable R script, with commented output interleaved
+#' * "gh" for GitHub, the default
+#' * "so" for Stack Overflow
+#' * "ds" for Discourse, e.g.,
+#'   [community.rstudio.com](https://community.rstudio.com). Note: this is
+#'   currently just an alias for "gh"!
+#' * "r" or "R" for a runnable R script, with commented output interleaved
 #' @param si Logical. Whether to include the results of
 #'   [devtools::session_info()], if available, or
 #'   [sessionInfo()] at the end of the reprex. When `venue` is "gh" or "ds",

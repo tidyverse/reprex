@@ -13,12 +13,14 @@ reprex(x = NULL, venue = c("gh", "so", "ds", "r"), si = FALSE,
 \code{input} or on the clipboard, in that order.}
 
 \item{venue}{Character. Must be one of the following:
-* "gh" for GitHub, the default
-* "so" for Stack Overflow
-* "ds" for Discourse, e.g.,
+\itemize{
+\item "gh" for GitHub, the default
+\item "so" for Stack Overflow
+\item "ds" for Discourse, e.g.,
 \href{https://community.rstudio.com}{community.rstudio.com}. Note: this is
 currently just an alias for "gh"!
-* "r" or "R" for a runnable R script, with commented output interleaved}
+\item "r" or "R" for a runnable R script, with commented output interleaved
+}}
 
 \item{si}{Logical. Whether to include the results of
 \code{\link[devtools:session_info]{devtools::session_info()}}, if available, or
@@ -87,7 +89,9 @@ common use case is bug reporting.
 \item Package options default to \code{upload.fun = knitr::imgur_upload}.
 These are options you normally set via \code{knitr::opts_knit$set()}. The
 \code{upload.fun} defaults to \code{\link[knitr:imgur_upload]{knitr::imgur_upload()}} so figures
-produced by the reprex appear properly on GitHub.
+produced by the reprex appear properly on GitHub. Note that this function
+requires installation of the packages httr & xml2 or RCurl & XML, depending
+on which version of knitr is present.
 }
 }
 \examples{

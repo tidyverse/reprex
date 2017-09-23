@@ -12,12 +12,14 @@ reprex_selection(venue = getOption("reprex.venue", "gh"),
 }
 \arguments{
 \item{venue}{Character. Must be one of the following:
-* "gh" for GitHub, the default
-* "so" for Stack Overflow
-* "ds" for Discourse, e.g.,
+\itemize{
+\item "gh" for GitHub, the default
+\item "so" for Stack Overflow
+\item "ds" for Discourse, e.g.,
 \href{https://community.rstudio.com}{community.rstudio.com}. Note: this is
 currently just an alias for "gh"!
-* "r" or "R" for a runnable R script, with commented output interleaved}
+\item "r" or "R" for a runnable R script, with commented output interleaved
+}}
 
 \item{si}{Logical. Whether to include the results of
 \code{\link[devtools:session_info]{devtools::session_info()}}, if available, or
