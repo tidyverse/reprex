@@ -21,9 +21,9 @@ BugReports: https://github.com/tidyverse/reprex/issues
 Imports:
     callr,
     clipr (>= 0.3.0),
-    knitr,
     rlang,
     rmarkdown,
+    styler,
     tools,
     utils,
     whisker
@@ -31,6 +31,7 @@ Suggests:
     covr,
     devtools,
     fortunes,
+    knitr,
     miniUI,
     rprojroot,
     rstudioapi,
@@ -39,7 +40,8 @@ Suggests:
     withr
 SystemRequirements: pandoc (>= 1.12.3) - http://pandoc.org
 Remotes: r-pkgs/callr,
-    hadley/testthat@4535fed
+    hadley/testthat@4535fed,
+    krlmlr/styler
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
 VignetteBuilder: knitr
