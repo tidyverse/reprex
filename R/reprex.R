@@ -191,16 +191,16 @@ reprex <- function(
 
   venue <- tolower(venue)
   venue <- match.arg(venue)
-  stopifnot(is.logical(si), is.logical(show), is.character(comment))
-  if (!is.null(input)) stopifnot(is.character(input))
-  if (!is.null(outfile)) stopifnot(is.character(outfile) || is.na(outfile))
-  if (!is.null(tidyverse_quiet)) stopifnot(is.logical(tidyverse_quiet))
-
   if (venue == "ds") {
     message("FYI, the Discourse venue \"ds\" is currently an alias for the ",
             "default GitHub venue \"gh\".\nYou don't need to specify it.")
     venue <- "gh"
   }
+
+  stopifnot(is.logical(si), is.logical(show), is.character(comment))
+  stopifnot(is.logical(tidyverse_quiet))
+  if (!is.null(input)) stopifnot(is.character(input))
+  if (!is.null(outfile)) stopifnot(is.character(outfile) || is.na(outfile))
 
   the_source <- NULL
   ## capture source in character vector
