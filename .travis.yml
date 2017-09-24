@@ -23,8 +23,10 @@ r:
 env:
   - DISPLAY=:99.0
 matrix:
+  allow_failures:
+    - r: 3.1
   include:
-  - r: release
+    - r: release
     env: DISPLAY=""
 
 after_success:
