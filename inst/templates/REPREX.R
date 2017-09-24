@@ -12,6 +12,12 @@ knitr::opts_knit$set(upload.fun = knitr::imgur_upload)
 #+ reprex-body
 {{{body}}}
 
+{{#std_out_err}}
+#' standard output and standard error
+#+ std-out-err, echo = FALSE
+cat(readLines("{{{std_out_err}}}"), sep = "\n")
+{{/std_out_err}}
+
 {{#si}}
 {{{si_start}}}
 {{#devtools}}

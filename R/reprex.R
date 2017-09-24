@@ -71,6 +71,12 @@
 #' @param tidyverse_quiet Logical. Sets the option `tidyverse.quiet`, which
 #'   suppresses (`TRUE`, the default) or includes (`FALSE`) the startup message
 #'   for the tidyverse package.
+#' @param std_out_err Logical. Whether to append a section for output sent to
+#' stdout and stderr by the reprex rendering process. This can be necessary to
+#' reveal output if the reprex spawns child processes or `system()` calls. Note
+#' this cannot be properly interleaved with output from the main R process, nor
+#' is there any guarantee that the lines from standard output and standard
+#' error are in correct chronological order. See [callr::r_safe()] for more.
 #'
 #' @return Character vector of rendered reprex, invisibly.
 #' @examples
@@ -187,7 +193,7 @@ reprex <- function(
   x = NULL, venue = c("gh", "so", "ds", "r"), si = FALSE, show = TRUE,
   input = NULL, outfile = NULL,
   comment = "#>", opts_chunk = NULL, opts_knit = NULL,
-  tidyverse_quiet = TRUE) {
+  tidyverse_quiet = TRUE, std_out_err = FALSE) {
 
   venue <- tolower(venue)
   venue <- match.arg(venue)
@@ -231,6 +237,11 @@ reprex <- function(
   r_file <- strip_ext(outfile) %||% tempfile() ## foo or foo.md --> foo
   r_file <- add_suffix(r_file, "reprex")       ## foo --> foo_reprex
   r_file <- add_ext(r_file)                    ## foo_reprex.R
+  if (isTRUE(std_out_err)) {
+    std_out_err <- gsub("_reprex.R$", "_std_out_err.txt$", r_file)
+  } else {
+    std_out_err <- FALSE
+  }
 
   if (file.exists(r_file) &&
       yesno("Oops, file already exists:\n  * ", r_file, "\n",
@@ -253,6 +264,7 @@ reprex <- function(
       user_opts_chunk = opts_chunk,
       user_opts_knit = opts_knit,
       tidyverse_quiet = as.character(tidyverse_quiet),
+      std_out_err = std_out_err,
       body = paste(the_source, collapse = "\n")
     ))
 
@@ -262,7 +274,7 @@ reprex <- function(
   }
 
   message("Rendering reprex...")
-  output_file <- md_file <- reprex_(r_file)
+  output_file <- md_file <- reprex_(r_file, std_out_err)
   if (outfile_given) {
     pathstem <- path_stem(r_file, md_file)
     message("Writing reprex markdown:\n  * ", sub(pathstem, "", md_file))
@@ -316,12 +328,14 @@ reprex <- function(
   invisible(output_lines)
 }
 
-reprex_ <- function(input) {
+reprex_ <- function(input, std_out_err = NULL) {
   callr::r_safe(
     function(input) {
       rmarkdown::render(input, quiet = TRUE)
     },
     args = list(input = input),
-    spinner = interactive() && !in_tests()
+    spinner = interactive() && !in_tests(),
+    stdout = std_out_err,
+    stderr = std_out_err
   )
 }
