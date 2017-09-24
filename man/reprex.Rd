@@ -40,8 +40,9 @@ or string (with embedded newlines).}
 \code{outfile = "foo"}, expect output files in current working directory,
 like \code{foo_reprex.R}, \code{foo_reprex.md}, and, if \code{venue = "r"},
 \code{foo_rendered.R}. If \code{outfile = NA}, expect output files in
-current working directory with basename derived from the path in
-\code{input}, if sensible, otherwise from \code{\link[=tempfile]{tempfile()}}.}
+a location and with basename derived from \code{input}, if sensible, or in
+current working directory with basename derived from \code{\link[=tempfile]{tempfile()}}
+otherwise.}
 
 \item{comment}{Character. Prefix with which to comment out output, defaults
 to \code{"#>"}.}

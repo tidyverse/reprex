@@ -60,8 +60,9 @@
 #'   `outfile = "foo"`, expect output files in current working directory,
 #'   like `foo_reprex.R`, `foo_reprex.md`, and, if `venue = "r"`,
 #'   `foo_rendered.R`. If `outfile = NA`, expect output files in
-#'   current working directory with basename derived from the path in
-#'   `input`, if sensible, otherwise from [tempfile()].
+#'   a location and with basename derived from `input`, if sensible, or in
+#'   current working directory with basename derived from [tempfile()]
+#'   otherwise.
 #' @param comment Character. Prefix with which to comment out output, defaults
 #'   to `"#>"`.
 #' @param opts_chunk,opts_knit Named list. Optional
@@ -222,7 +223,7 @@ reprex <- function(
   outfile_given <- !is.null(outfile)
   if (outfile_given && is.na(outfile)) {
     if (length(input) == 1 && !grepl("\n$", input)) {
-      outfile <- basename(input)
+      outfile <- input
     } else {
       outfile <- basename(tempfile())
     }
