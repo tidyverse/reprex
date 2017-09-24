@@ -16,18 +16,22 @@ read_from_template <- function(SLUG) {
   readLines(SLUG_path)
 }
 
-## leave the "#' ---" lines in the template, because
+## prepend with `#' ` in a separate step because
 ## https://github.com/klutometis/roxygen/issues/668
-yaml_md <- trim_ws("
-#' output:
-#'   md_document
-")
+yaml_md <- "
+---
+output:
+  md_document
+---"
+yaml_md <- trim_ws(gsub("\\n", "\n#' ", yaml_md))
 
-yaml_gfm <- trim_ws("
-#' output:
-#'   md_document:
-#'     variant: markdown_github
-")
+yaml_gfm <- "
+---
+output:
+  md_document:
+    variant: markdown_github
+---"
+yaml_gfm <- trim_ws(gsub("\\n", "\n#' ", yaml_gfm))
 
 fodder <- list(
   gh = list(

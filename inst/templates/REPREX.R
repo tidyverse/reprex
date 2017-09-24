@@ -1,6 +1,4 @@
-#' ---
 {{{yaml}}}
-#' ---
 
 {{{so_syntax_highlighting}}}
 
