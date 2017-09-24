@@ -109,20 +109,26 @@ customised by options.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>venue</th>
-      <td><p>"gh" for GitHub (default), "so" for StackOverflow, "r" or "R"
-for a runnable R script, with commented output interleaved.</p></td>
+      <td><p>Character. Must be one of the following:</p><ul>
+<li><p>"gh" for GitHub, the default</p></li>
+<li><p>"so" for Stack Overflow</p></li>
+<li><p>"ds" for Discourse, e.g.,
+<a href='https://community.rstudio.com'>community.rstudio.com</a>. Note: this is
+currently just an alias for "gh"!</p></li>
+<li><p>"r" or "R" for a runnable R script, with commented output interleaved</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>si</th>
-      <td><p>Whether to include the results of
+      <td><p>Logical. Whether to include the results of
 <code><a href='http://www.rdocumentation.org/packages/devtools/topics/session_info'>devtools::session_info()</a></code>, if available, or
-<code>sessionInfo()</code> at the end of the reprex. When <code>venue =
-  "gh"</code> (the default), session info is wrapped in a collapsible details tag.</p></td>
+<code>sessionInfo()</code> at the end of the reprex. When <code>venue</code> is "gh" or "ds",
+the session info is wrapped in a collapsible details tag.</p></td>
     </tr>
     <tr>
       <th>show</th>
-      <td><p>Whether to show rendered output in a viewer (RStudio or browser).
-Defaults to <code>TRUE</code>.</p></td>
+      <td><p>Logical. Whether to show rendered output in a viewer (RStudio or
+browser). Defaults to <code>TRUE</code>.</p></td>
     </tr>
     </table>
     

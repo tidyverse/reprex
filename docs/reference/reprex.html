@@ -104,7 +104,7 @@ issue. Reprex source can be</p><ul>
 </ul>
     
 
-    <pre class="usage"><span class='fu'>reprex</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"gh"</span>, <span class='st'>"so"</span>, <span class='st'>"r"</span>, <span class='st'>"R"</span>), <span class='kw'>si</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+    <pre class="usage"><span class='fu'>reprex</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"gh"</span>, <span class='st'>"so"</span>, <span class='st'>"ds"</span>, <span class='st'>"r"</span>), <span class='kw'>si</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>show</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>"#&gt;"</span>,
   <span class='kw'>opts_chunk</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>opts_knit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tidyverse_quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
@@ -118,20 +118,26 @@ issue. Reprex source can be</p><ul>
     </tr>
     <tr>
       <th>venue</th>
-      <td><p>"gh" for GitHub (default), "so" for StackOverflow, "r" or "R"
-for a runnable R script, with commented output interleaved.</p></td>
+      <td><p>Character. Must be one of the following:</p><ul>
+<li><p>"gh" for GitHub, the default</p></li>
+<li><p>"so" for Stack Overflow</p></li>
+<li><p>"ds" for Discourse, e.g.,
+<a href='https://community.rstudio.com'>community.rstudio.com</a>. Note: this is
+currently just an alias for "gh"!</p></li>
+<li><p>"r" or "R" for a runnable R script, with commented output interleaved</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>si</th>
-      <td><p>Whether to include the results of
+      <td><p>Logical. Whether to include the results of
 <code><a href='http://www.rdocumentation.org/packages/devtools/topics/session_info'>devtools::session_info()</a></code>, if available, or
-<code>sessionInfo()</code> at the end of the reprex. When <code>venue =
-  "gh"</code> (the default), session info is wrapped in a collapsible details tag.</p></td>
+<code>sessionInfo()</code> at the end of the reprex. When <code>venue</code> is "gh" or "ds",
+the session info is wrapped in a collapsible details tag.</p></td>
     </tr>
     <tr>
       <th>show</th>
-      <td><p>Whether to show rendered output in a viewer (RStudio or browser).
-Defaults to <code>TRUE</code>.</p></td>
+      <td><p>Logical. Whether to show rendered output in a viewer (RStudio or
+browser). Defaults to <code>TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>input</th>
@@ -145,10 +151,11 @@ or string (with embedded newlines).</p></td>
       <td><p>Optional basename for output files. When <code>NULL</code>
 (default), reprex writes to temp files below the session temp directory. If
 <code>outfile = "foo"</code>, expect output files in current working directory,
-like <code>foo_reprex.R</code>, <code>foo_reprex.md</code>, and, if <code>venue = "R"</code>,
+like <code>foo_reprex.R</code>, <code>foo_reprex.md</code>, and, if <code>venue = "r"</code>,
 <code>foo_rendered.R</code>. If <code>outfile = NA</code>, expect output files in
-current working directory with basename derived from the path in
-<code>input</code>, if sensible, otherwise from <code>tempfile()</code>.</p></td>
+a location and with basename derived from <code>input</code>, if sensible, or in
+current working directory with basename derived from <code>tempfile()</code>
+otherwise.</p></td>
     </tr>
     <tr>
       <th>comment</th>
@@ -164,8 +171,8 @@ respectively, to supplement or override reprex defaults. See Details.</p></td>
     <tr>
       <th>tidyverse_quiet</th>
       <td><p>Logical. Sets the option <code>tidyverse.quiet</code>, which
-suppresses (<code>TRUE</code>, the default) or includes (<code>FALSE</code>) the
-startup message for the tidyverse package.</p></td>
+suppresses (<code>TRUE</code>, the default) or includes (<code>FALSE</code>) the startup message
+for the tidyverse package.</p></td>
     </tr>
     </table>
     
@@ -192,7 +199,9 @@ common use case is bug reporting.</p></li>
 <li><p>Package options default to <code>upload.fun = knitr::imgur_upload</code>.
 These are options you normally set via <code>knitr::opts_knit$set()</code>. The
 <code>upload.fun</code> defaults to <code><a href='http://www.rdocumentation.org/packages/knitr/topics/imgur_upload'>knitr::imgur_upload()</a></code> so figures
-produced by the reprex appear properly on GitHub.</p></li>
+produced by the reprex appear properly on GitHub. Note that this function
+requires installation of the packages httr &amp; xml2 or RCurl &amp; XML, depending
+on which version of knitr is present.</p></li>
 </ul>
     
 
@@ -275,7 +284,7 @@ produced by the reprex appear properly on GitHub.</p></li>
 <span class='fu'>list.files</span>(<span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"blarg"</span>)
 <span class='fu'>unlink</span>(<span class='fu'>list.files</span>(<span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"blarg"</span>), <span class='kw'>recursive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='co'>## target venue = StackOverflow</span>
+<span class='co'>## target venue = Stack Overflow</span>
 <span class='co'>## http://stackoverflow.com/editing-help</span>
 <span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex</span>({
   <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>4</span>

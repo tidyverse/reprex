@@ -32,7 +32,7 @@ NULL
 #'   [reprex()]. The input should be Markdown, presumably the output
 #'   of [reprex()]. `venue` matters because, in GitHub-flavored
 #'   Markdown, code blocks are placed within triple backticks. In other Markdown
-#'   dialects, such as the one used on StackOverflow, code is indented by four
+#'   dialects, such as the one used on Stack Overflow, code is indented by four
 #'   spaces.
 #' @inheritParams reprex
 #' @export

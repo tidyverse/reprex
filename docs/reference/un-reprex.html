@@ -127,8 +127,14 @@ clipboard is consulted for input.</p></td>
     </tr>
     <tr>
       <th>venue</th>
-      <td><p>"gh" for GitHub (default), "so" for StackOverflow, "r" or "R"
-for a runnable R script, with commented output interleaved.</p></td>
+      <td><p>Character. Must be one of the following:</p><ul>
+<li><p>"gh" for GitHub, the default</p></li>
+<li><p>"so" for Stack Overflow</p></li>
+<li><p>"ds" for Discourse, e.g.,
+<a href='https://community.rstudio.com'>community.rstudio.com</a>. Note: this is
+currently just an alias for "gh"!</p></li>
+<li><p>"r" or "R" for a runnable R script, with commented output interleaved</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>comment</th>
@@ -155,7 +161,7 @@ for a runnable R script, with commented output interleaved.</p></td>
 <code><a href='reprex.html'>reprex()</a></code>. The input should be Markdown, presumably the output
 of <code><a href='reprex.html'>reprex()</a></code>. <code>venue</code> matters because, in GitHub-flavored
 Markdown, code blocks are placed within triple backticks. In other Markdown
-dialects, such as the one used on StackOverflow, code is indented by four
+dialects, such as the one used on Stack Overflow, code is indented by four
 spaces.</p></li>
 <li><p><code>reprex_clean</code>: Removes lines of commented output from a displayed
 reprex, such as code copied from a GitHub issue or <code>reprex</code>'ed with

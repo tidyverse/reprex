@@ -152,7 +152,7 @@
 #' list.files(pattern = "blarg")
 #' unlink(list.files(pattern = "blarg"), recursive = TRUE)
 #'
-#' ## target venue = StackOverflow
+#' ## target venue = Stack Overflow
 #' ## http://stackoverflow.com/editing-help
 #' ret <- reprex({
 #'   x <- 1:4

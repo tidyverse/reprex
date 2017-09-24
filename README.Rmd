@@ -100,7 +100,7 @@ Instead of reading from the clipboard, you can:
 
 But wait, there's more!
 
-* Set the target venue to StackOverflow with `reprex(..., venue = "so")`.
+* Set the target venue to Stack Overflow with `reprex(..., venue = "so")`.
 
 * Get a runnable R script, augmented with commented output, with `reprex(..., venue = "R")`. This is useful for Slack, email, etc.
 
@@ -110,7 +110,7 @@ But wait, there's more!
 
 * Get clean, runnable code from wild-caught reprexes with
     - `reprex_invert()` = the opposite of `reprex()`
-    - `reprex_clean()`, e.g. when you copy/paste from GitHub or StackOverflow
+    - `reprex_clean()`, e.g. when you copy/paste from GitHub or Stack Overflow
     - `reprex_rescue()`, when you're dealing with copy/paste from R Console
 
 ```{r include = FALSE}

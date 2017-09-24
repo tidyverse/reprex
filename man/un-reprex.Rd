@@ -61,7 +61,7 @@ Console.
 \code{\link[=reprex]{reprex()}}. The input should be Markdown, presumably the output
 of \code{\link[=reprex]{reprex()}}. \code{venue} matters because, in GitHub-flavored
 Markdown, code blocks are placed within triple backticks. In other Markdown
-dialects, such as the one used on StackOverflow, code is indented by four
+dialects, such as the one used on Stack Overflow, code is indented by four
 spaces.
 
 \item \code{reprex_clean}: Removes lines of commented output from a displayed
