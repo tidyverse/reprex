@@ -57,7 +57,7 @@ test_that("outfiles in a subdirectory works", {
 })
 
 test_that("outfiles based on input file", {
-  on.exit(file.remove("foo_reprex.R", "foo_reprex.md"))
+  on.exit(file.remove("foo.R", "foo_reprex.R", "foo_reprex.md"))
   writeLines("1:5", "foo.R")
   msg <-
     capture_messages(ret <- reprex(input = "foo.R", show = FALSE, outfile = NA))

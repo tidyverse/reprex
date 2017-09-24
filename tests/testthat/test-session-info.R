@@ -6,18 +6,19 @@ test_that("session info is omitted / included", {
   } else {
     regex <- "sessionInfo()"
   }
-  ret <- reprex({(y <- 1:4); mean(y)}, show = FALSE)
+  input <- c("(y <- 1:4)", "mean(y)")
+  ret <- reprex(input = input, show = FALSE)
   expect_false(any(grepl(regex, ret)))
-  ret <- reprex({(y <- 1:4); mean(y)}, si = TRUE, show = FALSE)
+  ret <- reprex(input = input, si = TRUE, show = FALSE)
   expect_match(ret, regex, fixed = TRUE, all = FALSE)
-  ret <- reprex({(y <- 1:4); mean(y)}, venue = "so", si = TRUE, show = FALSE)
+  ret <- reprex(input = input, venue = "so", si = TRUE, show = FALSE)
   expect_match(ret, regex, fixed = TRUE, all = FALSE)
 })
 
 test_that("session info is folded on github", {
-  ret <- reprex({(y <- 1:4); mean(y)}, show = FALSE, si = TRUE, venue = "gh")
+  input <- c("(y <- 1:4)", "mean(y)")
+  ret <- reprex(input = input, show = FALSE, si = TRUE, venue = "gh")
   expect_match(ret, "<details><summary>Session info</summary>" ,
                fixed = TRUE, all = FALSE)
   expect_match(ret, "</details>", fixed = TRUE, all = FALSE)
 })
-

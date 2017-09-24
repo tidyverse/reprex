@@ -2,9 +2,11 @@ context("input")
 
 out <- c("``` r", "1:5", "#> [1] 1 2 3 4 5", "```")
 
-exp_msg <- switch(as.character(clipboard_available()),
-                  `TRUE` = "Rendered reprex is on the clipboard.",
-                  "Unable to put result on the clipboard")
+exp_msg <- switch(
+  as.character(clipboard_available()),
+  `TRUE` = "Rendered reprex is on the clipboard.",
+  "Unable to put result on the clipboard"
+)
 
 test_that("reprex: clipboard input works", {
   skip_if_no_clipboard()
