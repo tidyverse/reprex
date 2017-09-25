@@ -126,3 +126,7 @@ escape_regex <- function(x) {
   chars <- c("*", ".", "?", "^", "+", "$", "|", "(", ")", "[", "]", "{", "}", "\\")
   gsub(paste0("([\\", paste0(collapse = "\\", chars), "])"), "\\\\\\1", x, perl = TRUE)
 }
+
+in_tests <- function() {
+  nzchar(Sys.getenv("R_TESTS", "")) || as.logical(Sys.getenv("NOT_CRAN", "FALSE"))
+}

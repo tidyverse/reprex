@@ -323,6 +323,6 @@ reprex_ <- function(input) {
       rmarkdown::render(input, quiet = TRUE)
     },
     args = list(input = input),
-    spinner = interactive()
+    spinner = interactive() && !in_tests()
   )
 }
