@@ -238,7 +238,7 @@ reprex <- function(
   r_file <- add_suffix(r_file, "reprex")       ## foo --> foo_reprex
   r_file <- add_ext(r_file)                    ## foo_reprex.R
   if (isTRUE(std_out_err)) {
-    std_out_err <- gsub("_reprex.R$", "_std_out_err.txt$", r_file)
+    std_out_err <- gsub("_reprex.R$", "_std_out_err.txt", r_file)
   } else {
     std_out_err <- FALSE
   }
