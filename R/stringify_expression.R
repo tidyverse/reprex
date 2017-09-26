@@ -34,27 +34,13 @@ stringify_expression <- function(x) {
   }
 
   ## rescue trailing comment lines
-  ## n = the last line consulted thus far
+  ## n = the last line affiliated with an expression
   ## FYI the 3rd element corresponds to last_line
   n <- max(vapply(.srcref, function(x) x[[3]], integer(1)))
-  tail_lines <- trailing_comments(.srcfile, n)
+  tail_lines <- getSrcLines(.srcfile, n + 1, Inf)
+  closing_bracket_line <- max(grep("^\\s*[}]", tail_lines), 0)
+  tail_lines <- utils::head(tail_lines, closing_bracket_line - 1)
 
   c(lines, tail_lines)
 }
 
-trailing_comments <- function(.srcfile, n) {
-  raw_lines <- .srcfile[["lines"]]
-
-  ## make sure raw_lines has been split into character vector
-  if (!isTRUE(.srcfile[["fixedNewlines"]])) {
-    raw_lines <- strsplit(raw_lines, split = "\n")[[1]]
-  }
-
-  if (length(raw_lines) <= n) {
-    return(character())
-  }
-
-  tail_lines <- utils::tail(raw_lines, -n)
-  closing_bracket_line <- max(grep("^\\s*[}]", tail_lines), 0)
-  utils::head(tail_lines, closing_bracket_line - 1)
-}
