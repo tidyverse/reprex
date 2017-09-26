@@ -29,9 +29,9 @@ Imports:
 Suggests: 
     covr,
     devtools,
-    formatR,
     fortunes,
     miniUI,
+    rprojroot,
     rstudioapi,
     shiny,
     testthat (>= 1.0.2.9000)
