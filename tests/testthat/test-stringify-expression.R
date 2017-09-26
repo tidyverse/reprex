@@ -1,65 +1,91 @@
 context("expression stringification")
 
-test_that("one statement, naked", {
-  expect_identical(stringify_expression(quote(1:5)), "1:5")
-})
-
-test_that("one statement, brackets, one line", {
-  expect_identical(stringify_expression(quote({1:5})), "1:5")
-})
-
-test_that("one statement, quoted, one line", {
+test_that("simple statements are stringified", {
+  expect_identical(stringify_expression(1:5), "1:5")
+  expect_identical(stringify_expression({1:5}), "1:5")
   expect_identical(stringify_expression(quote(mean(x))), "mean(x)")
 })
 
+## it is very difficult to create quoted multi-line expressions in tests
+## that mimic what a user can create interactively
+## therefore, I executed this interactively to create expressions.rds
+if (FALSE) {
+
+## the lack of indentation is intentional
+e <- new.env()
+e$e01 <- quote({
+  1:5
+})
+e$e02 <- quote({1:5
+})
+e$e03 <- quote({
+  1:5})
+e$e04 <- quote({1:3;4:6})
+e$e05 <- quote({
+  #' Leading comment
+  x <- rnorm(3)
+  #' Embedded comment
+  mean(x)
+  #' Trailing comment
+})
+saveRDS(e, rprojroot::find_testthat_root_file("expressions.rds"))
+}
+
+e <- readRDS(rprojroot::find_testthat_root_file("expressions.rds"))
+
 test_that("one statement, brackets, multiple lines, take 1", {
-  expect_identical(stringify_expression(quote({
-    1:5
-  })), "    1:5")
+  # quote({
+  #   1:5
+  # })
+  expect_identical(
+    stringify_expression(e$e01),
+    "  1:5"
+  )
 })
 
 test_that("one statement, brackets, multiple lines, take 2", {
-  expect_identical(stringify_expression({1:5
-  }), "1:5")
+  # expr <- quote({1:5
+  # })
+  expect_identical(
+    stringify_expression(e$e02),
+    "1:5"
+  )
 })
 
 test_that("one statement, brackets, multiple lines, take 3", {
+  # expr <- quote({
+  #   1:5})
   expect_identical(
-    stringify_expression(quote({
-    1:5})), "    1:5")
+    stringify_expression(e$e03),
+    "  1:5"
+  )
 })
 
-test_that("multiple statements, brackets", {
-   expect_identical(stringify_expression(quote({1:3;4:6})), "1:3;4:6")
+test_that("multiple statements, brackets, semicolon", {
+  # quote({1:3;4:6})
+  expect_identical(
+    stringify_expression(e$e04),
+    "1:3;4:6"
+  )
 })
 
-test_that("leading comment", {
-  ret <- stringify_expression(quote({
-    #hi
-    mean(x)
-  }))
-  out <- c("#hi", "mean(x)")
-  expect_identical(trim_ws(ret), out)
-})
-
-test_that("embedded comment", {
-  out <- c("x <- 1:10", "## a comment", "y")
-  ret <- stringify_expression(quote({
-    x <- 1:10
-    ## a comment
-    y
-  }))
-  expect_identical(trim_ws(ret), out)
-
-  ret <- stringify_expression(quote({x <- 1:10
-  ## a comment
-  y
-  }))
-  expect_identical(trim_ws(ret), out)
-
-  ret <- stringify_expression(quote({
-    x <- 1:10
-    ## a comment
-    y}))
-  expect_identical(trim_ws(ret), out)
+test_that("leading, embedded, trailing comment, #89", {
+  # expr <- quote({
+  #   #' Leading comment
+  #   x <- rnorm(3)
+  #   #' Embedded comment
+  #   mean(x)
+  #   #' Trailing comment
+  # })
+  out <- c(
+    "  #' Leading comment",
+    "  x <- rnorm(3)",
+    "  #' Embedded comment",
+    "  mean(x)",
+    "  #' Trailing comment"
+  )
+  expect_identical(
+    stringify_expression(e$e05),
+    out
+  )
 })
