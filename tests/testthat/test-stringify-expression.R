@@ -43,10 +43,10 @@ test_that("one statement, brackets, multiple lines, take 3", {
 
 test_that("leading comment", {
   ret <- stringify_expression(quote({
-    #hi
+    # hi
     mean(x)
   }))
-  out <- c("#hi", "mean(x)")
+  out <- c("# hi", "mean(x)")
   expect_identical(trim_ws(ret), out)
 })
 

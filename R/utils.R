@@ -46,12 +46,6 @@ prep_opts <- function(txt, which = "chunk") {
   sub("^list", setter, txt)
 }
 
-## if input was expression AND formatR is available, tidy the code
-## leading whitespace will have been stripped inside stringify_expression()
-prep_tidy <- function(expr_input) {
-  expr_input && requireNamespace("formatR", quietly = TRUE)
-}
-
 trim_ws <- function(x) {
   sub("\\s*$", "", sub("^\\s*", "", x))
 }

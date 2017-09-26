@@ -56,11 +56,5 @@ stringify_expression <- function(q) {
   }
 
   lines <- trim_ws(lines)
-  ## knitr will re-tidy code, if suggested package formatR is available
-  ## format() is a back up plan
-  if (!requireNamespace("formatR", quietly = TRUE)) {
-    lines <- format(lines)
-  }
-  lines
-
+  as.character(styler::style_text(lines))
 }

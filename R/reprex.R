@@ -181,7 +181,6 @@
 #' reprex(input = c("> x <- 1:3", "> median(x)"))
 #' }
 #'
-#' @importFrom knitr opts_chunk
 #' @export
 reprex <- function(
   x = NULL, venue = c("gh", "so", "ds", "r"), si = FALSE, show = TRUE,
@@ -253,7 +252,6 @@ reprex <- function(
       user_opts_chunk = opts_chunk,
       user_opts_knit = opts_knit,
       tidyverse_quiet = as.character(tidyverse_quiet),
-      chunk_tidy = prep_tidy(expr_input),
       body = paste(the_source, collapse = "\n")
     ))
 
