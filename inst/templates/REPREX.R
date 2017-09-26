@@ -13,9 +13,13 @@ knitr::opts_knit$set(upload.fun = knitr::imgur_upload)
 {{{body}}}
 
 {{#std_out_err}}
+#+ include = FALSE
+lines <- readLines("{{{std_out_err}}}")
+lines <- if (length(lines) > 0) lines else "nothing written to stdout or stderr"
+
 #' standard output and standard error
 #+ std-out-err, echo = FALSE
-cat(readLines("{{{std_out_err}}}"), sep = "\n")
+cat(lines, sep = "\n")
 {{/std_out_err}}
 
 {{#si}}
