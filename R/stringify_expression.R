@@ -33,14 +33,22 @@ stringify_expression <- function(x) {
     lines <- lines[-1L]
   }
 
+  ## identify the last source line affiliated with an expression
+  n <- utils::getSrcLocation(last_src, which = "line", first = FALSE)
+
+  ## rescue trailing comment on (current) last surviving line
+  last_source_line <- getSrcLines(.srcfile, n, n)   ## "raw"
+  last_line <- lines[length(lines)]                 ## srcref'd
+  m <- regexpr(last_line, last_source_line, fixed = TRUE)
+  rescue_me <- substring(last_source_line, m + attr(m, "match.length"))
+  if (grepl("^\\s*#", rescue_me)) {
+    lines[length(lines)] <- paste0(last_line, rescue_me)
+  }
+
   ## rescue trailing comment lines
-  ## n = the last line affiliated with an expression
-  ## FYI the 3rd element corresponds to last_line
-  n <- max(vapply(.srcref, function(x) x[[3]], integer(1)))
   tail_lines <- getSrcLines(.srcfile, n + 1, Inf)
   closing_bracket_line <- max(grep("^\\s*[}]", tail_lines), 0)
   tail_lines <- utils::head(tail_lines, closing_bracket_line - 1)
 
   trim_common_leading_ws(c(lines, tail_lines))
 }
-
