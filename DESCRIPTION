@@ -37,7 +37,8 @@ Suggests:
     testthat (>= 1.0.2.9000)
 SystemRequirements: pandoc (>= 1.12.3) - http://pandoc.org
 Remotes: r-pkgs/callr,
-    hadley/testthat
+    hadley/testthat,
+    r-lib/processx
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
 VignetteBuilder: knitr
