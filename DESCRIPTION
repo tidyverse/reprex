@@ -31,6 +31,7 @@ Suggests:
     devtools,
     fortunes,
     miniUI,
+    processx (>= 2.1.0),
     rprojroot,
     rstudioapi,
     shiny,
