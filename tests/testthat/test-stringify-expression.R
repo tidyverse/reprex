@@ -39,7 +39,7 @@ test_that("one statement, brackets, multiple lines, take 1", {
   # })
   expect_identical(
     stringify_expression(e$e01),
-    "  1:5"
+    "1:5"
   )
 })
 
@@ -57,7 +57,7 @@ test_that("one statement, brackets, multiple lines, take 3", {
   #   1:5})
   expect_identical(
     stringify_expression(e$e03),
-    "  1:5"
+    "1:5"
   )
 })
 
@@ -78,11 +78,11 @@ test_that("leading, embedded, trailing comment, #89", {
   #   #' Trailing comment
   # })
   out <- c(
-    "  #' Leading comment",
-    "  x <- rnorm(3)",
-    "  #' Embedded comment",
-    "  mean(x)",
-    "  #' Trailing comment"
+    "#' Leading comment",
+    "x <- rnorm(3)",
+    "#' Embedded comment",
+    "mean(x)",
+    "#' Trailing comment"
   )
   expect_identical(
     stringify_expression(e$e05),

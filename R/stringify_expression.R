@@ -41,6 +41,6 @@ stringify_expression <- function(x) {
   closing_bracket_line <- max(grep("^\\s*[}]", tail_lines), 0)
   tail_lines <- utils::head(tail_lines, closing_bracket_line - 1)
 
-  c(lines, tail_lines)
+  trim_common_leading_ws(c(lines, tail_lines))
 }
 

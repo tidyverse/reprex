@@ -253,7 +253,6 @@ reprex <- function(
       user_opts_chunk = opts_chunk,
       user_opts_knit = opts_knit,
       tidyverse_quiet = as.character(tidyverse_quiet),
-      chunk_tidy = prep_tidy(expr_input),
       body = paste(the_source, collapse = "\n")
     ))
 

@@ -29,7 +29,6 @@ Imports:
 Suggests: 
     covr,
     devtools,
-    formatR,
     fortunes,
     miniUI,
     rprojroot,

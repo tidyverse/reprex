@@ -46,14 +46,15 @@ prep_opts <- function(txt, which = "chunk") {
   sub("^list", setter, txt)
 }
 
-## if input was expression AND formatR is available, tidy the code
-## leading whitespace will have been stripped inside stringify_expression()
-prep_tidy <- function(expr_input) {
-  expr_input && requireNamespace("formatR", quietly = TRUE)
-}
-
 trim_ws <- function(x) {
   sub("\\s*$", "", sub("^\\s*", "", x))
+}
+
+trim_common_leading_ws <- function(x) {
+  m <- regexpr("^(\\s*)", x)
+  ws <- regmatches(x, m)
+  num <- min(nchar(ws))
+  substring(x, num + 1)
 }
 
 ## wrap clipr::clipr_available() so I can mock it
