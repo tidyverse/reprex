@@ -31,15 +31,13 @@ Suggests:
     devtools,
     fortunes,
     miniUI,
-    processx (>= 2.1.0),
     rprojroot,
     rstudioapi,
     shiny,
     testthat (>= 1.0.2.9000)
 SystemRequirements: pandoc (>= 1.12.3) - http://pandoc.org
 Remotes: r-pkgs/callr,
-    hadley/testthat,
-    r-lib/processx
+    hadley/testthat
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
 VignetteBuilder: knitr
