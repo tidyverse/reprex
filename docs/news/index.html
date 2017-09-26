@@ -98,9 +98,10 @@
 <h1 class="hasAnchor">
 <a href="#reprex-0-1-1-9000" class="anchor"></a>reprex 0.1.1.9000</h1>
 <ul>
+<li><p>Expression input handling has been refactored. This removes the need to include formatR in “Suggests”. Trailing comments – inline and on their own line – are also now retained (#89, #91, #115, @jennybc and @jimhester).</p></li>
 <li><p>The <code>venue</code> argument gains a new value, <code>"ds"</code>, for <a href="https://www.discourse.org" class="uri">https://www.discourse.org</a>, which is the platform behind <a href="https://community.rstudio.com">community.rstudio.com</a>. This is currently just an alias for the default <code>"gh"</code> GitHub venue, because the formatting appears to be compatible. Adding the <code>"ds"</code> value so Discourse can be documented and to guard against the possibility that some formatting is actually unique.</p></li>
 <li><p><code><a href="../reference/reprex.html">reprex()</a></code> gains the argument <code>tidyverse_quiet</code>, defaulting to <code>TRUE</code>, which affords control of the startup message of the tidyverse meta-package (important special case of #70, #100).</p></li>
-<li><p>custom prompts are now escaped when used in regexes (#98 @jimhester).</p></li>
+<li><p>Custom prompts are now escaped when used in regexes (#98 @jimhester).</p></li>
 <li><p>New <code><a href="../reference/reprex_addin.html">reprex_selection()</a></code> add-in reprexes the current selection, with options controlled by options <code>reprex.venue</code>, <code>reprex.si</code>, and <code>reprex.show</code> (#56, #71, #81)</p></li>
 <li><p><code><a href="../reference/reprex_addin.html">reprex_addin()</a></code> displays notificaton as inline dialog</p></li>
 </ul>

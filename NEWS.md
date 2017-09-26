@@ -1,10 +1,12 @@
 # reprex 0.1.1.9000
 
+  * Expression input handling has been refactored. This removes the need to include formatR in "Suggests". Trailing comments -- inline and on their own line -- are also now retained (#89, #91, #115, @jennybc and @jimhester).
+
   * The `venue` argument gains a new value, `"ds"`, for <https://www.discourse.org>, which is the platform behind [community.rstudio.com](https://community.rstudio.com). This is currently just an alias for the default `"gh"` GitHub venue, because the formatting appears to be compatible. Adding the `"ds"` value so Discourse can be documented and to guard against the possibility that some formatting is actually unique.
 
   * `reprex()` gains the argument `tidyverse_quiet`, defaulting to `TRUE`, which affords control of the startup message of the tidyverse meta-package (important special case of #70, #100).
 
-  * custom prompts are now escaped when used in regexes (#98 @jimhester).
+  * Custom prompts are now escaped when used in regexes (#98 @jimhester).
 
   * New `reprex_selection()` add-in reprexes the current selection, with options
     controlled by options `reprex.venue`, `reprex.si`, and `reprex.show` 
