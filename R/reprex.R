@@ -240,7 +240,7 @@ reprex <- function(
   if (isTRUE(std_out_err)) {
     std_out_err <- gsub("_reprex.R$", "_std_out_err.txt", r_file)
     ## defensive use of "/" because this gets dropped into R code in template
-    std_out_err <- normalizePath(std_out_err, winslash = "/")
+    std_out_err <- normalizePath(std_out_err, winslash = "/", mustWork = FALSE)
   } else {
     std_out_err <- NULL
   }
