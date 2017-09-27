@@ -29,7 +29,9 @@ yaml_gfm <- "
 ---
 output:
   md_document:
-    variant: markdown_github
+    pandoc_args: [
+      '-t', 'commonmark'
+    ]
 ---"
 yaml_gfm <- trim_ws(gsub("\\n", "\n#' ", yaml_gfm))
 
