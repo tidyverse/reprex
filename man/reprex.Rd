@@ -6,7 +6,8 @@
 \usage{
 reprex(x = NULL, venue = c("gh", "so", "ds", "r"), si = FALSE,
   show = TRUE, input = NULL, outfile = NULL, comment = "#>",
-  opts_chunk = NULL, opts_knit = NULL, tidyverse_quiet = TRUE)
+  opts_chunk = NULL, opts_knit = NULL, tidyverse_quiet = TRUE,
+  std_out_err = FALSE)
 }
 \arguments{
 \item{x}{An expression. If not given, \code{reprex()} looks for code in
@@ -54,6 +55,13 @@ respectively, to supplement or override reprex defaults. See Details.}
 \item{tidyverse_quiet}{Logical. Sets the option \code{tidyverse.quiet}, which
 suppresses (\code{TRUE}, the default) or includes (\code{FALSE}) the startup message
 for the tidyverse package.}
+
+\item{std_out_err}{Logical. Whether to append a section for output sent to
+stdout and stderr by the reprex rendering process. This can be necessary to
+reveal output if the reprex spawns child processes or \code{system()} calls. Note
+this cannot be properly interleaved with output from the main R process, nor
+is there any guarantee that the lines from standard output and standard
+error are in correct chronological order. See \code{\link[callr:r_safe]{callr::r_safe()}} for more.}
 }
 \value{
 Character vector of rendered reprex, invisibly.
