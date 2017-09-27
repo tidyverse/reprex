@@ -240,7 +240,7 @@ reprex <- function(
   if (isTRUE(std_out_err)) {
     std_out_err <- gsub("_reprex.R$", "_std_out_err.txt", r_file)
   } else {
-    std_out_err <- FALSE
+    std_out_err <- NULL
   }
 
   if (file.exists(r_file) &&
