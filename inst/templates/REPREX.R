@@ -12,15 +12,15 @@ knitr::opts_knit$set(upload.fun = knitr::imgur_upload)
 #+ reprex-body
 {{{body}}}
 
-{{#std_out_err}}
+{{#std_file}}
 #+ include = FALSE
-lines <- readLines("{{{std_out_err}}}")
+lines <- readLines("{{{std_file}}}")
 lines <- if (length(lines) > 0) lines else "nothing written to stdout or stderr"
 
 #' standard output and standard error
 #+ std-out-err, echo = FALSE
 cat(lines, sep = "\n")
-{{/std_out_err}}
+{{/std_file}}
 
 {{#si}}
 {{{si_start}}}

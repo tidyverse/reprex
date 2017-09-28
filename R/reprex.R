@@ -209,42 +209,30 @@ reprex <- function(
   if (!is.null(outfile)) stopifnot(is.character(outfile) || is.na(outfile))
 
   the_source <- NULL
-  ## capture source in character vector
-  ##
-  ## Do not rearrange this block lightly. If x is expression, take care to not
-  ## evaluate in this frame.
   x_captured <- substitute(x)
-  expr_input <- !is.null(x_captured) ## signals code may need re-formatting
-  if (expr_input) {
+  if (!is.null(x_captured)) {
     if (!is.null(input)) {
       message("`input` ignored in favor of expression input in `x`.")
     }
     the_source <- stringify_expression(x_captured)
   }
-
   if (is.null(the_source)) {
     the_source <- ingest_input(input)
   }
 
   outfile_given <- !is.null(outfile)
   if (outfile_given && is.na(outfile)) {
+    ## we will work in working directory
     if (length(input) == 1 && !grepl("\n$", input)) {
       outfile <- input
     } else {
       outfile <- basename(tempfile())
     }
   }
-  r_file <- strip_ext(outfile) %||% tempfile() ## foo or foo.md --> foo
-  r_file <- add_suffix(r_file, "reprex")       ## foo --> foo_reprex
-  r_file <- add_ext(r_file)                    ## foo_reprex.R
-  if (isTRUE(std_out_err)) {
-    std_out_err <- gsub("_reprex.R$", "_std_out_err.txt", r_file)
-    ## defensive use of "/" because this gets dropped into R code in template
-    std_out_err <- normalizePath(std_out_err, winslash = "/", mustWork = FALSE)
-  } else {
-    std_out_err <- NULL
-  }
 
+  files <- make_filenames(strip_ext(outfile) %||% tempfile())
+  r_file <- files[["r_file"]]
+  std_file <- if (std_out_err) files[["std_file"]] else NULL
   if (file.exists(r_file) &&
       yesno("Oops, file already exists:\n  * ", r_file, "\n",
             "Delete it and carry on with this reprex?")) {
@@ -257,31 +245,30 @@ reprex <- function(
   the_source <- ensure_no_prompts(the_source)
   opts_chunk <- prep_opts(substitute(opts_chunk), which = "chunk")
   opts_knit <- prep_opts(substitute(opts_knit), which = "knit")
-  the_source <-
-    apply_template(c(
-      fodder[[venue]],
-      si = isTRUE(si),
-      devtools = requireNamespace("devtools", quietly = TRUE),
-      comment = comment,
-      user_opts_chunk = opts_chunk,
-      user_opts_knit = opts_knit,
-      tidyverse_quiet = as.character(tidyverse_quiet),
-      std_out_err = std_out_err,
-      body = paste(the_source, collapse = "\n")
-    ))
-
+  the_source <- apply_template(c(
+    fodder[[venue]],
+    si = isTRUE(si),
+    devtools = requireNamespace("devtools", quietly = TRUE),
+    comment = comment,
+    user_opts_chunk = opts_chunk,
+    user_opts_knit = opts_knit,
+    tidyverse_quiet = as.character(tidyverse_quiet),
+    std_file = std_file,
+    body = paste(the_source, collapse = "\n")
+  ))
   writeLines(the_source, r_file)
   if (outfile_given) {
     message("Preparing reprex as .R file to render:\n  * ", r_file)
   }
 
   message("Rendering reprex...")
-  output_file <- md_file <- reprex_(r_file, std_out_err)
+  reprex_file <- reprex_(r_file, std_file)
   if (outfile_given) {
-    pathstem <- path_stem(r_file, md_file)
-    message("Writing reprex markdown:\n  * ", sub(pathstem, "", md_file))
+    ## pathstem = the common part of the two paths
+    pathstem <- path_stem(r_file, reprex_file)
+    message("Writing reprex markdown:\n  * ", sub(pathstem, "", reprex_file))
   }
-  output_lines <- readLines(md_file, encoding = "UTF-8")
+  output_lines <- readLines(reprex_file, encoding = "UTF-8")
 
   if (identical(venue, "r")) {
     lns <- output_lines
@@ -289,11 +276,11 @@ reprex <- function(
     lns <- ifelse(line_info == "prose" & nzchar(lns), paste("#'", lns), lns)
     lns <- lns[line_info != "bt"]
     output_lines <- lns
-    output_file <- gsub("_reprex", "_rendered", r_file)
-    writeLines(output_lines, output_file)
+    reprex_file <- files[["rout_file"]]
+    writeLines(output_lines, reprex_file)
     if (outfile_given) {
       message("Writing reprex as commented R script:\n  * ",
-              sub(pathstem, "", output_file))
+              sub(pathstem, "", reprex_file))
     }
   }
 
@@ -305,7 +292,7 @@ reprex <- function(
             "  * Capture what reprex() returns.\n",
             "  * Use `outfile = \"foo\"` to request output in specific file.\n",
             "  * See the temp file:\n    - ",
-            output_file)
+            reprex_file)
   }
 
   if (show) {
@@ -316,12 +303,17 @@ reprex <- function(
     ## `clean = FALSE` does too much (deletes foo_reprex_files, which might
     ## hold local figs)
     if (is.null(outfile)) {
-      html_file <- rmarkdown::render(md_file, quiet = TRUE, encoding = "UTF-8")
+      html_file <- rmarkdown::render(
+        reprex_file, quiet = TRUE, encoding = "UTF-8"
+      )
     } else {
-      html_file <- strip_ext(basename(md_file))
-      html_file <- tempfile(pattern = paste0(html_file, "_"), fileext = ".html")
-      html_file <-
-        rmarkdown::render(md_file, output_file = html_file, quiet = TRUE, encoding = "UTF-8")
+      html_file <- files[["html_file"]]
+      html_file <- rmarkdown::render(
+        reprex_file,
+        output_file = html_file,
+        quiet = TRUE,
+        encoding = "UTF-8"
+      )
     }
     viewer <- getOption("viewer") %||% utils::browseURL
     viewer(html_file)
@@ -341,3 +333,24 @@ reprex_ <- function(input, std_out_err = NULL) {
     stderr = std_out_err
   )
 }
+
+make_filenames <- function(filebase = "foo") {
+  filebase <- add_suffix(filebase, "reprex")
+  ## make this a list so I am never tempted to index with `[` instead of `[[`
+  ## can cause sneaky name problems with the named list used as data for
+  ## the whisker template
+  out <- list(    r_file = add_ext(           filebase,                 "R"),
+                std_file = add_ext(add_suffix(filebase, "std_out_err"), "txt"),
+               rout_file = add_ext(add_suffix(filebase, "rendered"),    "R"),
+               html_file = add_ext(           filebase,                 "html")
+  )
+  ## defensive use of "/" because Windows + this gets dropped into R code in
+  ## the template
+  out[["std_file"]] <- normalizePath(
+    out[["std_file"]],
+    winslash = "/",
+    mustWork = FALSE
+  )
+  out
+}
+
