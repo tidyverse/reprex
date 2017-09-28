@@ -1,3 +1,7 @@
+is_toggle <- function(x) {
+  length(x) == 1 && is.logical(x) && !is.na(x)
+}
+
 ## from purrr, among other places
 `%||%` <- function(x, y) {
   if (is.null(x)) {

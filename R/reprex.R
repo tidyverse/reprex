@@ -203,8 +203,8 @@ reprex <- function(
     venue <- "gh"
   }
 
-  stopifnot(is.logical(si), is.logical(show), is.character(comment))
-  stopifnot(is.logical(tidyverse_quiet))
+  stopifnot(is_toggle(si), is_toggle(show), is.character(comment))
+  stopifnot(is_toggle(tidyverse_quiet), is_toggle(std_out_err))
   if (!is.null(input)) stopifnot(is.character(input))
   if (!is.null(outfile)) stopifnot(is.character(outfile) || is.na(outfile))
 
