@@ -5,9 +5,9 @@
 \title{Render a reprex}
 \usage{
 reprex(x = NULL, venue = c("gh", "so", "ds", "r"), si = FALSE,
-  show = TRUE, input = NULL, outfile = NULL, comment = "#>",
-  opts_chunk = NULL, opts_knit = NULL, tidyverse_quiet = TRUE,
-  std_out_err = FALSE)
+  show = TRUE, render = TRUE, input = NULL, outfile = NULL,
+  comment = "#>", opts_chunk = NULL, opts_knit = NULL,
+  tidyverse_quiet = TRUE, std_out_err = FALSE)
 }
 \arguments{
 \item{x}{An expression. If not given, \code{reprex()} looks for code in
@@ -30,6 +30,10 @@ the session info is wrapped in a collapsible details tag.}
 
 \item{show}{Logical. Whether to show rendered output in a viewer (RStudio or
 browser). Defaults to \code{TRUE}.}
+
+\item{render}{Logical. Whether to render the reprex or just create the
+templated \code{.R} file. Defaults to \code{TRUE}. Mostly for internal testing
+purposes.}
 
 \item{input}{Character. If has length one and lacks a terminating newline,
 interpreted as the path to a file containing reprex code. Otherwise,

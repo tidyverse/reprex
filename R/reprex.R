@@ -51,6 +51,9 @@
 #'   the session info is wrapped in a collapsible details tag.
 #' @param show Logical. Whether to show rendered output in a viewer (RStudio or
 #'   browser). Defaults to `TRUE`.
+#' @param render Logical. Whether to render the reprex or just create the
+#'   templated `.R` file. Defaults to `TRUE`. Mostly for internal testing
+#'   purposes.
 #' @param input Character. If has length one and lacks a terminating newline,
 #'   interpreted as the path to a file containing reprex code. Otherwise,
 #'   assumed to hold reprex code as character vector (length greater than one)
@@ -190,7 +193,8 @@
 #' @importFrom knitr opts_chunk
 #' @export
 reprex <- function(
-  x = NULL, venue = c("gh", "so", "ds", "r"), si = FALSE, show = TRUE,
+  x = NULL, venue = c("gh", "so", "ds", "r"), si = FALSE,
+  show = TRUE, render = TRUE,
   input = NULL, outfile = NULL,
   comment = "#>", opts_chunk = NULL, opts_knit = NULL,
   tidyverse_quiet = TRUE, std_out_err = FALSE) {
@@ -203,7 +207,8 @@ reprex <- function(
     venue <- "gh"
   }
 
-  stopifnot(is_toggle(si), is_toggle(show), is.character(comment))
+  stopifnot(is_toggle(si), is_toggle(show), is_toggle(render))
+  stopifnot(is.character(comment))
   stopifnot(is_toggle(tidyverse_quiet), is_toggle(std_out_err))
   if (!is.null(input)) stopifnot(is.character(input))
   if (!is.null(outfile)) stopifnot(is.character(outfile) || is.na(outfile))
@@ -229,7 +234,6 @@ reprex <- function(
       outfile <- basename(tempfile())
     }
   }
-
   files <- make_filenames(strip_ext(outfile) %||% tempfile())
   r_file <- files[["r_file"]]
   std_file <- if (std_out_err) files[["std_file"]] else NULL
@@ -259,6 +263,10 @@ reprex <- function(
   writeLines(the_source, r_file)
   if (outfile_given) {
     message("Preparing reprex as .R file to render:\n  * ", r_file)
+  }
+
+  if (!render) {
+    return(invisible(readLines(r_file, encoding = "UTF-8")))
   }
 
   message("Rendering reprex...")
