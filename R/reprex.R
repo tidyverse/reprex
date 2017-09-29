@@ -270,21 +270,21 @@ reprex <- function(
   }
 
   message("Rendering reprex...")
-  reprex_file <- reprex_(r_file, std_file)
+  ## when venue = "r", the reprex_file != md_file, so we need both
+  reprex_file <- md_file <- reprex_(r_file, std_file)
   if (outfile_given) {
     ## pathstem = the common part of the two paths
-    pathstem <- path_stem(r_file, reprex_file)
-    message("Writing reprex markdown:\n  * ", sub(pathstem, "", reprex_file))
+    pathstem <- path_stem(r_file, md_file)
+    message("Writing reprex markdown:\n  * ", sub(pathstem, "", md_file))
   }
-  output_lines <- readLines(reprex_file, encoding = "UTF-8")
+  output_lines <- readLines(md_file, encoding = "UTF-8")
 
   if (identical(venue, "r")) {
-    reprex_file <- files[["rout_file"]]
+    reprex_file <- rout_file <- files[["rout_file"]]
     output_lines <- convert_md_to_r(output_lines, comment = comment)
-    writeLines(output_lines, reprex_file)
+    writeLines(output_lines, rout_file)
     if (outfile_given) {
-      message("Writing reprex as commented R script:\n  * ",
-              sub(pathstem, "", reprex_file))
+      message("Writing reprex as commented R script:\n  * ", rout_file)
     }
   }
 
@@ -311,13 +311,11 @@ reprex <- function(
     ## `clean = FALSE` does too much (deletes foo_reprex_files, which might
     ## hold local figs)
     if (is.null(outfile)) {
-      html_file <- rmarkdown::render(
-        reprex_file, quiet = TRUE, encoding = "UTF-8"
-      )
+      html_file <- rmarkdown::render(md_file, quiet = TRUE, encoding = "UTF-8")
     } else {
       html_file <- files[["html_file"]]
       html_file <- rmarkdown::render(
-        reprex_file,
+        md_file,
         output_file = html_file,
         quiet = TRUE,
         encoding = "UTF-8"
