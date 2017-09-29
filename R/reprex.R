@@ -296,11 +296,15 @@ reprex <- function(
     clipr::write_clip(output_lines)
     message("Rendered reprex is on the clipboard.")
   } else {
-    message("Unable to put result on the clipboard. How to get it:\n",
-            "  * Capture what reprex() returns.\n",
-            "  * Use `outfile = \"foo\"` to request output in specific file.\n",
-            "  * See the temp file:\n    - ",
-            reprex_file)
+    message(
+      "Unable to put result on the clipboard. How to get it:\n",
+      "  * Unix-like systems may require explicit installation of xclip or xsel.\n",
+      "  * Capture what reprex() returns.\n",
+      "  * Use `outfile = \"foo\"` to request output in specific file.\n",
+      "  * Use `outfile = NA` to request output in working directory.\n",
+      "  * For now, see the temp file:\n    - ",
+      reprex_file
+    )
   }
 
   if (show) {
