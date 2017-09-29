@@ -279,12 +279,8 @@ reprex <- function(
   output_lines <- readLines(reprex_file, encoding = "UTF-8")
 
   if (identical(venue, "r")) {
-    lns <- output_lines
-    line_info <- classify_lines_bt(lns, comment = comment)
-    lns <- ifelse(line_info == "prose" & nzchar(lns), paste("#'", lns), lns)
-    lns <- lns[line_info != "bt"]
-    output_lines <- lns
     reprex_file <- files[["rout_file"]]
+    output_lines <- convert_md_to_r(output_lines, comment = comment)
     writeLines(output_lines, reprex_file)
     if (outfile_given) {
       message("Writing reprex as commented R script:\n  * ",
@@ -366,3 +362,12 @@ make_filenames <- function(filebase = "foo") {
   out
 }
 
+convert_md_to_r <- function(lines, comment = "#>") {
+  line_info <- classify_lines_bt(lines, comment = comment)
+  lines <- ifelse(
+    line_info == "prose" & nzchar(lines),
+    paste("#'", lines),
+    lines
+  )
+  lines[line_info != "bt"]
+}
