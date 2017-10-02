@@ -192,12 +192,17 @@
 #'
 #' @importFrom knitr opts_chunk
 #' @export
-reprex <- function(
-  x = NULL, venue = c("gh", "so", "ds", "r"), si = FALSE,
-  show = TRUE, render = TRUE,
-  input = NULL, outfile = NULL,
-  comment = "#>", opts_chunk = NULL, opts_knit = NULL,
-  tidyverse_quiet = TRUE, std_out_err = FALSE) {
+reprex <- function(x = NULL,
+                   input = NULL, outfile = NULL,
+                   venue = c("gh", "so", "ds", "r"),
+                   si = optionally(FALSE),
+                   show = optionally(TRUE),
+                   comment = optionally("#>"),
+                   opts_chunk = NULL,
+                   opts_knit = NULL,
+                   tidyverse_quiet = optionally(TRUE),
+                   std_out_err = optionally(FALSE),
+                   render = TRUE) {
 
   venue <- tolower(venue)
   venue <- match.arg(venue)
@@ -206,6 +211,12 @@ reprex <- function(
             "default GitHub venue \"gh\".\nYou don't need to specify it.")
     venue <- "gh"
   }
+
+  si <- resolve("si")
+  show <- resolve("show")
+  comment <- resolve("comment")
+  tidyverse_quiet <- resolve("tidyverse_quiet")
+  std_out_err <- resolve("std_out_err")
 
   stopifnot(is_toggle(si), is_toggle(show), is_toggle(render))
   stopifnot(is.character(comment))
