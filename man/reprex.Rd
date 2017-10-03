@@ -4,14 +4,29 @@
 \alias{reprex}
 \title{Render a reprex}
 \usage{
-reprex(x = NULL, venue = c("gh", "so", "ds", "r"), si = FALSE,
-  show = TRUE, render = TRUE, input = NULL, outfile = NULL,
-  comment = "#>", opts_chunk = NULL, opts_knit = NULL,
-  tidyverse_quiet = TRUE, std_out_err = FALSE)
+reprex(x = NULL, input = NULL, outfile = NULL, venue = c("gh", "so",
+  "ds", "r"), si = optionally(FALSE), show = optionally(TRUE),
+  comment = optionally("#>"), opts_chunk = NULL, opts_knit = NULL,
+  tidyverse_quiet = optionally(TRUE), std_out_err = optionally(FALSE),
+  render = TRUE)
 }
 \arguments{
 \item{x}{An expression. If not given, \code{reprex()} looks for code in
 \code{input} or on the clipboard, in that order.}
+
+\item{input}{Character. If has length one and lacks a terminating newline,
+interpreted as the path to a file containing reprex code. Otherwise,
+assumed to hold reprex code as character vector (length greater than one)
+or string (with embedded newlines).}
+
+\item{outfile}{Optional basename for output files. When \code{NULL}
+(default), reprex writes to temp files below the session temp directory. If
+\code{outfile = "foo"}, expect output files in current working directory,
+like \code{foo_reprex.R}, \code{foo_reprex.md}, and, if \code{venue = "r"},
+\code{foo_rendered.R}. If \code{outfile = NA}, expect output files in
+a location and with basename derived from \code{input}, if sensible, or in
+current working directory with basename derived from \code{\link[=tempfile]{tempfile()}}
+otherwise.}
 
 \item{venue}{Character. Must be one of the following:
 \itemize{
@@ -31,24 +46,6 @@ the session info is wrapped in a collapsible details tag.}
 \item{show}{Logical. Whether to show rendered output in a viewer (RStudio or
 browser). Defaults to \code{TRUE}.}
 
-\item{render}{Logical. Whether to render the reprex or just create the
-templated \code{.R} file. Defaults to \code{TRUE}. Mostly for internal testing
-purposes.}
-
-\item{input}{Character. If has length one and lacks a terminating newline,
-interpreted as the path to a file containing reprex code. Otherwise,
-assumed to hold reprex code as character vector (length greater than one)
-or string (with embedded newlines).}
-
-\item{outfile}{Optional basename for output files. When \code{NULL}
-(default), reprex writes to temp files below the session temp directory. If
-\code{outfile = "foo"}, expect output files in current working directory,
-like \code{foo_reprex.R}, \code{foo_reprex.md}, and, if \code{venue = "r"},
-\code{foo_rendered.R}. If \code{outfile = NA}, expect output files in
-a location and with basename derived from \code{input}, if sensible, or in
-current working directory with basename derived from \code{\link[=tempfile]{tempfile()}}
-otherwise.}
-
 \item{comment}{Character. Prefix with which to comment out output, defaults
 to \code{"#>"}.}
 
@@ -66,6 +63,10 @@ reveal output if the reprex spawns child processes or \code{system()} calls. Not
 this cannot be properly interleaved with output from the main R process, nor
 is there any guarantee that the lines from standard output and standard
 error are in correct chronological order. See \code{\link[callr:r_safe]{callr::r_safe()}} for more.}
+
+\item{render}{Logical. Whether to render the reprex or just create the
+templated \code{.R} file. Defaults to \code{TRUE}. Mostly for internal testing
+purposes.}
 }
 \value{
 Character vector of rendered reprex, invisibly.
