@@ -38,22 +38,6 @@
 #'
 #' @param x An expression. If not given, `reprex()` looks for code in
 #'   `input` or on the clipboard, in that order.
-#' @param venue Character. Must be one of the following:
-#' * "gh" for GitHub, the default
-#' * "so" for Stack Overflow
-#' * "ds" for Discourse, e.g.,
-#'   [community.rstudio.com](https://community.rstudio.com). Note: this is
-#'   currently just an alias for "gh"!
-#' * "r" or "R" for a runnable R script, with commented output interleaved
-#' @param si Logical. Whether to include the results of
-#'   [devtools::session_info()], if available, or
-#'   [sessionInfo()] at the end of the reprex. When `venue` is "gh" or "ds",
-#'   the session info is wrapped in a collapsible details tag.
-#' @param show Logical. Whether to show rendered output in a viewer (RStudio or
-#'   browser). Defaults to `TRUE`.
-#' @param render Logical. Whether to render the reprex or just create the
-#'   templated `.R` file. Defaults to `TRUE`. Mostly for internal testing
-#'   purposes.
 #' @param input Character. If has length one and lacks a terminating newline,
 #'   interpreted as the path to a file containing reprex code. Otherwise,
 #'   assumed to hold reprex code as character vector (length greater than one)
@@ -66,20 +50,38 @@
 #'   a location and with basename derived from `input`, if sensible, or in
 #'   current working directory with basename derived from [tempfile()]
 #'   otherwise.
+#' @param venue Character. Must be one of the following:
+#' * "gh" for GitHub, the default
+#' * "so" for Stack Overflow
+#' * "ds" for Discourse, e.g.,
+#'   [community.rstudio.com](https://community.rstudio.com). Note: this is
+#'   currently just an alias for "gh"!
+#' * "r" or "R" for a runnable R script, with commented output interleaved
+#' @param si Logical. Whether to include the results of
+#'   [devtools::session_info()], if available, or
+#'   [sessionInfo()] at the end of the reprex. When `venue` is "gh" or "ds",
+#'   the session info is wrapped in a collapsible details tag. Read more about
+#'   [optionally()].
+#' @param show Logical. Whether to show rendered output in a viewer (RStudio or
+#'   browser). Defaults to `TRUE`. Read more about [optionally()].
 #' @param comment Character. Prefix with which to comment out output, defaults
-#'   to `"#>"`.
+#'   to `"#>"`. Read more about [optionally()].
+#' @param render Logical. Whether to render the reprex or just create the
+#'   templated `.R` file. Defaults to `TRUE`. Mostly for internal testing
+#'   purposes.
 #' @param opts_chunk,opts_knit Named list. Optional
 #'   [knitr chunk and package options](http://yihui.name/knitr/options/),
 #'   respectively, to supplement or override reprex defaults. See Details.
 #' @param tidyverse_quiet Logical. Sets the option `tidyverse.quiet`, which
 #'   suppresses (`TRUE`, the default) or includes (`FALSE`) the startup message
-#'   for the tidyverse package.
+#'   for the tidyverse package. Read more about [optionally()].
 #' @param std_out_err Logical. Whether to append a section for output sent to
-#' stdout and stderr by the reprex rendering process. This can be necessary to
-#' reveal output if the reprex spawns child processes or `system()` calls. Note
-#' this cannot be properly interleaved with output from the main R process, nor
-#' is there any guarantee that the lines from standard output and standard
-#' error are in correct chronological order. See [callr::r_safe()] for more.
+#'   stdout and stderr by the reprex rendering process. This can be necessary to
+#'   reveal output if the reprex spawns child processes or `system()` calls.
+#'   Note this cannot be properly interleaved with output from the main R
+#'   process, nor is there any guarantee that the lines from standard output and
+#'   standard error are in correct chronological order. See [callr::r_safe()]
+#'   for more. Read more about [optionally()].
 #'
 #' @return Character vector of rendered reprex, invisibly.
 #' @examples
