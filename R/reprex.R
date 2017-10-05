@@ -193,6 +193,7 @@
 #' }
 #'
 #' @importFrom knitr opts_chunk
+#' @import rlang
 #' @export
 reprex <- function(x = NULL,
                    input = NULL, outfile = NULL,
@@ -214,11 +215,12 @@ reprex <- function(x = NULL,
     venue <- "gh"
   }
 
-  si <- resolve("si")
-  show <- resolve("show")
-  comment <- resolve("comment")
-  tidyverse_quiet <- resolve("tidyverse_quiet")
-  std_out_err <- resolve("std_out_err")
+  si <- arg_option(si)
+  show <- arg_option(show)
+  comment <- arg_option(comment)
+  tidyverse_quiet <- arg_option(tidyverse_quiet)
+  std_out_err <- arg_option(std_out_err)
+
 
   stopifnot(is_toggle(si), is_toggle(show), is_toggle(render))
   stopifnot(is.character(comment))

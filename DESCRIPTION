@@ -22,6 +22,7 @@ Imports:
     callr,
     clipr (>= 0.3.0),
     knitr,
+    rlang,
     rmarkdown,
     tools,
     utils,

@@ -19,11 +19,21 @@ NULL
 
 optionally <- function(default) default
 
-resolve <- function(nm) {
-  cl <- sys.call(-1)
-  f <- sys.function(-1)
-  formal <- formals(f)
-  actual <- as.list(match.call(f, cl))
-  eval(actual[[nm]]) %||% getOption(nm) %||% eval(formal[[nm]])
-}
+arg_option <- function(arg) {
+  arg_expr <- enexpr(arg)
+  if (!is_symbol(arg_expr)) {
+    abort("Internal error: `arg_option()` expects a symbol")
+  }
 
+  arg_nm <- as_string(arg_expr)
+  opt_nm <- paste(ns_env_name(), arg_nm, sep = ".")
+
+  cl <- call_frame(2)
+  fn <- caller_fn()
+  formal <- fn_fmls(fn)[[arg_nm]]
+  actual <- as.list(lang_standardise(cl))[[arg_nm]]
+
+  eval_bare(actual, get_env(cl)) %||%
+    getOption(opt_nm) %||%
+    eval_bare(formal, get_env(fn))
+}
