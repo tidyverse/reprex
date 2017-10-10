@@ -22,6 +22,7 @@ Imports:
     callr,
     clipr (>= 0.3.0),
     knitr,
+    rlang,
     rmarkdown,
     tools,
     utils,
@@ -34,10 +35,11 @@ Suggests:
     rprojroot,
     rstudioapi,
     shiny,
-    testthat (>= 1.0.2.9000)
+    testthat (>= 1.0.2.9000),
+    withr
 SystemRequirements: pandoc (>= 1.12.3) - http://pandoc.org
 Remotes: r-pkgs/callr,
-    hadley/testthat
+    hadley/testthat@4535fed
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
 VignetteBuilder: knitr

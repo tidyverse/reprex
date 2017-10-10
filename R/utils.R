@@ -43,7 +43,6 @@ path_stem <- function(leaf, branch) {
   paste0(res, .Platform$file.sep)
 }
 
-
 prep_opts <- function(txt, which = "chunk") {
   txt <- deparse2(txt)
   setter <- paste0("knitr::opts_", which, "$set")

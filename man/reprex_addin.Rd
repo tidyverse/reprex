@@ -24,10 +24,11 @@ currently just an alias for "gh"!
 \item{si}{Logical. Whether to include the results of
 \code{\link[devtools:session_info]{devtools::session_info()}}, if available, or
 \code{\link[=sessionInfo]{sessionInfo()}} at the end of the reprex. When \code{venue} is "gh" or "ds",
-the session info is wrapped in a collapsible details tag.}
+the session info is wrapped in a collapsible details tag. Read more about
+\code{\link[=opt]{opt()}}.}
 
 \item{show}{Logical. Whether to show rendered output in a viewer (RStudio or
-browser). Defaults to \code{TRUE}.}
+browser). Defaults to \code{TRUE}. Read more about \code{\link[=opt]{opt()}}.}
 }
 \description{
 \code{reprex_addin} opens a gadget that allows you to customise where the

@@ -4,36 +4,14 @@
 \alias{reprex}
 \title{Render a reprex}
 \usage{
-reprex(x = NULL, venue = c("gh", "so", "ds", "r"), si = FALSE,
-  show = TRUE, render = TRUE, input = NULL, outfile = NULL,
-  comment = "#>", opts_chunk = NULL, opts_knit = NULL,
-  tidyverse_quiet = TRUE, std_out_err = FALSE)
+reprex(x = NULL, input = NULL, outfile = NULL, venue = c("gh", "so",
+  "ds", "r"), si = opt(FALSE), show = opt(TRUE), comment = opt("#>"),
+  opts_chunk = NULL, opts_knit = NULL, tidyverse_quiet = opt(TRUE),
+  std_out_err = opt(FALSE), render = TRUE)
 }
 \arguments{
 \item{x}{An expression. If not given, \code{reprex()} looks for code in
 \code{input} or on the clipboard, in that order.}
-
-\item{venue}{Character. Must be one of the following:
-\itemize{
-\item "gh" for GitHub, the default
-\item "so" for Stack Overflow
-\item "ds" for Discourse, e.g.,
-\href{https://community.rstudio.com}{community.rstudio.com}. Note: this is
-currently just an alias for "gh"!
-\item "r" or "R" for a runnable R script, with commented output interleaved
-}}
-
-\item{si}{Logical. Whether to include the results of
-\code{\link[devtools:session_info]{devtools::session_info()}}, if available, or
-\code{\link[=sessionInfo]{sessionInfo()}} at the end of the reprex. When \code{venue} is "gh" or "ds",
-the session info is wrapped in a collapsible details tag.}
-
-\item{show}{Logical. Whether to show rendered output in a viewer (RStudio or
-browser). Defaults to \code{TRUE}.}
-
-\item{render}{Logical. Whether to render the reprex or just create the
-templated \code{.R} file. Defaults to \code{TRUE}. Mostly for internal testing
-purposes.}
 
 \item{input}{Character. If has length one and lacks a terminating newline,
 interpreted as the path to a file containing reprex code. Otherwise,
@@ -49,8 +27,27 @@ a location and with basename derived from \code{input}, if sensible, or in
 current working directory with basename derived from \code{\link[=tempfile]{tempfile()}}
 otherwise.}
 
+\item{venue}{Character. Must be one of the following:
+\itemize{
+\item "gh" for GitHub, the default
+\item "so" for Stack Overflow
+\item "ds" for Discourse, e.g.,
+\href{https://community.rstudio.com}{community.rstudio.com}. Note: this is
+currently just an alias for "gh"!
+\item "r" or "R" for a runnable R script, with commented output interleaved
+}}
+
+\item{si}{Logical. Whether to include the results of
+\code{\link[devtools:session_info]{devtools::session_info()}}, if available, or
+\code{\link[=sessionInfo]{sessionInfo()}} at the end of the reprex. When \code{venue} is "gh" or "ds",
+the session info is wrapped in a collapsible details tag. Read more about
+\code{\link[=opt]{opt()}}.}
+
+\item{show}{Logical. Whether to show rendered output in a viewer (RStudio or
+browser). Defaults to \code{TRUE}. Read more about \code{\link[=opt]{opt()}}.}
+
 \item{comment}{Character. Prefix with which to comment out output, defaults
-to \code{"#>"}.}
+to \code{"#>"}. Read more about \code{\link[=opt]{opt()}}.}
 
 \item{opts_chunk, opts_knit}{Named list. Optional
 \href{http://yihui.name/knitr/options/}{knitr chunk and package options},
@@ -58,14 +55,19 @@ respectively, to supplement or override reprex defaults. See Details.}
 
 \item{tidyverse_quiet}{Logical. Sets the option \code{tidyverse.quiet}, which
 suppresses (\code{TRUE}, the default) or includes (\code{FALSE}) the startup message
-for the tidyverse package.}
+for the tidyverse package. Read more about \code{\link[=opt]{opt()}}.}
 
 \item{std_out_err}{Logical. Whether to append a section for output sent to
 stdout and stderr by the reprex rendering process. This can be necessary to
-reveal output if the reprex spawns child processes or \code{system()} calls. Note
-this cannot be properly interleaved with output from the main R process, nor
-is there any guarantee that the lines from standard output and standard
-error are in correct chronological order. See \code{\link[callr:r_safe]{callr::r_safe()}} for more.}
+reveal output if the reprex spawns child processes or \code{system()} calls.
+Note this cannot be properly interleaved with output from the main R
+process, nor is there any guarantee that the lines from standard output and
+standard error are in correct chronological order. See \code{\link[callr:r_safe]{callr::r_safe()}}
+for more. Read more about \code{\link[=opt]{opt()}}.}
+
+\item{render}{Logical. Whether to render the reprex or just create the
+templated \code{.R} file. Defaults to \code{TRUE}. Mostly for internal testing
+purposes.}
 }
 \value{
 Character vector of rendered reprex, invisibly.
