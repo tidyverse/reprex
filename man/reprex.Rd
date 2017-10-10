@@ -5,10 +5,9 @@
 \title{Render a reprex}
 \usage{
 reprex(x = NULL, input = NULL, outfile = NULL, venue = c("gh", "so",
-  "ds", "r"), si = optionally(FALSE), show = optionally(TRUE),
-  comment = optionally("#>"), opts_chunk = NULL, opts_knit = NULL,
-  tidyverse_quiet = optionally(TRUE), std_out_err = optionally(FALSE),
-  render = TRUE)
+  "ds", "r"), si = opt(FALSE), show = opt(TRUE), comment = opt("#>"),
+  opts_chunk = NULL, opts_knit = NULL, tidyverse_quiet = opt(TRUE),
+  std_out_err = opt(FALSE), render = TRUE)
 }
 \arguments{
 \item{x}{An expression. If not given, \code{reprex()} looks for code in

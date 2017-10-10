@@ -2,38 +2,53 @@
 #'
 #' Arguments that appear like so in the usage:
 #' ```
-#' f(..., arg = optionally(DEFAULT), ...)
+#' f(..., arg = opt(DEFAULT), ...)
 #' ```
 #' get their value according to this logic:
 #' ```
 #' user-specified value or, if not given,
-#'   getOption("pkg.arg") or if does not exist,
+#'   getOption("reprex.arg") or if does not exist,
 #'     DEFAULT
 #' ```
-#' The user can provide a value in the call. Otherwise, an option is consulted.
-#' If that does not exist, then the documented default is used. This is not an
-#' exported function and should not be called directly.
+#' It's shorthand for:
+#' ```
+#' f(..., arg = getOption("reprex.arg", DEFAULT), ...)
+#' ```
+#' This is not an exported function and should not be called directly.
 #'
-#' @name optionally
+#' @name opt
 NULL
 
-optionally <- function(default) default
+optionally <- function(x, opt_name = NA_character_) {
+  if (!is.na(opt_name)) {
+    x <- set_attrs(x, opt_name = opt_name)
+  }
+  set_attrs(x, optional = TRUE)
+}
+
+opt <- optionally
 
 arg_option <- function(arg) {
+
   arg_expr <- enexpr(arg)
   if (!is_symbol(arg_expr)) {
     abort("Internal error: `arg_option()` expects a symbol")
   }
 
-  arg_nm <- as_string(arg_expr)
-  opt_nm <- paste(ns_env_name(), arg_nm, sep = ".")
+  opt_name <- attr(arg, "opt_name") %||% make_opt_name(as_string(arg_expr))
 
-  cl <- call_frame(2)
-  fn <- caller_fn()
-  formal <- fn_fmls(fn)[[arg_nm]]
-  actual <- as.list(lang_standardise(cl))[[arg_nm]]
+  if (is_optional(arg)) {
+    getOption(opt_name) %||% de_opt(arg)
+  } else {
+    arg
+  }
+}
 
-  eval_bare(actual, get_env(cl)) %||%
-    getOption(opt_nm) %||%
-    eval_bare(formal, get_env(fn))
+is_optional <- function(x) isTRUE(attr(x, "optional"))
+
+de_opt <- function(x) set_attrs(x, optional = NULL, opt_name = NULL)
+
+make_opt_name <- function(x) {
+  pkg_name <- tryCatch(ns_env_name(), error = function(e) NULL)
+  paste0(c(pkg_name, x), collapse = ".")
 }

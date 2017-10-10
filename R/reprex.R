@@ -198,13 +198,13 @@
 reprex <- function(x = NULL,
                    input = NULL, outfile = NULL,
                    venue = c("gh", "so", "ds", "r"),
-                   si = optionally(FALSE),
-                   show = optionally(TRUE),
-                   comment = optionally("#>"),
+                   si = opt(FALSE),
+                   show = opt(TRUE),
+                   comment = opt("#>"),
                    opts_chunk = NULL,
                    opts_knit = NULL,
-                   tidyverse_quiet = optionally(TRUE),
-                   std_out_err = optionally(FALSE),
+                   tidyverse_quiet = opt(TRUE),
+                   std_out_err = opt(FALSE),
                    render = TRUE) {
 
   venue <- tolower(venue)
