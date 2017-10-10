@@ -41,13 +41,13 @@ currently just an alias for "gh"!
 \code{\link[devtools:session_info]{devtools::session_info()}}, if available, or
 \code{\link[=sessionInfo]{sessionInfo()}} at the end of the reprex. When \code{venue} is "gh" or "ds",
 the session info is wrapped in a collapsible details tag. Read more about
-\code{\link[=optionally]{optionally()}}.}
+\code{\link[=opt]{opt()}}.}
 
 \item{show}{Logical. Whether to show rendered output in a viewer (RStudio or
-browser). Defaults to \code{TRUE}. Read more about \code{\link[=optionally]{optionally()}}.}
+browser). Defaults to \code{TRUE}. Read more about \code{\link[=opt]{opt()}}.}
 
 \item{comment}{Character. Prefix with which to comment out output, defaults
-to \code{"#>"}. Read more about \code{\link[=optionally]{optionally()}}.}
+to \code{"#>"}. Read more about \code{\link[=opt]{opt()}}.}
 
 \item{opts_chunk, opts_knit}{Named list. Optional
 \href{http://yihui.name/knitr/options/}{knitr chunk and package options},
@@ -55,7 +55,7 @@ respectively, to supplement or override reprex defaults. See Details.}
 
 \item{tidyverse_quiet}{Logical. Sets the option \code{tidyverse.quiet}, which
 suppresses (\code{TRUE}, the default) or includes (\code{FALSE}) the startup message
-for the tidyverse package. Read more about \code{\link[=optionally]{optionally()}}.}
+for the tidyverse package. Read more about \code{\link[=opt]{opt()}}.}
 
 \item{std_out_err}{Logical. Whether to append a section for output sent to
 stdout and stderr by the reprex rendering process. This can be necessary to
@@ -63,7 +63,7 @@ reveal output if the reprex spawns child processes or \code{system()} calls.
 Note this cannot be properly interleaved with output from the main R
 process, nor is there any guarantee that the lines from standard output and
 standard error are in correct chronological order. See \code{\link[callr:r_safe]{callr::r_safe()}}
-for more. Read more about \code{\link[=optionally]{optionally()}}.}
+for more. Read more about \code{\link[=opt]{opt()}}.}
 
 \item{render}{Logical. Whether to render the reprex or just create the
 templated \code{.R} file. Defaults to \code{TRUE}. Mostly for internal testing

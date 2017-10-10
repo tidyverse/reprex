@@ -61,11 +61,11 @@
 #'   [devtools::session_info()], if available, or
 #'   [sessionInfo()] at the end of the reprex. When `venue` is "gh" or "ds",
 #'   the session info is wrapped in a collapsible details tag. Read more about
-#'   [optionally()].
+#'   [opt()].
 #' @param show Logical. Whether to show rendered output in a viewer (RStudio or
-#'   browser). Defaults to `TRUE`. Read more about [optionally()].
+#'   browser). Defaults to `TRUE`. Read more about [opt()].
 #' @param comment Character. Prefix with which to comment out output, defaults
-#'   to `"#>"`. Read more about [optionally()].
+#'   to `"#>"`. Read more about [opt()].
 #' @param render Logical. Whether to render the reprex or just create the
 #'   templated `.R` file. Defaults to `TRUE`. Mostly for internal testing
 #'   purposes.
@@ -74,14 +74,14 @@
 #'   respectively, to supplement or override reprex defaults. See Details.
 #' @param tidyverse_quiet Logical. Sets the option `tidyverse.quiet`, which
 #'   suppresses (`TRUE`, the default) or includes (`FALSE`) the startup message
-#'   for the tidyverse package. Read more about [optionally()].
+#'   for the tidyverse package. Read more about [opt()].
 #' @param std_out_err Logical. Whether to append a section for output sent to
 #'   stdout and stderr by the reprex rendering process. This can be necessary to
 #'   reveal output if the reprex spawns child processes or `system()` calls.
 #'   Note this cannot be properly interleaved with output from the main R
 #'   process, nor is there any guarantee that the lines from standard output and
 #'   standard error are in correct chronological order. See [callr::r_safe()]
-#'   for more. Read more about [optionally()].
+#'   for more. Read more about [opt()].
 #'
 #' @return Character vector of rendered reprex, invisibly.
 #' @examples
