@@ -22,6 +22,11 @@ lines <- if (length(lines) > 0) lines else "nothing written to stdout or stderr"
 cat(lines, sep = "\n")
 {{/std_file}}
 
+{{#advertise}}
+#+ reprex-ad
+reprex::reprex_info()
+{{/advertise}}
+
 {{#si}}
 {{{si_start}}}
 {{#devtools}}

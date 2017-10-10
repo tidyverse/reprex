@@ -3,6 +3,7 @@
 export(reprex)
 export(reprex_addin)
 export(reprex_clean)
+export(reprex_info)
 export(reprex_invert)
 export(reprex_rescue)
 export(reprex_selection)

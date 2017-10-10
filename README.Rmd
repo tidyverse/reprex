@@ -6,6 +6,7 @@ output: github_document
 
 ```{r include = FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.path = "man/figures")
+oo <- options(reprex.advertise = FALSE)
 ```
 
 # reprex
@@ -114,6 +115,7 @@ But wait, there's more!
     - `reprex_rescue()`, when you're dealing with copy/paste from R Console
 
 ```{r include = FALSE}
+options(oo)
 leftovers <- list.files(pattern = "README-tmp", ignore.case = TRUE)
 unlink(leftovers)
 ```
