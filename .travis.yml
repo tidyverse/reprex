@@ -14,16 +14,21 @@ before_script:
   - sh -e /etc/init.d/xvfb start
   - sleep 3
 
+env:
+  global:
+    - DISPLAY=:99.0
+    - _R_CHECK_FORCE_SUGGESTS_=false
+
 r:
-  - 3.1
   - 3.2
   - oldrel
   - release
   - devel
-env:
-  - DISPLAY=:99.0
+
 matrix:
   include:
+  - r: 3.1
+    warnings_are_errors: false
   - r: release
     env: DISPLAY=""
 

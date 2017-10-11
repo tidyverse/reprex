@@ -62,6 +62,8 @@
 #'   [sessionInfo()] at the end of the reprex. When `venue` is "gh" or "ds",
 #'   the session info is wrapped in a collapsible details tag. Read more about
 #'   [opt()].
+#' @param styler Logical. Whether to style code with [styler::style_text()].
+#'   Read more about [opt()].
 #' @param show Logical. Whether to show rendered output in a viewer (RStudio or
 #'   browser). Defaults to `TRUE`. Read more about [opt()].
 #' @param comment Character. Prefix with which to comment out output, defaults
@@ -192,13 +194,13 @@
 #' reprex(input = c("> x <- 1:3", "> median(x)"))
 #' }
 #'
-#' @importFrom knitr opts_chunk
 #' @import rlang
 #' @export
 reprex <- function(x = NULL,
                    input = NULL, outfile = NULL,
                    venue = c("gh", "so", "ds", "r"),
                    si = opt(FALSE),
+                   styler = opt(FALSE),
                    show = opt(TRUE),
                    comment = opt("#>"),
                    opts_chunk = NULL,
@@ -216,13 +218,14 @@ reprex <- function(x = NULL,
   }
 
   si <- arg_option(si)
+  styler <- arg_option(styler)
   show <- arg_option(show)
   comment <- arg_option(comment)
   tidyverse_quiet <- arg_option(tidyverse_quiet)
   std_out_err <- arg_option(std_out_err)
 
-
-  stopifnot(is_toggle(si), is_toggle(show), is_toggle(render))
+  stopifnot(is_toggle(si), is_toggle(styler))
+  stopifnot(is_toggle(show), is_toggle(render))
   stopifnot(is.character(comment))
   stopifnot(is_toggle(tidyverse_quiet), is_toggle(std_out_err))
   if (!is.null(input)) stopifnot(is.character(input))
@@ -238,6 +241,13 @@ reprex <- function(x = NULL,
   }
   if (is.null(the_source)) {
     the_source <- ingest_input(input)
+  }
+  if (styler) {
+    if (requireNamespace("styler", quietly = TRUE)) {
+      the_source <- styler::style_text(the_source)
+    } else {
+      message("Install the styler package in order to use `styler = TRUE`.")
+    }
   }
 
   outfile_given <- !is.null(outfile)

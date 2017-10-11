@@ -5,9 +5,9 @@
 \title{Render a reprex}
 \usage{
 reprex(x = NULL, input = NULL, outfile = NULL, venue = c("gh", "so",
-  "ds", "r"), si = opt(FALSE), show = opt(TRUE), comment = opt("#>"),
-  opts_chunk = NULL, opts_knit = NULL, tidyverse_quiet = opt(TRUE),
-  std_out_err = opt(FALSE), render = TRUE)
+  "ds", "r"), si = opt(FALSE), styler = opt(FALSE), show = opt(TRUE),
+  comment = opt("#>"), opts_chunk = NULL, opts_knit = NULL,
+  tidyverse_quiet = opt(TRUE), std_out_err = opt(FALSE), render = TRUE)
 }
 \arguments{
 \item{x}{An expression. If not given, \code{reprex()} looks for code in
@@ -42,6 +42,9 @@ currently just an alias for "gh"!
 \code{\link[=sessionInfo]{sessionInfo()}} at the end of the reprex. When \code{venue} is "gh" or "ds",
 the session info is wrapped in a collapsible details tag. Read more about
 \code{\link[=opt]{opt()}}.}
+
+\item{styler}{Logical. Whether to style code with \code{\link[styler:style_text]{styler::style_text()}}.
+Read more about \code{\link[=opt]{opt()}}.}
 
 \item{show}{Logical. Whether to show rendered output in a viewer (RStudio or
 browser). Defaults to \code{TRUE}. Read more about \code{\link[=opt]{opt()}}.}
