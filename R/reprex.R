@@ -243,7 +243,11 @@ reprex <- function(x = NULL,
     the_source <- ingest_input(input)
   }
   if (styler) {
-    the_source <- styler::style_text(the_source)
+    if (requireNamespace("styler", quietly = TRUE)) {
+      the_source <- styler::style_text(the_source)
+    } else {
+      message("Install the styler package in order to use `styler = TRUE`.")
+    }
   }
 
   outfile_given <- !is.null(outfile)

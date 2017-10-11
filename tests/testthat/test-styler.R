@@ -1,6 +1,7 @@
 context("styler")
 
 test_that("ugly code gets restyled", {
+  skip_if_not_installed("styler")
   ret <- reprex(
     input = c("a<-function( x){", "1+1}           "),
     styler = TRUE,
@@ -15,6 +16,7 @@ test_that("ugly code gets restyled", {
 
 test_that("bang bang bang is styled correctly", {
   skip_if_not_installed("dplyr", minimum_version = "0.7.0")
+  skip_if_not_installed("styler")
   input <- c(
     'nameshift <- c(SL = "Sepal.Length")',
     "head(dplyr::rename(iris[, 1:2], !!! nameshift), 3)"
