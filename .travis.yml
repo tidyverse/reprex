@@ -21,6 +21,7 @@ env:
 
 r:
   - 3.1
+    warnings_are_errors: false
   - 3.2
   - oldrel
   - release
