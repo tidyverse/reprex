@@ -20,8 +20,6 @@ env:
     - _R_CHECK_FORCE_SUGGESTS_=false
 
 r:
-  - 3.1
-    warnings_are_errors: false
   - 3.2
   - oldrel
   - release
@@ -29,6 +27,8 @@ r:
 
 matrix:
   include:
+  - r: 3.1
+    warnings_are_errors: false
   - r: release
     env: DISPLAY=""
 
