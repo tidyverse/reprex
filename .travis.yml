@@ -27,7 +27,7 @@ matrix:
     - r: 3.1
   include:
     - r: release
-    env: DISPLAY=""
+      env: DISPLAY=""
 
 after_success:
   - Rscript -e 'covr::codecov()'
