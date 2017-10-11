@@ -32,5 +32,6 @@ matrix:
   - r: release
     env: DISPLAY=""
 
+# Only report coverage for the release version
 after_success:
-  - Rscript -e 'covr::codecov()'
+  - test $TRAVIS_R_VERSION_STRING = 'release' && Rscript -e 'covr::codecov()'
