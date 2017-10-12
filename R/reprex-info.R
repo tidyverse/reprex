@@ -6,5 +6,5 @@
 #' @examples
 #' reprex_info()
 reprex_info <- function(prefix = "#'") {
-  paste(prefix, "Created on", date(), "with the reprex package")
+  paste(prefix, "Created by the reprex package;", Sys.Date())
 }
