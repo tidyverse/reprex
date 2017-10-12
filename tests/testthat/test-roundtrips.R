@@ -13,8 +13,9 @@ input <- c(
 test_that("round trip: reprex(..., venue = 'R') --> reprex_clean()", {
   output <- reprex(
     input = input,
+    advertise = FALSE,
     show = FALSE,
-    venue = "R",
+    venue = "r",
     opts_chunk = list(comment = "#!")
   )
   expect_message(res <- reprex_clean(output, "^#!"))
@@ -22,14 +23,14 @@ test_that("round trip: reprex(..., venue = 'R') --> reprex_clean()", {
 })
 
 test_that("round trip: reprex(..., venue = 'gh') --> reprex_invert()", {
-  output <- reprex(input = input, show = FALSE)
+  output <- reprex(input = input, show = FALSE, advertise = FALSE)
   expect_message(res <- reprex_invert(output))
   ## TO DO: return here after adopting styler to see if can remove trim_ws()
   expect_identical(trim_ws(input), trim_ws(res))
 })
 
 test_that("round trip: reprex(..., venue = 'so') --> reprex_invert()", {
-  output <- reprex(input = input, venue = "so", show = FALSE)
+  output <- reprex(input = input, venue = "so", show = FALSE, advertise = FALSE)
   expect_message(res <- reprex_invert(output, venue = "so"))
   expect_identical(input, res)
 })

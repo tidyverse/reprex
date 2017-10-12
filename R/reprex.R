@@ -57,15 +57,17 @@
 #'   [community.rstudio.com](https://community.rstudio.com). Note: this is
 #'   currently just an alias for "gh"!
 #' * "r" or "R" for a runnable R script, with commented output interleaved
-#' @param si Logical. Whether to include the results of
-#'   [devtools::session_info()], if available, or
-#'   [sessionInfo()] at the end of the reprex. When `venue` is "gh" or "ds",
-#'   the session info is wrapped in a collapsible details tag. Read more about
-#'   [opt()].
+#' @param advertise Logical. Whether to include [reprex_info()] at the end of
+#'   the reprex. Records time of render and advertises this package. Read more
+#'   about [opt()].
+#' @param si Logical. Whether to include [devtools::session_info()], if
+#'   available, or [sessionInfo()] at the end of the reprex. When `venue` is
+#'   "gh" or "ds", the session info is wrapped in a collapsible details tag.
+#'   Read more about [opt()].
 #' @param styler Logical. Whether to style code with [styler::style_text()].
 #'   Read more about [opt()].
 #' @param show Logical. Whether to show rendered output in a viewer (RStudio or
-#'   browser). Defaults to `TRUE`. Read more about [opt()].
+#'   browser). Read more about [opt()].
 #' @param comment Character. Prefix with which to comment out output, defaults
 #'   to `"#>"`. Read more about [opt()].
 #' @param render Logical. Whether to render the reprex or just create the
@@ -199,6 +201,7 @@
 reprex <- function(x = NULL,
                    input = NULL, outfile = NULL,
                    venue = c("gh", "so", "ds", "r"),
+                   advertise = opt(TRUE),
                    si = opt(FALSE),
                    styler = opt(FALSE),
                    show = opt(TRUE),
@@ -217,6 +220,7 @@ reprex <- function(x = NULL,
     venue <- "gh"
   }
 
+  advertise <- arg_option(advertise)
   si <- arg_option(si)
   styler <- arg_option(styler)
   show <- arg_option(show)
@@ -224,7 +228,7 @@ reprex <- function(x = NULL,
   tidyverse_quiet <- arg_option(tidyverse_quiet)
   std_out_err <- arg_option(std_out_err)
 
-  stopifnot(is_toggle(si), is_toggle(styler))
+  stopifnot(is_toggle(advertise), is_toggle(si), is_toggle(styler))
   stopifnot(is_toggle(show), is_toggle(render))
   stopifnot(is.character(comment))
   stopifnot(is_toggle(tidyverse_quiet), is_toggle(std_out_err))
@@ -248,6 +252,9 @@ reprex <- function(x = NULL,
     } else {
       message("Install the styler package in order to use `styler = TRUE`.")
     }
+  }
+  if (advertise) {
+    the_source <- c("reprex::reprex_info()", "", the_source)
   }
 
   outfile_given <- !is.null(outfile)

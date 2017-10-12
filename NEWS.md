@@ -1,5 +1,7 @@
 # reprex 0.1.1.9000
 
+  *  `reprex()` gains the argument `advertise`, defaulting to `TRUE`, which describes when and how the reprex was created, e.g., "Created by the reprex package; 2017-10-11" (#121, #69).
+
   *  `reprex()` gains the argument `styler`, defaulting to `FALSE`, which requests code restyling via the newly-Suggested styler package. styler can cope with tidyeval syntactical sugar, e.g. `df %>% group_by(!!group_var)` (#108, #94).
 
   * Expression input handling has been refactored. As a result, formatR is no longer Suggested. Trailing comments -- inline and on their own line -- are also now retained (#89, #91, #115, @jennybc and @jimhester).
