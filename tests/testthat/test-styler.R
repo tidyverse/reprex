@@ -16,7 +16,6 @@ test_that("ugly code gets restyled", {
 })
 
 test_that("bang bang bang is styled correctly", {
-  skip_if_not_installed("dplyr", minimum_version = "0.7.0")
   skip_if_not_installed("styler")
   input <- c(
     'nameshift <- c(SL = "Sepal.Length")',
