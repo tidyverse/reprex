@@ -228,7 +228,7 @@ reprex <- function(x = NULL,
   tidyverse_quiet <- arg_option(tidyverse_quiet)
   std_out_err <- arg_option(std_out_err)
 
-  stopifnot(is_toggle(si), is_toggle(styler))
+  stopifnot(is_toggle(advertise), is_toggle(si), is_toggle(styler))
   stopifnot(is_toggle(show), is_toggle(render))
   stopifnot(is.character(comment))
   stopifnot(is_toggle(tidyverse_quiet), is_toggle(std_out_err))
