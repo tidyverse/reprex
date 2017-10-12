@@ -6,6 +6,9 @@
 #' @examples
 #' reprex_info()
 reprex_info <- function() {
-  message(paste("Created by the reprex package;", Sys.Date()))
+  message(
+    paste0("Created by the reprex package v", utils::packageVersion("reprex"),
+          " on ", Sys.Date())
+  )
   invisible()
 }
