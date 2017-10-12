@@ -5,8 +5,6 @@
 #'
 #' @examples
 #' reprex_info()
-reprex_info <- function() {
-  msg <- paste("Created on", date(), "with the reprex package")
-  message(msg)
-  invisible(msg)
+reprex_info <- function(prefix = "#'") {
+  paste(prefix, "Created on", date(), "with the reprex package")
 }

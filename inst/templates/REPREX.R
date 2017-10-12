@@ -9,6 +9,8 @@ knitr::opts_knit$set(upload.fun = knitr::imgur_upload)
 {{{user_opts_chunk}}}
 {{{user_opts_knit}}}
 
+{{advertisement}}
+
 #+ reprex-body
 {{{body}}}
 
@@ -21,11 +23,6 @@ lines <- if (length(lines) > 0) lines else "nothing written to stdout or stderr"
 #+ std-out-err, echo = FALSE
 cat(lines, sep = "\n")
 {{/std_file}}
-
-{{#advertise}}
-#+ reprex-ad
-reprex::reprex_info()
-{{/advertise}}
 
 {{#si}}
 {{{si_start}}}

@@ -281,7 +281,7 @@ reprex <- function(x = NULL,
   the_source <- apply_template(c(
     fodder[[venue]],
     si = isTRUE(si),
-    advertise = advertise,
+    advertisement = if (advertise) reprex_info() else NULL,
     devtools = requireNamespace("devtools", quietly = TRUE),
     comment = comment,
     user_opts_chunk = opts_chunk,
