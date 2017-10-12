@@ -253,6 +253,9 @@ reprex <- function(x = NULL,
       message("Install the styler package in order to use `styler = TRUE`.")
     }
   }
+  if (advertise) {
+    the_source <- c("reprex::reprex_info()", "", the_source)
+  }
 
   outfile_given <- !is.null(outfile)
   if (outfile_given && is.na(outfile)) {
@@ -281,7 +284,6 @@ reprex <- function(x = NULL,
   the_source <- apply_template(c(
     fodder[[venue]],
     si = isTRUE(si),
-    advertisement = if (advertise) reprex_info() else NULL,
     devtools = requireNamespace("devtools", quietly = TRUE),
     comment = comment,
     user_opts_chunk = opts_chunk,

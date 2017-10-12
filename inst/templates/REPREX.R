@@ -9,8 +9,6 @@ knitr::opts_knit$set(upload.fun = knitr::imgur_upload)
 {{{user_opts_chunk}}}
 {{{user_opts_knit}}}
 
-{{advertisement}}
-
 #+ reprex-body
 {{{body}}}
 
