@@ -1,40 +1,181 @@
-/* Sticker footer */
-body > .container {
-  display: flex;
-  padding-top: 60px;
-  min-height: calc(100vh);
-  flex-direction: column;
+img.icon {
+  float: left;
+  margin-left: -35px;
+  width: 30px;
+  height: 30px;
 }
 
-body > .container .row {
-  flex: 1;
+body {font-size: 16px;}
+h1 {font-size: 40px;}
+h2 {font-size: 30px;}
+
+/* Fixes for fixed navbar --------------------------*/
+
+body {
+  position: relative;
+  padding-top: 65px;
 }
+
+.contents h1, .contents h2, .contents h3, .contents h4 {
+  padding-top: 65px;
+  margin-top: -45px;
+}
+
+.page-header {
+  margin-top: 0;
+  margin-bottom: 10px;
+  padding-bottom: 0px;
+}
+
+/* Static header placement on mobile devices */
+@media (max-width: 767px) {
+  .navbar-fixed-top {
+    position: absolute;
+  }
+}
+
+.navbar-toggle {
+  margin-top: 8px;
+  margin-bottom: 5px;
+}
+
+.navbar-nav li a {
+  padding-bottom: 10px;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  background-color: #eee;
+}
+
+/* Table of contents --------------------------*/
+
+#sidebar {
+  /*
+    Needed to avoid bug in sticky-kit:
+    https://github.com/leafo/sticky-kit/issues/169
+  */
+  position:static;
+}
+
+#sidebar h2 {
+  font-size: 1.6em;
+  margin-top: 1em;
+  margin-bottom: 0.25em;
+}
+
+#sidebar .list-unstyled li {
+  margin-bottom: 0.5em;
+  line-height: 1.4;
+}
+
+#sidebar small {
+  color: #777;
+}
+
+/* Syntax highlighting ---------------------------------------------------- */
+
+pre {
+  word-wrap: normal;
+  word-break: normal;
+  border: none;
+}
+
+pre, code {
+  background-color: #fafafa;
+  color: #000000;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+pre img {
+  background-color: #fff;
+  display: block;
+}
+
+code a, pre a {
+  color: #375f84;
+}
+
+.fl      {color: #1514b5;}
+.fu      {color: #000000;} /* function */
+.ch,.st  {color: #036a07;} /* string */
+.kw      {color: #264D66;} /* keyword */
+.co      {color: #777777;} /* comment */
+
+.message { color: black;   font-weight: bolder;}
+.error   { color: orange;  font-weight: bolder;}
+.warning { color: orange; font-weight: normal;}
+
+
+/* Status --------------------------- */
+
+.status-container {
+  padding-top:32px;
+}
+
+.status-container  a {
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* For shrinking navbar ------------------ */
+
+/* For big header
+
+  &-brand {
+    font-family: $font-family-monospace;
+    font-weight: normal;
+    font-size: 48px;
+    padding: 35px 15px;
+
+    padding-left: 84px;
+    background-image:url(../logo.png);
+    background-size: 60px auto;
+    background-repeat: no-repeat;
+    background-position: 15px center;
+
+  }
+*/
+
+/* Reference index & topics ----------------------------------------------- */
+
+.ref-index th {font-weight: normal;}
+.ref-index h2 {font-size: 20px;}
+
+.ref-index td {vertical-align: top;}
+.ref-index .alias {width: 40%;}
+.ref-index .title {width: 60%;}
+
+.ref-index .alias {width: 40%;}
+.ref-index .title {width: 60%;}
+
+.ref-arguments th {text-align: right; padding-right: 10px;}
+.ref-arguments th, .ref-arguments td {vertical-align: top;}
+.ref-arguments .name {width: 10%;}
+.ref-arguments .desc {width: 90%;}
+
+/* For the rstudio footer ------- */
 
 footer {
   margin-top: 45px;
   padding: 35px 0 36px;
   border-top: 1px solid #e5e5e5;
-  color: #666;
+
   display: flex;
+  color: #666;
 }
 footer p {
   margin-bottom: 0;
 }
-footer div {
+footer .tidyverse {
   flex: 1;
 }
-footer .pkgdown {
+footer .author {
+  flex: 1;
   text-align: right;
 }
-footer p {
-  margin-bottom: 0;
-}
 
-img.icon {
-  float: right;
-}
-
-/* Section anchors ---------------------------------*/
+/* ---------------------- hover anchor tags */
 
 .hasAnchor {
   margin-left: -30px;
@@ -56,58 +197,40 @@ a.anchor {
   visibility: visible;
 }
 
-/* Fixes for fixed navbar --------------------------*/
-
-.contents h1, .contents h2, .contents h3, .contents h4 {
-  padding-top: 60px;
-  margin-top: -60px;
+@media (max-width: 767px) {
+  .hasAnchor {margin-left: 0;}
+  a.anchor {float: right;}
 }
 
-/* Sidebar --------------------------*/
+/* Tweak appearance of navigation in sidebar ---------------------- */
 
-#sidebar {
-  margin-top: 30px;
-}
-#sidebar h2 {
-  font-size: 1.5em;
-  margin-top: 1em;
+#sidebar .nav {
+  padding-left: 0px;
+  list-style-type: none;
+  color: #5a9ddb;
 }
 
-#sidebar h2:first-child {
-  margin-top: 0;
+#sidebar .nav > li {
+  padding: 10px 0 0px 20px;
+  display: list-item;
+  line-height: 20px;
+  background-image: url(./tocBullet.svg);
+  background-repeat: no-repeat;
+  background-size: 16px 280px;
+  background-position: left 0px;
 }
 
-#sidebar .list-unstyled li {
-  margin-bottom: 0.5em;
+#sidebar .nav > li.active {
+  background-position: left -240px;
 }
 
-/* Syntax highlighting ---------------------------------------------------- */
-
-code {
-  background-color: #f7f7f7;
-  color: #333;
-}
-code a {
-  color: #375f84;
+#sidebar a {
+  padding: 0px;
+  color: #5a9ddb;
+  background-color: transparent;
 }
 
-.warning { color: red; }
-.message { font-weight: bolder; }
-.error   { color: red; font-weight: bolder; }
-
-.fl,.number {color:rgb(21,20,181);}
-.fu,.functioncall {color:#264D66 ;}
-.ch,.st,.string {color:#375D81 ;}
-.kw,.keyword {color:black;}
-.argument {color:#264D66 ;}
-.co,.comment {color: #777;}
-.formalargs {color: #264D66;}
-.eqformalargs {color:#264D66;}
-.slot {font-style:italic;}
-.symbol {color:black ;}
-.prompt {color:black ;}
-
-pre img {
-  background-color: #fff;
-  display: block;
+#sidebar a:hover {
+  background-color: transparent;
+  text-decoration: underline;
 }

@@ -1,22 +1,22 @@
 #' Render a reprex
 #'
-#' \code{reprex_addin} opens a gadget that allows you to customise where the
+#' `reprex_addin` opens a gadget that allows you to customise where the
 #' code to reproduce should come from along with a handful of other options.
-#' \code{reprex_selection} reproduces the current selection, optionally
+#' `reprex_selection` reproduces the current selection, optionally
 #' customised by options.
 #'
 #' An \href{https://shiny.rstudio.com/articles/gadgets.html}{RStudio gadget} and
 #' \href{http://rstudio.github.io/rstudioaddins/}{addin} to call
-#' \code{\link{reprex}()}. Appears as "Render reprex" in the RStudio Addins
+#' [reprex()]. Appears as "Render reprex" in the RStudio Addins
 #' menu.
 #' Prepare in one of these ways:
 #' \enumerate{
 #' \item Copy reprex source to clipboard.
 #' \item Select reprex source.
 #' \item Activate the file containing reprex source.
-#' \item Have source in a \code{.R} file.
+#' \item Have source in a `.R` file.
 #' }
-#' Call \code{\link{reprex}()} directly for more control via additional
+#' Call [reprex()] directly for more control via additional
 #' arguments.
 #'
 #' @export
@@ -61,7 +61,7 @@ reprex_addin <- function() { # nocov start
         "venue",
         "Target venue:",
         c("GitHub" = "gh",
-          "StackOverflow" = "so",
+          "Stack Overflow" = "so",
           "R script" = "r"),
         selected = getOption("reprex.venue", "gh")
       ),
@@ -99,13 +99,11 @@ reprex_addin <- function() { # nocov start
 
 reprex_guess <- function(source, venue = "gh", source_file = NULL,
                          si = FALSE, show = FALSE) {
-  context <- rstudioapi::getSourceEditorContext()
-
   reprex_input <- switch(
     source,
     clipboard = NULL,
-    cur_sel = newlined(rstudioapi::primary_selection(context)[["text"]]),
-    cur_file = newlined(context$contents),
+    cur_sel = rstudio_selection(),
+    cur_file = rstudio_file(),
     input_file = source_file$datapath
   )
 
@@ -125,14 +123,37 @@ reprex_selection <- function(
                             si = getOption("reprex.si", FALSE),
                             show = getOption("reprex.show", TRUE)
 ) {
-  context <- rstudioapi::getSourceEditorContext()
-  selection <- newlined(rstudioapi::primary_selection(context)[["text"]])
-
   reprex(
-    input = selection,
+    input = rstudio_selection(),
     venue = venue,
     si = si,
     show = show
   )
 }
+
+# RStudio helpers ---------------------------------------------------------
+
+rstudio_file <- function(context = rstudio_context()) {
+  rstudio_text_tidy(context$contents)
+}
+
+rstudio_selection <- function(context = rstudio_context()) {
+  text <- rstudioapi::primary_selection(context)[["text"]]
+  rstudio_text_tidy(text)
+}
+
+rstudio_context <- function() {
+  rstudioapi::getSourceEditorContext()
+}
+
+rstudio_text_tidy <- function(x) {
+  Encoding(x) <- "UTF-8"
+
+  n <- length(x)
+  if (!grepl("\n$", x[[n]])) {
+    x[[n]] <- paste0(x[[n]], "\n")
+  }
+  x
+}
+
 # nocov end

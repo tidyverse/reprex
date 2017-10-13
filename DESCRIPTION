@@ -4,7 +4,8 @@ Version: 0.1.1.9000
 Authors@R: c(
     person("Jennifer", "Bryan", , "jenny@rstudio.com", role = c("aut", "cre")),
     person("David", "Robinson", , "admiral.david@gmail.com", role = "aut"),
-    person("Hadley", "Wickham", , "hadley@rstudio.com", role = "aut")
+    person("Hadley", "Wickham", , "hadley@rstudio.com", role = "aut"),
+    person("RStudio", role = c("cph", "fnd"))
     )
 Description: Convenience wrapper that uses the 'rmarkdown' package to render
   small snippets of code to target formats that include both code and output.
@@ -15,25 +16,33 @@ Description: Convenience wrapper that uses the 'rmarkdown' package to render
 Depends: R (>= 3.0.2)
 License: MIT + file LICENSE
 LazyData: true
-URL: https://github.com/tidyverse/reprex
+URL: http://reprex.tidyverse.org, https://github.com/tidyverse/reprex
 BugReports: https://github.com/tidyverse/reprex/issues
 Imports:
     callr,
     clipr (>= 0.3.0),
-    knitr,
+    rlang,
     rmarkdown,
     tools,
     utils,
     whisker
-Suggests:
+Suggests: 
     covr,
     devtools,
-    formatR,
     fortunes,
+    knitr,
     miniUI,
+    rprojroot,
     rstudioapi,
     shiny,
-    testthat
+    styler,
+    testthat (>= 1.0.2.9000),
+    withr
 SystemRequirements: pandoc (>= 1.12.3) - http://pandoc.org
+Remotes: r-pkgs/callr,
+    hadley/testthat,
+    krlmlr/styler
+Roxygen: list(markdown = TRUE)
+Encoding: UTF-8
+VignetteBuilder: knitr
 RoxygenNote: 6.0.1
-Remotes: r-pkgs/callr

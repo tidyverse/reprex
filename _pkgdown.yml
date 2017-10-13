@@ -1,0 +1,23 @@
+template:
+  package: tidytemplate
+  default_assets: false
+
+home:
+  strip_header: true
+
+navbar:
+  type: default
+  left:
+  - text: Intro
+    href: articles/reprex.html
+  - text: Articles
+    menu:
+    - text: Magic reprex by N. Tierney
+      href: articles/articles/magic-reprex.html
+  - text: Reference
+    href: reference/index.html
+  - text: News
+    href: news/index.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/tidyverse/reprex

@@ -10,16 +10,15 @@
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- Bootstrap -->
+<link href="../tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
-
-<!-- pkgdown -->
+<!-- tidyverse -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
@@ -44,21 +43,37 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">reprex</a>
+
+      <div class="navbar-brand-container">
+        <a class="navbar-brand" href="../index.html">reprex</a>
+        <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
+      </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav navbar-right">
         <li>
+  <a href="../articles/reprex.html">Intro</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/articles/magic-reprex.html">Magic reprex by N. Tierney</a>
+    </li>
+  </ul>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
 </li>
-      </ul>
-      
-      <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jennybc/reprex">
+  <a href="https://github.com/tidyverse/reprex">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -78,45 +93,91 @@
     </div>
 
     
-    <p>An <a href = 'RStudio gadget'>https://shiny.rstudio.com/articles/gadgets.html</a> and
-<a href = 'addin'>http://rstudio.github.io/rstudioaddins/</a> to call
-<code><a href='reprex.html'>reprex</a>()</code>. Appears as &quot;Render reprex&quot; in the RStudio Addins
-menu.
-Prepare in one of these ways:
-<ol>
-<li> Copy reprex source to clipboard.
-</li>
-<li> Select reprex source.
-</li>
-<li> Activate the file containing reprex source.
-</li>
-</ol></p>
-
-    <p>Call <code><a href='reprex.html'>reprex</a>()</code> directly for more control via additional
-arguments.</p>
+    <p><code>reprex_addin</code> opens a gadget that allows you to customise where the
+code to reproduce should come from along with a handful of other options.
+<code>reprex_selection</code> reproduces the current selection, optionally
+customised by options.</p>
     
 
-    <pre><span class='fu'>reprex_addin</span>()</pre>
-        
+    <pre class="usage"><span class='fu'>reprex_addin</span>()
+
+<span class='fu'>reprex_selection</span>(<span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"reprex.venue"</span>, <span class='st'>"gh"</span>),
+  <span class='kw'>si</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"reprex.si"</span>, <span class='fl'>FALSE</span>), <span class='kw'>show</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"reprex.show"</span>, <span class='fl'>TRUE</span>))</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>venue</th>
+      <td><p>Character. Must be one of the following:</p><ul>
+<li><p>"gh" for GitHub, the default</p></li>
+<li><p>"so" for Stack Overflow</p></li>
+<li><p>"ds" for Discourse, e.g.,
+<a href='https://community.rstudio.com'>community.rstudio.com</a>. Note: this is
+currently just an alias for "gh"!</p></li>
+<li><p>"r" or "R" for a runnable R script, with commented output interleaved</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>si</th>
+      <td><p>Logical. Whether to include the results of
+<code><a href='http://www.rdocumentation.org/packages/devtools/topics/session_info'>devtools::session_info()</a></code>, if available, or
+<code>sessionInfo()</code> at the end of the reprex. When <code>venue</code> is "gh" or "ds",
+the session info is wrapped in a collapsible details tag.</p></td>
+    </tr>
+    <tr>
+      <th>show</th>
+      <td><p>Logical. Whether to show rendered output in a viewer (RStudio or
+browser). Defaults to <code>TRUE</code>.</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>An <a href='https://shiny.rstudio.com/articles/gadgets.html'>RStudio gadget</a> and
+<a href='http://rstudio.github.io/rstudioaddins/'>addin</a> to call
+<code><a href='reprex.html'>reprex()</a></code>. Appears as "Render reprex" in the RStudio Addins
+menu.
+Prepare in one of these ways:</p><ol>
+<li><p>Copy reprex source to clipboard.</p></li>
+<li><p>Select reprex source.</p></li>
+<li><p>Activate the file containing reprex source.</p></li>
+<li><p>Have source in a <code>.R</code> file.</p></li>
+</ol><p>Call <code><a href='reprex.html'>reprex()</a></code> directly for more control via additional
+arguments.</p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-                </ul>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>
 
       <footer>
-      <div class="copyright">
-  <p>Developed by Jennifer Bryan, David Robinson.</p>
+      <div class="tidyverse">
+  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="http://tidyverse.org">tidyverse.org</a>.</p>
 </div>
 
-<div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+<div class="author">
+  <p>Developed by Jennifer Bryan, David Robinson, <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
+  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
 
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67989-18', 'auto');
+  ga('send', 'pageview');
+</script>
       </footer>
    </div>
 

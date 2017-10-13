@@ -2,7 +2,6 @@
 .Rhistory
 .RData
 README.html
-*_REPREX_*.*
-foo.R
-foo.md
-help-me-help-you.gif
+inst/doc
+img/help-me-help-you.gif
+internal/*.key

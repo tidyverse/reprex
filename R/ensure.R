@@ -22,7 +22,7 @@ ensure_not_dogfood <- function(x) {
 }
 
 ensure_no_prompts <- function(x, prompt = getOption("prompt")) {
-  regex <- paste0("^", prompt)
+  regex <- paste0("^", escape_regex(prompt))
   prompts <- grepl(regex, x)
   if (any(prompts)) {
     message("Removing leading prompts from reprex source.")

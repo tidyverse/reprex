@@ -1,3 +1,7 @@
+is_toggle <- function(x) {
+  length(x) == 1 && is.logical(x) && !is.na(x)
+}
+
 ## from purrr, among other places
 `%||%` <- function(x, y) {
   if (is.null(x)) {
@@ -7,9 +11,9 @@
   }
 }
 
-## deparse that turns NULL into "" instead of "NULL"
+## deparse that returns NULL for NULL instead of "NULL"
 deparse2 <- function(expr, ...) {
-  if (is.null(expr)) return("")
+  if (is.null(expr)) return(NULL)
   deparse(expr, ...)
 }
 
@@ -39,21 +43,21 @@ path_stem <- function(leaf, branch) {
   paste0(res, .Platform$file.sep)
 }
 
-
 prep_opts <- function(txt, which = "chunk") {
   txt <- deparse2(txt)
   setter <- paste0("knitr::opts_", which, "$set")
   sub("^list", setter, txt)
 }
 
-## if input was expression AND formatR is available, tidy the code
-## leading whitespace will have been stripped inside stringify_expression()
-prep_tidy <- function(expr_input) {
-  expr_input && requireNamespace("formatR", quietly = TRUE)
-}
-
 trim_ws <- function(x) {
   sub("\\s*$", "", sub("^\\s*", "", x))
+}
+
+trim_common_leading_ws <- function(x) {
+  m <- regexpr("^(\\s*)", x)
+  ws <- regmatches(x, m)
+  num <- min(nchar(ws))
+  substring(x, num + 1)
 }
 
 ## wrap clipr::clipr_available() so I can mock it
@@ -84,13 +88,6 @@ add_ext <- function(x, ext = "R", force = FALSE) {
   } else {
     x
   }
-}
-
-newlined <- function(x) {
-  if (!grepl("\n$", x[[length(x)]])) {
-    x[[length(x)]] <- paste0(x[[length(x)]], "\n")
-  }
-  x
 }
 
 ## read from
@@ -127,4 +124,13 @@ yesno <- function(..., yes = "yes", no = "no") {
     return(utils::menu(c(yes, no)) == 2)
   }
   TRUE
+}
+
+escape_regex <- function(x) {
+  chars <- c("*", ".", "?", "^", "+", "$", "|", "(", ")", "[", "]", "{", "}", "\\")
+  gsub(paste0("([\\", paste0(collapse = "\\", chars), "])"), "\\\\\\1", x, perl = TRUE)
+}
+
+in_tests <- function() {
+  nzchar(Sys.getenv("R_TESTS", "")) || as.logical(Sys.getenv("NOT_CRAN", "FALSE"))
 }

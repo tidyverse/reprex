@@ -10,16 +10,15 @@
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
-<!-- Bootstrap -->
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- Bootstrap -->
+<link href="../tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
-
-<!-- pkgdown -->
+<!-- tidyverse -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
@@ -44,21 +43,37 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">reprex</a>
+
+      <div class="navbar-brand-container">
+        <a class="navbar-brand" href="../index.html">reprex</a>
+        <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
+      </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav navbar-right">
         <li>
+  <a href="../articles/reprex.html">Intro</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/articles/magic-reprex.html">Magic reprex by N. Tierney</a>
+    </li>
+  </ul>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
 </li>
-      </ul>
-      
-      <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jennybc/reprex">
+  <a href="https://github.com/tidyverse/reprex">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -79,13 +94,28 @@
     </div>
 
     <div class="contents">
+    <div id="reprex-0-1-1-9000" class="section level1">
+<h1 class="hasAnchor">
+<a href="#reprex-0-1-1-9000" class="anchor"></a>reprex 0.1.1.9000</h1>
+<ul>
+<li><p>Expression input handling has been refactored. This removes the need to include formatR in “Suggests”. Trailing comments – inline and on their own line – are also now retained (#89, #91, #115, @jennybc and @jimhester).</p></li>
+<li><p>The <code>venue</code> argument gains a new value, <code>"ds"</code>, for <a href="https://www.discourse.org" class="uri">https://www.discourse.org</a>, which is the platform behind <a href="https://community.rstudio.com">community.rstudio.com</a>. This is currently just an alias for the default <code>"gh"</code> GitHub venue, because the formatting appears to be compatible. Adding the <code>"ds"</code> value so Discourse can be documented and to guard against the possibility that some formatting is actually unique.</p></li>
+<li><p><code><a href="../reference/reprex.html">reprex()</a></code> gains the argument <code>tidyverse_quiet</code>, defaulting to <code>TRUE</code>, which affords control of the startup message of the tidyverse meta-package (important special case of #70, #100).</p></li>
+<li><p>Custom prompts are now escaped when used in regexes (#98 @jimhester).</p></li>
+<li><p>New <code><a href="../reference/reprex_addin.html">reprex_selection()</a></code> add-in reprexes the current selection, with options controlled by options <code>reprex.venue</code>, <code>reprex.si</code>, and <code>reprex.show</code> (#56, #71, #81)</p></li>
+<li><p><code><a href="../reference/reprex_addin.html">reprex_addin()</a></code> displays notificaton as inline dialog</p></li>
+</ul>
+</div>
+    <div id="reprex-0-1-1" class="section level1">
+<h1 class="hasAnchor">
+<a href="#reprex-0-1-1" class="anchor"></a>reprex 0.1.1</h1>
+<ul>
+<li>pandoc added to SystemRequirements</li>
+</ul>
+</div>
     <div id="reprex-0-1-0" class="section level1">
 <h1 class="hasAnchor">
-<a href="#reprex-0-1-0" class="anchor"> </a>reprex 0.1.0</h1>
-</div>
-    <div id="reprex-0-0-0-9001" class="section level1">
-<h1 class="hasAnchor">
-<a href="#reprex-0-0-0-9001" class="anchor"> </a>reprex 0.0.0.9001</h1>
+<a href="#reprex-0-1-0" class="anchor"></a>reprex 0.1.0</h1>
 <ul>
 <li><p><code>outfile = NA</code> causes outfiles to be left in working directory. Filenames will be based on the <code>input</code> file, if there was one.</p></li>
 <li><p><code><a href="../reference/reprex.html">reprex()</a></code> strips any leading prompts from input code.</p></li>
@@ -94,22 +124,22 @@
 <li><p><code>comment</code> argument added to specify prefix for commented output.</p></li>
 <li><p>Added an RStudio addin, accessed via “Render reprex”.</p></li>
 <li><p><code>input</code> argument to <code><a href="../reference/reprex.html">reprex()</a></code> and friends handles code as string, character vector, or file path.</p></li>
-<li><p>The reprex is rendered via <code>callr::r_safe()</code> and is thus run in a clean, separate R process, eliminating any leakage of objects or loaded packages to/from the calling session.</p></li>
+<li><p>The reprex is rendered via <code><a href="http://www.rdocumentation.org/packages/callr/topics/r">callr::r_safe()</a></code> and is thus run in a clean, separate R process, eliminating any leakage of objects or loaded packages to/from the calling session.</p></li>
 <li>
 <code><a href="../reference/reprex.html">reprex()</a></code> gains optional arguments <code>opts_chunk</code> and <code>opts_knit</code>, taking named list as input, in order to supplement or override default knitr chunk and package options, respectively. (#33)
 <ul>
-<li>This made the explicit <code>upload.fun</code> argument unnecessary, so it’s gone. The <code>upload.fun</code> option defaults to <code>knitr::imgur_upload</code>, which means figures produced by the reprex will be uploaded to <a href="http://imgur.com">imgur.com</a> and the associated image syntax will be put into the Markdown, e.g. <code>![](http://i.imgur.com/QPU5Cg9.png)</code>. (#15 @paternogbc)</li>
+<li>This made the explicit <code>upload.fun</code> argument unnecessary, so it’s gone. The <code>upload.fun</code> option defaults to <code><a href="http://www.rdocumentation.org/packages/knitr/topics/imgur_upload">knitr::imgur_upload</a></code>, which means figures produced by the reprex will be uploaded to <a href="http://imgur.com">imgur.com</a> and the associated image syntax will be put into the Markdown, e.g. <code>![](http://i.imgur.com/QPU5Cg9.png)</code>. (#15 @paternogbc)</li>
 </ul>
 </li>
 <li><p>Order of <code><a href="../reference/reprex.html">reprex()</a></code> arguments has changed.</p></li>
-<li><p><code><a href="../reference/reprex.html">reprex()</a></code> gains the <code>si</code> argument to request that <code>devtools::session_info()</code> or <code>sessionInfo()</code> be appended to reprex code (#6 @dgrtwo). When <code>si = TRUE</code> and <code>venue = "gh"</code> (the default), session info is wrapped in a collapsible details tag. See <a href="https://github.com/jennybc/reprex/issues/55">an example</a> (#55).</p></li>
+<li><p><code><a href="../reference/reprex.html">reprex()</a></code> gains the <code>si</code> argument to request that <code><a href="http://www.rdocumentation.org/packages/devtools/topics/session_info">devtools::session_info()</a></code> or <code>sessionInfo()</code> be appended to reprex code (#6 @dgrtwo). When <code>si = TRUE</code> and <code>venue = "gh"</code> (the default), session info is wrapped in a collapsible details tag. See <a href="https://github.com/tidyverse/reprex/issues/55">an example</a> (#55).</p></li>
 <li><p>Reprex code can be provided as an R expression. (#6 @dgrtwo, #35)</p></li>
 <li><p><code><a href="../reference/reprex.html">reprex()</a></code> uses clipboard functionality from <a href="https://CRAN.R-project.org/package=clipr"><code>clipr</code></a> and thus should work on Windows and suitably prepared Unix-like systems, in addition to Mac OS. (#16 @mdlincoln)</p></li>
 </ul>
 </div>
     <div id="reprex-0-0-0-9000" class="section level1">
 <h1 class="hasAnchor">
-<a href="#reprex-0-0-0-9000" class="anchor"> </a>reprex 0.0.0.9000</h1>
+<a href="#reprex-0-0-0-9000" class="anchor"></a>reprex 0.0.0.9000</h1>
 <ul>
 <li>I tweeted about this and some people actually used it!</li>
 </ul>
@@ -121,8 +151,9 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#reprex-0-1-1-9000">0.1.1.9000</a></li>
+        <li><a href="#reprex-0-1-1">0.1.1</a></li>
         <li><a href="#reprex-0-1-0">0.1.0</a></li>
-        <li><a href="#reprex-0-0-0-9001">0.0.0.9001</a></li>
         <li><a href="#reprex-0-0-0-9000">0.0.0.9000</a></li>
       </ul>
     </div>
@@ -131,14 +162,24 @@
 </div>
 
       <footer>
-      <div class="copyright">
-  <p>Developed by Jennifer Bryan, David Robinson.</p>
+      <div class="tidyverse">
+  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="http://tidyverse.org">tidyverse.org</a>.</p>
 </div>
 
-<div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+<div class="author">
+  <p>Developed by Jennifer Bryan, David Robinson, <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
+  <p>Site built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
 </div>
 
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67989-18', 'auto');
+  ga('send', 'pageview');
+</script>
       </footer>
    </div>
 

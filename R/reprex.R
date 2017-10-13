@@ -1,64 +1,91 @@
 #' Render a reprex
 #'
-#' Run a bit of R code using
-#' \code{\link[rmarkdown:render]{rmarkdown::render}()}. The goal is to make it
+#' @description
+#' Run a bit of R code using [rmarkdown::render()]. The goal is to make it
 #' easy to share a small reproducible example ("reprex"), e.g., in a GitHub
 #' issue. Reprex source can be
-#' \itemize{
-#' \item read from clipboard
-#' \item read from current selection or active document
-#' (\link[=reprex_addin]{"Render reprex" RStudio addin})
-#' \item provided directly as expression, character vector, or string
-#' \item read from file
-#' }
+#'
+#' * read from clipboard
+#' * read from current selection or active document in RStudio
+#'   (with [reprex_addin()])
+#' * provided directly as expression, character vector, or string
+#' * read from file
+#'
+#' @details
 #' The usual "code + commented output" is returned invisibly, put on the
 #' clipboard, and written to file. An HTML preview displays in RStudio's Viewer
-#' pane, if available, or in the default browser, otherwise. Leading \code{"> "}
+#' pane, if available, or in the default browser, otherwise. Leading `"> "`
 #' prompts, are stripped from the input code. Read more at
-#' \url{http://jennybc.github.io/reprex/}.
+#' <http://reprex.tidyverse.org/>.
 #'
-#' reprex sets specific \href{http://yihui.name/knitr/options/}{knitr options},
-#' which you can supplement or override via the \code{opts_chunk} and
-#' \code{opts_knit} arguments or via explicit calls to knitr in your reprex code
-#' (see examples). If all you want to override is the \code{comment} option, use
-#' the dedicated argument, e.g.\code{commment = "#;-)"}.
+#' reprex sets specific [knitr options](http://yihui.name/knitr/options/),
+#' which you can supplement or override via the `opts_chunk` and
+#' `opts_knit` arguments or via explicit calls to knitr in your reprex code
+#' (see examples). If all you want to override is the `comment` option, use
+#' the dedicated argument, e.g.`commment = "#;-)"`.
 #'
-#' \itemize{
-#' \item Chunk options default to \code{collapse = TRUE}, \code{comment = "#>"},
-#' \code{error = TRUE}. These are options you normally set via
-#' \code{knitr::opts_chunk$set()}. Note that \code{error = TRUE}, because a
-#' common use case is bug reporting.
-#' \item Package options default to \code{upload.fun = knitr::imgur_upload}.
-#' These are options you normally set via \code{knitr::opts_knit$set()}. The
-#' \code{upload.fun} defaults to \code{\link[knitr]{imgur_upload}} so figures
-#' produced by the reprex appear properly on GitHub.
-#' }
+#' * Chunk options default to `collapse = TRUE`, `comment = "#>"`,
+#'   `error = TRUE`. These are options you normally set via
+#'   `knitr::opts_chunk$set()`. Note that `error = TRUE`, because a
+#'   common use case is bug reporting.
 #'
-#' @param x An expression. If not given, \code{reprex()} looks for code in
-#'   \code{input} or on the clipboard, in that order.
-#' @template venue
-#' @param si Whether to include the results of
-#'   \code{\link[devtools:session_info]{devtools::session_info}()}, if available, or
-#'   \code{\link{sessionInfo}()} at the end of the reprex. When \code{venue =
-#'   "gh"} (the default), session info is wrapped in a collapsible details tag.
-#' @param show Whether to show rendered output in a viewer (RStudio or browser).
-#'   Defaults to \code{TRUE}.
+#' * Package options default to `upload.fun = knitr::imgur_upload`.
+#'   These are options you normally set via `knitr::opts_knit$set()`. The
+#'   `upload.fun` defaults to [knitr::imgur_upload()] so figures
+#'   produced by the reprex appear properly on GitHub. Note that this function
+#'   requires installation of the packages httr & xml2 or RCurl & XML, depending
+#'   on which version of knitr is present.
+#'
+#' @param x An expression. If not given, `reprex()` looks for code in
+#'   `input` or on the clipboard, in that order.
 #' @param input Character. If has length one and lacks a terminating newline,
 #'   interpreted as the path to a file containing reprex code. Otherwise,
 #'   assumed to hold reprex code as character vector (length greater than one)
 #'   or string (with embedded newlines).
-#' @param outfile Optional basename for output files. When \code{NULL}
+#' @param outfile Optional basename for output files. When `NULL`
 #'   (default), reprex writes to temp files below the session temp directory. If
-#'   \code{outfile = "foo"}, expect output files in current working directory,
-#'   like \code{foo_reprex.R}, \code{foo_reprex.md}, and, if \code{venue = "R"},
-#'   \code{foo_rendered.R}. If \code{outfile = NA}, expect output files in
-#'   current working directory with basename derived from the path in
-#'   \code{input}, if sensible, otherwise from \code{\link{tempfile}()}.
+#'   `outfile = "foo"`, expect output files in current working directory,
+#'   like `foo_reprex.R`, `foo_reprex.md`, and, if `venue = "r"`,
+#'   `foo_rendered.R`. If `outfile = NA`, expect output files in
+#'   a location and with basename derived from `input`, if sensible, or in
+#'   current working directory with basename derived from [tempfile()]
+#'   otherwise.
+#' @param venue Character. Must be one of the following:
+#' * "gh" for GitHub, the default
+#' * "so" for Stack Overflow
+#' * "ds" for Discourse, e.g.,
+#'   [community.rstudio.com](https://community.rstudio.com). Note: this is
+#'   currently just an alias for "gh"!
+#' * "r" or "R" for a runnable R script, with commented output interleaved
+#' @param advertise Logical. Whether to include [reprex_info()] at the end of
+#'   the reprex. Records time of render and advertises this package. Read more
+#'   about [opt()].
+#' @param si Logical. Whether to include [devtools::session_info()], if
+#'   available, or [sessionInfo()] at the end of the reprex. When `venue` is
+#'   "gh" or "ds", the session info is wrapped in a collapsible details tag.
+#'   Read more about [opt()].
+#' @param styler Logical. Whether to style code with [styler::style_text()].
+#'   Read more about [opt()].
+#' @param show Logical. Whether to show rendered output in a viewer (RStudio or
+#'   browser). Read more about [opt()].
 #' @param comment Character. Prefix with which to comment out output, defaults
-#'   to \code{"#>"}.
+#'   to `"#>"`. Read more about [opt()].
+#' @param render Logical. Whether to render the reprex or just create the
+#'   templated `.R` file. Defaults to `TRUE`. Mostly for internal testing
+#'   purposes.
 #' @param opts_chunk,opts_knit Named list. Optional
-#'   \href{http://yihui.name/knitr/options/}{knitr chunk and package options},
+#'   [knitr chunk and package options](http://yihui.name/knitr/options/),
 #'   respectively, to supplement or override reprex defaults. See Details.
+#' @param tidyverse_quiet Logical. Sets the option `tidyverse.quiet`, which
+#'   suppresses (`TRUE`, the default) or includes (`FALSE`) the startup message
+#'   for the tidyverse package. Read more about [opt()].
+#' @param std_out_err Logical. Whether to append a section for output sent to
+#'   stdout and stderr by the reprex rendering process. This can be necessary to
+#'   reveal output if the reprex spawns child processes or `system()` calls.
+#'   Note this cannot be properly interleaved with output from the main R
+#'   process, nor is there any guarantee that the lines from standard output and
+#'   standard error are in correct chronological order. See [callr::r_safe()]
+#'   for more. Read more about [opt()].
 #'
 #' @return Character vector of rendered reprex, invisibly.
 #' @examples
@@ -140,7 +167,7 @@
 #' list.files(pattern = "blarg")
 #' unlink(list.files(pattern = "blarg"), recursive = TRUE)
 #'
-#' ## target venue = StackOverflow
+#' ## target venue = Stack Overflow
 #' ## http://stackoverflow.com/editing-help
 #' ret <- reprex({
 #'   x <- 1:4
@@ -169,48 +196,81 @@
 #' reprex(input = c("> x <- 1:3", "> median(x)"))
 #' }
 #'
-#' @importFrom knitr opts_chunk
+#' @import rlang
 #' @export
-reprex <- function(
-  x = NULL, venue = c("gh", "so", "r", "R"), si = FALSE, show = TRUE,
-  input = NULL, outfile = NULL,
-  comment = "#>", opts_chunk = NULL, opts_knit = NULL) {
+reprex <- function(x = NULL,
+                   input = NULL, outfile = NULL,
+                   venue = c("gh", "so", "ds", "r"),
+                   advertise = opt(TRUE),
+                   si = opt(FALSE),
+                   styler = opt(FALSE),
+                   show = opt(TRUE),
+                   comment = opt("#>"),
+                   opts_chunk = NULL,
+                   opts_knit = NULL,
+                   tidyverse_quiet = opt(TRUE),
+                   std_out_err = opt(FALSE),
+                   render = TRUE) {
 
-  venue <- tolower(match.arg(venue))
-  stopifnot(is.logical(si), is.logical(show), is.character(comment))
+  venue <- tolower(venue)
+  venue <- match.arg(venue)
+  if (venue == "ds") {
+    message("FYI, the Discourse venue \"ds\" is currently an alias for the ",
+            "default GitHub venue \"gh\".\nYou don't need to specify it.")
+    venue <- "gh"
+  }
+
+  advertise <- arg_option(advertise)
+  si <- arg_option(si)
+  styler <- arg_option(styler)
+  show <- arg_option(show)
+  comment <- arg_option(comment)
+  tidyverse_quiet <- arg_option(tidyverse_quiet)
+  std_out_err <- arg_option(std_out_err)
+  opts_chunk <- substitute(opts_chunk)
+  opts_knit <- substitute(opts_knit)
+
+  stopifnot(is_toggle(advertise), is_toggle(si), is_toggle(styler))
+  stopifnot(is_toggle(show), is_toggle(render))
+  stopifnot(is.character(comment))
+  stopifnot(is_toggle(tidyverse_quiet), is_toggle(std_out_err))
   if (!is.null(input)) stopifnot(is.character(input))
   if (!is.null(outfile)) stopifnot(is.character(outfile) || is.na(outfile))
 
   the_source <- NULL
-  ## capture source in character vector
-  ##
-  ## Do not rearrange this block lightly. If x is expression, take care to not
-  ## evaluate in this frame.
   x_captured <- substitute(x)
-  expr_input <- !is.null(x_captured) ## signals code may need re-formatting
-  if (expr_input) {
+  if (!is.null(x_captured)) {
     if (!is.null(input)) {
       message("`input` ignored in favor of expression input in `x`.")
     }
     the_source <- stringify_expression(x_captured)
   }
-
   if (is.null(the_source)) {
     the_source <- ingest_input(input)
+  }
+  if (styler) {
+    if (requireNamespace("styler", quietly = TRUE)) {
+      the_source <- styler::style_text(the_source)
+    } else {
+      message("Install the styler package in order to use `styler = TRUE`.")
+    }
+  }
+  if (advertise) {
+    the_source <- c("reprex::reprex_info()", "", the_source)
   }
 
   outfile_given <- !is.null(outfile)
   if (outfile_given && is.na(outfile)) {
+    ## we will work in working directory
     if (length(input) == 1 && !grepl("\n$", input)) {
-      outfile <- basename(input)
+      outfile <- input
     } else {
       outfile <- basename(tempfile())
     }
   }
-  r_file <- strip_ext(outfile) %||% tempfile() ## foo or foo.md --> foo
-  r_file <- add_suffix(r_file, "reprex")       ## foo --> foo_reprex
-  r_file <- add_ext(r_file)                    ## foo_reprex.R
-
+  files <- make_filenames(strip_ext(outfile) %||% tempfile())
+  r_file <- files[["r_file"]]
+  std_file <- if (std_out_err) files[["std_file"]] else NULL
   if (file.exists(r_file) &&
       yesno("Oops, file already exists:\n  * ", r_file, "\n",
             "Delete it and carry on with this reprex?")) {
@@ -221,45 +281,42 @@ reprex <- function(
   the_source <- ensure_not_empty(the_source)
   the_source <- ensure_not_dogfood(the_source)
   the_source <- ensure_no_prompts(the_source)
-  opts_chunk <- prep_opts(substitute(opts_chunk), which = "chunk")
-  opts_knit <- prep_opts(substitute(opts_knit), which = "knit")
-  the_source <-
-    apply_template(list(
-      so = identical(venue, "so"),
-      gh = venue %in% c("gh", "r"),
-      si = isTRUE(si),
-      devtools = requireNamespace("devtools", quietly = TRUE),
-      comment = comment,
-      user_opts_chunk = opts_chunk,
-      user_opts_knit = opts_knit,
-      chunk_tidy = prep_tidy(expr_input),
-      body = paste(the_source, collapse = "\n")
-    ))
-
+  the_source <- apply_template(c(
+    fodder[[venue]],
+    si = isTRUE(si),
+    devtools = requireNamespace("devtools", quietly = TRUE),
+    comment = comment,
+    user_opts_chunk = prep_opts(opts_chunk, which = "chunk"),
+    user_opts_knit = prep_opts(opts_knit, which = "knit"),
+    tidyverse_quiet = as.character(tidyverse_quiet),
+    std_file = std_file,
+    body = paste(the_source, collapse = "\n")
+  ))
   writeLines(the_source, r_file)
   if (outfile_given) {
     message("Preparing reprex as .R file to render:\n  * ", r_file)
   }
 
+  if (!render) {
+    return(invisible(readLines(r_file, encoding = "UTF-8")))
+  }
+
   message("Rendering reprex...")
-  output_file <- md_file <- reprex_(r_file)
+  ## when venue = "r", the reprex_file != md_file, so we need both
+  reprex_file <- md_file <- reprex_(r_file, std_file)
   if (outfile_given) {
+    ## pathstem = the common part of the two paths
     pathstem <- path_stem(r_file, md_file)
     message("Writing reprex markdown:\n  * ", sub(pathstem, "", md_file))
   }
   output_lines <- readLines(md_file, encoding = "UTF-8")
 
   if (identical(venue, "r")) {
-    lns <- output_lines
-    line_info <- classify_lines_bt(lns, comment = comment)
-    lns <- ifelse(line_info == "prose" & nzchar(lns), paste("#'", lns), lns)
-    lns <- lns[line_info != "bt"]
-    output_lines <- lns
-    output_file <- gsub("_reprex", "_rendered", r_file)
-    writeLines(output_lines, output_file)
+    reprex_file <- rout_file <- files[["rout_file"]]
+    output_lines <- convert_md_to_r(output_lines, comment = comment)
+    writeLines(output_lines, rout_file)
     if (outfile_given) {
-      message("Writing reprex as commented R script:\n  * ",
-              sub(pathstem, "", output_file))
+      message("Writing reprex as commented R script:\n  * ", rout_file)
     }
   }
 
@@ -267,11 +324,15 @@ reprex <- function(
     clipr::write_clip(output_lines)
     message("Rendered reprex is on the clipboard.")
   } else {
-    message("Unable to put result on the clipboard. How to get it:\n",
-            "  * Capture what reprex() returns.\n",
-            "  * Use `outfile = \"foo\"` to request output in specific file.\n",
-            "  * See the temp file:\n    - ",
-            output_file)
+    message(
+      "Unable to put result on the clipboard. How to get it:\n",
+      "  * Unix-like systems may require explicit installation of xclip or xsel.\n",
+      "  * Capture what reprex() returns.\n",
+      "  * Use `outfile = \"foo\"` to request output in specific file.\n",
+      "  * Use `outfile = NA` to request output in working directory.\n",
+      "  * For now, see the temp file:\n    - ",
+      reprex_file
+    )
   }
 
   if (show) {
@@ -291,12 +352,44 @@ reprex <- function(
   invisible(output_lines)
 }
 
-reprex_ <- function(input) {
+reprex_ <- function(input, std_out_err = NULL) {
   callr::r_safe(
     function(input) {
       rmarkdown::render(input, quiet = TRUE)
     },
     args = list(input = input),
-    spinner = TRUE
+    spinner = interactive() && !in_tests(),
+    stdout = std_out_err,
+    stderr = std_out_err
   )
+}
+
+make_filenames <- function(filebase = "foo") {
+  filebase <- add_suffix(filebase, "reprex")
+  ## make this a list so I am never tempted to index with `[` instead of `[[`
+  ## can cause sneaky name problems with the named list used as data for
+  ## the whisker template
+  out <- list(    r_file = add_ext(           filebase,                 "R"),
+                std_file = add_ext(add_suffix(filebase, "std_out_err"), "txt"),
+               rout_file = add_ext(add_suffix(filebase, "rendered"),    "R"),
+               html_file = add_ext(           filebase,                 "html")
+  )
+  ## defensive use of "/" because Windows + this gets dropped into R code in
+  ## the template
+  out[["std_file"]] <- normalizePath(
+    out[["std_file"]],
+    winslash = "/",
+    mustWork = FALSE
+  )
+  out
+}
+
+convert_md_to_r <- function(lines, comment = "#>") {
+  line_info <- classify_lines_bt(lines, comment = comment)
+  lines <- ifelse(
+    line_info == "prose" & nzchar(lines),
+    paste("#'", lines),
+    lines
+  )
+  lines[line_info != "bt"]
 }

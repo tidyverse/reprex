@@ -11,16 +11,23 @@ reprex_selection(venue = getOption("reprex.venue", "gh"),
   si = getOption("reprex.si", FALSE), show = getOption("reprex.show", TRUE))
 }
 \arguments{
-\item{venue}{"gh" for GitHub (default), "so" for StackOverflow, "r" or "R"
-for a runnable R script, with commented output interleaved.}
+\item{venue}{Character. Must be one of the following:
+\itemize{
+\item "gh" for GitHub, the default
+\item "so" for Stack Overflow
+\item "ds" for Discourse, e.g.,
+\href{https://community.rstudio.com}{community.rstudio.com}. Note: this is
+currently just an alias for "gh"!
+\item "r" or "R" for a runnable R script, with commented output interleaved
+}}
 
-\item{si}{Whether to include the results of
-\code{\link[devtools:session_info]{devtools::session_info}()}, if available, or
-\code{\link{sessionInfo}()} at the end of the reprex. When \code{venue =
-"gh"} (the default), session info is wrapped in a collapsible details tag.}
+\item{si}{Logical. Whether to include \code{\link[devtools:session_info]{devtools::session_info()}}, if
+available, or \code{\link[=sessionInfo]{sessionInfo()}} at the end of the reprex. When \code{venue} is
+"gh" or "ds", the session info is wrapped in a collapsible details tag.
+Read more about \code{\link[=opt]{opt()}}.}
 
-\item{show}{Whether to show rendered output in a viewer (RStudio or browser).
-Defaults to \code{TRUE}.}
+\item{show}{Logical. Whether to show rendered output in a viewer (RStudio or
+browser). Read more about \code{\link[=opt]{opt()}}.}
 }
 \description{
 \code{reprex_addin} opens a gadget that allows you to customise where the
@@ -31,7 +38,7 @@ customised by options.
 \details{
 An \href{https://shiny.rstudio.com/articles/gadgets.html}{RStudio gadget} and
 \href{http://rstudio.github.io/rstudioaddins/}{addin} to call
-\code{\link{reprex}()}. Appears as "Render reprex" in the RStudio Addins
+\code{\link[=reprex]{reprex()}}. Appears as "Render reprex" in the RStudio Addins
 menu.
 Prepare in one of these ways:
 \enumerate{
@@ -40,6 +47,6 @@ Prepare in one of these ways:
 \item Activate the file containing reprex source.
 \item Have source in a \code{.R} file.
 }
-Call \code{\link{reprex}()} directly for more control via additional
+Call \code{\link[=reprex]{reprex()}} directly for more control via additional
 arguments.
 }

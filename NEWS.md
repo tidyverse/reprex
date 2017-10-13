@@ -1,8 +1,20 @@
 # reprex 0.1.1.9000
 
+  *  `reprex()` gains the argument `advertise`, defaulting to `TRUE`, which describes when and how the reprex was created, e.g., "Created by the reprex package; 2017-10-11" (#121, #69).
+
+  *  `reprex()` gains the argument `styler`, defaulting to `FALSE`, which requests code restyling via the newly-Suggested styler package. styler can cope with tidyeval syntactical sugar, e.g. `df %>% group_by(!!group_var)` (#108, #94).
+
+  * Expression input handling has been refactored. As a result, formatR is no longer Suggested. Trailing comments -- inline and on their own line -- are also now retained (#89, #91, #115, @jennybc and @jimhester).
+
+  * The `venue` argument gains a new value, `"ds"`, for <https://www.discourse.org>, which is the platform behind [community.rstudio.com](https://community.rstudio.com). This is currently just an alias for the default `"gh"` GitHub venue, because the formatting appears to be compatible. Adding the `"ds"` value so Discourse can be documented and to guard against the possibility that some formatting is actually unique.
+
+  * `reprex()` gains the argument `tidyverse_quiet`, defaulting to `TRUE`, which affords control of the startup message of the tidyverse meta-package (important special case of #70, #100).
+
+  * Custom prompts are now escaped when used in regexes (#98 @jimhester).
+
   * New `reprex_selection()` add-in reprexes the current selection, with options
-    controlled by options `reprex.venue`, `reprex.si`, and `reprex.show` (#56, 
-    #71, #81)
+    controlled by options `reprex.venue`, `reprex.si`, and `reprex.show` 
+    (#56, #71, #81)
 
   * `reprex_addin()` displays notificaton as inline dialog
 

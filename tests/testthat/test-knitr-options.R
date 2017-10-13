@@ -6,14 +6,18 @@ test_that("chunk options can be overridden", {
     "mean(y)"
   )
   short_form <-
-    reprex(input = src, opts_chunk = list(collapse = FALSE), show = FALSE)
+    reprex(input = src,
+           opts_chunk = list(collapse = FALSE),
+           show = FALSE,
+           advertise = FALSE
+    )
   header <- c(
     "#+ setup, include = FALSE",
     "knitr::opts_chunk$set(collapse = FALSE)",
     "",
     "#+ actual-reprex-code"
   )
-  long_form <- reprex(input = c(header, src), show = FALSE)
+  long_form <- reprex(input = c(header, src), show = FALSE, advertise = FALSE)
   expect_identical(short_form, long_form)
 })
 
@@ -22,16 +26,26 @@ test_that("`comment` is special", {
     "y <- 1:4",
     "mean(y)"
   )
-  short_form <- reprex(input = src, comment = "#?#", show = FALSE)
+  short_form <- reprex(
+    input = src,
+    comment = "#?#",
+    show = FALSE,
+    advertise = FALSE
+  )
   medium_form <-
-    reprex(input = src, opts_chunk = list(comment = "#?#"), show = FALSE)
+    reprex(
+      input = src,
+      opts_chunk = list(comment = "#?#"),
+      show = FALSE,
+      advertise = FALSE
+    )
   header <- c(
     "#+ setup, include = FALSE",
     "knitr::opts_chunk$set(comment = '#?#')",
     "",
     "#+ actual-reprex-code"
   )
-  long_form <- reprex(input = c(header, src), show = FALSE)
+  long_form <- reprex(input = c(header, src), show = FALSE, advertise = FALSE)
   expect_identical(short_form, long_form)
   expect_identical(medium_form, long_form)
 })

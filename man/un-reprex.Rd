@@ -11,7 +11,8 @@ reprex_invert(input = NULL, venue = c("gh", "so"), comment = "^#>")
 
 reprex_clean(input = NULL, comment = "^#>")
 
-reprex_rescue(input = NULL, prompt = getOption("prompt"))
+reprex_rescue(input = NULL, prompt = getOption("prompt"),
+  continue = getOption("continue"))
 }
 \arguments{
 \item{input}{character, holding a wild-caught reprex as a character vector
@@ -19,15 +20,24 @@ reprex_rescue(input = NULL, prompt = getOption("prompt"))
 file path (length one with no terminating newline). If not provided, the
 clipboard is consulted for input.}
 
-\item{venue}{"gh" for GitHub (default), "so" for StackOverflow, "r" or "R"
-for a runnable R script, with commented output interleaved.}
+\item{venue}{Character. Must be one of the following:
+\itemize{
+\item "gh" for GitHub, the default
+\item "so" for Stack Overflow
+\item "ds" for Discourse, e.g.,
+\href{https://community.rstudio.com}{community.rstudio.com}. Note: this is
+currently just an alias for "gh"!
+\item "r" or "R" for a runnable R script, with commented output interleaved
+}}
 
 \item{comment}{regular expression that matches commented output lines}
 
 \item{prompt}{character, the prompt at the start of R commands}
+
+\item{continue}{character, the prompt for continuation lines}
 }
 \value{
-character vector holding just the clean R code, invisibly
+Character vector holding just the clean R code, invisibly
 }
 \description{
 Recover clean, runnable code from a reprex captured in the wild. The code is
@@ -36,11 +46,10 @@ the function that deals with your problem:
 \itemize{
 \item \code{reprex_invert()} handles Markdown, with code blocks indicated
 with backticks or indentation, e.g., the direct output of
-\code{\link{reprex}(..., venue = "gh")} or
-\code{\link{reprex}(..., venue = "so")}.
+\code{reprex(..., venue = "gh")} or \code{reprex(..., venue = "so")}.
 \item \code{reprex_clean()} assumes R code is top-level, possibly
 interleaved with commented output, e.g., a displayed reprex copied from
-GitHub or the direct output of \code{\link{reprex}(..., venue = "R")}.
+GitHub or the direct output of \code{reprex(..., venue = "R")}.
 \item \code{reprex_rescue()} assumes R code lines start with a prompt and
 printed output is top-level, e.g., what you'd get by copying from the R
 Console.
@@ -49,10 +58,10 @@ Console.
 \section{Functions}{
 \itemize{
 \item \code{reprex_invert}: Attempts to reverse the effect of
-\code{\link{reprex}()}. The input should be Markdown, presumably the output
-of \code{\link{reprex}()}. \code{venue} matters because, in GitHub-flavored
+\code{\link[=reprex]{reprex()}}. The input should be Markdown, presumably the output
+of \code{\link[=reprex]{reprex()}}. \code{venue} matters because, in GitHub-flavored
 Markdown, code blocks are placed within triple backticks. In other Markdown
-dialects, such as the one used on StackOverflow, code is indented by four
+dialects, such as the one used on Stack Overflow, code is indented by four
 spaces.
 
 \item \code{reprex_clean}: Removes lines of commented output from a displayed

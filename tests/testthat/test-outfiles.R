@@ -9,7 +9,8 @@ base_msg <- c(
 clip_msg <- switch(
   as.character(clipboard_available()),
   `TRUE` = "Rendered reprex is on the clipboard.",
-  "Unable to put result on the clipboard")
+  "Unable to put result on the clipboard"
+)
 
 test_that("expected outfiles are written and messaged, venue = 'gh'", {
   on.exit(file.remove("foo_reprex.R", "foo_reprex.md"))
@@ -21,15 +22,22 @@ test_that("expected outfiles are written and messaged, venue = 'gh'", {
 })
 
 test_that("expected outfiles are written and messaged, venue = 'R'", {
-  on.exit(file.remove("foo_reprex.R", "foo_reprex.md", "foo_rendered.R"))
-  msg <- capture_messages(ret <- reprex(1:5, outfile = "foo",
-                                         show = FALSE, venue = "R"))
+  on.exit(file.remove(
+    "foo_reprex.R",
+    "foo_reprex.md",
+    "foo_reprex_rendered.R"
+  ))
+  msg <- capture_messages(
+    ret <- reprex(1:5, outfile = "foo", show = FALSE, venue = "R")
+  )
   expect_identical(msg[1:3], base_msg)
-  expect_identical(msg[4],
-                   "Writing reprex as commented R script:\n  * foo_rendered.R\n")
+  expect_identical(
+    msg[4],
+    "Writing reprex as commented R script:\n  * foo_reprex_rendered.R\n"
+  )
   expect_match(msg[5], clip_msg)
   expect_match(readLines("foo_reprex.R"), "1:5", all = FALSE)
-  expect_identical(ret, readLines("foo_rendered.R"))
+  expect_identical(ret, readLines("foo_reprex_rendered.R"))
   expect_match(readLines("foo_reprex.md"), "1:5", all = FALSE)
 })
 
@@ -57,7 +65,7 @@ test_that("outfiles in a subdirectory works", {
 })
 
 test_that("outfiles based on input file", {
-  on.exit(file.remove("foo_reprex.R", "foo_reprex.md"))
+  on.exit(file.remove("foo.R", "foo_reprex.R", "foo_reprex.md"))
   writeLines("1:5", "foo.R")
   msg <-
     capture_messages(ret <- reprex(input = "foo.R", show = FALSE, outfile = NA))
