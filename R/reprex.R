@@ -227,6 +227,8 @@ reprex <- function(x = NULL,
   comment <- arg_option(comment)
   tidyverse_quiet <- arg_option(tidyverse_quiet)
   std_out_err <- arg_option(std_out_err)
+  opts_chunk <- substitute(opts_chunk)
+  opts_knit <- substitute(opts_knit)
 
   stopifnot(is_toggle(advertise), is_toggle(si), is_toggle(styler))
   stopifnot(is_toggle(show), is_toggle(render))
@@ -279,15 +281,13 @@ reprex <- function(x = NULL,
   the_source <- ensure_not_empty(the_source)
   the_source <- ensure_not_dogfood(the_source)
   the_source <- ensure_no_prompts(the_source)
-  opts_chunk <- prep_opts(substitute(opts_chunk), which = "chunk")
-  opts_knit <- prep_opts(substitute(opts_knit), which = "knit")
   the_source <- apply_template(c(
     fodder[[venue]],
     si = isTRUE(si),
     devtools = requireNamespace("devtools", quietly = TRUE),
     comment = comment,
-    user_opts_chunk = opts_chunk,
-    user_opts_knit = opts_knit,
+    user_opts_chunk = prep_opts(opts_chunk, which = "chunk"),
+    user_opts_knit = prep_opts(opts_knit, which = "knit"),
     tidyverse_quiet = as.character(tidyverse_quiet),
     std_file = std_file,
     body = paste(the_source, collapse = "\n")

@@ -11,9 +11,9 @@ is_toggle <- function(x) {
   }
 }
 
-## deparse that turns NULL into "" instead of "NULL"
+## deparse that returns NULL for NULL instead of "NULL"
 deparse2 <- function(expr, ...) {
-  if (is.null(expr)) return("")
+  if (is.null(expr)) return(NULL)
   deparse(expr, ...)
 }
 
