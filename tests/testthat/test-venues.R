@@ -48,3 +48,16 @@ test_that("venue = 'ds' is an alias for 'gh'", {
   gh <- reprex(input = input, venue = "gh", si = TRUE, show = FALSE, advertise = FALSE)
   expect_identical(ds, gh)
 })
+
+test_that("local image link is not interrupted by hard line break for 'gh'", {
+  input <- c(
+    "#+ setup, include = FALSE",
+    "knitr::opts_knit$set(upload.fun = identity)",
+    "",
+    "#+ incredibly-long-chunk-name-to-make-image-path-also-incredibly-long",
+    "plot(1:3)"
+  )
+  out <- reprex(input = input, venue = "gh", show = FALSE)
+  i <- grep("incredibly-long", out)
+  expect_true(grepl("[)]", out[i]))
+})
