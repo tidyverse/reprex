@@ -336,17 +336,17 @@ reprex <- function(x = NULL,
   }
 
   if (show) {
-    ## I want the html to live in session temp dir for two reasons:
-    ##   * causes display in RStudio Viewer, if available
-    ##   * retains foo_reprex_files but not other html-related intermediates
-    ## if outfile = NULL, this happens by default; otherwise, must force it
-    ## `clean = FALSE` does too much (deletes foo_reprex_files, which might
-    ## hold local figs)
-    html_file <- strip_ext(basename(md_file))
-    html_file <- tempfile(pattern = paste0(html_file, "_"), fileext = ".html")
-    rmarkdown::render(md_file, output_file = html_file, quiet = TRUE, encoding = "UTF-8")
+    rmarkdown::render(
+      md_file,
+      output_file = files[["html_file"]],
+      clean = FALSE,
+      quiet = TRUE,
+      encoding = "UTF-8"
+    )
+    ## html must live in session temp dir in order to display within RStudio
+    files[["html_file"]] <- force_tempdir(files[["html_file"]])
     viewer <- getOption("viewer") %||% utils::browseURL
-    viewer(html_file)
+    viewer(files[["html_file"]])
   }
 
   invisible(output_lines)
@@ -392,4 +392,13 @@ convert_md_to_r <- function(lines, comment = "#>") {
     lines
   )
   lines[line_info != "bt"]
+}
+
+force_tempdir <- function(x) {
+  if (identical(normalizePath(tempdir()), basename(normalizePath(x)))) {
+    return(x)
+  }
+  tmp_file <- file.path(tempdir(), basename(x))
+  file.copy(x, tmp_file)
+  tmp_file
 }
