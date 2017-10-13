@@ -164,7 +164,7 @@ reprex({
   #' [reprex](https://github.com/tidyverse/reprex#readme) package!
   y <- 1:4
   mean(y)
-})
+}, advertise = FALSE)
 
 # read reprex from file
 writeLines(c("x <- 1:4", "mean(x)"), "foofy.R")

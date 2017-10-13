@@ -92,7 +92,6 @@
     <h1>Render a reprex</h1>
     </div>
 
-    
     <p>Run a bit of R code using <code><a href='http://www.rdocumentation.org/packages/rmarkdown/topics/render'>rmarkdown::render()</a></code>. The goal is to make it
 easy to share a small reproducible example ("reprex"), e.g., in a GitHub
 issue. Reprex source can be</p><ul>
@@ -102,12 +101,13 @@ issue. Reprex source can be</p><ul>
 <li><p>provided directly as expression, character vector, or string</p></li>
 <li><p>read from file</p></li>
 </ul>
-    
 
-    <pre class="usage"><span class='fu'>reprex</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"gh"</span>, <span class='st'>"so"</span>, <span class='st'>"ds"</span>, <span class='st'>"r"</span>), <span class='kw'>si</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>"#&gt;"</span>,
-  <span class='kw'>opts_chunk</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>opts_knit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tidyverse_quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>reprex</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"gh"</span>, <span class='st'>"so"</span>,
+  <span class='st'>"ds"</span>, <span class='st'>"r"</span>), <span class='kw'>advertise</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>TRUE</span>), <span class='kw'>si</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>FALSE</span>), <span class='kw'>styler</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>FALSE</span>),
+  <span class='kw'>show</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>TRUE</span>), <span class='kw'>comment</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='st'>"#&gt;"</span>), <span class='kw'>opts_chunk</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>opts_knit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tidyverse_quiet</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>TRUE</span>), <span class='kw'>std_out_err</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>FALSE</span>),
+  <span class='kw'>render</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -115,29 +115,6 @@ issue. Reprex source can be</p><ul>
       <th>x</th>
       <td><p>An expression. If not given, <code>reprex()</code> looks for code in
 <code>input</code> or on the clipboard, in that order.</p></td>
-    </tr>
-    <tr>
-      <th>venue</th>
-      <td><p>Character. Must be one of the following:</p><ul>
-<li><p>"gh" for GitHub, the default</p></li>
-<li><p>"so" for Stack Overflow</p></li>
-<li><p>"ds" for Discourse, e.g.,
-<a href='https://community.rstudio.com'>community.rstudio.com</a>. Note: this is
-currently just an alias for "gh"!</p></li>
-<li><p>"r" or "R" for a runnable R script, with commented output interleaved</p></li>
-</ul></td>
-    </tr>
-    <tr>
-      <th>si</th>
-      <td><p>Logical. Whether to include the results of
-<code><a href='http://www.rdocumentation.org/packages/devtools/topics/session_info'>devtools::session_info()</a></code>, if available, or
-<code>sessionInfo()</code> at the end of the reprex. When <code>venue</code> is "gh" or "ds",
-the session info is wrapped in a collapsible details tag.</p></td>
-    </tr>
-    <tr>
-      <th>show</th>
-      <td><p>Logical. Whether to show rendered output in a viewer (RStudio or
-browser). Defaults to <code>TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>input</th>
@@ -158,9 +135,43 @@ current working directory with basename derived from <code>tempfile()</code>
 otherwise.</p></td>
     </tr>
     <tr>
+      <th>venue</th>
+      <td><p>Character. Must be one of the following:</p><ul>
+<li><p>"gh" for GitHub, the default</p></li>
+<li><p>"so" for Stack Overflow</p></li>
+<li><p>"ds" for Discourse, e.g.,
+<a href='https://community.rstudio.com'>community.rstudio.com</a>. Note: this is
+currently just an alias for "gh"!</p></li>
+<li><p>"r" or "R" for a runnable R script, with commented output interleaved</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>advertise</th>
+      <td><p>Logical. Whether to include <code><a href='reprex_info.html'>reprex_info()</a></code> at the end of
+the reprex. Records time of render and advertises this package. Read more
+about <code><a href='opt.html'>opt()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>si</th>
+      <td><p>Logical. Whether to include <code><a href='http://www.rdocumentation.org/packages/devtools/topics/session_info'>devtools::session_info()</a></code>, if
+available, or <code>sessionInfo()</code> at the end of the reprex. When <code>venue</code> is
+"gh" or "ds", the session info is wrapped in a collapsible details tag.
+Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>styler</th>
+      <td><p>Logical. Whether to style code with <code><a href='http://www.rdocumentation.org/packages/styler/topics/style_text'>styler::style_text()</a></code>.
+Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>show</th>
+      <td><p>Logical. Whether to show rendered output in a viewer (RStudio or
+browser). Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
+    </tr>
+    <tr>
       <th>comment</th>
       <td><p>Character. Prefix with which to comment out output, defaults
-to <code>"#&gt;"</code>.</p></td>
+to <code>"#&gt;"</code>. Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
     </tr>
     <tr>
       <th>opts_chunk, opts_knit</th>
@@ -172,14 +183,29 @@ respectively, to supplement or override reprex defaults. See Details.</p></td>
       <th>tidyverse_quiet</th>
       <td><p>Logical. Sets the option <code>tidyverse.quiet</code>, which
 suppresses (<code>TRUE</code>, the default) or includes (<code>FALSE</code>) the startup message
-for the tidyverse package.</p></td>
+for the tidyverse package. Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>std_out_err</th>
+      <td><p>Logical. Whether to append a section for output sent to
+stdout and stderr by the reprex rendering process. This can be necessary to
+reveal output if the reprex spawns child processes or <code>system()</code> calls.
+Note this cannot be properly interleaved with output from the main R
+process, nor is there any guarantee that the lines from standard output and
+standard error are in correct chronological order. See <code><a href='http://www.rdocumentation.org/packages/callr/topics/r'>callr::r_safe()</a></code>
+for more. Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>render</th>
+      <td><p>Logical. Whether to render the reprex or just create the
+templated <code>.R</code> file. Defaults to <code>TRUE</code>. Mostly for internal testing
+purposes.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Character vector of rendered reprex, invisibly.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The usual "code + commented output" is returned invisibly, put on the
@@ -203,7 +229,6 @@ produced by the reprex appear properly on GitHub. Note that this function
 requires installation of the packages httr &amp; xml2 or RCurl &amp; XML, depending
 on which version of knitr is present.</p></li>
 </ul>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
@@ -253,7 +278,7 @@ on which version of knitr is present.</p></li>
   <span class='co'>#' [reprex](https://github.com/tidyverse/reprex#readme) package!</span>
   <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>4</span>
   <span class='fu'>mean</span>(<span class='no'>y</span>)
-})
+}, <span class='kw'>advertise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='co'># read reprex from file</span>
 <span class='fu'>writeLines</span>(<span class='fu'>c</span>(<span class='st'>"x &lt;- 1:4"</span>, <span class='st'>"mean(x)"</span>), <span class='st'>"foofy.R"</span>)
@@ -318,11 +343,8 @@ on which version of knitr is present.</p></li>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

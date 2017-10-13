@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Render a reprex — reprex_addin • reprex</title>
+<title>Report when and how reprex was made — reprex_info • reprex</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -89,67 +89,26 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Render a reprex</h1>
+    <h1>Report when and how reprex was made</h1>
     </div>
 
-    <p><code>reprex_addin</code> opens a gadget that allows you to customise where the
-code to reproduce should come from along with a handful of other options.
-<code>reprex_selection</code> reproduces the current selection, optionally
-customised by options.</p>
+    <p>Report when and how reprex was made</p>
 
-    <pre class="usage"><span class='fu'>reprex_addin</span>()
+    <pre class="usage"><span class='fu'>reprex_info</span>()</pre>
 
-<span class='fu'>reprex_selection</span>(<span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"reprex.venue"</span>, <span class='st'>"gh"</span>),
-  <span class='kw'>si</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"reprex.si"</span>, <span class='fl'>FALSE</span>), <span class='kw'>show</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"reprex.show"</span>, <span class='fl'>TRUE</span>))</pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>venue</th>
-      <td><p>Character. Must be one of the following:</p><ul>
-<li><p>"gh" for GitHub, the default</p></li>
-<li><p>"so" for Stack Overflow</p></li>
-<li><p>"ds" for Discourse, e.g.,
-<a href='https://community.rstudio.com'>community.rstudio.com</a>. Note: this is
-currently just an alias for "gh"!</p></li>
-<li><p>"r" or "R" for a runnable R script, with commented output interleaved</p></li>
-</ul></td>
-    </tr>
-    <tr>
-      <th>si</th>
-      <td><p>Logical. Whether to include <code><a href='http://www.rdocumentation.org/packages/devtools/topics/session_info'>devtools::session_info()</a></code>, if
-available, or <code>sessionInfo()</code> at the end of the reprex. When <code>venue</code> is
-"gh" or "ds", the session info is wrapped in a collapsible details tag.
-Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>show</th>
-      <td><p>Logical. Whether to show rendered output in a viewer (RStudio or
-browser). Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
-    </tr>
-    </table>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <p>String documenting when reprex was rendered and how</p>
 
-    <p>An <a href='https://shiny.rstudio.com/articles/gadgets.html'>RStudio gadget</a> and
-<a href='http://rstudio.github.io/rstudioaddins/'>addin</a> to call
-<code><a href='reprex.html'>reprex()</a></code>. Appears as "Render reprex" in the RStudio Addins
-menu.
-Prepare in one of these ways:</p><ol>
-<li><p>Copy reprex source to clipboard.</p></li>
-<li><p>Select reprex source.</p></li>
-<li><p>Activate the file containing reprex source.</p></li>
-<li><p>Have source in a <code>.R</code> file.</p></li>
-</ol><p>Call <code><a href='reprex.html'>reprex()</a></code> directly for more control via additional
-arguments.</p>
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>reprex_info</span>()</div><div class='output co'>#&gt; <span class='message'>Created by the reprex package v0.1.1.9000 on 2017-10-13</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
