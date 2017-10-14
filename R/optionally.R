@@ -16,6 +16,20 @@
 #' ```
 #' This is not an exported function and should not be called directly.
 #'
+#' Many of the arguments of [reprex()] use `opt()`. If you don't like the
+#' official defaults, override them in your `.Rprofile`. Here's an example for
+#' someone who dislikes the "Created by ..." string, always wants session info,
+#' prefers to restyle their code, uses a winky face comment string, and likes
+#' the tidyverse startup message.
+#' ```
+#' options(
+#'   reprex.advertise = FALSE,
+#'   reprex.si = TRUE,
+#'   reprex.styler = TRUE,
+#'   reprex.comment = "#;-)",
+#'   reprex.tidyverse_quiet = FALSE
+#' )
+#' ```
 #' @name opt
 NULL
 

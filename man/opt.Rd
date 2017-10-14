@@ -17,3 +17,17 @@ It's shorthand for:\preformatted{f(..., arg = getOption("reprex.arg", DEFAULT), 
 
 This is not an exported function and should not be called directly.
 }
+\details{
+Many of the arguments of \code{\link[=reprex]{reprex()}} use \code{opt()}. If you don't like the
+official defaults, override them in your \code{.Rprofile}. Here's an example for
+someone who dislikes the "Created by ..." string, always wants session info,
+prefers to restyle their code, uses a winky face comment string, and likes
+the tidyverse startup message.\preformatted{options(
+  reprex.advertise = FALSE,
+  reprex.si = TRUE,
+  reprex.styler = TRUE,
+  reprex.comment = "#;-)",
+  reprex.tidyverse_quiet = FALSE
+)
+}
+}

@@ -104,11 +104,26 @@
 
 
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Many of the arguments of <code><a href='reprex.html'>reprex()</a></code> use <code>opt()</code>. If you don't like the
+official defaults, override them in your <code>.Rprofile</code>. Here's an example for
+someone who dislikes the "Created by ..." string, always wants session info,
+prefers to restyle their code, uses a winky face comment string, and likes
+the tidyverse startup message.</p><pre>options(
+  reprex.advertise = FALSE,
+  reprex.si = TRUE,
+  reprex.styler = TRUE,
+  reprex.comment = "#;-)",
+  reprex.tidyverse_quiet = FALSE
+)
+</pre>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#details">Details</a></li>
     </ul>
 
   </div>
