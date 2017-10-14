@@ -1,6 +1,6 @@
 ---
 title: "Magic reprex"
-author: "[Nicholas Tierney](njtierney.com)"
+author: "[Nicholas Tierney](http://www.njtierney.com)"
 ---
 
 > This article was originally posted on [Nick Tierney's blog](https://www.njtierney.com/post/2017/01/11/magic-reprex/), and has been contributed here to help spread the good word about `reprex`! :) - **Nick Tierney**
