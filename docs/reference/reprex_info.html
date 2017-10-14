@@ -92,14 +92,15 @@
     <h1>Report when and how reprex was made</h1>
     </div>
 
-    <p>Report when and how reprex was made</p>
+    <p><code>reprex_info()</code> returns a string documenting when the reprex was rendered and
+how. It is included as the first line of reprex source when <code>advertise = TRUE</code>.</p>
 
     <pre class="usage"><span class='fu'>reprex_info</span>()</pre>
 
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>String documenting when reprex was rendered and how</p>
+    <p>Character</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>reprex_info</span>()</div><div class='output co'>#&gt; <span class='message'>Created by the reprex package v0.1.1.9000 on 2017-10-14</span></div></pre>

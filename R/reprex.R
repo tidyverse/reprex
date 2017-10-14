@@ -57,9 +57,8 @@
 #'   [community.rstudio.com](https://community.rstudio.com). Note: this is
 #'   currently just an alias for "gh"!
 #' * "r" or "R" for a runnable R script, with commented output interleaved
-#' @param advertise Logical. Whether to include [reprex_info()] at the end of
-#'   the reprex. Records time of render and advertises this package. Read more
-#'   about [opt()].
+#' @param advertise Logical. Whether to include [reprex_info()] at the start of
+#'   the reprex. Read more about [opt()].
 #' @param si Logical. Whether to include [devtools::session_info()], if
 #'   available, or [sessionInfo()] at the end of the reprex. When `venue` is
 #'   "gh" or "ds", the session info is wrapped in a collapsible details tag.

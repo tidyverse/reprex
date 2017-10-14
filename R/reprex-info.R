@@ -1,6 +1,10 @@
 #' Report when and how reprex was made
 #'
-#' @return String documenting when reprex was rendered and how
+#' `reprex_info()` returns a string documenting when the reprex was rendered and
+#' how. It is included as the first line of reprex source when `advertise =
+#' TRUE`.
+#'
+#' @return Character
 #' @export
 #'
 #' @examples

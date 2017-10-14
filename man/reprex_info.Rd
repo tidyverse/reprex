@@ -7,10 +7,11 @@
 reprex_info()
 }
 \value{
-String documenting when reprex was rendered and how
+Character
 }
 \description{
-Report when and how reprex was made
+\code{reprex_info()} returns a string documenting when the reprex was rendered and
+how. It is included as the first line of reprex source when \code{advertise = TRUE}.
 }
 \examples{
 reprex_info()
