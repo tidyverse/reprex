@@ -3,7 +3,7 @@ title: "Magic reprex"
 author: "[Nicholas Tierney](http://www.njtierney.com)"
 ---
 
-> This article was originally posted on [Nick Tierney's blog](https://www.njtierney.com/post/2017/01/11/magic-reprex/), and has been contributed here to help spread the good word about `reprex`! :) - **Nick Tierney**
+> This article has been adapted from a post on [Nick Tierney's blog](https://www.njtierney.com/post/2017/01/11/magic-reprex/) to help spread the good word about reprex! :) - **Nick Tierney**
 
 Making reproducible examples can be hard.
 
@@ -15,18 +15,18 @@ So, after some sensible swearing and frustration, you might ask yourself somethi
 
 > Surely there's an easy, reproducible way to ... make reproducible examples?
 
-Enter the R package `reprex` [[CRAN](https://cran.r-project.org/web/packages/reprex/index.html)] [[GitHub](https://github.com/tidyverse/reprex)], by [Jenny Bryan](http://www.github.com/jennybc).
+Enter the R package reprex (on [CRAN](https://cran.r-project.org/package=reprex), on [GitHub](https://github.com/tidyverse/reprex)), by [Jenny Bryan](http://www.github.com/jennybc).
 
-In the fashion of the times right now, I'll illustrate `reprex` with a gif, which shows the following things:
+In the fashion of the times right now, I'll illustrate reprex with a gif, which shows the following things:
 
 1. Take your code, copy it to the clipboard.
-2. Run `reprex`, wait a moment for the code to execute.
-3. `reprex` creates a html preview of your code.
+2. Run `reprex::reprex()`, wait a moment for the code to execute.
+3. `reprex::reprex()` creates a html preview of your code.
 4. A markdown chunk is also copied to the clipboard.
 
 <p>
 <div style="height: auto">
-<img src="https://njtierney.updog.co/gifs/reprex-copy.gif" alt="Gif of reprex copying code, running reprex, and demonstrating the html preview of the code text" style="width: 100%;max-height: 100%" />
+<img src="https://raw.githubusercontent.com/tidyverse/reprex/master/img/reprex-copy.gif" alt="Gif of reprex copying code, running reprex, and demonstrating the html preview of the code text" style="width: 100%;max-height: 100%" />
 </div>
 </p>
 
@@ -36,18 +36,18 @@ This means you can copy this to say, GitHub (`reprex(venue = "gh")`) (the defaul
 
 <p>
 <div style="height: auto">
-<img src="https://njtierney.updog.co/gifs/reprex-github.gif" alt="Gif of reprex copying code, running reprex, and demonstrating the html preview of the code text" style="width: 100%;max-height: 100%" />
+<img src="https://raw.githubusercontent.com/tidyverse/reprex/master/img/reprex-github.gif" alt="Gif of reprex copying code, running reprex, and demonstrating the html preview of the code text" style="width: 100%;max-height: 100%" />
 </div>
 </p>
 
-There is also an option for Stack Overflow(`reprex(venue = "so")`.
+There is also an option for Stack Overflow (`reprex(venue = "so")`).
 
-How does this work? `reprex` takes the section of copied code and then runs `rmarkdown::render` on it, which starts a fresh environment, and runs the code.
-This means that `reprex` will fail hard and fail early if your examples aren't reproducible. If you don't have the correct library loaded, it will show the error messages.
+How does this work? `reprex()` takes the section of copied code and then runs `rmarkdown::render()` on it, which starts a fresh environment, and runs the code.
+This means that `reprex()` will fail hard and fail early if your examples aren't reproducible. If you don't have the correct library loaded, it will show the error messages.
 
 <p>
 <div style="height: auto">
-<img src="https://njtierney.updog.co/gifs/reprex-fail-1.gif" alt="Gif of reprex copying code, running reprex, and demonstrating the html preview of the code text" style="width: 100%;max-height: 100%" />
+<img src="https://raw.githubusercontent.com/tidyverse/reprex/master/img/reprex-fail-1.gif" alt="Gif of reprex copying code, running reprex, and demonstrating the html preview of the code text" style="width: 100%;max-height: 100%" />
 </div>
 </p>
 
@@ -55,13 +55,13 @@ But then when you fix that, by adding library calls to [`visdat`](https://github
 
 <p>
 <div style="height: auto">
-<img src="https://njtierney.updog.co/gifs/reprex-success-1.gif" alt="Gif of reprex copying code, running reprex, and demonstrating the html preview of the code text using visdat, naniar, and ggplot2 packages" style="width: 100%;max-height: 100%" />
+<img src="https://raw.githubusercontent.com/tidyverse/reprex/master/img/reprex-success-1.gif" alt="Gif of reprex copying code, running reprex, and demonstrating the html preview of the code text using visdat, naniar, and ggplot2 packages" style="width: 100%;max-height: 100%" />
 </div>
 </p>
 
-So you know that when you run `reprex`, and it gives you a reproducible example, it will work!
+So you know that when you run `reprex()`, and it gives you a reproducible example, it will work!
 
-Also worth mentioning is that rather magically, `reprex` also handles images. I didn't even notice this at first. It was just one of those things where "it just works". `reprex` handles this by uploading them to imgur using the `knitr::imgur_upload` function, which creates markdown links to the images.
+Also worth mentioning is that rather magically, `reprex()` also handles images. I didn't even notice this at first. It was just one of those things where "it just works". `reprex()` handles this by uploading them to imgur using the `knitr::imgur_upload()` function, which creates markdown links to the images.
 
 so
 
@@ -138,15 +138,15 @@ ggplot(data = lm_augmented,
            y = Sepal.Length)) +
   geom_point()
 
-`![](http://i.imgur.com/h72ZEKG.png)`
+![](http://i.imgur.com/h72ZEKG.png)
 ```
 
-You can even show the results of the `session_info`, for maximum reproducibility, by adding the argument: `reprex::reprex(si = TRUE)`, which adds a super nifty drop down box for the session info.
+You can even show the results of the `session_info()`, for maximum reproducibility, by adding the argument: `reprex::reprex(si = TRUE)`, which adds a super nifty drop down box for the session info.
 
 
 <p>
 <div style="height: auto">
-<img src="https://njtierney.updog.co/gifs/reprex-si.gif" alt="Gif of reprex copying code, running reprex, showing option SI = TRUE" style="width: 100%;max-height: 100%" />
+<img src="https://raw.githubusercontent.com/tidyverse/reprex/master/img/reprex-si.gif" alt="Gif of reprex copying code, running reprex, showing option SI = TRUE" style="width: 100%;max-height: 100%" />
 </div>
 </p>
 
@@ -160,12 +160,12 @@ You save time and energy, and can focus more on **doing what you want to do**, a
 
 <p>
 <div style="height: auto">
-<img src="https://njtierney.updog.co/img/ProgrammerInterrupted.png" alt="Why you shouldn't interrupt a programmer" style="max-height: 100%"/>
+<img src="https://raw.githubusercontent.com/tidyverse/reprex/master/img/ProgrammerInterrupted.png" alt="Why you shouldn't interrupt a programmer" style="max-height: 100%"/>
 </div>
 </p>
 
 
 Once again thank you to Jenny Bryan for making our lives easier. Jenny will be joining the RStudio team this year and I am really looking forward to seeing what she gets up to.
 
-Read more about `reprex` on github [here](http://www.github.com/tidyverse/reprex).
+Read more about reprex on github [here](http://www.github.com/tidyverse/reprex#readme).
 

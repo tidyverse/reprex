@@ -72,7 +72,7 @@
   <div class="col-md-9">
     <div class="page-header toc-ignore">
       <h1>Magic reprex</h1>
-                        <h4 class="author"><a href="njtierney.com">Nicholas Tierney</a></h4>
+                        <h4 class="author"><a href="http://www.njtierney.com">Nicholas Tierney</a></h4>
             
           </div>
 
@@ -80,7 +80,7 @@
     
 <div class="contents">
 <blockquote>
-<p>This article was originally posted on <a href="https://www.njtierney.com/post/2017/01/11/magic-reprex/">Nick Tierney’s blog</a>, and has been contributed here to help spread the good word about <code>reprex</code>! :) - <strong>Nick Tierney</strong></p>
+<p>This article has been adapted from a post on <a href="https://www.njtierney.com/post/2017/01/11/magic-reprex/">Nick Tierney’s blog</a> to help spread the good word about reprex! :) - <strong>Nick Tierney</strong></p>
 </blockquote>
 <p>Making reproducible examples can be hard.</p>
 <p>There’s a lot of things you need to consider. Like, making sure your environment is clean, the right packages are loaded, the code is formatted nicely, and images are the right resolution and dimension.</p>
@@ -89,45 +89,45 @@
 <blockquote>
 <p>Surely there’s an easy, reproducible way to … make reproducible examples?</p>
 </blockquote>
-<p>Enter the R package <code>reprex</code> [<a href="https://cran.r-project.org/web/packages/reprex/index.html">CRAN</a>] [<a href="https://github.com/tidyverse/reprex">GitHub</a>], by <a href="http://www.github.com/jennybc">Jenny Bryan</a>.</p>
-<p>In the fashion of the times right now, I’ll illustrate <code>reprex</code> with a gif, which shows the following things:</p>
+<p>Enter the R package reprex (on <a href="https://cran.r-project.org/package=reprex">CRAN</a>, on <a href="https://github.com/tidyverse/reprex">GitHub</a>), by <a href="http://www.github.com/jennybc">Jenny Bryan</a>.</p>
+<p>In the fashion of the times right now, I’ll illustrate reprex with a gif, which shows the following things:</p>
 <ol style="list-style-type: decimal">
 <li>Take your code, copy it to the clipboard.</li>
-<li>Run <code>reprex</code>, wait a moment for the code to execute.</li>
+<li>Run <code><a href="http://www.rdocumentation.org/packages/reprex/topics/reprex">reprex::reprex()</a></code>, wait a moment for the code to execute.</li>
 <li>
-<code>reprex</code> creates a html preview of your code.</li>
+<code><a href="http://www.rdocumentation.org/packages/reprex/topics/reprex">reprex::reprex()</a></code> creates a html preview of your code.</li>
 <li>A markdown chunk is also copied to the clipboard.</li>
 </ol>
 <p>
 </p>
 <div style="height: auto">
-<p><img src="https://njtierney.updog.co/gifs/reprex-copy.gif" alt="Gif of reprex copying code, running reprex, and demonstrating the html preview of the code text" style="width: 100%;max-height: 100%"></p>
+<p><img src="https://raw.githubusercontent.com/tidyverse/reprex/master/img/reprex-copy.gif" alt="Gif of reprex copying code, running reprex, and demonstrating the html preview of the code text" style="width: 100%;max-height: 100%"></p>
 </div>
 
 <p>This means you can copy this to say, GitHub (<code><a href="../../reference/reprex.html">reprex(venue = "gh")</a></code>) (the default) to help you file an issue:</p>
 <p>
 </p>
 <div style="height: auto">
-<p><img src="https://njtierney.updog.co/gifs/reprex-github.gif" alt="Gif of reprex copying code, running reprex, and demonstrating the html preview of the code text" style="width: 100%;max-height: 100%"></p>
+<p><img src="https://raw.githubusercontent.com/tidyverse/reprex/master/img/reprex-github.gif" alt="Gif of reprex copying code, running reprex, and demonstrating the html preview of the code text" style="width: 100%;max-height: 100%"></p>
 </div>
 
-<p>There is also an option for Stack Overflow(<code><a href="../../reference/reprex.html">reprex(venue = "so")</a></code>.</p>
-<p>How does this work? <code>reprex</code> takes the section of copied code and then runs <code><a href="http://www.rdocumentation.org/packages/rmarkdown/topics/render">rmarkdown::render</a></code> on it, which starts a fresh environment, and runs the code. This means that <code>reprex</code> will fail hard and fail early if your examples aren’t reproducible. If you don’t have the correct library loaded, it will show the error messages.</p>
+<p>There is also an option for Stack Overflow (<code><a href="../../reference/reprex.html">reprex(venue = "so")</a></code>).</p>
+<p>How does this work? <code><a href="../../reference/reprex.html">reprex()</a></code> takes the section of copied code and then runs <code><a href="http://www.rdocumentation.org/packages/rmarkdown/topics/render">rmarkdown::render()</a></code> on it, which starts a fresh environment, and runs the code. This means that <code><a href="../../reference/reprex.html">reprex()</a></code> will fail hard and fail early if your examples aren’t reproducible. If you don’t have the correct library loaded, it will show the error messages.</p>
 <p>
 </p>
 <div style="height: auto">
-<p><img src="https://njtierney.updog.co/gifs/reprex-fail-1.gif" alt="Gif of reprex copying code, running reprex, and demonstrating the html preview of the code text" style="width: 100%;max-height: 100%"></p>
+<p><img src="https://raw.githubusercontent.com/tidyverse/reprex/master/img/reprex-fail-1.gif" alt="Gif of reprex copying code, running reprex, and demonstrating the html preview of the code text" style="width: 100%;max-height: 100%"></p>
 </div>
 
 <p>But then when you fix that, by adding library calls to <a href="https://github.com/njtierney/visdat"><code>visdat</code></a>, <a href="https://github.com/tidyverse/ggplot2"><code>ggplot2</code></a> and <a href="https://github.com/njtierney/naniar"><code>naniar</code></a>, and you get what you want:</p>
 <p>
 </p>
 <div style="height: auto">
-<p><img src="https://njtierney.updog.co/gifs/reprex-success-1.gif" alt="Gif of reprex copying code, running reprex, and demonstrating the html preview of the code text using visdat, naniar, and ggplot2 packages" style="width: 100%;max-height: 100%"></p>
+<p><img src="https://raw.githubusercontent.com/tidyverse/reprex/master/img/reprex-success-1.gif" alt="Gif of reprex copying code, running reprex, and demonstrating the html preview of the code text using visdat, naniar, and ggplot2 packages" style="width: 100%;max-height: 100%"></p>
 </div>
 
-<p>So you know that when you run <code>reprex</code>, and it gives you a reproducible example, it will work!</p>
-<p>Also worth mentioning is that rather magically, <code>reprex</code> also handles images. I didn’t even notice this at first. It was just one of those things where “it just works”. <code>reprex</code> handles this by uploading them to imgur using the <code><a href="http://www.rdocumentation.org/packages/knitr/topics/imgur_upload">knitr::imgur_upload</a></code> function, which creates markdown links to the images.</p>
+<p>So you know that when you run <code><a href="../../reference/reprex.html">reprex()</a></code>, and it gives you a reproducible example, it will work!</p>
+<p>Also worth mentioning is that rather magically, <code><a href="../../reference/reprex.html">reprex()</a></code> also handles images. I didn’t even notice this at first. It was just one of those things where “it just works”. <code><a href="../../reference/reprex.html">reprex()</a></code> handles this by uploading them to imgur using the <code><a href="http://www.rdocumentation.org/packages/knitr/topics/imgur_upload">knitr::imgur_upload()</a></code> function, which creates markdown links to the images.</p>
 <p>so</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw">library</span>(tidyverse)
@@ -195,12 +195,12 @@ ggplot(data = lm_augmented,
            y = Sepal.Length)) +
   geom_point()
 
-`![](http://i.imgur.com/h72ZEKG.png)`</code></pre>
-<p>You can even show the results of the <code>session_info</code>, for maximum reproducibility, by adding the argument: <code><a href="http://www.rdocumentation.org/packages/reprex/topics/reprex">reprex::reprex(si = TRUE)</a></code>, which adds a super nifty drop down box for the session info.</p>
+![](http://i.imgur.com/h72ZEKG.png)</code></pre>
+<p>You can even show the results of the <code>session_info()</code>, for maximum reproducibility, by adding the argument: <code><a href="http://www.rdocumentation.org/packages/reprex/topics/reprex">reprex::reprex(si = TRUE)</a></code>, which adds a super nifty drop down box for the session info.</p>
 <p>
 </p>
 <div style="height: auto">
-<p><img src="https://njtierney.updog.co/gifs/reprex-si.gif" alt="Gif of reprex copying code, running reprex, showing option SI = TRUE" style="width: 100%;max-height: 100%"></p>
+<p><img src="https://raw.githubusercontent.com/tidyverse/reprex/master/img/reprex-si.gif" alt="Gif of reprex copying code, running reprex, showing option SI = TRUE" style="width: 100%;max-height: 100%"></p>
 </div>
 
 <p>I really like these sorts of small tools in R. Squinting at a distance you might make the mistake of thinking:</p>
@@ -212,11 +212,11 @@ ggplot(data = lm_augmented,
 <p>
 </p>
 <div style="height: auto">
-<p><img src="https://njtierney.updog.co/img/ProgrammerInterrupted.png" alt="Why you shouldn't interrupt a programmer" style="max-height: 100%"></p>
+<p><img src="https://raw.githubusercontent.com/tidyverse/reprex/master/img/ProgrammerInterrupted.png" alt="Why you shouldn't interrupt a programmer" style="max-height: 100%"></p>
 </div>
 
 <p>Once again thank you to Jenny Bryan for making our lives easier. Jenny will be joining the RStudio team this year and I am really looking forward to seeing what she gets up to.</p>
-<p>Read more about <code>reprex</code> on github <a href="http://www.github.com/tidyverse/reprex">here</a>.</p>
+<p>Read more about reprex on github <a href="http://www.github.com/tidyverse/reprex#readme">here</a>.</p>
 </div>
   </div>
 
