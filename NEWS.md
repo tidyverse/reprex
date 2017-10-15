@@ -1,26 +1,48 @@
 # reprex 0.1.1.9000
 
-  *  `reprex()` gains the argument `advertise`, defaulting to `TRUE`, which describes when and how the reprex was created, e.g., "Created by the reprex package; 2017-10-11" (#121, #69).
+reprex has a website: <http://reprex.tidyverse.org>. It includes a community-contributed article (#103 @njtierney).
 
-  *  `reprex()` gains the argument `styler`, defaulting to `FALSE`, which requests code restyling via the newly-Suggested styler package. styler can cope with tidyeval syntactical sugar, e.g. `df %>% group_by(!!group_var)` (#108, #94).
+reprex is now developed within the [tidyverse Organization](https://github.com/tidyverse). It is installed as part of the [tidyverse meta-package](https://www.tidyverse.org) (development version only, at time of writing) and is [suggested to those seeking help](https://www.tidyverse.org/help/). 
 
-  * Expression input handling has been refactored. As a result, formatR is no longer Suggested. Trailing comments -- inline and on their own line -- are also now retained (#89, #91, #115, @jennybc and @jimhester).
+`reprex()` gains several arguments and many arguments can now be controlled via an option, in case a user wants their own defaults.
+
+## Option-controlled arguments
+
+These look like `reprex(..., arg = opt(DEFAULT), ...)` in the help file. This is shorthand for `arg = getOption("reprex.arg", DEFAULT)`, i.e. the option `reprex.arg` is consulted and, if unset, the documented default is used (#116).
+
+## New arguments to `reprex()`:
+
+  * `advertise`: describes when and how the reprex was created, e.g., "Created by the reprex package; 2017-10-11". Defaults to `TRUE` (#121, #69). Uses the new function `reprex_info()`.
+  * `styler`: requests code restyling via the newly-Suggested styler package. styler can cope with tidyeval syntactical sugar, e.g. `df %>% group_by(!!group_var)`. Defaults to `FALSE` (#108, #94).
+  * `tidyverse_quiet`: affords control of the startup message of the tidyverse meta-package. Defaults to `TRUE` (important special case of #70, #100).
+  * `std_out_err`: appends output sent to stdout and stderr by the reprex rendering process. This can be necessary to reveal output if the reprex spawns child processes or has `system()` calls. Defaults to `FALSE` (#90, #110).
+  * `render`: determines if the reprex is actually rendered or just returns after producing the templated `.R` file. For internal testing.
+  
+## Other changes
+
+  * The default value for knitr's `upload.fun` is now set according to the venue. It is `knitr::imgur_upload()` for all venues except `"r"`, where it is `identity` (#125).
+
+  * The HTML preview should appear in the RStudio Viewer more consistently, especially on Windows (#75 @yutannihilation).
+  
+  * More rigorous use of UTF-8 encoding (#76 @yutannihilation).
+  
+  * `venue = "gh"` now targets CommonMark as the standard for GitHub Flavored Markdown (#77).
+
+  * Expression input handling has been refactored. As a result, formatR is no longer Suggested. Trailing comments -- inline and on their own line -- are also now retained (#89, #91, #114, @jennybc and @jimhester).
 
   * The `venue` argument gains a new value, `"ds"`, for <https://www.discourse.org>, which is the platform behind [community.rstudio.com](https://community.rstudio.com). This is currently just an alias for the default `"gh"` GitHub venue, because the formatting appears to be compatible. Adding the `"ds"` value so Discourse can be documented and to guard against the possibility that some formatting is actually unique.
 
-  * `reprex()` gains the argument `tidyverse_quiet`, defaulting to `TRUE`, which affords control of the startup message of the tidyverse meta-package (important special case of #70, #100).
-
-  * Custom prompts are now escaped when used in regexes (#98 @jimhester).
+  * Custom prompts are now escaped when used in regexes (#98, #99 @jimhester).
 
   * New `reprex_selection()` add-in reprexes the current selection, with options
     controlled by options `reprex.venue`, `reprex.si`, and `reprex.show` 
     (#56, #71, #81)
 
-  * `reprex_addin()` displays notificaton as inline dialog
+  * `reprex_addin()` displays notificaton as inline dialog.
 
 # reprex 0.1.1
 
-  * pandoc added to SystemRequirements
+  * pandoc added to SystemRequirements.
 
 # reprex 0.1.0
 

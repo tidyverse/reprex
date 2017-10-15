@@ -97,22 +97,51 @@
     <div id="reprex-0-1-1-9000" class="section level1">
 <h1 class="hasAnchor">
 <a href="#reprex-0-1-1-9000" class="anchor"></a>reprex 0.1.1.9000</h1>
+<p>reprex has a website: <a href="http://reprex.tidyverse.org" class="uri">http://reprex.tidyverse.org</a>. It includes a community-contributed article (#103 @njtierney).</p>
+<p>reprex is now developed within the <a href="https://github.com/tidyverse">tidyverse Organization</a>. It is installed as part of the <a href="https://www.tidyverse.org">tidyverse meta-package</a> (development version only, at time of writing) and is <a href="https://www.tidyverse.org/help/">suggested to those seeking help</a>.</p>
+<p><code><a href="../reference/reprex.html">reprex()</a></code> gains several arguments and many arguments can now be controlled via an option, in case a user wants their own defaults.</p>
+<div id="option-controlled-arguments" class="section level2">
+<h2 class="hasAnchor">
+<a href="#option-controlled-arguments" class="anchor"></a>Option-controlled arguments</h2>
+<p>These look like <code><a href="../reference/reprex.html">reprex(..., arg = opt(DEFAULT), ...)</a></code> in the help file. This is shorthand for <code>arg = getOption("reprex.arg", DEFAULT)</code>, i.e. the option <code>reprex.arg</code> is consulted and, if unset, the documented default is used (#116).</p>
+</div>
+<div id="new-arguments-to-reprex" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-arguments-to-reprex" class="anchor"></a>New arguments to <code><a href="../reference/reprex.html">reprex()</a></code>:</h2>
 <ul>
-<li><p><code><a href="../reference/reprex.html">reprex()</a></code> gains the argument <code>advertise</code>, defaulting to <code>TRUE</code>, which describes when and how the reprex was created, e.g., “Created by the reprex package; 2017-10-11” (#121, #69).</p></li>
-<li><p><code><a href="../reference/reprex.html">reprex()</a></code> gains the argument <code>styler</code>, defaulting to <code>FALSE</code>, which requests code restyling via the newly-Suggested styler package. styler can cope with tidyeval syntactical sugar, e.g. <code>df %&gt;% group_by(!!group_var)</code> (#108, #94).</p></li>
-<li><p>Expression input handling has been refactored. As a result, formatR is no longer Suggested. Trailing comments – inline and on their own line – are also now retained (#89, #91, #115, @jennybc and @jimhester).</p></li>
-<li><p>The <code>venue</code> argument gains a new value, <code>"ds"</code>, for <a href="https://www.discourse.org" class="uri">https://www.discourse.org</a>, which is the platform behind <a href="https://community.rstudio.com">community.rstudio.com</a>. This is currently just an alias for the default <code>"gh"</code> GitHub venue, because the formatting appears to be compatible. Adding the <code>"ds"</code> value so Discourse can be documented and to guard against the possibility that some formatting is actually unique.</p></li>
-<li><p><code><a href="../reference/reprex.html">reprex()</a></code> gains the argument <code>tidyverse_quiet</code>, defaulting to <code>TRUE</code>, which affords control of the startup message of the tidyverse meta-package (important special case of #70, #100).</p></li>
-<li><p>Custom prompts are now escaped when used in regexes (#98 @jimhester).</p></li>
-<li><p>New <code><a href="../reference/reprex_addin.html">reprex_selection()</a></code> add-in reprexes the current selection, with options controlled by options <code>reprex.venue</code>, <code>reprex.si</code>, and <code>reprex.show</code> (#56, #71, #81)</p></li>
-<li><p><code><a href="../reference/reprex_addin.html">reprex_addin()</a></code> displays notificaton as inline dialog</p></li>
+<li>
+<code>advertise</code>: describes when and how the reprex was created, e.g., “Created by the reprex package; 2017-10-11”. Defaults to <code>TRUE</code> (#121, #69). Uses the new function <code><a href="../reference/reprex_info.html">reprex_info()</a></code>.</li>
+<li>
+<code>styler</code>: requests code restyling via the newly-Suggested styler package. styler can cope with tidyeval syntactical sugar, e.g. <code>df %&gt;% group_by(!!group_var)</code>. Defaults to <code>FALSE</code> (#108, #94).</li>
+<li>
+<code>tidyverse_quiet</code>: affords control of the startup message of the tidyverse meta-package. Defaults to <code>TRUE</code> (important special case of #70, #100).</li>
+<li>
+<code>std_out_err</code>: appends output sent to stdout and stderr by the reprex rendering process. This can be necessary to reveal output if the reprex spawns child processes or has <code>system()</code> calls. Defaults to <code>FALSE</code> (#90, #110).</li>
+<li>
+<code>render</code>: determines if the reprex is actually rendered or just returns after producing the templated <code>.R</code> file. For internal testing.</li>
 </ul>
+</div>
+<div id="other-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other-changes" class="anchor"></a>Other changes</h2>
+<ul>
+<li><p>The default value for knitr’s <code>upload.fun</code> is now set according to the venue. It is <code><a href="http://www.rdocumentation.org/packages/knitr/topics/imgur_upload">knitr::imgur_upload()</a></code> for all venues except <code>"r"</code>, where it is <code>identity</code> (#125).</p></li>
+<li><p>The HTML preview should appear in the RStudio Viewer more consistently, especially on Windows (#75 @yutannihilation).</p></li>
+<li><p>More rigorous use of UTF-8 encoding (#76 @yutannihilation).</p></li>
+<li><p><code>venue = "gh"</code> now targets CommonMark as the standard for GitHub Flavored Markdown (#77).</p></li>
+<li><p>Expression input handling has been refactored. As a result, formatR is no longer Suggested. Trailing comments – inline and on their own line – are also now retained (#89, #91, #114, @jennybc and @jimhester).</p></li>
+<li><p>The <code>venue</code> argument gains a new value, <code>"ds"</code>, for <a href="https://www.discourse.org" class="uri">https://www.discourse.org</a>, which is the platform behind <a href="https://community.rstudio.com">community.rstudio.com</a>. This is currently just an alias for the default <code>"gh"</code> GitHub venue, because the formatting appears to be compatible. Adding the <code>"ds"</code> value so Discourse can be documented and to guard against the possibility that some formatting is actually unique.</p></li>
+<li><p>Custom prompts are now escaped when used in regexes (#98, #99 @jimhester).</p></li>
+<li><p>New <code><a href="../reference/reprex_addin.html">reprex_selection()</a></code> add-in reprexes the current selection, with options controlled by options <code>reprex.venue</code>, <code>reprex.si</code>, and <code>reprex.show</code> (#56, #71, #81)</p></li>
+<li><p><code><a href="../reference/reprex_addin.html">reprex_addin()</a></code> displays notificaton as inline dialog.</p></li>
+</ul>
+</div>
 </div>
     <div id="reprex-0-1-1" class="section level1">
 <h1 class="hasAnchor">
 <a href="#reprex-0-1-1" class="anchor"></a>reprex 0.1.1</h1>
 <ul>
-<li>pandoc added to SystemRequirements</li>
+<li>pandoc added to SystemRequirements.</li>
 </ul>
 </div>
     <div id="reprex-0-1-0" class="section level1">
