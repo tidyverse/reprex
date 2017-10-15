@@ -134,3 +134,12 @@ escape_regex <- function(x) {
 in_tests <- function() {
   identical(Sys.getenv("TESTTHAT"), "true")
 }
+
+ds_is_gh <- function(venue) {
+  if (venue == "ds") {
+    message("FYI, the Discourse venue \"ds\" is currently an alias for the ",
+            "default GitHub venue \"gh\".\nYou don't need to specify it.")
+    venue <- "gh"
+  }
+  venue
+}

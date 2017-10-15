@@ -48,9 +48,15 @@ NULL
 #' }, show = FALSE)
 #' writeLines(x)
 #' reprex_invert(x)
-reprex_invert <- function(input = NULL, venue = c("gh", "so"), comment = "^#>") {
-  x <- ingest_input(input)
+reprex_invert <- function(input = NULL,
+                          venue = c("gh", "so", "ds"),
+                          comment = opt("#>")) {
   venue <- match.arg(venue)
+  venue <- ds_is_gh(venue)
+  comment <- arg_option(comment)
+
+  x <- ingest_input(input)
+
   reprex_undo(x, is_md = TRUE, venue = venue, comment = comment)
 }
 
@@ -77,7 +83,9 @@ reprex_invert <- function(input = NULL, venue = c("gh", "so"), comment = "^#>") 
 #' (code_out <- reprex_clean(res))
 #' identical(code_in, code_out)
 #' }
-reprex_clean <- function(input = NULL, comment = "^#>") {
+reprex_clean <- function(input = NULL,
+                         comment = opt("#>")) {
+  comment <- arg_option(comment)
   x <- ingest_input(input)
   reprex_undo(x, is_md = FALSE, comment = comment)
 }

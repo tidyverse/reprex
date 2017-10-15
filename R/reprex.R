@@ -211,12 +211,7 @@ reprex <- function(x = NULL,
 
   venue <- tolower(venue)
   venue <- match.arg(venue)
-  if (venue == "ds") {
-    message("FYI, the Discourse venue \"ds\" is currently an alias for the ",
-            "default GitHub venue \"gh\".\nYou don't need to specify it.")
-    venue <- "gh"
-  }
-  upload_fun <- if (venue == "r") "identity" else "knitr::imgur_upload"
+  venue <- ds_is_gh(venue)
 
   advertise <- arg_option(advertise)
   si <- arg_option(si)
@@ -245,7 +240,7 @@ reprex <- function(x = NULL,
   }
   if (is.null(the_source)) {
     the_source <- ingest_input(input)
-    }
+  }
   if (styler) {
     if (requireNamespace("styler", quietly = TRUE)) {
       the_source <- styler::style_text(the_source)
@@ -284,7 +279,7 @@ reprex <- function(x = NULL,
     si = isTRUE(si),
     devtools = requireNamespace("devtools", quietly = TRUE),
     comment = comment,
-    upload_fun = upload_fun,
+    upload_fun = if (venue == "r") "identity" else "knitr::imgur_upload",
     user_opts_chunk = prep_opts(opts_chunk, which = "chunk"),
     user_opts_knit = prep_opts(opts_knit, which = "knit"),
     tidyverse_quiet = as.character(tidyverse_quiet),
