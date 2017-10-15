@@ -56,8 +56,9 @@ browser). Read more about \code{\link[=opt]{opt()}}.}
 to \code{"#>"}. Read more about \code{\link[=opt]{opt()}}.}
 
 \item{opts_chunk, opts_knit}{Named list. Optional
-\href{http://yihui.name/knitr/options/}{knitr chunk and package options},
-respectively, to supplement or override reprex defaults. See Details.}
+\href{http://yihui.name/knitr/options/}{knitr chunk and package options} that
+are forwarded to \code{knitr::opts_chunk$set()} and \code{knitr::opts_knit$set()},
+respectively.}
 
 \item{tidyverse_quiet}{Logical. Sets the option \code{tidyverse.quiet}, which
 suppresses (\code{TRUE}, the default) or includes (\code{FALSE}) the startup message
@@ -104,15 +105,14 @@ which you can supplement or override via the \code{opts_chunk} and
 the dedicated argument, e.g.\code{commment = "#;-)"}.
 \itemize{
 \item Chunk options default to \code{collapse = TRUE}, \code{comment = "#>"},
-\code{error = TRUE}. These are options you normally set via
-\code{knitr::opts_chunk$set()}. Note that \code{error = TRUE}, because a
-common use case is bug reporting.
-\item Package options default to \code{upload.fun = knitr::imgur_upload}.
-These are options you normally set via \code{knitr::opts_knit$set()}. The
-\code{upload.fun} defaults to \code{\link[knitr:imgur_upload]{knitr::imgur_upload()}} so figures
-produced by the reprex appear properly on GitHub. Note that this function
-requires installation of the packages httr & xml2 or RCurl & XML, depending
-on which version of knitr is present.
+\code{error = TRUE}. Note that \code{error = TRUE}, because a common use case is bug
+reporting.
+\item reprex also sets knitr's \code{upload.fun}. It defaults to
+\code{\link[knitr:imgur_upload]{knitr::imgur_upload()}} so figures produced by the reprex appear properly
+on GitHub, Stack Overflow, or Discourse. Note that this function requires
+the packages httr & xml2 or RCurl & XML, depending on your knitr version.
+When \code{venue = "r"}, \code{upload.fun} is set to \code{identity}, so that figures
+remain local. In that case, you may also want to set \code{outfile}.
 }
 }
 \examples{

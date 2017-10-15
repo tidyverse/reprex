@@ -49,3 +49,10 @@ test_that("`comment` is special", {
   expect_identical(short_form, long_form)
   expect_identical(medium_form, long_form)
 })
+
+test_that("venue determines default value of `upload.fun`", {
+  out <- reprex(plot(1), render = FALSE)
+  expect_match(out, "knitr::imgur_upload", all = FALSE)
+  out <- reprex(plot(1), render = FALSE, venue = "r")
+  expect_match(out, "identity", all = FALSE)
+})

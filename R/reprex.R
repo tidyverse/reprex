@@ -23,18 +23,15 @@
 #' `opts_knit` arguments or via explicit calls to knitr in your reprex code
 #' (see examples). If all you want to override is the `comment` option, use
 #' the dedicated argument, e.g.`commment = "#;-)"`.
-#'
 #' * Chunk options default to `collapse = TRUE`, `comment = "#>"`,
-#'   `error = TRUE`. These are options you normally set via
-#'   `knitr::opts_chunk$set()`. Note that `error = TRUE`, because a
-#'   common use case is bug reporting.
-#'
-#' * Package options default to `upload.fun = knitr::imgur_upload`.
-#'   These are options you normally set via `knitr::opts_knit$set()`. The
-#'   `upload.fun` defaults to [knitr::imgur_upload()] so figures
-#'   produced by the reprex appear properly on GitHub. Note that this function
-#'   requires installation of the packages httr & xml2 or RCurl & XML, depending
-#'   on which version of knitr is present.
+#'   `error = TRUE`. Note that `error = TRUE`, because a common use case is bug
+#'   reporting.
+#' * reprex also sets knitr's `upload.fun`. It defaults to
+#'   [knitr::imgur_upload()] so figures produced by the reprex appear properly
+#'   on GitHub, Stack Overflow, or Discourse. Note that this function requires
+#'   the packages httr & xml2 or RCurl & XML, depending on your knitr version.
+#'   When `venue = "r"`, `upload.fun` is set to `identity`, so that figures
+#'   remain local. In that case, you may also want to set `outfile`.
 #'
 #' @param x An expression. If not given, `reprex()` looks for code in
 #'   `input` or on the clipboard, in that order.
@@ -73,8 +70,9 @@
 #'   templated `.R` file. Defaults to `TRUE`. Mostly for internal testing
 #'   purposes.
 #' @param opts_chunk,opts_knit Named list. Optional
-#'   [knitr chunk and package options](http://yihui.name/knitr/options/),
-#'   respectively, to supplement or override reprex defaults. See Details.
+#'   [knitr chunk and package options](http://yihui.name/knitr/options/) that
+#'   are forwarded to `knitr::opts_chunk$set()` and `knitr::opts_knit$set()`,
+#'   respectively.
 #' @param tidyverse_quiet Logical. Sets the option `tidyverse.quiet`, which
 #'   suppresses (`TRUE`, the default) or includes (`FALSE`) the startup message
 #'   for the tidyverse package. Read more about [opt()].
@@ -218,6 +216,7 @@ reprex <- function(x = NULL,
             "default GitHub venue \"gh\".\nYou don't need to specify it.")
     venue <- "gh"
   }
+  upload_fun <- if (venue == "r") "identity" else "knitr::imgur_upload"
 
   advertise <- arg_option(advertise)
   si <- arg_option(si)
@@ -246,7 +245,7 @@ reprex <- function(x = NULL,
   }
   if (is.null(the_source)) {
     the_source <- ingest_input(input)
-  }
+    }
   if (styler) {
     if (requireNamespace("styler", quietly = TRUE)) {
       the_source <- styler::style_text(the_source)
@@ -285,6 +284,7 @@ reprex <- function(x = NULL,
     si = isTRUE(si),
     devtools = requireNamespace("devtools", quietly = TRUE),
     comment = comment,
+    upload_fun = upload_fun,
     user_opts_chunk = prep_opts(opts_chunk, which = "chunk"),
     user_opts_knit = prep_opts(opts_knit, which = "knit"),
     tidyverse_quiet = as.character(tidyverse_quiet),

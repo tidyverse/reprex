@@ -175,8 +175,9 @@ to <code>"#&gt;"</code>. Read more about <code><a href='opt.html'>opt()</a></cod
     <tr>
       <th>opts_chunk, opts_knit</th>
       <td><p>Named list. Optional
-<a href='http://yihui.name/knitr/options/'>knitr chunk and package options</a>,
-respectively, to supplement or override reprex defaults. See Details.</p></td>
+<a href='http://yihui.name/knitr/options/'>knitr chunk and package options</a> that
+are forwarded to <code>knitr::opts_chunk$set()</code> and <code>knitr::opts_knit$set()</code>,
+respectively.</p></td>
     </tr>
     <tr>
       <th>tidyverse_quiet</th>
@@ -218,15 +219,14 @@ which you can supplement or override via the <code>opts_chunk</code> and
 (see examples). If all you want to override is the <code>comment</code> option, use
 the dedicated argument, e.g.<code>commment = "#;-)"</code>.</p><ul>
 <li><p>Chunk options default to <code>collapse = TRUE</code>, <code>comment = "#&gt;"</code>,
-<code>error = TRUE</code>. These are options you normally set via
-<code>knitr::opts_chunk$set()</code>. Note that <code>error = TRUE</code>, because a
-common use case is bug reporting.</p></li>
-<li><p>Package options default to <code>upload.fun = knitr::imgur_upload</code>.
-These are options you normally set via <code>knitr::opts_knit$set()</code>. The
-<code>upload.fun</code> defaults to <code><a href='http://www.rdocumentation.org/packages/knitr/topics/imgur_upload'>knitr::imgur_upload()</a></code> so figures
-produced by the reprex appear properly on GitHub. Note that this function
-requires installation of the packages httr &amp; xml2 or RCurl &amp; XML, depending
-on which version of knitr is present.</p></li>
+<code>error = TRUE</code>. Note that <code>error = TRUE</code>, because a common use case is bug
+reporting.</p></li>
+<li><p>reprex also sets knitr's <code>upload.fun</code>. It defaults to
+<code><a href='http://www.rdocumentation.org/packages/knitr/topics/imgur_upload'>knitr::imgur_upload()</a></code> so figures produced by the reprex appear properly
+on GitHub, Stack Overflow, or Discourse. Note that this function requires
+the packages httr &amp; xml2 or RCurl &amp; XML, depending on your knitr version.
+When <code>venue = "r"</code>, <code>upload.fun</code> is set to <code>identity</code>, so that figures
+remain local. In that case, you may also want to set <code>outfile</code>.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
