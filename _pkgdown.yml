@@ -8,8 +8,8 @@ home:
 navbar:
   type: default
   left:
-  - text: Intro
-    href: articles/reprex.html
+  - text: Reprex do's and don'ts
+    href: articles/reprex-dos-and-donts.html
   - text: Articles
     menu:
     - text: Magic reprex by N. Tierney
