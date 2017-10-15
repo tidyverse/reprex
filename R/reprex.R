@@ -232,15 +232,13 @@ reprex <- function(x = NULL,
 
   the_source <- NULL
   x_captured <- substitute(x)
-  if (!is.null(x_captured)) {
-    if (!is.null(input)) {
-      message("`input` ignored in favor of expression input in `x`.")
-    }
-    the_source <- stringify_expression(x_captured)
+  if (!is.null(x_captured) && !is.null(input)) {
+    message("`input` ignored in favor of expression input in `x`.")
+    input <- NULL
   }
-  if (is.null(the_source)) {
-    the_source <- ingest_input(input)
-  }
+  infile <- if (is_path(input)) input else NULL
+  the_source <- stringify_expression(x_captured) %||% ingest_input(input)
+
   if (styler) {
     if (requireNamespace("styler", quietly = TRUE)) {
       the_source <- styler::style_text(the_source)
@@ -253,23 +251,16 @@ reprex <- function(x = NULL,
   }
 
   outfile_given <- !is.null(outfile)
-  if (outfile_given && is.na(outfile)) {
-    ## we will work in working directory
-    if (length(input) == 1 && !grepl("\n$", input)) {
-      outfile <- input
-    } else {
-      outfile <- basename(tempfile())
-    }
-  }
-  files <- make_filenames(strip_ext(outfile) %||% tempfile())
+  filebase <- make_filebase(outfile, infile)
+  files <- make_filenames(filebase)
   r_file <- files[["r_file"]]
-  std_file <- if (std_out_err) files[["std_file"]] else NULL
   if (file.exists(r_file) &&
       yesno("Oops, file already exists:\n  * ", r_file, "\n",
             "Delete it and carry on with this reprex?")) {
     cat("Exiting.\n")
     return(invisible())
   }
+  std_file <- if (std_out_err) files[["std_file"]] else NULL
 
   the_source <- ensure_not_empty(the_source)
   the_source <- ensure_not_dogfood(the_source)
@@ -356,6 +347,14 @@ reprex_ <- function(input, std_out_err = NULL) {
     stdout = std_out_err,
     stderr = std_out_err
   )
+}
+
+make_filebase <- function(outfile = NULL, infile = NULL) {
+  if (!is.null(outfile) && is.na(outfile)) {
+    ## we will work in working directory
+    outfile <- infile %||% basename(tempfile())
+  }
+  strip_ext(outfile) %||% tempfile()
 }
 
 make_filenames <- function(filebase = "foo") {

@@ -99,11 +99,6 @@ add_ext <- function(x, ext = "R", force = FALSE) {
   }
 }
 
-## read from
-##   1 clipboard
-##   2 `input`, which could be
-##      character vector or string
-##      path
 ingest_input <- function(input = NULL) {
 
   if (is.null(input)) {                            ## clipboard or bust

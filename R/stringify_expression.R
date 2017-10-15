@@ -4,6 +4,8 @@
 
 stringify_expression <- function(x) {
 
+  if (is.null(x)) return(NULL)
+
   .srcref <- utils::getSrcref(x)
 
   if (is.null(.srcref)) {
