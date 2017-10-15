@@ -53,11 +53,7 @@ reprex_invert <- function(input = NULL,
                           comment = opt("#>")) {
   venue <- match.arg(venue)
   venue <- ds_is_gh(venue)
-  comment <- arg_option(comment)
-
-  x <- ingest_input(input)
-
-  reprex_undo(x, is_md = TRUE, venue = venue, comment = comment)
+  reprex_undo(input, is_md = TRUE, venue = venue, comment = comment)
 }
 
 #' @describeIn un-reprex Removes lines of commented output from a displayed
@@ -85,9 +81,7 @@ reprex_invert <- function(input = NULL,
 #' }
 reprex_clean <- function(input = NULL,
                          comment = opt("#>")) {
-  comment <- arg_option(comment)
-  x <- ingest_input(input)
-  reprex_undo(x, is_md = FALSE, comment = comment)
+  reprex_undo(input, is_md = FALSE, comment = comment)
 }
 
 #' @describeIn un-reprex Removes lines of output and strips prompts from lines
@@ -106,8 +100,7 @@ reprex_clean <- function(input = NULL,
 reprex_rescue <- function(input = NULL,
                           prompt = getOption("prompt"),
                           continue = getOption("continue")) {
-  x <- ingest_input(input)
-  reprex_undo(x,
+  reprex_undo(input,
               is_md = FALSE,
               prompt = paste(
                 escape_regex(prompt),
@@ -119,6 +112,9 @@ reprex_rescue <- function(input = NULL,
 
 reprex_undo <- function(x = NULL, is_md = FALSE, venue,
                         comment = NULL, prompt = NULL) {
+  x <- ingest_input(x)
+  comment <- arg_option(comment)
+
   if (is_md) {
     if (identical(venue, "gh")) {      ## reprex_invert
       line_info <- classify_lines_bt(x, comment = comment)
@@ -135,6 +131,7 @@ reprex_undo <- function(x = NULL, is_md = FALSE, venue,
     x_out <- x[grepl(regex, x)]
     x_out <- sub(regex, "", x_out)
   }
+
   if (clipboard_available() && length(x_out) > 0) {
     clipr::write_clip(x_out)
   }
