@@ -132,5 +132,5 @@ escape_regex <- function(x) {
 }
 
 in_tests <- function() {
-  nzchar(Sys.getenv("R_TESTS", "")) || as.logical(Sys.getenv("NOT_CRAN", "FALSE"))
+  identical(Sys.getenv("TESTTHAT"), "true")
 }
