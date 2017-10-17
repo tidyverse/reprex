@@ -37,8 +37,7 @@
 #'   `input` or on the clipboard, in that order.
 #' @param input Character. If has length one and lacks a terminating newline,
 #'   interpreted as the path to a file containing reprex code. Otherwise,
-#'   assumed to hold reprex code as character vector (length greater than one)
-#'   or string (with embedded newlines).
+#'   assumed to hold reprex code as character vector.
 #' @param outfile Optional basename for output files. When `NULL`
 #'   (default), reprex writes to temp files below the session temp directory. If
 #'   `outfile = "foo"`, expect output files in current working directory,

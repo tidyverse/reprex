@@ -87,11 +87,10 @@ test_that("outfiles based on tempfile()", {
   expect_identical(msg[1:3], base_msg)
 })
 
-test_that("pre-existing foo_reprex.R isn't get clobbered, w/o user's OK", {
+test_that("pre-existing foo_reprex.R doesn't get clobbered w/o user's OK", {
   on.exit(file.remove("foo_reprex.R", "foo_reprex.md"))
-  ret <- reprex(min(1L), show = FALSE, outfile = "foo")
-  expect_match(readLines("foo_reprex.md"), "min(1L)", all = FALSE, fixed = TRUE)
-  expect_output(reprex(max(2L), show = FALSE, outfile = "foo"),
-                "Exiting")
-  expect_match(readLines("foo_reprex.md"), "min(1L)", all = FALSE, fixed = TRUE)
+  ret <- reprex(1:3, show = FALSE, outfile = "foo")
+  expect_match(readLines("foo_reprex.md"), "1:3", all = FALSE, fixed = TRUE)
+  reprex(max(4:6), show = FALSE, outfile = "foo")
+  expect_match(readLines("foo_reprex.md"), "1:3", all = FALSE, fixed = TRUE)
 })

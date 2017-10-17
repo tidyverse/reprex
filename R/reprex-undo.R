@@ -2,12 +2,10 @@
 #'
 #' @description
 #' Recover clean, runnable code from a reprex captured in the wild. The code is
-#' printed, returned invisibly, and written to the clipboard, if possible. Pick
+#' returned invisibly, put on the clipboard, and possibly written to file. Pick
 #' the function that deals with your problem:
 #'
-#' * `reprex_invert()` handles Markdown, with code blocks indicated
-#'   with backticks or indentation, e.g., the direct output of
-#'   `reprex(..., venue = "gh")` or `reprex(..., venue = "so")`.
+#' * `reprex_invert()` attempts to reverse the effect of `reprex()`.
 #'
 #' * `reprex_clean()` assumes R code is top-level, possibly
 #'   interleaved with commented output, e.g., a displayed reprex copied from
@@ -17,10 +15,16 @@
 #'   printed output is top-level, e.g., what you'd get by copying from the R
 #'   Console.
 #'
-#' @param input character, holding a wild-caught reprex as a character vector
-#'   (length greater than one), string (length one with terminating newline), or
-#'   file path (length one with no terminating newline). If not provided, the
+#' @param input Character. If has length one and lacks a terminating newline,
+#'   interpreted as the path to a file containing reprex code. Otherwise,
+#'   assumed to hold reprex code as character vector. If not provided, the
 #'   clipboard is consulted for input.
+#' @param outfile Optional basename for output file. When `NULL`, no file is
+#'   left behind. If `outfile = "foo"`, expect an output file in current working
+#'   directory named `foo_clean.R`. If `outfile = NA`, expect on output file in
+#'   a location and with basename derived from `input`, if a path, or in
+#'   current working directory with basename derived from [tempfile()]
+#'   otherwise.
 #' @param comment regular expression that matches commented output lines
 #' @param prompt character, the prompt at the start of R commands
 #' @param continue character, the prompt for continuation lines
@@ -28,12 +32,8 @@
 #' @name un-reprex
 NULL
 
-#' @describeIn un-reprex Attempts to reverse the effect of
-#'   [reprex()]. The input should be Markdown, presumably the output
-#'   of [reprex()]. `venue` matters because, in GitHub-flavored
-#'   Markdown, code blocks are placed within triple backticks. In other Markdown
-#'   dialects, such as the one used on Stack Overflow, code is indented by four
-#'   spaces.
+#' @describeIn un-reprex Attempts to reverse the effect of [reprex()]. When
+#'   `venue = "r"`, this just becomes a wrapper around `reprex_clean()`.
 #' @inheritParams reprex
 #' @export
 #' @examples
@@ -49,11 +49,24 @@ NULL
 #' writeLines(x)
 #' reprex_invert(x)
 reprex_invert <- function(input = NULL,
-                          venue = c("gh", "so", "ds"),
+                          outfile = NULL,
+                          venue = c("gh", "so", "ds", "r"),
                           comment = opt("#>")) {
+  venue <- tolower(venue)
   venue <- match.arg(venue)
   venue <- ds_is_gh(venue)
-  reprex_undo(input, is_md = TRUE, venue = venue, comment = comment)
+
+  if (venue == "r") {
+    return(reprex_clean(input, outfile = outfile, comment = comment))
+  }
+
+  reprex_undo(
+    input,
+    outfile = outfile,
+    venue = venue,
+    is_md = TRUE,
+    comment = comment
+  )
 }
 
 #' @describeIn un-reprex Removes lines of commented output from a displayed
@@ -74,14 +87,15 @@ reprex_invert <- function(input = NULL,
 #' \dontrun{
 #' ## round trip with reprex(..., venue = "R")
 #' code_in <- c("x <- rnorm(2)", "min(x)")
-#' res <- reprex(input = code_in, venue = "R")
+#' res <- reprex(input = code_in, venue = "R", advertise = FALSE)
 #' res
 #' (code_out <- reprex_clean(res))
 #' identical(code_in, code_out)
 #' }
 reprex_clean <- function(input = NULL,
+                         outfile = NULL,
                          comment = opt("#>")) {
-  reprex_undo(input, is_md = FALSE, comment = comment)
+  reprex_undo(input, outfile = outfile, is_md = FALSE, comment = comment)
 }
 
 #' @describeIn un-reprex Removes lines of output and strips prompts from lines
@@ -98,22 +112,34 @@ reprex_clean <- function(input = NULL,
 #' )
 #' reprex_rescue(x)
 reprex_rescue <- function(input = NULL,
+                          outfile = NULL,
                           prompt = getOption("prompt"),
                           continue = getOption("continue")) {
-  reprex_undo(input,
-              is_md = FALSE,
-              prompt = paste(
-                escape_regex(prompt),
-                escape_regex(continue),
-                sep = "|"
-              )
+  reprex_undo(
+    input,
+    outfile = outfile,
+    is_md = FALSE,
+    prompt = paste(escape_regex(prompt), escape_regex(continue), sep = "|")
   )
 }
 
-reprex_undo <- function(x = NULL, is_md = FALSE, venue,
+reprex_undo <- function(x = NULL,
+                        outfile = NULL,
+                        venue,
+                        is_md = FALSE,
                         comment = NULL, prompt = NULL) {
+  infile <- if (is_path(x)) x else NULL
   x <- ingest_input(x)
   comment <- arg_option(comment)
+
+  outfile_requested <- !is.null(outfile)
+  if (outfile_requested) {
+    files <- make_filenames(make_filebase(outfile, infile), suffix = "clean")
+    r_file <- files[["r_file"]]
+    if (would_clobber(r_file)) {
+      return(invisible())
+    }
+  }
 
   if (is_md) {
     if (identical(venue, "gh")) {      ## reprex_invert
@@ -132,10 +158,14 @@ reprex_undo <- function(x = NULL, is_md = FALSE, venue,
     x_out <- sub(regex, "", x_out)
   }
 
-  if (clipboard_available() && length(x_out) > 0) {
+  if (clipboard_available()) {
     clipr::write_clip(x_out)
+    message("Clean code is on the clipboard.")
   }
-  message(paste0(x_out, "\n"))
+  if (outfile_requested) {
+    writeLines(x_out, r_file)
+    message("Writing clean code as R script:\n  * ", r_file)
+  }
   invisible(x_out)
 }
 

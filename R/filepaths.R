@@ -53,8 +53,8 @@ make_filebase <- function(outfile = NULL, infile = NULL) {
   strip_ext(outfile) %||% tempfile()
 }
 
-make_filenames <- function(filebase = "foo") {
-  filebase <- add_suffix(filebase, "reprex")
+make_filenames <- function(filebase = "foo", suffix = "reprex") {
+  filebase <- add_suffix(filebase, suffix)
   ## make this a list so I am never tempted to index with `[` instead of `[[`
   ## can cause sneaky name problems with the named list used as data for
   ## the whisker template
