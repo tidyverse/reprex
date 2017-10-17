@@ -252,6 +252,8 @@ reprex <- function(x = NULL,
     the_source <- c("reprex::reprex_info()", "", the_source)
   }
 
+  the_source <- c(get_library_calls(), the_source)
+
   outfile_given <- !is.null(outfile)
   if (outfile_given && is.na(outfile)) {
     ## we will work in working directory
