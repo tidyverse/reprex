@@ -7,9 +7,10 @@
 \alias{reprex_rescue}
 \title{Un-render a reprex}
 \usage{
-reprex_invert(input = NULL, venue = c("gh", "so"), comment = "^#>")
+reprex_invert(input = NULL, venue = c("gh", "so", "ds"),
+  comment = opt("#>"))
 
-reprex_clean(input = NULL, comment = "^#>")
+reprex_clean(input = NULL, comment = opt("#>"))
 
 reprex_rescue(input = NULL, prompt = getOption("prompt"),
   continue = getOption("continue"))
