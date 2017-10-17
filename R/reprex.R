@@ -251,13 +251,9 @@ reprex <- function(x = NULL,
   }
 
   outfile_given <- !is.null(outfile)
-  filebase <- make_filebase(outfile, infile)
-  files <- make_filenames(filebase)
+  files <- make_filenames(make_filebase(outfile, infile))
   r_file <- files[["r_file"]]
-  if (file.exists(r_file) &&
-      yesno("Oops, file already exists:\n  * ", r_file, "\n",
-            "Delete it and carry on with this reprex?")) {
-    cat("Exiting.\n")
+  if (would_clobber(r_file)) {
     return(invisible())
   }
   std_file <- if (std_out_err) files[["std_file"]] else NULL
@@ -349,34 +345,6 @@ reprex_ <- function(input, std_out_err = NULL) {
   )
 }
 
-make_filebase <- function(outfile = NULL, infile = NULL) {
-  if (!is.null(outfile) && is.na(outfile)) {
-    ## we will work in working directory
-    outfile <- infile %||% basename(tempfile())
-  }
-  strip_ext(outfile) %||% tempfile()
-}
-
-make_filenames <- function(filebase = "foo") {
-  filebase <- add_suffix(filebase, "reprex")
-  ## make this a list so I am never tempted to index with `[` instead of `[[`
-  ## can cause sneaky name problems with the named list used as data for
-  ## the whisker template
-  out <- list(    r_file = add_ext(           filebase,                 "R"),
-                std_file = add_ext(add_suffix(filebase, "std_out_err"), "txt"),
-               rout_file = add_ext(add_suffix(filebase, "rendered"),    "R"),
-               html_file = add_ext(           filebase,                 "html")
-  )
-  ## defensive use of "/" because Windows + this gets dropped into R code in
-  ## the template
-  out[["std_file"]] <- normalizePath(
-    out[["std_file"]],
-    winslash = "/",
-    mustWork = FALSE
-  )
-  out
-}
-
 convert_md_to_r <- function(lines, comment = "#>") {
   line_info <- classify_lines_bt(lines, comment = comment)
   lines <- ifelse(
@@ -385,13 +353,4 @@ convert_md_to_r <- function(lines, comment = "#>") {
     lines
   )
   lines[line_info != "bt"]
-}
-
-force_tempdir <- function(x) {
-  if (identical(normalizePath(tempdir()), basename(normalizePath(x)))) {
-    return(x)
-  }
-  tmp_file <- file.path(tempdir(), basename(x))
-  file.copy(x, tmp_file)
-  tmp_file
 }
