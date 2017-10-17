@@ -62,13 +62,25 @@ test_that("ingest_input() works", {
 
   expect_identical(input, ingest_input(input))
 
-  input_collapsed <- paste0(input, "\n", collapse = "")
-  expect_identical(input, ingest_input(input_collapsed))
-
   input_first_elem <- paste0(input[1], "\n")
   expect_identical(input[1], ingest_input(input_first_elem))
 
   on.exit(file.remove("foo.R"))
   writeLines(input, "foo.R")
   expect_identical(input, ingest_input("foo.R"))
+})
+
+test_that("newlines in code are protected and uniformly so across venues", {
+  ## NOTE: use of single vs double quotes is counter-intuitive, but deliberate
+  input <- 'paste(letters[1:3], collapse = "\n")\n'
+  chr_input <- reprex(input = input, render = FALSE)
+
+  on.exit(file.remove("foo.R"))
+  writeLines(escape_newlines('paste(letters[1:3], collapse = "\n")'), "foo.R")
+  path_input <- reprex(input = "foo.R", render = FALSE)
+
+  expr_input <- reprex(paste(letters[1:3], collapse = '\n'), render = FALSE)
+
+  expect_identical(chr_input, path_input)
+  expect_identical(chr_input, expr_input)
 })

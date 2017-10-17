@@ -2,6 +2,15 @@ is_toggle <- function(x) {
   length(x) == 1 && is.logical(x) && !is.na(x)
 }
 
+is_path <- function(x) {
+  length(x) == 1 && is.character(x) && !grepl("\n$", x)
+}
+
+read_lines <- function(path) {
+  if (is.null(path)) return(NULL)
+  readLines(path)
+}
+
 ## from purrr, among other places
 `%||%` <- function(x, y) {
   if (is.null(x)) {
@@ -106,13 +115,11 @@ ingest_input <- function(input = NULL) {
     }
   }
 
-  if (length(input) > 1 || grepl("\n$", input)) { ## vector or string
-    return(unlist(strsplit(input, "\n")))
+  if (is_path(input)) {                             ## path
+    read_lines(input)
+  } else {
+    escape_newlines(sub("\n$", "", input))          ## vector or string
   }
-
-  ## input must be path to file
-  readLines(input)
-
 }
 
 ## stripped down version of yesno() from devtools
@@ -129,6 +136,10 @@ yesno <- function(..., yes = "yes", no = "no") {
 escape_regex <- function(x) {
   chars <- c("*", ".", "?", "^", "+", "$", "|", "(", ")", "[", "]", "{", "}", "\\")
   gsub(paste0("([\\", paste0(collapse = "\\", chars), "])"), "\\\\\\1", x, perl = TRUE)
+}
+
+escape_newlines <- function(x) {
+  gsub("\n", "\\\\n", x, perl = TRUE)
 }
 
 in_tests <- function() {
