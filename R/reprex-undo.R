@@ -2,18 +2,8 @@
 #'
 #' @description
 #' Recover clean, runnable code from a reprex captured in the wild. The code is
-#' returned invisibly, put on the clipboard, and possibly written to file. Pick
-#' the function that deals with your problem:
-#'
-#' * `reprex_invert()` attempts to reverse the effect of `reprex()`.
-#'
-#' * `reprex_clean()` assumes R code is top-level, possibly
-#'   interleaved with commented output, e.g., a displayed reprex copied from
-#'   GitHub or the direct output of `reprex(..., venue = "R")`.
-#'
-#' * `reprex_rescue()` assumes R code lines start with a prompt and
-#'   printed output is top-level, e.g., what you'd get by copying from the R
-#'   Console.
+#' returned invisibly, put on the clipboard, and possibly written to file.
+#' Three different functions address various forms of wild-caught reprex.
 #'
 #' @param input Character. If has length one and lacks a terminating newline,
 #'   interpreted as the path to a file containing reprex code. Otherwise,
@@ -45,9 +35,10 @@ NULL
 #'   #' More text
 #'   y <- 2:5
 #'   x + y
-#' }, show = FALSE)
+#' }, show = FALSE, advertise = FALSE)
 #' writeLines(x)
-#' reprex_invert(x)
+#' x <- reprex_invert(x)
+#' writeLines(x)
 reprex_invert <- function(input = NULL,
                           outfile = NULL,
                           venue = c("gh", "so", "ds", "r"),
@@ -69,9 +60,10 @@ reprex_invert <- function(input = NULL,
   )
 }
 
-#' @describeIn un-reprex Removes lines of commented output from a displayed
-#'   reprex, such as code copied from a GitHub issue or `reprex`'ed with
-#'   `venue = "R"`.
+#' @describeIn un-reprex Assumes R code is top-level, possibly interleaved with
+#'   commented output, e.g., a displayed reprex copied from GitHub or the direct
+#'   output of `reprex(..., venue = "R")`. This function removes commented
+#'   output.
 #' @export
 #' @examples
 #' ## a displayed reprex can be cleaned of commented output
@@ -82,7 +74,8 @@ reprex_invert <- function(input = NULL,
 #'   "median(x)",
 #'   "#> [1] 2.5"
 #'   )
-#' reprex_clean(x)
+#' out <- reprex_clean(x)
+#' writeLines(out)
 #'
 #' \dontrun{
 #' ## round trip with reprex(..., venue = "R")
@@ -98,8 +91,10 @@ reprex_clean <- function(input = NULL,
   reprex_undo(input, outfile = outfile, is_md = FALSE, comment = comment)
 }
 
-#' @describeIn un-reprex Removes lines of output and strips prompts from lines
-#'   holding R commands. Typical input is copy/paste from R Console.
+#' @describeIn un-reprex Assumes R code lines start with a prompt and that
+#'   printed output is top-level, e.g., what you'd get from copy/paste from the
+#'   R Console. Removes lines of output and strips prompts from lines holding R
+#'   commands.
 #' @export
 #' @examples
 #' ## rescue a reprex that was copied from a live R session
@@ -110,7 +105,8 @@ reprex_clean <- function(input = NULL,
 #'   "> median(x)",
 #'   "[1] 2.5"
 #' )
-#' reprex_rescue(x)
+#' out <- reprex_rescue(x)
+#' writeLines(out)
 reprex_rescue <- function(input = NULL,
                           outfile = NULL,
                           prompt = getOption("prompt"),

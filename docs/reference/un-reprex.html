@@ -93,16 +93,8 @@
     </div>
 
     <p>Recover clean, runnable code from a reprex captured in the wild. The code is
-returned invisibly, put on the clipboard, and possibly written to file. Pick
-the function that deals with your problem:</p><ul>
-<li><p><code>reprex_invert()</code> attempts to reverse the effect of <code><a href='reprex.html'>reprex()</a></code>.</p></li>
-<li><p><code>reprex_clean()</code> assumes R code is top-level, possibly
-interleaved with commented output, e.g., a displayed reprex copied from
-GitHub or the direct output of <code><a href='reprex.html'>reprex(..., venue = "R")</a></code>.</p></li>
-<li><p><code>reprex_rescue()</code> assumes R code lines start with a prompt and
-printed output is top-level, e.g., what you'd get by copying from the R
-Console.</p></li>
-</ul>
+returned invisibly, put on the clipboard, and possibly written to file.
+Three different functions address various forms of wild-caught reprex.</p>
 
     <pre class="usage"><span class='fu'>reprex_invert</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"gh"</span>, <span class='st'>"so"</span>, <span class='st'>"ds"</span>,
   <span class='st'>"r"</span>), <span class='kw'>comment</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='st'>"#&gt;"</span>))
@@ -164,11 +156,14 @@ currently just an alias for "gh"!</p></li>
     <ul>
 <li><p><code>reprex_invert</code>: Attempts to reverse the effect of <code><a href='reprex.html'>reprex()</a></code>. When
 <code>venue = "r"</code>, this just becomes a wrapper around <code>reprex_clean()</code>.</p></li>
-<li><p><code>reprex_clean</code>: Removes lines of commented output from a displayed
-reprex, such as code copied from a GitHub issue or <code>reprex</code>'ed with
-<code>venue = "R"</code>.</p></li>
-<li><p><code>reprex_rescue</code>: Removes lines of output and strips prompts from lines
-holding R commands. Typical input is copy/paste from R Console.</p></li>
+<li><p><code>reprex_clean</code>: Assumes R code is top-level, possibly interleaved with
+commented output, e.g., a displayed reprex copied from GitHub or the direct
+output of <code><a href='reprex.html'>reprex(..., venue = "R")</a></code>. This function removes commented
+output.</p></li>
+<li><p><code>reprex_rescue</code>: Assumes R code lines start with a prompt and that
+printed output is top-level, e.g., what you'd get from copy/paste from the
+R Console. Removes lines of output and strips prompts from lines holding R
+commands.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -180,12 +175,7 @@ holding R commands. Typical input is copy/paste from R Console.</p></li>
   <span class='co'>#' More text</span>
   <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>:<span class='fl'>5</span>
   <span class='no'>x</span> + <span class='no'>y</span>
-}, <span class='kw'>show</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Rendering reprex...</span></div><div class='output co'>#&gt; <span class='message'>Rendered reprex is on the clipboard.</span></div><div class='input'><span class='fu'>writeLines</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; ``` r
-#&gt; reprex::reprex_info()
-#&gt; #&gt; Created by the reprex package v0.1.1.9000 on 2017-10-17
-#&gt; ```
-#&gt; 
-#&gt; Some text
+}, <span class='kw'>show</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>advertise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Rendering reprex...</span></div><div class='output co'>#&gt; <span class='message'>Rendered reprex is on the clipboard.</span></div><div class='input'><span class='fu'>writeLines</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; Some text
 #&gt; 
 #&gt; ``` r
 #&gt; (x &lt;- 1:4)
@@ -198,7 +188,11 @@ holding R commands. Typical input is copy/paste from R Console.</p></li>
 #&gt; y &lt;- 2:5
 #&gt; x + y
 #&gt; #&gt; [1] 3 5 7 9
-#&gt; ```</div><div class='input'><span class='fu'>reprex_invert</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='message'>Clean code is on the clipboard.</span></div><div class='input'><span class='co'>## a displayed reprex can be cleaned of commented output</span>
+#&gt; ```</div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex_invert</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='message'>Clean code is on the clipboard.</span></div><div class='input'><span class='fu'>writeLines</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; #' Some text
+#&gt; (x &lt;- 1:4)
+#&gt; #' More text
+#&gt; y &lt;- 2:5
+#&gt; x + y</div><div class='input'><span class='co'>## a displayed reprex can be cleaned of commented output</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(
   <span class='st'>"## a regular comment, which is retained"</span>,
   <span class='st'>"(x &lt;- 1:4)"</span>,
@@ -206,7 +200,9 @@ holding R commands. Typical input is copy/paste from R Console.</p></li>
   <span class='st'>"median(x)"</span>,
   <span class='st'>"#&gt; [1] 2.5"</span>
   )
-<span class='fu'>reprex_clean</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='message'>Clean code is on the clipboard.</span></div><div class='input'>
+<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex_clean</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='message'>Clean code is on the clipboard.</span></div><div class='input'><span class='fu'>writeLines</span>(<span class='no'>out</span>)</div><div class='output co'>#&gt; ## a regular comment, which is retained
+#&gt; (x &lt;- 1:4)
+#&gt; median(x)</div><div class='input'>
 </div><span class='co'># NOT RUN {</span>
 <span class='co'>## round trip with reprex(..., venue = "R")</span>
 <span class='no'>code_in</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"x &lt;- rnorm(2)"</span>, <span class='st'>"min(x)"</span>)
@@ -222,7 +218,9 @@ holding R commands. Typical input is copy/paste from R Console.</p></li>
   <span class='st'>"&gt; median(x)"</span>,
   <span class='st'>"[1] 2.5"</span>
 )
-<span class='fu'>reprex_rescue</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='message'>Clean code is on the clipboard.</span></div></pre>
+<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex_rescue</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='message'>Clean code is on the clipboard.</span></div><div class='input'><span class='fu'>writeLines</span>(<span class='no'>out</span>)</div><div class='output co'>#&gt; ## a regular comment, which is retained
+#&gt; (x &lt;- 1:4)
+#&gt; median(x)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -49,29 +49,23 @@ Character vector holding just the clean R code, invisibly
 }
 \description{
 Recover clean, runnable code from a reprex captured in the wild. The code is
-returned invisibly, put on the clipboard, and possibly written to file. Pick
-the function that deals with your problem:
-\itemize{
-\item \code{reprex_invert()} attempts to reverse the effect of \code{reprex()}.
-\item \code{reprex_clean()} assumes R code is top-level, possibly
-interleaved with commented output, e.g., a displayed reprex copied from
-GitHub or the direct output of \code{reprex(..., venue = "R")}.
-\item \code{reprex_rescue()} assumes R code lines start with a prompt and
-printed output is top-level, e.g., what you'd get by copying from the R
-Console.
-}
+returned invisibly, put on the clipboard, and possibly written to file.
+Three different functions address various forms of wild-caught reprex.
 }
 \section{Functions}{
 \itemize{
 \item \code{reprex_invert}: Attempts to reverse the effect of \code{\link[=reprex]{reprex()}}. When
 \code{venue = "r"}, this just becomes a wrapper around \code{reprex_clean()}.
 
-\item \code{reprex_clean}: Removes lines of commented output from a displayed
-reprex, such as code copied from a GitHub issue or \code{reprex}'ed with
-\code{venue = "R"}.
+\item \code{reprex_clean}: Assumes R code is top-level, possibly interleaved with
+commented output, e.g., a displayed reprex copied from GitHub or the direct
+output of \code{reprex(..., venue = "R")}. This function removes commented
+output.
 
-\item \code{reprex_rescue}: Removes lines of output and strips prompts from lines
-holding R commands. Typical input is copy/paste from R Console.
+\item \code{reprex_rescue}: Assumes R code lines start with a prompt and that
+printed output is top-level, e.g., what you'd get from copy/paste from the
+R Console. Removes lines of output and strips prompts from lines holding R
+commands.
 }}
 
 \examples{
@@ -83,9 +77,10 @@ x <- reprex({
   #' More text
   y <- 2:5
   x + y
-}, show = FALSE)
+}, show = FALSE, advertise = FALSE)
 writeLines(x)
-reprex_invert(x)
+x <- reprex_invert(x)
+writeLines(x)
 ## a displayed reprex can be cleaned of commented output
 x <- c(
   "## a regular comment, which is retained",
@@ -94,7 +89,8 @@ x <- c(
   "median(x)",
   "#> [1] 2.5"
   )
-reprex_clean(x)
+out <- reprex_clean(x)
+writeLines(out)
 
 \dontrun{
 ## round trip with reprex(..., venue = "R")
@@ -112,5 +108,6 @@ x <- c(
   "> median(x)",
   "[1] 2.5"
 )
-reprex_rescue(x)
+out <- reprex_rescue(x)
+writeLines(out)
 }
