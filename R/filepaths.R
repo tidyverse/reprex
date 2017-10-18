@@ -78,7 +78,7 @@ force_tempdir <- function(x) {
     return(x)
   }
   tmp_file <- file.path(tempdir(), basename(x))
-  file.copy(x, tmp_file)
+  file.copy(x, tmp_file, overwrite = TRUE)
   tmp_file
 }
 
