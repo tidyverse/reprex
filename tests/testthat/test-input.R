@@ -58,13 +58,15 @@ test_that("Leading prompts are removed", {
 })
 
 test_that("ingest_input() works", {
+  ## character vector, length > 1
   input <- c("line 1", "line 2")
-
   expect_identical(input, ingest_input(input))
 
+  ## character vector, length 1 but with newline
   input_first_elem <- paste0(input[1], "\n")
   expect_identical(input[1], ingest_input(input_first_elem))
 
+  ## file
   on.exit(file.remove("foo.R"))
   writeLines(input, "foo.R")
   expect_identical(input, ingest_input("foo.R"))
