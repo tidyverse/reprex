@@ -93,11 +93,9 @@
     </div>
 
     <p>Recover clean, runnable code from a reprex captured in the wild. The code is
-printed, returned invisibly, and written to the clipboard, if possible. Pick
+returned invisibly, put on the clipboard, and possibly written to file. Pick
 the function that deals with your problem:</p><ul>
-<li><p><code>reprex_invert()</code> handles Markdown, with code blocks indicated
-with backticks or indentation, e.g., the direct output of
-<code><a href='reprex.html'>reprex(..., venue = "gh")</a></code> or <code><a href='reprex.html'>reprex(..., venue = "so")</a></code>.</p></li>
+<li><p><code>reprex_invert()</code> attempts to reverse the effect of <code><a href='reprex.html'>reprex()</a></code>.</p></li>
 <li><p><code>reprex_clean()</code> assumes R code is top-level, possibly
 interleaved with commented output, e.g., a displayed reprex copied from
 GitHub or the direct output of <code><a href='reprex.html'>reprex(..., venue = "R")</a></code>.</p></li>
@@ -106,11 +104,12 @@ printed output is top-level, e.g., what you'd get by copying from the R
 Console.</p></li>
 </ul>
 
-    <pre class="usage"><span class='fu'>reprex_invert</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"gh"</span>, <span class='st'>"so"</span>), <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>"^#&gt;"</span>)
+    <pre class="usage"><span class='fu'>reprex_invert</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"gh"</span>, <span class='st'>"so"</span>, <span class='st'>"ds"</span>,
+  <span class='st'>"r"</span>), <span class='kw'>comment</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='st'>"#&gt;"</span>))
 
-<span class='fu'>reprex_clean</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>"^#&gt;"</span>)
+<span class='fu'>reprex_clean</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='st'>"#&gt;"</span>))
 
-<span class='fu'>reprex_rescue</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>prompt</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"prompt"</span>),
+<span class='fu'>reprex_rescue</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>prompt</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"prompt"</span>),
   <span class='kw'>continue</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"continue"</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -118,10 +117,19 @@ Console.</p></li>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>input</th>
-      <td><p>character, holding a wild-caught reprex as a character vector
-(length greater than one), string (length one with terminating newline), or
-file path (length one with no terminating newline). If not provided, the
+      <td><p>Character. If has length one and lacks a terminating newline,
+interpreted as the path to a file containing reprex code. Otherwise,
+assumed to hold reprex code as character vector. If not provided, the
 clipboard is consulted for input.</p></td>
+    </tr>
+    <tr>
+      <th>outfile</th>
+      <td><p>Optional basename for output file. When <code>NULL</code>, no file is
+left behind. If <code>outfile = "foo"</code>, expect an output file in current working
+directory named <code>foo_clean.R</code>. If <code>outfile = NA</code>, expect on output file in
+a location and with basename derived from <code>input</code>, if a path, or in
+current working directory with basename derived from <code>tempfile()</code>
+otherwise.</p></td>
     </tr>
     <tr>
       <th>venue</th>
@@ -154,12 +162,8 @@ currently just an alias for "gh"!</p></li>
     <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
     <ul>
-<li><p><code>reprex_invert</code>: Attempts to reverse the effect of
-<code><a href='reprex.html'>reprex()</a></code>. The input should be Markdown, presumably the output
-of <code><a href='reprex.html'>reprex()</a></code>. <code>venue</code> matters because, in GitHub-flavored
-Markdown, code blocks are placed within triple backticks. In other Markdown
-dialects, such as the one used on Stack Overflow, code is indented by four
-spaces.</p></li>
+<li><p><code>reprex_invert</code>: Attempts to reverse the effect of <code><a href='reprex.html'>reprex()</a></code>. When
+<code>venue = "r"</code>, this just becomes a wrapper around <code>reprex_clean()</code>.</p></li>
 <li><p><code>reprex_clean</code>: Removes lines of commented output from a displayed
 reprex, such as code copied from a GitHub issue or <code>reprex</code>'ed with
 <code>venue = "R"</code>.</p></li>
@@ -178,7 +182,7 @@ holding R commands. Typical input is copy/paste from R Console.</p></li>
   <span class='no'>x</span> + <span class='no'>y</span>
 }, <span class='kw'>show</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Rendering reprex...</span></div><div class='output co'>#&gt; <span class='message'>Rendered reprex is on the clipboard.</span></div><div class='input'><span class='fu'>writeLines</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; ``` r
 #&gt; reprex::reprex_info()
-#&gt; #&gt; Created by the reprex package v0.1.1.9000 on 2017-10-14
+#&gt; #&gt; Created by the reprex package v0.1.1.9000 on 2017-10-17
 #&gt; ```
 #&gt; 
 #&gt; Some text
@@ -194,12 +198,7 @@ holding R commands. Typical input is copy/paste from R Console.</p></li>
 #&gt; y &lt;- 2:5
 #&gt; x + y
 #&gt; #&gt; [1] 3 5 7 9
-#&gt; ```</div><div class='input'><span class='fu'>reprex_invert</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='message'>reprex::reprex_info()</span>
-#&gt; <span class='message'>#' Some text</span>
-#&gt; <span class='message'>(x &lt;- 1:4)</span>
-#&gt; <span class='message'>#' More text</span>
-#&gt; <span class='message'>y &lt;- 2:5</span>
-#&gt; <span class='message'>x + y</span></div><div class='input'><span class='co'>## a displayed reprex can be cleaned of commented output</span>
+#&gt; ```</div><div class='input'><span class='fu'>reprex_invert</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='message'>Clean code is on the clipboard.</span></div><div class='input'><span class='co'>## a displayed reprex can be cleaned of commented output</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(
   <span class='st'>"## a regular comment, which is retained"</span>,
   <span class='st'>"(x &lt;- 1:4)"</span>,
@@ -207,13 +206,11 @@ holding R commands. Typical input is copy/paste from R Console.</p></li>
   <span class='st'>"median(x)"</span>,
   <span class='st'>"#&gt; [1] 2.5"</span>
   )
-<span class='fu'>reprex_clean</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='message'>## a regular comment, which is retained</span>
-#&gt; <span class='message'>(x &lt;- 1:4)</span>
-#&gt; <span class='message'>median(x)</span></div><div class='input'>
+<span class='fu'>reprex_clean</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='message'>Clean code is on the clipboard.</span></div><div class='input'>
 </div><span class='co'># NOT RUN {</span>
 <span class='co'>## round trip with reprex(..., venue = "R")</span>
 <span class='no'>code_in</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"x &lt;- rnorm(2)"</span>, <span class='st'>"min(x)"</span>)
-<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='reprex.html'>reprex</a></span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='no'>code_in</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='st'>"R"</span>)
+<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='reprex.html'>reprex</a></span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='no'>code_in</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='st'>"R"</span>, <span class='kw'>advertise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='no'>res</span>
 (<span class='no'>code_out</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex_clean</span>(<span class='no'>res</span>))
 <span class='fu'>identical</span>(<span class='no'>code_in</span>, <span class='no'>code_out</span>)
@@ -225,9 +222,7 @@ holding R commands. Typical input is copy/paste from R Console.</p></li>
   <span class='st'>"&gt; median(x)"</span>,
   <span class='st'>"[1] 2.5"</span>
 )
-<span class='fu'>reprex_rescue</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='message'>## a regular comment, which is retained</span>
-#&gt; <span class='message'>(x &lt;- 1:4)</span>
-#&gt; <span class='message'>median(x)</span></div></pre>
+<span class='fu'>reprex_rescue</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='message'>Clean code is on the clipboard.</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
