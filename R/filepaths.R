@@ -74,7 +74,7 @@ make_filenames <- function(filebase = "foo", suffix = "reprex") {
 }
 
 force_tempdir <- function(x) {
-  if (identical(normalizePath(tempdir()), basename(normalizePath(x)))) {
+  if (identical(normalizePath(tempdir()), dirname(normalizePath(x)))) {
     return(x)
   }
   tmp_file <- file.path(tempdir(), basename(x))
