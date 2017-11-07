@@ -22,6 +22,10 @@ lines <- if (length(lines) > 0) lines else "nothing written to stdout or stderr"
 cat(lines, sep = "\n")
 {{/std_file}}
 
+{{#advertisement}}
+#' Created on `r Sys.Date()` by the [reprex package (`r utils::packageVersion("reprex")`)](https://cran.r-project.org/package=reprex).
+{{/advertisement}}
+
 {{#si}}
 {{{si_start}}}
 {{#devtools}}

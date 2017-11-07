@@ -245,9 +245,6 @@ reprex <- function(x = NULL,
       message("Install the styler package in order to use `styler = TRUE`.")
     }
   }
-  if (advertise) {
-    the_source <- c("reprex::reprex_info()", "", the_source)
-  }
 
   outfile_given <- !is.null(outfile)
   files <- make_filenames(make_filebase(outfile, infile))
@@ -270,6 +267,7 @@ reprex <- function(x = NULL,
     user_opts_knit = prep_opts(opts_knit, which = "knit"),
     tidyverse_quiet = as.character(tidyverse_quiet),
     std_file = std_file,
+    advertisement = advertise,
     body = paste(the_source, collapse = "\n")
   ))
   writeLines(the_source, r_file)
