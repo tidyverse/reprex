@@ -30,23 +30,21 @@ Read more about \code{\link[=opt]{opt()}}.}
 browser). Read more about \code{\link[=opt]{opt()}}.}
 }
 \description{
-\code{reprex_addin} opens a gadget that allows you to customise where the
+\code{reprex_addin()} opens a gadget that allows you to customise where the
 code to reproduce should come from along with a handful of other options.
-\code{reprex_selection} reproduces the current selection, optionally
+\code{reprex_selection()} reproduces the current selection, optionally
 customised by options.
 }
 \details{
 An \href{https://shiny.rstudio.com/articles/gadgets.html}{RStudio gadget} and
-\href{http://rstudio.github.io/rstudioaddins/}{addin} to call
-\code{\link[=reprex]{reprex()}}. Appears as "Render reprex" in the RStudio Addins
-menu.
+\href{http://rstudio.github.io/rstudioaddins/}{addin} to call \code{\link[=reprex]{reprex()}}. Appears
+as "Render reprex" in the RStudio Addins menu.
 Prepare in one of these ways:
-\enumerate{
+\itemize{
 \item Copy reprex source to clipboard.
 \item Select reprex source.
 \item Activate the file containing reprex source.
 \item Have source in a \code{.R} file.
+Call \code{\link[=reprex]{reprex()}} directly for more control via additional arguments.
 }
-Call \code{\link[=reprex]{reprex()}} directly for more control via additional
-arguments.
 }
