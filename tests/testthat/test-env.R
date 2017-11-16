@@ -18,7 +18,10 @@ test_that("reprex doesn't write into environment of caller", {
 })
 
 test_that("I understand exactly what I'm putting in reprex env", {
-  ret <- reprex(ls(all.names = TRUE), show = FALSE, advertise = FALSE)
-  out <- c("``` r", "ls(all.names = TRUE)", "#> [1] \"input\"", "```")
-  expect_identical(ret, out)
+  ret <- reprex(
+    input = c("a <- 'a'", "ls(all.names = TRUE)"),
+    show = FALSE, advertise = FALSE
+  )
+  ret <- ret[grepl("^#>", ret)]
+  expect_identical(ret, "#> [1] \"a\"")
 })
