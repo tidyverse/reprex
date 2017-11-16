@@ -1,23 +1,19 @@
 #' Render a reprex
 #'
-#' `reprex_addin` opens a gadget that allows you to customise where the
+#' `reprex_addin()` opens a gadget that allows you to customise where the
 #' code to reproduce should come from along with a handful of other options.
-#' `reprex_selection` reproduces the current selection, optionally
+#' `reprex_selection()` reproduces the current selection, optionally
 #' customised by options.
 #'
-#' An \href{https://shiny.rstudio.com/articles/gadgets.html}{RStudio gadget} and
-#' \href{http://rstudio.github.io/rstudioaddins/}{addin} to call
-#' [reprex()]. Appears as "Render reprex" in the RStudio Addins
-#' menu.
+#' An [RStudio gadget](https://shiny.rstudio.com/articles/gadgets.html) and
+#' [addin](http://rstudio.github.io/rstudioaddins/) to call [reprex()]. Appears
+#' as "Render reprex" in the RStudio Addins menu.
 #' Prepare in one of these ways:
-#' \enumerate{
-#' \item Copy reprex source to clipboard.
-#' \item Select reprex source.
-#' \item Activate the file containing reprex source.
-#' \item Have source in a `.R` file.
-#' }
-#' Call [reprex()] directly for more control via additional
-#' arguments.
+#'   * Copy reprex source to clipboard.
+#'   * Select reprex source.
+#'   * Activate the file containing reprex source.
+#'   * Have source in a `.R` file.
+#' Call [reprex()] directly for more control via additional arguments.
 #'
 #' @export
 reprex_addin <- function() { # nocov start
@@ -118,11 +114,9 @@ reprex_guess <- function(source, venue = "gh", source_file = NULL,
 #' @export
 #' @rdname reprex_addin
 #' @inheritParams reprex
-reprex_selection <- function(
-                            venue = getOption("reprex.venue", "gh"),
-                            si = getOption("reprex.si", FALSE),
-                            show = getOption("reprex.show", TRUE)
-) {
+reprex_selection <- function(venue = getOption("reprex.venue", "gh"),
+                             si = getOption("reprex.si", FALSE),
+                             show = getOption("reprex.show", TRUE)) {
   reprex(
     input = rstudio_selection(),
     venue = venue,
