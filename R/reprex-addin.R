@@ -142,6 +142,7 @@ rstudio_context <- function() {
 
 rstudio_text_tidy <- function(x) {
   Encoding(x) <- "UTF-8"
+  x <- vapply(rlang::parse_exprs(x), rlang::expr_text, character(1))
 
   n <- length(x)
   if (!grepl("\n$", x[[n]])) {
