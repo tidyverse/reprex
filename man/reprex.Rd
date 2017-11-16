@@ -37,8 +37,8 @@ currently just an alias for "gh"!
 \item "r" or "R" for a runnable R script, with commented output interleaved
 }}
 
-\item{advertise}{Logical. Whether to include \code{\link[=reprex_info]{reprex_info()}} at the start of
-the reprex. Read more about \code{\link[=opt]{opt()}}.}
+\item{advertise}{Logical. Whether to include a footer that describes when and
+how the reprex was created. Read more about \code{\link[=opt]{opt()}}.}
 
 \item{si}{Logical. Whether to include \code{\link[devtools:session_info]{devtools::session_info()}}, if
 available, or \code{\link[=sessionInfo]{sessionInfo()}} at the end of the reprex. When \code{venue} is

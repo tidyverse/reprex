@@ -12,7 +12,7 @@ These look like `reprex(..., arg = opt(DEFAULT), ...)` in the help file. This is
 
 ## New arguments to `reprex()`:
 
-  * `advertise`: describes when and how the reprex was created, e.g., "Created by the reprex package; 2017-10-11". Defaults to `TRUE` (#121, #69). Uses the new function `reprex_info()`.
+  * `advertise`: toggles inclusion of a footer that describes when and how the reprex was created, e.g., "Created on 2017-11-16 by the reprex package (v0.1.1.9000)". Defaults to `TRUE` (#121, #69).
   * `styler`: requests code restyling via the newly-Suggested styler package. styler can cope with tidyeval syntactical sugar, e.g. `df %>% group_by(!!group_var)`. Defaults to `FALSE` (#108, #94).
   * `tidyverse_quiet`: affords control of the startup message of the tidyverse meta-package. Defaults to `TRUE` (important special case of #70, #100).
   * `std_out_err`: appends output sent to stdout and stderr by the reprex rendering process. This can be necessary to reveal output if the reprex spawns child processes or has `system()` calls. Defaults to `FALSE` (#90, #110).
