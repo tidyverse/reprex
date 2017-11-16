@@ -142,7 +142,7 @@ rstudio_context <- function() {
 
 rstudio_text_tidy <- function(x) {
   Encoding(x) <- "UTF-8"
-  x <- scan(text = x, what = "", sep = "\n")
+  x <- scan(text = x, what = "", sep = "\n", quiet = TRUE)
 
   n <- length(x)
   if (!grepl("\n$", x[[n]])) {
