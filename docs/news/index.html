@@ -110,7 +110,7 @@
 <a href="#new-arguments-to-reprex" class="anchor"></a>New arguments to <code><a href="../reference/reprex.html">reprex()</a></code>:</h2>
 <ul>
 <li>
-<code>advertise</code>: describes when and how the reprex was created, e.g., “Created by the reprex package; 2017-10-11”. Defaults to <code>TRUE</code> (#121, #69). Uses the new function <code><a href="../reference/reprex_info.html">reprex_info()</a></code>.</li>
+<code>advertise</code>: toggles inclusion of a footer that describes when and how the reprex was created, e.g., “Created on 2017-11-16 by the reprex package (v0.1.1.9000)”. Defaults to <code>TRUE</code> (#121, #69).</li>
 <li>
 <code>styler</code>: requests code restyling via the newly-Suggested styler package. styler can cope with tidyeval syntactical sugar, e.g. <code>df %&gt;% group_by(!!group_var)</code>. Defaults to <code>FALSE</code> (#108, #94).</li>
 <li>
@@ -125,6 +125,7 @@
 <h2 class="hasAnchor">
 <a href="#other-changes" class="anchor"></a>Other changes</h2>
 <ul>
+<li><p>The “undo” functions (<code><a href="../reference/un-reprex.html">reprex_invert()</a></code>, <code><a href="../reference/un-reprex.html">reprex_clean()</a></code>, <code><a href="../reference/un-reprex.html">reprex_rescue()</a></code>) handle <code>input</code> and <code>outfile</code> like <code><a href="../reference/reprex.html">reprex()</a></code> does. The <code>outfile</code> argument is new (#129, #68).</p></li>
 <li><p>The default value for knitr’s <code>upload.fun</code> is now set according to the venue. It is <code><a href="http://www.rdocumentation.org/packages/knitr/topics/imgur_upload">knitr::imgur_upload()</a></code> for all venues except <code>"r"</code>, where it is <code>identity</code> (#125).</p></li>
 <li><p>The HTML preview should appear in the RStudio Viewer more consistently, especially on Windows (#75 @yutannihilation).</p></li>
 <li><p>More rigorous use of UTF-8 encoding (#76 @yutannihilation).</p></li>

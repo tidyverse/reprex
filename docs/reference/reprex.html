@@ -146,8 +146,8 @@ currently just an alias for "gh"!</p></li>
     </tr>
     <tr>
       <th>advertise</th>
-      <td><p>Logical. Whether to include <code><a href='reprex_info.html'>reprex_info()</a></code> at the start of
-the reprex. Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
+      <td><p>Logical. Whether to include a footer that describes when and
+how the reprex was created. Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
     </tr>
     <tr>
       <th>si</th>
@@ -169,7 +169,7 @@ browser). Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
     <tr>
       <th>comment</th>
       <td><p>Character. Prefix with which to comment out output, defaults
-to <code>"#&gt;"</code>. Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
+to <code>"#&amp;gt;"</code>. Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
     </tr>
     <tr>
       <th>opts_chunk, opts_knit</th>
@@ -209,7 +209,7 @@ purposes.</p></td>
 
     <p>The usual "code + commented output" is returned invisibly, put on the
 clipboard, and written to file. An HTML preview displays in RStudio's Viewer
-pane, if available, or in the default browser, otherwise. Leading <code>"&gt; "</code>
+pane, if available, or in the default browser, otherwise. Leading <code>"&amp;gt; "</code>
 prompts, are stripped from the input code. Read more at
 <a href='http://reprex.tidyverse.org/'>http://reprex.tidyverse.org/</a>.</p>
 <p>reprex sets specific <a href='http://yihui.name/knitr/options/'>knitr options</a>,
@@ -217,7 +217,7 @@ which you can supplement or override via the <code>opts_chunk</code> and
 <code>opts_knit</code> arguments or via explicit calls to knitr in your reprex code
 (see examples). If all you want to override is the <code>comment</code> option, use
 the dedicated argument, e.g.<code>commment = "#;-)"</code>.</p><ul>
-<li><p>Chunk options default to <code>collapse = TRUE</code>, <code>comment = "#&gt;"</code>,
+<li><p>Chunk options default to <code>collapse = TRUE</code>, <code>comment = "#&amp;gt;"</code>,
 <code>error = TRUE</code>. Note that <code>error = TRUE</code>, because a common use case is bug
 reporting.</p></li>
 <li><p>reprex also sets knitr's <code>upload.fun</code>. It defaults to

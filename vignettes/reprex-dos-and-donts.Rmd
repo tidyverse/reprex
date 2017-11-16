@@ -101,8 +101,12 @@ demo_code <- c(
   "#' Here is some embedded prose, as a roxygen comment.",
   "mean(x)"
 )
-md_content <-
-  reprex(input = demo_code, outfile = "README-tmp_gh", show = FALSE)
+md_content <- reprex(
+  input = demo_code,
+  outfile = "README-tmp_gh",
+  show = FALSE,
+  advertise = FALSE
+)
 ```
 
 ```{r asis = TRUE, echo = FALSE, comment = NA}

@@ -92,9 +92,9 @@
     <h1>Render a reprex</h1>
     </div>
 
-    <p><code>reprex_addin</code> opens a gadget that allows you to customise where the
+    <p><code>reprex_addin()</code> opens a gadget that allows you to customise where the
 code to reproduce should come from along with a handful of other options.
-<code>reprex_selection</code> reproduces the current selection, optionally
+<code>reprex_selection()</code> reproduces the current selection, optionally
 customised by options.</p>
 
     <pre class="usage"><span class='fu'>reprex_addin</span>()
@@ -133,16 +133,15 @@ browser). Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>An <a href='https://shiny.rstudio.com/articles/gadgets.html'>RStudio gadget</a> and
-<a href='http://rstudio.github.io/rstudioaddins/'>addin</a> to call
-<code><a href='reprex.html'>reprex()</a></code>. Appears as "Render reprex" in the RStudio Addins
-menu.
-Prepare in one of these ways:</p><ol>
+<a href='http://rstudio.github.io/rstudioaddins/'>addin</a> to call <code><a href='reprex.html'>reprex()</a></code>. Appears
+as "Render reprex" in the RStudio Addins menu.
+Prepare in one of these ways:</p><ul>
 <li><p>Copy reprex source to clipboard.</p></li>
 <li><p>Select reprex source.</p></li>
 <li><p>Activate the file containing reprex source.</p></li>
-<li><p>Have source in a <code>.R</code> file.</p></li>
-</ol><p>Call <code><a href='reprex.html'>reprex()</a></code> directly for more control via additional
-arguments.</p>
+<li><p>Have source in a <code>.R</code> file.
+Call <code><a href='reprex.html'>reprex()</a></code> directly for more control via additional arguments.</p></li>
+</ul>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
