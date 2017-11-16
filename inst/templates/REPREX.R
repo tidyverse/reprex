@@ -23,7 +23,7 @@ cat(lines, sep = "\n")
 {{/std_file}}
 
 {{#advertisement}}
-#' Created on `r Sys.Date()` by the [reprex package (`r utils::packageVersion("reprex")`)](https://cran.r-project.org/package=reprex).
+#' Created on `r Sys.Date()` by the [reprex package](http://reprex.tidyverse.org) (v`r utils::packageVersion("reprex")`).
 {{/advertisement}}
 
 {{#si}}
