@@ -1,19 +1,18 @@
 #' Render a reprex
 #'
-#' `reprex_addin()` opens a gadget that allows you to customise where the
-#' code to reproduce should come from along with a handful of other options.
-#' `reprex_selection()` reproduces the current selection, optionally
-#' customised by options.
+#' @description `reprex_addin()` opens an [RStudio
+#'   gadget](https://shiny.rstudio.com/articles/gadgets.html) and
+#'   [addin](http://rstudio.github.io/rstudioaddins/) that allows you to say
+#'   where the reprex source is (clipboard? current selection? active file?
+#'   other file?) and to control a few other arguments. Appears as "Render
+#'   reprex" in the RStudio Addins menu.
 #'
-#' An [RStudio gadget](https://shiny.rstudio.com/articles/gadgets.html) and
-#' [addin](http://rstudio.github.io/rstudioaddins/) to call [reprex()]. Appears
-#' as "Render reprex" in the RStudio Addins menu.
-#' Prepare in one of these ways:
-#'   * Copy reprex source to clipboard.
-#'   * Select reprex source.
-#'   * Activate the file containing reprex source.
-#'   * Have source in a `.R` file.
-#' Call [reprex()] directly for more control via additional arguments.
+#' @description `reprex_selection()` is an
+#'   [addin](http://rstudio.github.io/rstudioaddins/) that reprexes the current
+#'   selection, optionally customised by options. Appears as "Reprex selection"
+#'   in the RStudio Addins menu. Heavy users might want to [create a keyboard
+#'   shortcut](https://support.rstudio.com/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts).
+#'
 #'
 #' @export
 reprex_addin <- function() { # nocov start

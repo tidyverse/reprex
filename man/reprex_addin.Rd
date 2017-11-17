@@ -7,8 +7,7 @@
 \usage{
 reprex_addin()
 
-reprex_selection(venue = getOption("reprex.venue", "gh"),
-  si = getOption("reprex.si", FALSE), show = getOption("reprex.show", TRUE))
+reprex_selection(venue = getOption("reprex.venue", "gh"))
 }
 \arguments{
 \item{venue}{Character. Must be one of the following:
@@ -20,31 +19,16 @@ reprex_selection(venue = getOption("reprex.venue", "gh"),
 currently just an alias for "gh"!
 \item "r" or "R" for a runnable R script, with commented output interleaved
 }}
-
-\item{si}{Logical. Whether to include \code{\link[devtools:session_info]{devtools::session_info()}}, if
-available, or \code{\link[=sessionInfo]{sessionInfo()}} at the end of the reprex. When \code{venue} is
-"gh" or "ds", the session info is wrapped in a collapsible details tag.
-Read more about \code{\link[=opt]{opt()}}.}
-
-\item{show}{Logical. Whether to show rendered output in a viewer (RStudio or
-browser). Read more about \code{\link[=opt]{opt()}}.}
 }
 \description{
-\code{reprex_addin()} opens a gadget that allows you to customise where the
-code to reproduce should come from along with a handful of other options.
-\code{reprex_selection()} reproduces the current selection, optionally
-customised by options.
-}
-\details{
-An \href{https://shiny.rstudio.com/articles/gadgets.html}{RStudio gadget} and
-\href{http://rstudio.github.io/rstudioaddins/}{addin} to call \code{\link[=reprex]{reprex()}}. Appears
-as "Render reprex" in the RStudio Addins menu.
-Prepare in one of these ways:
-\itemize{
-\item Copy reprex source to clipboard.
-\item Select reprex source.
-\item Activate the file containing reprex source.
-\item Have source in a \code{.R} file.
-Call \code{\link[=reprex]{reprex()}} directly for more control via additional arguments.
-}
+\code{reprex_addin()} opens an \href{https://shiny.rstudio.com/articles/gadgets.html}{RStudio gadget} and
+\href{http://rstudio.github.io/rstudioaddins/}{addin} that allows you to say
+where the reprex source is (clipboard? current selection? active file?
+other file?) and to control a few other arguments. Appears as "Render
+reprex" in the RStudio Addins menu.
+
+\code{reprex_selection()} is an
+\href{http://rstudio.github.io/rstudioaddins/}{addin} that reprexes the current
+selection, optionally customised by options. Appears as "Reprex selection"
+in the RStudio Addins menu. Heavy users might want to \href{https://support.rstudio.com/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts}{create a keyboard shortcut}.
 }

@@ -92,15 +92,19 @@
     <h1>Render a reprex</h1>
     </div>
 
-    <p><code>reprex_addin()</code> opens a gadget that allows you to customise where the
-code to reproduce should come from along with a handful of other options.
-<code>reprex_selection()</code> reproduces the current selection, optionally
-customised by options.</p>
+    <p><code>reprex_addin()</code> opens an <a href='https://shiny.rstudio.com/articles/gadgets.html'>RStudio gadget</a> and
+<a href='http://rstudio.github.io/rstudioaddins/'>addin</a> that allows you to say
+where the reprex source is (clipboard? current selection? active file?
+other file?) and to control a few other arguments. Appears as "Render
+reprex" in the RStudio Addins menu.
+    <code>reprex_selection()</code> is an
+<a href='http://rstudio.github.io/rstudioaddins/'>addin</a> that reprexes the current
+selection, optionally customised by options. Appears as "Reprex selection"
+in the RStudio Addins menu. Heavy users might want to <a href='https://support.rstudio.com/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts'>create a keyboard shortcut</a>.</p>
 
     <pre class="usage"><span class='fu'>reprex_addin</span>()
 
-<span class='fu'>reprex_selection</span>(<span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"reprex.venue"</span>, <span class='st'>"gh"</span>),
-  <span class='kw'>si</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"reprex.si"</span>, <span class='fl'>FALSE</span>), <span class='kw'>show</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"reprex.show"</span>, <span class='fl'>TRUE</span>))</pre>
+<span class='fu'>reprex_selection</span>(<span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"reprex.venue"</span>, <span class='st'>"gh"</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -116,39 +120,14 @@ currently just an alias for "gh"!</p></li>
 <li><p>"r" or "R" for a runnable R script, with commented output interleaved</p></li>
 </ul></td>
     </tr>
-    <tr>
-      <th>si</th>
-      <td><p>Logical. Whether to include <code><a href='http://www.rdocumentation.org/packages/devtools/topics/session_info'>devtools::session_info()</a></code>, if
-available, or <code>sessionInfo()</code> at the end of the reprex. When <code>venue</code> is
-"gh" or "ds", the session info is wrapped in a collapsible details tag.
-Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>show</th>
-      <td><p>Logical. Whether to show rendered output in a viewer (RStudio or
-browser). Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
-    </tr>
     </table>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>An <a href='https://shiny.rstudio.com/articles/gadgets.html'>RStudio gadget</a> and
-<a href='http://rstudio.github.io/rstudioaddins/'>addin</a> to call <code><a href='reprex.html'>reprex()</a></code>. Appears
-as "Render reprex" in the RStudio Addins menu.
-Prepare in one of these ways:</p><ul>
-<li><p>Copy reprex source to clipboard.</p></li>
-<li><p>Select reprex source.</p></li>
-<li><p>Activate the file containing reprex source.</p></li>
-<li><p>Have source in a <code>.R</code> file.
-Call <code><a href='reprex.html'>reprex()</a></code> directly for more control via additional arguments.</p></li>
-</ul>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
     </ul>
 
   </div>
