@@ -134,7 +134,10 @@ rstudio_context <- function() {
 
 rstudio_text_tidy <- function(x) {
   Encoding(x) <- "UTF-8"
-  x <- strsplit(x, "\n")[[1]]
+  if (length(x) == 1) {
+    ## rstudio_selection() returns catenated text
+    x <- strsplit(x, "\n")[[1]]
+  }
 
   n <- length(x)
   if (!grepl("\n$", x[[n]])) {
