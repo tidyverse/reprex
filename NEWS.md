@@ -41,6 +41,9 @@ These look like `reprex(..., arg = opt(DEFAULT), ...)` in the help file. This is
     (#56, #71, #81)
 
   * `reprex_addin()` displays notificaton as inline dialog.
+  
+  * When `venue = "so"`, `reprex()` no longer inserts `<br/>` at the beginning 
+    of the results (#133)
 
 # reprex 0.1.1
 
