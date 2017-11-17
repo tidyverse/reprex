@@ -114,15 +114,8 @@ reprex_guess <- function(source, venue = "gh", source_file = NULL,
 #' @export
 #' @rdname reprex_addin
 #' @inheritParams reprex
-reprex_selection <- function(venue = getOption("reprex.venue", "gh"),
-                             si = getOption("reprex.si", FALSE),
-                             show = getOption("reprex.show", TRUE)) {
-  reprex(
-    input = rstudio_selection(),
-    venue = venue,
-    si = si,
-    show = show
-  )
+reprex_selection <- function(venue = getOption("reprex.venue", "gh")) {
+  reprex(input = rstudio_selection(), venue = venue)
 }
 
 # RStudio helpers ---------------------------------------------------------
