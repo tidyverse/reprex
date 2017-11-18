@@ -1,14 +1,16 @@
 # reprex 0.1.1.9000
 
-reprex has a website: <http://reprex.tidyverse.org>. It includes a community-contributed article (#103 @njtierney).
+reprex has a website: <http://reprex.tidyverse.org>. It includes a contributed article from @njtierney (#103).
 
-reprex is now developed within the [tidyverse Organization](https://github.com/tidyverse). It is installed as part of the [tidyverse meta-package](https://www.tidyverse.org) (development version only, at time of writing) and is [suggested to those seeking help](https://www.tidyverse.org/help/). 
+reprex has moved to the [tidyverse Organization](https://github.com/tidyverse). It is installed as part of the [tidyverse meta-package](https://www.tidyverse.org) and is [suggested to those seeking help](https://www.tidyverse.org/help/). 
 
 `reprex()` gains several arguments and many arguments can now be controlled via an option, in case a user wants their own defaults.
 
-## Option-controlled arguments
+The new `reprex_selection()` add-in reprexes the current selection, with venue controlled by the option `reprex.venue`. It can be handy to bind to a keyboard shortcut (#84 @hadley).
 
-These look like `reprex(..., arg = opt(DEFAULT), ...)` in the help file. This is shorthand for `arg = getOption("reprex.arg", DEFAULT)`, i.e. the option `reprex.arg` is consulted and, if unset, the documented default is used (#116).
+## Option-controlled arguments for custom defaults
+
+These look like `reprex(..., arg = opt(DEFAULT), ...)` in the help file. This is shorthand for `arg = getOption("reprex.arg", DEFAULT)`, i.e. the option `reprex.arg` is consulted and, if unset, the documented default is used. Allows user to define their own default behaviour (#116).
 
 ## New arguments to `reprex()`:
 
@@ -17,6 +19,14 @@ These look like `reprex(..., arg = opt(DEFAULT), ...)` in the help file. This is
   * `tidyverse_quiet`: affords control of the startup message of the tidyverse meta-package. Defaults to `TRUE` (important special case of #70, #100).
   * `std_out_err`: appends output sent to stdout and stderr by the reprex rendering process. This can be necessary to reveal output if the reprex spawns child processes or has `system()` calls. Defaults to `FALSE` (#90, #110).
   * `render`: determines if the reprex is actually rendered or just returns after producing the templated `.R` file. For internal testing.
+
+## Venues
+
+  * `venue = "gh"` now targets CommonMark as the standard for GitHub Flavored Markdown (#77).
+  
+  * `venue = "so"` no longer has extra whitespace at the start (#133 @alistaire47).
+
+  * `venue = "ds"` is a new value, corresponding to <https://www.discourse.org>, which is the platform behind [community.rstudio.com](https://community.rstudio.com). This is currently just an alias for the default `"gh"` GitHub venue, because the formatting appears to be compatible. Adding the `"ds"` value so Discourse can be documented and to guard against the possibility that some formatting is actually unique.
   
 ## Other changes
 
@@ -27,23 +37,10 @@ These look like `reprex(..., arg = opt(DEFAULT), ...)` in the help file. This is
   * The HTML preview should appear in the RStudio Viewer more consistently, especially on Windows (#75 @yutannihilation).
   
   * More rigorous use of UTF-8 encoding (#76 @yutannihilation).
-  
-  * `venue = "gh"` now targets CommonMark as the standard for GitHub Flavored Markdown (#77).
 
   * Expression input handling has been refactored. As a result, formatR is no longer Suggested. Trailing comments -- inline and on their own line -- are also now retained (#89, #91, #114, @jennybc and @jimhester).
 
-  * The `venue` argument gains a new value, `"ds"`, for <https://www.discourse.org>, which is the platform behind [community.rstudio.com](https://community.rstudio.com). This is currently just an alias for the default `"gh"` GitHub venue, because the formatting appears to be compatible. Adding the `"ds"` value so Discourse can be documented and to guard against the possibility that some formatting is actually unique.
-
-  * Custom prompts are now escaped when used in regexes (#98, #99 @jimhester).
-
-  * New `reprex_selection()` add-in reprexes the current selection, with options
-    controlled by options `reprex.venue`, `reprex.si`, and `reprex.show` 
-    (#56, #71, #81)
-
-  * `reprex_addin()` displays notificaton as inline dialog.
-  
-  * When `venue = "so"`, `reprex()` no longer inserts `<br/>` at the beginning 
-    of the results (#133)
+  * Custom prompts are now escaped when used in regexes (#98, #99 @jimhester). Embedded newlines are now escaped.
 
 # reprex 0.1.1
 
