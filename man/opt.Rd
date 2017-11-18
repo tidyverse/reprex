@@ -25,7 +25,7 @@ prefers to restyle their code, uses a winky face comment string, and likes
 the tidyverse startup message.\preformatted{options(
   reprex.advertise = FALSE,
   reprex.si = TRUE,
-  reprex.styler = TRUE,
+  reprex.style = TRUE,
   reprex.comment = "#;-)",
   reprex.tidyverse_quiet = FALSE
 )

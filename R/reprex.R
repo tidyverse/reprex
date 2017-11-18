@@ -59,7 +59,7 @@
 #'   available, or [sessionInfo()] at the end of the reprex. When `venue` is
 #'   "gh" or "ds", the session info is wrapped in a collapsible details tag.
 #'   Read more about [opt()].
-#' @param styler Logical. Whether to style code with [styler::style_text()].
+#' @param style Logical. Whether to style code with [styler::style_text()].
 #'   Read more about [opt()].
 #' @param show Logical. Whether to show rendered output in a viewer (RStudio or
 #'   browser). Read more about [opt()].
@@ -199,7 +199,7 @@ reprex <- function(x = NULL,
                    venue = c("gh", "so", "ds", "r"),
                    advertise = opt(TRUE),
                    si = opt(FALSE),
-                   styler = opt(FALSE),
+                   style = opt(FALSE),
                    show = opt(TRUE),
                    comment = opt("#>"),
                    opts_chunk = NULL,
@@ -214,7 +214,7 @@ reprex <- function(x = NULL,
 
   advertise <- arg_option(advertise)
   si <- arg_option(si)
-  styler <- arg_option(styler)
+  style <- arg_option(style)
   show <- arg_option(show)
   comment <- arg_option(comment)
   tidyverse_quiet <- arg_option(tidyverse_quiet)
@@ -222,7 +222,7 @@ reprex <- function(x = NULL,
   opts_chunk <- substitute(opts_chunk)
   opts_knit <- substitute(opts_knit)
 
-  stopifnot(is_toggle(advertise), is_toggle(si), is_toggle(styler))
+  stopifnot(is_toggle(advertise), is_toggle(si), is_toggle(style))
   stopifnot(is_toggle(show), is_toggle(render))
   stopifnot(is.character(comment))
   stopifnot(is_toggle(tidyverse_quiet), is_toggle(std_out_err))
@@ -238,11 +238,11 @@ reprex <- function(x = NULL,
   infile <- if (is_path(input)) input else NULL
   the_source <- stringify_expression(x_captured) %||% ingest_input(input)
 
-  if (styler) {
+  if (style) {
     if (requireNamespace("styler", quietly = TRUE)) {
       the_source <- styler::style_text(the_source)
     } else {
-      message("Install the styler package in order to use `styler = TRUE`.")
+      message("Install the styler package in order to use `style = TRUE`.")
     }
   }
 

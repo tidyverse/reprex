@@ -36,7 +36,7 @@ If you're asking for R help, reporting a bug, or requesting a new feature, you'r
 **Whitespace rationing is not in effect.**
 
   - Use good [coding style](http://style.tidyverse.org).
-  - Use `reprex(..., styler = TRUE)` to request automated styling of your code.
+  - Use `reprex(..., style = TRUE)` to request automated styling of your code.
 
 **Pack it in, pack it out, and don't take liberties with other people's computers.** You are asking people to run this code!
 

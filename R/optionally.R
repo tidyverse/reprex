@@ -25,7 +25,7 @@
 #' options(
 #'   reprex.advertise = FALSE,
 #'   reprex.si = TRUE,
-#'   reprex.styler = TRUE,
+#'   reprex.style = TRUE,
 #'   reprex.comment = "#;-)",
 #'   reprex.tidyverse_quiet = FALSE
 #' )
