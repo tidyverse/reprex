@@ -44,7 +44,7 @@ fodder <- list(
   ),
   so = list(
     yaml = yaml_md,
-    so_syntax_highlighting = "#'<!-- language-all: lang-r -->"
+    so_syntax_highlighting = "#'<!-- language-all: lang-r -->\\n"
   ),
   r = list(
     yaml = yaml_gfm
