@@ -8,7 +8,6 @@ test_that("venue = 'so' works", {
   )
   output <- c(
     "<!-- language-all: lang-r -->",
-    "<br/>",
     "",
     "Hello world",
     "",
