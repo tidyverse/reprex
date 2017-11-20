@@ -75,10 +75,13 @@ reprex_addin <- function() { # nocov start
 
   server <- function(input, output, session) {
     shiny::observeEvent(input$done, {
-      shiny::stopApp(reprex_guess(
+      source_from_file <- if (!is.null(input$source_file$datapath)) {
+        readLines(input$source_file$datapath)
+      }
+      shiny::stopApp(list(
         input$source,
         input$venue,
-        input$source_file,
+        source_from_file,
         as.logical(input$si),
         as.logical(input$show)
       ))
@@ -86,18 +89,20 @@ reprex_addin <- function() { # nocov start
   }
 
   app <- shiny::shinyApp(ui, server, options = list(quiet = TRUE))
-  shiny::runGadget(app, viewer = shiny::dialogViewer("Render reprex"))
+  result <- shiny::runGadget(app, viewer = shiny::dialogViewer("Render reprex"))
+
+  do.call(reprex_guess, result)
 
 }
 
-reprex_guess <- function(source, venue = "gh", source_file = NULL,
+reprex_guess <- function(source, venue = "gh", source_from_file = NULL,
                          si = FALSE, show = FALSE) {
   reprex_input <- switch(
     source,
     clipboard = NULL,
     cur_sel = rstudio_selection(),
     cur_file = rstudio_file(),
-    input_file = source_file$datapath
+    input_file = source_from_file
   )
 
   reprex(
