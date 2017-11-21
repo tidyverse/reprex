@@ -76,7 +76,7 @@ reprex_addin <- function() { # nocov start
   server <- function(input, output, session) {
     source_file <- reactive({
       if (is.null(input$source_file$datapath)) return(NULL)
-      readLines(input$source_file$datapath)
+      rstudio_text_tidy(readLines(input$source_file$datapath))
     })
 
     shiny::observeEvent(input$done, {
