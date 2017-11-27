@@ -41,7 +41,7 @@ Suggests:
 SystemRequirements: pandoc (>= 1.12.3) - http://pandoc.org
 Remotes: r-pkgs/callr,
     hadley/testthat,
-    krlmlr/styler
+    r-lib/styler
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
 VignetteBuilder: knitr
