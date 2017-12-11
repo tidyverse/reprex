@@ -40,8 +40,7 @@ Suggests:
     withr
 SystemRequirements: pandoc (>= 1.12.3) - http://pandoc.org
 Remotes: r-pkgs/callr,
-    hadley/testthat,
-    r-lib/styler
+    hadley/testthat
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
 VignetteBuilder: knitr
