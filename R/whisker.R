@@ -25,21 +25,26 @@ output:
 ---"
 yaml_md <- trim_ws(gsub("\\n", "\n#' ", yaml_md))
 
-yaml_gfm <- "
+yaml_gfm <- function(pandoc_version = rmarkdown::pandoc_version()) {
+  res <- whisker::whisker.render(
+    data = list(wrap_option = if (pandoc_version < "1.16") "--no-wrap" else "--wrap=preserve"),
+"
 ---
 output:
   md_document:
     pandoc_args: [
       '-f', 'markdown-implicit_figures',
       '-t', 'commonmark',
-      '--no-wrap'
+      '{{{wrap_option}}}'
     ]
----"
-yaml_gfm <- trim_ws(gsub("\\n", "\n#' ", yaml_gfm))
+---
+")
+  trim_ws(gsub("\\n", "\n#' ", res))
+}
 
 fodder <- list(
   gh = list(
-    yaml = yaml_gfm,
+    yaml = yaml_gfm(),
     si_start = "#'<details><summary>Session info</summary>",
     si_end = "#'</details>"
   ),
@@ -48,6 +53,6 @@ fodder <- list(
     so_syntax_highlighting = "#'<!-- language-all: lang-r -->\\n"
   ),
   r = list(
-    yaml = yaml_gfm
+    yaml = yaml_gfm()
   )
 )
