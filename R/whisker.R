@@ -31,7 +31,8 @@ output:
   md_document:
     pandoc_args: [
       '-f', 'markdown-implicit_figures',
-      '-t', 'commonmark'
+      '-t', 'commonmark',
+      '--wrap', 'none'
     ]
 ---"
 yaml_gfm <- trim_ws(gsub("\\n", "\n#' ", yaml_gfm))
