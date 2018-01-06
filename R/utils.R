@@ -43,12 +43,20 @@ trim_common_leading_ws <- function(x) {
   substring(x, num + 1)
 }
 
+is_testing <- function() {
+  identical(Sys.getenv("TESTTHAT"), "true")
+}
+
 ## wrap clipr::clipr_available() so I can mock it
 clipboard_available <- function() {
   if (Sys.getenv("CLIPBOARD_AVAILABLE", unset = TRUE)) {
     return(clipr::clipr_available())
   }
   FALSE
+}
+
+user_available <- function() {
+  interactive() && !is_testing()
 }
 
 ingest_input <- function(input = NULL) {
@@ -72,7 +80,7 @@ ingest_input <- function(input = NULL) {
 ## stripped down version of yesno() from devtools
 ## returns TRUE if user says "no"
 ##         FALSE if user says "yes"
-yesno <- function(..., yes = "yes", no = "no") {
+nope <- function(..., yes = "yes", no = "no") {
   if (interactive()) {
     cat(paste0(..., collapse = ""))
     return(utils::menu(c(yes, no)) == 2)
@@ -87,10 +95,6 @@ escape_regex <- function(x) {
 
 escape_newlines <- function(x) {
   gsub("\n", "\\\\n", x, perl = TRUE)
-}
-
-in_tests <- function() {
-  identical(Sys.getenv("TESTTHAT"), "true")
 }
 
 ds_is_gh <- function(venue) {

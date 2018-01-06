@@ -86,9 +86,9 @@ would_clobber <- function(path) {
   if (!file.exists(path)) {
     return(FALSE)
   }
-  if (!interactive() || in_tests()) {
+  if (!user_available()) {
     return(TRUE)
   }
-  yesno("Oops, file already exists:\n  * ", path, "\n",
-        "Carry on and overwrite it?")
+  nope("Oops, file already exists:\n  * ", path, "\n",
+       "Carry on and overwrite it?")
 }

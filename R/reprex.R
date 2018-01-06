@@ -337,7 +337,7 @@ reprex_ <- function(input, std_out_err = NULL) {
       rmarkdown::render(input, quiet = TRUE, envir = globalenv())
     },
     args = list(input = input),
-    spinner = interactive() && !in_tests(),
+    spinner = user_available(),
     stdout = std_out_err,
     stderr = std_out_err
   )

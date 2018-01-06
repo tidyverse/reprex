@@ -8,3 +8,13 @@ skip_if_no_clipboard <- function() {
   }
   return(invisible(TRUE))
 }
+
+## call during interactive test development to fake being "in tests" and thereby
+## cause user_available() to return FALSE
+test_mode <- function() {
+  before <- Sys.getenv("TESTTHAT")
+  after <- if (before == "true") "false" else "true"
+  Sys.setenv(TESTTHAT = after)
+  cat("TESTTHAT:", before, "-->", after, "\n")
+  invisible()
+}
