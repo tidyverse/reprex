@@ -287,30 +287,15 @@ reprex <- function(x = NULL,
     pathstem <- path_stem(r_file, md_file)
     message("Writing reprex markdown:\n  * ", sub(pathstem, "", md_file))
   }
-  output_lines <- readLines(md_file, encoding = "UTF-8")
 
   if (identical(venue, "r")) {
-    reprex_file <- rout_file <- files[["rout_file"]]
+    reprex_file <- files[["rout_file"]]
+    output_lines <- readLines(md_file, encoding = "UTF-8")
     output_lines <- convert_md_to_r(output_lines, comment = comment)
-    writeLines(output_lines, rout_file)
+    writeLines(output_lines, reprex_file)
     if (outfile_given) {
-      message("Writing reprex as commented R script:\n  * ", rout_file)
+      message("Writing reprex as commented R script:\n  * ", reprex_file)
     }
-  }
-
-  if (clipboard_available()) {
-    clipr::write_clip(output_lines)
-    message("Rendered reprex is on the clipboard.")
-  } else {
-    message(
-      "Unable to put result on the clipboard. How to get it:\n",
-      "  * Unix-like systems may require explicit installation of xclip or xsel.\n",
-      "  * Capture what reprex() returns.\n",
-      "  * Use `outfile = \"foo\"` to request output in specific file.\n",
-      "  * Use `outfile = NA` to request output in working directory.\n",
-      "  * For now, see the temp file:\n    - ",
-      reprex_file
-    )
   }
 
   if (show) {
@@ -327,7 +312,26 @@ reprex <- function(x = NULL,
     viewer(files[["html_file"]])
   }
 
-  invisible(output_lines)
+  out_lines <- readLines(reprex_file, encoding = "UTF-8")
+
+  if (clipboard_available()) {
+    clipr::write_clip(out_lines)
+    message("Rendered reprex is on the clipboard.")
+  } else if (user_available()) {
+    clipr::dr_clipr()
+    message(
+      "Unable to put result on the clipboard. How to get it:\n",
+      "  * Capture what `reprex()` returns.\n",
+      "  * Consult the output file. Control via `outfile` argument.\n",
+      "Path to `outfile`:\n",
+      "  * ", reprex_file
+    )
+    if (yep("Open the output file for manual copy?")) {
+      withr::defer(utils::file.edit(reprex_file))
+    }
+  }
+
+  invisible(out_lines)
 }
 
 reprex_ <- function(input, std_out_err = NULL) {

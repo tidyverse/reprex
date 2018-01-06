@@ -6,17 +6,10 @@ base_msg <- c(
   "Writing reprex markdown:\n  * foo_reprex.md\n"
 )
 
-clip_msg <- switch(
-  as.character(clipboard_available()),
-  `TRUE` = "Rendered reprex is on the clipboard.",
-  "Unable to put result on the clipboard"
-)
-
 test_that("expected outfiles are written and messaged, venue = 'gh'", {
   on.exit(file.remove("foo_reprex.R", "foo_reprex.md"))
   msg <- capture_messages(ret <- reprex(1:5, outfile = "foo", show = FALSE))
   expect_identical(msg[1:3], base_msg)
-  expect_match(msg[4], clip_msg)
   expect_match(readLines("foo_reprex.R"), "1:5", all = FALSE)
   expect_identical(ret, readLines("foo_reprex.md"))
 })
@@ -35,7 +28,6 @@ test_that("expected outfiles are written and messaged, venue = 'R'", {
     msg[4],
     "Writing reprex as commented R script:\n  * foo_reprex_rendered.R\n"
   )
-  expect_match(msg[5], clip_msg)
   expect_match(readLines("foo_reprex.R"), "1:5", all = FALSE)
   expect_identical(ret, readLines("foo_reprex_rendered.R"))
   expect_match(readLines("foo_reprex.md"), "1:5", all = FALSE)
@@ -61,7 +53,6 @@ test_that("outfiles in a subdirectory works", {
   msg <- capture_messages(ret <- reprex(1:5, outfile = "foo/foo", show = FALSE))
   base_msg <- gsub("foo", "foo/foo", base_msg)
   expect_identical(msg[1:3], base_msg)
-  expect_match(msg[4], clip_msg)
 })
 
 test_that("outfiles based on input file", {
