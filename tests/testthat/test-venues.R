@@ -1,6 +1,7 @@
 context("venues")
 
 test_that("venue = 'so' works", {
+  skip_on_appveyor()
   input <- c(
     "#' Hello world",
     "## comment",
