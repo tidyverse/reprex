@@ -13,12 +13,12 @@ Description: Convenience wrapper that uses the 'rmarkdown' package to render
   examples on code-oriented websites, such as <http://stackoverflow.com> and
   <https://github.com>, or in email. 'reprex' also extracts clean, runnable R
   code from various common formats, such as copy/paste from an R session.
-Depends: R (>= 3.0.2)
 License: MIT + file LICENSE
-LazyData: true
 URL: http://reprex.tidyverse.org, https://github.com/tidyverse/reprex
 BugReports: https://github.com/tidyverse/reprex/issues
-Imports:
+Depends: 
+    R (>= 3.1)
+Imports: 
     callr,
     clipr (>= 0.3.0),
     rlang,
@@ -36,12 +36,12 @@ Suggests:
     rstudioapi,
     shiny,
     styler,
-    testthat (>= 1.0.2.9000),
+    testthat,
     withr
-SystemRequirements: pandoc (>= 1.12.3) - http://pandoc.org
-Remotes: r-pkgs/callr,
-    hadley/testthat
-Roxygen: list(markdown = TRUE)
-Encoding: UTF-8
 VignetteBuilder: knitr
+Encoding: UTF-8
+LazyData: true
+Remotes: r-pkgs/callr
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1.9000
+SystemRequirements: pandoc (>= 1.12.3) - http://pandoc.org
