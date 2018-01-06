@@ -331,16 +331,19 @@ reprex <- function(x = NULL,
 }
 
 reprex_ <- function(input, std_out_err = NULL) {
-  callr::r_safe(
-    function(input) {
+  l <- list(
+    func = function(input) {
       options(keep.source = TRUE)
       rmarkdown::render(input, quiet = TRUE, envir = globalenv())
     },
     args = list(input = input),
-    spinner = user_available(),
     stdout = std_out_err,
     stderr = std_out_err
   )
+  if (utils::packageVersion("callr") > "1.0.0") {
+    l$spinner <- user_available()
+  }
+  do.call(callr::r_safe, l)
 }
 
 convert_md_to_r <- function(lines, comment = "#>") {

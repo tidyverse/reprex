@@ -44,3 +44,4 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1.9000
 SystemRequirements: pandoc (>= 1.12.3) - http://pandoc.org
+Remotes: r-lib/callr
