@@ -333,6 +333,7 @@ reprex <- function(x = NULL,
 reprex_ <- function(input, std_out_err = NULL) {
   callr::r_safe(
     function(input) {
+      options(keep.source = TRUE)
       rmarkdown::render(input, quiet = TRUE, envir = globalenv())
     },
     args = list(input = input),

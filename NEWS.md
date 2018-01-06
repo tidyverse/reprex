@@ -30,6 +30,8 @@ These look like `reprex(..., arg = opt(DEFAULT), ...)` in the help file. This is
   
 ## Other changes
 
+  * The `keep.source` option is set to `TRUE` when rendering the reprex, so reprexes involving srcrefs should work (#152).
+  
   * The "undo" functions (`reprex_invert()`, `reprex_clean()`, `reprex_rescue()`) handle `input` and `outfile` like `reprex()` does. The `outfile` argument is new (#129, #68).
 
   * The default value for knitr's `upload.fun` is now set according to the venue. It is `knitr::imgur_upload()` for all venues except `"r"`, where it is `identity` (#125).
