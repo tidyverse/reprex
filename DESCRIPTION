@@ -36,7 +36,7 @@ Suggests:
     rstudioapi,
     shiny,
     styler,
-    testthat,
+    testthat (>= 2.0.0),
     withr
 VignetteBuilder: knitr
 Encoding: UTF-8
