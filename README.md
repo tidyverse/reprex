@@ -36,6 +36,8 @@ or get a development version from GitHub:
 devtools::install_github("tidyverse/reprex")
 ```
 
+On Linux, you will probably need to install [xclip](https://github.com/astrand/xclip) or [xsel](http://www.vergenet.net/~conrad/software/xsel/) to enable reprex to access the X11 clipboard. Either should work with the standard `sudo apt-get install` or `sudo yum install` methods.
+
 Usage
 -----
 
