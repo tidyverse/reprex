@@ -9,3 +9,6 @@
 ^cran-comments\.md$
 ^_pkgdown\.yml$
 ^img$
+^CONTRIBUTING\.md$
+^ISSUE_TEMPLATE\.md$
+^SUPPORT\.md$
