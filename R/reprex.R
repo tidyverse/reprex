@@ -207,7 +207,6 @@ reprex <- function(x = NULL,
                    tidyverse_quiet = opt(TRUE),
                    std_out_err = opt(FALSE),
                    render = TRUE) {
-
   venue <- tolower(venue)
   venue <- match.arg(venue)
   venue <- ds_is_gh(venue)

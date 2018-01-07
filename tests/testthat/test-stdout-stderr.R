@@ -1,7 +1,7 @@
 context("stdout-stderr")
 
 test_that("stdout is captured", {
-  out <- reprex(system2("echo", args = 'blah'), std_out_err = TRUE, show = FALSE)
+  out <- reprex(system2("echo", args = "blah"), std_out_err = TRUE, show = FALSE)
   expect_match(out, "standard output and standard error", all = FALSE)
   expect_match(out, "#> blah", all = FALSE)
 })

@@ -81,7 +81,7 @@ test_that("newlines in code are protected and uniformly so across venues", {
   writeLines(escape_newlines('paste(letters[1:3], collapse = "\n")'), "foo.R")
   path_input <- reprex(input = "foo.R", render = FALSE)
 
-  expr_input <- reprex(paste(letters[1:3], collapse = '\n'), render = FALSE)
+  expr_input <- reprex(paste(letters[1:3], collapse = "\n"), render = FALSE)
 
   expect_identical(chr_input, path_input)
   expect_identical(chr_input, expr_input)

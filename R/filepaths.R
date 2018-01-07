@@ -58,10 +58,11 @@ make_filenames <- function(filebase = "foo", suffix = "reprex") {
   ## make this a list so I am never tempted to index with `[` instead of `[[`
   ## can cause sneaky name problems with the named list used as data for
   ## the whisker template
-  out <- list(    r_file = add_ext(           filebase,                 "R"),
-                  std_file = add_ext(add_suffix(filebase, "std_out_err"), "txt"),
-                  rout_file = add_ext(add_suffix(filebase, "rendered"),    "R"),
-                  html_file = add_ext(           filebase,                 "html")
+  out <- list(
+    r_file = add_ext(filebase, "R"),
+    std_file = add_ext(add_suffix(filebase, "std_out_err"), "txt"),
+    rout_file = add_ext(add_suffix(filebase, "rendered"), "R"),
+    html_file = add_ext(filebase, "html")
   )
   ## defensive use of "/" because Windows + this gets dropped into R code in
   ## the template
@@ -89,6 +90,8 @@ would_clobber <- function(path) {
   if (!user_available()) {
     return(TRUE)
   }
-  nope("Oops, file already exists:\n  * ", path, "\n",
-       "Carry on and overwrite it?")
+  nope(
+    "Oops, file already exists:\n  * ", path, "\n",
+    "Carry on and overwrite it?"
+  )
 }

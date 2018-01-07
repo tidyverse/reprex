@@ -17,11 +17,15 @@
 #' @export
 reprex_addin <- function() { # nocov start
 
-  dep_ok <- vapply(c("rstudioapi", "shiny", "miniUI"),
-                   requireNamespace, logical(1), quietly = TRUE)
+  dep_ok <- vapply(
+    c("rstudioapi", "shiny", "miniUI"),
+    requireNamespace, logical(1), quietly = TRUE
+  )
   if (any(!dep_ok)) {
-    stop("Install these packages in order to use the reprex addin:\n",
-         paste(names(dep_ok[!dep_ok]), collapse = "\n"), call. = FALSE)
+    stop(
+      "Install these packages in order to use the reprex addin:\n",
+      paste(names(dep_ok[!dep_ok]), collapse = "\n"), call. = FALSE
+    )
   }
 
   resource_path <- system.file("addins", package = "reprex")
@@ -30,19 +34,23 @@ reprex_addin <- function() { # nocov start
   ui <- miniUI::miniPage(
     shiny::tags$head(shiny::includeCSS(file.path(resource_path, "reprex.css"))),
     miniUI::gadgetTitleBar(
-      shiny::p("Use",
-               shiny::a(href = "http://reprex.tidyverse.org", "reprex"),
-               "to render a bit of code"),
+      shiny::p(
+        "Use",
+        shiny::a(href = "http://reprex.tidyverse.org", "reprex"),
+        "to render a bit of code"
+      ),
       right = miniUI::miniTitleBarButton("done", "Render", primary = TRUE)
     ),
     miniUI::miniContentPanel(
       shiny::radioButtons(
         "source",
         "Where is reprex source?",
-        c("on the clipboard" = "clipboard",
+        c(
+          "on the clipboard" = "clipboard",
           "current selection" = "cur_sel",
           "current file" = "cur_file",
-          "another file" = "input_file")
+          "another file" = "input_file"
+        )
       ),
       shiny::conditionalPanel(
         condition = "input.source == 'input_file'",
@@ -54,9 +62,11 @@ reprex_addin <- function() { # nocov start
       shiny::radioButtons(
         "venue",
         "Target venue:",
-        c("GitHub" = "gh",
+        c(
+          "GitHub" = "gh",
           "Stack Overflow" = "so",
-          "R script" = "r"),
+          "R script" = "r"
+        ),
         selected = getOption("reprex.venue", "gh")
       ),
       shiny::tags$hr(),
@@ -87,7 +97,6 @@ reprex_addin <- function() { # nocov start
 
   app <- shiny::shinyApp(ui, server, options = list(quiet = TRUE))
   shiny::runGadget(app, viewer = shiny::dialogViewer("Render reprex"))
-
 }
 
 reprex_guess <- function(source, venue = "gh", source_file = NULL,

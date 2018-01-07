@@ -66,8 +66,10 @@ test_that("outfiles based on input file", {
 
 test_that("outfiles based on tempfile()", {
   msg <-
-    capture_messages(ret <- reprex(input = c("x <- 1:3", "min(x)"),
-                                   show = FALSE, outfile = NA))
+    capture_messages(ret <- reprex(
+      input = c("x <- 1:3", "min(x)"),
+      show = FALSE, outfile = NA
+    ))
   tempbase <- gsub(".*(file.*)_.*", "\\1", msg[1])
   r_file <- paste0(tempbase, "_reprex.R")
   md_file <- paste0(tempbase, "_reprex.md")

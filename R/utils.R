@@ -44,8 +44,7 @@ trim_common_leading_ws <- function(x) {
 }
 
 ingest_input <- function(input = NULL) {
-
-  if (is.null(input)) {                            ## clipboard or bust
+  if (is.null(input)) { ## clipboard or bust
     if (clipboard_available()) {
       return(suppressWarnings(clipr::read_clip()))
     } else {
@@ -54,10 +53,10 @@ ingest_input <- function(input = NULL) {
     }
   }
 
-  if (is_path(input)) {                             ## path
+  if (is_path(input)) { ## path
     read_lines(input)
   } else {
-    escape_newlines(sub("\n$", "", input))          ## vector or string
+    escape_newlines(sub("\n$", "", input)) ## vector or string
   }
 }
 
@@ -72,8 +71,10 @@ escape_newlines <- function(x) {
 
 ds_is_gh <- function(venue) {
   if (venue == "ds") {
-    message("FYI, the Discourse venue \"ds\" is currently an alias for the ",
-            "default GitHub venue \"gh\".\nYou don't need to specify it.")
+    message(
+      "FYI, the Discourse venue \"ds\" is currently an alias for the ",
+      "default GitHub venue \"gh\".\nYou don't need to specify it."
+    )
     venue <- "gh"
   }
   venue

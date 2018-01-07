@@ -138,7 +138,7 @@ reprex_undo <- function(x = NULL,
   }
 
   if (is_md) {
-    if (identical(venue, "gh")) {      ## reprex_invert
+    if (identical(venue, "gh")) { ## reprex_invert
       line_info <- classify_lines_bt(x, comment = comment)
     } else {
       line_info <- classify_lines(x, comment = comment)
@@ -146,9 +146,9 @@ reprex_undo <- function(x = NULL,
     x_out <- ifelse(line_info == "prose" & nzchar(x), paste("#'", x), x)
     x_out <- x_out[!line_info %in% c("output", "bt", "so_header") & nzchar(x)]
     x_out <- sub("^    ", "", x_out)
-  } else if (is.null(prompt)) {        ## reprex_clean
+  } else if (is.null(prompt)) { ## reprex_clean
     x_out <- x[!grepl(comment, x)]
-  } else {                             ## reprex_rescue
+  } else { ## reprex_rescue
     regex <- paste0("^\\s*", prompt)
     x_out <- x[grepl(regex, x)]
     x_out <- sub(regex, "", x_out)
@@ -178,7 +178,8 @@ classify_lines_bt <- function(x, comment = "^#>") {
   x_shift <- c("", utils::head(x, -1))
   cum_bt <- cumsum(grepl("^```", x_shift))
   wut <- ifelse(grepl("^```", x), "bt",
-                ifelse(cum_bt %% 2 == 1, "code", "prose"))
+    ifelse(cum_bt %% 2 == 1, "code", "prose")
+  )
   wut <- ifelse(wut == "code" & grepl(comment, x), "output", wut)
   wut
 }
@@ -204,5 +205,4 @@ classify_lines <- function(x, comment = "^#>") {
   }
 
   wut
-
 }

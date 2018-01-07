@@ -43,7 +43,6 @@ optionally <- function(x, opt_name = NA_character_) {
 opt <- optionally
 
 arg_option <- function(arg) {
-
   arg_expr <- enexpr(arg)
   if (!is_symbol(arg_expr)) {
     abort("Internal error: `arg_option()` expects a symbol")

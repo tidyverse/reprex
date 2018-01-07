@@ -6,10 +6,11 @@ test_that("chunk options can be overridden", {
     "mean(y)"
   )
   short_form <-
-    reprex(input = src,
-           opts_chunk = list(collapse = FALSE),
-           show = FALSE,
-           advertise = FALSE
+    reprex(
+      input = src,
+      opts_chunk = list(collapse = FALSE),
+      show = FALSE,
+      advertise = FALSE
     )
   header <- c(
     "#+ setup, include = FALSE",

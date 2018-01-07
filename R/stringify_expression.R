@@ -3,7 +3,6 @@
 ## x <- quote({a + b})
 
 stringify_expression <- function(x) {
-
   if (is.null(x)) return(NULL)
 
   .srcref <- utils::getSrcref(x)
@@ -21,10 +20,12 @@ stringify_expression <- function(x) {
 
   src <- srcref(
     .srcfile,
-    c(first_src[[1]], first_src[[2]],
-       last_src[[3]],  last_src[[4]],
-      first_src[[5]],  last_src[[6]],
-      first_src[[7]],  last_src[[8]])
+    c(
+      first_src[[1]], first_src[[2]],
+      last_src[[3]], last_src[[4]],
+      first_src[[5]], last_src[[6]],
+      first_src[[7]], last_src[[8]]
+    )
   )
 
   lines <- as.character(src, useSource = TRUE)
@@ -39,8 +40,8 @@ stringify_expression <- function(x) {
   n <- utils::getSrcLocation(last_src, which = "line", first = FALSE)
 
   ## rescue trailing comment on (current) last surviving line
-  last_source_line <- getSrcLines(.srcfile, n, n)   ## "raw"
-  last_line <- lines[length(lines)]                 ## srcref'd
+  last_source_line <- getSrcLines(.srcfile, n, n) ## "raw"
+  last_line <- lines[length(lines)] ## srcref'd
   m <- regexpr(last_line, last_source_line, fixed = TRUE)
   rescue_me <- substring(last_source_line, m + attr(m, "match.length"))
   if (grepl("^\\s*#", rescue_me)) {

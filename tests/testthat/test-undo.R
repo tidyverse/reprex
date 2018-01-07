@@ -85,7 +85,7 @@ test_that("reprex_rescue()'s continue argument works", {
   expect_identical(reprex_rescue(code, continue = "yes, and? "), output)
 })
 
-test_that("reprex_rescue() can cope with leading whitespace",{
+test_that("reprex_rescue() can cope with leading whitespace", {
   console <- c(
     "> ## a regular comment, which is retained",
     " > (x <- 1:4)",
