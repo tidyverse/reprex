@@ -3,6 +3,7 @@ Title: Prepare Reproducible Example Code for Sharing
 Version: 0.1.1.9000
 Authors@R: c(
     person("Jennifer", "Bryan", , "jenny@rstudio.com", role = c("aut", "cre")),
+    person("Jim", "Hester", , "james.hester@rstudio.com", role = "aut"),
     person("David", "Robinson", , "admiral.david@gmail.com", role = "aut"),
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = "aut"),
     person("RStudio", role = c("cph", "fnd"))
