@@ -3,13 +3,7 @@
 Thanks for using reprex. Before filing an issue, there are a few places
 to explore and pieces to put together to make the process as smooth as possible.
 
-Start by making a minimal **repr**oducible **ex**ample using the 
-[reprex](http://reprex.tidyverse.org/) package. If you haven't heard of or used 
-reprex before, you're in for a treat! Seriously, reprex will make all of your 
-R-question-asking endeavors easier (which is a pretty insane ROI for the five to 
-ten minutes it'll take you to learn what it's all about). For additional reprex
-pointers, check out the [Get help!](https://www.tidyverse.org/help/) section of
-the tidyverse site.
+Start by making a minimal **repr**oducible **ex**ample using the [reprex](http://reprex.tidyverse.org/) package. OK, that's funny, because this is the very package we're talking about! Do your best to provide your input, the `reprex()` call, the expected result, and the actual result. Make it easy to reproduce your problem. For additional reprex pointers, check out the [Get help!](https://www.tidyverse.org/help/) section of the tidyverse site.
 
 Armed with your reprex, the next step is to figure out [where to ask](https://www.tidyverse.org/help/#where-to-ask). 
 
