@@ -175,7 +175,7 @@ commands.</p></li>
   <span class='co'>#' More text</span>
   <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>:<span class='fl'>5</span>
   <span class='no'>x</span> + <span class='no'>y</span>
-}, <span class='kw'>show</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>advertise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Rendering reprex...</span></div><div class='input'><span class='fu'>writeLines</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; Some text
+}, <span class='kw'>show</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>advertise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Rendering reprex...</span></div><div class='output co'>#&gt; <span class='message'>Rendered reprex is on the clipboard.</span></div><div class='input'><span class='fu'>writeLines</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; Some text
 #&gt; 
 #&gt; ``` r
 #&gt; (x &lt;- 1:4)
@@ -188,8 +188,7 @@ commands.</p></li>
 #&gt; y &lt;- 2:5
 #&gt; x + y
 #&gt; #&gt; [1] 3 5 7 9
-#&gt; ```</div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex_invert</span>(<span class='no'>x</span>)
-<span class='fu'>writeLines</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; #' Some text
+#&gt; ```</div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex_invert</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='message'>Clean code is on the clipboard.</span></div><div class='input'><span class='fu'>writeLines</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; #' Some text
 #&gt; (x &lt;- 1:4)
 #&gt; #' More text
 #&gt; y &lt;- 2:5
@@ -201,8 +200,7 @@ commands.</p></li>
   <span class='st'>"median(x)"</span>,
   <span class='st'>"#&gt; [1] 2.5"</span>
   )
-<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex_clean</span>(<span class='no'>x</span>)
-<span class='fu'>writeLines</span>(<span class='no'>out</span>)</div><div class='output co'>#&gt; ## a regular comment, which is retained
+<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex_clean</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='message'>Clean code is on the clipboard.</span></div><div class='input'><span class='fu'>writeLines</span>(<span class='no'>out</span>)</div><div class='output co'>#&gt; ## a regular comment, which is retained
 #&gt; (x &lt;- 1:4)
 #&gt; median(x)</div><div class='input'>
 </div><span class='co'># NOT RUN {</span>
@@ -220,8 +218,7 @@ commands.</p></li>
   <span class='st'>"&gt; median(x)"</span>,
   <span class='st'>"[1] 2.5"</span>
 )
-<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex_rescue</span>(<span class='no'>x</span>)
-<span class='fu'>writeLines</span>(<span class='no'>out</span>)</div><div class='output co'>#&gt; ## a regular comment, which is retained
+<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex_rescue</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; <span class='message'>Clean code is on the clipboard.</span></div><div class='input'><span class='fu'>writeLines</span>(<span class='no'>out</span>)</div><div class='output co'>#&gt; ## a regular comment, which is retained
 #&gt; (x &lt;- 1:4)
 #&gt; median(x)</div></pre>
   </div>
