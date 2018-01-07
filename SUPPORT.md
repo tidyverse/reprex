@@ -1,4 +1,4 @@
-# Getting help with 
+# Getting help with reprex
 
 Thanks for using reprex. Before filing an issue, there are a few places
 to explore and pieces to put together to make the process as smooth as possible.
