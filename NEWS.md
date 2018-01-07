@@ -1,6 +1,6 @@
 # reprex 0.1.1.9000
 
-reprex has a website: <http://reprex.tidyverse.org>. It includes a contributed article from @njtierney (#103).
+reprex got a website: <http://reprex.tidyverse.org>. It includes a contributed article from @njtierney (#103).
 
 reprex has moved to the [tidyverse Organization](https://github.com/tidyverse). It is installed as part of the [tidyverse meta-package](https://www.tidyverse.org) and is [suggested to those seeking help](https://www.tidyverse.org/help/). 
 
@@ -22,7 +22,7 @@ These look like `reprex(..., arg = opt(DEFAULT), ...)` in the help file. This is
 
 ## Venues
 
-  * `venue = "gh"` now targets CommonMark as the standard for GitHub Flavored Markdown (#77).
+  * `venue = "gh"` now targets CommonMark as the standard for GitHub Flavored Markdown (#77). An option is specified to preserve wrapping from the source (#145 @jimhester).
   
   * `venue = "so"` no longer has extra whitespace at the start (#133 @alistaire47).
 
