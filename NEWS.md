@@ -8,6 +8,8 @@ reprex has moved to the [tidyverse Organization](https://github.com/tidyverse). 
 
 The new `reprex_selection()` add-in reprexes the current selection, with venue controlled by the option `reprex.venue`. It can be handy to bind to a keyboard shortcut (#84 @hadley).
 
+If reprex can't write to the user's clipboard (e.g. on RStudio server or Unix-like systems lacking xclip or xsel), it will offer to open the output file for manual copy.
+
 ## Option-controlled arguments for custom defaults
 
 These look like `reprex(..., arg = opt(DEFAULT), ...)` in the help file. This is shorthand for `arg = getOption("reprex.arg", DEFAULT)`, i.e. the option `reprex.arg` is consulted and, if unset, the documented default is used. Allows user to define their own default behaviour (#116).
