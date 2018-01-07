@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-reprex
-======
+reprex <img src="man/figures/logo.png" align="right" />
+=======================================================
 
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/reprex)](https://cran.r-project.org/package=reprex) [![Travis-CI Build Status](https://travis-ci.org/tidyverse/reprex.svg?branch=master)](https://travis-ci.org/tidyverse/reprex) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/reprex?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/reprex) [![Coverage status](https://codecov.io/gh/tidyverse/reprex/branch/master/graph/badge.svg)](https://codecov.io/github/tidyverse/reprex?branch=master) [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://tidyverse.org)
 

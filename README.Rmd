@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 oo <- options(reprex.advertise = FALSE)
 ```
 
-# reprex
+# reprex <img src="man/figures/logo.png" align="right" />
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/reprex)](https://cran.r-project.org/package=reprex)
 [![Travis-CI Build Status](https://travis-ci.org/tidyverse/reprex.svg?branch=master)](https://travis-ci.org/tidyverse/reprex) 
