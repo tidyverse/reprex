@@ -27,6 +27,41 @@ reprex_addin <- function() { # nocov start
       paste(names(dep_ok[!dep_ok]), collapse = "\n"), call. = FALSE
     )
   }
+  
+  if (clipboard_available()) {
+    reprex_source_options <- c(
+      "on the clipboard" = "clipboard",
+      "current selection" = "cur_sel",
+      "current file" = "cur_file",
+      "another file" = "input_file"
+    )
+    
+    reprex_input <- NULL
+    
+    reprex_output <- NULL
+  } else {
+    reprex_source_options <- c(
+      "text box (clipboard is unavailable)" = "text_area",
+      "current selection" = "cur_sel",
+      "current file" = "cur_file",
+      "another file" = "input_file"
+    )
+    
+    reprex_input <- shiny::conditionalPanel(
+      condition = "input.source == 'text_area'",
+      shiny::textAreaInput(
+        inputId = "input_text",
+        label = "Input reprex text box",
+        width = "500px"
+      )
+    )
+    
+    reprex_output <- shiny::textAreaInput(
+      inputId = "output_text",
+      label = "Reprex output (clipboard is unavailable)",
+      width = "500px"
+    )
+  }
 
   resource_path <- system.file("addins", package = "reprex")
   shiny::addResourcePath("reprex_addins", resource_path)
@@ -45,12 +80,7 @@ reprex_addin <- function() { # nocov start
       shiny::radioButtons(
         "source",
         "Where is reprex source?",
-        c(
-          "on the clipboard" = "clipboard",
-          "current selection" = "cur_sel",
-          "current file" = "cur_file",
-          "another file" = "input_file"
-        )
+        reprex_source_options
       ),
       shiny::conditionalPanel(
         condition = "input.source == 'input_file'",
@@ -59,6 +89,7 @@ reprex_addin <- function() { # nocov start
           label = "Source file"
         )
       ),
+      reprex_input,
       shiny::radioButtons(
         "venue",
         "Target venue:",
@@ -79,19 +110,30 @@ reprex_addin <- function() { # nocov start
         "show",
         "Preview HTML",
         getOption("reprex.show", TRUE)
-      )
+      ), 
+      reprex_output
     )
   )
 
   server <- function(input, output, session) {
     shiny::observeEvent(input$done, {
-      shiny::stopApp(reprex_guess(
+      reprex_output <- reprex_guess(
         input$source,
         input$venue,
         input$source_file,
+        strsplit(input$input_text, "\n")[[1]],
         as.logical(input$si),
         as.logical(input$show)
-      ))
+      )
+      if (clipboard_available()) {
+        shiny::stopApp(reprex_output)    
+      } else {
+        shiny::updateTextAreaInput(
+          session, 
+          "output_text", 
+          value = paste(reprex_output, collapse = "\n")
+        )
+      }
     })
   }
 
@@ -100,20 +142,22 @@ reprex_addin <- function() { # nocov start
 }
 
 reprex_guess <- function(source, venue = "gh", source_file = NULL,
-                         si = FALSE, show = FALSE) {
+                         input_text = NULL, si = FALSE, show = FALSE) {
   reprex_input <- switch(
     source,
     clipboard = NULL,
     cur_sel = rstudio_selection(),
     cur_file = rstudio_file(),
-    input_file = source_file$datapath
+    input_file = source_file$datapath,
+    text_area = paste0(input_text, "\n") # new line so never treated as file
   )
 
   reprex(
     input = reprex_input,
     venue = venue,
     si = si,
-    show = show
+    show = show,
+    ask_file_edit = FALSE
   )
 }
 

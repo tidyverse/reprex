@@ -82,7 +82,10 @@
 #'   process, nor is there any guarantee that the lines from standard output and
 #'   standard error are in correct chronological order. See [callr::r_safe()]
 #'   for more. Read more about [opt()].
-#'
+#' @param ask_file_edit Logical. When clipboard is not available and the
+#'   user is, ask the user whether to open the reprex in a file editor pane
+#'   (defaults to TRUE).
+#' 
 #' @return Character vector of rendered reprex, invisibly.
 #' @examples
 #' \dontrun{
@@ -206,7 +209,8 @@ reprex <- function(x = NULL,
                    opts_knit = NULL,
                    tidyverse_quiet = opt(TRUE),
                    std_out_err = opt(FALSE),
-                   render = TRUE) {
+                   render = TRUE,
+                   ask_file_edit = TRUE) {
   venue <- tolower(venue)
   venue <- match.arg(venue)
   venue <- ds_is_gh(venue)
@@ -316,7 +320,7 @@ reprex <- function(x = NULL,
   if (clipboard_available()) {
     clipr::write_clip(out_lines)
     message("Rendered reprex is on the clipboard.")
-  } else if (user_available()) {
+  } else if (user_available() & ask_file_edit) {
     clipr::dr_clipr()
     message(
       "Unable to put result on the clipboard. How to get it:\n",

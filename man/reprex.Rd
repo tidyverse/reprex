@@ -8,7 +8,7 @@ reprex(x = NULL, input = NULL, outfile = NULL, venue = c("gh", "so",
   "ds", "r"), advertise = opt(TRUE), si = opt(FALSE), style = opt(FALSE),
   show = opt(TRUE), comment = opt("#>"), opts_chunk = NULL,
   opts_knit = NULL, tidyverse_quiet = opt(TRUE), std_out_err = opt(FALSE),
-  render = TRUE)
+  render = TRUE, ask_file_edit = TRUE)
 }
 \arguments{
 \item{x}{An expression. If not given, \code{reprex()} looks for code in
@@ -74,6 +74,10 @@ for more. Read more about \code{\link[=opt]{opt()}}.}
 \item{render}{Logical. Whether to render the reprex or just create the
 templated \code{.R} file. Defaults to \code{TRUE}. Mostly for internal testing
 purposes.}
+
+\item{ask_file_edit}{Logical. When clipboard is not available and the
+user is, ask the user whether to open the reprex in a file editor pane
+(defaults to TRUE).}
 }
 \value{
 Character vector of rendered reprex, invisibly.
