@@ -21,8 +21,6 @@ env:
 r:
   - 3.2
   - oldrel
-  - release
-  - devel
 
 matrix:
   include:
