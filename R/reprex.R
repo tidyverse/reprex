@@ -343,7 +343,7 @@ reprex_ <- function(input, std_out_err = NULL) {
     stdout = std_out_err,
     stderr = std_out_err
   )
-  if (utils::packageVersion("callr") > "1.0.0") {
+  if (utils::packageVersion("callr") >= "2.0.0") {
     l$spinner <- user_available()
   }
   do.call(callr::r_safe, l)

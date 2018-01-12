@@ -42,7 +42,7 @@ Suggests:
 VignetteBuilder: knitr
 Encoding: UTF-8
 LazyData: true
-Remotes: r-lib/callr
+Remotes: r-lib/callr@1.x
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1.9000
 SystemRequirements: pandoc (>= 1.12.3) - http://pandoc.org
