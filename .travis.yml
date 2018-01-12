@@ -30,6 +30,8 @@ matrix:
     warnings_are_errors: false
   - r: release
     env: DISPLAY=""
+  - r: devel
+    warnings_are_errors: false
 
 # Only report coverage for the release version
 after_success:
