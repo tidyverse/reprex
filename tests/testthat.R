@@ -1,4 +1,6 @@
 library(testthat)
 library(reprex)
 
-test_check("reprex")
+if (rmarkdown::pandoc_available()) {
+  test_check("reprex")
+}
