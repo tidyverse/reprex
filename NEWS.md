@@ -1,6 +1,6 @@
-# reprex 0.1.1.9000
+# reprex 0.2.0
 
-reprex got a website: <http://reprex.tidyverse.org>. It includes a contributed article from @njtierney (#103).
+reprex has a website: <http://reprex.tidyverse.org>. It includes a contributed article from @njtierney (#103).
 
 reprex has moved to the [tidyverse Organization](https://github.com/tidyverse). It is installed as part of the [tidyverse meta-package](https://www.tidyverse.org) and is [suggested to those seeking help](https://www.tidyverse.org/help/). 
 
@@ -8,7 +8,7 @@ reprex has moved to the [tidyverse Organization](https://github.com/tidyverse). 
 
 The new `reprex_selection()` add-in reprexes the current selection, with venue controlled by the option `reprex.venue`. It can be handy to bind to a keyboard shortcut (#84 @hadley).
 
-If reprex can't write to the user's clipboard (e.g. on RStudio server or Unix-like systems lacking xclip or xsel), it will offer to open the output file for manual copy.
+If reprex can't write to the user's clipboard (e.g. on RStudio server or Unix-like systems lacking xclip or xsel), it offers to open the output file for manual copy.
 
 ## Option-controlled arguments for custom defaults
 
@@ -18,7 +18,7 @@ These look like `reprex(..., arg = opt(DEFAULT), ...)` in the help file. This is
 
   * `advertise`: toggles inclusion of a footer that describes when and how the reprex was created, e.g., "Created on 2017-11-16 by the reprex package (v0.1.1.9000)". Defaults to `TRUE` (#121, #69).
   * `style`: requests code restyling via the newly-Suggested styler package. styler can cope with tidyeval syntactical sugar, e.g. `df %>% group_by(!! group_var)`. Defaults to `FALSE` (#108, #94).
-  * `tidyverse_quiet`: affords control of the startup message of the tidyverse meta-package. Defaults to `TRUE` (important special case of #70, #100).
+  * `tidyverse_quiet`: affords control of the startup message of the tidyverse meta-package. Defaults to `TRUE`, i.e. suppresses the message (important special case of #70, #100).
   * `std_out_err`: appends output sent to stdout and stderr by the reprex rendering process. This can be necessary to reveal output if the reprex spawns child processes or has `system()` calls. Defaults to `FALSE` (#90, #110).
   * `render`: determines if the reprex is actually rendered or just returns after producing the templated `.R` file. For internal testing.
 
@@ -45,6 +45,10 @@ These look like `reprex(..., arg = opt(DEFAULT), ...)` in the help file. This is
   * Expression input handling has been refactored. As a result, formatR is no longer Suggested. Trailing comments -- inline and on their own line -- are also now retained (#89, #91, #114, @jennybc and @jimhester).
 
   * Custom prompts are now escaped when used in regexes (#98, #99 @jimhester). Embedded newlines are now escaped.
+
+# reprex 0.1.2
+
+This was a non-funcioning release created by CRAN maintainers by commenting out lines of code relating to the clipboard.
 
 # reprex 0.1.1
 

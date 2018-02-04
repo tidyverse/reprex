@@ -1,6 +1,6 @@
 Package: reprex
 Title: Prepare Reproducible Example Code for Sharing
-Version: 0.1.1.9000
+Version: 0.2.0
 Authors@R: c(
     person("Jennifer", "Bryan", , "jenny@rstudio.com", role = c("aut", "cre")),
     person("Jim", "Hester", , "james.hester@rstudio.com", role = "aut"),
