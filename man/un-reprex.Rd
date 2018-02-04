@@ -69,6 +69,7 @@ commands.
 }}
 
 \examples{
+\dontrun{
 ## a rendered reprex can be inverted, at least approximately
 x <- reprex({
   #' Some text
@@ -81,6 +82,8 @@ x <- reprex({
 writeLines(x)
 x <- reprex_invert(x)
 writeLines(x)
+}
+\dontrun{
 ## a displayed reprex can be cleaned of commented output
 x <- c(
   "## a regular comment, which is retained",
@@ -92,7 +95,6 @@ x <- c(
 out <- reprex_clean(x)
 writeLines(out)
 
-\dontrun{
 ## round trip with reprex(..., venue = "R")
 code_in <- c("x <- rnorm(2)", "min(x)")
 res <- reprex(input = code_in, venue = "R", advertise = FALSE)
@@ -100,6 +102,7 @@ res
 (code_out <- reprex_clean(res))
 identical(code_in, code_out)
 }
+\dontrun{
 ## rescue a reprex that was copied from a live R session
 x <- c(
   "> ## a regular comment, which is retained",
@@ -110,4 +113,5 @@ x <- c(
 )
 out <- reprex_rescue(x)
 writeLines(out)
+}
 }

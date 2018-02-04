@@ -27,6 +27,7 @@ NULL
 #' @inheritParams reprex
 #' @export
 #' @examples
+#' \dontrun{
 #' ## a rendered reprex can be inverted, at least approximately
 #' x <- reprex({
 #'   #' Some text
@@ -39,6 +40,7 @@ NULL
 #' writeLines(x)
 #' x <- reprex_invert(x)
 #' writeLines(x)
+#' }
 reprex_invert <- function(input = NULL,
                           outfile = NULL,
                           venue = c("gh", "so", "ds", "r"),
@@ -66,6 +68,7 @@ reprex_invert <- function(input = NULL,
 #'   output.
 #' @export
 #' @examples
+#' \dontrun{
 #' ## a displayed reprex can be cleaned of commented output
 #' x <- c(
 #'   "## a regular comment, which is retained",
@@ -77,7 +80,6 @@ reprex_invert <- function(input = NULL,
 #' out <- reprex_clean(x)
 #' writeLines(out)
 #'
-#' \dontrun{
 #' ## round trip with reprex(..., venue = "R")
 #' code_in <- c("x <- rnorm(2)", "min(x)")
 #' res <- reprex(input = code_in, venue = "R", advertise = FALSE)
@@ -97,6 +99,7 @@ reprex_clean <- function(input = NULL,
 #'   commands.
 #' @export
 #' @examples
+#' \dontrun{
 #' ## rescue a reprex that was copied from a live R session
 #' x <- c(
 #'   "> ## a regular comment, which is retained",
@@ -107,6 +110,7 @@ reprex_clean <- function(input = NULL,
 #' )
 #' out <- reprex_rescue(x)
 #' writeLines(out)
+#' }
 reprex_rescue <- function(input = NULL,
                           outfile = NULL,
                           prompt = getOption("prompt"),
