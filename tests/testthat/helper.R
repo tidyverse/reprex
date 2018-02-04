@@ -2,6 +2,11 @@
 # Sys.setenv("CLIPBOARD_AVAILABLE" = TRUE)
 # Sys.setenv("CLIPBOARD_AVAILABLE" = FALSE)
 
+ON_CRAN <- Sys.getenv("NOT_CRAN", unset = "") == ""
+if (ON_CRAN) {
+  Sys.setenv("CLIPBOARD_AVAILABLE" = FALSE)
+}
+
 skip_if_no_clipboard <- function() {
   if (!clipboard_available()) {
     skip("System clipboard is not available - skipping test.")
