@@ -2,7 +2,8 @@
 # Sys.setenv("CLIPBOARD_AVAILABLE" = TRUE)
 # Sys.setenv("CLIPBOARD_AVAILABLE" = FALSE)
 
-ON_CRAN <- Sys.getenv("NOT_CRAN", unset = "") == ""
+NOT_CRAN <- Sys.getenv("NOT_CRAN", unset = "")
+ON_CRAN <- identical(NOT_CRAN, "") || identical(tolower(NOT_CRAN), "false")
 if (ON_CRAN) {
   Sys.setenv("CLIPBOARD_AVAILABLE" = FALSE)
 }
