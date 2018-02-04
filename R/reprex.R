@@ -316,7 +316,7 @@ reprex <- function(x = NULL,
   if (clipboard_available()) {
     clipr::write_clip(out_lines)
     message("Rendered reprex is on the clipboard.")
-  } else if (user_available()) {
+  } else if (interactive()) {
     clipr::dr_clipr()
     message(
       "Unable to put result on the clipboard. How to get it:\n",
@@ -344,7 +344,7 @@ reprex_ <- function(input, std_out_err = NULL) {
     stderr = std_out_err
   )
   if (utils::packageVersion("callr") > "1.0.0") {
-    l$spinner <- user_available()
+    l$spinner <- interactive()
   }
   do.call(callr::r_safe, l)
 }

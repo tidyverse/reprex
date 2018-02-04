@@ -10,14 +10,14 @@ is_testing <- function() {
   identical(Sys.getenv("TESTTHAT"), "true")
 }
 
-user_available <- function() {
-  interactive() && !is_testing()
+interactive <- function() {
+  base::interactive() && !is_testing()
 }
 
 ## returns TRUE if user says "no"
 ##         FALSE otherwise
 nope <- function(..., yes = "yes", no = "no") {
-  if (user_available()) {
+  if (interactive()) {
     cat(paste0(..., collapse = ""))
     return(utils::menu(c(yes, no)) == 2)
   }
@@ -27,7 +27,7 @@ nope <- function(..., yes = "yes", no = "no") {
 ## returns TRUE if user says "yes"
 ##         FALSE otherwise
 yep <- function(..., yes = "yes", no = "no") {
-  if (user_available()) {
+  if (interactive()) {
     cat(paste0(..., collapse = ""))
     return(utils::menu(c(yes, no)) == 1)
   }

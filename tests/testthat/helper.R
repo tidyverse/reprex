@@ -10,7 +10,7 @@ skip_if_no_clipboard <- function() {
 }
 
 ## call during interactive test development to fake being "in tests" and thereby
-## cause user_available() to return FALSE
+## cause in-house interactive() to return FALSE
 test_mode <- function() {
   before <- Sys.getenv("TESTTHAT")
   after <- if (before == "true") "false" else "true"
