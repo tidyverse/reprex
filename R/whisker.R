@@ -25,9 +25,10 @@ output:
 ---"
 yaml_md <- trim_ws(gsub("\\n", "\n#' ", yaml_md))
 
-yaml_gfm <- function(pandoc_version = rmarkdown::pandoc_version()) {
+yaml_gfm <- function() {
+  wrap_option <- if (pandoc1.6()) "--wrap=preserve" else "--no-wrap"
   res <- whisker::whisker.render(
-    data = list(wrap_option = if (pandoc_version < "1.16") "--no-wrap" else "--wrap=preserve"),
+    data = list(wrap_option = wrap_option),
 "
 ---
 output:
@@ -50,7 +51,7 @@ fodder <- list(
   ),
   so = list(
     yaml = yaml_md,
-    so_syntax_highlighting = "#'<!-- language-all: lang-r -->\\n"
+    so_syntax_highlighting = "#'<!-- language-all: lang-r -->"
   ),
   r = list(
     yaml = yaml_gfm()

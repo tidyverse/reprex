@@ -1,7 +1,6 @@
 context("venues")
 
-test_that("venue = 'so' works", {
-  skip_on_appveyor()
+test_that("venue = 'so' works with/without leading prose", {
   input <- c(
     "#' Hello world",
     "## comment",
@@ -9,13 +8,17 @@ test_that("venue = 'so' works", {
   )
   output <- c(
     "<!-- language-all: lang-r -->",
-    "",
     "Hello world",
     "",
     "    ## comment",
     "    1:5",
     "    #> [1] 1 2 3 4 5"
   )
+  ret <- reprex(input = input, venue = "so", show = FALSE, advertise = FALSE)
+  expect_identical(ret, output)
+
+  input <- grep("Hello", input, invert = TRUE, value = TRUE)
+  output <- grep("Hello", output, invert = TRUE, value = TRUE)
   ret <- reprex(input = input, venue = "so", show = FALSE, advertise = FALSE)
   expect_identical(ret, output)
 })
