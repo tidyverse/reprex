@@ -298,13 +298,21 @@ reprex <- function(x = NULL,
   }
 
   if (show) {
+    ## pandoc >= 2.0 warns in absence of pagetitle
+    output_options <- if (pandoc2.0()) {
+      list(pandoc_args = c("--metadata", "pagetitle=PREVIEW"))
+    } else {
+      NULL
+    }
     rmarkdown::render(
       md_file,
       output_file = files[["html_file"]],
       clean = FALSE,
       quiet = TRUE,
-      encoding = "UTF-8"
+      encoding = "UTF-8",
+      output_options = output_options
     )
+
     ## html must live in session temp dir in order to display within RStudio
     files[["html_file"]] <- force_tempdir(files[["html_file"]])
     viewer <- getOption("viewer") %||% utils::browseURL
