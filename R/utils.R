@@ -79,5 +79,3 @@ ds_is_gh <- function(venue) {
   }
   venue
 }
-
-pandoc2.0 <- function() rmarkdown::pandoc_available("2.0")
