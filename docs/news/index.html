@@ -94,96 +94,6 @@
     </div>
 
     <div class="contents">
-    <div id="reprex-0-1-1-9000" class="section level1">
-<h1 class="hasAnchor">
-<a href="#reprex-0-1-1-9000" class="anchor"></a>reprex 0.1.1.9000</h1>
-<p>reprex got a website: <a href="http://reprex.tidyverse.org" class="uri">http://reprex.tidyverse.org</a>. It includes a contributed article from @njtierney (#103).</p>
-<p>reprex has moved to the <a href="https://github.com/tidyverse">tidyverse Organization</a>. It is installed as part of the <a href="https://www.tidyverse.org">tidyverse meta-package</a> and is <a href="https://www.tidyverse.org/help/">suggested to those seeking help</a>.</p>
-<p><code><a href="../reference/reprex.html">reprex()</a></code> gains several arguments and many arguments can now be controlled via an option, in case a user wants their own defaults.</p>
-<p>The new <code><a href="../reference/reprex_addin.html">reprex_selection()</a></code> add-in reprexes the current selection, with venue controlled by the option <code>reprex.venue</code>. It can be handy to bind to a keyboard shortcut (#84 @hadley).</p>
-<p>If reprex can’t write to the user’s clipboard (e.g. on RStudio server or Unix-like systems lacking xclip or xsel), it will offer to open the output file for manual copy.</p>
-<div id="option-controlled-arguments-for-custom-defaults" class="section level2">
-<h2 class="hasAnchor">
-<a href="#option-controlled-arguments-for-custom-defaults" class="anchor"></a>Option-controlled arguments for custom defaults</h2>
-<p>These look like <code><a href="../reference/reprex.html">reprex(..., arg = opt(DEFAULT), ...)</a></code> in the help file. This is shorthand for <code>arg = getOption("reprex.arg", DEFAULT)</code>, i.e. the option <code>reprex.arg</code> is consulted and, if unset, the documented default is used. Allows user to define their own default behaviour (#116).</p>
-</div>
-<div id="new-arguments-to-reprex" class="section level2">
-<h2 class="hasAnchor">
-<a href="#new-arguments-to-reprex" class="anchor"></a>New arguments to <code><a href="../reference/reprex.html">reprex()</a></code>:</h2>
-<ul>
-<li>
-<code>advertise</code>: toggles inclusion of a footer that describes when and how the reprex was created, e.g., “Created on 2017-11-16 by the reprex package (v0.1.1.9000)”. Defaults to <code>TRUE</code> (#121, #69).</li>
-<li>
-<code>style</code>: requests code restyling via the newly-Suggested styler package. styler can cope with tidyeval syntactical sugar, e.g. <code>df %&gt;% group_by(!! group_var)</code>. Defaults to <code>FALSE</code> (#108, #94).</li>
-<li>
-<code>tidyverse_quiet</code>: affords control of the startup message of the tidyverse meta-package. Defaults to <code>TRUE</code> (important special case of #70, #100).</li>
-<li>
-<code>std_out_err</code>: appends output sent to stdout and stderr by the reprex rendering process. This can be necessary to reveal output if the reprex spawns child processes or has <code>system()</code> calls. Defaults to <code>FALSE</code> (#90, #110).</li>
-<li>
-<code>render</code>: determines if the reprex is actually rendered or just returns after producing the templated <code>.R</code> file. For internal testing.</li>
-</ul>
-</div>
-<div id="venues" class="section level2">
-<h2 class="hasAnchor">
-<a href="#venues" class="anchor"></a>Venues</h2>
-<ul>
-<li><p><code>venue = "gh"</code> now targets CommonMark as the standard for GitHub Flavored Markdown (#77). An option is specified to preserve wrapping from the source (#145 @jimhester).</p></li>
-<li><p><code>venue = "so"</code> no longer has extra whitespace at the start (#133 @alistaire47).</p></li>
-<li><p><code>venue = "ds"</code> is a new value, corresponding to <a href="https://www.discourse.org" class="uri">https://www.discourse.org</a>, which is the platform behind <a href="https://community.rstudio.com">community.rstudio.com</a>. This is currently just an alias for the default <code>"gh"</code> GitHub venue, because the formatting appears to be compatible. Adding the <code>"ds"</code> value so Discourse can be documented and to guard against the possibility that some formatting is actually unique.</p></li>
-</ul>
-</div>
-<div id="other-changes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#other-changes" class="anchor"></a>Other changes</h2>
-<ul>
-<li><p>The <code>keep.source</code> option is set to <code>TRUE</code> when rendering the reprex, so reprexes involving srcrefs should work (#152).</p></li>
-<li><p>The “undo” functions (<code><a href="../reference/un-reprex.html">reprex_invert()</a></code>, <code><a href="../reference/un-reprex.html">reprex_clean()</a></code>, <code><a href="../reference/un-reprex.html">reprex_rescue()</a></code>) handle <code>input</code> and <code>outfile</code> like <code><a href="../reference/reprex.html">reprex()</a></code> does. The <code>outfile</code> argument is new (#129, #68).</p></li>
-<li><p>The default value for knitr’s <code>upload.fun</code> is now set according to the venue. It is <code><a href="http://www.rdocumentation.org/packages/knitr/topics/imgur_upload">knitr::imgur_upload()</a></code> for all venues except <code>"r"</code>, where it is <code>identity</code> (#125).</p></li>
-<li><p>The HTML preview should appear in the RStudio Viewer more consistently, especially on Windows (#75 @yutannihilation).</p></li>
-<li><p>More rigorous use of UTF-8 encoding (#76 @yutannihilation).</p></li>
-<li><p>Expression input handling has been refactored. As a result, formatR is no longer Suggested. Trailing comments – inline and on their own line – are also now retained (#89, #91, #114, @jennybc and @jimhester).</p></li>
-<li><p>Custom prompts are now escaped when used in regexes (#98, #99 @jimhester). Embedded newlines are now escaped.</p></li>
-</ul>
-</div>
-</div>
-    <div id="reprex-0-1-1" class="section level1">
-<h1 class="hasAnchor">
-<a href="#reprex-0-1-1" class="anchor"></a>reprex 0.1.1</h1>
-<ul>
-<li>pandoc added to SystemRequirements.</li>
-</ul>
-</div>
-    <div id="reprex-0-1-0" class="section level1">
-<h1 class="hasAnchor">
-<a href="#reprex-0-1-0" class="anchor"></a>reprex 0.1.0</h1>
-<ul>
-<li><p><code>outfile = NA</code> causes outfiles to be left in working directory. Filenames will be based on the <code>input</code> file, if there was one.</p></li>
-<li><p><code><a href="../reference/reprex.html">reprex()</a></code> strips any leading prompts from input code.</p></li>
-<li><p>Added functions <code><a href="../reference/un-reprex.html">reprex_clean()</a></code>, <code><a href="../reference/un-reprex.html">reprex_invert()</a></code>, and <code><a href="../reference/un-reprex.html">reprex_rescue()</a></code> in order to go backwards, i.e. recover source from a wild-caught reprex.</p></li>
-<li><p><code>venue = "R"</code> (or <code>"r"</code>) can be used to get an R script back, augmented with commented output.</p></li>
-<li><p><code>comment</code> argument added to specify prefix for commented output.</p></li>
-<li><p>Added an RStudio addin, accessed via “Render reprex”.</p></li>
-<li><p><code>input</code> argument to <code><a href="../reference/reprex.html">reprex()</a></code> and friends handles code as string, character vector, or file path.</p></li>
-<li><p>The reprex is rendered via <code><a href="http://www.rdocumentation.org/packages/callr/topics/r">callr::r_safe()</a></code> and is thus run in a clean, separate R process, eliminating any leakage of objects or loaded packages to/from the calling session.</p></li>
-<li>
-<code><a href="../reference/reprex.html">reprex()</a></code> gains optional arguments <code>opts_chunk</code> and <code>opts_knit</code>, taking named list as input, in order to supplement or override default knitr chunk and package options, respectively. (#33)
-<ul>
-<li>This made the explicit <code>upload.fun</code> argument unnecessary, so it’s gone. The <code>upload.fun</code> option defaults to <code><a href="http://www.rdocumentation.org/packages/knitr/topics/imgur_upload">knitr::imgur_upload</a></code>, which means figures produced by the reprex will be uploaded to <a href="http://imgur.com">imgur.com</a> and the associated image syntax will be put into the Markdown, e.g. <code>![](http://i.imgur.com/QPU5Cg9.png)</code>. (#15 @paternogbc)</li>
-</ul>
-</li>
-<li><p>Order of <code><a href="../reference/reprex.html">reprex()</a></code> arguments has changed.</p></li>
-<li><p><code><a href="../reference/reprex.html">reprex()</a></code> gains the <code>si</code> argument to request that <code><a href="http://www.rdocumentation.org/packages/devtools/topics/session_info">devtools::session_info()</a></code> or <code>sessionInfo()</code> be appended to reprex code (#6 @dgrtwo). When <code>si = TRUE</code> and <code>venue = "gh"</code> (the default), session info is wrapped in a collapsible details tag. See <a href="https://github.com/tidyverse/reprex/issues/55">an example</a> (#55).</p></li>
-<li><p>Reprex code can be provided as an R expression. (#6 @dgrtwo, #35)</p></li>
-<li><p><code><a href="../reference/reprex.html">reprex()</a></code> uses clipboard functionality from <a href="https://CRAN.R-project.org/package=clipr"><code>clipr</code></a> and thus should work on Windows and suitably prepared Unix-like systems, in addition to Mac OS. (#16 @mdlincoln)</p></li>
-</ul>
-</div>
-    <div id="reprex-0-0-0-9000" class="section level1">
-<h1 class="hasAnchor">
-<a href="#reprex-0-0-0-9000" class="anchor"></a>reprex 0.0.0.9000</h1>
-<ul>
-<li>I tweeted about this and some people actually used it!</li>
-</ul>
-</div>
     </div>
   </div>
 
@@ -191,10 +101,6 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#reprex-0-1-1-9000">0.1.1.9000</a></li>
-        <li><a href="#reprex-0-1-1">0.1.1</a></li>
-        <li><a href="#reprex-0-1-0">0.1.0</a></li>
-        <li><a href="#reprex-0-0-0-9000">0.0.0.9000</a></li>
       </ul>
     </div>
   </div>
