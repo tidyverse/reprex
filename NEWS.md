@@ -24,7 +24,9 @@ These look like `reprex(..., arg = opt(DEFAULT), ...)` in the help file. This is
 
 ## Venues
 
-  * `venue = "gh"` now targets CommonMark as the standard for GitHub Flavored Markdown (#77). An option is specified to preserve wrapping from the source (#145 @jimhester).
+  * Line wrapping is preserved from source via a Pandoc option (#145 @jimhester, #175).
+
+  * `venue = "gh"` now targets CommonMark as the standard for GitHub Flavored Markdown (#77).
   
   * `venue = "so"` no longer has extra whitespace at the start (#133 @alistaire47).
 
