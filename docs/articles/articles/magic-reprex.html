@@ -91,7 +91,7 @@
 </blockquote>
 <p>Enter the R package reprex (on <a href="https://cran.r-project.org/package=reprex">CRAN</a>, on <a href="https://github.com/tidyverse/reprex">GitHub</a>), by <a href="http://www.github.com/jennybc">Jenny Bryan</a>.</p>
 <p>In the fashion of the times right now, I’ll illustrate reprex with a gif, which shows the following things:</p>
-<ol style="list-style-type: decimal">
+<ol type="1">
 <li>Take your code, copy it to the clipboard.</li>
 <li>Run <code><a href="http://www.rdocumentation.org/packages/reprex/topics/reprex">reprex::reprex()</a></code>, wait a moment for the code to execute.</li>
 <li>
@@ -129,27 +129,27 @@
 <p>So you know that when you run <code><a href="../../reference/reprex.html">reprex()</a></code>, and it gives you a reproducible example, it will work!</p>
 <p>Also worth mentioning is that rather magically, <code><a href="../../reference/reprex.html">reprex()</a></code> also handles images. I didn’t even notice this at first. It was just one of those things where “it just works”. <code><a href="../../reference/reprex.html">reprex()</a></code> handles this by uploading them to imgur using the <code><a href="http://www.rdocumentation.org/packages/knitr/topics/imgur_upload">knitr::imgur_upload()</a></code> function, which creates markdown links to the images.</p>
 <p>so</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-<span class="kw">library</span>(tidyverse)
-
-<span class="co"># run a lm</span>
-
-lm_fit &lt;-<span class="st"> </span><span class="kw">lm</span>(Sepal.Length <span class="op">~</span><span class="st"> </span>. , <span class="dt">data =</span> iris)
-
-<span class="co"># use broom to clean it up</span>
-
-<span class="kw">library</span>(broom)
-
-lm_augmented &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/broom/topics/augment">augment</a></span>(lm_fit)
-
-<span class="kw">head</span>(lm_augmented)
-
-<span class="co"># Explore the fit of the model</span>
-
-<span class="kw">ggplot</span>(<span class="dt">data =</span> lm_augmented,
-   <span class="kw">aes</span>(<span class="dt">x =</span> .fitted,
-       <span class="dt">y =</span> Sepal.Length)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co"># run a lm</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">lm_fit &lt;-<span class="st"> </span><span class="kw">lm</span>(Sepal.Length <span class="op">~</span><span class="st"> </span>. , <span class="dt">data =</span> iris)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co"># use broom to clean it up</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="kw">library</span>(broom)</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">lm_augmented &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/broom/topics/augment">augment</a></span>(lm_fit)</a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="kw">head</span>(lm_augmented)</a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co"># Explore the fit of the model</span></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="kw">ggplot</span>(<span class="dt">data =</span> lm_augmented,</a>
+<a class="sourceLine" id="cb1-19" data-line-number="19">   <span class="kw">aes</span>(<span class="dt">x =</span> .fitted,</a>
+<a class="sourceLine" id="cb1-20" data-line-number="20">       <span class="dt">y =</span> Sepal.Length)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-21" data-line-number="21"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p>gets turned into</p>
 <pre><code>library(tidyverse)
 #&gt; Loading tidyverse: ggplot2

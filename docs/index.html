@@ -76,8 +76,7 @@
     
 <div class="contents">
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<div id="reprex" class="section level1">
-
+<section id="reprex" class="level1">
 
 <p>Prepare reprexes for posting to <a href="https://guides.github.com/features/issues/">GitHub issues</a>, <a href="http://stackoverflow.com/questions/tagged/r">StackOverflow</a>, or <a href="https://get.slack.help/hc/en-us/articles/204145658-Create-a-snippet">Slack snippets</a>. What is a <code>reprex</code>? It’s a <strong>repr</strong>oducible <strong>ex</strong>ample, as coined by <a href="https://twitter.com/romain_francois/status/530011023743655936">Romain Francois</a>.</p>
 <p><a href="https://nypdecider.files.wordpress.com/2014/08/help-me-help-you.gif"><img src="reference/figures/help-me-help-you.png" align="right"></a></p>
@@ -92,27 +91,20 @@
 <li>R code, augmented with commented output.</li>
 </ul>
 <p>Result is returned invisibly, placed on the clipboard, and written to a file. Preview an HTML version in RStudio viewer or default browser.</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<section id="installation" class="level2"><h2>Installation</h2>
 <p>Install from CRAN:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"reprex"</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">"reprex"</span>)</a></code></pre></div>
 <p>or get a development version from GitHub:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"tidyverse/reprex"</span>)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"tidyverse/reprex"</span>)</a></code></pre></div>
 <p>On Linux, you probably want to install <a href="https://github.com/astrand/xclip">xclip</a> or <a href="http://www.vergenet.net/~conrad/software/xsel/">xsel</a>, so reprex can access the X11 clipboard. This is ‘nice to have’, but not mandatory. The usual <code>sudo apt-get install</code> or <code>sudo yum install</code> installation methods should work for both xclip and xsel.</p>
-</div>
-<div id="usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
+</section><section id="usage" class="level2"><h2>Usage</h2>
 <p>Let’s say you copy this code onto your clipboard:</p>
 <pre><code>(y &lt;- 1:4)
 mean(y)</code></pre>
 <p>Then call <code><a href="reference/reprex.html">reprex()</a></code>, where the default target venue is GitHub:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/reprex.html">reprex</a></span>()</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="reference/reprex.html">reprex</a></span>()</a></code></pre></div>
 <p>A nicely rendered HTML preview will display in RStudio’s Viewer (if you’re in RStudio) or your default browser otherwise.</p>
-<div class="figure">
-<img src="reference/figures/README-viewer-screenshot.png">
-</div>
+<p><img src="reference/figures/README-viewer-screenshot.png"></p>
 <p>The relevant bit of GitHub-flavored Markdown is ready to be pasted from your clipboard:</p>
 <pre><code>``` r
 (y &lt;- 1:4)
@@ -121,10 +113,10 @@ mean(y)
 #&gt; [1] 2.5
 ```</code></pre>
 <p>Here’s what that Markdown would look like rendered in a GitHub issue:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)
-<span class="co">#&gt; [1] 1 2 3 4</span>
-<span class="kw">mean</span>(y)
-<span class="co">#&gt; [1] 2.5</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">(y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt; [1] 1 2 3 4</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw">mean</span>(y)</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; [1] 2.5</span></a></code></pre></div>
 <p>Anyone else can copy, paste, and run this immediately.</p>
 <p>Instead of reading from the clipboard, you can:</p>
 <ul>
@@ -150,9 +142,7 @@ mean(y)
 <code><a href="reference/un-reprex.html">reprex_rescue()</a></code>, when you’re dealing with copy/paste from R Console</li>
 </ul>
 </li>
-</ul>
-</div>
-</div>
+</ul></section></section>
 </div>
   </div>
 
@@ -162,7 +152,7 @@ mean(y)
 <ul class="list-unstyled">
 <li>Download from CRAN at <br><a href="https://cran.r-project.org/package=reprex">https://​cran.r-project.org/​package=reprex</a>
 </li>
-<li>Browse source code at <br><a href="https://github.com/tidyverse/reprex">https://​github.com/​tidyverse/​reprex</a>
+<li>Browse source code at <br><a href="https://github.com/tidyverse/reprex#readme">https://​github.com/​tidyverse/​reprex#readme</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/tidyverse/reprex/issues">https://​github.com/​tidyverse/​reprex/​issues</a>
 </li>
