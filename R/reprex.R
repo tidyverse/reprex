@@ -245,6 +245,11 @@ reprex <- function(x = NULL,
     }
   }
 
+  if (venue == "so") {
+    ## empty line between html comment re: syntax highlighting and reprex code
+    the_source <- c("", the_source)
+  }
+
   outfile_given <- !is.null(outfile)
   files <- make_filenames(make_filebase(outfile, infile))
   r_file <- files[["r_file"]]

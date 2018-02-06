@@ -28,7 +28,7 @@ These look like `reprex(..., arg = opt(DEFAULT), ...)` in the help file. This is
 
   * `venue = "gh"` now targets CommonMark as the standard for GitHub Flavored Markdown (#77).
   
-  * `venue = "so"` no longer has extra whitespace at the start (#133 @alistaire47).
+  * `venue = "so"` has appropriate whitespace at the start.
 
   * `venue = "ds"` is a new value, corresponding to <https://www.discourse.org>, which is the platform behind [community.rstudio.com](https://community.rstudio.com). This is currently just an alias for the default `"gh"` GitHub venue, because the formatting appears to be compatible. Adding the `"ds"` value so Discourse can be documented and to guard against the possibility that some formatting is actually unique.
   
