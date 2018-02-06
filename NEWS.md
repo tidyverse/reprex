@@ -50,7 +50,7 @@ These look like `reprex(..., arg = opt(DEFAULT), ...)` in the help file. This is
 
 # reprex 0.1.2
 
-This was a non-funcioning release created by CRAN maintainers by commenting out lines of code relating to the clipboard.
+This was a non-functioning release created by CRAN maintainers by commenting out lines of code relating to the clipboard.
 
 # reprex 0.1.1
 
