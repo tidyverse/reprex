@@ -15,6 +15,10 @@ skip_if_no_clipboard <- function() {
   return(invisible(TRUE))
 }
 
+expect_error_free <- function(...) {
+  expect_error(..., regexp = NA)
+}
+
 ## call during interactive test development to fake being "in tests" and thereby
 ## cause in-house interactive() to return FALSE
 test_mode <- function() {
