@@ -309,7 +309,7 @@ reprex <- function(x = NULL,
       clean = FALSE,
       quiet = TRUE,
       encoding = "UTF-8",
-      output_options = list(pandoc_args = "--quiet")
+      output_options = if (pandoc2.0()) list(pandoc_args = "--quiet")
     )
 
     ## html must live in session temp dir in order to display within RStudio
