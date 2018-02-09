@@ -263,8 +263,7 @@ reprex <- function(x = NULL,
   the_source <- ensure_no_prompts(the_source)
   the_source <- apply_template(c(
     fodder[[venue]],
-    si = isTRUE(si),
-    devtools = requireNamespace("devtools", quietly = TRUE),
+    si = if (isTRUE(si)) .reprex[["session_info"]],
     comment = comment,
     upload_fun = if (venue == "r") "identity" else "knitr::imgur_upload",
     user_opts_chunk = prep_opts(opts_chunk, which = "chunk"),

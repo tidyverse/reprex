@@ -28,11 +28,6 @@ cat(lines, sep = "\n")
 
 {{#si}}
 {{{si_start}}}
-{{#devtools}}
-devtools::session_info()
-{{/devtools}}
-{{^devtools}}
-sessionInfo()
-{{/devtools}}
+{{{si}}}
 {{{si_end}}}
 {{/si}}
