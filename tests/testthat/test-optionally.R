@@ -37,5 +37,5 @@ test_that("`std_out_err` can be set via option", {
     list(reprex.std_out_err = TRUE),
     out <- reprex(1, render = FALSE)
   )
-  expect_match(out, "standard output and standard error", all = FALSE)
+  expect_match(out, "std_out_err", all = FALSE)
 })

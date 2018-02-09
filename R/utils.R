@@ -81,3 +81,27 @@ ds_is_gh <- function(venue) {
 }
 
 pandoc2.0 <- function() rmarkdown::pandoc_available("2.0")
+
+enfence <- function(path,
+                    tag = NULL,
+                    fallback = "-- nothing to show --") {
+  lines <- readLines(path, encoding = "UTF-8")
+  if (length(lines) == 0) {
+    lines <- fallback
+  }
+  lines <- paste0(c(tag, "``` sh", lines, "```"), collapse = "\n")
+  writeLines(lines, path)
+  path
+}
+
+inject_file <- function(path, inject_path) {
+  lines <- readLines(path, encoding = "UTF-8")
+  lines <- sub(paste0("`", inject_path, "`"), "{{{inject_lines}}}", lines)
+  inject_lines <- readLines(inject_path, encoding = "UTF-8")
+  lines <- whisker::whisker.render(
+    lines,
+    data = list(inject_lines = paste0(inject_lines, collapse = "\n"))
+  )
+  writeLines(lines, path)
+  path
+}
