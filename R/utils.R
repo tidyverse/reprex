@@ -96,11 +96,12 @@ enfence <- function(path,
 
 inject_file <- function(path, inject_path) {
   lines <- readLines(path, encoding = "UTF-8")
-  lines <- sub(paste0("`", inject_path, "`"), "{{{inject_lines}}}", lines)
   inject_lines <- readLines(inject_path, encoding = "UTF-8")
-  lines <- whisker::whisker.render(
-    lines,
-    data = list(inject_lines = paste0(inject_lines, collapse = "\n"))
+  inject_locus <- grep(paste0("`", inject_path, "`"), lines, fixed = TRUE)
+  lines <- c(
+    lines[seq_len(inject_locus - 1)],
+    inject_lines,
+    lines[-seq_len(inject_locus)]
   )
   writeLines(lines, path)
   path
