@@ -269,7 +269,7 @@ reprex <- function(x = NULL,
     user_opts_chunk = prep_opts(opts_chunk, which = "chunk"),
     user_opts_knit = prep_opts(opts_knit, which = "knit"),
     tidyverse_quiet = as.character(tidyverse_quiet),
-    std_file = std_file,
+    std_file_stub = if (std_out_err) paste0("#' `", std_file, "`\n#'"),
     advertisement = advertise,
     body = paste(the_source, collapse = "\n")
   ))
@@ -285,6 +285,14 @@ reprex <- function(x = NULL,
   message("Rendering reprex...")
   ## when venue = "r", the reprex_file != md_file, so we need both
   reprex_file <- md_file <- reprex_(r_file, std_file)
+
+  if (std_out_err) {
+    ## prepare standard output and error to inject into .md
+    enfence(std_file, tag = "standard output and standard error")
+    ## replace backtick'ed std_file with the contents of std_file
+    inject_file(reprex_file, std_file)
+  }
+
   if (outfile_given) {
     ## pathstem = the common part of the two paths
     pathstem <- path_stem(r_file, md_file)
