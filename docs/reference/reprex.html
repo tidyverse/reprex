@@ -238,9 +238,10 @@ remain local. In that case, you may also want to set <code>outfile</code>.</p></
 <span class='co'># provide code as an expression</span>
 <span class='fu'>reprex</span>(<span class='fu'>rbinom</span>(<span class='fl'>3</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>prob</span> <span class='kw'>=</span> <span class='fl'>0.5</span>))
 <span class='fu'>reprex</span>({<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>4</span>; <span class='fu'>mean</span>(<span class='no'>y</span>)})
+<span class='fu'>reprex</span>({<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>4</span>; <span class='fu'>mean</span>(<span class='no'>y</span>)}, <span class='kw'>style</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># note that you can include newlines in those brackets</span>
-<span class='co'># in fact, that is probably a good idea</span>
+<span class='co'># in fact, that is often a good idea</span>
 <span class='fu'>reprex</span>({
   <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>4</span>
   <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>:<span class='fl'>5</span>
