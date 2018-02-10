@@ -94,9 +94,10 @@
 #' # provide code as an expression
 #' reprex(rbinom(3, size = 10, prob = 0.5))
 #' reprex({y <- 1:4; mean(y)})
+#' reprex({y <- 1:4; mean(y)}, style = TRUE)
 #'
 #' # note that you can include newlines in those brackets
-#' # in fact, that is probably a good idea
+#' # in fact, that is often a good idea
 #' reprex({
 #'   x <- 1:4
 #'   y <- 2:5
@@ -287,10 +288,12 @@ reprex <- function(x = NULL,
   reprex_file <- md_file <- reprex_(r_file, std_file)
 
   if (std_out_err) {
-    ## prepare standard output and error to inject into .md
-    enfence(std_file, tag = "standard output and standard error")
-    ## replace backtick'ed std_file with the contents of std_file
-    inject_file(reprex_file, std_file)
+    ## replace backtick'ed std_file with its (lightly processed) contents
+    inject_file(
+      reprex_file,
+      std_file,
+      pre_process = enfence, tag = "standard output and standard error"
+    )
   }
 
   if (outfile_given) {

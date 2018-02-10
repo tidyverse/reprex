@@ -82,21 +82,20 @@ ds_is_gh <- function(venue) {
 
 pandoc2.0 <- function() rmarkdown::pandoc_available("2.0")
 
-enfence <- function(path,
+enfence <- function(lines,
                     tag = NULL,
                     fallback = "-- nothing to show --") {
-  lines <- readLines(path, encoding = "UTF-8")
   if (length(lines) == 0) {
     lines <- fallback
   }
-  lines <- paste0(c(tag, "``` sh", lines, "```"), collapse = "\n")
-  writeLines(lines, path)
-  path
+  paste0(c(tag, "``` sh", lines, "```"), collapse = "\n")
 }
 
-inject_file <- function(path, inject_path) {
+inject_file <- function(path, inject_path, pre_process = identity, ...) {
   lines <- readLines(path, encoding = "UTF-8")
   inject_lines <- readLines(inject_path, encoding = "UTF-8")
+  inject_lines <- pre_process(inject_lines, ...)
+
   inject_locus <- grep(paste0("`", inject_path, "`"), lines, fixed = TRUE)
   lines <- c(
     lines[seq_len(inject_locus - 1)],
