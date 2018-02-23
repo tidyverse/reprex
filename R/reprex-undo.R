@@ -191,7 +191,7 @@ classify_lines_bt <- function(x, comment = "^#>") {
 ## classify_lines()
 ## x = presumably output of reprex(..., venue = "so"), i.e. NOT Github-flavored
 ## markdown in a character vector, with code blocks indented with 4 spaces
-## http://stackoverflow.com/editing-help
+## https://stackoverflow.com/editing-help
 ## returns character vector
 ## calls each line of x like so:
 ##   * code = inside a code block indented by 4 spaces
