@@ -15,13 +15,13 @@ test_that("ugly code gets restyled", {
   )
 })
 
-test_that("bang bang bang is styled correctly", {
+test_that("bang bang bang is not mangled with parentheses", {
   skip_if_not_installed("styler")
   input <- c(
     'nameshift <- c(SL = "Sepal.Length")',
-    "head(dplyr::rename(iris[, 1:2], !!! nameshift), 3)"
+    "head(dplyr::rename(iris[, 1:2], !!!nameshift), 3)"
   )
   ret <- reprex(input = input, style = TRUE, advertise = FALSE, render = FALSE)
-  i <- which(ret == "#+ reprex-body")
-  expect_identical(ret[i + 1:2], input)
+  ret <- grep("dplyr::rename", ret, value = TRUE)
+  expect_match(ret, "!!!")
 })
