@@ -52,7 +52,7 @@ Read more about \code{\link[=opt]{opt()}}.}
 browser). Read more about \code{\link[=opt]{opt()}}.}
 
 \item{comment}{Character. Prefix with which to comment out output, defaults
-to \code{"#&gt;"}. Read more about \code{\link[=opt]{opt()}}.}
+to \code{"#>"}. Read more about \code{\link[=opt]{opt()}}.}
 
 \item{opts_chunk, opts_knit}{Named list. Optional
 \href{http://yihui.name/knitr/options/}{knitr chunk and package options} that
@@ -93,7 +93,7 @@ issue. Reprex source can be
 \details{
 The usual "code + commented output" is returned invisibly, put on the
 clipboard, and written to file. An HTML preview displays in RStudio's Viewer
-pane, if available, or in the default browser, otherwise. Leading \code{"&gt; "}
+pane, if available, or in the default browser, otherwise. Leading \code{"> "}
 prompts, are stripped from the input code. Read more at
 \url{http://reprex.tidyverse.org/}.
 
@@ -103,7 +103,7 @@ which you can supplement or override via the \code{opts_chunk} and
 (see examples). If all you want to override is the \code{comment} option, use
 the dedicated argument, e.g.\code{commment = "#;-)"}.
 \itemize{
-\item Chunk options default to \code{collapse = TRUE}, \code{comment = "#&gt;"},
+\item Chunk options default to \code{collapse = TRUE}, \code{comment = "#>"},
 \code{error = TRUE}. Note that \code{error = TRUE}, because a common use case is bug
 reporting.
 \item reprex also sets knitr's \code{upload.fun}. It defaults to
