@@ -79,10 +79,9 @@ x <- reprex({
   #' More text
   y <- 2:5
   x + y
-}, show = FALSE, advertise = FALSE)
-writeLines(x)
-x <- reprex_invert(x)
-writeLines(x)
+}, show = FALSE, advertise = FALSE, outfile = "roundtrip-input")
+x <- reprex_invert(x, outfile = "roundtrip-output")
+x
 }
 \dontrun{
 ## a displayed reprex can be cleaned of commented output
@@ -93,8 +92,8 @@ x <- c(
   "median(x)",
   "#> [1] 2.5"
   )
-out <- reprex_clean(x)
-writeLines(out)
+out <- reprex_clean(x, outfile = "commented-code")
+out
 
 ## round trip with reprex(..., venue = "R")
 code_in <- c("x <- rnorm(2)", "min(x)")
@@ -112,7 +111,7 @@ x <- c(
   "> median(x)",
   "[1] 2.5"
 )
-out <- reprex_rescue(x)
-writeLines(out)
+out <- reprex_rescue(x, outfile = "live-transcript")
+out
 }
 }

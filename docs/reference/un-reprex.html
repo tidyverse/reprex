@@ -177,10 +177,9 @@ commands.</p></li>
   <span class='co'>#' More text</span>
   <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>:<span class='fl'>5</span>
   <span class='no'>x</span> + <span class='no'>y</span>
-}, <span class='kw'>show</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>advertise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'>writeLines</span>(<span class='no'>x</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex_invert</span>(<span class='no'>x</span>)
-<span class='fu'>writeLines</span>(<span class='no'>x</span>)
+}, <span class='kw'>show</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>advertise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='st'>"roundtrip-input"</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex_invert</span>(<span class='no'>x</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='st'>"roundtrip-output"</span>)
+<span class='no'>x</span>
 <span class='co'># }</span><span class='co'># NOT RUN {</span>
 <span class='co'>## a displayed reprex can be cleaned of commented output</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(
@@ -190,8 +189,8 @@ commands.</p></li>
   <span class='st'>"median(x)"</span>,
   <span class='st'>"#&gt; [1] 2.5"</span>
   )
-<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex_clean</span>(<span class='no'>x</span>)
-<span class='fu'>writeLines</span>(<span class='no'>out</span>)
+<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex_clean</span>(<span class='no'>x</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='st'>"commented-code"</span>)
+<span class='no'>out</span>
 
 <span class='co'>## round trip with reprex(..., venue = "R")</span>
 <span class='no'>code_in</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"x &lt;- rnorm(2)"</span>, <span class='st'>"min(x)"</span>)
@@ -208,8 +207,8 @@ commands.</p></li>
   <span class='st'>"&gt; median(x)"</span>,
   <span class='st'>"[1] 2.5"</span>
 )
-<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex_rescue</span>(<span class='no'>x</span>)
-<span class='fu'>writeLines</span>(<span class='no'>out</span>)
+<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex_rescue</span>(<span class='no'>x</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='st'>"live-transcript"</span>)
+<span class='no'>out</span>
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

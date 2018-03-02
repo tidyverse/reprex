@@ -37,10 +37,9 @@ NULL
 #'   #' More text
 #'   y <- 2:5
 #'   x + y
-#' }, show = FALSE, advertise = FALSE)
-#' writeLines(x)
-#' x <- reprex_invert(x)
-#' writeLines(x)
+#' }, show = FALSE, advertise = FALSE, outfile = "roundtrip-input")
+#' x <- reprex_invert(x, outfile = "roundtrip-output")
+#' x
 #' }
 reprex_invert <- function(input = NULL,
                           outfile = NULL,
@@ -78,8 +77,8 @@ reprex_invert <- function(input = NULL,
 #'   "median(x)",
 #'   "#> [1] 2.5"
 #'   )
-#' out <- reprex_clean(x)
-#' writeLines(out)
+#' out <- reprex_clean(x, outfile = "commented-code")
+#' out
 #'
 #' ## round trip with reprex(..., venue = "R")
 #' code_in <- c("x <- rnorm(2)", "min(x)")
@@ -109,8 +108,8 @@ reprex_clean <- function(input = NULL,
 #'   "> median(x)",
 #'   "[1] 2.5"
 #' )
-#' out <- reprex_rescue(x)
-#' writeLines(out)
+#' out <- reprex_rescue(x, outfile = "live-transcript")
+#' out
 #' }
 reprex_rescue <- function(input = NULL,
                           outfile = NULL,
