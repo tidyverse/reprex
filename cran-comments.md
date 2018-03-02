@@ -1,6 +1,10 @@
 This is an update of a package recently declared ORPHANED by CRAN.
 
-With this release, reprex no longer accesses the clipboard on CRAN, neither for examples nor tests.
+reprex no longer accesses the clipboard on CRAN: not via examples, tests, or the vignette (which I believe may have been what launched xsel in the previous re-submission).
+
+The documentation for both reprex() and reprex_clean()/reprex_invert()/ reprex_rescue()) now states in the first sentence that the primary purpose of these functions is specifically to write to the user's clipboard. If a user does not want to use the clipboard features of reprex, then the user would use the rmarkdown or knitr package directly to render their code. I believe usage of reprex package and the reprex()/reprex_clean()/reprex_invert()/ reprex_rescue() functions implies that the user understands that reprex may read from or write to the clipboard.
+
+reprex's handling of the clipboard is also consistent with several packages currently on CRAN, at least one of which was accepted since the recent addition of clipboard language to the CRAN Repository Policy. Like reprex, these packages and/or functions are clearly used with the purpose of reading/writing clipboard.
 
 I've also made sure reprex tests that exercise Pandoc don't run if Pandoc is not present, which seems to be the cause of persistent errors for reprex on CRAN's OS X machines. To be clear, Pandoc is listed in SystemRequirements, going back to the previous release in January 2017.
 
