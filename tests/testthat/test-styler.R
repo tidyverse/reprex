@@ -1,6 +1,7 @@
 context("style")
 
 test_that("ugly code gets restyled", {
+  skip_on_cran()
   skip_if_not_installed("styler")
   ret <- reprex(
     input = c("a<-function( x){", "1+1}           "),
@@ -16,6 +17,7 @@ test_that("ugly code gets restyled", {
 })
 
 test_that("bang bang bang is not mangled with parentheses", {
+  skip_on_cran()
   skip_if_not_installed("styler")
   input <- c(
     'nameshift <- c(SL = "Sepal.Length")',

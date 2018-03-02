@@ -1,6 +1,7 @@
 context("session info")
 
 test_that("session info is omitted / included", {
+  skip_on_cran()
   if (requireNamespace("devtools", quietly = TRUE)) {
     regex <- "devtools::session_info()"
   } else {
@@ -16,6 +17,7 @@ test_that("session info is omitted / included", {
 })
 
 test_that("session info is folded on github", {
+  skip_on_cran()
   input <- c("(y <- 1:4)", "mean(y)")
   ret <- reprex(input = input, render = FALSE, si = TRUE, venue = "gh")
   expect_match(

@@ -12,24 +12,28 @@ input <- c(
 )
 
 test_that("round trip, venue = 'gh': reprex() --> reprex_invert()", {
+  skip_on_cran()
   output <- reprex(input = input, show = FALSE, advertise = FALSE)
   res <- reprex_invert(output)
   expect_identical(input, res)
 })
 
 test_that("round trip, venue = 'so': reprex() --> reprex_invert()", {
+  skip_on_cran()
   output <- reprex(input = input, venue = "so", show = FALSE, advertise = FALSE)
   res <- reprex_invert(output, venue = "so")
   expect_identical(input, res)
 })
 
 test_that("round trip, venue = 'r': reprex() --> reprex_invert()", {
+  skip_on_cran()
   output <- reprex(input = input, advertise = FALSE, show = FALSE, venue = "r")
   res <- reprex_clean(output)
   expect_identical(input, res[nzchar(res)])
 })
 
 test_that("reprex_rescue() rescues code from R Console copy/paste", {
+  skip_on_cran()
   console <- c(
     "> ## a regular comment, which is retained",
     "> (y <- c(2,",
@@ -50,6 +54,7 @@ test_that("reprex_rescue() rescues code from R Console copy/paste", {
 })
 
 test_that("reprex_rescue()'s prompt argument works", {
+  skip_on_cran()
   code <- c(
     ":-) ## a regular comment, which is retained",
     ":-) (x <- 1:4)",
@@ -66,6 +71,7 @@ test_that("reprex_rescue()'s prompt argument works", {
 })
 
 test_that("reprex_rescue()'s continue argument works", {
+  skip_on_cran()
   code <- c(
     "> ## a regular comment, which is retained",
     "> (y <- c(2,",
@@ -86,6 +92,7 @@ test_that("reprex_rescue()'s continue argument works", {
 })
 
 test_that("reprex_rescue() can cope with leading whitespace", {
+  skip_on_cran()
   console <- c(
     "> ## a regular comment, which is retained",
     " > (x <- 1:4)",
@@ -102,6 +109,7 @@ test_that("reprex_rescue() can cope with leading whitespace", {
 })
 
 test_that("reprex_invert() can write to specific outfile", {
+  skip_on_cran()
   on.exit(file.remove("foo_clean.R"))
   code <- c("x <- 1:3", "median(x)")
   invert_me <- reprex(input = code, show = FALSE, advertise = FALSE)
@@ -110,6 +118,7 @@ test_that("reprex_invert() can write to specific outfile", {
 })
 
 test_that("reprex_invert() can name its own outfile", {
+  skip_on_cran()
   code <- c("x <- 1:3", "median(x)")
   invert_me <- reprex(input = code, show = FALSE, advertise = FALSE)
   msg <- capture_messages(
@@ -122,6 +131,7 @@ test_that("reprex_invert() can name its own outfile", {
 })
 
 test_that("reprex_invert() can name outfile based on input filepath", {
+  skip_on_cran()
   on.exit(file.remove(c("a_reprex.R", "a_reprex.md", "a_reprex_clean.R")))
   code <- c("x <- 1:3", "median(x)")
   reprex(input = code, show = FALSE, advertise = FALSE, outfile = "a")

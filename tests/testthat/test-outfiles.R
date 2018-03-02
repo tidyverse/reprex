@@ -7,6 +7,7 @@ base_msg <- c(
 )
 
 test_that("expected outfiles are written and messaged, venue = 'gh'", {
+  skip_on_cran()
   on.exit(file.remove("foo_reprex.R", "foo_reprex.md"))
   msg <- capture_messages(ret <- reprex(1:5, outfile = "foo", show = FALSE))
   expect_identical(msg[1:3], base_msg)
@@ -15,6 +16,7 @@ test_that("expected outfiles are written and messaged, venue = 'gh'", {
 })
 
 test_that("expected outfiles are written and messaged, venue = 'R'", {
+  skip_on_cran()
   on.exit(file.remove(
     "foo_reprex.R",
     "foo_reprex.md",
@@ -34,6 +36,7 @@ test_that("expected outfiles are written and messaged, venue = 'R'", {
 })
 
 test_that("`.md` extension is stripped from outfile", {
+  skip_on_cran()
   on.exit(file.remove("foo_reprex.R", "foo_reprex.md"))
   ret <- reprex(1:5, show = FALSE, outfile = "foo.md")
   expect_true(file.exists("foo_reprex.R"))
@@ -41,6 +44,7 @@ test_that("`.md` extension is stripped from outfile", {
 })
 
 test_that(".R outfile doesn't clobber .R infile", {
+  skip_on_cran()
   on.exit(file.remove("foo.R", "foo_reprex.R", "foo_reprex.md"))
   writeLines("1:5", "foo.R")
   ret <- reprex(input = "foo.R", show = FALSE, outfile = NA)
@@ -48,6 +52,7 @@ test_that(".R outfile doesn't clobber .R infile", {
 })
 
 test_that("outfiles in a subdirectory works", {
+  skip_on_cran()
   on.exit(unlink("foo", recursive = TRUE))
   dir.create("foo")
   msg <- capture_messages(ret <- reprex(1:5, outfile = "foo/foo", show = FALSE))
@@ -56,6 +61,7 @@ test_that("outfiles in a subdirectory works", {
 })
 
 test_that("outfiles based on input file", {
+  skip_on_cran()
   on.exit(file.remove("foo.R", "foo_reprex.R", "foo_reprex.md"))
   writeLines("1:5", "foo.R")
   msg <-
@@ -65,6 +71,7 @@ test_that("outfiles based on input file", {
 })
 
 test_that("outfiles based on tempfile()", {
+  skip_on_cran()
   msg <-
     capture_messages(ret <- reprex(
       input = c("x <- 1:3", "min(x)"),
@@ -81,6 +88,7 @@ test_that("outfiles based on tempfile()", {
 })
 
 test_that("pre-existing foo_reprex.R doesn't get clobbered w/o user's OK", {
+  skip_on_cran()
   on.exit(file.remove("foo_reprex.R", "foo_reprex.md"))
   ret <- reprex(1:3, show = FALSE, outfile = "foo")
   expect_match(readLines("foo_reprex.md"), "1:3", all = FALSE, fixed = TRUE)

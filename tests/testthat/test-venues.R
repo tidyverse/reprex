@@ -1,6 +1,7 @@
 context("venues")
 
 test_that("venue = 'so' works with/without leading prose", {
+  skip_on_cran()
   input <- c(
     "#' Hello world",
     "## comment",
@@ -24,6 +25,7 @@ test_that("venue = 'so' works with/without leading prose", {
 })
 
 test_that("venue = 'R' works, regardless of case", {
+  skip_on_cran()
   input <- c(
     "#' Hello world",
     "## comment",
@@ -42,6 +44,7 @@ test_that("venue = 'R' works, regardless of case", {
 })
 
 test_that("venue = 'ds' is an alias for 'gh'", {
+  skip_on_cran()
   input <- c(
     "#' Hello world",
     "## comment",
@@ -53,6 +56,7 @@ test_that("venue = 'ds' is an alias for 'gh'", {
 })
 
 test_that("local image link is not interrupted by hard line break for 'gh'", {
+  skip_on_cran()
   input <- c(
     "#+ setup, include = FALSE",
     "knitr::opts_knit$set(upload.fun = identity)",

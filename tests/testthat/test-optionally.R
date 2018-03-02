@@ -1,6 +1,7 @@
 context("optionally")
 
 test_that("`si` can be set via option", {
+  skip_on_cran()
   withr::with_options(
     list(reprex.si = TRUE),
     out <- reprex(1, render = FALSE)
@@ -9,6 +10,7 @@ test_that("`si` can be set via option", {
 })
 
 test_that("`advertise` can be set via option", {
+  skip_on_cran()
   withr::with_options(
     list(reprex.advertise = FALSE),
     out <- reprex(1, render = FALSE)
@@ -17,6 +19,7 @@ test_that("`advertise` can be set via option", {
 })
 
 test_that("`comment` can be set via option", {
+  skip_on_cran()
   withr::with_options(
     list(reprex.comment = "#? "),
     out <- reprex(rnorm(1), show = FALSE)
@@ -25,6 +28,7 @@ test_that("`comment` can be set via option", {
 })
 
 test_that("`tidyverse_quiet` can be set via option", {
+  skip_on_cran()
   withr::with_options(
     list(reprex.tidyverse_quiet = FALSE),
     out <- reprex(library(tidyverse), render = FALSE)
@@ -33,6 +37,7 @@ test_that("`tidyverse_quiet` can be set via option", {
 })
 
 test_that("`std_out_err` can be set via option", {
+  skip_on_cran()
   withr::with_options(
     list(reprex.std_out_err = TRUE),
     out <- reprex(1, render = FALSE)

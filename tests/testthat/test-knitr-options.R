@@ -1,6 +1,7 @@
 context("knitr options")
 
 test_that("chunk options can be overridden", {
+  skip_on_cran()
   src <- c(
     "(y <- 1:4)",
     "mean(y)"
@@ -23,6 +24,7 @@ test_that("chunk options can be overridden", {
 })
 
 test_that("`comment` is special", {
+  skip_on_cran()
   src <- c(
     "y <- 1:4",
     "mean(y)"
@@ -52,6 +54,7 @@ test_that("`comment` is special", {
 })
 
 test_that("venue determines default value of `upload.fun`", {
+  skip_on_cran()
   out <- reprex(plot(1), render = FALSE)
   expect_match(out, "knitr::imgur_upload", all = FALSE)
   out <- reprex(plot(1), render = FALSE, venue = "r")
