@@ -79,9 +79,10 @@ purposes.}
 Character vector of rendered reprex, invisibly.
 }
 \description{
-Run a bit of R code using \code{\link[rmarkdown:render]{rmarkdown::render()}}. The goal is to make it
-easy to share a small reproducible example ("reprex"), e.g., in a GitHub
-issue. Reprex source can be
+Run a bit of R code using \code{\link[rmarkdown:render]{rmarkdown::render()}} and write the rendered result
+to user's clipboard. The goal is to make it easy to share a small
+reproducible example ("reprex"), e.g., in a GitHub issue. Reprex source can
+be
 \itemize{
 \item read from clipboard
 \item read from current selection or active document in RStudio

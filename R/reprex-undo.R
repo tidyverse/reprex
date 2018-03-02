@@ -1,9 +1,10 @@
 #' Un-render a reprex
 #'
 #' @description
-#' Recover clean, runnable code from a reprex captured in the wild. The code is
-#' returned invisibly, put on the clipboard, and possibly written to file.
-#' Three different functions address various forms of wild-caught reprex.
+#' Recover clean, runnable code from a reprex captured in the wild and write it
+#' to user's clipboard. The code is also returned invisibly and optionally
+#' written to file. Three different functions address various forms of
+#' wild-caught reprex.
 #'
 #' @param input Character. If has length one and lacks a terminating newline,
 #'   interpreted as the path to a file containing reprex code. Otherwise,
