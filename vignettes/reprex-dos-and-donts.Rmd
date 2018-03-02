@@ -88,41 +88,6 @@ Accomplished like so:
 
   * Use chunk option `comment = "#>"` to include the output while retaining executability.
 
-## Advanced features
-
-### Embedded prose
-
-Sometimes you want to mingle rendered code and prose. Put the embedded prose in as roxygen comments, i.e. comment lines that start with `#'`. This reprex code:
-
-```{r include = FALSE}
-demo_code <- c(
-  "## a regular comment",
-  "x <- 1:100",
-  "#' Here is some embedded prose, as a roxygen comment.",
-  "mean(x)"
-)
-md_content <- reprex(
-  input = demo_code,
-  outfile = "README-tmp_gh",
-  show = FALSE,
-  advertise = FALSE
-)
-```
-
-```{r asis = TRUE, echo = FALSE, comment = NA}
-cat(demo_code, sep = "\n")
-```
-
-renders to this this result:
-
-```{r child = "README-tmp_gh_reprex.md"}
-```
-
-```{r include = FALSE}
-leftovers <- list.files(pattern = "README-tmp", ignore.case = TRUE)
-if (length(leftovers)) file.remove(leftovers)
-```
-
 ## Other work
 
 If I had known about [`formatR::tidy_eval()`](http://yihui.name/formatR/), I probably would never had made reprex! But alas I did not. AFAICT here are the main differences:
