@@ -1,5 +1,9 @@
 This is an update of a package recently declared ORPHANED by CRAN.
 
+No example shows the act of writing to or reading from a file in the user's file space. It is always to a file below the session temp directory.
+
+Notes from previous resubmissions ----------------------------------------------
+
 reprex no longer accesses the clipboard on CRAN: not via examples, tests, or the vignette (which I believe may have been what launched xsel in the previous re-submission).
 
 The documentation for both reprex() and reprex_clean()/reprex_invert()/ reprex_rescue()) now states in the first sentence that the primary purpose of these functions is specifically to write to the user's clipboard. If a user does not want to use the clipboard features of reprex, then the user would use the rmarkdown or knitr package directly to render their code. I believe usage of reprex package and the reprex()/reprex_clean()/reprex_invert()/ reprex_rescue() functions implies that the user understands that reprex may read from or write to the clipboard.

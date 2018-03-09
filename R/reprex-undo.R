@@ -30,6 +30,7 @@ NULL
 #' @examples
 #' \dontrun{
 #' ## a rendered reprex can be inverted, at least approximately
+#' tmp_in <- file.path(tempdir(), "roundtrip-input")
 #' x <- reprex({
 #'   #' Some text
 #'   #+ chunk-label-and-options-cannot-be-recovered, message = TRUE
@@ -37,9 +38,13 @@ NULL
 #'   #' More text
 #'   y <- 2:5
 #'   x + y
-#' }, show = FALSE, advertise = FALSE, outfile = "roundtrip-input")
-#' x <- reprex_invert(x, outfile = "roundtrip-output")
+#' }, show = FALSE, advertise = FALSE, outfile = tmp_in)
+#' tmp_out <- file.path(tempdir(), "roundtrip-output")
+#' x <- reprex_invert(x, outfile = tmp_out)
 #' x
+#'
+#' # clean up
+#' file.remove(list.files(dirname(tmp),pattern = "roundtrip", full.names = TRUE))
 #' }
 reprex_invert <- function(input = NULL,
                           outfile = NULL,
@@ -70,6 +75,7 @@ reprex_invert <- function(input = NULL,
 #' @examples
 #' \dontrun{
 #' ## a displayed reprex can be cleaned of commented output
+#' tmp <- file.path(tempdir(), "commented-code")
 #' x <- c(
 #'   "## a regular comment, which is retained",
 #'   "(x <- 1:4)",
@@ -77,8 +83,13 @@ reprex_invert <- function(input = NULL,
 #'   "median(x)",
 #'   "#> [1] 2.5"
 #'   )
-#' out <- reprex_clean(x, outfile = "commented-code")
+#' out <- reprex_clean(x, outfile = tmp)
 #' out
+#'
+#' # clean up
+#' file.remove(
+#'   list.files(dirname(tmp), pattern = "commented-code", full.names = TRUE)
+#' )
 #'
 #' ## round trip with reprex(..., venue = "R")
 #' code_in <- c("x <- rnorm(2)", "min(x)")
@@ -101,6 +112,7 @@ reprex_clean <- function(input = NULL,
 #' @examples
 #' \dontrun{
 #' ## rescue a reprex that was copied from a live R session
+#' tmp <- file.path(tempdir(), "live-transcript")
 #' x <- c(
 #'   "> ## a regular comment, which is retained",
 #'   "> (x <- 1:4)",
@@ -108,8 +120,13 @@ reprex_clean <- function(input = NULL,
 #'   "> median(x)",
 #'   "[1] 2.5"
 #' )
-#' out <- reprex_rescue(x, outfile = "live-transcript")
+#' out <- reprex_rescue(x, outfile = tmp)
 #' out
+#'
+#' # clean up
+#' file.remove(
+#'   list.files(dirname(tmp),pattern = "live-transcript", full.names = TRUE)
+#' )
 #' }
 reprex_rescue <- function(input = NULL,
                           outfile = NULL,

@@ -137,33 +137,45 @@
 #' }, advertise = FALSE)
 #'
 #' # read reprex from file
-#' writeLines(c("x <- 1:4", "mean(x)"), "foofy.R")
-#' reprex(input = "foofy.R")
+#' tmp <- file.path(tempdir(), "foofy.R")
+#' writeLines(c("x <- 1:4", "mean(x)"), tmp)
+#' reprex(input = tmp)
 #'
 #' # read from file and write to similarly-named outfiles
-#' reprex(input = "foofy.R", outfile = NA)
-#' list.files(pattern = "foofy")
-#' file.remove(list.files(pattern = "foofy"))
+#' reprex(input = tmp, outfile = NA)
+#' list.files(dirname(tmp), pattern = "foofy")
+#'
+#' # clean up
+#' file.remove(list.files(dirname(tmp), pattern = "foofy", full.names = TRUE))
 #'
 #' # write rendered reprex to file
+#' tmp <- file.path(tempdir(), "foofy")
 #' reprex({
 #'   x <- 1:4
 #'   y <- 2:5
 #'   x + y
-#' }, outfile = "foofy")
-#' list.files(pattern = "foofy")
-#' file.remove(list.files(pattern = "foofy"))
+#' }, outfile = tmp)
+#' list.files(dirname(tmp), pattern = "foofy")
+#'
+#' # clean up
+#' file.remove(list.files(dirname(tmp), pattern = "foofy", full.names = TRUE))
 #'
 #' # write reprex to file AND keep figure local too, i.e. don't post to imgur
+#' tmp <- file.path(tempdir(), "foofy")
 #' reprex({
 #'   #' Some prose
 #'   ## regular comment
 #'   (x <- 1:4)
 #'   median(x)
 #'   plot(x)
-#'   }, outfile = "blarg", opts_knit = list(upload.fun = identity))
-#' list.files(pattern = "blarg")
-#' unlink(list.files(pattern = "blarg"), recursive = TRUE)
+#'   }, outfile = tmp, opts_knit = list(upload.fun = identity))
+#' list.files(dirname(tmp), pattern = "foofy")
+#'
+#' # clean up
+#' unlink(
+#'   list.files(dirname(tmp), pattern = "foofy", full.names = TRUE),
+#'   recursive = TRUE
+#' )
 #'
 #' ## target venue = Stack Overflow
 #' ## https://stackoverflow.com/editing-help
