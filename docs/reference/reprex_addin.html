@@ -45,7 +45,7 @@
       </button>
 
       <div class="navbar-brand-container">
-        <a class="navbar-brand" href="../index.html">reprex</a>
+        <a class="navbar-brand" href="../index.html">Render a reprex</a>
         <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
       </div>
     </div>
@@ -90,14 +90,15 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Render a reprex</h1>
+    <small>Source: <a href='https://github.com/tidyverse/reprex#readme/blob/master/R/reprex-addin.R'><code>R/reprex-addin.R</code></a></small>
     </div>
 
     <p><code>reprex_addin()</code> opens an <a href='https://shiny.rstudio.com/articles/gadgets.html'>RStudio gadget</a> and
 <a href='http://rstudio.github.io/rstudioaddins/'>addin</a> that allows you to say
 where the reprex source is (clipboard? current selection? active file?
 other file?) and to control a few other arguments. Appears as "Render
-reprex" in the RStudio Addins menu.
-    <code>reprex_selection()</code> is an
+reprex" in the RStudio Addins menu.</p>
+<p><code>reprex_selection()</code> is an
 <a href='http://rstudio.github.io/rstudioaddins/'>addin</a> that reprexes the current
 selection, optionally customised by options. Appears as "Reprex selection"
 in the RStudio Addins menu. Heavy users might want to <a href='https://support.rstudio.com/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts'>create a keyboard shortcut</a>.</p>
@@ -106,7 +107,7 @@ in the RStudio Addins menu. Heavy users might want to <a href='https://support.r
 
 <span class='fu'>reprex_selection</span>(<span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"reprex.venue"</span>, <span class='st'>"gh"</span>))</pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -139,7 +140,7 @@ currently just an alias for "gh"!</p></li>
 </div>
 
 <div class="author">
-  <p>Developed by Jennifer Bryan, Jim Hester, David Robinson, <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' height='24' /></a>.</p>
+  <p>Developed by Jennifer Bryan, Jim Hester, David Robinson, <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://www.rstudio.com'><img src='http://tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.</p>
   <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
@@ -157,3 +158,4 @@ currently just an alias for "gh"!</p></li>
 
   </body>
 </html>
+

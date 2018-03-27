@@ -26,7 +26,7 @@
       </button>
 
       <div class="navbar-brand-container">
-        <a class="navbar-brand" href="../index.html">reprex</a>
+        <a class="navbar-brand" href="../index.html"></a>
         <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
       </div>
     </div>
@@ -73,13 +73,18 @@
     <div class="page-header toc-ignore">
       <h1>Reprex do’s and don’ts</h1>
             
-          </div>
+      
+      <small>Source: <a href="https://github.com/tidyverse/reprex#readme/blob/master/vignettes/reprex-dos-and-donts.Rmd"><code>vignettes/reprex-dos-and-donts.Rmd</code></a></small>
+
+    </div>
 
     
     
 <div class="contents">
 <p>If you’re asking for R help, reporting a bug, or requesting a new feature, you’re more likely to succeed if you include a good reprex.</p>
-<section id="main-requirements" class="level2"><h2>Main requirements</h2>
+<div id="main-requirements" class="section level2">
+<h2 class="hasAnchor">
+<a href="#main-requirements" class="anchor"></a>Main requirements</h2>
 <p><strong>Use the smallest, simplest, most <a href="https://stat.ethz.ch/R-manual/R-patched/library/datasets/html/00Index.html">built-in data</a> possible.</strong></p>
 <ul>
 <li>Think: <code>iris</code> or <code>mtcars</code>. Bore me.</li>
@@ -122,14 +127,24 @@
 </li>
 <li>Don’t delete files or objects that you didn’t create in the first place.</li>
 <li><p>Take advantage of R’s built-in ability to create temporary files and directories. Read up on <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/tempfile.html"><code>tempfile()</code> and <code>tempdir()</code></a>.</p></li>
-</ul></section><section id="this-seems-like-a-lot-of-work" class="level2"><h2>This seems like a lot of work!</h2>
+</ul>
+</div>
+<div id="this-seems-like-a-lot-of-work" class="section level2">
+<h2 class="hasAnchor">
+<a href="#this-seems-like-a-lot-of-work" class="anchor"></a>This seems like a lot of work!</h2>
 <p>Yes, creating a great reprex requires work. You are asking other people to do work too. It’s a partnership.</p>
 <p>80% of the time you will solve your own problem in the course of writing an excellent reprex. YMMV.</p>
 <p>The remaining 20% of the time, you will create a reprex that is more likely to elicit the desired behavior in others.</p>
-</section><section id="further-reading" class="level2"><h2>Further reading:</h2>
+</div>
+<div id="further-reading" class="section level2">
+<h2 class="hasAnchor">
+<a href="#further-reading" class="anchor"></a>Further reading:</h2>
 <p><a href="https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example/16532098">How to make a great R reproducible example?</a> thread on StackOverflow</p>
 <p><a href="http://adv-r.had.co.nz/Reproducibility.html">How to write a reproducible example</a> from Hadley Wickham’s <a href="http://adv-r.had.co.nz">Advanced R book</a></p>
-</section><section id="package-philosophy" class="level2"><h2>Package philosophy</h2>
+</div>
+<div id="package-philosophy" class="section level2">
+<h2 class="hasAnchor">
+<a href="#package-philosophy" class="anchor"></a>Package philosophy</h2>
 <p>The reprex code:</p>
 <ul>
 <li><p>Must run and, therefore, should be run <strong>by the person posting</strong>. No faking it.</p></li>
@@ -140,20 +155,11 @@
 <ul>
 <li><p>Use <code><a href="http://www.rdocumentation.org/packages/rmarkdown/topics/render">rmarkdown::render()</a></code> to run the code and capture output that you would normally see on your screen. This is done in a separate R process, via <a href="https://cran.r-project.org/package=callr">callr</a>, to guarantee it is self-contained.</p></li>
 <li><p>Use chunk option <code>comment = "#&gt;"</code> to include the output while retaining executability.</p></li>
-</ul></section><section id="advanced-features" class="level2"><h2>Advanced features</h2>
-<section id="embedded-prose" class="level3"><h3>Embedded prose</h3>
-<p>Sometimes you want to mingle rendered code and prose. Put the embedded prose in as roxygen comments, i.e. comment lines that start with <code>#'</code>. This reprex code:</p>
-<pre><code>## a regular comment
-x &lt;- 1:100
-#' Here is some embedded prose, as a roxygen comment.
-mean(x)</code></pre>
-<p>renders to this this result:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">## a regular comment</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span></a></code></pre></div>
-<p>Here is some embedded prose, as a roxygen comment.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">mean</span>(x)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; [1] 50.5</span></a></code></pre></div>
-</section></section><section id="other-work" class="level2"><h2>Other work</h2>
+</ul>
+</div>
+<div id="other-work" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other-work" class="anchor"></a>Other work</h2>
 <p>If I had known about <a href="http://yihui.name/formatR/"><code><a href="http://www.rdocumentation.org/packages/formatR/topics/tidy_eval">formatR::tidy_eval()</a></code></a>, I probably would never had made reprex! But alas I did not. AFAICT here are the main differences:</p>
 <ul>
 <li>
@@ -164,7 +170,8 @@ mean(x)</code></pre>
 <code><a href="../reference/reprex.html">reprex()</a></code> writes the code to a <code>.R</code> file and calls <code><a href="http://www.rdocumentation.org/packages/rmarkdown/topics/render">rmarkdown::render()</a></code>. <code>tidy_eval()</code> runs the code line-by-line via <code>capture.output(eval(..., envir = envir))</code>.</li>
 <li>
 <code><a href="../reference/reprex.html">reprex()</a></code> uploads figures to imgur and inserts the necessary link.</li>
-</ul></section>
+</ul>
+</div>
 </div>
   </div>
 
@@ -178,7 +185,6 @@ mean(x)</code></pre>
       <li><a href="#this-seems-like-a-lot-of-work">This seems like a lot of work!</a></li>
       <li><a href="#further-reading">Further reading:</a></li>
       <li><a href="#package-philosophy">Package philosophy</a></li>
-      <li><a href="#advanced-features">Advanced features</a></li>
       <li><a href="#other-work">Other work</a></li>
       </ul>
 </div>
@@ -192,7 +198,7 @@ mean(x)</code></pre>
 </div>
 
 <div class="author">
-  <p>Developed by Jennifer Bryan, Jim Hester, David Robinson, <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://www.rstudio.com"><img src="http://tidyverse.org/rstudio-logo.svg" height="24"></a>.</p>
+  <p>Developed by Jennifer Bryan, Jim Hester, David Robinson, <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://www.rstudio.com"><img src="http://tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.</p>
   <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 

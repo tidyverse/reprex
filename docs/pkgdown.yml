@@ -1,6 +1,6 @@
 pandoc: 2.1.1
 pkgdown: 0.1.0.9000
-pkgdown_sha: 102692f3308f63c174b4782502f61168deed8e73
+pkgdown_sha: ~
 articles:
   magic-reprex: articles/magic-reprex.html
   reprex-dos-and-donts: reprex-dos-and-donts.html

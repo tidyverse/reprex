@@ -26,7 +26,7 @@
       </button>
 
       <div class="navbar-brand-container">
-        <a class="navbar-brand" href="../../index.html">reprex</a>
+        <a class="navbar-brand" href="../../index.html"></a>
         <small class="tidyverse">part of the <a href="http://tidyverse.org">tidyverse</a></small>
       </div>
     </div>
@@ -74,7 +74,10 @@
       <h1>Magic reprex</h1>
                         <h4 class="author"><a href="http://www.njtierney.com">Nicholas Tierney</a></h4>
             
-          </div>
+      
+      <small>Source: <a href="https://github.com/tidyverse/reprex#readme/blob/master/vignettes/articles/magic-reprex.Rmd"><code>vignettes/articles/magic-reprex.Rmd</code></a></small>
+
+    </div>
 
     
     
@@ -91,11 +94,11 @@
 </blockquote>
 <p>Enter the R package reprex (on <a href="https://cran.r-project.org/package=reprex">CRAN</a>, on <a href="https://github.com/tidyverse/reprex">GitHub</a>), by <a href="http://www.github.com/jennybc">Jenny Bryan</a>.</p>
 <p>In the fashion of the times right now, I’ll illustrate reprex with a gif, which shows the following things:</p>
-<ol type="1">
+<ol style="list-style-type: decimal">
 <li>Take your code, copy it to the clipboard.</li>
-<li>Run <code><a href="http://www.rdocumentation.org/packages/reprex/topics/reprex">reprex::reprex()</a></code>, wait a moment for the code to execute.</li>
+<li>Run <code><a href="../../reference/reprex.html">reprex::reprex()</a></code>, wait a moment for the code to execute.</li>
 <li>
-<code><a href="http://www.rdocumentation.org/packages/reprex/topics/reprex">reprex::reprex()</a></code> creates a html preview of your code.</li>
+<code><a href="../../reference/reprex.html">reprex::reprex()</a></code> creates a html preview of your code.</li>
 <li>A markdown chunk is also copied to the clipboard.</li>
 </ol>
 <p>
@@ -196,7 +199,7 @@ ggplot(data = lm_augmented,
   geom_point()
 
 ![](http://i.imgur.com/h72ZEKG.png)</code></pre>
-<p>You can even show the results of the <code>session_info()</code>, for maximum reproducibility, by adding the argument: <code><a href="http://www.rdocumentation.org/packages/reprex/topics/reprex">reprex::reprex(si = TRUE)</a></code>, which adds a super nifty drop down box for the session info.</p>
+<p>You can even show the results of the <code>session_info()</code>, for maximum reproducibility, by adding the argument: <code><a href="../../reference/reprex.html">reprex::reprex(si = TRUE)</a></code>, which adds a super nifty drop down box for the session info.</p>
 <p>
 </p>
 <div style="height: auto">
@@ -232,7 +235,7 @@ ggplot(data = lm_augmented,
 </div>
 
 <div class="author">
-  <p>Developed by Jennifer Bryan, Jim Hester, David Robinson, <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://www.rstudio.com"><img src="http://tidyverse.org/rstudio-logo.svg" height="24"></a>.</p>
+  <p>Developed by Jennifer Bryan, Jim Hester, David Robinson, <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://www.rstudio.com"><img src="http://tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.</p>
   <p>Site built by <a href="http://pkgdown.r-lib.org">pkgdown</a>.</p>
 </div>
 
