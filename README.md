@@ -128,3 +128,6 @@ But wait, there’s more\!
         Overflow
       - `reprex_rescue()`, when you’re dealing with copy/paste from R
         Console
+
+Please note that this project is released with a [Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md).
+By participating in this project you agree to abide by its terms.
