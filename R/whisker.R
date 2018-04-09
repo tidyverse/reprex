@@ -28,10 +28,12 @@ yaml_md <- function(flavor = c("gfm", "md"),
   c("      '-f', 'markdown-implicit_figures',",
     "      '-t', 'commonmark',")
     },
-    if (pandoc_version < "1.16") {
+    if (!is.null(pandoc_version)) {
+      if (pandoc_version < "1.16") {
     "      --no-wrap"
-    } else {
+      } else {
     "      --wrap=preserve"
+      }
     },
     "    ]",
     "---"
