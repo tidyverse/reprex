@@ -1,5 +1,5 @@
 Package: reprex
-Title: Prepare Reproducible Example Code for Sharing
+Title: Prepare Reproducible Example Code via the Clipboard
 Version: 0.2.0
 Authors@R: c(
     person("Jennifer", "Bryan", , "jenny@rstudio.com", role = c("aut", "cre"),
@@ -18,10 +18,12 @@ Description: Convenience wrapper that uses the 'rmarkdown' package to render
   small snippets of code to target formats that include both code and output.
   The goal is to encourage the sharing of small, reproducible, and runnable
   examples on code-oriented websites, such as <https://stackoverflow.com> and
-  <https://github.com>, or in email. 'reprex' also extracts clean, runnable R
-  code from various common formats, such as copy/paste from an R session.
+  <https://github.com>, or in email. The user's clipboard is the default source
+  of input code and the default target for rendered output. 'reprex' also
+  extracts clean, runnable R code from various common formats, such as
+  copy/paste from an R session. 
 License: MIT + file LICENSE
-URL: http://reprex.tidyverse.org, https://github.com/tidyverse/reprex#readme
+URL: https://reprex.tidyverse.org, https://github.com/tidyverse/reprex#readme
 BugReports: https://github.com/tidyverse/reprex/issues
 Depends: 
     R (>= 3.1)
