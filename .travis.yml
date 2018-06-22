@@ -19,8 +19,10 @@ env:
     - _R_CHECK_FORCE_SUGGESTS_=false
 
 r:
-  - 3.2
-  - oldrel
+- 3.2
+- 3.3
+- oldrel
+- devel
 
 matrix:
   include:
@@ -28,8 +30,6 @@ matrix:
     warnings_are_errors: false
   - r: release
     env: DISPLAY=""
-  - r: devel
-    warnings_are_errors: false
 
 # Only report coverage for the release version
 after_success:
