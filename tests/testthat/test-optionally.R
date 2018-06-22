@@ -31,7 +31,7 @@ test_that("`tidyverse_quiet` can be set via option", {
   skip_on_cran()
   withr::with_options(
     list(reprex.tidyverse_quiet = FALSE),
-    out <- reprex(library(tidyverse), render = FALSE)
+    out <- reprex(mean(1:3), render = FALSE)
   )
   expect_match(out, "tidyverse.quiet = FALSE", fixed = TRUE, all = FALSE)
 })
