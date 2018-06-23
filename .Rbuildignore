@@ -1,3 +1,4 @@
+^cran-correspondence$
 ^CRAN-RELEASE$
 ^.*\.Rproj$
 ^\.Rproj\.user$
