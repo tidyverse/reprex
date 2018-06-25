@@ -1,5 +1,7 @@
 # reprex 0.2.0.9000
 
+* Internal file system operations use the [fs](https://fs.r-lib.org) package. This should not make any a user-facing changes in reprex and we definitely want to know if it does.
+
 # reprex 0.2.0
 
 reprex has a website: <http://reprex.tidyverse.org>. It includes a contributed article from @njtierney (#103).

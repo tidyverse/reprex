@@ -125,7 +125,7 @@ test_that("reprex_invert() can name its own outfile", {
     out <- reprex_invert(input = invert_me, outfile = NA)
   )
   msg <- sub("\n$", "", msg)
-  outfile <- regmatches(msg, regexpr("file(.*)", msg))
+  outfile <- regmatches(msg, regexpr("reprex(.*)", msg))
   on.exit(file.remove(outfile))
   expect_identical(readLines(outfile), out)
 })

@@ -1,90 +1,61 @@
-## switch to a solution based on pathr::rel_path() when/if it goes to CRAN?
-## the branch consists of a stem + leaves = a normalized file path
-## given the branch and one leaf, what is the stem?
-## input:
-##    leaf =                         foo.R   (wd = /Users/jenny/rrr/reprex)
-##  branch = /Users/jenny/rrr/reprex/foo.md
-## output:
-##  path_stem(leaf, branch) = "/Users/jenny/rrr/reprex/"
-path_stem <- function(leaf, branch) {
-  res <- sub(dirname2(leaf), "", dirname(branch))
-  if (identical(substr(res, nchar(res), nchar(res)), .Platform$file.sep)) {
-    return(res)
-  }
-  paste0(res, .Platform$file.sep)
-}
-
-## dirname that returns "" instead of "."
-## e.g., for a file that is in working directory
-dirname2 <- function(path) {
-  out <- dirname(path)
-  if (identical(out, ".")) {
-    return("")
-  }
-  out
-}
-
-strip_ext <- function(x, ext = "md|r|html") {
-  if (is.null(x)) return(NULL)
-  if (grepl(ext, tolower(tools::file_ext(x)))) {
-    tools::file_path_sans_ext(x)
-  } else {
-    x
-  }
-}
-
-add_suffix <- function(x, suffix = "") {
-  paste(x, suffix, sep = "_")
-}
-
-add_ext <- function(x, ext = "R", force = FALSE) {
-  lacks_ext <- !grepl(ext, toupper(tools::file_ext(x)))
-  if (lacks_ext || force) {
-    paste(x, ext, sep = ".")
-  } else {
-    x
-  }
-}
-
+## note that all paths pass through fs and, therefore, path_tidy()
 make_filebase <- function(outfile = NULL, infile = NULL) {
-  if (!is.null(outfile) && is.na(outfile)) {
-    outfile <- infile %||% basename(tempfile())
+  if (is.null(outfile)) {
+    ## work inside a new directory, within session temp directory
+    target_dir <- path_real(dir_create(file_temp("reprex")))
+    ## example: /private/var/.../.../.../reprex97d77de2835c/reprex
+    return(path(target_dir, "reprex"))
   }
-  strip_ext(outfile) %||% tempfile()
+
+  if (!is.na(outfile)) {
+    return(path_ext_remove(outfile))
+  }
+
+  if (is.null(infile)) {
+    ## outfile = NA, infile = NULL --> reprex in working directory
+    ## example: reprexbfa165580676
+    path_file(file_temp("reprex"))
+  } else {
+    ## outfile = NA, infile = "sthg" --> follow infile's lead
+    ## example: basename_of_infile
+    ## example: path/to/infile
+    path_ext_remove(infile)
+  }
 }
 
 make_filenames <- function(filebase = "foo", suffix = "reprex") {
+  add_suffix <- function(x, suffix = "") paste0(x, "_", suffix)
+
   filebase <- add_suffix(filebase, suffix)
   ## make this a list so I am never tempted to index with `[` instead of `[[`
   ## can cause sneaky name problems with the named list used as data for
   ## the whisker template
-  out <- list(
-    r_file = add_ext(filebase, "R"),
-    std_file = add_ext(add_suffix(filebase, "std_out_err"), "txt"),
-    rout_file = add_ext(add_suffix(filebase, "rendered"), "R"),
-    html_file = add_ext(filebase, "html")
+  list(
+    r_file    = path_ext_set(filebase, "R"),
+    md_file   = path_ext_set(filebase, "md"),
+    std_file  = path_ext_set(add_suffix(filebase, "std_out_err"), "txt"),
+    rout_file = path_ext_set(add_suffix(filebase, "rendered"), "R"),
+    html_file = path_ext_set(filebase, "html")
   )
-  ## defensive use of "/" because Windows + this gets dropped into R code in
-  ## the template
-  out[["std_file"]] <- normalizePath(
-    out[["std_file"]],
-    winslash = "/",
-    mustWork = FALSE
-  )
-  out
 }
 
-force_tempdir <- function(x) {
-  if (identical(normalizePath(tempdir()), normalizePath(dirname(x)))) {
-    return(x)
+force_tempdir <- function(path) {
+  if (is_in_tempdir(path)) {
+    path
+  } else {
+    file_copy(path, path_temp(path_file(path)), overwrite = TRUE)
   }
-  tmp_file <- file.path(tempdir(), basename(x))
-  file.copy(x, tmp_file, overwrite = TRUE)
-  tmp_file
+}
+
+is_in_tempdir <- function(path) {
+  identical(
+    path_real(path_temp()),
+    path_common(path_real(c(path, path_temp())))
+  )
 }
 
 would_clobber <- function(path) {
-  if (!file.exists(path)) {
+  if (!file_exists(path)) {
     return(FALSE)
   }
   if (!interactive()) {
