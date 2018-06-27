@@ -45,7 +45,7 @@ Suggests:
     rprojroot,
     rstudioapi,
     shiny,
-    styler,
+    styler (>= 1.0.2),
     testthat (>= 2.0.0)
 VignetteBuilder: knitr
 Encoding: UTF-8
