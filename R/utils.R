@@ -11,15 +11,6 @@ read_lines <- function(path) {
   readLines(path)
 }
 
-## from purrr, among other places
-`%||%` <- function(x, y) {
-  if (is.null(x)) {
-    y
-  } else {
-    x
-  }
-}
-
 ## deparse that returns NULL for NULL instead of "NULL"
 deparse2 <- function(expr, ...) {
   if (is.null(expr)) return(NULL)
