@@ -18,3 +18,12 @@ test_that("reprex() works with code that deals with srcrefs", {
   )
   expect_known_output(print(ret), test_path("reference/srcref_reprex"))
 })
+
+## https://github.com/tidyverse/reprex/issues/183
+test_that("reprex() doesn't leak files by default", {
+  skip_on_cran()
+  reprex(writeLines("test", "test.txt"), show = FALSE, advertise = FALSE)
+  ret <- reprex(readLines("test.txt"), show = FALSE, advertise = FALSE)
+  expect_match(ret, "cannot open file 'test.txt'", all = FALSE)
+})
+

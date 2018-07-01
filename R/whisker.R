@@ -9,7 +9,7 @@ apply_template <- function(data = NULL) {
 read_from_template <- function(SLUG) {
   SLUG_path <- system.file(
     "templates",
-    add_ext(SLUG, "R"),
+    path_ext_set(SLUG, "R"),
     package = "reprex",
     mustWork = TRUE
   )

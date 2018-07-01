@@ -56,35 +56,36 @@ test_that("outfiles in a subdirectory works", {
   on.exit(unlink("foo", recursive = TRUE))
   dir.create("foo")
   msg <- capture_messages(ret <- reprex(1:5, outfile = "foo/foo", show = FALSE))
-  base_msg <- gsub("foo", "foo/foo", base_msg)
-  expect_identical(msg[1:3], base_msg)
+  exp_msg <- gsub("foo", "foo/foo", base_msg)
+  expect_identical(msg[1:3], exp_msg)
 })
 
 test_that("outfiles based on input file", {
+  ## TODO: use withr to set wd to a tempdir
   skip_on_cran()
   on.exit(file.remove("foo.R", "foo_reprex.R", "foo_reprex.md"))
   writeLines("1:5", "foo.R")
-  msg <-
-    capture_messages(ret <- reprex(input = "foo.R", show = FALSE, outfile = NA))
+  msg <-capture_messages(
+    ret <- reprex(input = "foo.R", show = FALSE, outfile = NA)
+  )
   expect_true(file.exists("foo_reprex.md"))
   expect_identical(msg[1:3], base_msg)
 })
 
 test_that("outfiles based on tempfile()", {
   skip_on_cran()
-  msg <-
-    capture_messages(ret <- reprex(
+  msg <- capture_messages(ret <- reprex(
       input = c("x <- 1:3", "min(x)"),
       show = FALSE, outfile = NA
     ))
-  tempbase <- gsub(".*(file.*)_.*", "\\1", msg[1])
+  tempbase <- gsub(".*(reprex.*)_.*", "\\1", msg[1])
   r_file <- paste0(tempbase, "_reprex.R")
   md_file <- paste0(tempbase, "_reprex.md")
   on.exit(file.remove(r_file, md_file))
   expect_true(file.exists(r_file))
   expect_true(file.exists(md_file))
-  base_msg <- gsub("foo", tempbase, base_msg)
-  expect_identical(msg[1:3], base_msg)
+  exp_msg <- gsub("foo", tempbase, base_msg)
+  expect_identical(msg[1:3], exp_msg)
 })
 
 test_that("pre-existing foo_reprex.R doesn't get clobbered w/o user's OK", {

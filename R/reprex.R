@@ -207,6 +207,7 @@
 #' }
 #'
 #' @import rlang
+#' @import fs
 #' @export
 reprex <- function(x = NULL,
                    input = NULL, outfile = NULL,
@@ -225,15 +226,16 @@ reprex <- function(x = NULL,
   venue <- match.arg(venue)
   venue <- ds_is_gh(venue)
 
-  advertise <- arg_option(advertise)
-  si <- arg_option(si)
-  style <- arg_option(style)
-  show <- arg_option(show)
-  comment <- arg_option(comment)
+  advertise       <- arg_option(advertise)
+  si              <- arg_option(si)
+  style           <- arg_option(style)
+  show            <- arg_option(show)
+  comment         <- arg_option(comment)
   tidyverse_quiet <- arg_option(tidyverse_quiet)
-  std_out_err <- arg_option(std_out_err)
-  opts_chunk <- substitute(opts_chunk)
-  opts_knit <- substitute(opts_knit)
+  std_out_err     <- arg_option(std_out_err)
+
+  opts_chunk      <- substitute(opts_chunk)
+  opts_knit       <- substitute(opts_knit)
 
   stopifnot(is_toggle(advertise), is_toggle(si), is_toggle(style))
   stopifnot(is_toggle(show), is_toggle(render))
@@ -297,11 +299,14 @@ reprex <- function(x = NULL,
   }
 
   message("Rendering reprex...")
+  reprex_(r_file, std_file)
   ## when venue = "r", the reprex_file != md_file, so we need both
-  reprex_file <- md_file <- reprex_(r_file, std_file)
+  ## use our own "md_file" instead of the normalized, absolutized path
+  ## returned by rmarkdown::render() and, therefore, reprex_()
+  reprex_file <- md_file <- files[["md_file"]]
 
   if (std_out_err) {
-    ## replace backtick'ed std_file with its (lightly processed) contents
+    ## replace "std_file" placeholder with its contents
     inject_file(
       reprex_file,
       std_file,
@@ -310,9 +315,7 @@ reprex <- function(x = NULL,
   }
 
   if (outfile_given) {
-    ## pathstem = the common part of the two paths
-    pathstem <- path_stem(r_file, md_file)
-    message("Writing reprex markdown:\n  * ", sub(pathstem, "", md_file))
+    message("Writing reprex markdown:\n  * ", md_file)
   }
 
   if (identical(venue, "r")) {
