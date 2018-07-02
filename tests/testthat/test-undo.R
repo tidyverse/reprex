@@ -110,7 +110,8 @@ test_that("reprex_rescue() can cope with leading whitespace", {
 
 test_that("reprex_invert() can write to specific outfile", {
   skip_on_cran()
-  on.exit(file.remove("foo_clean.R"))
+  temporarily()
+  withr::local_file("foo_clean.R")
   code <- c("x <- 1:3", "median(x)")
   invert_me <- reprex(input = code, show = FALSE, advertise = FALSE)
   out <- reprex_invert(input = invert_me, outfile = "foo")
@@ -119,6 +120,7 @@ test_that("reprex_invert() can write to specific outfile", {
 
 test_that("reprex_invert() can name its own outfile", {
   skip_on_cran()
+  temporarily()
   code <- c("x <- 1:3", "median(x)")
   invert_me <- reprex(input = code, show = FALSE, advertise = FALSE)
   msg <- capture_messages(
@@ -126,13 +128,14 @@ test_that("reprex_invert() can name its own outfile", {
   )
   msg <- sub("\n$", "", msg)
   outfile <- regmatches(msg, regexpr("reprex(.*)", msg))
-  on.exit(file.remove(outfile))
+  withr::local_file(outfile)
   expect_identical(readLines(outfile), out)
 })
 
 test_that("reprex_invert() can name outfile based on input filepath", {
   skip_on_cran()
-  on.exit(file.remove(c("a_reprex.R", "a_reprex.md", "a_reprex_clean.R")))
+  temporarily()
+  withr::local_file(c("a_reprex.R", "a_reprex.md", "a_reprex_clean.R"))
   code <- c("x <- 1:3", "median(x)")
   reprex(input = code, show = FALSE, advertise = FALSE, outfile = "a")
   out <- reprex_invert(input = "a_reprex.md", outfile = NA)

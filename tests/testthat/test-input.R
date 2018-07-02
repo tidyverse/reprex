@@ -27,18 +27,20 @@ test_that("reprex: character input works", {
 
 test_that("reprex: file input works", {
   skip_on_cran()
-  on.exit(file.remove("foo.R"))
+  temporarily()
+  withr::local_file("foo.R")
   write("1:5", "foo.R")
   expect_match(reprex(input = "foo.R", render = FALSE), "^1:5$", all = FALSE)
 })
 
 test_that("reprex: file input in a subdirectory works", {
   skip_on_cran()
-  on.exit(unlink("foo", recursive = TRUE))
-  dir.create("foo")
-  write("1:5", file.path("foo", "foo.R"))
+  temporarily()
+  withr::defer(dir_delete("foo"))
+  dir_create("foo")
+  write("1:5", path("foo", "foo.R"))
   expect_match(
-    reprex(input = file.path("foo", "foo.R"), render = FALSE),
+    reprex(input = path("foo", "foo.R"), render = FALSE),
     "^1:5$",
     all = FALSE
   )
@@ -75,9 +77,10 @@ test_that("ingest_input() works", {
   expect_identical(input[1], ingest_input(input_first_elem))
 
   ## file
-  on.exit(file.remove("foo.R"))
-  writeLines(input, "foo.R")
-  expect_identical(input, ingest_input("foo.R"))
+  input_file <- path_temp("foo.R")
+  withr::local_file(input_file)
+  writeLines(input, input_file)
+  expect_identical(input, ingest_input(input_file))
 })
 
 test_that("newlines in code are protected and uniformly so across venues", {
@@ -86,9 +89,13 @@ test_that("newlines in code are protected and uniformly so across venues", {
   input <- 'paste(letters[1:3], collapse = "\n")\n'
   chr_input <- reprex(input = input, render = FALSE)
 
-  on.exit(file.remove("foo.R"))
-  writeLines(escape_newlines('paste(letters[1:3], collapse = "\n")'), "foo.R")
-  path_input <- reprex(input = "foo.R", render = FALSE)
+  input_file <- path_temp("foo.R")
+  withr::local_file(input_file)
+  writeLines(
+    escape_newlines('paste(letters[1:3], collapse = "\n")'),
+    input_file
+  )
+  path_input <- reprex(input = input_file, render = FALSE)
 
   expr_input <- reprex(paste(letters[1:3], collapse = "\n"), render = FALSE)
 

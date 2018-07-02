@@ -9,26 +9,14 @@ test_that("make_filebase() defaults to 'reprex' inside a dir inside tempdir", {
 })
 
 test_that("make_filebase(outfile = NA) fabricates filebase in wd", {
-  withr::with_dir(
-    fs::path_temp(),
-    x <- make_filebase(outfile = NA, infile = NULL)
-  )
+  x <- make_filebase(outfile = NA, infile = NULL)
   expect_match(fs::path_file(x), "^reprex")
   expect_equal(fs::path_dir(x), ".")
 })
 
 test_that("make_filebase() works from relative infile, outfile", {
-  withr::with_dir(
-    fs::path_temp(),
-    x <- make_filebase(outfile = NA, infile = "abcde")
-  )
-  expect_equal(x, "abcde")
-
-  withr::with_dir(
-    fs::path_temp(),
-    x <- make_filebase(outfile = "abcde")
-  )
-  expect_equal(x, "abcde")
+  expect_equal(make_filebase(outfile = NA, infile = "abcde"), "abcde")
+  expect_equal(make_filebase(outfile = "abcde"), "abcde")
 })
 
 test_that("make_filebase() works from absolute infile, outfile", {

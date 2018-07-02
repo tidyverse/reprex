@@ -26,4 +26,3 @@ test_that("reprex() doesn't leak files by default", {
   ret <- reprex(readLines("test.txt"), show = FALSE, advertise = FALSE)
   expect_match(ret, "cannot open file 'test.txt'", all = FALSE)
 })
-

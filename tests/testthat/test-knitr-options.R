@@ -6,13 +6,12 @@ test_that("chunk options can be overridden", {
     "(y <- 1:4)",
     "mean(y)"
   )
-  short_form <-
-    reprex(
-      input = src,
-      opts_chunk = list(collapse = FALSE),
-      show = FALSE,
-      advertise = FALSE
-    )
+  short_form <- reprex(
+    input = src,
+    opts_chunk = list(collapse = FALSE),
+    show = FALSE,
+    advertise = FALSE
+  )
   header <- c(
     "#+ setup, include = FALSE",
     "knitr::opts_chunk$set(collapse = FALSE)",
@@ -35,13 +34,12 @@ test_that("`comment` is special", {
     show = FALSE,
     advertise = FALSE
   )
-  medium_form <-
-    reprex(
-      input = src,
-      opts_chunk = list(comment = "#?#"),
-      show = FALSE,
-      advertise = FALSE
-    )
+  medium_form <- reprex(
+    input = src,
+    opts_chunk = list(comment = "#?#"),
+    show = FALSE,
+    advertise = FALSE
+  )
   header <- c(
     "#+ setup, include = FALSE",
     "knitr::opts_chunk$set(comment = '#?#')",
