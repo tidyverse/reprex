@@ -6,6 +6,15 @@ is_path <- function(x) {
   length(x) == 1 && is.character(x) && !grepl("\n$", x)
 }
 
+locate_input <- function(input) {
+  if (is.null(input)) return("clipboard")
+  if (is_path(input)) {
+    "path"
+  } else {
+    "input"
+  }
+}
+
 read_lines <- function(path) {
   if (is.null(path)) return(NULL)
   readLines(path)
@@ -34,21 +43,12 @@ trim_common_leading_ws <- function(x) {
   substring(x, num + 1)
 }
 
-ingest_input <- function(input = NULL) {
-  if (is.null(input)) { ## clipboard or bust
-    if (clipboard_available()) {
-      return(suppressWarnings(clipr::read_clip()))
-    } else {
-      message("No input provided and clipboard is not available.")
-      return(character())
-    }
+ingest_clipboard <- function() {
+  if (clipboard_available()) {
+    return(suppressWarnings(clipr::read_clip()))
   }
-
-  if (is_path(input)) { ## path
-    read_lines(input)
-  } else {
-    escape_newlines(sub("\n$", "", input)) ## vector or string
-  }
+  message("No input provided and clipboard is not available.")
+  character()
 }
 
 escape_regex <- function(x) {

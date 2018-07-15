@@ -140,15 +140,22 @@ reprex_rescue <- function(input = NULL,
   )
 }
 
-reprex_undo <- function(x = NULL,
+reprex_undo <- function(input = NULL,
                         outfile = NULL,
                         venue,
                         is_md = FALSE,
                         comment = NULL, prompt = NULL) {
-  infile <- if (is_path(x)) x else NULL
-  x <- ingest_input(x)
+  where <- locate_input(input)
+  src <- switch(
+    where,
+    clipboard = ingest_clipboard(),
+    path = read_lines(input),
+    input = escape_newlines(sub("\n$", "", input)),
+    NULL
+  )
   comment <- arg_option(comment)
 
+  infile <- if (where == "path") input else NULL
   outfile_requested <- !is.null(outfile)
   if (outfile_requested) {
     files <- make_filenames(make_filebase(outfile, infile), suffix = "clean")
@@ -160,18 +167,22 @@ reprex_undo <- function(x = NULL,
 
   if (is_md) {
     if (identical(venue, "gh")) { ## reprex_invert
-      line_info <- classify_lines_bt(x, comment = comment)
+      line_info <- classify_lines_bt(src, comment = comment)
     } else {
-      line_info <- classify_lines(x, comment = comment)
+      line_info <- classify_lines(src, comment = comment)
     }
-    x_out <- ifelse(line_info == "prose" & nzchar(x), paste("#'", x), x)
-    x_out <- x_out[!line_info %in% c("output", "bt", "so_header") & nzchar(x)]
+    x_out <- ifelse(
+      line_info == "prose" & nzchar(src),
+      paste("#'", src),
+      src
+    )
+    x_out <- x_out[!line_info %in% c("output", "bt", "so_header") & nzchar(src)]
     x_out <- sub("^    ", "", x_out)
   } else if (is.null(prompt)) { ## reprex_clean
-    x_out <- x[!grepl(comment, x)]
+    x_out <- src[!grepl(comment, src)]
   } else { ## reprex_rescue
     regex <- paste0("^\\s*", prompt)
-    x_out <- x[grepl(regex, x)]
+    x_out <- src[grepl(regex, src)]
     x_out <- sub(regex, "", x_out)
   }
 

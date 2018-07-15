@@ -7,13 +7,13 @@
 \alias{reprex_rescue}
 \title{Un-render a reprex}
 \usage{
-reprex_invert(input = NULL, outfile = NULL, venue = c("gh", "so", "ds",
-  "r"), comment = opt("#>"))
+reprex_invert(input = NULL, outfile = NULL, venue = c("gh", "so",
+  "ds", "r"), comment = opt("#>"))
 
 reprex_clean(input = NULL, outfile = NULL, comment = opt("#>"))
 
-reprex_rescue(input = NULL, outfile = NULL, prompt = getOption("prompt"),
-  continue = getOption("continue"))
+reprex_rescue(input = NULL, outfile = NULL,
+  prompt = getOption("prompt"), continue = getOption("continue"))
 }
 \arguments{
 \item{input}{Character. If has length one and lacks a terminating newline,

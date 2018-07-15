@@ -212,16 +212,19 @@
 reprex <- function(x = NULL,
                    input = NULL, outfile = NULL,
                    venue = c("gh", "so", "ds", "r"),
+
                    advertise = opt(TRUE),
                    si = opt(FALSE),
                    style = opt(FALSE),
                    show = opt(TRUE),
                    comment = opt("#>"),
-                   opts_chunk = NULL,
-                   opts_knit = NULL,
                    tidyverse_quiet = opt(TRUE),
                    std_out_err = opt(FALSE),
-                   render = TRUE) {
+
+                   render = TRUE,
+
+                   opts_chunk = NULL,
+                   opts_knit = NULL) {
   venue <- tolower(venue)
   venue <- match.arg(venue)
   venue <- ds_is_gh(venue)
@@ -244,29 +247,30 @@ reprex <- function(x = NULL,
   if (!is.null(input)) stopifnot(is.character(input))
   if (!is.null(outfile)) stopifnot(is.character(outfile) || is.na(outfile))
 
-  the_source <- NULL
-  x_captured <- substitute(x)
-  if (!is.null(x_captured) && !is.null(input)) {
-    message("`input` ignored in favor of expression input in `x`.")
-    input <- NULL
-  }
-  infile <- if (is_path(input)) input else NULL
-  the_source <- stringify_expression(x_captured) %||% ingest_input(input)
+  x_expr <- enexpr(x)
+  where <- if (is.null(x_expr)) locate_input(input) else "expr"
+  src <- switch(
+    where,
+    expr      = stringify_expression(x_expr),
+    clipboard = ingest_clipboard(),
+    path      = read_lines(input),
+    input     = escape_newlines(sub("\n$", "", input)),
+    NULL
+  )
+  src <- ensure_not_empty(src)
+  src <- ensure_not_dogfood(src)
+  src <- ensure_no_prompts(src)
 
   if (style) {
     if (requireNamespace("styler", quietly = TRUE)) {
-      the_source <- styler::style_text(the_source)
+      src <- styler::style_text(src)
     } else {
       message("Install the styler package in order to use `style = TRUE`.")
     }
   }
 
-  if (venue == "so") {
-    ## empty line between html comment re: syntax highlighting and reprex code
-    the_source <- c("", the_source)
-  }
-
   outfile_given <- !is.null(outfile)
+  infile <- if (where == "path") input else NULL
   files <- make_filenames(make_filebase(outfile, infile))
   r_file <- files[["r_file"]]
   if (would_clobber(r_file)) {
@@ -274,10 +278,12 @@ reprex <- function(x = NULL,
   }
   std_file <- if (std_out_err) files[["std_file"]] else NULL
 
-  the_source <- ensure_not_empty(the_source)
-  the_source <- ensure_not_dogfood(the_source)
-  the_source <- ensure_no_prompts(the_source)
-  the_source <- apply_template(c(
+  ## put this behind a template = TRUE
+  if (venue == "so") {
+    ## empty line between html comment re: syntax highlighting and reprex code
+    src <- c("", src)
+  }
+  src <- apply_template(c(
     fodder[[venue]],
     si = if (isTRUE(si)) .reprex[["session_info"]],
     comment = comment,
@@ -287,9 +293,9 @@ reprex <- function(x = NULL,
     tidyverse_quiet = as.character(tidyverse_quiet),
     std_file_stub = if (std_out_err) paste0("#' `", std_file, "`\n#'"),
     advertisement = advertise,
-    body = paste(the_source, collapse = "\n")
+    body = paste(src, collapse = "\n")
   ))
-  writeLines(the_source, r_file)
+  writeLines(src, r_file)
   if (outfile_given) {
     message("Preparing reprex as .R file to render:\n  * ", r_file)
   }
@@ -299,7 +305,7 @@ reprex <- function(x = NULL,
   }
 
   message("Rendering reprex...")
-  reprex_(r_file, std_file)
+  reprex_render(r_file, std_file)
   ## when venue = "r", the reprex_file != md_file, so we need both
   ## use our own "md_file" instead of the normalized, absolutized path
   ## returned by rmarkdown::render() and, therefore, reprex_()
@@ -366,7 +372,7 @@ reprex <- function(x = NULL,
   invisible(out_lines)
 }
 
-reprex_ <- function(input, std_out_err = NULL) {
+reprex_render <- function(input, std_out_err = NULL) {
   callr::r_safe(
     function(input) {
       options(keep.source = TRUE)

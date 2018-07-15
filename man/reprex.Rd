@@ -4,11 +4,11 @@
 \alias{reprex}
 \title{Render a reprex}
 \usage{
-reprex(x = NULL, input = NULL, outfile = NULL, venue = c("gh", "so",
-  "ds", "r"), advertise = opt(TRUE), si = opt(FALSE), style = opt(FALSE),
-  show = opt(TRUE), comment = opt("#>"), opts_chunk = NULL,
-  opts_knit = NULL, tidyverse_quiet = opt(TRUE), std_out_err = opt(FALSE),
-  render = TRUE)
+reprex(x = NULL, input = NULL, outfile = NULL, venue = c("gh",
+  "so", "ds", "r"), advertise = opt(TRUE), si = opt(FALSE),
+  style = opt(FALSE), show = opt(TRUE), comment = opt("#>"),
+  tidyverse_quiet = opt(TRUE), std_out_err = opt(FALSE),
+  render = TRUE, opts_chunk = NULL, opts_knit = NULL)
 }
 \arguments{
 \item{x}{An expression. If not given, \code{reprex()} looks for code in
@@ -54,11 +54,6 @@ browser). Read more about \code{\link[=opt]{opt()}}.}
 \item{comment}{Character. Prefix with which to comment out output, defaults
 to \code{"#>"}. Read more about \code{\link[=opt]{opt()}}.}
 
-\item{opts_chunk, opts_knit}{Named list. Optional
-\href{http://yihui.name/knitr/options/}{knitr chunk and package options} that
-are forwarded to \code{knitr::opts_chunk$set()} and \code{knitr::opts_knit$set()},
-respectively.}
-
 \item{tidyverse_quiet}{Logical. Sets the option \code{tidyverse.quiet}, which
 suppresses (\code{TRUE}, the default) or includes (\code{FALSE}) the startup message
 for the tidyverse package. Read more about \code{\link[=opt]{opt()}}.}
@@ -74,6 +69,11 @@ for more. Read more about \code{\link[=opt]{opt()}}.}
 \item{render}{Logical. Whether to render the reprex or just create the
 templated \code{.R} file. Defaults to \code{TRUE}. Mostly for internal testing
 purposes.}
+
+\item{opts_chunk, opts_knit}{Named list. Optional
+\href{http://yihui.name/knitr/options/}{knitr chunk and package options} that
+are forwarded to \code{knitr::opts_chunk$set()} and \code{knitr::opts_knit$set()},
+respectively.}
 }
 \value{
 Character vector of rendered reprex, invisibly.

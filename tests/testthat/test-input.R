@@ -66,23 +66,6 @@ test_that("Leading prompts are removed", {
   expect_identical(res, res2)
 })
 
-test_that("ingest_input() works", {
-  skip_on_cran()
-  ## character vector, length > 1
-  input <- c("line 1", "line 2")
-  expect_identical(input, ingest_input(input))
-
-  ## character vector, length 1 but with newline
-  input_first_elem <- paste0(input[1], "\n")
-  expect_identical(input[1], ingest_input(input_first_elem))
-
-  ## file
-  input_file <- path_temp("foo.R")
-  withr::local_file(input_file)
-  writeLines(input, input_file)
-  expect_identical(input, ingest_input(input_file))
-})
-
 test_that("newlines in code are protected and uniformly so across venues", {
   skip_on_cran()
   ## NOTE: use of single vs double quotes is counter-intuitive, but deliberate
