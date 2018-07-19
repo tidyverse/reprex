@@ -222,6 +222,7 @@ reprex <- function(x = NULL,
                    std_out_err = opt(FALSE),
 
                    render = TRUE,
+                   template = render,
 
                    opts_chunk = NULL,
                    opts_knit = NULL) {
@@ -241,11 +242,15 @@ reprex <- function(x = NULL,
   opts_knit       <- substitute(opts_knit)
 
   stopifnot(is_toggle(advertise), is_toggle(si), is_toggle(style))
-  stopifnot(is_toggle(show), is_toggle(render))
+  stopifnot(is_toggle(show), is_toggle(render), is_toggle(template))
   stopifnot(is.character(comment))
   stopifnot(is_toggle(tidyverse_quiet), is_toggle(std_out_err))
   if (!is.null(input)) stopifnot(is.character(input))
   if (!is.null(outfile)) stopifnot(is.character(outfile) || is.na(outfile))
+
+  if (render) {
+    template <- TRUE
+  }
 
   x_expr <- enexpr(x)
   where <- if (is.null(x_expr)) locate_input(input) else "expr"
@@ -269,6 +274,11 @@ reprex <- function(x = NULL,
     }
   }
 
+  if (template && venue == "so") {
+    ## empty line between html comment re: syntax highlighting and reprex code
+    src <- c("", src)
+  }
+
   outfile_given <- !is.null(outfile)
   infile <- if (where == "path") input else NULL
   files <- make_filenames(make_filebase(outfile, infile))
@@ -278,23 +288,20 @@ reprex <- function(x = NULL,
   }
   std_file <- if (std_out_err) files[["std_file"]] else NULL
 
-  ## put this behind a template = TRUE
-  if (venue == "so") {
-    ## empty line between html comment re: syntax highlighting and reprex code
-    src <- c("", src)
+  if (template) {
+    src <- apply_template(c(
+      fodder[[venue]],
+      si = if (isTRUE(si)) .reprex[["session_info"]],
+      comment = comment,
+      upload_fun = if (venue == "r") "identity" else "knitr::imgur_upload",
+      user_opts_chunk = prep_opts(opts_chunk, which = "chunk"),
+      user_opts_knit = prep_opts(opts_knit, which = "knit"),
+      tidyverse_quiet = as.character(tidyverse_quiet),
+      std_file_stub = if (std_out_err) paste0("#' `", std_file, "`\n#'"),
+      advertisement = advertise,
+      body = paste(src, collapse = "\n")
+    ))
   }
-  src <- apply_template(c(
-    fodder[[venue]],
-    si = if (isTRUE(si)) .reprex[["session_info"]],
-    comment = comment,
-    upload_fun = if (venue == "r") "identity" else "knitr::imgur_upload",
-    user_opts_chunk = prep_opts(opts_chunk, which = "chunk"),
-    user_opts_knit = prep_opts(opts_knit, which = "knit"),
-    tidyverse_quiet = as.character(tidyverse_quiet),
-    std_file_stub = if (std_out_err) paste0("#' `", std_file, "`\n#'"),
-    advertisement = advertise,
-    body = paste(src, collapse = "\n")
-  ))
   writeLines(src, r_file)
   if (outfile_given) {
     message("Preparing reprex as .R file to render:\n  * ", r_file)
