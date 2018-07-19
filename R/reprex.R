@@ -265,18 +265,8 @@ reprex <- function(x = NULL,
   src <- ensure_not_empty(src)
   src <- ensure_not_dogfood(src)
   src <- ensure_no_prompts(src)
-
   if (style) {
-    if (requireNamespace("styler", quietly = TRUE)) {
-      src <- styler::style_text(src)
-    } else {
-      message("Install the styler package in order to use `style = TRUE`.")
-    }
-  }
-
-  if (template && venue == "so") {
-    ## empty line between html comment re: syntax highlighting and reprex code
-    src <- c("", src)
+    src <- ensure_stylish(src)
   }
 
   outfile_given <- !is.null(outfile)
@@ -289,6 +279,10 @@ reprex <- function(x = NULL,
   std_file <- if (std_out_err) files[["std_file"]] else NULL
 
   if (template) {
+    if (venue == "so") {
+      ## empty line between html comment re: syntax highlighting and reprex code
+      src <- c("", src)
+    }
     src <- apply_template(c(
       fodder[[venue]],
       si = if (isTRUE(si)) .reprex[["session_info"]],

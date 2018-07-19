@@ -33,3 +33,12 @@ ensure_no_prompts <- function(x, prompt = getOption("prompt")) {
   }
   sub(regex, "", x)
 }
+
+ensure_stylish <- function(x) {
+  if (requireNamespace("styler", quietly = TRUE)) {
+    x <- styler::style_text(x)
+  } else {
+    message("Install the styler package in order to use `style = TRUE`.")
+  }
+  x
+}
