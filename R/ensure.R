@@ -1,5 +1,6 @@
-ensure_not_empty <- function(x)
-  if (length(x) < 1) read_from_template("BETTER_THAN_NOTHING") else x
+ensure_not_empty <- function(x) {
+  if (length(x) < 1) read_template("BETTER_THAN_NOTHING") else x
+}
 
 ensure_not_dogfood <- function(x) {
   looks_like_gh <- any(grepl("^```", x))

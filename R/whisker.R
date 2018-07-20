@@ -1,19 +1,31 @@
-apply_template <- function(data = NULL) {
-  if (any(grepl("#+ reprex-setup", data$body, fixed = TRUE))) {
-    return(data$body)
+apply_template <- function(x, data = NULL) {
+  if (data$venue == "so") {
+    ## empty line between html comment re: syntax highlighting and reprex code
+    x <- c("", x)
   }
-  REPREX <- read_from_template("REPREX")
-  whisker::whisker.render(REPREX, data = data)
+  data <- c(
+    fodder[[data$venue]],
+    si = if (isTRUE(data$si)) .reprex[["session_info"]],
+    comment = data$comment,
+    upload_fun = if (data$venue == "r") "identity" else "knitr::imgur_upload",
+    user_opts_chunk = prep_opts(data$opts_chunk, which = "chunk"),
+    user_opts_knit = prep_opts(data$opts_knit, which = "knit"),
+    tidyverse_quiet = as.character(data$tidyverse_quiet),
+    std_file_stub = if (data$std_out_err) paste0("#' `", data$std_file, "`\n#'"),
+    advertisement = data$advertise,
+    body = paste(x, collapse = "\n")
+  )
+  whisker::whisker.render(read_template("REPREX"), data = data)
 }
 
-read_from_template <- function(SLUG) {
-  SLUG_path <- system.file(
+read_template <- function(slug) {
+  path <- system.file(
     "templates",
-    path_ext_set(SLUG, "R"),
+    path_ext_set(slug, "R"),
     package = "reprex",
     mustWork = TRUE
   )
-  readLines(SLUG_path)
+  readLines(path)
 }
 
 yaml_md <- function(flavor = c("gfm", "md"),
@@ -54,6 +66,9 @@ fodder <- list(
     so_syntax_highlighting = "#'<!-- language-all: lang-r -->"
   ),
   r = list(
+    yaml = yaml_md("gfm")
+  ),
+  rtf = list(
     yaml = yaml_md("gfm")
   )
 )

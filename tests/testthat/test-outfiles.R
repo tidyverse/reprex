@@ -1,7 +1,7 @@
 context("outfiles")
 
 base_msg <- c(
-  "Preparing reprex as .R file to render:\n  * foo_reprex.R\n",
+  "Preparing reprex as .R file:\n  * foo_reprex.R\n",
   "Rendering reprex...\n",
   "Writing reprex markdown:\n  * foo_reprex.md\n"
 )

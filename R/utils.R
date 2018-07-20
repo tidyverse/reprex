@@ -82,7 +82,8 @@ enfence <- function(lines,
   paste0(c(tag, "``` sh", lines, "```"), collapse = "\n")
 }
 
-inject_file <- function(path, inject_path, pre_process = identity, ...) {
+
+inject_file <- function(path, inject_path, pre_process = enfence, ...) {
   lines <- readLines(path, encoding = "UTF-8")
   inject_lines <- readLines(inject_path, encoding = "UTF-8")
   inject_lines <- pre_process(inject_lines, ...)

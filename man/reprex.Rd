@@ -5,10 +5,11 @@
 \title{Render a reprex}
 \usage{
 reprex(x = NULL, input = NULL, outfile = NULL, venue = c("gh",
-  "so", "ds", "r"), advertise = opt(TRUE), si = opt(FALSE),
+  "so", "ds", "r", "rtf"), advertise = opt(TRUE), si = opt(FALSE),
   style = opt(FALSE), show = opt(TRUE), comment = opt("#>"),
   tidyverse_quiet = opt(TRUE), std_out_err = opt(FALSE),
-  render = TRUE, opts_chunk = NULL, opts_knit = NULL)
+  render = TRUE, template = render, opts_chunk = NULL,
+  opts_knit = NULL)
 }
 \arguments{
 \item{x}{An expression. If not given, \code{reprex()} looks for code in
@@ -66,9 +67,12 @@ process, nor is there any guarantee that the lines from standard output and
 standard error are in correct chronological order. See \code{\link[callr:r_safe]{callr::r_safe()}}
 for more. Read more about \code{\link[=opt]{opt()}}.}
 
-\item{render}{Logical. Whether to render the reprex or just create the
-templated \code{.R} file. Defaults to \code{TRUE}. Mostly for internal testing
-purposes.}
+\item{render}{Logical. Whether to render the reprex via
+\code{\link[rmarkdown:render]{rmarkdown::render()}}. Defaults to \code{TRUE}.}
+
+\item{template}{Logical. Whether to insert user's code into a templated \code{.R}
+file. Defaults to the value of \code{render} and, if \code{render = TRUE}, will be
+forced to \code{TRUE}.}
 
 \item{opts_chunk, opts_knit}{Named list. Optional
 \href{http://yihui.name/knitr/options/}{knitr chunk and package options} that

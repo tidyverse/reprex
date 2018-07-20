@@ -211,7 +211,7 @@
 #' @export
 reprex <- function(x = NULL,
                    input = NULL, outfile = NULL,
-                   venue = c("gh", "so", "ds", "r"),
+                   venue = c("gh", "so", "ds", "r", "rtf"),
 
                    advertise = opt(TRUE),
                    si = opt(FALSE),
@@ -272,6 +272,7 @@ reprex <- function(x = NULL,
   outfile_given <- !is.null(outfile)
   infile <- if (where == "path") input else NULL
   files <- make_filenames(make_filebase(outfile, infile))
+
   r_file <- files[["r_file"]]
   if (would_clobber(r_file)) {
     return(invisible())
@@ -279,26 +280,17 @@ reprex <- function(x = NULL,
   std_file <- if (std_out_err) files[["std_file"]] else NULL
 
   if (template) {
-    if (venue == "so") {
-      ## empty line between html comment re: syntax highlighting and reprex code
-      src <- c("", src)
-    }
-    src <- apply_template(c(
-      fodder[[venue]],
-      si = if (isTRUE(si)) .reprex[["session_info"]],
-      comment = comment,
-      upload_fun = if (venue == "r") "identity" else "knitr::imgur_upload",
-      user_opts_chunk = prep_opts(opts_chunk, which = "chunk"),
-      user_opts_knit = prep_opts(opts_knit, which = "knit"),
-      tidyverse_quiet = as.character(tidyverse_quiet),
-      std_file_stub = if (std_out_err) paste0("#' `", std_file, "`\n#'"),
-      advertisement = advertise,
-      body = paste(src, collapse = "\n")
-    ))
+    data <- list(
+      venue = venue, advertise = advertise,
+      si = si, comment = comment, tidyverse_quiet = tidyverse_quiet,
+      std_out_err = std_out_err, std_file = std_file,
+      opts_chunk = opts_chunk, opts_knit
+    )
+    src <- apply_template(src, data = data)
   }
   writeLines(src, r_file)
   if (outfile_given) {
-    message("Preparing reprex as .R file to render:\n  * ", r_file)
+    message("Preparing reprex as .R file:\n  * ", r_file)
   }
 
   if (!render) {
