@@ -1,42 +1,14 @@
 context("knitr options")
 
-test_that("chunk options can be overridden", {
-  skip_on_cran()
-  src <- c(
-    "(y <- 1:4)",
-    "mean(y)"
-  )
-  short_form <- reprex(
-    input = src,
-    opts_chunk = list(collapse = FALSE),
-    show = FALSE,
-    advertise = FALSE
-  )
-  header <- c(
-    "#+ setup, include = FALSE",
-    "knitr::opts_chunk$set(collapse = FALSE)",
-    "",
-    "#+ actual-reprex-code"
-  )
-  long_form <- reprex(input = c(header, src), show = FALSE, advertise = FALSE)
-  expect_identical(short_form, long_form)
-})
-
-test_that("`comment` is special", {
+test_that("`comment` works", {
   skip_on_cran()
   src <- c(
     "y <- 1:4",
     "mean(y)"
   )
-  short_form <- reprex(
+  arg_form <- reprex(
     input = src,
     comment = "#?#",
-    show = FALSE,
-    advertise = FALSE
-  )
-  medium_form <- reprex(
-    input = src,
-    opts_chunk = list(comment = "#?#"),
     show = FALSE,
     advertise = FALSE
   )
@@ -47,8 +19,7 @@ test_that("`comment` is special", {
     "#+ actual-reprex-code"
   )
   long_form <- reprex(input = c(header, src), show = FALSE, advertise = FALSE)
-  expect_identical(short_form, long_form)
-  expect_identical(medium_form, long_form)
+  expect_identical(arg_form, long_form)
 })
 
 test_that("venue determines default value of `upload.fun`", {

@@ -6,8 +6,6 @@
 options(tidyverse.quiet = {{{tidyverse_quiet}}})
 knitr::opts_chunk$set(collapse = TRUE, comment = "{{{comment}}}", error = TRUE)
 knitr::opts_knit$set(upload.fun = {{{upload_fun}}})
-{{{user_opts_chunk}}}
-{{{user_opts_knit}}}
 
 #+ reprex-body
 {{{body}}}

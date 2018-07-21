@@ -20,18 +20,6 @@ read_lines <- function(path) {
   readLines(path)
 }
 
-## deparse that returns NULL for NULL instead of "NULL"
-deparse2 <- function(expr, ...) {
-  if (is.null(expr)) return(NULL)
-  deparse(expr, ...)
-}
-
-prep_opts <- function(txt, which = "chunk") {
-  txt <- deparse2(txt)
-  setter <- paste0("knitr::opts_", which, "$set")
-  sub("^list", setter, txt)
-}
-
 trim_ws <- function(x) {
   sub("\\s*$", "", sub("^\\s*", "", x))
 }

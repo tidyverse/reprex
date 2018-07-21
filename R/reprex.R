@@ -19,11 +19,7 @@
 #' prompts, are stripped from the input code. Read more at
 #' <http://reprex.tidyverse.org/>.
 #'
-#' reprex sets specific [knitr options](http://yihui.name/knitr/options/),
-#' which you can supplement or override via the `opts_chunk` and
-#' `opts_knit` arguments or via explicit calls to knitr in your reprex code
-#' (see examples). If all you want to override is the `comment` option, use
-#' the dedicated argument, e.g.`commment = "#;-)"`.
+#' reprex sets specific [knitr options](http://yihui.name/knitr/options/):
 #' * Chunk options default to `collapse = TRUE`, `comment = "#>"`,
 #'   `error = TRUE`. Note that `error = TRUE`, because a common use case is bug
 #'   reporting.
@@ -33,6 +29,8 @@
 #'   the packages httr & xml2 or RCurl & XML, depending on your knitr version.
 #'   When `venue = "r"`, `upload.fun` is set to `identity`, so that figures
 #'   remain local. In that case, you may also want to set `outfile`.
+#' You can supplement or override these options with special comments in your
+#' code (see examples).
 #'
 #' @param x An expression. If not given, `reprex()` looks for code in
 #'   `input` or on the clipboard, in that order.
@@ -69,10 +67,6 @@
 #' @param render Logical. Whether to render the reprex or just create the
 #'   templated `.R` file. Defaults to `TRUE`. Mostly for internal testing
 #'   purposes.
-#' @param opts_chunk,opts_knit Named list. Optional
-#'   [knitr chunk and package options](http://yihui.name/knitr/options/) that
-#'   are forwarded to `knitr::opts_chunk$set()` and `knitr::opts_knit$set()`,
-#'   respectively.
 #' @param tidyverse_quiet Logical. Sets the option `tidyverse.quiet`, which
 #'   suppresses (`TRUE`, the default) or includes (`FALSE`) the startup message
 #'   for the tidyverse package. Read more about [opt()].
@@ -114,9 +108,7 @@
 #' ## customize the output comment prefix
 #' reprex(rbinom(3, size = 10, prob = 0.5), comment = "#;-)")
 #'
-#' # override a default chunk option, in general
-#' reprex({(y <- 1:4); median(y)}, opts_chunk = list(collapse = FALSE))
-#' # the above is simply shorthand for this and produces same result
+#' # override a default chunk option
 #' reprex({
 #'   #+ setup, include = FALSE
 #'   knitr::opts_chunk$set(collapse = FALSE)
@@ -163,12 +155,16 @@
 #' # write reprex to file AND keep figure local too, i.e. don't post to imgur
 #' tmp <- file.path(tempdir(), "foofy")
 #' reprex({
+#'   #+ setup, include = FALSE
+#'   knitr::opts_knit$set(upload.fun = identity)
+#'
+#'   #+ actual-reprex-code
 #'   #' Some prose
 #'   ## regular comment
 #'   (x <- 1:4)
 #'   median(x)
 #'   plot(x)
-#'   }, outfile = tmp, opts_knit = list(upload.fun = identity))
+#'   }, outfile = tmp)
 #' list.files(dirname(tmp), pattern = "foofy")
 #'
 #' # clean up
@@ -197,10 +193,14 @@
 #' ## include prompt and don't comment the output
 #' ## use this when you want to make your code hard to execute :)
 #' reprex({
+#'   #+ setup, include = FALSE
+#'   knitr::opts_chunk$set(comment = NA, prompt = TRUE)
+#'
+#'   #+ actual-reprex-code
 #'   x <- 1:4
 #'   y <- 2:5
 #'   x + y
-#' }, opts_chunk = list(comment = NA, prompt = TRUE))
+#' })
 #'
 #' ## leading prompts are stripped from source
 #' reprex(input = c("> x <- 1:3", "> median(x)"))
@@ -213,19 +213,16 @@ reprex <- function(x = NULL,
                    input = NULL, outfile = NULL,
                    venue = c("gh", "so", "ds", "r", "rtf"),
 
-                   advertise = opt(TRUE),
-                   si = opt(FALSE),
-                   style = opt(FALSE),
-                   show = opt(TRUE),
-                   comment = opt("#>"),
+                   advertise       = opt(TRUE),
+                   si              = opt(FALSE),
+                   style           = opt(FALSE),
+                   show            = opt(TRUE),
+                   comment         = opt("#>"),
                    tidyverse_quiet = opt(TRUE),
-                   std_out_err = opt(FALSE),
+                   std_out_err     = opt(FALSE),
 
                    render = TRUE,
-                   template = render,
-
-                   opts_chunk = NULL,
-                   opts_knit = NULL) {
+                   template = render) {
   venue <- tolower(venue)
   venue <- match.arg(venue)
   venue <- ds_is_gh(venue)
@@ -237,9 +234,6 @@ reprex <- function(x = NULL,
   comment         <- arg_option(comment)
   tidyverse_quiet <- arg_option(tidyverse_quiet)
   std_out_err     <- arg_option(std_out_err)
-
-  opts_chunk      <- substitute(opts_chunk)
-  opts_knit       <- substitute(opts_knit)
 
   stopifnot(is_toggle(advertise), is_toggle(si), is_toggle(style))
   stopifnot(is_toggle(show), is_toggle(render), is_toggle(template))
@@ -283,8 +277,7 @@ reprex <- function(x = NULL,
     data <- list(
       venue = venue, advertise = advertise,
       si = si, comment = comment, tidyverse_quiet = tidyverse_quiet,
-      std_out_err = std_out_err, std_file = std_file,
-      opts_chunk = opts_chunk, opts_knit
+      std_out_err = std_out_err, std_file = std_file
     )
     src <- apply_template(src, data = data)
   }

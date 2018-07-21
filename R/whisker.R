@@ -8,8 +8,6 @@ apply_template <- function(x, data = NULL) {
     si = if (isTRUE(data$si)) .reprex[["session_info"]],
     comment = data$comment,
     upload_fun = if (data$venue == "r") "identity" else "knitr::imgur_upload",
-    user_opts_chunk = prep_opts(data$opts_chunk, which = "chunk"),
-    user_opts_knit = prep_opts(data$opts_knit, which = "knit"),
     tidyverse_quiet = as.character(data$tidyverse_quiet),
     std_file_stub = if (data$std_out_err) paste0("#' `", data$std_file, "`\n#'"),
     advertisement = data$advertise,

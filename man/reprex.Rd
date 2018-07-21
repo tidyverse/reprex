@@ -8,8 +8,7 @@ reprex(x = NULL, input = NULL, outfile = NULL, venue = c("gh",
   "so", "ds", "r", "rtf"), advertise = opt(TRUE), si = opt(FALSE),
   style = opt(FALSE), show = opt(TRUE), comment = opt("#>"),
   tidyverse_quiet = opt(TRUE), std_out_err = opt(FALSE),
-  render = TRUE, template = render, opts_chunk = NULL,
-  opts_knit = NULL)
+  render = TRUE, template = render)
 }
 \arguments{
 \item{x}{An expression. If not given, \code{reprex()} looks for code in
@@ -67,17 +66,9 @@ process, nor is there any guarantee that the lines from standard output and
 standard error are in correct chronological order. See \code{\link[callr:r_safe]{callr::r_safe()}}
 for more. Read more about \code{\link[=opt]{opt()}}.}
 
-\item{render}{Logical. Whether to render the reprex via
-\code{\link[rmarkdown:render]{rmarkdown::render()}}. Defaults to \code{TRUE}.}
-
-\item{template}{Logical. Whether to insert user's code into a templated \code{.R}
-file. Defaults to the value of \code{render} and, if \code{render = TRUE}, will be
-forced to \code{TRUE}.}
-
-\item{opts_chunk, opts_knit}{Named list. Optional
-\href{http://yihui.name/knitr/options/}{knitr chunk and package options} that
-are forwarded to \code{knitr::opts_chunk$set()} and \code{knitr::opts_knit$set()},
-respectively.}
+\item{render}{Logical. Whether to render the reprex or just create the
+templated \code{.R} file. Defaults to \code{TRUE}. Mostly for internal testing
+purposes.}
 }
 \value{
 Character vector of rendered reprex, invisibly.
@@ -102,11 +93,7 @@ pane, if available, or in the default browser, otherwise. Leading \code{"> "}
 prompts, are stripped from the input code. Read more at
 \url{http://reprex.tidyverse.org/}.
 
-reprex sets specific \href{http://yihui.name/knitr/options/}{knitr options},
-which you can supplement or override via the \code{opts_chunk} and
-\code{opts_knit} arguments or via explicit calls to knitr in your reprex code
-(see examples). If all you want to override is the \code{comment} option, use
-the dedicated argument, e.g.\code{commment = "#;-)"}.
+reprex sets specific \href{http://yihui.name/knitr/options/}{knitr options}:
 \itemize{
 \item Chunk options default to \code{collapse = TRUE}, \code{comment = "#>"},
 \code{error = TRUE}. Note that \code{error = TRUE}, because a common use case is bug
@@ -117,6 +104,8 @@ on GitHub, Stack Overflow, or Discourse. Note that this function requires
 the packages httr & xml2 or RCurl & XML, depending on your knitr version.
 When \code{venue = "r"}, \code{upload.fun} is set to \code{identity}, so that figures
 remain local. In that case, you may also want to set \code{outfile}.
+You can supplement or override these options with special comments in your
+code (see examples).
 }
 }
 \examples{
@@ -148,9 +137,7 @@ reprex(input = "rnorm(3)\\n")
 ## customize the output comment prefix
 reprex(rbinom(3, size = 10, prob = 0.5), comment = "#;-)")
 
-# override a default chunk option, in general
-reprex({(y <- 1:4); median(y)}, opts_chunk = list(collapse = FALSE))
-# the above is simply shorthand for this and produces same result
+# override a default chunk option
 reprex({
   #+ setup, include = FALSE
   knitr::opts_chunk$set(collapse = FALSE)
@@ -197,12 +184,16 @@ file.remove(list.files(dirname(tmp), pattern = "foofy", full.names = TRUE))
 # write reprex to file AND keep figure local too, i.e. don't post to imgur
 tmp <- file.path(tempdir(), "foofy")
 reprex({
+  #+ setup, include = FALSE
+  knitr::opts_knit$set(upload.fun = identity)
+
+  #+ actual-reprex-code
   #' Some prose
   ## regular comment
   (x <- 1:4)
   median(x)
   plot(x)
-  }, outfile = tmp, opts_knit = list(upload.fun = identity))
+  }, outfile = tmp)
 list.files(dirname(tmp), pattern = "foofy")
 
 # clean up
@@ -231,10 +222,14 @@ ret
 ## include prompt and don't comment the output
 ## use this when you want to make your code hard to execute :)
 reprex({
+  #+ setup, include = FALSE
+  knitr::opts_chunk$set(comment = NA, prompt = TRUE)
+
+  #+ actual-reprex-code
   x <- 1:4
   y <- 2:5
   x + y
-}, opts_chunk = list(comment = NA, prompt = TRUE))
+})
 
 ## leading prompts are stripped from source
 reprex(input = c("> x <- 1:3", "> median(x)"))
