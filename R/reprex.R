@@ -12,7 +12,10 @@
 #' * provided directly as expression, character vector, or string
 #' * read from file
 #'
-#' @details
+#' reprex can also be used for syntax highlighting (with or without rendering);
+#' see below for more.
+#'
+#' @section Details:
 #' The usual "code + commented output" is returned invisibly, put on the
 #' clipboard, and written to file. An HTML preview displays in RStudio's Viewer
 #' pane, if available, or in the default browser, otherwise. Leading `"> "`
@@ -32,6 +35,17 @@
 #' You can supplement or override these options with special comments in your
 #' code (see examples).
 #'
+#' @section Syntax highlighting:
+#' A secondary use case for reprex is to produce syntax highlighted code
+#' snippets, with or without rendering, to paste into presentation software,
+#' such as Keynote or PowerPoint. Use `venue = "rtf"`.
+#'
+#' This feature is experimental and currently rather limited. It probably only
+#' works on macOS and requires the installation of the
+#' [highlight](http://www.andre-simon.de/doku/highlight/en/highlight.php)
+#' command line tool, which can be installed via
+#' [homebrew](http://brewformulas.org/Highlight).
+#'
 #' @param x An expression. If not given, `reprex()` looks for code in
 #'   `input` or on the clipboard, in that order.
 #' @param input Character. If has length one and lacks a terminating newline,
@@ -45,15 +59,21 @@
 #'   a location and with basename derived from `input`, if sensible, or in
 #'   current working directory with basename derived from [tempfile()]
 #'   otherwise.
-#' @param venue Character. Must be one of the following:
-#' * "gh" for GitHub, the default
-#' * "so" for Stack Overflow
+#' @param venue Character. Must be one of the following (case insensitive):
+#' * "gh" for [GitHub-Flavored Markdown](https://github.github.com/gfm/), the
+#' default
+#' * "so" for [Stack Overflow Markdown](https://stackoverflow.com/editing-help)
 #' * "ds" for Discourse, e.g.,
 #'   [community.rstudio.com](https://community.rstudio.com). Note: this is
 #'   currently just an alias for "gh"!
-#' * "r" or "R" for a runnable R script, with commented output interleaved
+#' * "r" for a runnable R script, with commented output interleaved
+#' * "rtf" for [Rich Text
+#' Format](https://en.wikipedia.org/wiki/Rich_Text_Format) (not supported for
+#' un-reprexing)
 #' @param advertise Logical. Whether to include a footer that describes when and
-#'   how the reprex was created. Read more about [opt()].
+#'   how the reprex was created. If unspecified, the option `reprex.advertise`
+#'   is consulted and, if that is not defined, default is `TRUE` for venues
+#'   `"gh"`, `"so"`, `"ds"`, and `FALSE` for `"r"` and `"rtf"`.
 #' @param si Logical. Whether to include [devtools::session_info()], if
 #'   available, or [sessionInfo()] at the end of the reprex. When `venue` is
 #'   "gh" or "ds", the session info is wrapped in a collapsible details tag.
@@ -213,20 +233,23 @@ reprex <- function(x = NULL,
                    input = NULL, outfile = NULL,
                    venue = c("gh", "so", "ds", "r", "rtf"),
 
-                   advertise       = opt(TRUE),
+                   render = TRUE,
+
+                   advertise       = NULL,
                    si              = opt(FALSE),
                    style           = opt(FALSE),
                    show            = opt(TRUE),
                    comment         = opt("#>"),
                    tidyverse_quiet = opt(TRUE),
-                   std_out_err     = opt(FALSE),
+                   std_out_err     = opt(FALSE)) {
 
-                   render = TRUE) {
   venue <- tolower(venue)
   venue <- match.arg(venue)
   venue <- ds_is_gh(venue)
+  venue <- rtf_requires_highlight(venue)
 
-  advertise       <- arg_option(advertise)
+  advertise       <- advertise %||%
+    getOption("reprex.advertise") %||% (venue %in% c("gh", "so"))
   si              <- arg_option(si)
   style           <- arg_option(style)
   show            <- arg_option(show)
@@ -234,12 +257,12 @@ reprex <- function(x = NULL,
   tidyverse_quiet <- arg_option(tidyverse_quiet)
   std_out_err     <- arg_option(std_out_err)
 
+  if (!is.null(input)) stopifnot(is.character(input))
+  if (!is.null(outfile)) stopifnot(is.character(outfile) || is.na(outfile))
   stopifnot(is_toggle(advertise), is_toggle(si), is_toggle(style))
   stopifnot(is_toggle(show), is_toggle(render))
   stopifnot(is.character(comment))
   stopifnot(is_toggle(tidyverse_quiet), is_toggle(std_out_err))
-  if (!is.null(input)) stopifnot(is.character(input))
-  if (!is.null(outfile)) stopifnot(is.character(outfile) || is.na(outfile))
 
   x_expr <- enexpr(x)
   where <- if (is.null(x_expr)) locate_input(input) else "expr"
@@ -263,9 +286,7 @@ reprex <- function(x = NULL,
   files <- make_filenames(make_filebase(outfile, infile))
 
   r_file <- files[["r_file"]]
-  if (would_clobber(r_file)) {
-    return(invisible())
-  }
+  if (would_clobber(r_file)) { return(invisible()) }
   std_file <- if (std_out_err) files[["std_file"]] else NULL
 
   data <- list(
@@ -284,38 +305,45 @@ reprex <- function(x = NULL,
 
   message("Rendering reprex...")
   reprex_render(r_file, std_file)
-  ## when venue = "r", the reprex_file != md_file, so we need both
-  ## use our own "md_file" instead of the normalized, absolutized path
-  ## returned by rmarkdown::render() and, therefore, reprex_()
+  ## 1. when venue = "r" or "rtf", the reprex_file != md_file, so we need both
+  ## 2. use our own "md_file" instead of the normalized, absolutized path
+  ##    returned by rmarkdown::render() and, therefore, reprex_()
   reprex_file <- md_file <- files[["md_file"]]
 
   if (std_out_err) {
     ## replace "std_file" placeholder with its contents
-    inject_file(
-      reprex_file,
-      std_file,
-      pre_process = enfence, tag = "standard output and standard error"
-    )
+    inject_file(md_file, std_file, tag = "standard output and standard error")
   }
 
   if (outfile_given) {
     message("Writing reprex markdown:\n  * ", md_file)
   }
 
-  if (identical(venue, "r")) {
-    reprex_file <- files[["rout_file"]]
+  if (venue %in% c("r", "rtf")) {
+    rout_file <- files[["rout_file"]]
     output_lines <- readLines(md_file, encoding = "UTF-8")
     output_lines <- convert_md_to_r(output_lines, comment = comment)
-    writeLines(output_lines, reprex_file)
+    writeLines(output_lines, rout_file)
     if (outfile_given) {
-      message("Writing reprex as commented R script:\n  * ", reprex_file)
+      message("Writing reprex as commented R script:\n  * ", rout_file)
     }
+    reprex_file <- rout_file
+  }
+
+  if (venue == "rtf") {
+    rtf_file <- files[["rtf_file"]]
+    reprex_highlight(reprex_file, rtf_file)
+    if (outfile_given) {
+      message("Writing reprex as highlighted RTF:\n  * ", reprex_file)
+    }
+    reprex_file <- rtf_file
   }
 
   if (show) {
+    html_file <- files[["html_file"]]
     rmarkdown::render(
       md_file,
-      output_file = files[["html_file"]],
+      output_file = html_file,
       clean = FALSE,
       quiet = TRUE,
       encoding = "UTF-8",
@@ -323,9 +351,9 @@ reprex <- function(x = NULL,
     )
 
     ## html must live in session temp dir in order to display within RStudio
-    files[["html_file"]] <- force_tempdir(files[["html_file"]])
+    html_file <- force_tempdir(html_file)
     viewer <- getOption("viewer") %||% utils::browseURL
-    viewer(files[["html_file"]])
+    viewer(html_file)
   }
 
   out_lines <- readLines(reprex_file, encoding = "UTF-8")
@@ -371,4 +399,67 @@ convert_md_to_r <- function(lines, comment = "#>") {
     lines
   )
   lines[line_info != "bt"]
+}
+
+reprex_highlight <- function(md_file, reprex_file, arg_string = NULL) {
+  arg_string <- arg_string %||% highlight_args()
+  cmd <- paste0(
+    "highlight ", md_file,
+    " --out-format=rtf --no-trailing-nl",
+    arg_string,
+    " > ", reprex_file
+  )
+  res <- system(cmd)
+  if (res > 0) {
+    stop("`highlight` call unsuccessful.", call. = FALSE)
+  }
+  res
+}
+
+rtf_requires_highlight <- function(venue) {
+  if (venue == "rtf" && !highlight_found()) {
+    stop(
+      "`highlight` command line tool doesn't appear to be installed.\n",
+      "Therefore, `venue = \"rtf\"` is not supported.",
+      call. = FALSE
+    )
+  }
+  invisible(venue)
+}
+
+highlight_found <- function() Sys.which("highlight") != ""
+
+## how to set in .Rprofile
+# options(
+#   reprex.highlight.hl_style  = "darkbone",
+#   reprex.highlight.font      = "Source Code Pro",
+#   reprex.highlight.font_size = 50
+# )
+
+## how to override
+# withr::with_options(
+#   new = list(
+#     reprex.highlight.hl_style  = "dusk",
+#     reprex.highlight.font      = "Fira Code Regular",
+#     reprex.highlight.font_size = 35
+#   ),
+#   reprex(input = c("(x <- rnorm(3))", "mean(x)"), venue = "rtf")
+# )
+
+highlight_args <- function() {
+  ## http://www.andre-simon.de/doku/highlight/en/theme-samples.php
+  ## https://rclickhandbuch.files.wordpress.com/2014/09/knitrthemesoverview.pdf
+  hl_style  <-         getOption("reprex.highlight.hl_style", "darkbone")
+  font      <- shQuote(getOption("reprex.highlight.font", "Source Code Pro"))
+  font_size <-         getOption("reprex.highlight.font_size", 50)
+  other     <-         getOption("reprex.highlight.other", "")
+  ## to get line numbers:
+  ## "--line-numbers --line-number-length=2 -z"
+
+  paste0(
+    " -s ", hl_style,
+    " --font ", font,
+    " --font-size=", font_size,
+    other
+  )
 }

@@ -5,10 +5,10 @@
 \title{Render a reprex}
 \usage{
 reprex(x = NULL, input = NULL, outfile = NULL, venue = c("gh",
-  "so", "ds", "r", "rtf"), advertise = opt(TRUE), si = opt(FALSE),
-  style = opt(FALSE), show = opt(TRUE), comment = opt("#>"),
-  tidyverse_quiet = opt(TRUE), std_out_err = opt(FALSE),
-  render = TRUE)
+  "so", "ds", "r", "rtf"), render = TRUE, advertise = NULL,
+  si = opt(FALSE), style = opt(FALSE), show = opt(TRUE),
+  comment = opt("#>"), tidyverse_quiet = opt(TRUE),
+  std_out_err = opt(FALSE))
 }
 \arguments{
 \item{x}{An expression. If not given, \code{reprex()} looks for code in
@@ -27,18 +27,27 @@ a location and with basename derived from \code{input}, if sensible, or in
 current working directory with basename derived from \code{\link[=tempfile]{tempfile()}}
 otherwise.}
 
-\item{venue}{Character. Must be one of the following:
+\item{venue}{Character. Must be one of the following (case insensitive):
 \itemize{
-\item "gh" for GitHub, the default
-\item "so" for Stack Overflow
+\item "gh" for \href{https://github.github.com/gfm/}{GitHub-Flavored Markdown}, the
+default
+\item "so" for \href{https://stackoverflow.com/editing-help}{Stack Overflow Markdown}
 \item "ds" for Discourse, e.g.,
 \href{https://community.rstudio.com}{community.rstudio.com}. Note: this is
 currently just an alias for "gh"!
-\item "r" or "R" for a runnable R script, with commented output interleaved
+\item "r" for a runnable R script, with commented output interleaved
+\item "rtf" for \href{https://en.wikipedia.org/wiki/Rich_Text_Format}{Rich Text Format} (not supported for
+un-reprexing)
 }}
 
+\item{render}{Logical. Whether to call \code{\link[rmarkdown:render]{rmarkdown::render()}} on the templated
+reprex, i.e. whether to actually run the code. Defaults to \code{TRUE}. Exists
+primarily for the sake of internal testing.}
+
 \item{advertise}{Logical. Whether to include a footer that describes when and
-how the reprex was created. Read more about \code{\link[=opt]{opt()}}.}
+how the reprex was created. If unspecified, the option \code{reprex.advertise}
+is consulted and, if that is not defined, default is \code{TRUE} for venues
+\code{"gh"}, \code{"so"}, \code{"ds"}, and \code{FALSE} for \code{"r"} and \code{"rtf"}.}
 
 \item{si}{Logical. Whether to include \code{\link[devtools:session_info]{devtools::session_info()}}, if
 available, or \code{\link[=sessionInfo]{sessionInfo()}} at the end of the reprex. When \code{venue} is
@@ -65,10 +74,6 @@ Note this cannot be properly interleaved with output from the main R
 process, nor is there any guarantee that the lines from standard output and
 standard error are in correct chronological order. See \code{\link[callr:r_safe]{callr::r_safe()}}
 for more. Read more about \code{\link[=opt]{opt()}}.}
-
-\item{render}{Logical. Whether to call \code{\link[rmarkdown:render]{rmarkdown::render()}} on the templated
-reprex, i.e. whether to actually run the code. Defaults to \code{TRUE}. Exists
-primarily for the sake of internal testing.}
 }
 \value{
 Character vector of rendered reprex, invisibly.
@@ -85,8 +90,12 @@ be
 \item provided directly as expression, character vector, or string
 \item read from file
 }
+
+reprex can also be used for syntax highlighting (with or without rendering);
+see below for more.
 }
-\details{
+\section{Details}{
+
 The usual "code + commented output" is returned invisibly, put on the
 clipboard, and written to file. An HTML preview displays in RStudio's Viewer
 pane, if available, or in the default browser, otherwise. Leading \code{"> "}
@@ -108,6 +117,20 @@ You can supplement or override these options with special comments in your
 code (see examples).
 }
 }
+
+\section{Syntax highlighting}{
+
+A secondary use case for reprex is to produce syntax highlighted code
+snippets, with or without rendering, to paste into presentation software,
+such as Keynote or PowerPoint. Use \code{venue = "rtf"}.
+
+This feature is experimental and currently rather limited. It probably only
+works on macOS and requires the installation of the
+\href{http://www.andre-simon.de/doku/highlight/en/highlight.php}{highlight}
+command line tool, which can be installed via
+\href{http://brewformulas.org/Highlight}{homebrew}.
+}
+
 \examples{
 \dontrun{
 # put some code like this on the clipboard

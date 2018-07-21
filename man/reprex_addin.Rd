@@ -10,14 +10,17 @@ reprex_addin()
 reprex_selection(venue = getOption("reprex.venue", "gh"))
 }
 \arguments{
-\item{venue}{Character. Must be one of the following:
+\item{venue}{Character. Must be one of the following (case insensitive):
 \itemize{
-\item "gh" for GitHub, the default
-\item "so" for Stack Overflow
+\item "gh" for \href{https://github.github.com/gfm/}{GitHub-Flavored Markdown}, the
+default
+\item "so" for \href{https://stackoverflow.com/editing-help}{Stack Overflow Markdown}
 \item "ds" for Discourse, e.g.,
 \href{https://community.rstudio.com}{community.rstudio.com}. Note: this is
 currently just an alias for "gh"!
-\item "r" or "R" for a runnable R script, with commented output interleaved
+\item "r" for a runnable R script, with commented output interleaved
+\item "rtf" for \href{https://en.wikipedia.org/wiki/Rich_Text_Format}{Rich Text Format} (not supported for
+un-reprexing)
 }}
 }
 \description{
