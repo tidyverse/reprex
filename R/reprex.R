@@ -275,11 +275,10 @@ reprex <- function(x = NULL,
 
   if (template) {
     data <- list(
-      venue = venue, advertise = advertise,
-      si = si, comment = comment, tidyverse_quiet = tidyverse_quiet,
-      std_out_err = std_out_err, std_file = std_file
+      venue = venue, advertise = advertise, si = si,
+      comment = comment, tidyverse_quiet = tidyverse_quiet, std_file = std_file
     )
-    src <- apply_template(src, data = data)
+    src <- apply_template(src, data)
   }
   writeLines(src, r_file)
   if (outfile_given) {

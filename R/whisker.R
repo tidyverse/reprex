@@ -1,18 +1,41 @@
-apply_template <- function(x, data = NULL) {
-  if (data$venue == "so") {
+apply_template <- function(x, reprex_data = NULL) {
+  data <- with(reprex_data, list(
+    yaml = yaml_md("gfm"),
+    tidyverse_quiet = as.character(tidyverse_quiet),
+    comment = comment,
+    upload_fun = "knitr::imgur_upload",
+    advertise = advertise
+  ))
+
+  if (!is.null(reprex_data$std_file)) {
+    data$std_file_stub <- paste0("#' `", reprex_data$std_file, "`\n#'")
+  }
+
+  if (isTRUE(reprex_data$si)) {
+    if (requireNamespace("devtools", quietly = TRUE)) {
+      data$si <- "devtools::session_info()"
+    } else {
+      data$si <- "sessionInfo()"
+    }
+  }
+
+  if (reprex_data$venue == "gh") {
+    data$si_start <- "#'<details><summary>Session info</summary>"
+    data$si_end   <- "#'</details>"
+  }
+
+  if (reprex_data$venue == "so") {
+    data$yaml <- yaml_md("md")
+    data$so_syntax_highlighting <- "#'<!-- language-all: lang-r -->"
     ## empty line between html comment re: syntax highlighting and reprex code
     x <- c("", x)
   }
-  data <- c(
-    fodder[[data$venue]],
-    si = if (isTRUE(data$si)) .reprex[["session_info"]],
-    comment = data$comment,
-    upload_fun = if (data$venue == "r") "identity" else "knitr::imgur_upload",
-    tidyverse_quiet = as.character(data$tidyverse_quiet),
-    std_file_stub = if (data$std_out_err) paste0("#' `", data$std_file, "`\n#'"),
-    advertisement = data$advertise,
-    body = paste(x, collapse = "\n")
-  )
+
+  if (reprex_data$venue == "r") {
+    data$upload_fun <- "identity"
+  }
+
+  data$body <- paste(x, collapse = "\n")
   whisker::whisker.render(read_template("REPREX"), data = data)
 }
 
@@ -35,14 +58,14 @@ yaml_md <- function(flavor = c("gfm", "md"),
     "  md_document:",
     "    pandoc_args: [",
     if (flavor == "gfm") {
-  c("      '-f', 'markdown-implicit_figures',",
-    "      '-t', 'commonmark',")
+      c("      '-f', 'markdown-implicit_figures',",
+        "      '-t', 'commonmark',")
     },
     if (!is.null(pandoc_version)) {
       if (pandoc_version < "1.16") {
-    "      --no-wrap"
+        "      --no-wrap"
       } else {
-    "      --wrap=preserve"
+        "      --wrap=preserve"
       }
     },
     "    ]",
@@ -52,21 +75,3 @@ yaml_md <- function(flavor = c("gfm", "md"),
   ## https://github.com/klutometis/roxygen/issues/668
   paste0("#' ", yaml, collapse = "\n")
 }
-
-fodder <- list(
-  gh = list(
-    yaml = yaml_md("gfm"),
-    si_start = "#'<details><summary>Session info</summary>",
-    si_end = "#'</details>"
-  ),
-  so = list(
-    yaml = yaml_md("md"),
-    so_syntax_highlighting = "#'<!-- language-all: lang-r -->"
-  ),
-  r = list(
-    yaml = yaml_md("gfm")
-  ),
-  rtf = list(
-    yaml = yaml_md("gfm")
-  )
-)
