@@ -8,7 +8,7 @@ reprex(x = NULL, input = NULL, outfile = NULL, venue = c("gh",
   "so", "ds", "r", "rtf"), advertise = opt(TRUE), si = opt(FALSE),
   style = opt(FALSE), show = opt(TRUE), comment = opt("#>"),
   tidyverse_quiet = opt(TRUE), std_out_err = opt(FALSE),
-  render = TRUE, template = render)
+  render = TRUE)
 }
 \arguments{
 \item{x}{An expression. If not given, \code{reprex()} looks for code in
@@ -66,9 +66,9 @@ process, nor is there any guarantee that the lines from standard output and
 standard error are in correct chronological order. See \code{\link[callr:r_safe]{callr::r_safe()}}
 for more. Read more about \code{\link[=opt]{opt()}}.}
 
-\item{render}{Logical. Whether to render the reprex or just create the
-templated \code{.R} file. Defaults to \code{TRUE}. Mostly for internal testing
-purposes.}
+\item{render}{Logical. Whether to call \code{\link[rmarkdown:render]{rmarkdown::render()}} on the templated
+reprex, i.e. whether to actually run the code. Defaults to \code{TRUE}. Exists
+primarily for the sake of internal testing.}
 }
 \value{
 Character vector of rendered reprex, invisibly.

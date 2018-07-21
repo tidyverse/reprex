@@ -64,9 +64,9 @@
 #'   browser). Read more about [opt()].
 #' @param comment Character. Prefix with which to comment out output, defaults
 #'   to `"#>"`. Read more about [opt()].
-#' @param render Logical. Whether to render the reprex or just create the
-#'   templated `.R` file. Defaults to `TRUE`. Mostly for internal testing
-#'   purposes.
+#' @param render Logical. Whether to call [rmarkdown::render()] on the templated
+#'   reprex, i.e. whether to actually run the code. Defaults to `TRUE`. Exists
+#'   primarily for the sake of internal testing.
 #' @param tidyverse_quiet Logical. Sets the option `tidyverse.quiet`, which
 #'   suppresses (`TRUE`, the default) or includes (`FALSE`) the startup message
 #'   for the tidyverse package. Read more about [opt()].
@@ -221,8 +221,7 @@ reprex <- function(x = NULL,
                    tidyverse_quiet = opt(TRUE),
                    std_out_err     = opt(FALSE),
 
-                   render = TRUE,
-                   template = render) {
+                   render = TRUE) {
   venue <- tolower(venue)
   venue <- match.arg(venue)
   venue <- ds_is_gh(venue)
@@ -236,15 +235,11 @@ reprex <- function(x = NULL,
   std_out_err     <- arg_option(std_out_err)
 
   stopifnot(is_toggle(advertise), is_toggle(si), is_toggle(style))
-  stopifnot(is_toggle(show), is_toggle(render), is_toggle(template))
+  stopifnot(is_toggle(show), is_toggle(render))
   stopifnot(is.character(comment))
   stopifnot(is_toggle(tidyverse_quiet), is_toggle(std_out_err))
   if (!is.null(input)) stopifnot(is.character(input))
   if (!is.null(outfile)) stopifnot(is.character(outfile) || is.na(outfile))
-
-  if (render) {
-    template <- TRUE
-  }
 
   x_expr <- enexpr(x)
   where <- if (is.null(x_expr)) locate_input(input) else "expr"
@@ -273,13 +268,11 @@ reprex <- function(x = NULL,
   }
   std_file <- if (std_out_err) files[["std_file"]] else NULL
 
-  if (template) {
-    data <- list(
-      venue = venue, advertise = advertise, si = si,
-      comment = comment, tidyverse_quiet = tidyverse_quiet, std_file = std_file
-    )
-    src <- apply_template(src, data)
-  }
+  data <- list(
+    venue = venue, advertise = advertise, si = si,
+    comment = comment, tidyverse_quiet = tidyverse_quiet, std_file = std_file
+  )
+  src <- apply_template(src, data)
   writeLines(src, r_file)
   if (outfile_given) {
     message("Preparing reprex as .R file:\n  * ", r_file)

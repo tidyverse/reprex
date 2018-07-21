@@ -24,8 +24,8 @@ test_that("`comment` works", {
 
 test_that("venue determines default value of `upload.fun`", {
   skip_on_cran()
-  out <- reprex(plot(1), render = FALSE, template = TRUE)
+  out <- reprex(plot(1), render = FALSE)
   expect_match(out, "knitr::imgur_upload", all = FALSE)
-  out <- reprex(plot(1), render = FALSE, template = TRUE, venue = "r")
+  out <- reprex(plot(1), render = FALSE, venue = "r")
   expect_match(out, "identity", all = FALSE)
 })
