@@ -44,7 +44,8 @@
 #' works on macOS and requires the installation of the
 #' [highlight](http://www.andre-simon.de/doku/highlight/en/highlight.php)
 #' command line tool, which can be installed via
-#' [homebrew](http://brewformulas.org/Highlight).
+#' [homebrew](http://brewformulas.org/Highlight). This venue is discussed in [an
+#' article](https://reprex.tidyverse.org/articles/articles/rtf.html)
 #'
 #' @param x An expression. If not given, `reprex()` looks for code in
 #'   `input` or on the clipboard, in that order.

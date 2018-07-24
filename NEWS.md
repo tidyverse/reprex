@@ -1,6 +1,6 @@
 # reprex 0.2.0.9000
 
-* New experimental venue "rtf" produces syntax highlighted snippets suitable for pasting into presentation software such as Keynote or PowerPoint (#26).
+* New experimental venue "rtf" produces syntax highlighted snippets suitable for pasting into presentation software such as Keynote or PowerPoint. This venue is discussed in [an article](https://reprex.tidyverse.org/articles/articles/rtf.html) (#26).
 
 * Arguments `opts_chunk` and `opts_knit` have been removed from `reprex()`. The same effect has always been achievable via roxygen comments in the reprex code and the examples have always demonstrated this. Overriding knitr options doesn't seem to come up often enough in real-world `reprex()` usage to justify these arguments.
 
