@@ -402,10 +402,10 @@ convert_md_to_r <- function(lines, comment = "#>") {
   lines[line_info != "bt"]
 }
 
-reprex_highlight <- function(md_file, reprex_file, arg_string = NULL) {
+reprex_highlight <- function(rout_file, reprex_file, arg_string = NULL) {
   arg_string <- arg_string %||% highlight_args()
   cmd <- paste0(
-    "highlight ", md_file,
+    "highlight ", rout_file,
     " --out-format=rtf --no-trailing-nl",
     arg_string,
     " > ", reprex_file

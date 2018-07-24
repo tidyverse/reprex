@@ -88,7 +88,7 @@
 <p>This feature is very experimental (<em>available only in the dev version on GitHub</em>), rather limited, and subject to change. It probably only works on macOS and requires the installation of the <a href="http://www.andre-simon.de/doku/highlight/en/highlight.php">highlight</a> command line tool. If you use <a href="https://brew.sh">homebrew</a>, here’s an easy way to install from the shell:</p>
 <pre><code>brew install highlight</code></pre>
 <p>Here is the highlight call implied by the default behaviour of <code><a href="../../reference/reprex.html">reprex(..., venue = "rtf")</a></code>:</p>
-<pre><code>highlight foo_reprex.md --out-format rtf --no-trailing-nl --style darkbone --font 'Courier Regular' --font-size 50 &gt; foo_reprex.rtf</code></pre>
+<pre><code>highlight foo_reprex.R --out-format rtf --no-trailing-nl --style darkbone --font 'Courier Regular' --font-size 50 &gt; foo_reprex.rtf</code></pre>
 <p>It would be preferable to use something like <a href="https://cran.r-project.org/web/packages/highlight/index.html">highlight package</a> at some point in the future, but we will experiment with this in the meantime.</p>
 <div id="basic-usage" class="section level2">
 <h2 class="hasAnchor">

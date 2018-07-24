@@ -14,7 +14,7 @@ brew install highlight
 Here is the highlight call implied by the default behaviour of `reprex(..., venue = "rtf")`:
 
 ```
-highlight foo_reprex.md --out-format rtf --no-trailing-nl --style darkbone --font 'Courier Regular' --font-size 50 > foo_reprex.rtf
+highlight foo_reprex.R --out-format rtf --no-trailing-nl --style darkbone --font 'Courier Regular' --font-size 50 > foo_reprex.rtf
 ```
 
 It would be preferable to use something like [highlight package](https://cran.r-project.org/web/packages/highlight/index.html) at some point in the future, but we will experiment with this in the meantime.
