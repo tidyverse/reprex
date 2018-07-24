@@ -2,13 +2,25 @@
 title: "reprex venue RTF"
 ---
 
-Use `venue = "rtf"` to get output in [Rich Text Format](https://en.wikipedia.org/wiki/Rich_Text_Format). This is useful for creating syntax highlighted code snippets -- rendered or not -- for pasting into software such as Keynote or PowerPoint.
+Use `venue = "rtf"` to get output in [Rich Text Format](https://en.wikipedia.org/wiki/Rich_Text_Format). This is useful for creating syntax highlighted code snippets -- rendered or not -- to paste into software such as Keynote or PowerPoint.
+
+<p>
+<div style="height: auto">
+<img src="https://raw.githubusercontent.com/tidyverse/reprex/master/img/reprex_rtf_jennybryan.gif" alt="Gif of setting options to control highlight and using reprex with the RTF venue" style="width: 100%;max-height: 100%" />
+</div>
+</p>
 
 This feature is very experimental (*available only in the dev version on GitHub*), rather limited, and subject to change. It probably only works on macOS and requires the installation of the
 [highlight](http://www.andre-simon.de/doku/highlight/en/highlight.php) command line tool. If you use [homebrew](https://brew.sh), here's an easy way to install from the shell:
 
 ```
 brew install highlight
+```
+
+Reminder: this requires the development version of reprex.
+
+```{r eval = FALSE}
+devtools::install_github("tidyverse/reprex")
 ```
 
 Here is the highlight call implied by the default behaviour of `reprex(..., venue = "rtf")`:
@@ -36,7 +48,7 @@ knitr::include_graphics("keynote-w00t.png")
 
 ## highlight options
 
-If you don't like the defaults, control highlight command line arguments by setting `reprex.highlight.*` options.
+If you don't like the defaults, control highlight command line arguments by setting `reprex.highlight.*` options. Why options? I didn't want to burden `reprex()` with even more arguments and this is usually something you want to set globally for yourself or for an entire project or talk or course.
 
 Example of setting options in `.Rprofile`:
 
@@ -67,7 +79,7 @@ Galleries of highlighting styles (likely to overlap with the ones you have):
 <http://www.andre-simon.de/doku/highlight/en/theme-samples.php>  
 <https://rclickhandbuch.files.wordpress.com/2014/09/knitrthemesoverview.pdf>
 
-You can also override defaults on-the-fly. Here's how to do that for a single call using withr:
+You can also override defaults on-the-fly. Here's how to do that for a single call using withr and, as a bonus, how to use `reprex.highlight.other` to send arbitrary command line arguments to highlight:
 
 ```{r dusk-fira-35-line-numbers, eval = FALSE}
 withr::with_options(
@@ -75,7 +87,7 @@ withr::with_options(
     reprex.highlight.hl_style  = "dusk",
     reprex.highlight.font      = "Fira Code Regular",
     reprex.highlight.font_size = 35,
-    reprex.highlight.other     = "--line-numbers --line-number-length=2 -z"
+    reprex.highlight.other     = "--line-numbers --line-number-length=2 --zeroes"
   ),
   reprex::reprex(input = c("(x <- rnorm(3))", "mean(x)"), venue = "rtf")
 )
