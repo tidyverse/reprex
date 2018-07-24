@@ -8,7 +8,7 @@
 
 # reprex 0.2.0
 
-reprex has a website: <http://reprex.tidyverse.org>. It includes a contributed article from @njtierney (#103).
+reprex has a website: <https://reprex.tidyverse.org>. It includes a contributed article from @njtierney (#103).
 
 reprex has moved to the [tidyverse Organization](https://github.com/tidyverse). It is installed as part of the [tidyverse meta-package](https://www.tidyverse.org) and is [suggested to those seeking help](https://www.tidyverse.org/help/). 
 

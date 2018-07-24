@@ -13,7 +13,7 @@ knitr::opts_knit$set(upload.fun = {{{upload_fun}}})
 {{{std_file_stub}}}
 
 {{#advertise}}
-#' Created on `r Sys.Date()` by the [reprex package](http://reprex.tidyverse.org) (v`r utils::packageVersion("reprex")`).
+#' Created on `r Sys.Date()` by the [reprex package](https://reprex.tidyverse.org) (v`r utils::packageVersion("reprex")`).
 {{/advertise}}
 
 {{#si}}

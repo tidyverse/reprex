@@ -100,7 +100,7 @@ The usual "code + commented output" is returned invisibly, put on the
 clipboard, and written to file. An HTML preview displays in RStudio's Viewer
 pane, if available, or in the default browser, otherwise. Leading \code{"> "}
 prompts, are stripped from the input code. Read more at
-\url{http://reprex.tidyverse.org/}.
+\url{https://reprex.tidyverse.org/}.
 
 reprex sets specific \href{http://yihui.name/knitr/options/}{knitr options}:
 \itemize{

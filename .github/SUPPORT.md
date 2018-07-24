@@ -4,7 +4,7 @@ Thanks for using reprex. Before filing an issue, there are a few places
 to explore and pieces to put together to make the process as smooth as possible.
 
 Start by making a minimal **repr**oducible **ex**ample using the
-[reprex](http://reprex.tidyverse.org/) package. OK, that's funny,
+[reprex](https://reprex.tidyverse.org/) package. OK, that's funny,
 because this is the very package we're talking about! Do your best to
 provide your input, the `reprex()` call, the expected result, and the
 actual result. Make it easy to reproduce your problem. For additional

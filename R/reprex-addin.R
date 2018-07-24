@@ -36,7 +36,7 @@ reprex_addin <- function() { # nocov start
     miniUI::gadgetTitleBar(
       shiny::p(
         "Use",
-        shiny::a(href = "http://reprex.tidyverse.org", "reprex"),
+        shiny::a(href = "https://reprex.tidyverse.org", "reprex"),
         "to render a bit of code"
       ),
       right = miniUI::miniTitleBarButton("done", "Render", primary = TRUE)
