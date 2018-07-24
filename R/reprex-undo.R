@@ -166,7 +166,7 @@ reprex_undo <- function(input = NULL,
   }
 
   if (is_md) {
-    if (identical(venue, "gh")) { ## reprex_invert
+    if (venue == "gh") { ## reprex_invert
       line_info <- classify_lines_bt(src, comment = comment)
     } else {
       line_info <- classify_lines(src, comment = comment)
