@@ -5,6 +5,10 @@ template:
 home:
   strip_header: true
 
+authors:
+  Jennifer Bryan:
+    href: https://jennybryan.org
+
 navbar:
   type: default
   left:
