@@ -64,6 +64,9 @@
     <li>
       <a href="../articles/articles/magic-reprex.html">Magic reprex by N. Tierney</a>
     </li>
+    <li>
+      <a href="../articles/articles/rtf.html">reprex venue RTF</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -95,6 +98,7 @@
     </div>
 
     <div class="ref-description">
+    
     <p>Run a bit of R code using <code><a href='http://www.rdocumentation.org/packages/rmarkdown/topics/render'>rmarkdown::render()</a></code> and write the rendered result
 to user's clipboard. The goal is to make it easy to share a small
 reproducible example ("reprex"), e.g., in a GitHub issue. Reprex source can
@@ -105,14 +109,18 @@ be</p><ul>
 <li><p>provided directly as expression, character vector, or string</p></li>
 <li><p>read from file</p></li>
 </ul>
+
+    <p>reprex can also be used for syntax highlighting (with or without rendering);
+see below for more.</p>
+    
     </div>
 
-    <pre class="usage"><span class='fu'>reprex</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"gh"</span>, <span class='st'>"so"</span>,
-  <span class='st'>"ds"</span>, <span class='st'>"r"</span>), <span class='kw'>advertise</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>TRUE</span>), <span class='kw'>si</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>FALSE</span>), <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>FALSE</span>),
-  <span class='kw'>show</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>TRUE</span>), <span class='kw'>comment</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='st'>"#&gt;"</span>), <span class='kw'>opts_chunk</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>opts_knit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tidyverse_quiet</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>TRUE</span>), <span class='kw'>std_out_err</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>FALSE</span>),
-  <span class='kw'>render</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-
+    <pre class="usage"><span class='fu'>reprex</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"gh"</span>,
+  <span class='st'>"so"</span>, <span class='st'>"ds"</span>, <span class='st'>"r"</span>, <span class='st'>"rtf"</span>), <span class='kw'>render</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>advertise</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>si</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>FALSE</span>), <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>FALSE</span>), <span class='kw'>show</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>TRUE</span>),
+  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='st'>"#&gt;"</span>), <span class='kw'>tidyverse_quiet</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>TRUE</span>),
+  <span class='kw'>std_out_err</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>FALSE</span>))</pre>
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -140,19 +148,30 @@ otherwise.</p></td>
     </tr>
     <tr>
       <th>venue</th>
-      <td><p>Character. Must be one of the following:</p><ul>
-<li><p>"gh" for GitHub, the default</p></li>
-<li><p>"so" for Stack Overflow</p></li>
+      <td><p>Character. Must be one of the following (case insensitive):</p><ul>
+<li><p>"gh" for <a href='https://github.github.com/gfm/'>GitHub-Flavored Markdown</a>, the
+default</p></li>
+<li><p>"so" for <a href='https://stackoverflow.com/editing-help'>Stack Overflow Markdown</a></p></li>
 <li><p>"ds" for Discourse, e.g.,
 <a href='https://community.rstudio.com'>community.rstudio.com</a>. Note: this is
 currently just an alias for "gh"!</p></li>
-<li><p>"r" or "R" for a runnable R script, with commented output interleaved</p></li>
+<li><p>"r" for a runnable R script, with commented output interleaved</p></li>
+<li><p>"rtf" for <a href='https://en.wikipedia.org/wiki/Rich_Text_Format'>Rich Text Format</a> (not supported for
+un-reprexing)</p></li>
 </ul></td>
+    </tr>
+    <tr>
+      <th>render</th>
+      <td><p>Logical. Whether to call <code><a href='http://www.rdocumentation.org/packages/rmarkdown/topics/render'>rmarkdown::render()</a></code> on the templated
+reprex, i.e. whether to actually run the code. Defaults to <code>TRUE</code>. Exists
+primarily for the sake of internal testing.</p></td>
     </tr>
     <tr>
       <th>advertise</th>
       <td><p>Logical. Whether to include a footer that describes when and
-how the reprex was created. Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
+how the reprex was created. If unspecified, the option <code>reprex.advertise</code>
+is consulted and, if that is not defined, default is <code>TRUE</code> for venues
+<code>"gh"</code>, <code>"so"</code>, <code>"ds"</code>, and <code>FALSE</code> for <code>"r"</code> and <code>"rtf"</code>.</p></td>
     </tr>
     <tr>
       <th>si</th>
@@ -177,13 +196,6 @@ browser). Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
 to <code>"#&gt;"</code>. Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
     </tr>
     <tr>
-      <th>opts_chunk, opts_knit</th>
-      <td><p>Named list. Optional
-<a href='http://yihui.name/knitr/options/'>knitr chunk and package options</a> that
-are forwarded to <code>knitr::opts_chunk$set()</code> and <code>knitr::opts_knit$set()</code>,
-respectively.</p></td>
-    </tr>
-    <tr>
       <th>tidyverse_quiet</th>
       <td><p>Logical. Sets the option <code>tidyverse.quiet</code>, which
 suppresses (<code>TRUE</code>, the default) or includes (<code>FALSE</code>) the startup message
@@ -199,29 +211,21 @@ process, nor is there any guarantee that the lines from standard output and
 standard error are in correct chronological order. See <code><a href='http://www.rdocumentation.org/packages/callr/topics/r'>callr::r_safe()</a></code>
 for more. Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
     </tr>
-    <tr>
-      <th>render</th>
-      <td><p>Logical. Whether to render the reprex or just create the
-templated <code>.R</code> file. Defaults to <code>TRUE</code>. Mostly for internal testing
-purposes.</p></td>
-    </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Character vector of rendered reprex, invisibly.</p>
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
+    
     <p>The usual "code + commented output" is returned invisibly, put on the
 clipboard, and written to file. An HTML preview displays in RStudio's Viewer
 pane, if available, or in the default browser, otherwise. Leading <code>"&gt; "</code>
 prompts, are stripped from the input code. Read more at
 <a href='http://reprex.tidyverse.org/'>http://reprex.tidyverse.org/</a>.</p>
-<p>reprex sets specific <a href='http://yihui.name/knitr/options/'>knitr options</a>,
-which you can supplement or override via the <code>opts_chunk</code> and
-<code>opts_knit</code> arguments or via explicit calls to knitr in your reprex code
-(see examples). If all you want to override is the <code>comment</code> option, use
-the dedicated argument, e.g.<code>commment = "#;-)"</code>.</p><ul>
+<p>reprex sets specific <a href='http://yihui.name/knitr/options/'>knitr options</a>:</p><ul>
 <li><p>Chunk options default to <code>collapse = TRUE</code>, <code>comment = "#&gt;"</code>,
 <code>error = TRUE</code>. Note that <code>error = TRUE</code>, because a common use case is bug
 reporting.</p></li>
@@ -230,8 +234,23 @@ reporting.</p></li>
 on GitHub, Stack Overflow, or Discourse. Note that this function requires
 the packages httr &amp; xml2 or RCurl &amp; XML, depending on your knitr version.
 When <code>venue = "r"</code>, <code>upload.fun</code> is set to <code>identity</code>, so that figures
-remain local. In that case, you may also want to set <code>outfile</code>.</p></li>
+remain local. In that case, you may also want to set <code>outfile</code>.
+You can supplement or override these options with special comments in your
+code (see examples).</p></li>
 </ul>
+    
+    <h2 class="hasAnchor" id="syntax-highlighting"><a class="anchor" href="#syntax-highlighting"></a>Syntax highlighting</h2>
+
+    
+    <p>A secondary use case for reprex is to produce syntax highlighted code
+snippets, with or without rendering, to paste into presentation software,
+such as Keynote or PowerPoint. Use <code>venue = "rtf"</code>.</p>
+<p>This feature is experimental and currently rather limited. It probably only
+works on macOS and requires the installation of the
+<a href='http://www.andre-simon.de/doku/highlight/en/highlight.php'>highlight</a>
+command line tool, which can be installed via
+<a href='http://brewformulas.org/Highlight'>homebrew</a>.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
@@ -262,9 +281,7 @@ remain local. In that case, you may also want to set <code>outfile</code>.</p></
 <span class='co'>## customize the output comment prefix</span>
 <span class='fu'>reprex</span>(<span class='fu'>rbinom</span>(<span class='fl'>3</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>prob</span> <span class='kw'>=</span> <span class='fl'>0.5</span>), <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>"#;-)"</span>)
 
-<span class='co'># override a default chunk option, in general</span>
-<span class='fu'>reprex</span>({(<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>4</span>); <span class='fu'>median</span>(<span class='no'>y</span>)}, <span class='kw'>opts_chunk</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>))
-<span class='co'># the above is simply shorthand for this and produces same result</span>
+<span class='co'># override a default chunk option</span>
 <span class='fu'>reprex</span>({
   <span class='co'>#+ setup, include = FALSE</span>
   <span class='kw pkg'>knitr</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/knitr/topics/opts_chunk'>opts_chunk</a></span>$<span class='fu'>set</span>(<span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
@@ -311,12 +328,16 @@ remain local. In that case, you may also want to set <code>outfile</code>.</p></
 <span class='co'># write reprex to file AND keep figure local too, i.e. don't post to imgur</span>
 <span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'>file.path</span>(<span class='fu'>tempdir</span>(), <span class='st'>"foofy"</span>)
 <span class='fu'>reprex</span>({
+  <span class='co'>#+ setup, include = FALSE</span>
+  <span class='kw pkg'>knitr</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/knitr/topics/opts_knit'>opts_knit</a></span>$<span class='fu'>set</span>(<span class='kw'>upload.fun</span> <span class='kw'>=</span> <span class='no'>identity</span>)
+
+  <span class='co'>#+ actual-reprex-code</span>
   <span class='co'>#' Some prose</span>
   <span class='co'>## regular comment</span>
   (<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>4</span>)
   <span class='fu'>median</span>(<span class='no'>x</span>)
   <span class='fu'>plot</span>(<span class='no'>x</span>)
-  }, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='no'>tmp</span>, <span class='kw'>opts_knit</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>upload.fun</span> <span class='kw'>=</span> <span class='no'>identity</span>))
+  }, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='no'>tmp</span>)
 <span class='fu'>list.files</span>(<span class='fu'>dirname</span>(<span class='no'>tmp</span>), <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"foofy"</span>)
 
 <span class='co'># clean up</span>
@@ -345,10 +366,14 @@ remain local. In that case, you may also want to set <code>outfile</code>.</p></
 <span class='co'>## include prompt and don't comment the output</span>
 <span class='co'>## use this when you want to make your code hard to execute :)</span>
 <span class='fu'>reprex</span>({
+  <span class='co'>#+ setup, include = FALSE</span>
+  <span class='kw pkg'>knitr</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/knitr/topics/opts_chunk'>opts_chunk</a></span>$<span class='fu'>set</span>(<span class='kw'>comment</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>prompt</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+  <span class='co'>#+ actual-reprex-code</span>
   <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>4</span>
   <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>:<span class='fl'>5</span>
   <span class='no'>x</span> + <span class='no'>y</span>
-}, <span class='kw'>opts_chunk</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>comment</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>prompt</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
+})
 
 <span class='co'>## leading prompts are stripped from source</span>
 <span class='fu'>reprex</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"&gt; x &lt;- 1:3"</span>, <span class='st'>"&gt; median(x)"</span>))
@@ -359,8 +384,13 @@ remain local. In that case, you may also want to set <code>outfile</code>.</p></
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      
       <li><a href="#value">Value</a></li>
+
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#syntax-highlighting">Syntax highlighting</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

@@ -64,6 +64,9 @@
     <li>
       <a href="../articles/articles/magic-reprex.html">Magic reprex by N. Tierney</a>
     </li>
+    <li>
+      <a href="../articles/articles/rtf.html">reprex venue RTF</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -95,19 +98,23 @@
     </div>
 
     <div class="ref-description">
+    
     <p>Arguments that appear like so in the usage:</p><pre>f(..., arg = opt(DEFAULT), ...)
 </pre>
+
     <p>get their value according to this logic:</p><pre>user-specified value or, if not given,
   getOption("reprex.arg") or if does not exist,
     DEFAULT
 </pre>
+
     <p>It's shorthand for:</p><pre>f(..., arg = getOption("reprex.arg", DEFAULT), ...)
 </pre>
+
     <p>This is not an exported function and should not be called directly.</p>
+    
     </div>
 
-
-
+        
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Many of the arguments of <code><a href='reprex.html'>reprex()</a></code> use <code>opt()</code>. If you don't like the
@@ -122,13 +129,15 @@ the tidyverse startup message.</p><pre>options(
   reprex.tidyverse_quiet = FALSE
 )
 </pre>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      
       <li><a href="#details">Details</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>

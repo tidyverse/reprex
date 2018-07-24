@@ -14,6 +14,8 @@ navbar:
     menu:
     - text: Magic reprex by N. Tierney
       href: articles/articles/magic-reprex.html
+    - text: reprex venue RTF
+      href: articles/articles/rtf.html
   - text: Reference
     href: reference/index.html
   - text: News

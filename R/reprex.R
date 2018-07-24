@@ -429,37 +429,16 @@ rtf_requires_highlight <- function(venue) {
 
 highlight_found <- function() Sys.which("highlight") != ""
 
-## how to set in .Rprofile
-# options(
-#   reprex.highlight.hl_style  = "darkbone",
-#   reprex.highlight.font      = "Source Code Pro",
-#   reprex.highlight.font_size = 50
-# )
-
-## how to override
-# withr::with_options(
-#   new = list(
-#     reprex.highlight.hl_style  = "dusk",
-#     reprex.highlight.font      = "Fira Code Regular",
-#     reprex.highlight.font_size = 35
-#   ),
-#   reprex(input = c("(x <- rnorm(3))", "mean(x)"), venue = "rtf")
-# )
-
 highlight_args <- function() {
-  ## http://www.andre-simon.de/doku/highlight/en/theme-samples.php
-  ## https://rclickhandbuch.files.wordpress.com/2014/09/knitrthemesoverview.pdf
   hl_style  <-         getOption("reprex.highlight.hl_style", "darkbone")
-  font      <- shQuote(getOption("reprex.highlight.font", "Source Code Pro"))
+  font      <- shQuote(getOption("reprex.highlight.font", "Courier Regular"))
   font_size <-         getOption("reprex.highlight.font_size", 50)
   other     <-         getOption("reprex.highlight.other", "")
-  ## to get line numbers:
-  ## "--line-numbers --line-number-length=2 -z"
 
   paste0(
-    " -s ", hl_style,
-    " --font ", font,
-    " --font-size=", font_size,
-    other
+    " --style ",     hl_style,
+    " --font ",      font,
+    " --font-size ", font_size,
+    " ", other
   )
 }

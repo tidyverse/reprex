@@ -64,6 +64,9 @@
     <li>
       <a href="../articles/articles/magic-reprex.html">Magic reprex by N. Tierney</a>
     </li>
+    <li>
+      <a href="../articles/articles/rtf.html">reprex venue RTF</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -95,6 +98,7 @@
     </div>
 
     <div class="ref-description">
+    
     <p><code>reprex_addin()</code> opens an <a href='https://shiny.rstudio.com/articles/gadgets.html'>RStudio gadget</a> and
 <a href='http://rstudio.github.io/rstudioaddins/'>addin</a> that allows you to say
 where the reprex source is (clipboard? current selection? active file?
@@ -104,35 +108,39 @@ reprex" in the RStudio Addins menu.</p>
 <a href='http://rstudio.github.io/rstudioaddins/'>addin</a> that reprexes the current
 selection, optionally customised by options. Appears as "Reprex selection"
 in the RStudio Addins menu. Heavy users might want to <a href='https://support.rstudio.com/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts'>create a keyboard shortcut</a>.</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>reprex_addin</span>()
 
 <span class='fu'>reprex_selection</span>(<span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"reprex.venue"</span>, <span class='st'>"gh"</span>))</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>venue</th>
-      <td><p>Character. Must be one of the following:</p><ul>
-<li><p>"gh" for GitHub, the default</p></li>
-<li><p>"so" for Stack Overflow</p></li>
+      <td><p>Character. Must be one of the following (case insensitive):</p><ul>
+<li><p>"gh" for <a href='https://github.github.com/gfm/'>GitHub-Flavored Markdown</a>, the
+default</p></li>
+<li><p>"so" for <a href='https://stackoverflow.com/editing-help'>Stack Overflow Markdown</a></p></li>
 <li><p>"ds" for Discourse, e.g.,
 <a href='https://community.rstudio.com'>community.rstudio.com</a>. Note: this is
 currently just an alias for "gh"!</p></li>
-<li><p>"r" or "R" for a runnable R script, with commented output interleaved</p></li>
+<li><p>"r" for a runnable R script, with commented output interleaved</p></li>
+<li><p>"rtf" for <a href='https://en.wikipedia.org/wiki/Rich_Text_Format'>Rich Text Format</a> (not supported for
+un-reprexing)</p></li>
 </ul></td>
     </tr>
     </table>
-
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>
