@@ -80,7 +80,7 @@ The reprex code:
 
   * Should be easy for others to digest, so **they don't necessarily have to run it**. You are encouraged to include selected bits of output. :scream:
 
-  * Should be easy for others to copy + paste + run, **iff they so choose**. Don't let inclusion of output break executability.
+  * Should be easy for others to copy + paste + run, **if and only if they so choose**. Don't let inclusion of output break executability.
 
 Accomplished like so:
 
