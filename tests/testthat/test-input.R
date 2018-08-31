@@ -72,7 +72,7 @@ test_that("newlines in code are protected and uniformly so across venues", {
   input <- 'paste(letters[1:3], collapse = "\n")\n'
   chr_input <- reprex(input = input, render = FALSE)
 
-  input_file <- path_temp("foo.R")
+  input_file <- fs::path_temp("foo.R")
   withr::local_file(input_file)
   writeLines(
     escape_newlines('paste(letters[1:3], collapse = "\n")'),
