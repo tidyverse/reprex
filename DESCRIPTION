@@ -47,7 +47,8 @@ Suggests:
     rstudioapi,
     shiny,
     styler (>= 1.0.2),
-    testthat (>= 2.0.0)
+    testthat (>= 2.0.0),
+    gh
 VignetteBuilder: knitr
 Encoding: UTF-8
 LazyData: true

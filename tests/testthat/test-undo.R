@@ -141,3 +141,17 @@ test_that("reprex_invert() can name outfile based on input filepath", {
   out <- reprex_invert(input = "a_reprex.md", outfile = NA)
   expect_identical(readLines("a_reprex_clean.R"), out)
 })
+
+test_that("reprex_scrap() outputs the expected lines", {
+  skip_on_cran()
+  expected <- c(
+    "#' This is a sample reprex.",
+    "# adding two vectors",
+    "x <- 1:4",
+    "y <- 2:5",
+    "x + y",
+    "#' Created on 2018-08-31 by the [reprex package](http://reprex.tidyverse.org) (v0.2.0)."
+  )
+  out <- reprex_scrape("https://github.com/r-lib/ghurl/issues/7")
+  expect_identical(expected, out)
+})
