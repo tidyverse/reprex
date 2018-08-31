@@ -232,9 +232,5 @@ classify_lines <- function(x, comment = "^#>") {
   wut <- ifelse(wut == "code" & grepl(comment, x), "output", wut)
 
   so_special <- "<!-- language-all: lang-r -->"
-  if (identical(x[1], so_special)) {
-    wut[1] <- "so_header"
-  }
-
-  wut
+  ifelse(x == so_special, "so_header", wut)
 }
