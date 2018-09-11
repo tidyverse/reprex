@@ -165,15 +165,11 @@ reprex_undo <- function(input = NULL,
     }
   }
 
-  if (is_md) {
-    if (venue == "gh") { ## reprex_invert
-      line_info <- classify_lines_bt(src, comment = comment)
-    } else {
-      line_info <- classify_lines(src, comment = comment)
-    }
-    x_out <- ifelse(line_info == "prose" & nzchar(src), prose(src), src)
-    x_out <- x_out[!line_info %in% c("output", "bt", "so_header") & nzchar(src)]
-    x_out <- sub("^    ", "", x_out)
+  if (is_md) { ## reprex_invert
+    flavor <- if (venue == "gh") "fenced" else "indented"
+    x_out <- convert_md_to_r(
+      src, comment = comment, flavor = flavor, drop_output = TRUE
+    )
   } else if (is.null(prompt)) { ## reprex_clean
     x_out <- src[!grepl(comment, src)]
   } else { ## reprex_rescue
@@ -193,36 +189,56 @@ reprex_undo <- function(input = NULL,
   invisible(x_out)
 }
 
-## classify_lines_bt()
-## x = presumably output of reprex(..., venue = "gh"), i.e. Github-flavored
-## markdown in a character vector, with backtick code blocks
-## returns character vector
-## calls each line of x like so:
-##   * bt = backticks
-##   * code = inside a backtick code block
-##   * output = output inside backtick code block (line matches `comment` regex)
-##   * prose = not inside a backtick code block
-classify_lines_bt <- function(x, comment = "^#>") {
+convert_md_to_r <- function(lines,
+                            comment = "#>",
+                            flavor = c("fenced", "indented"),
+                            drop_output = FALSE) {
+  flavor <- match.arg(flavor)
+  classify_fun <- switch(flavor,
+                         fenced = classify_fenced_lines,
+                         indented = classify_indented_lines)
+  lines_info <- classify_fun(lines, comment = comment)
+
+  lines_out <- ifelse(lines_info == "prose" & nzchar(lines), prose(lines), lines)
+
+  drop_classes <- c("bt", "so_header", if (drop_output) "output")
+  lines_out <- lines_out[nzchar(lines_out) & !lines_info %in% drop_classes]
+
+  if (flavor == "indented") {
+    lines_out <- sub("^    ", "", lines_out)
+  }
+
+  lines_out
+}
+
+## Classify lines in the presence of fenced code blocks.
+## Specifically, blocks fenced by three backticks.
+## This is true of the output from reprex(..., venue = "gh").
+## Classifies each line like so:
+##   * bt     = backticks
+##   * code   = code inside a fenced block
+##   * output = commented output inside a fenced block
+##   * prose  = outside a fenced block
+classify_fenced_lines <- function(x, comment = "^#>") {
   x_shift <- c("", utils::head(x, -1))
-  cum_bt <- cumsum(grepl("^```", x_shift))
+  cumulative_fences <- cumsum(grepl("^```", x_shift))
   wut <- ifelse(grepl("^```", x), "bt",
-    ifelse(cum_bt %% 2 == 1, "code", "prose")
+    ifelse(cumulative_fences %% 2 == 1, "code", "prose")
   )
   wut <- ifelse(wut == "code" & grepl(comment, x), "output", wut)
   wut
 }
 
-## classify_lines()
-## x = presumably output of reprex(..., venue = "so"), i.e. NOT Github-flavored
-## markdown in a character vector, with code blocks indented with 4 spaces
+## Classify lines in the presence of indented code blocks.
+## Specifically, blocks indented with 4 spaces.
+## This is true of the output from reprex(..., venue = "so").
 ## https://stackoverflow.com/editing-help
-## returns character vector
-## calls each line of x like so:
-##   * code = inside a code block indented by 4 spaces
-##   * output = output inside an indented code block (line matches `comment` regex)
-##   * prose = not inside a code block
+## Classifies each line like so:
+##   * code      = code inside an indented code block
+##   * output    = commented output inside an indented code block
+##   * prose     = outside an indented code block
 ##   * so_header = special html comment for so syntax highlighting
-classify_lines <- function(x, comment = "^#>") {
+classify_indented_lines <- function(x, comment = "^#>") {
   comment <- sub("\\^", "^    ", comment)
   wut <- ifelse(grepl("^    ", x), "code", "prose")
   wut <- ifelse(wut == "code" & grepl(comment, x), "output", wut)

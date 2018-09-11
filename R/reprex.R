@@ -323,7 +323,9 @@ reprex <- function(x = NULL,
   if (venue %in% c("r", "rtf")) {
     rout_file <- files[["rout_file"]]
     output_lines <- readLines(md_file, encoding = "UTF-8")
-    output_lines <- convert_md_to_r(output_lines, comment = comment)
+    output_lines <- convert_md_to_r(
+      output_lines, comment = comment, flavor = "fenced"
+    )
     writeLines(output_lines, rout_file)
     if (outfile_given) {
       message("Writing reprex as commented R script:\n  * ", rout_file)
@@ -390,12 +392,6 @@ reprex_render <- function(input, std_out_err = NULL) {
     stdout = std_out_err,
     stderr = std_out_err
   )
-}
-
-convert_md_to_r <- function(lines, comment = "#>") {
-  line_info <- classify_lines_bt(lines, comment = comment)
-  lines <- ifelse(line_info == "prose" & nzchar(lines), prose(lines), lines)
-  lines[line_info != "bt"]
 }
 
 reprex_highlight <- function(rout_file, reprex_file, arg_string = NULL) {
