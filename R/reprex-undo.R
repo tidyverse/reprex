@@ -149,15 +149,15 @@ reprex_undo <- function(input = NULL,
   src <- switch(
     where,
     clipboard = ingest_clipboard(),
-    path = read_lines(input),
-    input = escape_newlines(sub("\n$", "", input)),
+    path      = read_lines(input),
+    input     = escape_newlines(sub("\n$", "", input)),
     NULL
   )
   comment <- arg_option(comment)
 
+  outfile_given <- !is.null(outfile)
   infile <- if (where == "path") input else NULL
-  outfile_requested <- !is.null(outfile)
-  if (outfile_requested) {
+  if (outfile_given) {
     files <- make_filenames(make_filebase(outfile, infile), suffix = "clean")
     r_file <- files[["r_file"]]
     if (would_clobber(r_file)) {
@@ -171,11 +171,7 @@ reprex_undo <- function(input = NULL,
     } else {
       line_info <- classify_lines(src, comment = comment)
     }
-    x_out <- ifelse(
-      line_info == "prose" & nzchar(src),
-      paste("#'", src),
-      src
-    )
+    x_out <- ifelse(line_info == "prose" & nzchar(src), prose(src), src)
     x_out <- x_out[!line_info %in% c("output", "bt", "so_header") & nzchar(src)]
     x_out <- sub("^    ", "", x_out)
   } else if (is.null(prompt)) { ## reprex_clean
@@ -190,7 +186,7 @@ reprex_undo <- function(input = NULL,
     clipr::write_clip(x_out)
     message("Clean code is on the clipboard.")
   }
-  if (outfile_requested) {
+  if (outfile_given) {
     writeLines(x_out, r_file)
     message("Writing clean code as R script:\n  * ", r_file)
   }

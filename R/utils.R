@@ -85,3 +85,7 @@ inject_file <- function(path, inject_path, pre_process = enfence, ...) {
   writeLines(lines, path)
   path
 }
+
+prose <- function(x) {
+  paste0("#' ", x)
+}

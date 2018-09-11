@@ -394,11 +394,7 @@ reprex_render <- function(input, std_out_err = NULL) {
 
 convert_md_to_r <- function(lines, comment = "#>") {
   line_info <- classify_lines_bt(lines, comment = comment)
-  lines <- ifelse(
-    line_info == "prose" & nzchar(lines),
-    paste("#'", lines),
-    lines
-  )
+  lines <- ifelse(line_info == "prose" & nzchar(lines), prose(lines), lines)
   lines[line_info != "bt"]
 }
 

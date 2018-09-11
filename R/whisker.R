@@ -8,7 +8,10 @@ apply_template <- function(x, reprex_data = NULL) {
   ))
 
   if (!is.null(reprex_data$std_file)) {
-    data$std_file_stub <- paste0("#' `", reprex_data$std_file, "`\n#'")
+    data$std_file_stub <- prose(c(
+      encodeString(reprex_data$std_file, quote = "`"),
+      "\n"
+    ))
   }
 
   if (isTRUE(reprex_data$si)) {
@@ -20,13 +23,13 @@ apply_template <- function(x, reprex_data = NULL) {
   }
 
   if (reprex_data$venue == "gh") {
-    data$si_start <- "#'<details><summary>Session info</summary>"
-    data$si_end   <- "#'</details>"
+    data$si_start <- prose("<details><summary>Session info</summary>")
+    data$si_end   <- prose("</details>")
   }
 
   if (reprex_data$venue == "so") {
     data$yaml <- yaml_md("md")
-    data$so_syntax_highlighting <- "#'<!-- language-all: lang-r -->"
+    data$so_syntax_highlighting <- prose("<!-- language-all: lang-r -->")
     ## empty line between html comment re: syntax highlighting and reprex code
     x <- c("", x)
   }
@@ -73,5 +76,5 @@ yaml_md <- function(flavor = c("gfm", "md"),
   )
   ## prepend with `#' ` in a separate step because
   ## https://github.com/klutometis/roxygen/issues/668
-  paste0("#' ", yaml, collapse = "\n")
+  paste0(prose(yaml), collapse = "\n")
 }
