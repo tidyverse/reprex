@@ -140,6 +140,82 @@ reprex_rescue <- function(input = NULL,
   )
 }
 
+reprex_scrape <- function(input,
+                          outfile = NULL,
+                          comment = opt("#>")) {
+  venue <- id_venue(input)
+  src <- switch(
+    venue,
+    "gh" = pull_gh_issue(input),
+    "so" = pull_so_question(input)
+  )
+  src <- strsplit(src, "\r?\n")[[1]]
+
+  reprex_undo(
+    src,
+    is_md = TRUE,
+    venue = venue,
+    outfile = outfile,
+    comment = comment
+  )
+}
+
+id_venue <- function(input) {
+  if (grepl("^https?://stackoverflow\\.com", input)) {
+    "so"
+  } else if (grepl("^https?://github\\.com/", input)) {
+    "gh"
+  } else {
+    stop(
+      "`input` needs to be a URL to a GitHub issue or Stack Overflow question",
+      call. = FALSE
+    )
+  }
+}
+
+pull_gh_issue <- function(input) {
+
+  if (!requireNamespace("gh", quietly = TRUE)) {
+    stop(
+      "Install the `gh` package in order to use `reprex_scrape()` ",
+      "with GitHub issues", call. = FALSE
+    )
+  }
+
+  no_host <- sub("^https?://github\\.com/", "", input)
+  paths <- strsplit(no_host, "/")[[1]]
+  if (!(identical(paths[3], "issues") && length(paths) == 4)) {
+    stop(
+      "GitHub URLs need to point to an issue and be in the form:\n",
+      "https://github.com/tidyverse/reprex/issues/168",
+      call. = FALSE
+    )
+  }
+
+  resp <- gh::gh(
+    "/repos/:owner/:repo/issues/:number",
+    owner = paths[1], repo = paths[2], number = paths[4]
+  )
+  resp[["body"]]
+}
+
+# stub
+pull_so_question <- function(input) {
+  txt <- c(
+    "I would like to extract `\"/arsenal-vs-man-city/\"` from",
+    "",
+    "<!-- language-all: lang-r -->",
+    "",
+    "    library(stringr)",
+    "    str_extract_all(\"/sports/football/arsenal-vs-man-city/stats/\", \"/.*?-vs-.*?/\")",
+    "    #> [[1]]",
+    "    #> [1] \"/sports/football/arsenal-vs-man-city/\"",
+    "",
+    "I'd like to know what the correct way to do this is and also why my way is wrong."
+  )
+  paste0(txt, collapse = "\n")
+}
+
 reprex_undo <- function(input = NULL,
                         outfile = NULL,
                         venue,
@@ -244,9 +320,5 @@ classify_indented_lines <- function(x, comment = "^#>") {
   wut <- ifelse(wut == "code" & grepl(comment, x), "output", wut)
 
   so_special <- "<!-- language-all: lang-r -->"
-  if (identical(x[1], so_special)) {
-    wut[1] <- "so_header"
-  }
-
-  wut
+  ifelse(x == so_special, "so_header", wut)
 }

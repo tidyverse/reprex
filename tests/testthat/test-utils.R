@@ -2,7 +2,7 @@ context("utils")
 
 test_that("locate_input() works", {
   expect_identical("clipboard", locate_input(NULL))
-  expect_identical("path", locate_input(path_temp()))
+  expect_identical("path", locate_input(fs::path_temp()))
   expect_identical("input", locate_input(c("a", "b")))
   expect_identical("input", locate_input("a\n"))
 })
