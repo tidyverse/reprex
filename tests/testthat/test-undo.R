@@ -141,3 +141,18 @@ test_that("reprex_invert() can name outfile based on input filepath", {
   out <- reprex_invert(input = "a_reprex.md", outfile = NA)
   expect_identical(readLines("a_reprex_clean.R"), out)
 })
+
+test_that("reprex_invert(venue = 'gh') doesn't strip leading ws", {
+  skip_on_cran()
+  temporarily()
+  input <- c(
+    "library(magrittr)",
+    "mtcars[, 1:2] %>%",
+    "    head(n = 1)"
+  )
+  reprexed <- reprex(
+    input = input, venue = "gh", advertise = FALSE, show = FALSE
+  )
+  inverted <- reprex_invert(reprexed, venue = "gh")
+  expect_match(inverted, input[3], all = FALSE, fixed = TRUE)
+})
