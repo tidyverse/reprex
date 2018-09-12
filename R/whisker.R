@@ -4,7 +4,7 @@ apply_template <- function(x, reprex_data = NULL) {
     tidyverse_quiet = as.character(tidyverse_quiet),
     comment = comment,
     upload_fun = "knitr::imgur_upload",
-    advertise = advertise
+    ad = "Created on `r Sys.Date()` by the [reprex package](https://reprex.tidyverse.org) (v`r utils::packageVersion(\"reprex\")`)"
   ))
 
   if (!is.null(reprex_data$std_file)) {
@@ -25,6 +25,7 @@ apply_template <- function(x, reprex_data = NULL) {
   if (reprex_data$venue == "gh") {
     data$si_start <- prose("<details><summary>Session info</summary>")
     data$si_end   <- prose("</details>")
+    data$ad <- paste0("<sup>", data$ad, "</sup>")
   }
 
   if (reprex_data$venue == "so") {
@@ -32,12 +33,14 @@ apply_template <- function(x, reprex_data = NULL) {
     data$so_syntax_highlighting <- prose("<!-- language-all: lang-r -->")
     ## empty line between html comment re: syntax highlighting and reprex code
     x <- c("", x)
+    data$ad <- paste0("<sup>", data$ad, "</sup>")
   }
 
   if (reprex_data$venue == "r") {
     data$upload_fun <- "identity"
   }
 
+  data$ad <- if (reprex_data$advertise) prose(data$ad) else NULL
   data$body <- paste(x, collapse = "\n")
   whisker::whisker.render(read_template("REPREX"), data = data)
 }
