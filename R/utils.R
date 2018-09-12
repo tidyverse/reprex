@@ -26,8 +26,9 @@ trim_ws <- function(x) {
 
 trim_common_leading_ws <- function(x) {
   m <- regexpr("^(\\s*)", x)
-  ws <- regmatches(x, m)
-  num <- min(nchar(ws))
+  n_chars <- nchar(x)
+  n_spaces <- attr(m, which = "match.length")
+  num <- min(n_spaces[n_chars > 0])
   substring(x, num + 1)
 }
 
