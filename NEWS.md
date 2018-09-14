@@ -6,7 +6,7 @@
 
 * Arguments `opts_chunk` and `opts_knit` have been removed from `reprex()`. The same effect has always been achievable via roxygen comments in the reprex code and the examples have always demonstrated this. Overriding knitr options doesn't seem to come up often enough in real-world `reprex()` usage to justify these arguments.
 
-* Internal file system operations use the [fs](https://fs.r-lib.org) package. This should not make any a user-facing changes in reprex and we definitely want to know if it does.
+* Internal file system operations use the [fs](https://fs.r-lib.org) package. This should not make any user-facing changes in reprex and we definitely want to know if it does.
 
 # reprex 0.2.0
 
