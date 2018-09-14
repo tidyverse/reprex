@@ -15,16 +15,10 @@ apply_template <- function(x, reprex_data = NULL) {
   }
 
   if (isTRUE(reprex_data$si)) {
-    if (requireNamespace("devtools", quietly = TRUE)) {
-      data$si <- "devtools::session_info()"
-    } else {
-      data$si <- "sessionInfo()"
-    }
+    data$si <- si(details = reprex_data$venue == "gh")
   }
 
-  if (reprex_data$venue == "gh") {
-    data$si_start <- prose("<details><summary>Session info</summary>")
-    data$si_end   <- prose("</details>")
+  if (reprex_data$venue %in% c("gh", "so")) {
     data$ad <- paste0("<sup>", data$ad, "</sup>")
   }
 
@@ -33,7 +27,6 @@ apply_template <- function(x, reprex_data = NULL) {
     data$so_syntax_highlighting <- prose("<!-- language-all: lang-r -->")
     ## empty line between html comment re: syntax highlighting and reprex code
     x <- c("", x)
-    data$ad <- paste0("<sup>", data$ad, "</sup>")
   }
 
   if (reprex_data$venue == "r") {
@@ -79,5 +72,23 @@ yaml_md <- function(flavor = c("gfm", "md"),
   )
   ## prepend with `#' ` in a separate step because
   ## https://github.com/klutometis/roxygen/issues/668
-  paste0(prose(yaml), collapse = "\n")
+  paste(prose(yaml), collapse = "\n")
+}
+
+si <- function(details = FALSE) {
+  txt <- if (requireNamespace("devtools", quietly = TRUE)) {
+    "devtools::session_info()"
+  } else {
+    "sessionInfo()"
+  }
+
+  if (details) {
+    txt <- c(
+      prose("<details><summary>Session info</summary>"),
+      txt,
+      prose("</details>")
+    )
+  }
+
+  paste(txt, collapse = "\n")
 }

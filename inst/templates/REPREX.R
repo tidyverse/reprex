@@ -14,8 +14,4 @@ knitr::opts_knit$set(upload.fun = {{{upload_fun}}})
 
 {{{ad}}}
 
-{{#si}}
-{{{si_start}}}
 {{{si}}}
-{{{si_end}}}
-{{/si}}
