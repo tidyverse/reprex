@@ -6,22 +6,30 @@ ensure_not_dogfood <- function(x) {
   looks_like_gh <- any(grepl("^```", x))
   looks_like_so <- any(grepl("<!-- language-all: lang-r -->", x))
   if (looks_like_gh || looks_like_so) {
-    stop(
+    ## I negate yep(), instead of using nope(), to get desired behaviour in
+    ## a non-interactive call
+    if (!yep(
       "First three lines of putative code are:\n",
       paste(x[1:3], collapse = "\n"),
-      "\nwhich isn't valid R code.\n",
+      "\nwhich doesn't look like R code.\n",
       "Are we going in circles? Did you just run reprex()?\n",
       "In that case, the clipboard now holds the *rendered* result.\n",
-      call. = FALSE
-    )
+      "Carry on with this reprex?"
+    )) {
+      abort("Aborting.")
+    }
   }
+
   looks_like_r <- any(grepl("^#>", x))
   if (looks_like_r) {
-    message(
+    if (!yep(
       "Putative code contains lines that start with `#>`.\n",
       "Are we going in circles? Did you just run `reprex(..., venue = \"r\")`?\n",
-      "In that case, the clipboard now holds the *rendered* result.\n"
-    )
+      "In that case, the clipboard now holds the *rendered* result.\n",
+      "Carry on with this reprex?"
+    )) {
+      abort("Aborting.")
+    }
   }
   x
 }

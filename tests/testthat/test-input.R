@@ -49,9 +49,9 @@ test_that("reprex: file input in a subdirectory works", {
 test_that("Circular use is detected before source file written", {
   skip_on_cran()
   ret <- reprex(y <- 2, venue = "gh", show = FALSE)
-  expect_error(reprex(input = ret, render = FALSE), "isn't valid R code")
+  expect_error(reprex(input = ret, render = FALSE), "Aborting")
   ret <- reprex(y <- 2, venue = "so", show = FALSE)
-  expect_error(reprex(input = ret, render = FALSE), "isn't valid R code")
+  expect_error(reprex(input = ret, render = FALSE), "Aborting")
 })
 
 test_that("Leading prompts are removed", {
