@@ -202,7 +202,7 @@ convert_md_to_r <- function(lines,
   lines_out <- ifelse(lines_info == "prose" & nzchar(lines), prose(lines), lines)
 
   drop_classes <- c("bt", "so_header", if (drop_output) "output")
-  lines_out <- lines_out[nzchar(lines_out) & !lines_info %in% drop_classes]
+  lines_out <- lines_out[!lines_info %in% drop_classes]
 
   if (flavor == "indented") {
     lines_out <- sub("^    ", "", lines_out)
