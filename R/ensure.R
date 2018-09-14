@@ -10,7 +10,7 @@ ensure_not_dogfood <- function(x) {
     ## a non-interactive call
     if (!yep(
       "First three lines of putative code are:\n",
-      collapse(paste0(x[1:3], "\n"), sep = ""),
+      collapse(newline(x[1:3]), sep = ""),
       "which doesn't look like R code.\n",
       "Are we going in circles? Did you just run reprex()?\n",
       "In that case, the clipboard now holds the *rendered* result.\n",

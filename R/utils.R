@@ -77,7 +77,7 @@ inject_file <- function(path, inject_path, pre_process = enfence, ...) {
   inject_lines <- readLines(inject_path, encoding = "UTF-8")
   inject_lines <- pre_process(inject_lines, ...)
 
-  inject_locus <- grep(paste0("`", inject_path, "`"), lines, fixed = TRUE)
+  inject_locus <- grep(backtick(inject_path), lines, fixed = TRUE)
   lines <- c(
     lines[seq_len(inject_locus - 1)],
     inject_lines,
@@ -87,11 +87,13 @@ inject_file <- function(path, inject_path, pre_process = enfence, ...) {
   path
 }
 
-prose <- function(x) {
-  paste0("#' ", x)
-}
+prose <- function(x) paste0("#' ", x)
 
 collapse <- function(x, sep = "\n") {
   stopifnot(is.character(sep), length(sep) == 1)
   paste(x, collapse = sep)
 }
+
+backtick <- function(x) encodeString(x, quote = "`")
+
+newline <- function(x) paste0(x, "\n")

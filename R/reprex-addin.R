@@ -149,7 +149,7 @@ rstudio_text_tidy <- function(x) {
 
   n <- length(x)
   if (!grepl("\n$", x[[n]])) {
-    x[[n]] <- paste0(x[[n]], "\n")
+    x[[n]] <- newline(x[[n]])
   }
   x
 }

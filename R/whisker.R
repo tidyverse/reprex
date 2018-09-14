@@ -8,10 +8,7 @@ apply_template <- function(x, reprex_data = NULL) {
   ))
 
   if (!is.null(reprex_data$std_file)) {
-    data$std_file_stub <- prose(c(
-      encodeString(reprex_data$std_file, quote = "`"),
-      "\n"
-    ))
+    data$std_file_stub <- prose(newline(backtick(reprex_data$std_file)))
   }
 
   if (isTRUE(reprex_data$si)) {
@@ -58,14 +55,16 @@ yaml_md <- function(flavor = c("gfm", "md"),
     "  md_document:",
     "    pandoc_args: [",
     if (flavor == "gfm") {
-      c("      '-f', 'markdown-implicit_figures',",
-        "      '-t', 'commonmark',")
+      c(
+    "      '-f', 'markdown-implicit_figures',",
+    "      '-t', 'commonmark',"
+      )
     },
     if (!is.null(pandoc_version)) {
       if (pandoc_version < "1.16") {
-        "      --no-wrap"
+    "      --no-wrap"
       } else {
-        "      --wrap=preserve"
+    "      --wrap=preserve"
       }
     },
     "    ]",
