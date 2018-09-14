@@ -96,7 +96,7 @@
 <p>Reminder: this requires the development version of reprex.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"tidyverse/reprex"</span>)</a></code></pre></div>
 <p>Here is the highlight call implied by the default behaviour of <code><a href="../../reference/reprex.html">reprex(..., venue = "rtf")</a></code>:</p>
-<pre><code>highlight foo_reprex.R --out-format rtf --no-trailing-nl --style darkbone --font 'Courier Regular' --font-size 50 &gt; foo_reprex.rtf</code></pre>
+<pre><code>highlight foo_reprex.R --out-format rtf --no-trailing-nl --encoding=UTF-8 --style darkbone --font 'Courier Regular' --font-size 50 &gt; foo_reprex.rtf</code></pre>
 <p>It would be preferable to use something like the <a href="https://cran.r-project.org/web/packages/highlight/index.html">highlight package</a> at some point in the future, but let us experiment with this hack in the meantime. Why is RTF special? Although Pandoc can produce RTF and, therefore, so can <code><a href="http://www.rdocumentation.org/packages/rmarkdown/topics/render">rmarkdown::render()</a></code> and <code><a href="../../reference/reprex.html">reprex::reprex()</a></code>, Pandoc’s syntax highlighting is unavailable for RTF output. For now, we’ve got to get the functionality from somewhere else.</p>
 <div id="basic-usage" class="section level2">
 <h2 class="hasAnchor">

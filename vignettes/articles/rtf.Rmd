@@ -26,7 +26,7 @@ devtools::install_github("tidyverse/reprex")
 Here is the highlight call implied by the default behaviour of `reprex(..., venue = "rtf")`:
 
 ```
-highlight foo_reprex.R --out-format rtf --no-trailing-nl --style darkbone --font 'Courier Regular' --font-size 50 > foo_reprex.rtf
+highlight foo_reprex.R --out-format rtf --no-trailing-nl --encoding=UTF-8 --style darkbone --font 'Courier Regular' --font-size 50 > foo_reprex.rtf
 ```
 
 It would be preferable to use something like the [highlight package](https://cran.r-project.org/web/packages/highlight/index.html) at some point in the future, but let us experiment with this hack in the meantime. Why is RTF special? Although Pandoc can produce RTF and, therefore, so can `rmarkdown::render()` and `reprex::reprex()`, Pandoc's syntax highlighting is unavailable for RTF output. For now, we've got to get the functionality from somewhere else.
