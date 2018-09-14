@@ -114,9 +114,13 @@ But wait, there’s more\!
 
   - Get a runnable R script, augmented with commented output, with
     `reprex(..., venue = "R")`. This is useful for Slack, email, etc.
+    
+  - Prepare rendered, syntax-highlighted code snippets to paste into
+    Keynote or PowerPoint, with `reprex(..., venue = "rtf")`. This
+    feature is still experimental; see the [associated article](https://reprex.tidyverse.org/articles/articles/rtf.html) for more.
 
   - By default, figures are uploaded to [imgur.com](http://imgur.com)
-    and resulting URL is dropped into an inline image tag.
+    and the resulting URL is dropped into an inline image tag.
 
   - Use the `outfile` argument to control where results are left behind.
     Use `outfile = NA` to work in current working directory.
@@ -129,5 +133,4 @@ But wait, there’s more\!
       - `reprex_rescue()`, when you’re dealing with copy/paste from R
         Console
 
-Please note that this project is released with a [Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md).
-By participating in this project you agree to abide by its terms.
+Please note that the reprex project is released with a [Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
