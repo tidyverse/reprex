@@ -63,5 +63,5 @@ de_opt <- function(x) set_attrs(x, optional = NULL, opt_name = NULL)
 
 make_opt_name <- function(x) {
   pkg_name <- tryCatch(ns_env_name(), error = function(e) NULL)
-  paste0(c(pkg_name, x), collapse = ".")
+  paste(c(pkg_name, x), collapse = ".")
 }

@@ -42,7 +42,7 @@ ingest_clipboard <- function() {
 
 escape_regex <- function(x) {
   chars <- c("*", ".", "?", "^", "+", "$", "|", "(", ")", "[", "]", "{", "}", "\\")
-  gsub(paste0("([\\", paste0(collapse = "\\", chars), "])"), "\\\\\\1", x, perl = TRUE)
+  gsub(paste0("([\\", paste(chars, collapse = "\\"), "])"), "\\\\\\1", x, perl = TRUE)
 }
 
 escape_newlines <- function(x) {
@@ -68,7 +68,7 @@ enfence <- function(lines,
   if (length(lines) == 0) {
     lines <- fallback
   }
-  paste0(c(tag, "``` sh", lines, "```"), collapse = "\n")
+  collapse(c(tag, "``` sh", lines, "```"))
 }
 
 
@@ -89,4 +89,9 @@ inject_file <- function(path, inject_path, pre_process = enfence, ...) {
 
 prose <- function(x) {
   paste0("#' ", x)
+}
+
+collapse <- function(x, sep = "\n") {
+  stopifnot(is.character(sep), length(sep) == 1)
+  paste(x, collapse = sep)
 }

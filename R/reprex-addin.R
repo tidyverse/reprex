@@ -24,7 +24,7 @@ reprex_addin <- function() { # nocov start
   if (any(!dep_ok)) {
     stop(
       "Install these packages in order to use the reprex addin:\n",
-      paste(names(dep_ok[!dep_ok]), collapse = "\n"), call. = FALSE
+      collapse(names(dep_ok[!dep_ok])), call. = FALSE
     )
   }
 

@@ -15,7 +15,7 @@ apply_template <- function(x, reprex_data = NULL) {
   }
 
   if (isTRUE(reprex_data$si)) {
-    data$si <- si(details = reprex_data$venue == "gh")
+    data$si <- collapse(si(details = reprex_data$venue == "gh"))
   }
 
   if (reprex_data$venue %in% c("gh", "so")) {
@@ -34,7 +34,8 @@ apply_template <- function(x, reprex_data = NULL) {
   }
 
   data$ad <- if (reprex_data$advertise) prose(data$ad) else NULL
-  data$body <- paste(x, collapse = "\n")
+  data$yaml <- collapse(data$yaml)
+  data$body <- collapse(x)
   whisker::whisker.render(read_template("REPREX"), data = data)
 }
 
@@ -72,7 +73,7 @@ yaml_md <- function(flavor = c("gfm", "md"),
   )
   ## prepend with `#' ` in a separate step because
   ## https://github.com/klutometis/roxygen/issues/668
-  paste(prose(yaml), collapse = "\n")
+  prose(yaml)
 }
 
 si <- function(details = FALSE) {
@@ -90,5 +91,5 @@ si <- function(details = FALSE) {
     )
   }
 
-  paste(txt, collapse = "\n")
+  txt
 }
