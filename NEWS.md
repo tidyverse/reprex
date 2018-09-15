@@ -1,6 +1,6 @@
 # reprex 0.2.0.9000
 
-* The reprex ad is formatted as superscript for `venue = "gh"` and `venue = "so"`, i.e. it is more subtle now (#201).
+* The reprex ad is formatted as superscript for `venue = "gh"` and `venue = "so"`, i.e. it is more subtle (#201).
 
 * New experimental venue "rtf" produces syntax highlighted snippets suitable for pasting into presentation software such as Keynote or PowerPoint. This venue is discussed in [an article](https://reprex.tidyverse.org/articles/articles/rtf.html) (#26).
 

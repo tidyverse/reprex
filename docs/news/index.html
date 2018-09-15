@@ -101,7 +101,7 @@
 <a href="#reprex-0-2-0-9000" class="anchor"></a>reprex 0.2.0.9000<small> Unreleased </small>
 </h1>
 <ul>
-<li><p>The reprex ad is formatted as superscript for <code>venue = "gh"</code> and <code>venue = "so"</code>, i.e. it is more subtle now (<a href='https://github.com/tidyverse/reprex/issues/201'>#201</a>).</p></li>
+<li><p>The reprex ad is formatted as superscript for <code>venue = "gh"</code> and <code>venue = "so"</code>, i.e. it is more subtle (<a href='https://github.com/tidyverse/reprex/issues/201'>#201</a>).</p></li>
 <li><p>New experimental venue “rtf” produces syntax highlighted snippets suitable for pasting into presentation software such as Keynote or PowerPoint. This venue is discussed in <a href="https://reprex.tidyverse.org/articles/articles/rtf.html">an article</a> (<a href='https://github.com/tidyverse/reprex/issues/26'>#26</a>).</p></li>
 <li><p>Arguments <code>opts_chunk</code> and <code>opts_knit</code> have been removed from <code><a href="../reference/reprex.html">reprex()</a></code>. The same effect has always been achievable via roxygen comments in the reprex code and the examples have always demonstrated this. Overriding knitr options doesn’t seem to come up often enough in real-world <code><a href="../reference/reprex.html">reprex()</a></code> usage to justify these arguments.</p></li>
 <li><p>Internal file system operations use the <a href="https://fs.r-lib.org">fs</a> package. This should not make any user-facing changes in reprex and we definitely want to know if it does.</p></li>
