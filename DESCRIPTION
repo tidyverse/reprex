@@ -1,6 +1,6 @@
 Package: reprex
 Title: Prepare Reproducible Example Code via the Clipboard
-Version: 0.2.0.9000
+Version: 0.2.1
 Authors@R: c(
     person("Jennifer", "Bryan", , "jenny@rstudio.com", role = c("aut", "cre"),
       comment = c(ORCID = "0000-0002-6983-2759")
