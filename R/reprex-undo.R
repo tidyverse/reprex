@@ -44,7 +44,9 @@ NULL
 #' x
 #'
 #' # clean up
-#' file.remove(list.files(dirname(tmp),pattern = "roundtrip", full.names = TRUE))
+#' file.remove(
+#'   list.files(dirname(tmp_in), pattern = "roundtrip", full.names = TRUE)
+#' )
 #' }
 reprex_invert <- function(input = NULL,
                           outfile = NULL,

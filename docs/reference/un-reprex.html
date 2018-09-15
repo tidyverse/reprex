@@ -198,7 +198,9 @@ commands.</p></li>
 <span class='no'>x</span>
 
 <span class='co'># clean up</span>
-<span class='fu'>file.remove</span>(<span class='fu'>list.files</span>(<span class='fu'>dirname</span>(<span class='no'>tmp</span>),<span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"roundtrip"</span>, <span class='kw'>full.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
+<span class='fu'>file.remove</span>(
+  <span class='fu'>list.files</span>(<span class='fu'>dirname</span>(<span class='no'>tmp_in</span>), <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"roundtrip"</span>, <span class='kw'>full.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+)
 <span class='co'># }</span><span class='co'># NOT RUN {</span>
 <span class='co'>## a displayed reprex can be cleaned of commented output</span>
 <span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'>file.path</span>(<span class='fu'>tempdir</span>(), <span class='st'>"commented-code"</span>)

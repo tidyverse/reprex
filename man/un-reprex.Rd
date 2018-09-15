@@ -89,7 +89,9 @@ x <- reprex_invert(x, outfile = tmp_out)
 x
 
 # clean up
-file.remove(list.files(dirname(tmp),pattern = "roundtrip", full.names = TRUE))
+file.remove(
+  list.files(dirname(tmp_in), pattern = "roundtrip", full.names = TRUE)
+)
 }
 \dontrun{
 ## a displayed reprex can be cleaned of commented output
