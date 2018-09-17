@@ -7,13 +7,13 @@
 \alias{reprex_rescue}
 \title{Un-render a reprex}
 \usage{
-reprex_invert(input = NULL, outfile = NULL, venue = c("gh", "so",
-  "ds", "r"), comment = opt("#>"))
+reprex_invert(input = NULL, outfile = NULL, venue = c("gh", "so", "ds",
+  "r"), comment = opt("#>"))
 
 reprex_clean(input = NULL, outfile = NULL, comment = opt("#>"))
 
-reprex_rescue(input = NULL, outfile = NULL,
-  prompt = getOption("prompt"), continue = getOption("continue"))
+reprex_rescue(input = NULL, outfile = NULL, prompt = getOption("prompt"),
+  continue = getOption("continue"))
 }
 \arguments{
 \item{input}{Character. If has length one and lacks a terminating newline,
@@ -21,8 +21,9 @@ interpreted as the path to a file containing reprex code. Otherwise,
 assumed to hold reprex code as character vector. If not provided, the
 clipboard is consulted for input.}
 
-\item{outfile}{Optional basename for output file. When \code{NULL}, no file is
-left behind. If \code{outfile = "foo"}, expect an output file in current working
+\item{outfile}{Optional basename for output file. When \code{NULL}
+(default), reprex writes to temp files below the session temp directory.
+If \code{outfile = "foo"}, expect an output file in current working
 directory named \code{foo_clean.R}. If \code{outfile = NA}, expect on output file in
 a location and with basename derived from \code{input}, if a path, or in
 current working directory with basename derived from \code{\link[=tempfile]{tempfile()}}

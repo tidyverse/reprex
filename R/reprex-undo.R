@@ -10,8 +10,9 @@
 #'   interpreted as the path to a file containing reprex code. Otherwise,
 #'   assumed to hold reprex code as character vector. If not provided, the
 #'   clipboard is consulted for input.
-#' @param outfile Optional basename for output file. When `NULL`, no file is
-#'   left behind. If `outfile = "foo"`, expect an output file in current working
+#' @param outfile Optional basename for output file. When `NULL`
+#'   (default), reprex writes to temp files below the session temp directory.
+#'   If `outfile = "foo"`, expect an output file in current working
 #'   directory named `foo_clean.R`. If `outfile = NA`, expect on output file in
 #'   a location and with basename derived from `input`, if a path, or in
 #'   current working directory with basename derived from [tempfile()]
@@ -157,14 +158,11 @@ reprex_undo <- function(input = NULL,
   )
   comment <- arg_option(comment)
 
-  outfile_given <- !is.null(outfile)
   infile <- if (where == "path") input else NULL
-  if (outfile_given) {
-    files <- make_filenames(make_filebase(outfile, infile), suffix = "clean")
-    r_file <- files[["r_file"]]
-    if (would_clobber(r_file)) {
-      return(invisible())
-    }
+  files <- make_filenames(make_filebase(outfile, infile), suffix = "clean")
+  r_file <- files[["r_file"]]
+  if (would_clobber(r_file)) {
+    return(invisible())
   }
 
   if (is_md) { ## reprex_invert
@@ -184,10 +182,14 @@ reprex_undo <- function(input = NULL,
     clipr::write_clip(x_out)
     message("Clean code is on the clipboard.")
   }
-  if (outfile_given) {
-    writeLines(x_out, r_file)
-    message("Writing clean code as R script:\n  * ", r_file)
+
+  writeLines(x_out, r_file)
+  message("Writing clean code as R script:\n  * ", r_file)
+
+  if (interactive()) {
+    withr::defer(file_edit(r_file))
   }
+
   invisible(x_out)
 }
 

@@ -4,11 +4,10 @@
 \alias{reprex}
 \title{Render a reprex}
 \usage{
-reprex(x = NULL, input = NULL, outfile = NULL, venue = c("gh",
-  "so", "ds", "r", "rtf"), render = TRUE, advertise = NULL,
-  si = opt(FALSE), style = opt(FALSE), show = opt(TRUE),
-  comment = opt("#>"), tidyverse_quiet = opt(TRUE),
-  std_out_err = opt(FALSE))
+reprex(x = NULL, input = NULL, outfile = NULL, venue = c("gh", "so",
+  "ds", "r", "rtf"), render = TRUE, advertise = NULL, si = opt(FALSE),
+  style = opt(FALSE), show = opt(TRUE), comment = opt("#>"),
+  tidyverse_quiet = opt(TRUE), std_out_err = opt(FALSE))
 }
 \arguments{
 \item{x}{An expression. If not given, \code{reprex()} looks for code in
