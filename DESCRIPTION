@@ -33,7 +33,6 @@ Imports:
     fs,
     rlang,
     rmarkdown,
-    tools,
     utils,
     whisker,
     withr
