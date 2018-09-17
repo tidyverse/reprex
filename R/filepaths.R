@@ -2,7 +2,7 @@
 make_filebase <- function(outfile = NULL, infile = NULL) {
   if (is.null(outfile)) {
     ## work inside a new directory, within session temp directory
-    target_dir <- path_real(dir_create(file_temp("reprex")))
+    target_dir <- fs::path_real(fs::dir_create(fs::file_temp("reprex")))
     ## example: /private/var/.../.../.../reprex97d77de2835c/reprex
     return(path(target_dir, "reprex"))
   }
@@ -14,7 +14,7 @@ make_filebase <- function(outfile = NULL, infile = NULL) {
   if (is.null(infile)) {
     ## outfile = NA, infile = NULL --> reprex in working directory
     ## example: reprexbfa165580676
-    path_file(file_temp("reprex"))
+    fs::path_file(fs::file_temp("reprex"))
   } else {
     ## outfile = NA, infile = "sthg" --> follow infile's lead
     ## example: basename_of_infile
@@ -44,14 +44,14 @@ force_tempdir <- function(path) {
   if (is_in_tempdir(path)) {
     path
   } else {
-    file_copy(path, path_temp(path_file(path)), overwrite = TRUE)
+    fs::file_copy(path, fs::path_temp(fs::path_file(path)), overwrite = TRUE)
   }
 }
 
 is_in_tempdir <- function(path) {
   identical(
-    path_real(path_temp()),
-    path_common(path_real(c(path, path_temp())))
+    fs::path_real(fs::path_temp()),
+    fs::path_common(fs::path_real(c(path, fs::path_temp())))
   )
 }
 
