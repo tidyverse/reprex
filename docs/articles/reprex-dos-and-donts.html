@@ -92,6 +92,25 @@
 <ul>
 <li>Think: <code>iris</code> or <code>mtcars</code>. Bore me.</li>
 <li>If you must make some objects, minimize their size and complexity.</li>
+<li>Many of the functions and packages you already use to import data from delimited files also offer a way to create a small data frame “inline”:
+<ul>
+<li>
+<code>read.table()</code> and friends have a <code>text</code> argument. Example: <code>read.csv(text = "a,b\n1,2\n3,4")</code>.</li>
+<li>
+<p><code><a href="http://www.rdocumentation.org/packages/tibble/topics/tribble">tibble::tribble()</a></code> lets you use a natural and readable layout. Example:</p>
+<pre><code><a href="http://www.rdocumentation.org/packages/tibble/topics/tribble">  tibble::tribble(
+    ~ a, ~ b,
+      1,   2,
+      3,   4
+  )
+  #&gt; # A tibble: 2 x 2
+  #&gt;       a     b
+  #&gt;   &lt;dbl&gt; &lt;dbl&gt;
+  #&gt; 1     1     2
+  #&gt; 2     3     4</a></code></pre>
+</li>
+</ul>
+</li>
 <li>Get just a bit of something with <code>head()</code> or by indexing with the result of <code>sample()</code>. If anything is random, consider using <code>set.seed()</code> to make it repeatable.</li>
 <li>
 <code>dput()</code> is a good way to get the code to create an object you have lying around, if you simply cannot make do with built-in or simulated data. Copy and paste the <em>result</em> of this into your reprex.</li>
@@ -118,15 +137,15 @@
 <li>Don’t mask built-in functions, i.e. don’t define a new function named <code>c</code> or <code>mean</code>.</li>
 <li>
 <p>If you change options, store original values at the start, do your thing, then restore them:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">opar &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">pch =</span> <span class="dv">19</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="op">&lt;</span>blah blah blah<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">par</span>(opar)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">opar &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">pch =</span> <span class="dv">19</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="op">&lt;</span>blah blah blah<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">par</span>(opar)</a></code></pre></div>
 </li>
 <li>
 <p>If you create files, delete them when you’re done:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">write</span>(x, <span class="st">"foo.txt"</span>)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="op">&lt;</span>blah blah blah<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">file.remove</span>(<span class="st">"foo.txt"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">write</span>(x, <span class="st">"foo.txt"</span>)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="op">&lt;</span>blah blah blah<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">file.remove</span>(<span class="st">"foo.txt"</span>)</a></code></pre></div>
 </li>
 <li>Don’t delete files or objects that you didn’t create in the first place.</li>
 <li><p>Take advantage of R’s built-in ability to create temporary files and directories. Read up on <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/tempfile.html"><code>tempfile()</code> and <code>tempdir()</code></a>.</p></li>

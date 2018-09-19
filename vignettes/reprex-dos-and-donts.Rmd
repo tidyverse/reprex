@@ -20,6 +20,20 @@ If you're asking for R help, reporting a bug, or requesting a new feature, you'r
 
   - Think: `iris` or `mtcars`. Bore me.
   - If you must make some objects, minimize their size and complexity.
+  - Many of the functions and packages you already use to import data from delimited files also offer a way to create a small data frame "inline":
+    - `read.table()` and friends have a `text` argument. Example: `read.csv(text = "a,b\n1,2\n3,4")`.
+    - `tibble::tribble()` lets you use a natural and readable layout. Example:
+    
+            tibble::tribble(
+              ~ a, ~ b,
+                1,   2,
+                3,   4
+            )
+            #> # A tibble: 2 x 2
+            #>       a     b
+            #>   <dbl> <dbl>
+            #> 1     1     2
+            #> 2     3     4
   - Get just a bit of something with `head()` or by indexing with the result of `sample()`. If anything is random, consider using `set.seed()` to make it repeatable.
   - `dput()` is a good way to get the code to create an object you have lying around, if you simply cannot make do with built-in or simulated data. Copy and paste the *result* of this into your reprex.
   - Look at official examples and try to write in that style. Consider adapting one.
