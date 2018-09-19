@@ -1,3 +1,4 @@
+#+ eval = FALSE
 ## figures are uploaded to imgur.com and linked, by default
 library(gapminder)
 library(ggplot2)
@@ -13,6 +14,7 @@ reprex()
 ## paste into, e.g., GitHub issue
 ## OMG the figure is there! w00t!
 
+#+ eval = FALSE
 ## provide input as an expression
 reprex({
   x <- rnorm(100)
@@ -20,6 +22,7 @@ reprex({
   cor(x, y)
 })
 
+#+ eval = FALSE
 ## ask to work in working directory (vs session temp directory)
 ## helpful if reprex does file I/O
 reprex(
@@ -33,6 +36,7 @@ reprex(
   outfile = "shock-and-awe"
 )
 
+#+ eval = FALSE
 ## render to markdown tuned to Stack Overflow (vs GitHub or Discourse)
 reprex(
   mean(rnorm(100)),
@@ -52,19 +56,20 @@ reprex(
   venue = "rtf"
 )
 
+#+ eval = FALSE
 ## suppress the "advertisement" (toggle it!)
 reprex(
   mean(rnorm(100)),
-  advertise = FALSE
+  advertise = TRUE
 )
 
-## include session info
+## include session info (toggle it!)
 reprex(
   mean(rnorm(100)),
   si = TRUE
 )
 
-## re-style the code (toggle FALSE to TRUE)
+## re-style the code  (toggle it!)
 reprex(
   input = c(
     'if (TRUE) "true branch" else {',
@@ -86,6 +91,7 @@ reprex(
   tidyverse_quiet = TRUE
 )
 
+#+ eval = FALSE
 ## include output from standard output and standard error
 remove.packages("bench")
 reprex(
