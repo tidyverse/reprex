@@ -1,0 +1,17 @@
+---
+title: "How to use reprex"
+---
+
+Materials from an [RStudio webinar](https://resources.rstudio.com/webinars) delivered September 2018:
+
+### Help me help you: Creating reproducible examples with reprex  
+
+What is a reprex? It’s a **repr**oducible **ex**ample. Making a great reprex is both an art and a science and this webinar will cover both aspects. A reprex makes a conversation about code more efficient and pleasant for all. This comes up whenever you ask someone for help, report a bug in software, or propose a new feature. The reprex package (https://reprex.tidyverse.org) makes it especially easy to prepare R code as a reprex, in order to share on sites such as https://community.rstudio.com, https://github.com, or https://stackoverflow.com. The habit of making little, rigorous, self-contained examples also has the great side effect of making you think more clearly about your programming problems.
+
+Video: *coming soon!*
+
+Slides on SpeakerDeck: 
+
+<https://speakerdeck.com/jennybc/reprex-reproducible-examples-with-r>
+
+<script async class="speakerdeck-embed" data-id="a5eedf90acb648fab7a3f1f0a5bb8885" data-ratio="1.77777777777778" src="//speakerdeck.com/assets/embed.js"></script>

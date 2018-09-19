@@ -16,6 +16,8 @@ navbar:
     href: articles/reprex-dos-and-donts.html
   - text: Articles
     menu:
+    - text: How to use reprex
+      href: articles/articles/learn-reprex.html
     - text: Magic reprex by N. Tierney
       href: articles/articles/magic-reprex.html
     - text: reprex venue RTF

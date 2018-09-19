@@ -2,6 +2,7 @@ pandoc: 2.2.1
 pkgdown: 1.1.0.9000
 pkgdown_sha: e109432b94b7fe6d16f1afc66b90c0d3373f065d
 articles:
+  learn-reprex: articles/learn-reprex.html
   magic-reprex: articles/magic-reprex.html
   rtf: articles/rtf.html
   reprex-dos-and-donts: reprex-dos-and-donts.html
