@@ -97,3 +97,11 @@ collapse <- function(x, sep = "\n") {
 backtick <- function(x) encodeString(x, quote = "`")
 
 newline <- function(x) paste0(x, "\n")
+
+file_edit <- function(...) {
+  if (exists("file.edit", envir = globalenv())) {
+    get("file.edit", envir = globalenv())(...)
+  } else {
+    utils::file.edit(...)
+  }
+}

@@ -374,7 +374,7 @@ reprex <- function(x = NULL,
       "  * ", reprex_file
     )
     if (yep("Open the output file for manual copy?")) {
-      withr::defer(utils::file.edit(reprex_file))
+      withr::defer(file_edit(reprex_file))
     }
   }
 

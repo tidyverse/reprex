@@ -21,7 +21,7 @@ expect_error_free <- function(...) {
 
 ## set wd to session temp dir, execute testing code, restore previous wd
 temporarily <- function(env = parent.frame()) {
-  withr::local_dir(path_temp(), .local_envir = env)
+  withr::local_dir(fs::path_temp(), .local_envir = env)
 }
 
 ## call during interactive test development to fake being "in tests" and thereby
