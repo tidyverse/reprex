@@ -1,7 +1,8 @@
-pandoc: 2.2.1
+pandoc: 2.3.1
 pkgdown: 1.1.0.9000
-pkgdown_sha: e109432b94b7fe6d16f1afc66b90c0d3373f065d
+pkgdown_sha: 13435a6e2d693bec7cd6a770a73475a981838b88
 articles:
+  datapasta-reprex: articles/datapasta-reprex.html
   learn-reprex: articles/learn-reprex.html
   magic-reprex: articles/magic-reprex.html
   rtf: articles/rtf.html
