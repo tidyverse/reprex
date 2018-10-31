@@ -22,6 +22,8 @@ navbar:
       href: articles/articles/magic-reprex.html
     - text: reprex venue RTF
       href: articles/articles/rtf.html
+    - text: Using datapasta with reprex
+      href: articles/articles/datapasta-reprex.html
   - text: Reference
     href: reference/index.html
   - text: News
