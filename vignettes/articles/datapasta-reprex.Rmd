@@ -17,7 +17,10 @@ It's easy to copy and paste nicely formatted data from a spreadsheet with datapa
 2. Click **Paste as tribble** from the datapasta section of the RStudio Addins drop-down.  
 3. Be sure to assign your data frame to a name, so you can use it elsewhere in your reprex.
 
-![`datapasta::tribble_paste()`](https://raw.githubusercontent.com/tidyverse/reprex/datapasta-gifs/img/datapasta_w_reprex_sheet_to_tribble.gif)
+<div class="figure" style="height: auto">
+<img src="https://raw.githubusercontent.com/tidyverse/reprex/datapasta-gifs/img/datapasta_w_reprex_sheet_to_tribble.gif" alt="Gif of using datapasta::tribble_paste() to get data from a spreadsheet as R code for use in a reprex" style="width: 100%;max-height: 100%" />
+<p class = "caption"><code>datapasta::tribble_paste()</code></p>
+</div>
 
 While the output of `tribble_paste()` doesn't have the same level of detail it would with [`dput()`](https://stat.ethz.ch/R-manual/R-patched/library/base/html/dput.html), it works well enough for most scenarios, with the added benefit of being easy to read on the screen.
 
@@ -25,7 +28,10 @@ While the output of `tribble_paste()` doesn't have the same level of detail it w
 
 Now let’s say you have a data frame in R that you want to use in a reprex. You can use datapasta's `dpasta()` function to render your object into the same format as the result of `tribble_paste()`, above.
 
-![`datapasta::dpasta()`](https://raw.githubusercontent.com/tidyverse/reprex/datapasta-gifs/img/dpasta_datapasta_reprex.gif)
+<div class="figure" style="height: auto">
+<img src="https://raw.githubusercontent.com/tidyverse/reprex/datapasta-gifs/img/dpasta_datapasta_reprex.gif" alt="Gif of using datapasta::dpasta() to convert an R data frame into the R code needed to define it in a reprex" style="width: 100%;max-height: 100%" />
+<p class = "caption"><code>datapasta::dpasta()</code></p>
+</div>
 
 ## Fin
 
