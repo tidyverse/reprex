@@ -1,5 +1,7 @@
 # reprex *development version*
 
+* The YAML of reprex's template has been updated in light of the stricter YAML parser used in Pandoc >= 2.2.2.
+
 * `rlang::set_attrs()` has been soft-deprecated and is no longer used internally.
 
 # reprex 0.2.1
