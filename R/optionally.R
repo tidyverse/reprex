@@ -35,9 +35,10 @@ NULL
 
 optionally <- function(x, opt_name = NA_character_) {
   if (!is.na(opt_name)) {
-    x <- set_attrs(x, opt_name = opt_name)
+    attr(x, "opt_name") <- opt_name
   }
-  set_attrs(x, optional = TRUE)
+  attr(x, "optional") <- TRUE
+  x
 }
 
 opt <- optionally
@@ -59,7 +60,11 @@ arg_option <- function(arg) {
 
 is_optional <- function(x) isTRUE(attr(x, "optional"))
 
-de_opt <- function(x) set_attrs(x, optional = NULL, opt_name = NULL)
+de_opt <- function(x) {
+  attr(x, "optional") <- NULL
+  attr(x, "opt_name") <- NULL
+  x
+}
 
 make_opt_name <- function(x) {
   pkg_name <- tryCatch(ns_env_name(), error = function(e) NULL)
