@@ -53,21 +53,20 @@ yaml_md <- function(flavor = c("gfm", "md"),
     "---",
     "output:",
     "  md_document:",
-    "    pandoc_args: [",
+    "    pandoc_args:",
     if (flavor == "gfm") {
       c(
-    "                 '-f', 'markdown-implicit_figures',",
-    "                 '-t', 'commonmark',"
+    "      - '--from=markdown-implicit_figures'",
+    "      - '--to=commonmark'"
       )
     },
     if (!is.null(pandoc_version)) {
       if (pandoc_version < "1.16") {
-    "                 --no-wrap"
+    "      - '--no-wrap'"
       } else {
-    "                 --wrap=preserve"
+    "      - '--wrap=preserve'"
       }
     },
-    "                 ]",
     "---"
   )
   ## prepend with `#' ` in a separate step because
