@@ -7,4 +7,7 @@ articles:
   magic-reprex: articles/magic-reprex.html
   rtf: articles/rtf.html
   reprex-dos-and-donts: reprex-dos-and-donts.html
+urls:
+  reference: https://reprex.tidyverse.org/reference
+  article: https://reprex.tidyverse.org/articles
 
