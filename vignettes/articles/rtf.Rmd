@@ -39,7 +39,7 @@ reprex({
 ```
 
 ```{r echo = FALSE, out.width = "75%"}
-knitr::include_graphics("keynote-w00t.png")
+knitr::include_graphics("img/keynote-w00t.png")
 ```
 
 ## highlight options
@@ -90,7 +90,7 @@ withr::with_options(
 ```
 
 ```{r echo = FALSE, out.width = "60%"}
-knitr::include_graphics("dusk-fira-35-line-numbers.png")
+knitr::include_graphics("img/dusk-fira-35-line-numbers.png")
 ```
 
 Here's how to set highlight options for part of an R session:
@@ -109,7 +109,7 @@ options(op)
 ```
 
 ```{r echo = FALSE, out.width = "85%"}
-knitr::include_graphics("anotherdark-andale-60-line-numbers.png")
+knitr::include_graphics("img/anotherdark-andale-60-line-numbers.png")
 ```
 
 ## Render ... or not
@@ -125,7 +125,7 @@ mean(x)
 The above source, when `reprex()`ed, will not include the usual output. This is not specific to `venue = "rtf"`, but it's more likely to come up in this setting.
 
 ```{r echo = FALSE, out.width = "20%"}
-knitr::include_graphics("eval-false.png")
+knitr::include_graphics("img/eval-false.png")
 ```
 
 ## How to selectively hide and reveal code
@@ -164,5 +164,5 @@ bizarro(1:5)
 ```
 
 ```{r echo = FALSE, out.width = "70%"}
-knitr::include_graphics("bizarro-selective-reveal.png")
+knitr::include_graphics("img/bizarro-selective-reveal.png")
 ```
