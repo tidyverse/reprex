@@ -99,16 +99,22 @@
 <!--/.navbar -->
 
       
-      </header><div class="row">
+      </header>
+
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+<div class="row">
   <div class="contents col-md-9">
-    <div id="reprex" class="section level1">
+<div id="reprex" class="section level1">
 
 
 <p>Prepare reprexes for posting to <a href="https://guides.github.com/features/issues/">GitHub issues</a>, <a href="https://stackoverflow.com/questions/tagged/r">StackOverflow</a>, or <a href="https://get.slack.help/hc/en-us/articles/204145658-Create-a-snippet">Slack snippets</a>. What is a <code>reprex</code>? It’s a <strong>repr</strong>oducible <strong>ex</strong>ample, as coined by <a href="https://twitter.com/romain_francois/status/530011023743655936">Romain Francois</a>.</p>
 <p><a href="https://nypdecider.files.wordpress.com/2014/08/help-me-help-you.gif"><img src="reference/figures/help-me-help-you.png" align="right"></a></p>
 <p>Given R code on the clipboard, selected in RStudio, as an expression (quoted or not), or in a file …</p>
 <ul>
-<li>run it via <code><a href="http://www.rdocumentation.org/packages/rmarkdown/topics/render">rmarkdown::render()</a></code>,</li>
+<li>run it via <code><a href="https://www.rdocumentation.org/packages/rmarkdown/topics/render">rmarkdown::render()</a></code>,</li>
 <li>with deliberate choices re: arguments and setup chunk.</li>
 </ul>
 <p>Get resulting runnable code + output as</p>
@@ -121,9 +127,9 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Install from CRAN:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">"reprex"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"reprex"</span>)</a></code></pre></div>
 <p>or get a development version from GitHub:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"tidyverse/reprex"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"tidyverse/reprex"</span>)</a></code></pre></div>
 <p>On Linux, you probably want to install <a href="https://github.com/astrand/xclip">xclip</a> or <a href="http://www.vergenet.net/~conrad/software/xsel/">xsel</a>, so reprex can access the X11 clipboard. This is ‘nice to have’, but not mandatory. The usual <code>sudo apt-get install</code> or <code>sudo yum install</code> installation methods should work for both xclip and xsel.</p>
 </div>
 <div id="usage" class="section level2">
@@ -131,7 +137,7 @@
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>Let’s say you copy this code onto your clipboard:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">(y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">mean</span>(y)</a></code></pre></div>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(y)</a></code></pre></div>
 <p>Then call <code><a href="reference/reprex.html">reprex()</a></code>, where the default target venue is GitHub:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="reference/reprex.html">reprex</a></span>()</a></code></pre></div>
 <p>A nicely rendered HTML preview will display in RStudio’s Viewer (if you’re in RStudio) or your default browser otherwise.</p>
@@ -146,7 +152,7 @@
 <p>Here’s what that Markdown would look like rendered in a GitHub issue:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">(y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt; [1] 1 2 3 4</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw">mean</span>(y)</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(y)</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; [1] 2.5</span></a></code></pre></div>
 <p>Anyone else can copy, paste, and run this immediately.</p>
 <p>Instead of reading from the clipboard, you can:</p>
@@ -181,7 +187,7 @@
 </div>
   </div>
 
-  <div class="col-md-3" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
@@ -210,7 +216,7 @@
 <li>
 <a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-4757-117X" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
 <li>
-<a href="https://www.rstudio.com"><img src="https://tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a> <br><small class="roles"> Copyright holder, funder </small>  </li>
+<a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a> <br><small class="roles"> Copyright holder, funder </small>  </li>
 </ul>
 </div>
 
@@ -227,6 +233,9 @@
 </div>
 </div>
 
+$for(include-after)$
+$include-after$
+$endfor$
 
       <footer><div class="tidyverse">
   <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
@@ -234,7 +243,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href="https://jennybryan.org">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://www.rstudio.com"><img src="https://tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
+    Developed by <a href="https://jennybryan.org">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

@@ -145,13 +145,13 @@ wild-caught reprex.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>reprex_invert</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"gh"</span>, <span class='st'>"so"</span>,
+    <pre class="usage"><span class='fu'>reprex_invert</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"gh"</span>, <span class='st'>"so"</span>,
   <span class='st'>"ds"</span>, <span class='st'>"r"</span>), <span class='kw'>comment</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='st'>"#&gt;"</span>))
 
 <span class='fu'>reprex_clean</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='st'>"#&gt;"</span>))
 
 <span class='fu'>reprex_rescue</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>prompt</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"prompt"</span>), <span class='kw'>continue</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"continue"</span>))</pre>
+  <span class='kw'>prompt</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"prompt"</span>), <span class='kw'>continue</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"continue"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -169,7 +169,7 @@ clipboard is consulted for input.</p></td>
 left behind. If <code>outfile = "foo"</code>, expect an output file in current working
 directory named <code>foo_clean.R</code>. If <code>outfile = NA</code>, expect on output file in
 a location and with basename derived from <code>input</code>, if a path, or in
-current working directory with basename derived from <code>tempfile()</code>
+current working directory with basename derived from <code><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile()</a></code>
 otherwise.</p></td>
     </tr>
     <tr>
@@ -223,7 +223,7 @@ commands.</p></li>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
 <span class='co'>## a rendered reprex can be inverted, at least approximately</span>
-<span class='no'>tmp_in</span> <span class='kw'>&lt;-</span> <span class='fu'>file.path</span>(<span class='fu'>tempdir</span>(), <span class='st'>"roundtrip-input"</span>)
+<span class='no'>tmp_in</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>(), <span class='st'>"roundtrip-input"</span>)
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='reprex.html'>reprex</a></span>({
   <span class='co'>#' Some text</span>
   <span class='co'>#+ chunk-label-and-options-cannot-be-recovered, message = TRUE</span>
@@ -232,18 +232,18 @@ commands.</p></li>
   <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>:<span class='fl'>5</span>
   <span class='no'>x</span> + <span class='no'>y</span>
 }, <span class='kw'>show</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>advertise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='no'>tmp_in</span>)
-<span class='no'>tmp_out</span> <span class='kw'>&lt;-</span> <span class='fu'>file.path</span>(<span class='fu'>tempdir</span>(), <span class='st'>"roundtrip-output"</span>)
+<span class='no'>tmp_out</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>(), <span class='st'>"roundtrip-output"</span>)
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex_invert</span>(<span class='no'>x</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='no'>tmp_out</span>)
 <span class='no'>x</span>
 
 <span class='co'># clean up</span>
-<span class='fu'>file.remove</span>(
-  <span class='fu'>list.files</span>(<span class='fu'>dirname</span>(<span class='no'>tmp_in</span>), <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"roundtrip"</span>, <span class='kw'>full.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/files'>file.remove</a></span>(
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list.files'>list.files</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/basename'>dirname</a></span>(<span class='no'>tmp_in</span>), <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"roundtrip"</span>, <span class='kw'>full.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 )
 <span class='co'># }</span><span class='co'># NOT RUN {</span>
 <span class='co'>## a displayed reprex can be cleaned of commented output</span>
-<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'>file.path</span>(<span class='fu'>tempdir</span>(), <span class='st'>"commented-code"</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(
+<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>(), <span class='st'>"commented-code"</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(
   <span class='st'>"## a regular comment, which is retained"</span>,
   <span class='st'>"(x &lt;- 1:4)"</span>,
   <span class='st'>"#&gt; [1] 1 2 3 4"</span>,
@@ -254,20 +254,20 @@ commands.</p></li>
 <span class='no'>out</span>
 
 <span class='co'># clean up</span>
-<span class='fu'>file.remove</span>(
-  <span class='fu'>list.files</span>(<span class='fu'>dirname</span>(<span class='no'>tmp</span>), <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"commented-code"</span>, <span class='kw'>full.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/files'>file.remove</a></span>(
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list.files'>list.files</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/basename'>dirname</a></span>(<span class='no'>tmp</span>), <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"commented-code"</span>, <span class='kw'>full.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 )
 
 <span class='co'>## round trip with reprex(..., venue = "R")</span>
-<span class='no'>code_in</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"x &lt;- rnorm(2)"</span>, <span class='st'>"min(x)"</span>)
+<span class='no'>code_in</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"x &lt;- rnorm(2)"</span>, <span class='st'>"min(x)"</span>)
 <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='reprex.html'>reprex</a></span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='no'>code_in</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='st'>"R"</span>, <span class='kw'>advertise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='no'>res</span>
 (<span class='no'>code_out</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex_clean</span>(<span class='no'>res</span>))
-<span class='fu'>identical</span>(<span class='no'>code_in</span>, <span class='no'>code_out</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/identical'>identical</a></span>(<span class='no'>code_in</span>, <span class='no'>code_out</span>)
 <span class='co'># }</span><span class='co'># NOT RUN {</span>
 <span class='co'>## rescue a reprex that was copied from a live R session</span>
-<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'>file.path</span>(<span class='fu'>tempdir</span>(), <span class='st'>"live-transcript"</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(
+<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>(), <span class='st'>"live-transcript"</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(
   <span class='st'>"&gt; ## a regular comment, which is retained"</span>,
   <span class='st'>"&gt; (x &lt;- 1:4)"</span>,
   <span class='st'>"[1] 1 2 3 4"</span>,
@@ -278,8 +278,8 @@ commands.</p></li>
 <span class='no'>out</span>
 
 <span class='co'># clean up</span>
-<span class='fu'>file.remove</span>(
-  <span class='fu'>list.files</span>(<span class='fu'>dirname</span>(<span class='no'>tmp</span>),<span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"live-transcript"</span>, <span class='kw'>full.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/files'>file.remove</a></span>(
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list.files'>list.files</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/basename'>dirname</a></span>(<span class='no'>tmp</span>),<span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"live-transcript"</span>, <span class='kw'>full.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 )
 <span class='co'># }</span></pre>
   </div>
@@ -305,7 +305,7 @@ commands.</p></li>
 
 <div class="author">
   <p>
-    Developed by <a href='https://jennybryan.org'>Jennifer Bryan</a>, Jim Hester, David Robinson, <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://www.rstudio.com'><img src='https://tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='https://jennybryan.org'>Jennifer Bryan</a>, Jim Hester, David Robinson, <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

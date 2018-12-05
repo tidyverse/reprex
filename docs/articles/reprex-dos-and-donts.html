@@ -116,10 +116,10 @@
 <li>Many of the functions and packages you already use to import data from delimited files also offer a way to create a small data frame “inline”:
 <ul>
 <li>
-<code>read.table()</code> and friends have a <code>text</code> argument. Example: <code>read.csv(text = "a,b\n1,2\n3,4")</code>.</li>
+<code><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.table()</a></code> and friends have a <code>text</code> argument. Example: <code><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv(text = "a,b\n1,2\n3,4")</a></code>.</li>
 <li>
-<p><code><a href="http://www.rdocumentation.org/packages/tibble/topics/tribble">tibble::tribble()</a></code> lets you use a natural and readable layout. Example:</p>
-<pre><code><a href="http://www.rdocumentation.org/packages/tibble/topics/tribble">  tibble::tribble(
+<p><code><a href="https://www.rdocumentation.org/packages/tibble/topics/tribble">tibble::tribble()</a></code> lets you use a natural and readable layout. Example:</p>
+<pre><code><a href="https://www.rdocumentation.org/packages/tibble/topics/tribble">  tibble::tribble(
     ~ a, ~ b,
       1,   2,
       3,   4
@@ -132,15 +132,15 @@
 </li>
 </ul>
 </li>
-<li>Get just a bit of something with <code>head()</code> or by indexing with the result of <code>sample()</code>. If anything is random, consider using <code>set.seed()</code> to make it repeatable.</li>
+<li>Get just a bit of something with <code><a href="https://www.rdocumentation.org/packages/utils/topics/head">head()</a></code> or by indexing with the result of <code><a href="https://www.rdocumentation.org/packages/base/topics/sample">sample()</a></code>. If anything is random, consider using <code><a href="https://www.rdocumentation.org/packages/base/topics/Random">set.seed()</a></code> to make it repeatable.</li>
 <li>
-<code>dput()</code> is a good way to get the code to create an object you have lying around, if you simply cannot make do with built-in or simulated data. Copy and paste the <em>result</em> of this into your reprex.</li>
+<code><a href="https://www.rdocumentation.org/packages/base/topics/dput">dput()</a></code> is a good way to get the code to create an object you have lying around, if you simply cannot make do with built-in or simulated data. Copy and paste the <em>result</em> of this into your reprex.</li>
 <li>Look at official examples and try to write in that style. Consider adapting one.</li>
 </ul>
 <p><strong>Include commands on a strict “need to run” basis.</strong></p>
 <ul>
 <li>Ruthlessly strip out anything unrelated to the specific matter at hand.</li>
-<li>Include every single command that is required, e.g. loading specific packages via <code>library(foo)</code>.</li>
+<li>Include every single command that is required, e.g. loading specific packages via <code><a href="https://www.rdocumentation.org/packages/base/topics/library">library(foo)</a></code>.</li>
 </ul>
 <p><strong>Consider including so-called “session info”</strong>, i.e. your OS and versions of R and add-on packages, if it’s conceivable that it matters.</p>
 <ul>
@@ -153,23 +153,23 @@
 </ul>
 <p><strong>Pack it in, pack it out, and don’t take liberties with other people’s computers.</strong> You are asking people to run this code!</p>
 <ul>
-<li>Don’t start with <code>rm(list = ls())</code>. It is anti-social to clobber other people’s workspaces.</li>
+<li>Don’t start with <code><a href="https://www.rdocumentation.org/packages/base/topics/rm">rm(list = ls())</a></code>. It is anti-social to clobber other people’s workspaces.</li>
 <li>Don’t start with <code>setwd("C:\Users\jenny\path\that\only\I\have")</code>, because it won’t work on anyone else’s computer.</li>
 <li>Don’t mask built-in functions, i.e. don’t define a new function named <code>c</code> or <code>mean</code>.</li>
 <li>
 <p>If you change options, store original values at the start, do your thing, then restore them:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">opar &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">pch =</span> <span class="dv">19</span>)</a>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">opar &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">pch =</span> <span class="dv">19</span>)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="op">&lt;</span>blah blah blah<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">par</span>(opar)</a></code></pre></div>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(opar)</a></code></pre></div>
 </li>
 <li>
 <p>If you create files, delete them when you’re done:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">write</span>(x, <span class="st">"foo.txt"</span>)</a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/write">write</a></span>(x, <span class="st">"foo.txt"</span>)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="op">&lt;</span>blah blah blah<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">file.remove</span>(<span class="st">"foo.txt"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/files">file.remove</a></span>(<span class="st">"foo.txt"</span>)</a></code></pre></div>
 </li>
 <li>Don’t delete files or objects that you didn’t create in the first place.</li>
-<li><p>Take advantage of R’s built-in ability to create temporary files and directories. Read up on <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/tempfile.html"><code>tempfile()</code> and <code>tempdir()</code></a>.</p></li>
+<li><p>Take advantage of R’s built-in ability to create temporary files and directories. Read up on <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/tempfile.html"><code><a href="https://www.rdocumentation.org/packages/base/topics/tempfile">tempfile()</a></code> and <code><a href="https://www.rdocumentation.org/packages/base/topics/tempfile">tempdir()</a></code></a>.</p></li>
 </ul>
 </div>
 <div id="this-seems-like-a-lot-of-work" class="section level2">
@@ -196,21 +196,21 @@
 </ul>
 <p>Accomplished like so:</p>
 <ul>
-<li><p>Use <code><a href="http://www.rdocumentation.org/packages/rmarkdown/topics/render">rmarkdown::render()</a></code> to run the code and capture output that you would normally see on your screen. This is done in a separate R process, via <a href="https://cran.r-project.org/package=callr">callr</a>, to guarantee it is self-contained.</p></li>
+<li><p>Use <code><a href="https://www.rdocumentation.org/packages/rmarkdown/topics/render">rmarkdown::render()</a></code> to run the code and capture output that you would normally see on your screen. This is done in a separate R process, via <a href="https://cran.r-project.org/package=callr">callr</a>, to guarantee it is self-contained.</p></li>
 <li><p>Use chunk option <code>comment = "#&gt;"</code> to include the output while retaining executability.</p></li>
 </ul>
 </div>
 <div id="other-work" class="section level2">
 <h2 class="hasAnchor">
 <a href="#other-work" class="anchor"></a>Other work</h2>
-<p>If I had known about <a href="http://yihui.name/formatR/"><code>formatR::tidy_eval()</code></a>, I probably would never had made reprex! But alas I did not. AFAICT here are the main differences:</p>
+<p>If I had known about <a href="http://yihui.name/formatR/"><code><a href="https://www.rdocumentation.org/packages/formatR/topics/tidy_eval">formatR::tidy_eval()</a></code></a>, I probably would never had made reprex! But alas I did not. AFAICT here are the main differences:</p>
 <ul>
 <li>
 <code><a href="../reference/reprex.html">reprex()</a></code> accepts an expression as primary input, in addition to code on the clipboard, in a character vector, or in a file.</li>
 <li>
 <code><a href="../reference/reprex.html">reprex()</a></code> runs the reprex in a separate R process, via <a href="https://cran.r-project.org/package=callr">callr</a>. <code>tidy_eval()</code> uses the existing R process and offers an <code>envir</code> argument.</li>
 <li>
-<code><a href="../reference/reprex.html">reprex()</a></code> writes the code to a <code>.R</code> file and calls <code><a href="http://www.rdocumentation.org/packages/rmarkdown/topics/render">rmarkdown::render()</a></code>. <code>tidy_eval()</code> runs the code line-by-line via <code>capture.output(eval(..., envir = envir))</code>.</li>
+<code><a href="../reference/reprex.html">reprex()</a></code> writes the code to a <code>.R</code> file and calls <code><a href="https://www.rdocumentation.org/packages/rmarkdown/topics/render">rmarkdown::render()</a></code>. <code>tidy_eval()</code> runs the code line-by-line via <code><a href="https://www.rdocumentation.org/packages/utils/topics/capture.output">capture.output(eval(..., envir = envir))</a></code>.</li>
 <li>
 <code><a href="../reference/reprex.html">reprex()</a></code> uploads figures to imgur and inserts the necessary link.</li>
 </ul>
@@ -240,7 +240,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href="https://jennybryan.org">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://www.rstudio.com"><img src="https://tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
+    Developed by <a href="https://jennybryan.org">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
