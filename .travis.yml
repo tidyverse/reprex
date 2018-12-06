@@ -18,25 +18,19 @@ env:
     - DISPLAY=:99.0
     - _R_CHECK_FORCE_SUGGESTS_=false
 
-r:
-- 3.2
-- 3.3
-- oldrel
-- devel
-
 matrix:
   include:
-  - r: 3.1
-    warnings_are_errors: false
-  - r: release
-    env: DISPLAY=""
-
-# Only report coverage for the release version
-after_success:
-  - test $TRAVIS_R_VERSION_STRING = 'release' && Rscript -e 'covr::codecov()'
-
-before_deploy: Rscript -e 'remotes::install_cran("pkgdown")'
-deploy:
-  provider: script
-  script: Rscript -e 'pkgdown::deploy_site_github()'
-  skip_cleanup: true
+    - r: 3.1
+      warnings_are_errors: false
+    - r: 3.2
+    - r: 3.3
+    - r: 3.4
+    - r: release
+      env: DISPLAY=""
+      after_success: Rscript -e 'covr::codecov()'
+      before_deploy: Rscript -e 'install.packages("pkgdown")'
+      deploy:
+        provider: script
+        script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE)'
+        skip_cleanup: true
+    - r: devel
