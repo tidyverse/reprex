@@ -28,7 +28,7 @@ matrix:
     - r: release
       env: DISPLAY=""
       after_success: Rscript -e 'covr::codecov()'
-      before_deploy: Rscript -e 'install.packages("pkgdown")'
+      before_deploy: Rscript -e 'install.packages(c("pkgdown", "tidytemplate")'
       deploy:
         provider: script
         script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE)'
