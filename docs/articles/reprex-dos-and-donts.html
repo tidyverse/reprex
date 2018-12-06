@@ -158,15 +158,15 @@
 <li>Don’t mask built-in functions, i.e. don’t define a new function named <code>c</code> or <code>mean</code>.</li>
 <li>
 <p>If you change options, store original values at the start, do your thing, then restore them:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">opar &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">pch =</span> <span class="dv">19</span>)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="op">&lt;</span>blah blah blah<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(opar)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">opar &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">pch =</span> <span class="dv">19</span>)</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="op">&lt;</span>blah blah blah<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(opar)</a></code></pre></div>
 </li>
 <li>
 <p>If you create files, delete them when you’re done:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/write">write</a></span>(x, <span class="st">"foo.txt"</span>)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="op">&lt;</span>blah blah blah<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/files">file.remove</a></span>(<span class="st">"foo.txt"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/write">write</a></span>(x, <span class="st">"foo.txt"</span>)</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="op">&lt;</span>blah blah blah<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/files">file.remove</a></span>(<span class="st">"foo.txt"</span>)</a></code></pre></div>
 </li>
 <li>Don’t delete files or objects that you didn’t create in the first place.</li>
 <li><p>Take advantage of R’s built-in ability to create temporary files and directories. Read up on <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/tempfile.html"><code><a href="https://www.rdocumentation.org/packages/base/topics/tempfile">tempfile()</a></code> and <code><a href="https://www.rdocumentation.org/packages/base/topics/tempfile">tempdir()</a></code></a>.</p></li>
