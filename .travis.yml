@@ -30,12 +30,13 @@ matrix:
     warnings_are_errors: false
   - r: release
     env: DISPLAY=""
-    after_success:
-    - Rscript -e 'covr::codecov()'
-    before_deploy:
-    - R CMD INSTALL .
-    - Rscript -e 'remotes::install_cran("pkgdown")'
-    deploy:
-      provider: script
-      script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE)'
-      skip_cleanup: true
+
+# Only report coverage for the release version
+after_success:
+  - test $TRAVIS_R_VERSION_STRING = 'release' && Rscript -e 'covr::codecov()'
+
+before_deploy: Rscript -e 'remotes::install_cran("pkgdown")'
+deploy:
+  provider: script
+  script: Rscript -e 'pkgdown::deploy_site_github()'
+  skip_cleanup: true
