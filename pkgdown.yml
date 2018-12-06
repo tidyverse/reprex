@@ -1,0 +1,13 @@
+pandoc: '2.2'
+pkgdown: 1.2.0.9000
+pkgdown_sha: 6eec25a28d335ea8b01068761403d33dc5386261
+articles:
+  datapasta-reprex: articles/datapasta-reprex.html
+  learn-reprex: articles/learn-reprex.html
+  magic-reprex: articles/magic-reprex.html
+  rtf: articles/rtf.html
+  reprex-dos-and-donts: reprex-dos-and-donts.html
+urls:
+  reference: https://reprex.tidyverse.org/reference
+  article: https://reprex.tidyverse.org/articles
+
