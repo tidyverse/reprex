@@ -1,6 +1,6 @@
 pandoc: '2.2'
 pkgdown: 1.2.0.9000
-pkgdown_sha: 6eec25a28d335ea8b01068761403d33dc5386261
+pkgdown_sha: 2018788b04b398e604367b51bf4ce0981f210456
 articles:
   datapasta-reprex: articles/datapasta-reprex.html
   learn-reprex: articles/learn-reprex.html

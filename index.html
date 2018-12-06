@@ -99,17 +99,14 @@
 <!--/.navbar -->
 
       
-      </header>
-
-$for(header-includes)$
-$header-includes$
-$endfor$
-
-<div class="row">
+      </header><div class="row">
   <div class="contents col-md-9">
 <div id="reprex" class="section level1">
 
 
+<div id="overview" class="section level2">
+<h2 class="hasAnchor">
+<a href="#overview" class="anchor"></a>Overview</h2>
 <p>Prepare reprexes for posting to <a href="https://guides.github.com/features/issues/">GitHub issues</a>, <a href="https://stackoverflow.com/questions/tagged/r">StackOverflow</a>, or <a href="https://get.slack.help/hc/en-us/articles/204145658-Create-a-snippet">Slack snippets</a>. What is a <code>reprex</code>? It’s a <strong>repr</strong>oducible <strong>ex</strong>ample, as coined by <a href="https://twitter.com/romain_francois/status/530011023743655936">Romain Francois</a>.</p>
 <p><a href="https://nypdecider.files.wordpress.com/2014/08/help-me-help-you.gif"><img src="reference/figures/help-me-help-you.png" align="right"></a></p>
 <p>Given R code on the clipboard, selected in RStudio, as an expression (quoted or not), or in a file …</p>
@@ -123,6 +120,7 @@ $endfor$
 <li>R code, augmented with commented output.</li>
 </ul>
 <p>Result is returned invisibly, placed on the clipboard, and written to a file. Preview an HTML version in RStudio viewer or default browser.</p>
+</div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -232,10 +230,6 @@ $endfor$
 </div>
 </div>
 </div>
-
-$for(include-after)$
-$include-after$
-$endfor$
 
       <footer><div class="tidyverse">
   <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
