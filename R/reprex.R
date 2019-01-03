@@ -384,7 +384,10 @@ reprex <- function(x = NULL,
 reprex_render <- function(input, std_out_err = NULL) {
   callr::r_safe(
     function(input) {
-      options(keep.source = TRUE)
+      options(
+        keep.source = TRUE,
+        rlang_trace_top_env = globalenv()
+      )
       rmarkdown::render(input, quiet = TRUE, envir = globalenv())
     },
     args = list(input = input),
