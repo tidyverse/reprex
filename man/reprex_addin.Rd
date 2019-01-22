@@ -21,6 +21,8 @@ currently just an alias for "gh"!
 \item "r" for a runnable R script, with commented output interleaved
 \item "rtf" for \href{https://en.wikipedia.org/wiki/Rich_Text_Format}{Rich Text Format} (not supported for
 un-reprexing)
+\item "html" for an HTML fragment suitable for inclusion in a larger HTML
+document (not supported for un-reprexing)
 }}
 }
 \description{

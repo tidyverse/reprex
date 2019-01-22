@@ -71,10 +71,12 @@
 #' * "rtf" for [Rich Text
 #' Format](https://en.wikipedia.org/wiki/Rich_Text_Format) (not supported for
 #' un-reprexing)
+#' * "html" for an HTML fragment suitable for inclusion in a larger HTML
+#' document (not supported for un-reprexing)
 #' @param advertise Logical. Whether to include a footer that describes when and
 #'   how the reprex was created. If unspecified, the option `reprex.advertise`
 #'   is consulted and, if that is not defined, default is `TRUE` for venues
-#'   `"gh"`, `"so"`, `"ds"`, and `FALSE` for `"r"` and `"rtf"`.
+#'   `"gh"`, `"so"`, `"ds"`, `"html"` and `FALSE` for `"r"` and `"rtf"`.
 #' @param si Logical. Whether to include [devtools::session_info()], if
 #'   available, or [sessionInfo()] at the end of the reprex. When `venue` is
 #'   "gh" or "ds", the session info is wrapped in a collapsible details tag.
@@ -211,6 +213,14 @@
 #' }, venue = "R")
 #' ret
 #'
+#' ## target venue = html
+#' ret <- reprex({
+#'   x <- 1:4
+#'   y <- 2:5
+#'   x + y
+#' }, venue = "html")
+#' ret
+#'
 #' ## include prompt and don't comment the output
 #' ## use this when you want to make your code hard to execute :)
 #' reprex({
@@ -250,7 +260,7 @@ reprex <- function(x = NULL,
   venue <- rtf_requires_highlight(venue)
 
   advertise       <- advertise %||%
-    getOption("reprex.advertise") %||% (venue %in% c("gh", "so"))
+    getOption("reprex.advertise") %||% (venue %in% c("gh", "so", "html"))
   si              <- arg_option(si)
   style           <- arg_option(style)
   show            <- arg_option(show)

@@ -5,7 +5,7 @@
 \title{Render a reprex}
 \usage{
 reprex(x = NULL, input = NULL, outfile = NULL, venue = c("gh",
-  "so", "ds", "r", "rtf"), render = TRUE, advertise = NULL,
+  "so", "ds", "r", "rtf", "html"), render = TRUE, advertise = NULL,
   si = opt(FALSE), style = opt(FALSE), show = opt(TRUE),
   comment = opt("#>"), tidyverse_quiet = opt(TRUE),
   std_out_err = opt(FALSE))
@@ -38,6 +38,8 @@ currently just an alias for "gh"!
 \item "r" for a runnable R script, with commented output interleaved
 \item "rtf" for \href{https://en.wikipedia.org/wiki/Rich_Text_Format}{Rich Text Format} (not supported for
 un-reprexing)
+\item "html" for an HTML fragment suitable for inclusion in a larger HTML
+document (not supported for un-reprexing)
 }}
 
 \item{render}{Logical. Whether to call \code{\link[rmarkdown:render]{rmarkdown::render()}} on the templated
@@ -47,7 +49,7 @@ primarily for the sake of internal testing.}
 \item{advertise}{Logical. Whether to include a footer that describes when and
 how the reprex was created. If unspecified, the option \code{reprex.advertise}
 is consulted and, if that is not defined, default is \code{TRUE} for venues
-\code{"gh"}, \code{"so"}, \code{"ds"}, and \code{FALSE} for \code{"r"} and \code{"rtf"}.}
+\code{"gh"}, \code{"so"}, \code{"ds"}, \code{"html"} and \code{FALSE} for \code{"r"} and \code{"rtf"}.}
 
 \item{si}{Logical. Whether to include \code{\link[devtools:session_info]{devtools::session_info()}}, if
 available, or \code{\link[=sessionInfo]{sessionInfo()}} at the end of the reprex. When \code{venue} is
@@ -240,6 +242,14 @@ ret <- reprex({
   y <- 2:5
   x + y
 }, venue = "R")
+ret
+
+## target venue = html
+ret <- reprex({
+  x <- 1:4
+  y <- 2:5
+  x + y
+}, venue = "html")
 ret
 
 ## include prompt and don't comment the output
