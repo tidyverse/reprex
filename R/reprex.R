@@ -346,7 +346,7 @@ reprex <- function(x = NULL,
     html_fragment_file <- files[["html_fragment_file"]]
     rmarkdown::render(
       md_file,
-      output_format = "html_fragment",
+      output_format = rmarkdown::html_fragment(self_contained = FALSE),
       output_file = html_fragment_file,
       clean = FALSE,
       quiet = TRUE,
