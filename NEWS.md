@@ -1,5 +1,7 @@
 # reprex *development version*
 
+* New venue "html" to render HTML fragments, useful for pasting in sites without markdown but that allow HTML (#236 @cwickham).
+
 * The YAML of reprex's template has been updated in light of the stricter YAML parser used in Pandoc >= 2.2.2.
 
 * `rlang::set_attrs()` has been soft-deprecated and is no longer used internally.
