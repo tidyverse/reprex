@@ -232,7 +232,7 @@
 #' @export
 reprex <- function(x = NULL,
                    input = NULL, outfile = NULL,
-                   venue = c("gh", "so", "ds", "r", "rtf"),
+                   venue = c("gh", "so", "ds", "r", "rtf", "html"),
 
                    render = TRUE,
 
@@ -340,6 +340,20 @@ reprex <- function(x = NULL,
       message("Writing reprex as highlighted RTF:\n  * ", reprex_file)
     }
     reprex_file <- rtf_file
+  }
+
+  if (venue == "html") {
+    html_fragment_file <- files[["html_fragment_file"]]
+    rmarkdown::render(
+      md_file,
+      output_format = "html_fragment",
+      output_file = html_fragment_file,
+      clean = FALSE,
+      quiet = TRUE,
+      encoding = "UTF-8",
+      output_options = if (pandoc2.0()) list(pandoc_args = "--quiet")
+    )
+    reprex_file <- html_fragment_file
   }
 
   if (show) {
