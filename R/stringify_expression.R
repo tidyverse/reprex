@@ -8,7 +8,7 @@ stringify_expression <- function(x) {
   .srcref <- utils::getSrcref(x)
 
   if (is.null(.srcref)) {
-    return(deparse(x))
+    return(enc2utf8(deparse(x)))
   }
 
   ## Construct a new srcref with the first_line, first_byte, etc. from the
