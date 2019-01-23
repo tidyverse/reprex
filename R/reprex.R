@@ -305,13 +305,13 @@ reprex <- function(x = NULL,
     comment = comment, tidyverse_quiet = tidyverse_quiet, std_file = std_file
   )
   src <- apply_template(src, data)
-  writeLines(src, r_file)
+  xfun::write_utf8(src, r_file)
   if (outfile_given) {
     message("Preparing reprex as .R file:\n  * ", r_file)
   }
 
   if (!render) {
-    return(invisible(readLines(r_file, encoding = "UTF-8")))
+    return(invisible(xfun::read_utf8(r_file, error = FALSE)))
   }
 
   message("Rendering reprex...")
@@ -332,7 +332,7 @@ reprex <- function(x = NULL,
 
   if (venue %in% c("r", "rtf")) {
     rout_file <- files[["rout_file"]]
-    output_lines <- readLines(md_file, encoding = "UTF-8")
+    output_lines <- xfun::read_utf8(md_file)
     output_lines <- convert_md_to_r(
       output_lines, comment = comment, flavor = "fenced"
     )
@@ -383,7 +383,7 @@ reprex <- function(x = NULL,
     viewer(html_file)
   }
 
-  out_lines <- readLines(reprex_file, encoding = "UTF-8")
+  out_lines <- xfun::read_utf8(reprex_file)
 
   if (clipboard_available()) {
     clipr::write_clip(out_lines)
