@@ -28,7 +28,7 @@ stringify_expression <- function(x) {
     )
   )
 
-  lines <- as.character(src, useSource = TRUE)
+  lines <- enc2utf8(as.character(src, useSource = TRUE))
 
   ## remove the first brace and line if the brace is the only thing on the line
   lines <- sub("^[{]", "", lines)
