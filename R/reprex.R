@@ -386,7 +386,8 @@ reprex_render <- function(input, std_out_err = NULL) {
     function(input) {
       options(
         keep.source = TRUE,
-        rlang_trace_top_env = globalenv()
+        rlang_trace_top_env = globalenv(),
+        crayon.enabled = FALSE
       )
       rmarkdown::render(input, quiet = TRUE, envir = globalenv())
     },
