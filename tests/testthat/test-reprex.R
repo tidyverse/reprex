@@ -27,10 +27,10 @@ test_that("reprex() doesn't leak files by default", {
   expect_match(ret, "cannot open file 'test.txt'", all = FALSE)
 })
 
-test_that("markdown::render() context is trimmed from rlang backtrace", {
+test_that("rmarkdown::render() context is trimmed from rlang backtrace", {
   skip_on_cran()
   input <- "f <- function() g(); g <- function() h(); h <- function() rlang::abort('foo'); f()\n"
   ret <- reprex(input = input, show = FALSE, advertise = FALSE)
   expect_false(any(grepl("tryCatch", ret)))
-  expect_false(any(grepl("markdown::render", ret)))
+  expect_false(any(grepl("rmarkdown::render", ret)))
 })
