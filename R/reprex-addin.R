@@ -66,7 +66,8 @@ reprex_addin <- function() { # nocov start
           "GitHub" = "gh",
           "Stack Overflow" = "so",
           "R script" = "r",
-          "Rich Text Format" = "rtf"
+          "Rich Text Format" = "rtf",
+          "HTML" = "html"
         ),
         selected = getOption("reprex.venue", "gh")
       ),

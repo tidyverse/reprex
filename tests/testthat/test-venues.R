@@ -68,3 +68,21 @@ test_that("local image link is not interrupted by hard line break for 'gh'", {
   i <- grep("incredibly-long", out)
   expect_true(grepl("[)]", out[i]))
 })
+
+test_that("venue = 'html' works", {
+  skip_on_cran()
+  input <- c(
+    "#' Hello world",
+    "## comment",
+    "1:5"
+  )
+  output <- c(
+    "<p>Hello world</p>",
+    "<pre class=\"r\"><code>## comment",
+    "1:5",
+    "#&gt; [1] 1 2 3 4 5</code></pre>"
+  )
+  ret <- reprex(input = input, venue = "html", show = FALSE, advertise = FALSE)
+  ret <- ret[nzchar(ret)]
+  expect_identical(ret, output)
+})
