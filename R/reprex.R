@@ -275,7 +275,7 @@ reprex <- function(x = NULL,
   stopifnot(is.character(comment))
   stopifnot(is_toggle(tidyverse_quiet), is_toggle(std_out_err))
 
-  x_expr <- enexpr(x)
+  x_expr <- substitute(x)
   where <- if (is.null(x_expr)) locate_input(input) else "expr"
   src <- switch(
     where,

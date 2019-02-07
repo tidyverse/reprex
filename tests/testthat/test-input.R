@@ -20,6 +20,15 @@ test_that("reprex: expression input works", {
   expect_match(reprex(1:5, render = FALSE), "^1:5$", all = FALSE)
 })
 
+## https://github.com/tidyverse/reprex/issues/241
+test_that("reprex: expression input preserves `!!`", {
+  res <- reprex(
+    {f <- function(df, y) dplyr::select(df, !!rlang::enquo(y))},
+    render = FALSE
+  )
+  expect_match(res, "!!rlang::enquo(y)", all = FALSE, fixed = TRUE)
+})
+
 test_that("reprex: character input works", {
   skip_on_cran()
   expect_match(reprex(input = "1:5\n", render = FALSE), "^1:5$", all = FALSE)
