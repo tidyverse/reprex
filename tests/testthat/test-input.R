@@ -23,10 +23,10 @@ test_that("reprex: expression input works", {
 ## https://github.com/tidyverse/reprex/issues/241
 test_that("reprex: expression input preserves `!!`", {
   res <- reprex(
-    {f <- function(df, y) dplyr::select(df, !!rlang::enquo(y))},
+    {f <- function(c6d573e) rlang::qq_show(how_many(!!rlang::enquo(c6d573e)))},
     render = FALSE
   )
-  expect_match(res, "!!rlang::enquo(y)", all = FALSE, fixed = TRUE)
+  expect_match(res, "!!rlang::enquo(c6d573e)", all = FALSE, fixed = TRUE)
 })
 
 test_that("reprex: character input works", {
