@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Render a reprex — reprex_addin • reprex</title>
+<title>reprex: Prepare Reproducible Example Code via the Clipboard — reprex-package • reprex</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,17 +31,17 @@
 
 
 
-<meta property="og:title" content="Render a reprex — reprex_addin" />
+<meta property="og:title" content="reprex: Prepare Reproducible Example Code via the Clipboard — reprex-package" />
 
-<meta property="og:description" content="reprex_addin() opens an RStudio gadget and
-addin that allows you to say
-where the reprex source is (clipboard? current selection? active file?
-other file?) and to control a few other arguments. Appears as &quot;Render
-reprex&quot; in the RStudio Addins menu.
-reprex_selection() is an
-addin that reprexes the current
-selection, optionally customised by options. Appears as &quot;Reprex selection&quot;
-in the RStudio Addins menu. Heavy users might want to create a keyboard shortcut." />
+<meta property="og:description" content="
+Convenience wrapper that uses the 'rmarkdown' package to render
+  small snippets of code to target formats that include both code and output.
+  The goal is to encourage the sharing of small, reproducible, and runnable
+  examples on code-oriented websites, such as &amp;lt;https://stackoverflow.com&amp;gt; and
+  &amp;lt;https://github.com&amp;gt;, or in email. The user's clipboard is the default source
+  of input code and the default target for rendered output. 'reprex' also
+  extracts clean, runnable R code from various common formats, such as
+  copy/paste from an R session." />
 
 <meta property="og:image" content="https://reprex.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -138,57 +138,55 @@ in the RStudio Addins menu. Heavy users might want to create a keyboard shortcut
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Render a reprex</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverse/reprex/blob/master/R/reprex-addin.R'><code>R/reprex-addin.R</code></a></small>
-    <div class="hidden name"><code>reprex_addin.Rd</code></div>
+    <h1>reprex: Prepare Reproducible Example Code via the Clipboard</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/reprex/blob/master/R/reprex-package.R'><code>R/reprex-package.R</code></a></small>
+    <div class="hidden name"><code>reprex-package.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>reprex_addin()</code> opens an <a href='https://shiny.rstudio.com/articles/gadgets.html'>RStudio gadget</a> and
-<a href='http://rstudio.github.io/rstudioaddins/'>addin</a> that allows you to say
-where the reprex source is (clipboard? current selection? active file?
-other file?) and to control a few other arguments. Appears as "Render
-reprex" in the RStudio Addins menu.</p>
-<p><code>reprex_selection()</code> is an
-<a href='http://rstudio.github.io/rstudioaddins/'>addin</a> that reprexes the current
-selection, optionally customised by options. Appears as "Reprex selection"
-in the RStudio Addins menu. Heavy users might want to <a href='https://support.rstudio.com/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts'>create a keyboard shortcut</a>.</p>
+    <p><img src='figures/logo.png' align='right' /></p>
+<p>Convenience wrapper that uses the 'rmarkdown' package to render
+  small snippets of code to target formats that include both code and output.
+  The goal is to encourage the sharing of small, reproducible, and runnable
+  examples on code-oriented websites, such as &lt;https://stackoverflow.com&gt; and
+  &lt;https://github.com&gt;, or in email. The user's clipboard is the default source
+  of input code and the default target for rendered output. 'reprex' also
+  extracts clean, runnable R code from various common formats, such as
+  copy/paste from an R session.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>reprex_addin</span>()
+        
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-<span class='fu'>reprex_selection</span>(<span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"reprex.venue"</span>, <span class='st'>"gh"</span>))</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>venue</th>
-      <td><p>Character. Must be one of the following (case insensitive):</p><ul>
-<li><p>"gh" for <a href='https://github.github.com/gfm/'>GitHub-Flavored Markdown</a>, the
-default</p></li>
-<li><p>"so" for <a href='https://stackoverflow.com/editing-help'>Stack Overflow Markdown</a></p></li>
-<li><p>"ds" for Discourse, e.g.,
-<a href='https://community.rstudio.com'>community.rstudio.com</a>. Note: this is
-currently just an alias for "gh"!</p></li>
-<li><p>"r" for a runnable R script, with commented output interleaved</p></li>
-<li><p>"rtf" for <a href='https://en.wikipedia.org/wiki/Rich_Text_Format'>Rich Text Format</a> (not supported for
-un-reprexing)</p></li>
-<li><p>"html" for an HTML fragment suitable for inclusion in a larger HTML
-document (not supported for un-reprexing)</p></li>
-</ul></td>
-    </tr>
-    </table>
+    <div class='dont-index'><p>Useful links:</p><ul>
+<li><p><a href='https://reprex.tidyverse.org'>https://reprex.tidyverse.org</a></p></li>
+<li><p><a href='https://github.com/tidyverse/reprex#readme'>https://github.com/tidyverse/reprex#readme</a></p></li>
+<li><p>Report bugs at <a href='https://github.com/tidyverse/reprex/issues'>https://github.com/tidyverse/reprex/issues</a></p></li>
+</ul></div>
     
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#see-also">See also</a></li>
+          </ul>
+
+    <h2>Author</h2>
+    <p><strong>Maintainer</strong>: Jennifer Bryan <a href='mailto:jenny@rstudio.com'>jenny@rstudio.com</a> (0000-0002-6983-2759)</p>
+<p>Authors:</p><ul>
+<li><p>Jim Hester <a href='mailto:james.hester@rstudio.com'>james.hester@rstudio.com</a> (0000-0002-2739-7082)</p></li>
+<li><p>David Robinson <a href='mailto:admiral.david@gmail.com'>admiral.david@gmail.com</a></p></li>
+<li><p>Hadley Wickham <a href='mailto:hadley@rstudio.com'>hadley@rstudio.com</a> (0000-0003-4757-117X)</p></li>
+</ul>
+
+<p>Other contributors:</p><ul>
+<li><p>RStudio [copyright holder, funder]</p></li>
+</ul>
+
 
   </div>
 </div>
