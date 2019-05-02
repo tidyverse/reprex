@@ -22,9 +22,9 @@ test_that("make_filebase() works from relative infile, outfile", {
 test_that("make_filebase() works from absolute infile, outfile", {
   x <- make_filebase(outfile = NA, infile = fs::path_temp("abcde"))
   expect_match(fs::path_file(x), "^abcde")
-  expect_equal(fs::path_dir(x), path_temp())
+  expect_equal(fs::path_dir(x), as.character(path_temp()))
 
   x <- make_filebase(outfile = fs::path_temp("abcde"))
   expect_match(fs::path_file(x), "^abcde")
-  expect_equal(fs::path_dir(x), path_temp())
+  expect_equal(fs::path_dir(x), as.character(path_temp()))
 })
