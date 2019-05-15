@@ -13,9 +13,7 @@ install:
 environment:
   global:
     USE_RTOOLS: true
-
-cache:
-  - C:\RLibrary
+    PKGTYPE: binary
 
 # Adapt as necessary starting from here
 before_test:
