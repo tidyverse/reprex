@@ -74,7 +74,7 @@
         <a class="navbar-brand" href="../index.html">reprex</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
         </div>
       </div>
     </div>
@@ -132,6 +132,18 @@
       <small>Source: <a href='https://github.com/tidyverse/reprex/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="reprex-0-3-0" class="section level1">
+<h1 class="page-header">
+<a href="#reprex-0-3-0" class="anchor"></a>reprex 0.3.0<small> Unreleased </small>
+</h1>
+<ul>
+<li><p>The <code>crayon.enabled</code> option is explicitly set to <code>FALSE</code> when rendering the reprex (<a href='https://github.com/tidyverse/reprex/issues/238'>#238</a>, <a href='https://github.com/tidyverse/reprex/issues/239'>#239</a>).</p></li>
+<li><p>Expression input is once again captured via <code><a href="https://www.rdocumentation.org/packages/base/topics/substitute">substitute()</a></code> (as opposed to <code><a href="https://rlang.r-lib.org/reference/quotation.html">rlang::enexpr()</a></code>), which is more favorable for reprexes involving tidy eval (<a href='https://github.com/tidyverse/reprex/issues/241'>#241</a>).</p></li>
+<li><p>New venue “html” to render HTML fragments, useful for pasting in sites without markdown but that allow HTML (<a href='https://github.com/tidyverse/reprex/issues/236'>#236</a> <a href='https://github.com/cwickham'>@cwickham</a>).</p></li>
+<li><p>The YAML of reprex’s template has been updated in light of the stricter YAML parser used in Pandoc &gt;= 2.2.2.</p></li>
+<li><p><code><a href="https://rlang.r-lib.org/reference/set_attrs.html">rlang::set_attrs()</a></code> has been soft-deprecated and is no longer used internally.</p></li>
+</ul>
+</div>
     <div id="reprex-0-2-1" class="section level1">
 <h1 class="page-header">
 <a href="#reprex-0-2-1" class="anchor"></a>reprex 0.2.1<small> 2018-09-16 </small>
@@ -250,6 +262,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#reprex-0-3-0">0.3.0</a></li>
         <li><a href="#reprex-0-2-1">0.2.1</a></li>
         <li><a href="#reprex-0-2-0">0.2.0</a></li>
         <li><a href="#reprex-0-1-2">0.1.2</a></li>
