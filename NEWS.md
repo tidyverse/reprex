@@ -1,4 +1,4 @@
-# reprex *development version*
+# reprex 0.3.0
 
 * The `crayon.enabled` option is explicitly set to `FALSE` when rendering the reprex (#238, #239).
 
