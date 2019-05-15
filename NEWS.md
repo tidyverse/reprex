@@ -1,5 +1,9 @@
 # reprex *development version*
 
+* The `crayon.enabled` option is explicitly set to `FALSE` when rendering the reprex (#238, #239).
+
+* Expression input is once again captured via `substitute()` (as opposed to `rlang::enexpr()`), which is more favorable for reprexes involving tidy eval (#241).
+
 * New venue "html" to render HTML fragments, useful for pasting in sites without markdown but that allow HTML (#236 @cwickham).
 
 * The YAML of reprex's template has been updated in light of the stricter YAML parser used in Pandoc >= 2.2.2.
