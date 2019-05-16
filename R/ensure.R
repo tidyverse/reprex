@@ -31,6 +31,22 @@ ensure_not_dogfood <- function(x) {
       abort("Aborting.")
     }
   }
+
+  html_start <- grep("^<pre class=\"r\">", x)
+  if (length(html_start) > 0) {
+    lines <- paste0("  ", x[html_start + 0:2])
+    if (!yep(
+      "First three lines of putative code are:\n",
+      collapse(lines, sep = "\n"), "\n",
+      "which looks like html, not R code.\n",
+      "Are we going in circles? Did you just run `reprex(..., venue = \"html\")`?\n",
+      "In that case, the clipboard now holds the *rendered* result.\n",
+      "Carry on with this reprex?"
+    )) {
+      abort("Aborting.")
+    }
+  }
+
   x
 }
 
