@@ -130,7 +130,8 @@ This feature is experimental and currently rather limited. It probably only
 works on macOS and requires the installation of the
 \href{http://www.andre-simon.de/doku/highlight/en/highlight.php}{highlight}
 command line tool, which can be installed via
-\href{http://brewformulas.org/Highlight}{homebrew}. This venue is discussed in \href{https://reprex.tidyverse.org/articles/articles/rtf.html}{an article}
+\href{https://formulae.brew.sh/formula/highlight}{homebrew}. This venue is
+discussed in \href{https://reprex.tidyverse.org/articles/articles/rtf.html}{an article}
 }
 
 \examples{
