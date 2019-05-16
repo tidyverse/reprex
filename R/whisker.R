@@ -1,6 +1,6 @@
 apply_template <- function(x, reprex_data = NULL) {
   data <- with(reprex_data, list(
-    yaml = yaml_md("gfm"),
+    yaml = yaml_md(),
     tidyverse_quiet = as.character(tidyverse_quiet),
     comment = comment,
     upload_fun = "knitr::imgur_upload",
@@ -17,13 +17,6 @@ apply_template <- function(x, reprex_data = NULL) {
 
   if (reprex_data$venue %in% c("gh", "so")) {
     data$ad <- paste0("<sup>", data$ad, "</sup>")
-  }
-
-  if (reprex_data$venue == "so") {
-    data$yaml <- yaml_md("md")
-    data$so_syntax_highlighting <- prose("<!-- language-all: lang-r -->")
-    ## empty line between html comment re: syntax highlighting and reprex code
-    x <- c("", x)
   }
 
   if (reprex_data$venue == "r") {
@@ -46,20 +39,14 @@ read_template <- function(slug) {
   readLines(path)
 }
 
-yaml_md <- function(flavor = c("gfm", "md"),
-                    pandoc_version = rmarkdown::pandoc_version()) {
-  flavor <- match.arg(flavor)
+yaml_md <- function(pandoc_version = rmarkdown::pandoc_version()) {
   yaml <- c(
     "---",
     "output:",
     "  md_document:",
     "    pandoc_args:",
-    if (flavor == "gfm") {
-      c(
     "      - '--from=markdown-implicit_figures'",
-    "      - '--to=commonmark'"
-      )
-    },
+    "      - '--to=commonmark'",
     if (!is.null(pandoc_version)) {
       if (pandoc_version < "1.16") {
     "      - '--no-wrap'"

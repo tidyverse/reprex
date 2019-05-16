@@ -4,7 +4,7 @@ title: "reprex venue RTF"
 
 Use `reprex(venue = "rtf")` to get output in [Rich Text Format](https://en.wikipedia.org/wiki/Rich_Text_Format). This is useful for creating syntax highlighted code snippets -- rendered or not -- to paste into software such as Keynote or PowerPoint.
 
-Why is RTF special? Although Pandoc can produce RTF and, therefore, so can `rmarkdown::render()` and `reprex::reprex()`, Pandoc's syntax highlighting is unavailable for RTF output. For now, we've got to get the functionality from somewhere else. Syntax highlighting is a non-issue for `venue = "gh"` (GitHub) and `venue = "so"` (Stack Overflow), because the target sites take care of that when the Markdown content is displayed.
+Why is RTF special? Although Pandoc can produce RTF and, therefore, so can `rmarkdown::render()` and `reprex::reprex()`, Pandoc's syntax highlighting is unavailable for RTF output. For now, we've got to get the functionality from nsomewhere else. Syntax highlighting is a non-issue for `venue = "gh"` (GitHub) and `venue = "so"` (Stack Overflow), because the target sites take care of that when the Markdown content is displayed.
 
 <p>
 <div style="height: auto">

@@ -3,9 +3,8 @@ ensure_not_empty <- function(x) {
 }
 
 ensure_not_dogfood <- function(x) {
-  looks_like_gh <- any(grepl("^```", x))
-  looks_like_so <- any(grepl("<!-- language-all: lang-r -->", x))
-  if (looks_like_gh || looks_like_so) {
+  looks_like_gfm <- any(grepl("^```", x))
+  if (looks_like_gfm) {
     ## I negate yep(), instead of using nope(), to get desired behaviour in
     ## a non-interactive call
     if (!yep(

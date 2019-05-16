@@ -63,21 +63,26 @@
 #'   otherwise.
 #' @param venue Character. Must be one of the following (case insensitive):
 #' * "gh" for [GitHub-Flavored Markdown](https://github.github.com/gfm/), the
-#' default
-#' * "so" for [Stack Overflow Markdown](https://stackoverflow.com/editing-help)
+#'   default
+#' * "r" for a runnable R script, with commented output interleaved
+#' * "rtf" for
+#'   [Rich Text Format](https://en.wikipedia.org/wiki/Rich_Text_Format)
+#'   (not supported for un-reprexing)
+#' * "html" for an HTML fragment suitable for inclusion in a larger HTML
+#'   document (not supported for un-reprexing)
+#' * "so" for
+#'   [Stack Overflow Markdown](https://stackoverflow.com/editing-help#syntax-highlighting).
+#'   Note: this is essentially an alias for "gh" since Stack Overflow started to
+#'   support fenced code blocks in January 2019. The only difference is the
+#'   formatting of session info. If you're not requesting session info with
+#'   `si = TRUE`, there is no reason to specify `venue = "so"`.
 #' * "ds" for Discourse, e.g.,
 #'   [community.rstudio.com](https://community.rstudio.com). Note: this is
 #'   currently just an alias for "gh"!
-#' * "r" for a runnable R script, with commented output interleaved
-#' * "rtf" for [Rich Text
-#' Format](https://en.wikipedia.org/wiki/Rich_Text_Format) (not supported for
-#' un-reprexing)
-#' * "html" for an HTML fragment suitable for inclusion in a larger HTML
-#' document (not supported for un-reprexing)
 #' @param advertise Logical. Whether to include a footer that describes when and
 #'   how the reprex was created. If unspecified, the option `reprex.advertise`
 #'   is consulted and, if that is not defined, default is `TRUE` for venues
-#'   `"gh"`, `"so"`, `"ds"`, `"html"` and `FALSE` for `"r"` and `"rtf"`.
+#'   `"gh"`, `"html"`, `"so"`, `"ds"` and `FALSE` for `"r"` and `"rtf"`.
 #' @param si Logical. Whether to include [devtools::session_info()], if
 #'   available, or [sessionInfo()] at the end of the reprex. When `venue` is
 #'   "gh" or "ds", the session info is wrapped in a collapsible details tag.
@@ -99,8 +104,8 @@
 #'   reveal output if the reprex spawns child processes or `system()` calls.
 #'   Note this cannot be properly interleaved with output from the main R
 #'   process, nor is there any guarantee that the lines from standard output and
-#'   standard error are in correct chronological order. See [callr::r_safe()]
-#'   for more. Read more about [opt()].
+#'   standard error are in correct chronological order. See [callr::r()] for
+#'   more. Read more about [opt()].
 #'
 #' @return Character vector of rendered reprex, invisibly.
 #' @examples
@@ -197,15 +202,6 @@
 #'   recursive = TRUE
 #' )
 #'
-#' ## target venue = Stack Overflow
-#' ## https://stackoverflow.com/editing-help
-#' ret <- reprex({
-#'   x <- 1:4
-#'   y <- 2:5
-#'   x + y
-#' }, venue = "so")
-#' ret
-#'
 #' ## target venue = R, also good for email or Slack snippets
 #' ret <- reprex({
 #'   x <- 1:4
@@ -243,7 +239,7 @@
 #' @export
 reprex <- function(x = NULL,
                    input = NULL, outfile = NULL,
-                   venue = c("gh", "so", "ds", "r", "rtf", "html"),
+                   venue = c("gh", "r", "rtf", "html", "so", "ds"),
 
                    render = TRUE,
 
@@ -334,9 +330,7 @@ reprex <- function(x = NULL,
   if (venue %in% c("r", "rtf")) {
     rout_file <- files[["rout_file"]]
     output_lines <- readLines(md_file, encoding = "UTF-8")
-    output_lines <- convert_md_to_r(
-      output_lines, comment = comment, flavor = "fenced"
-    )
+    output_lines <- convert_md_to_r(output_lines, comment = comment)
     writeLines(output_lines, rout_file)
     if (outfile_given) {
       message("Writing reprex as commented R script:\n  * ", rout_file)

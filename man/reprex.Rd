@@ -4,8 +4,8 @@
 \alias{reprex}
 \title{Render a reprex}
 \usage{
-reprex(x = NULL, input = NULL, outfile = NULL, venue = c("gh",
-  "so", "ds", "r", "rtf", "html"), render = TRUE, advertise = NULL,
+reprex(x = NULL, input = NULL, outfile = NULL, venue = c("gh", "r",
+  "rtf", "html", "so", "ds"), render = TRUE, advertise = NULL,
   si = opt(FALSE), style = opt(FALSE), show = opt(TRUE),
   comment = opt("#>"), tidyverse_quiet = opt(TRUE),
   std_out_err = opt(FALSE))
@@ -31,15 +31,21 @@ otherwise.}
 \itemize{
 \item "gh" for \href{https://github.github.com/gfm/}{GitHub-Flavored Markdown}, the
 default
-\item "so" for \href{https://stackoverflow.com/editing-help}{Stack Overflow Markdown}
+\item "r" for a runnable R script, with commented output interleaved
+\item "rtf" for
+\href{https://en.wikipedia.org/wiki/Rich_Text_Format}{Rich Text Format}
+(not supported for un-reprexing)
+\item "html" for an HTML fragment suitable for inclusion in a larger HTML
+document (not supported for un-reprexing)
+\item "so" for
+\href{https://stackoverflow.com/editing-help#syntax-highlighting}{Stack Overflow Markdown}.
+Note: this is essentially an alias for "gh" since Stack Overflow started to
+support fenced code blocks in January 2019. The only difference is the
+formatting of session info. If you're not requesting session info with
+\code{si = TRUE}, there is no reason to specify \code{venue = "so"}.
 \item "ds" for Discourse, e.g.,
 \href{https://community.rstudio.com}{community.rstudio.com}. Note: this is
 currently just an alias for "gh"!
-\item "r" for a runnable R script, with commented output interleaved
-\item "rtf" for \href{https://en.wikipedia.org/wiki/Rich_Text_Format}{Rich Text Format} (not supported for
-un-reprexing)
-\item "html" for an HTML fragment suitable for inclusion in a larger HTML
-document (not supported for un-reprexing)
 }}
 
 \item{render}{Logical. Whether to call \code{\link[rmarkdown:render]{rmarkdown::render()}} on the templated
@@ -49,7 +55,7 @@ primarily for the sake of internal testing.}
 \item{advertise}{Logical. Whether to include a footer that describes when and
 how the reprex was created. If unspecified, the option \code{reprex.advertise}
 is consulted and, if that is not defined, default is \code{TRUE} for venues
-\code{"gh"}, \code{"so"}, \code{"ds"}, \code{"html"} and \code{FALSE} for \code{"r"} and \code{"rtf"}.}
+\code{"gh"}, \code{"html"}, \code{"so"}, \code{"ds"} and \code{FALSE} for \code{"r"} and \code{"rtf"}.}
 
 \item{si}{Logical. Whether to include \code{\link[devtools:session_info]{devtools::session_info()}}, if
 available, or \code{\link[=sessionInfo]{sessionInfo()}} at the end of the reprex. When \code{venue} is
@@ -74,8 +80,8 @@ stdout and stderr by the reprex rendering process. This can be necessary to
 reveal output if the reprex spawns child processes or \code{system()} calls.
 Note this cannot be properly interleaved with output from the main R
 process, nor is there any guarantee that the lines from standard output and
-standard error are in correct chronological order. See \code{\link[callr:r_safe]{callr::r_safe()}}
-for more. Read more about \code{\link[=opt]{opt()}}.}
+standard error are in correct chronological order. See \code{\link[callr:r]{callr::r()}} for
+more. Read more about \code{\link[=opt]{opt()}}.}
 }
 \value{
 Character vector of rendered reprex, invisibly.
@@ -227,15 +233,6 @@ unlink(
   list.files(dirname(tmp), pattern = "foofy", full.names = TRUE),
   recursive = TRUE
 )
-
-## target venue = Stack Overflow
-## https://stackoverflow.com/editing-help
-ret <- reprex({
-  x <- 1:4
-  y <- 2:5
-  x + y
-}, venue = "so")
-ret
 
 ## target venue = R, also good for email or Slack snippets
 ret <- reprex({

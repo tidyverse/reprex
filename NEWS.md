@@ -1,5 +1,8 @@
 # reprex (development version)
 
+* `venue = "so"` (Stack Overflow) has essentially converged with default `venue = "gh"` (GitHub). As of January 2019,
+Stack Overflow [supports CommonMark fenced code blocks](https://meta.stackexchange.com/questions/125148/implement-style-fenced-markdown-code-blocks/322000#322000). The only time to specify `venue = "so"` is when also requesting session info via `si = TRUE`. Stack Overflow does not support the collapsible details tag we can use on GitHub (#231).
+
 # reprex 0.3.0
 
 * The `crayon.enabled` option is explicitly set to `FALSE` when rendering the reprex (#238, #239).

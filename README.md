@@ -111,12 +111,16 @@ Instead of reading from the clipboard, you can:
 
 But wait, there’s more\!
 
-  - Set the target venue to Stack Overflow with `reprex(..., venue =
-    "so")`.
-
   - Get a runnable R script, augmented with commented output, with
     `reprex(..., venue = "R")`. This is useful for Slack, email, etc.
-    
+
+  - Get html with `reprex(..., venue = "html")`. Useful for sites that don't
+    support markdown.
+
+  - Set the target venue to Stack Overflow with `reprex(..., venue =
+    "so")`. Note this is basically the same as the default `venue = "gh"` and
+    only alters the formatting of session info requested via `si = TRUE`.
+
   - Prepare rendered, syntax-highlighted code snippets to paste into
     Keynote or PowerPoint, with `reprex(..., venue = "rtf")`. This
     feature is still experimental; see the [associated article](https://reprex.tidyverse.org/articles/articles/rtf.html) for more.
