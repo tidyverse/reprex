@@ -1,9 +1,10 @@
-## wrap clipr::clipr_available() so I can mock it
+## wrap clipr::clipr_available() so I can tweak its behaviour
 clipboard_available <- function() {
-  if (Sys.getenv("CLIPBOARD_AVAILABLE", unset = TRUE)) {
-    return(clipr::clipr_available())
+  if (interactive()) {
+    clipr::clipr_available()
+  } else {
+    isTRUE(as.logical(Sys.getenv("CLIPR_ALLOW", FALSE)))
   }
-  FALSE
 }
 
 is_testing <- function() {

@@ -10,7 +10,13 @@ exp_msg <- switch(
 
 test_that("reprex: clipboard input works", {
   skip_on_cran()
-  skip_if_no_clipboard()
+  # explicitly permit clipboard access in non-interactive session
+  withr::local_envvar(c(CLIPR_ALLOW = TRUE))
+  skip_if_not(
+    clipboard_available(),
+    "System clipboard is not available - skipping test."
+  )
+
   clipr::write_clip("1:5")
   expect_match(reprex(render = FALSE), "^1:5$", all = FALSE)
 })

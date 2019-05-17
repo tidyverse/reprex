@@ -1,20 +1,3 @@
-## used to make clipboard unavailable locally
-# Sys.setenv("CLIPBOARD_AVAILABLE" = TRUE)
-# Sys.setenv("CLIPBOARD_AVAILABLE" = FALSE)
-
-NOT_CRAN <- Sys.getenv("NOT_CRAN", unset = "")
-ON_CRAN <- identical(NOT_CRAN, "") || identical(tolower(NOT_CRAN), "false")
-if (ON_CRAN) {
-  Sys.setenv("CLIPBOARD_AVAILABLE" = FALSE)
-}
-
-skip_if_no_clipboard <- function() {
-  if (!clipboard_available()) {
-    skip("System clipboard is not available - skipping test.")
-  }
-  return(invisible(TRUE))
-}
-
 expect_error_free <- function(...) {
   expect_error(..., regexp = NA)
 }
