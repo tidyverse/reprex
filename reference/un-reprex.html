@@ -147,8 +147,8 @@ wild-caught reprex.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>reprex_invert</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"gh"</span>, <span class='st'>"so"</span>,
-  <span class='st'>"ds"</span>, <span class='st'>"r"</span>), <span class='kw'>comment</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='st'>"#&gt;"</span>))
+    <pre class="usage"><span class='fu'>reprex_invert</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"gh"</span>, <span class='st'>"r"</span>,
+  <span class='st'>"so"</span>, <span class='st'>"ds"</span>), <span class='kw'>comment</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='st'>"#&gt;"</span>))
 
 <span class='fu'>reprex_clean</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='st'>"#&gt;"</span>))
 
@@ -179,15 +179,19 @@ otherwise.</p></td>
       <td><p>Character. Must be one of the following (case insensitive):</p><ul>
 <li><p>"gh" for <a href='https://github.github.com/gfm/'>GitHub-Flavored Markdown</a>, the
 default</p></li>
-<li><p>"so" for <a href='https://stackoverflow.com/editing-help'>Stack Overflow Markdown</a></p></li>
-<li><p>"ds" for Discourse, e.g.,
-<a href='https://community.rstudio.com'>community.rstudio.com</a>. Note: this is
-currently just an alias for "gh"!</p></li>
 <li><p>"r" for a runnable R script, with commented output interleaved</p></li>
-<li><p>"rtf" for <a href='https://en.wikipedia.org/wiki/Rich_Text_Format'>Rich Text Format</a> (not supported for
-un-reprexing)</p></li>
+<li><p>"rtf" for
+<a href='https://en.wikipedia.org/wiki/Rich_Text_Format'>Rich Text Format</a>
+(not supported for un-reprexing)</p></li>
 <li><p>"html" for an HTML fragment suitable for inclusion in a larger HTML
 document (not supported for un-reprexing)</p></li>
+<li><p>"so" for
+<a href='https://stackoverflow.com/editing-help#syntax-highlighting'>Stack Overflow Markdown</a>.
+Note: this is just an alias for "gh", since Stack Overflow started to
+support CommonMark-style fenced code blocks in January 2019.</p></li>
+<li><p>"ds" for Discourse, e.g.,
+<a href='https://community.rstudio.com'>community.rstudio.com</a>. Note: this is
+currently just an alias for "gh".</p></li>
 </ul></td>
     </tr>
     <tr>

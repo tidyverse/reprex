@@ -116,7 +116,7 @@
 </ul>
 <p>Get resulting runnable code + output as</p>
 <ul>
-<li>Markdown, formatted for target venue, e.g. <code>gh</code> or <code>so</code>, or as</li>
+<li>Markdown, suitable for GitHub or Stack Overflow, or as</li>
 <li>R code, augmented with commented output.</li>
 </ul>
 <p>Result is returned invisibly, placed on the clipboard, and written to a file. Preview an HTML version in RStudio viewer or default browser.</p>
@@ -140,7 +140,7 @@
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="reference/reprex.html">reprex</a></span>()</a></code></pre></div>
 <p>A nicely rendered HTML preview will display in RStudio’s Viewer (if you’re in RStudio) or your default browser otherwise.</p>
 <p><img src="reference/figures/README-viewer-screenshot.png"></p>
-<p>The relevant bit of GitHub-flavored Markdown is ready to be pasted from your clipboard:</p>
+<p>The relevant bit of CommonMark Markdown is ready to be pasted from your clipboard:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="st">```</span><span class="dt"> r</span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="dt">(y &lt;- 1:4)</span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="dt">#&gt; [1] 1 2 3 4</span></a>
@@ -153,6 +153,7 @@
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(y)</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; [1] 2.5</span></a></code></pre></div>
 <p>Anyone else can copy, paste, and run this immediately.</p>
+<p>In addition to GitHub, this markdown also works on Stack Overflow and Discourse. Those venues can be formally requested via <code>venue = "so"</code> and <code>venue = "ds"</code>, but they are just aliases for <code>venue = "gh"</code>.</p>
 <p>Instead of reading from the clipboard, you can:</p>
 <ul>
 <li><p><code><a href="reference/reprex.html">reprex(mean(rnorm(10)))</a></code> to get code from expression.</p></li>
@@ -162,11 +163,12 @@
 </ul>
 <p>But wait, there’s more!</p>
 <ul>
-<li><p>Set the target venue to Stack Overflow with <code><a href="reference/reprex.html">reprex(..., venue = "so")</a></code>.</p></li>
 <li><p>Get a runnable R script, augmented with commented output, with <code><a href="reference/reprex.html">reprex(..., venue = "R")</a></code>. This is useful for Slack, email, etc.</p></li>
+<li><p>Get html with <code><a href="reference/reprex.html">reprex(..., venue = "html")</a></code>. Useful for sites that don’t support markdown.</p></li>
 <li><p>Prepare rendered, syntax-highlighted code snippets to paste into Keynote or PowerPoint, with <code><a href="reference/reprex.html">reprex(..., venue = "rtf")</a></code>. This feature is still experimental; see the <a href="https://reprex.tidyverse.org/articles/articles/rtf.html">associated article</a> for more.</p></li>
 <li><p>By default, figures are uploaded to <a href="http://imgur.com">imgur.com</a> and the resulting URL is dropped into an inline image tag.</p></li>
 <li><p>Use the <code>outfile</code> argument to control where results are left behind. Use <code>outfile = NA</code> to work in current working directory.</p></li>
+<li><p>Append session info via <code><a href="reference/reprex.html">reprex(..., si = TRUE)</a></code>.</p></li>
 <li>
 <p>Get clean, runnable code from wild-caught reprexes with</p>
 <ul>

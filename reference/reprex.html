@@ -165,8 +165,8 @@ see below for more.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>reprex</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"gh"</span>,
-  <span class='st'>"so"</span>, <span class='st'>"ds"</span>, <span class='st'>"r"</span>, <span class='st'>"rtf"</span>, <span class='st'>"html"</span>), <span class='kw'>render</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>advertise</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <pre class="usage"><span class='fu'>reprex</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"gh"</span>, <span class='st'>"r"</span>,
+  <span class='st'>"rtf"</span>, <span class='st'>"html"</span>, <span class='st'>"so"</span>, <span class='st'>"ds"</span>), <span class='kw'>render</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>advertise</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>si</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>FALSE</span>), <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>FALSE</span>), <span class='kw'>show</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>TRUE</span>),
   <span class='kw'>comment</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='st'>"#&gt;"</span>), <span class='kw'>tidyverse_quiet</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>TRUE</span>),
   <span class='kw'>std_out_err</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>FALSE</span>))</pre>
@@ -201,15 +201,19 @@ otherwise.</p></td>
       <td><p>Character. Must be one of the following (case insensitive):</p><ul>
 <li><p>"gh" for <a href='https://github.github.com/gfm/'>GitHub-Flavored Markdown</a>, the
 default</p></li>
-<li><p>"so" for <a href='https://stackoverflow.com/editing-help'>Stack Overflow Markdown</a></p></li>
-<li><p>"ds" for Discourse, e.g.,
-<a href='https://community.rstudio.com'>community.rstudio.com</a>. Note: this is
-currently just an alias for "gh"!</p></li>
 <li><p>"r" for a runnable R script, with commented output interleaved</p></li>
-<li><p>"rtf" for <a href='https://en.wikipedia.org/wiki/Rich_Text_Format'>Rich Text Format</a> (not supported for
-un-reprexing)</p></li>
+<li><p>"rtf" for
+<a href='https://en.wikipedia.org/wiki/Rich_Text_Format'>Rich Text Format</a>
+(not supported for un-reprexing)</p></li>
 <li><p>"html" for an HTML fragment suitable for inclusion in a larger HTML
 document (not supported for un-reprexing)</p></li>
+<li><p>"so" for
+<a href='https://stackoverflow.com/editing-help#syntax-highlighting'>Stack Overflow Markdown</a>.
+Note: this is just an alias for "gh", since Stack Overflow started to
+support CommonMark-style fenced code blocks in January 2019.</p></li>
+<li><p>"ds" for Discourse, e.g.,
+<a href='https://community.rstudio.com'>community.rstudio.com</a>. Note: this is
+currently just an alias for "gh".</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -223,7 +227,7 @@ primarily for the sake of internal testing.</p></td>
       <td><p>Logical. Whether to include a footer that describes when and
 how the reprex was created. If unspecified, the option <code>reprex.advertise</code>
 is consulted and, if that is not defined, default is <code>TRUE</code> for venues
-<code>"gh"</code>, <code>"so"</code>, <code>"ds"</code>, <code>"html"</code> and <code>FALSE</code> for <code>"r"</code> and <code>"rtf"</code>.</p></td>
+<code>"gh"</code>, <code>"html"</code>, <code>"so"</code>, <code>"ds"</code> and <code>FALSE</code> for <code>"r"</code> and <code>"rtf"</code>.</p></td>
     </tr>
     <tr>
       <th>si</th>
@@ -260,8 +264,8 @@ stdout and stderr by the reprex rendering process. This can be necessary to
 reveal output if the reprex spawns child processes or <code><a href='https://www.rdocumentation.org/packages/base/topics/system'>system()</a></code> calls.
 Note this cannot be properly interleaved with output from the main R
 process, nor is there any guarantee that the lines from standard output and
-standard error are in correct chronological order. See <code><a href='https://www.rdocumentation.org/packages/callr/topics/r'>callr::r_safe()</a></code>
-for more. Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
+standard error are in correct chronological order. See <code><a href='https://www.rdocumentation.org/packages/callr/topics/r'>callr::r()</a></code> for
+more. Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
     </tr>
     </table>
     
@@ -398,15 +402,6 @@ discussed in <a href='https://reprex.tidyverse.org/articles/articles/rtf.html'>a
   <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list.files'>list.files</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/basename'>dirname</a></span>(<span class='no'>tmp</span>), <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"foofy"</span>, <span class='kw'>full.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
   <span class='kw'>recursive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )
-
-<span class='co'>## target venue = Stack Overflow</span>
-<span class='co'>## https://stackoverflow.com/editing-help</span>
-<span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex</span>({
-  <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>4</span>
-  <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>:<span class='fl'>5</span>
-  <span class='no'>x</span> + <span class='no'>y</span>
-}, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='st'>"so"</span>)
-<span class='no'>ret</span>
 
 <span class='co'>## target venue = R, also good for email or Slack snippets</span>
 <span class='no'>ret</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex</span>({
