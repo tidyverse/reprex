@@ -7,7 +7,7 @@ cache: packages
 addons:
   apt:
     packages:
-      - xclip
+      - xsel
 
 before_script:
   - sh -e /etc/init.d/xvfb start
@@ -22,7 +22,6 @@ matrix:
   include:
     - r: devel
     - r: release
-      env: DISPLAY=""
       after_success: Rscript -e 'covr::codecov()'
       before_cache:
       - Rscript -e 'remotes::install_cran("pkgdown")' -e 'remotes::install_github("tidyverse/tidytemplate")'
