@@ -55,10 +55,10 @@ how the reprex was created. If unspecified, the option \code{reprex.advertise}
 is consulted and, if that is not defined, default is \code{TRUE} for venues
 \code{"gh"}, \code{"html"}, \code{"so"}, \code{"ds"} and \code{FALSE} for \code{"r"} and \code{"rtf"}.}
 
-\item{si}{Logical. Whether to include \code{\link[devtools:session_info]{devtools::session_info()}}, if
+\item{si}{Logical. Whether to include \code{\link[sessioninfo:session_info]{sessioninfo::session_info()}}, if
 available, or \code{\link[=sessionInfo]{sessionInfo()}} at the end of the reprex. When \code{venue} is
-"gh" or "ds", the session info is wrapped in a collapsible details tag.
-Read more about \code{\link[=opt]{opt()}}.}
+"gh", the session info is wrapped in a collapsible details tag. Read more
+about \code{\link[=opt]{opt()}}.}
 
 \item{style}{Logical. Whether to style code with \code{\link[styler:style_text]{styler::style_text()}}.
 Read more about \code{\link[=opt]{opt()}}.}

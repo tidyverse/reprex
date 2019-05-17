@@ -2,8 +2,8 @@ context("session info")
 
 test_that("session info is omitted / included", {
   skip_on_cran()
-  if (requireNamespace("devtools", quietly = TRUE)) {
-    regex <- "devtools::session_info()"
+  if (rlang::is_installed("sessioninfo")) {
+    regex <- "sessioninfo::session_info()"
   } else {
     regex <- "sessionInfo()"
   }

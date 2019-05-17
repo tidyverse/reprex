@@ -38,12 +38,12 @@ Imports:
     withr
 Suggests: 
     covr,
-    devtools,
     fortunes,
     knitr,
     miniUI,
     rprojroot,
     rstudioapi,
+    sessioninfo,
     shiny,
     styler (>= 1.0.2),
     testthat (>= 2.0.0)

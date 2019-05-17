@@ -66,11 +66,7 @@ yaml_md <- function(pandoc_version = rmarkdown::pandoc_version()) {
 }
 
 si <- function(details = FALSE) {
-  txt <- if (requireNamespace("devtools", quietly = TRUE)) {
-    "devtools::session_info()"
-  } else {
-    "sessionInfo()"
-  }
+  txt <- session_info_string
 
   if (details) {
     txt <- c(
@@ -81,4 +77,12 @@ si <- function(details = FALSE) {
   }
 
   txt
+}
+
+session_info_string <- function() {
+  if (rlang::is_installed("sessioninfo")) {
+    "sessioninfo::session_info()"
+  } else {
+    "sessionInfo()"
+  }
 }
