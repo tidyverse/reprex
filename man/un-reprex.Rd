@@ -7,8 +7,8 @@
 \alias{reprex_rescue}
 \title{Un-render a reprex}
 \usage{
-reprex_invert(input = NULL, outfile = NULL, venue = c("gh", "so",
-  "ds", "r"), comment = opt("#>"))
+reprex_invert(input = NULL, outfile = NULL, venue = c("gh", "r",
+  "so", "ds"), comment = opt("#>"))
 
 reprex_clean(input = NULL, outfile = NULL, comment = opt("#>"))
 
@@ -32,15 +32,19 @@ otherwise.}
 \itemize{
 \item "gh" for \href{https://github.github.com/gfm/}{GitHub-Flavored Markdown}, the
 default
-\item "so" for \href{https://stackoverflow.com/editing-help}{Stack Overflow Markdown}
-\item "ds" for Discourse, e.g.,
-\href{https://community.rstudio.com}{community.rstudio.com}. Note: this is
-currently just an alias for "gh"!
 \item "r" for a runnable R script, with commented output interleaved
-\item "rtf" for \href{https://en.wikipedia.org/wiki/Rich_Text_Format}{Rich Text Format} (not supported for
-un-reprexing)
+\item "rtf" for
+\href{https://en.wikipedia.org/wiki/Rich_Text_Format}{Rich Text Format}
+(not supported for un-reprexing)
 \item "html" for an HTML fragment suitable for inclusion in a larger HTML
 document (not supported for un-reprexing)
+\item "so" for
+\href{https://stackoverflow.com/editing-help#syntax-highlighting}{Stack Overflow Markdown}.
+Note: this is just an alias for "gh", since Stack Overflow started to
+support CommonMark-style fenced code blocks in January 2019.
+\item "ds" for Discourse, e.g.,
+\href{https://community.rstudio.com}{community.rstudio.com}. Note: this is
+currently just an alias for "gh".
 }}
 
 \item{comment}{regular expression that matches commented output lines}
