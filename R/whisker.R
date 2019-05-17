@@ -12,6 +12,10 @@ apply_template <- function(x, reprex_data = NULL) {
   }
 
   if (isTRUE(reprex_data$si)) {
+    # TO RECONSIDER: once I am convinced that so == gh, I can eliminate the
+    # `details` argument of `si()`. Empirically, there seems to be no downside
+    # on SO when we embed session info in the html tags that are favorable for
+    # GitHub. They apparently are ignored.
     data$si <- collapse(si(details = reprex_data$venue == "gh"))
   }
 

@@ -1,7 +1,7 @@
 # reprex (development version)
 
-* `venue = "so"` (Stack Overflow) has essentially converged with default `venue = "gh"` (GitHub). As of January 2019,
-Stack Overflow [supports CommonMark fenced code blocks](https://meta.stackexchange.com/questions/125148/implement-style-fenced-markdown-code-blocks/322000#322000). The only time to specify `venue = "so"` is when also requesting session info via `si = TRUE`. Stack Overflow does not support the collapsible details tag we can use on GitHub (#231).
+* `venue = "so"` (SO = Stack Overflow) has converged with default `venue = "gh"` (GitHub). As of January 2019, SO [supports CommonMark fenced code blocks](https://meta.stackexchange.com/questions/125148/implement-style-fenced-markdown-code-blocks/322000#322000). The only remaining difference is that Stack
+Overflow does not support the collapsible details tag that we use on GitHub for the session info requested via `si = TRUE` (#231).
 
 # reprex 0.3.0
 

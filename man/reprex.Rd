@@ -39,13 +39,11 @@ default
 document (not supported for un-reprexing)
 \item "so" for
 \href{https://stackoverflow.com/editing-help#syntax-highlighting}{Stack Overflow Markdown}.
-Note: this is essentially an alias for "gh" since Stack Overflow started to
-support fenced code blocks in January 2019. The only difference is the
-formatting of session info. If you're not requesting session info with
-\code{si = TRUE}, there is no reason to specify \code{venue = "so"}.
+Note: this is just an alias for "gh", since Stack Overflow started to
+support CommonMark-style fenced code blocks in January 2019.
 \item "ds" for Discourse, e.g.,
 \href{https://community.rstudio.com}{community.rstudio.com}. Note: this is
-currently just an alias for "gh"!
+currently just an alias for "gh".
 }}
 
 \item{render}{Logical. Whether to call \code{\link[rmarkdown:render]{rmarkdown::render()}} on the templated

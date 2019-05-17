@@ -72,13 +72,11 @@
 #'   document (not supported for un-reprexing)
 #' * "so" for
 #'   [Stack Overflow Markdown](https://stackoverflow.com/editing-help#syntax-highlighting).
-#'   Note: this is essentially an alias for "gh" since Stack Overflow started to
-#'   support fenced code blocks in January 2019. The only difference is the
-#'   formatting of session info. If you're not requesting session info with
-#'   `si = TRUE`, there is no reason to specify `venue = "so"`.
+#'   Note: this is just an alias for "gh", since Stack Overflow started to
+#'   support CommonMark-style fenced code blocks in January 2019.
 #' * "ds" for Discourse, e.g.,
 #'   [community.rstudio.com](https://community.rstudio.com). Note: this is
-#'   currently just an alias for "gh"!
+#'   currently just an alias for "gh".
 #' @param advertise Logical. Whether to include a footer that describes when and
 #'   how the reprex was created. If unspecified, the option `reprex.advertise`
 #'   is consulted and, if that is not defined, default is `TRUE` for venues
@@ -254,10 +252,11 @@ reprex <- function(x = NULL,
   venue <- tolower(venue)
   venue <- match.arg(venue)
   venue <- ds_is_gh(venue)
+  venue <- so_is_gh(venue)
   venue <- rtf_requires_highlight(venue)
 
   advertise       <- advertise %||%
-    getOption("reprex.advertise") %||% (venue %in% c("gh", "so", "html"))
+    getOption("reprex.advertise") %||% (venue %in% c("gh", "html"))
   si              <- arg_option(si)
   style           <- arg_option(style)
   show            <- arg_option(show)

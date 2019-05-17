@@ -55,6 +55,7 @@ reprex_invert <- function(input = NULL,
   venue <- tolower(venue)
   venue <- match.arg(venue)
   venue <- ds_is_gh(venue)
+  venue <- so_is_gh(venue)
 
   if (venue == "r") {
     return(reprex_clean(input, outfile = outfile, comment = comment))
@@ -197,7 +198,7 @@ convert_md_to_r <- function(lines, comment = "#>", drop_output = FALSE) {
 
 ## Classify lines in the presence of fenced code blocks.
 ## Specifically, blocks fenced by three backticks.
-## This is true of the output from reprex(..., venue %in% c("gh", "so")).
+## This is true of the output from reprex(..., venue == "gh").
 ## Classifies each line like so:
 ##   * bt     = backticks
 ##   * code   = code inside a fenced block

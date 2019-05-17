@@ -29,7 +29,7 @@ Given R code on the clipboard, selected in RStudio, as an expression
 
 Get resulting runnable code + output as
 
-  - Markdown, formatted for target venue, e.g. `gh` or `so`, or as
+  - Markdown, suitable for GitHub or Stack Overflow, or as
   - R code, augmented with commented output.
 
 Result is returned invisibly, placed on the clipboard, and written to a
@@ -74,7 +74,7 @@ you’re in RStudio) or your default browser otherwise.
 
 ![](man/figures/README-viewer-screenshot.png)
 
-The relevant bit of GitHub-flavored Markdown is ready to be pasted from
+The relevant bit of CommonMark Markdown is ready to be pasted from
 your clipboard:
 
     ``` r
@@ -94,6 +94,8 @@ mean(y)
 ```
 
 Anyone else can copy, paste, and run this immediately.
+
+In addition to GitHub, this markdown also works on Stack Overflow and Discourse. Those venues can be formally requested via `venue = "so"` and `venue = "ds"`, but they are just aliases for `venue = "gh"`.
 
 Instead of reading from the clipboard, you can:
 
@@ -117,10 +119,6 @@ But wait, there’s more\!
   - Get html with `reprex(..., venue = "html")`. Useful for sites that don't
     support markdown.
 
-  - Set the target venue to Stack Overflow with `reprex(..., venue =
-    "so")`. Note this is basically the same as the default `venue = "gh"` and
-    only alters the formatting of session info requested via `si = TRUE`.
-
   - Prepare rendered, syntax-highlighted code snippets to paste into
     Keynote or PowerPoint, with `reprex(..., venue = "rtf")`. This
     feature is still experimental; see the [associated article](https://reprex.tidyverse.org/articles/articles/rtf.html) for more.
@@ -130,6 +128,8 @@ But wait, there’s more\!
 
   - Use the `outfile` argument to control where results are left behind.
     Use `outfile = NA` to work in current working directory.
+    
+  - Append session info via `reprex(..., si = TRUE)`.
 
   - Get clean, runnable code from wild-caught reprexes with
     
