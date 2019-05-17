@@ -66,10 +66,19 @@ yaml_md <- function(pandoc_version = rmarkdown::pandoc_version()) {
 }
 
 si <- function(details = FALSE) {
-  txt <- if (requireNamespace("devtools", quietly = TRUE)) {
-    "devtools::session_info()"
+  if (requireNamespace("devtools", quietly = TRUE)) {
+    txt <- "devtools::session_info()"
   } else {
-    "sessionInfo()"
+    txt <- "sessionInfo()"
+  }
+
+  if (rlang::is_installed("reticulate")) {
+    txt <- c(
+      txt,
+      "",
+      "#+ reticulate-check, include = isNamespaceLoaded(\"reticulate\") && reticulate::py_available(initialize = FALSE)",
+      "reticulate::py_config()"
+    )
   }
 
   if (details) {
