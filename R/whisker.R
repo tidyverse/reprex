@@ -66,7 +66,7 @@ yaml_md <- function(pandoc_version = rmarkdown::pandoc_version()) {
 }
 
 si <- function(details = FALSE) {
-  txt <- session_info_string
+  txt <- session_info_string()
 
   if (details) {
     txt <- c(
