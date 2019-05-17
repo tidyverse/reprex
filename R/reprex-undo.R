@@ -198,7 +198,7 @@ convert_md_to_r <- function(lines, comment = "#>", drop_output = FALSE) {
 
 ## Classify lines in the presence of fenced code blocks.
 ## Specifically, blocks fenced by three backticks.
-## This is true of the output from reprex(..., venue == "gh").
+## This is true of the output from reprex(..., venue = "gh").
 ## Classifies each line like so:
 ##   * bt     = backticks
 ##   * code   = code inside a fenced block

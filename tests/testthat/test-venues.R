@@ -45,7 +45,7 @@ test_that("venue = 'R' works, regardless of case", {
   expect_identical(ret[nzchar(ret)], output)
 })
 
-test_that("venue = 'ds' is an alias for 'gh'", {
+test_that("venues = 'ds' and 'so' are aliases for 'gh'", {
   skip_on_cran()
   input <- c(
     "#' Hello world",
@@ -53,7 +53,9 @@ test_that("venue = 'ds' is an alias for 'gh'", {
     "1:5"
   )
   ds <- reprex(input = input, venue = "ds", si = TRUE, show = FALSE, advertise = FALSE)
+  so <- reprex(input = input, venue = "so", si = TRUE, show = FALSE, advertise = FALSE)
   gh <- reprex(input = input, venue = "gh", si = TRUE, show = FALSE, advertise = FALSE)
+  expect_identical(so, gh)
   expect_identical(ds, gh)
 })
 
