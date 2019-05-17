@@ -10,8 +10,11 @@ is_testing <- function() {
   identical(Sys.getenv("TESTTHAT"), "true")
 }
 
+## this function can be replaced by rlang::is_interactive()
+## if this gets merged + released
+## https://github.com/r-lib/rlang/pull/761
 interactive <- function() {
-  base::interactive() && !is_testing()
+  rlang::is_interactive() && !is_testing()
 }
 
 ## returns TRUE if user says "no"
