@@ -11,9 +11,8 @@ install:
   ps: Bootstrap
 
 environment:
-  global:
-    USE_RTOOLS: true
-    PKGTYPE: binary
+  NOT_CRAN: true
+  USE_RTOOLS: true
 
 # Adapt as necessary starting from here
 before_test:

@@ -3,14 +3,14 @@ ensure_not_empty <- function(x) {
 }
 
 ensure_not_dogfood <- function(x) {
-  looks_like_gh <- any(grepl("^```", x))
-  looks_like_so <- any(grepl("<!-- language-all: lang-r -->", x))
-  if (looks_like_gh || looks_like_so) {
+  looks_like_fenced_md <- any(grepl("^```", x))
+  if (looks_like_fenced_md) {
+    lines <- paste0("  ", x[1:3])
     ## I negate yep(), instead of using nope(), to get desired behaviour in
     ## a non-interactive call
     if (!yep(
       "First three lines of putative code are:\n",
-      collapse(newline(x[1:3]), sep = ""),
+      collapse(lines, sep = "\n"), "\n",
       "which doesn't look like R code.\n",
       "Are we going in circles? Did you just run reprex()?\n",
       "In that case, the clipboard now holds the *rendered* result.\n",
@@ -31,6 +31,22 @@ ensure_not_dogfood <- function(x) {
       abort("Aborting.")
     }
   }
+
+  html_start <- grep("^<pre class=\"r\">", x)
+  if (length(html_start) > 0) {
+    lines <- paste0("  ", x[html_start + 0:2])
+    if (!yep(
+      "First three lines of putative code are:\n",
+      collapse(lines, sep = "\n"), "\n",
+      "which looks like html, not R code.\n",
+      "Are we going in circles? Did you just run `reprex(..., venue = \"html\")`?\n",
+      "In that case, the clipboard now holds the *rendered* result.\n",
+      "Carry on with this reprex?"
+    )) {
+      abort("Aborting.")
+    }
+  }
+
   x
 }
 

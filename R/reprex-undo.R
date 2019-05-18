@@ -50,11 +50,12 @@ NULL
 #' }
 reprex_invert <- function(input = NULL,
                           outfile = NULL,
-                          venue = c("gh", "so", "ds", "r"),
+                          venue = c("gh", "r", "so", "ds"),
                           comment = opt("#>")) {
   venue <- tolower(venue)
   venue <- match.arg(venue)
   venue <- ds_is_gh(venue)
+  venue <- so_is_gh(venue)
 
   if (venue == "r") {
     return(reprex_clean(input, outfile = outfile, comment = comment))
@@ -168,10 +169,7 @@ reprex_undo <- function(input = NULL,
   }
 
   if (is_md) { ## reprex_invert
-    flavor <- if (venue == "gh") "fenced" else "indented"
-    x_out <- convert_md_to_r(
-      src, comment = comment, flavor = flavor, drop_output = TRUE
-    )
+    x_out <- convert_md_to_r(src, comment = comment, drop_output = TRUE)
   } else if (is.null(prompt)) { ## reprex_clean
     x_out <- src[!grepl(comment, src)]
   } else { ## reprex_rescue
@@ -191,26 +189,11 @@ reprex_undo <- function(input = NULL,
   invisible(x_out)
 }
 
-convert_md_to_r <- function(lines,
-                            comment = "#>",
-                            flavor = c("fenced", "indented"),
-                            drop_output = FALSE) {
-  flavor <- match.arg(flavor)
-  classify_fun <- switch(flavor,
-                         fenced = classify_fenced_lines,
-                         indented = classify_indented_lines)
-  lines_info <- classify_fun(lines, comment = comment)
-
+convert_md_to_r <- function(lines, comment = "#>", drop_output = FALSE) {
+  lines_info <- classify_fenced_lines(lines, comment = comment)
   lines_out <- ifelse(lines_info == "prose" & nzchar(lines), prose(lines), lines)
-
-  drop_classes <- c("bt", "so_header", if (drop_output) "output")
-  lines_out <- lines_out[!lines_info %in% drop_classes]
-
-  if (flavor == "indented") {
-    lines_out <- sub("^    ", "", lines_out)
-  }
-
-  lines_out
+  drop_classes <- c("bt", if (drop_output) "output")
+  lines_out[!lines_info %in% drop_classes]
 }
 
 ## Classify lines in the presence of fenced code blocks.
@@ -228,27 +211,5 @@ classify_fenced_lines <- function(x, comment = "^#>") {
     ifelse(cumulative_fences %% 2 == 1, "code", "prose")
   )
   wut <- ifelse(wut == "code" & grepl(comment, x), "output", wut)
-  wut
-}
-
-## Classify lines in the presence of indented code blocks.
-## Specifically, blocks indented with 4 spaces.
-## This is true of the output from reprex(..., venue = "so").
-## https://stackoverflow.com/editing-help
-## Classifies each line like so:
-##   * code      = code inside an indented code block
-##   * output    = commented output inside an indented code block
-##   * prose     = outside an indented code block
-##   * so_header = special html comment for so syntax highlighting
-classify_indented_lines <- function(x, comment = "^#>") {
-  comment <- sub("\\^", "^    ", comment)
-  wut <- ifelse(grepl("^    ", x), "code", "prose")
-  wut <- ifelse(wut == "code" & grepl(comment, x), "output", wut)
-
-  so_special <- "<!-- language-all: lang-r -->"
-  if (identical(x[1], so_special)) {
-    wut[1] <- "so_header"
-  }
-
   wut
 }

@@ -44,7 +44,8 @@
 #' works on macOS and requires the installation of the
 #' [highlight](http://www.andre-simon.de/doku/highlight/en/highlight.php)
 #' command line tool, which can be installed via
-#' [homebrew](http://brewformulas.org/Highlight). This venue is discussed in [an
+#' [homebrew](https://formulae.brew.sh/formula/highlight). This venue is
+#' discussed in [an
 #' article](https://reprex.tidyverse.org/articles/articles/rtf.html)
 #'
 #' @param x An expression. If not given, `reprex()` looks for code in
@@ -62,25 +63,28 @@
 #'   otherwise.
 #' @param venue Character. Must be one of the following (case insensitive):
 #' * "gh" for [GitHub-Flavored Markdown](https://github.github.com/gfm/), the
-#' default
-#' * "so" for [Stack Overflow Markdown](https://stackoverflow.com/editing-help)
+#'   default
+#' * "r" for a runnable R script, with commented output interleaved
+#' * "rtf" for
+#'   [Rich Text Format](https://en.wikipedia.org/wiki/Rich_Text_Format)
+#'   (not supported for un-reprexing)
+#' * "html" for an HTML fragment suitable for inclusion in a larger HTML
+#'   document (not supported for un-reprexing)
+#' * "so" for
+#'   [Stack Overflow Markdown](https://stackoverflow.com/editing-help#syntax-highlighting).
+#'   Note: this is just an alias for "gh", since Stack Overflow started to
+#'   support CommonMark-style fenced code blocks in January 2019.
 #' * "ds" for Discourse, e.g.,
 #'   [community.rstudio.com](https://community.rstudio.com). Note: this is
-#'   currently just an alias for "gh"!
-#' * "r" for a runnable R script, with commented output interleaved
-#' * "rtf" for [Rich Text
-#' Format](https://en.wikipedia.org/wiki/Rich_Text_Format) (not supported for
-#' un-reprexing)
-#' * "html" for an HTML fragment suitable for inclusion in a larger HTML
-#' document (not supported for un-reprexing)
+#'   currently just an alias for "gh".
 #' @param advertise Logical. Whether to include a footer that describes when and
 #'   how the reprex was created. If unspecified, the option `reprex.advertise`
 #'   is consulted and, if that is not defined, default is `TRUE` for venues
-#'   `"gh"`, `"so"`, `"ds"`, `"html"` and `FALSE` for `"r"` and `"rtf"`.
-#' @param si Logical. Whether to include [devtools::session_info()], if
+#'   `"gh"`, `"html"`, `"so"`, `"ds"` and `FALSE` for `"r"` and `"rtf"`.
+#' @param si Logical. Whether to include [sessioninfo::session_info()], if
 #'   available, or [sessionInfo()] at the end of the reprex. When `venue` is
-#'   "gh" or "ds", the session info is wrapped in a collapsible details tag.
-#'   Read more about [opt()].
+#'   "gh", the session info is wrapped in a collapsible details tag. Read more
+#'   about [opt()].
 #' @param style Logical. Whether to style code with [styler::style_text()].
 #'   Read more about [opt()].
 #' @param show Logical. Whether to show rendered output in a viewer (RStudio or
@@ -98,8 +102,8 @@
 #'   reveal output if the reprex spawns child processes or `system()` calls.
 #'   Note this cannot be properly interleaved with output from the main R
 #'   process, nor is there any guarantee that the lines from standard output and
-#'   standard error are in correct chronological order. See [callr::r_safe()]
-#'   for more. Read more about [opt()].
+#'   standard error are in correct chronological order. See [callr::r()] for
+#'   more. Read more about [opt()].
 #'
 #' @return Character vector of rendered reprex, invisibly.
 #' @examples
@@ -196,15 +200,6 @@
 #'   recursive = TRUE
 #' )
 #'
-#' ## target venue = Stack Overflow
-#' ## https://stackoverflow.com/editing-help
-#' ret <- reprex({
-#'   x <- 1:4
-#'   y <- 2:5
-#'   x + y
-#' }, venue = "so")
-#' ret
-#'
 #' ## target venue = R, also good for email or Slack snippets
 #' ret <- reprex({
 #'   x <- 1:4
@@ -242,7 +237,7 @@
 #' @export
 reprex <- function(x = NULL,
                    input = NULL, outfile = NULL,
-                   venue = c("gh", "so", "ds", "r", "rtf", "html"),
+                   venue = c("gh", "r", "rtf", "html", "so", "ds"),
 
                    render = TRUE,
 
@@ -257,10 +252,11 @@ reprex <- function(x = NULL,
   venue <- tolower(venue)
   venue <- match.arg(venue)
   venue <- ds_is_gh(venue)
+  venue <- so_is_gh(venue)
   venue <- rtf_requires_highlight(venue)
 
   advertise       <- advertise %||%
-    getOption("reprex.advertise") %||% (venue %in% c("gh", "so", "html"))
+    getOption("reprex.advertise") %||% (venue %in% c("gh", "html"))
   si              <- arg_option(si)
   style           <- arg_option(style)
   show            <- arg_option(show)
@@ -333,9 +329,7 @@ reprex <- function(x = NULL,
   if (venue %in% c("r", "rtf")) {
     rout_file <- files[["rout_file"]]
     output_lines <- xfun::read_utf8(md_file)
-    output_lines <- convert_md_to_r(
-      output_lines, comment = comment, flavor = "fenced"
-    )
+    output_lines <- convert_md_to_r(output_lines, comment = comment)
     writeLines(output_lines, rout_file)
     if (outfile_given) {
       message("Writing reprex as commented R script:\n  * ", rout_file)

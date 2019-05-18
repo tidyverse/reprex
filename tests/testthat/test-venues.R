@@ -1,6 +1,6 @@
 context("venues")
 
-test_that("venue = 'so' works with/without leading prose", {
+test_that("venue = 'gh' works with/without leading prose", {
   skip_on_cran()
   input <- c(
     "#' Hello world",
@@ -8,19 +8,21 @@ test_that("venue = 'so' works with/without leading prose", {
     "1:5"
   )
   output <- c(
-    "<!-- language-all: lang-r -->",
     "Hello world",
     "",
-    "    ## comment",
-    "    1:5",
-    "    #> [1] 1 2 3 4 5"
+    "``` r",
+    "## comment",
+    "1:5",
+    "#> [1] 1 2 3 4 5",
+    "```"
   )
-  ret <- reprex(input = input, venue = "so", show = FALSE, advertise = FALSE)
+  ret <- reprex(input = input, venue = "gh", show = FALSE, advertise = FALSE)
   expect_identical(ret, output)
 
   input <- grep("Hello", input, invert = TRUE, value = TRUE)
   output <- grep("Hello", output, invert = TRUE, value = TRUE)
-  ret <- reprex(input = input, venue = "so", show = FALSE, advertise = FALSE)
+  output <- output[nzchar(output)]
+  ret <- reprex(input = input, venue = "gh", show = FALSE, advertise = FALSE)
   expect_identical(ret, output)
 })
 
@@ -43,7 +45,7 @@ test_that("venue = 'R' works, regardless of case", {
   expect_identical(ret[nzchar(ret)], output)
 })
 
-test_that("venue = 'ds' is an alias for 'gh'", {
+test_that("venues = 'ds' and 'so' are aliases for 'gh'", {
   skip_on_cran()
   input <- c(
     "#' Hello world",
@@ -51,7 +53,9 @@ test_that("venue = 'ds' is an alias for 'gh'", {
     "1:5"
   )
   ds <- reprex(input = input, venue = "ds", si = TRUE, show = FALSE, advertise = FALSE)
+  so <- reprex(input = input, venue = "so", si = TRUE, show = FALSE, advertise = FALSE)
   gh <- reprex(input = input, venue = "gh", si = TRUE, show = FALSE, advertise = FALSE)
+  expect_identical(so, gh)
   expect_identical(ds, gh)
 })
 
