@@ -7,6 +7,9 @@ Overflow does not support the collapsible details tag that we use on GitHub for 
 
 * devtools is no longer in Suggests. It is replaced by sessioninfo.
 
+* knitr is now in Imports, so we can require v1.23 or higher, which represents a
+major switch to UTF-8.
+
 # reprex 0.3.0
 
 * The `crayon.enabled` option is explicitly set to `FALSE` when rendering the reprex (#238, #239).
