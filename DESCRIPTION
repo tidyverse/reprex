@@ -35,7 +35,8 @@ Imports:
     rmarkdown,
     utils,
     whisker,
-    withr
+    withr,
+    xfun
 Suggests: 
     covr,
     fortunes,
