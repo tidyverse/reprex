@@ -18,13 +18,6 @@ test_that("round trip, venue = 'gh': reprex() --> reprex_invert()", {
   expect_identical(input, res[nzchar(res)])
 })
 
-test_that("round trip, venue = 'so': reprex() --> reprex_invert()", {
-  skip_on_cran()
-  output <- reprex(input = input, venue = "so", show = FALSE, advertise = FALSE)
-  res <- reprex_invert(output, venue = "so")
-  expect_identical(input, res[nzchar(res)])
-})
-
 test_that("round trip, venue = 'r': reprex() --> reprex_invert()", {
   skip_on_cran()
   output <- reprex(input = input, advertise = FALSE, show = FALSE, venue = "r")

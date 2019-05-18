@@ -22,7 +22,7 @@ test_that("venue = 'gh' works with/without leading prose", {
   input <- grep("Hello", input, invert = TRUE, value = TRUE)
   output <- grep("Hello", output, invert = TRUE, value = TRUE)
   output <- output[nzchar(output)]
-  ret <- reprex(input = input, venue = "so", show = FALSE, advertise = FALSE)
+  ret <- reprex(input = input, venue = "gh", show = FALSE, advertise = FALSE)
   expect_identical(ret, output)
 })
 
