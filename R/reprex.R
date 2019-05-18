@@ -407,7 +407,7 @@ reprex_render <- function(input, std_out_err = NULL) {
         rlang_trace_top_env = globalenv(),
         crayon.enabled = FALSE
       )
-      rmarkdown::render(input, quiet = TRUE, envir = globalenv())
+      rmarkdown::render(input, quiet = TRUE, envir = globalenv(), encoding = "UTF-8")
     },
     args = list(input = input),
     spinner = interactive(),

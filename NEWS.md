@@ -1,11 +1,18 @@
 # reprex (development version)
 
+* UTF-8 encoding: Following the lead of knitr, reprex makes explicit use of UTF-8 internally (#237 @krlmlr, #261).
+
 * `venue = "so"` (SO = Stack Overflow) has converged with default `venue = "gh"` (GitHub). As of January 2019, SO [supports CommonMark fenced code blocks](https://meta.stackexchange.com/questions/125148/implement-style-fenced-markdown-code-blocks/322000#322000). The only remaining difference is that Stack
 Overflow does not support the collapsible details tag that we use on GitHub for the session info requested via `si = TRUE` (#231).
 
 ## Dependency changes
 
 * devtools is no longer in Suggests. It is replaced by sessioninfo.
+
+* knitr moves from Suggests to Imports (although it was already a hard dependency via rmarkdown), so we can require v1.23 or higher, which represents a
+major switch to UTF-8.
+
+* xfun is a new direct dependency, though it was already an indirect dependency via knitr. Related to UTF-8 enforcement.
 
 # reprex 0.3.0
 
