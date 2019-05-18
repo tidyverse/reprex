@@ -15,9 +15,13 @@ locate_input <- function(input) {
   }
 }
 
-read_lines <- function(path) {
+read_lines <- function(path, error = FALSE) {
   if (is.null(path)) return(NULL)
-  xfun::read_utf8(path)
+  xfun::read_utf8(path, error = error)
+}
+
+write_lines <- function(text, path) {
+  xfun::write_utf8(text, path)
 }
 
 trim_ws <- function(x) {
@@ -85,8 +89,8 @@ enfence <- function(lines,
 
 
 inject_file <- function(path, inject_path, pre_process = enfence, ...) {
-  lines <- xfun::read_utf8(path)
-  inject_lines <- xfun::read_utf8(inject_path)
+  lines <- read_lines(path)
+  inject_lines <- read_lines(inject_path)
   inject_lines <- pre_process(inject_lines, ...)
 
   inject_locus <- grep(backtick(inject_path), lines, fixed = TRUE)
@@ -95,7 +99,7 @@ inject_file <- function(path, inject_path, pre_process = enfence, ...) {
     inject_lines,
     lines[-seq_len(inject_locus)]
   )
-  xfun::write_utf8(lines, path)
+  write_lines(lines, path)
   path
 }
 
