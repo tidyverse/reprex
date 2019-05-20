@@ -276,7 +276,7 @@ reprex <- function(x = NULL,
   src <- switch(
     where,
     expr      = stringify_expression(x_expr),
-    clipboard = enc2utf8(ingest_clipboard()),
+    clipboard = ingest_clipboard(),
     path      = read_lines(input),
     input     = escape_newlines(sub("\n$", "", enc2utf8(input))),
     NULL

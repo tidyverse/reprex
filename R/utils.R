@@ -38,7 +38,7 @@ trim_common_leading_ws <- function(x) {
 
 ingest_clipboard <- function() {
   if (clipboard_available()) {
-    return(suppressWarnings(clipr::read_clip()))
+    return(suppressWarnings(enc2utf8(clipr::read_clip())))
   }
   message("No input provided and clipboard is not available.")
   character()
