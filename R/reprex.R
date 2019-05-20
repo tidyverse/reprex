@@ -278,7 +278,7 @@ reprex <- function(x = NULL,
     expr      = stringify_expression(x_expr),
     clipboard = ingest_clipboard(),
     path      = read_lines(input),
-    input     = escape_newlines(sub("\n$", "", input)),
+    input     = escape_newlines(sub("\n$", "", enc2utf8(input))),
     NULL
   )
   src <- ensure_not_empty(src)
