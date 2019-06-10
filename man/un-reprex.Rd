@@ -45,6 +45,7 @@ support CommonMark-style fenced code blocks in January 2019.
 \item "ds" for Discourse, e.g.,
 \href{https://community.rstudio.com}{community.rstudio.com}. Note: this is
 currently just an alias for "gh".
+\item "jira" for \href{https://jira.atlassian.com/secure/WikiRendererHelpAction.jspa?section=advanced}{Jira}
 }}
 
 \item{comment}{regular expression that matches commented output lines}
