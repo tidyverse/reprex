@@ -441,6 +441,12 @@ reprex_jira <- function(jira_file, md_file) {
   content <- readLines(md_file)
   content <- gsub("^``` r", "{code:r}", content)
   content <- gsub("^```", "{code}", content)
+  content <- gsub(
+    "[reprex package](https://reprex.tidyverse.org)",
+    "[reprex package|https://reprex.tidyverse.org]",
+    content,
+    fixed = TRUE
+  )
   writeLines(content, jira_file)
 }
 
