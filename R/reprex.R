@@ -77,10 +77,11 @@
 #' * "ds" for Discourse, e.g.,
 #'   [community.rstudio.com](https://community.rstudio.com). Note: this is
 #'   currently just an alias for "gh".
+#' * "jira" for [Jira](https://jira.atlassian.com/secure/WikiRendererHelpAction.jspa?section=advanced)
 #' @param advertise Logical. Whether to include a footer that describes when and
 #'   how the reprex was created. If unspecified, the option `reprex.advertise`
 #'   is consulted and, if that is not defined, default is `TRUE` for venues
-#'   `"gh"`, `"html"`, `"so"`, `"ds"` and `FALSE` for `"r"` and `"rtf"`.
+#'   `"gh"`, `"html"`, `"so"`, `"ds"`, `"jira"` and `FALSE` for `"r"` and `"rtf"`.
 #' @param si Logical. Whether to include [sessioninfo::session_info()], if
 #'   available, or [sessionInfo()] at the end of the reprex. When `venue` is
 #'   "gh", the session info is wrapped in a collapsible details tag. Read more
@@ -237,7 +238,7 @@
 #' @export
 reprex <- function(x = NULL,
                    input = NULL, outfile = NULL,
-                   venue = c("gh", "r", "rtf", "html", "so", "ds"),
+                   venue = c("gh", "r", "rtf", "html", "so", "ds", "jira"),
 
                    render = TRUE,
 
@@ -256,7 +257,7 @@ reprex <- function(x = NULL,
   venue <- rtf_requires_highlight(venue)
 
   advertise       <- advertise %||%
-    getOption("reprex.advertise") %||% (venue %in% c("gh", "html"))
+    getOption("reprex.advertise") %||% (venue %in% c("gh", "html", "jira"))
   si              <- arg_option(si)
   style           <- arg_option(style)
   show            <- arg_option(show)
@@ -312,7 +313,7 @@ reprex <- function(x = NULL,
 
   message("Rendering reprex...")
   reprex_render(r_file, std_file)
-  ## 1. when venue = "r" or "rtf", the reprex_file != md_file, so we need both
+  ## 1. when venue = "r", "rtf" or "jira", the reprex_file != md_file, so we need both
   ## 2. use our own "md_file" instead of the normalized, absolutized path
   ##    returned by rmarkdown::render() and, therefore, reprex_()
   reprex_file <- md_file <- files[["md_file"]]
@@ -344,6 +345,11 @@ reprex <- function(x = NULL,
       message("Writing reprex as highlighted RTF:\n  * ", reprex_file)
     }
     reprex_file <- rtf_file
+  }
+
+  if (venue == "jira") {
+    reprex_file <- files[["jira_file"]]
+    reprex_jira(reprex_file, md_file)
   }
 
   if (venue == "html") {
@@ -429,6 +435,13 @@ reprex_highlight <- function(rout_file, reprex_file, arg_string = NULL) {
     stop("`highlight` call unsuccessful.", call. = FALSE)
   }
   res
+}
+
+reprex_jira <- function(jira_file, md_file) {
+  content <- readLines(md_file)
+  content <- gsub("^``` r", "{code:r}", content)
+  content <- gsub("^```", "{code}", content)
+  writeLines(content, jira_file)
 }
 
 rtf_requires_highlight <- function(venue) {

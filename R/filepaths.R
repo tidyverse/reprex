@@ -37,7 +37,8 @@ make_filenames <- function(filebase = "foo", suffix = "reprex") {
     html_fragment_file = path_ext_set(add_suffix(filebase, "fragment"), "html"),
     std_file  = path_ext_set(add_suffix(filebase, "std_out_err"), "txt"),
     rout_file = path_ext_set(add_suffix(filebase, "rendered"), "R"),
-    html_file = path_ext_set(filebase, "html")
+    html_file = path_ext_set(filebase, "html"),
+    jira_file = path_ext_set(add_suffix(filebase, "jira"), "txt")
   )
 }
 
