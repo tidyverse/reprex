@@ -19,6 +19,7 @@ Render a \code{\link[=reprex]{reprex()}} using a different locale.
 }
 \examples{
 \dontrun{
+
 # Rendering in Italian:
 reprex_locale({
   dplyr::select(foo)

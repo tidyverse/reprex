@@ -8,6 +8,7 @@
 #' @return Character vector of rendered reprex, invisibly.
 #' @examples
 #' \dontrun{
+#'
 #' # Rendering in Italian:
 #' reprex_locale({
 #'   dplyr::select(foo)
