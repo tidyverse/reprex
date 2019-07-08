@@ -1,6 +1,5 @@
 #' Render a reprex in a different locale
 #'
-#' @description
 #' Render a [reprex()] using a different locale.
 #'
 #' @param ... Parameters passed onto [reprex()].
