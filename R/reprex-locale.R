@@ -28,6 +28,5 @@
 #' @export
 reprex_locale <- function(..., locale) {
   withr::local_envvar(c("LANG" = locale))
-  withr::local_locale(c("LC_MESSAGES" = locale))
   reprex(...)
 }
