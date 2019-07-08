@@ -14,8 +14,60 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(reprex)
+```{r}
+tempdir <- tempdir()
+
+# Create fake package
+usethis::create_package(file.path(tempdir, "startuppackage"), open = FALSE)
+
+# Create fake startupMessage
+cat('
+# *************************************************
+#                     Setup
+# *************************************************
+
+.onAttach <- function(libname, pkgname) {
+  packageStartupMessage("\n*******************************************************")
+  packageStartupMessage("This is an exemple of package startup message")
+  packageStartupMessage("*******************************************************\n")
+}
+
+', file = file.path(tempdir, "startuppackage", "R", "onAttach.R"))
+
+
+# Create function with an internal conflict
+cat("
+#' Function with name for conflict
+#'
+#' @export
+dist <- function() {message('Conflict function')}
+", file = file.path(tempdir, "startuppackage", "R", "conflict.R"))
+
+
+# Add fake dependency to dplyr
+desc <- readLines(file.path(tempdir, "startuppackage/DESCRIPTION"))
+desc <- c(desc,
+          "Depends: dplyr")
+cat(desc, sep = "\n", file = file.path(tempdir, "startuppackage/DESCRIPTION"))
+
+# Open folder for verification
+# browseURL(file.path(tempdir, "startuppackage"))
+
+# Create documentation
+roxygen2::roxygenize(file.path(tempdir, "startuppackage"))
+# Install locally
+remotes::install_local(file.path(tempdir, "startuppackage"),
+                       force = TRUE, upgrade = "never")
+
+# Detach packages
+detach("package:startuppackage", unload=TRUE)
+detach("package:dplyr", unload=TRUE)
+# Load package to see
+# - Load package in Depends
+# - See conflict due to dplyr
+# - StartupMessage
+# - Conflict due to package itself
+library(startuppackage)
 ```
 
 
