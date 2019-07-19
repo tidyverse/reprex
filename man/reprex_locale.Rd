@@ -42,7 +42,7 @@ Examples: \code{"en"}, \code{"de"}, \code{"en_GB"}, \code{"pt_BR"}.
 
 Use the \code{locale} argument only if you want to affect something like how
 day-of-the week or month is converted to character. You are less likely to
-need to set this than the \code{language} argument. You will have more success
+need to set this than the \code{language} argument. You may have more success
 setting specific categories, such as \code{"LC_TIME"}, than multi-category
 shortcuts like \code{"LC_ALL"} or \code{"LANG"}. The \code{locale} values must follow the
 format dictated by your operating system and the requested locale must be
@@ -55,6 +55,10 @@ Examples: \code{"en_CA.UTF-8"} (macOS), \code{"French_France.1252"} (Windows).
 \examples{
 \dontrun{
 
+# if all you want to do is make sure messages are in English
+reprex_locale("a" / 2)
+
+# change messages to a specific language
 reprex_locale({
   "a" / 2
 }, language = "it")
@@ -82,6 +86,6 @@ reprex_locale({
 \item The \href{https://www.gnu.org/software/libc/manual/html_node/Locale-Names.html}{Locale Names}
 section of the GNU C docs, for more about XPG syntax
 \item The \href{https://cran.rstudio.com/doc/manuals/r-devel/R-admin.html#Internationalization}{Internationalization and Localization}
-section of the R Installation and Administration manualL
+section of the R Installation and Administration manual
 }
 }

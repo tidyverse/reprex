@@ -16,7 +16,7 @@
 #' @section `locale`:
 #' Use the `locale` argument only if you want to affect something like how
 #' day-of-the week or month is converted to character. You are less likely to
-#' need to set this than the `language` argument. You will have more success
+#' need to set this than the `language` argument. You may have more success
 #' setting specific categories, such as `"LC_TIME"`, than multi-category
 #' shortcuts like `"LC_ALL"` or `"LANG"`. The `locale` values must follow the
 #' format dictated by your operating system and the requested locale must be
@@ -41,12 +41,16 @@
 #'   section of the GNU C docs, for more about XPG syntax
 #'   * The [Internationalization and
 #'   Localization](https://cran.rstudio.com/doc/manuals/r-devel/R-admin.html#Internationalization)
-#'   section of the R Installation and Administration manualL
+#'   section of the R Installation and Administration manual
 #'
 #' @return Character vector of rendered reprex, invisibly.
 #' @examples
 #' \dontrun{
 #'
+#' # if all you want to do is make sure messages are in English
+#' reprex_locale("a" / 2)
+#'
+#' # change messages to a specific language
 #' reprex_locale({
 #'   "a" / 2
 #' }, language = "it")
