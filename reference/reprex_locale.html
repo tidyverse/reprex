@@ -193,7 +193,7 @@ syntax": a two-letter language code, optionally followed by other modifiers.</p>
     
     <p>Use the <code>locale</code> argument only if you want to affect something like how
 day-of-the week or month is converted to character. You are less likely to
-need to set this than the <code>language</code> argument. You will have more success
+need to set this than the <code>language</code> argument. You may have more success
 setting specific categories, such as <code>"LC_TIME"</code>, than multi-category
 shortcuts like <code>"LC_ALL"</code> or <code>"LANG"</code>. The <code>locale</code> values must follow the
 format dictated by your operating system and the requested locale must be
@@ -207,12 +207,16 @@ from each other on Windows.</p>
 <li><p>The <a href='https://www.gnu.org/software/libc/manual/html_node/Locale-Names.html'>Locale Names</a>
 section of the GNU C docs, for more about XPG syntax</p></li>
 <li><p>The <a href='https://cran.rstudio.com/doc/manuals/r-devel/R-admin.html#Internationalization'>Internationalization and Localization</a>
-section of the R Installation and Administration manualL</p></li>
+section of the R Installation and Administration manual</p></li>
 </ul></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='co'># if all you want to do is make sure messages are in English</span>
+<span class='fu'>reprex_locale</span>(<span class='st'>"a"</span> / <span class='fl'>2</span>)
+
+<span class='co'># change messages to a specific language</span>
 <span class='fu'>reprex_locale</span>({
   <span class='st'>"a"</span> / <span class='fl'>2</span>
 }, <span class='kw'>language</span> <span class='kw'>=</span> <span class='st'>"it"</span>)
