@@ -13,7 +13,6 @@ install:
 environment:
   NOT_CRAN: true
   USE_RTOOLS: true
-  R_COMPILE_AND_INSTALL_PACKAGES: always
 
 cache:
   - C:\RLibrary
