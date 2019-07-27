@@ -14,136 +14,107 @@ knitr::opts_chunk$set(
 )
 ```
 
-When making a reprex, you might have to load libraries that are producing some messages and warnings. The goal of this article is to suppress these, without suppressing all messages and warnings of the reprex, as they might be useful for debugging. This article aims at answering the issue [#187](https://github.com/tidyverse/reprex/issues/187). 
+When making a reprex, you might need libraries that are producing some messages and warnings upon loading. The goal of this article is to suppress these, without suppressing all messages and warnings of the reprex, as they might be useful for debugging. This article aims at answering the issue [#187](https://github.com/tidyverse/reprex/issues/187). 
 
-We'll review the different possibilities to silence messages and warnings when loading a library using using a fake package that gives messages and warnings upon loading.
+We review below the different possibilities to silence messages and warnings when loading a library. We use {dplyr} as an example.         
 
-## Creating and loading the startuppackage
+## Short version 
 
-First, we can create a package producing messages and warnings. In the chunk below, the `warning` and `message` chunk options have been set to `FALSE` and the `results` chunk option to `"hide"` for readability.    
+Messages and warnings can be suppressed by using the `warn.conflicts` and `quietly` arguments in `library()` or by using the `suppressPackageStartupMessages()` function.   
 
-```{r, warning=FALSE, message=FALSE, results='hide'}
-tempdir <- tempdir()
-
-# Create fake package
-usethis::create_package(file.path(tempdir, "startuppackage"), open = FALSE)
-
-# Create fake startupMessage
-cat('
-# *************************************************
-#                     Setup
-# *************************************************
-
-.onAttach <- function(libname, pkgname) {
-  packageStartupMessage("\n*******************************************************")
-  packageStartupMessage("This is an exemple of package startup message")
-  packageStartupMessage("*******************************************************\n")
-}
-
-', file = file.path(tempdir, "startuppackage", "R", "onAttach.R"))
-
-
-# Create function with an internal conflict
-cat("
-#' Function with name for conflict
-#'
-#' @export
-dist <- function() {message('Conflict function')}
-", file = file.path(tempdir, "startuppackage", "R", "conflict.R"))
-
-
-# Add fake dependency to dplyr
-desc <- readLines(file.path(tempdir, "startuppackage/DESCRIPTION"))
-desc <- c(desc,
-          "Depends: dplyr")
-cat(desc, sep = "\n", file = file.path(tempdir, "startuppackage/DESCRIPTION"))
-
-# Open folder for verification
-# browseURL(file.path(tempdir, "startuppackage"))
-
-# Create documentation
-roxygen2::roxygenize(file.path(tempdir, "startuppackage"))
-# Install locally
-remotes::install_local(file.path(tempdir, "startuppackage"),
-                       force = TRUE, upgrade = "never")
-
+```{r, eval=FALSE}
+library(dplyr, warn.conflicts = FALSE)
+library(dplyr, quietly = TRUE)
+suppressPackageStartupMessages(library(dplyr))
 ```
 
-Now, we can load the newly created package.     
+## Loading a library
+
+Loading {dplyr} with `library(dplyr)` produces two warnings about conflicts. We would like to silence them.       
 
 ```{r}
-# Detach packages
-detach("package:startuppackage", unload=TRUE)
-detach("package:dplyr", unload=TRUE)
-
-# Load library
-library(startuppackage)
+# Loading dplyr
+library(dplyr)
 ```
-
-Upon loading, {startuppackage} produces several warnings and messages that we would like to silence:   
-- a message informing that {dplyr}, a dependency of the {startuppackage}, is required      
-- a warning about the conflicts in {dplyr}     
-- a startup message specific to {startuppackage}      
-- a warning about the conflicts in {startuppackage}       
-
+    
 
 ## Loading a library without warnings
 
-To suppress the warnings about conflicts, you can set the `warn.conflict` argument to `FALSE` in `library()`. As written in the documentation of the `library()` function, a conflict is a function masking a function, or a non-function masking a non-function.
+To suppress the warnings about conflicts, you can set the `warn.conflicts` argument to `FALSE` in `library()`. As written in the documentation of the `library()` function, a conflict is a function masking a function, or a non-function masking a non-function. Note that this also silences the line `Attaching package: ‘dplyr’`.     
 
 ```{r}
-detach("package:startuppackage", unload=TRUE)
+# Detaching dplyr (loaded in the chunk above)
 detach("package:dplyr", unload=TRUE)
-library(startuppackage, warn.conflicts = FALSE)
+# Loading dplyr
+library(dplyr, warn.conflicts = FALSE)
 ```
-  
-Note that this removes only the warnings regarding the conflicts of the {startuppackage}, not the conflicts relative to the {dplyr} package, which is a dependency from the {startuppackage}.
 
 
 ## Loading a library without messages
 
-To suppress the messages regarding the attachement of a package (either confirming the attachement of the package or warning about failed attachement), set the `quietly` argument in the `library()` function to `TRUE`. This will suppress messages relative to dependencies, but not warnings about conflicts.
+To suppress some of the startup messages, you can also set the `quietly` argument in the `library()` function to `TRUE`. This does not suppress the warnings about conflicts. Also note that here the line `Attaching package: ‘dplyr’` is not affected by `quietly`.
 
 ```{r}
-detach("package:startuppackage", unload=TRUE)
+# Detaching dplyr (loaded in the chunk above)
 detach("package:dplyr", unload=TRUE)
-library(startuppackage, quietly = TRUE)
+# Loading dplyr
+library(dplyr, quietly = TRUE)
 ```
-
-Note that here, it only removed the message regarding the existence of the {dplyr} dependency.             
 
 
 ## Loading a library silently with the function suppressPackageStartupMessages()
 
-`suppressPackageStartupMessages()` ignores diagnostic messages when loading a package. It also ignores warning messages about conflicts.
+`suppressPackageStartupMessages()` ignores diagnostic messages when loading a package. It also ignores warnings about conflicts. Here it suppresses all messages and warnings. 
 ```{r}
-detach("package:startuppackage", unload=TRUE)
+# Detaching dplyr (loaded in the chunk above)
 detach("package:dplyr", unload=TRUE)
-suppressPackageStartupMessages(library(startuppackage))
+# Loading dplyr
+suppressPackageStartupMessages(library(dplyr))
 ```
-
-Here the `suppressPackageStartupMessages()` function suppressed all messages and warnings. 
 
 
 ## Loading a library silently within a chunk
 
-If the code is written in R markdown, another way to silence the warnings and messages is to use the chunk options. Make a separate chunk for loading the librairies and set the chunk options `message` and `warning` to `FALSE`. Write the rest of the reprex in a second chunk to prevent hiding useful warnings and messages for debugging.
+Another way to silence the warnings and messages is to set the chunk options `message` and `warning` to `FALSE`. To prevent hiding useful warnings and messages for debugging a reprex, separate the chunk loading the librairies from the rest of the reprex. 
 
-```{r, message=FALSE, warning=FALSE}
-detach("package:startuppackage", unload=TRUE)
-detach("package:dplyr", unload=TRUE)
-library(startuppackage)
+Within an Rmarkdown document that you `knit`:
+
+````r
+`r ''````{r chunk1, message=FALSE, warning=FALSE}  
+library(dplyr)  
+```
+Some text
+`r ''````{r chunk2, message=TRUE, warning=TRUE}     
+# reprex code goes here ... 
+```
+````
+
+or within an R script that you `spin`: 
+
+```{r}
+#+ message = FALSE, warning = FALSE
+library(dplyr)
+
+#+ reprex-body
+# reprex code goes here ...
 ```
 
 
 ## Loading the tidyverse library silently
 
-This method is specific to the {tidyverse} library. Prior to load the {tidyverse} with library, you can set the `option tidyverse.quiet` to `TRUE`.
+In the function `reprex()` from {reprex}, the argument `tidyverse.quiet` (set to `TRUE` by default) suppresses the startup messages for the {tidyverse} package. 
 
 ```{r, eval=FALSE}
-options(tidyverse.quiet = TRUE)
-library(tidyverse)
-```
+# Loading reprex
+library(reprex)
 
+# Creating a reprex
+ret <- reprex({
+library(tidyverse)
+a <- 1:5
+tibble(a, a * 2)
+}, 
+tidyverse_quiet = TRUE)
+```
 
 
