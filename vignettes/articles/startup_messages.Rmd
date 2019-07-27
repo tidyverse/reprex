@@ -14,9 +14,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-When making a reprex, you might need libraries that are producing some messages and warnings upon loading. The goal of this article is to suppress these, without suppressing all messages and warnings of the reprex, as they might be useful for debugging. This article aims at answering the issue [#187](https://github.com/tidyverse/reprex/issues/187). 
+When making a reprex, you might need to attach packages that are producing some messages and warnings upon attachment. The goal of this article is to suppress these, without suppressing all messages and warnings of the reprex, as they might be useful for debugging. This article aims at answering the issue [#187](https://github.com/tidyverse/reprex/issues/187). 
 
-We review below the different possibilities to silence messages and warnings when loading a library. We use {dplyr} as an example.         
+We review below the different possibilities to silence messages and warnings when attaching a package. We use dplyr as an example.         
 
 ## Short version 
 
@@ -28,54 +28,54 @@ library(dplyr, quietly = TRUE)
 suppressPackageStartupMessages(library(dplyr))
 ```
 
-## Loading a library
+## Attaching a package
 
-Loading {dplyr} with `library(dplyr)` produces two warnings about conflicts. We would like to silence them.       
+Attaching dplyr with `library(dplyr)` produces two warnings about conflicts. We would like to silence them.       
 
 ```{r}
-# Loading dplyr
+# Attaching dplyr
 library(dplyr)
 ```
     
 
-## Loading a library without warnings
+## Attaching a package without warnings
 
 To suppress the warnings about conflicts, you can set the `warn.conflicts` argument to `FALSE` in `library()`. As written in the documentation of the `library()` function, a conflict is a function masking a function, or a non-function masking a non-function. Note that this also silences the line `Attaching package: ‘dplyr’`.     
 
 ```{r}
-# Detaching dplyr (loaded in the chunk above)
+# Detaching dplyr (attached in the chunk above)
 detach("package:dplyr", unload=TRUE)
-# Loading dplyr
+# Attaching dplyr
 library(dplyr, warn.conflicts = FALSE)
 ```
 
 
-## Loading a library without messages
+## Attaching a package without messages
 
 To suppress some of the startup messages, you can also set the `quietly` argument in the `library()` function to `TRUE`. This does not suppress the warnings about conflicts. Also note that here the line `Attaching package: ‘dplyr’` is not affected by `quietly`.
 
 ```{r}
-# Detaching dplyr (loaded in the chunk above)
+# Detaching dplyr (attached in the chunk above)
 detach("package:dplyr", unload=TRUE)
-# Loading dplyr
+# Attaching dplyr
 library(dplyr, quietly = TRUE)
 ```
 
 
-## Loading a library silently with the function suppressPackageStartupMessages()
+## Attaching a package silently with the function suppressPackageStartupMessages()
 
-`suppressPackageStartupMessages()` ignores diagnostic messages when loading a package. It also ignores warnings about conflicts. Here it suppresses all messages and warnings. 
+`suppressPackageStartupMessages()` ignores diagnostic messages when attaching a package. It also ignores warnings about conflicts. Here it suppresses all messages and warnings. 
 ```{r}
-# Detaching dplyr (loaded in the chunk above)
+# Detaching dplyr (attached in the chunk above)
 detach("package:dplyr", unload=TRUE)
-# Loading dplyr
+# Attaching dplyr
 suppressPackageStartupMessages(library(dplyr))
 ```
 
 
-## Loading a library silently within a chunk
+## Attaching a package silently within a chunk
 
-Another way to silence the warnings and messages is to set the chunk options `message` and `warning` to `FALSE`. To prevent hiding useful warnings and messages for debugging a reprex, separate the chunk loading the librairies from the rest of the reprex. 
+Another way to silence the warnings and messages is to set the chunk options `message` and `warning` to `FALSE`. To prevent hiding useful warnings and messages for debugging a reprex, separate the chunk attaching the packages from the rest of the reprex. 
 
 Within an Rmarkdown document that you `knit`:
 
@@ -100,21 +100,29 @@ library(dplyr)
 ```
 
 
-## Loading the tidyverse library silently
+## Attaching the tidyverse package silently
 
-In the function `reprex()` from {reprex}, the argument `tidyverse.quiet` (set to `TRUE` by default) suppresses the startup messages for the {tidyverse} package. 
+In the function `reprex()` from reprex, the argument `tidyverse.quiet` (set to `TRUE` by default) suppresses the startup messages for the tidyverse package.
 
 ```{r, eval=FALSE}
-# Loading reprex
+# Attaching reprex
 library(reprex)
 
-# Creating a reprex
+# Creating a reprex in which tidyverse attachment is not quiet
 ret <- reprex({
 library(tidyverse)
 a <- 1:5
 tibble(a, a * 2)
 }, 
-tidyverse_quiet = TRUE)
+tidyverse_quiet = FALSE)
+```
+
+Alternatively, you can open the .Rprofile configuration file with the function `edit_r_profile()` from the package `usethis` and add `options(tidyverse.quiet = TRUE)` to the file. This will affect all calls to `reprex()`.
+```{r, eval=FALSE}
+# Attaching usethis
+library(usethis)
+# Opening .Rprofile configuration file
+edit_r_profile()
 ```
 
 
