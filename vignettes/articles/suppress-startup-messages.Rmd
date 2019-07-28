@@ -1,8 +1,8 @@
 ---
-title: "How to suppress package startup messages"
+title: "Suppress package startup messages"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{How to suppress package startup messages}
+  %\VignetteIndexEntry{Suppress package startup messages}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
