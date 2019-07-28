@@ -1,5 +1,7 @@
 # reprex (development version)
 
+* New article on techniques for making package startup quieter (#187, @marionlouveaux).
+
 * `reprex_locale()` is a new thin wrapper around `reprex()` that renders in a temporarily-altered locale (#250).
 
 * UTF-8 encoding: Following the lead of knitr, reprex makes explicit use of UTF-8 internally (#237 @krlmlr, #261).

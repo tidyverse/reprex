@@ -1,0 +1,128 @@
+---
+title: "Suppress package startup messages"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Suppress package startup messages}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Sometimes your reprex uses packages that emit messages and warnings at startup. In general, these are worth reading! They can alert you to the root cause of your problem, such as a function in one package masking a function in another. But in many cases, this is just distracting, startup noise.
+
+How can you silence this chatter, specifically? We don't want to suppress messages and warnings, in general, because they are an important part of the reprex.
+
+## TL;DR
+
+Here's a preview of various techniques. More details are below.
+
+There are a few ways to call `library()` that make it quieter.
+
+```{r, eval = FALSE}
+library(dplyr, warn.conflicts = FALSE)
+# or
+suppressPackageStartupMessages(library(dplyr))
+```
+
+Use special `#+` comments to break your reprex into "chunks", in the `.Rmd` sense, and use chunk options to muffle the chunk with `library()` calls. The second `#+` comment is very important!
+
+```{r, eval = FALSE}
+#+ message = FALSE, warning = FALSE
+library(dplyr)
+
+#+
+slice(iris, 1)
+```
+
+If you're using one or more tidyverse packages, consider using the tidyverse metapackage, literally. `reprex::reprex()` has an argument `tidyverse_quiet`, which defaults to `TRUE` and silences the startup messages.
+
+```{r, eval = FALSE}
+library(tidyverse)
+
+slice(iris, 1)
+```
+
+## dplyr is chatty at startup
+
+dplyr is a common culprit for noisy startup, so we use it as an example. Note this messaging as a baseline.
+
+```{r}
+library(dplyr)
+```
+
+```{r include = FALSE}
+unloadNamespace("dplyr")
+```
+
+## `warn.conflicts = FALSE`
+
+To suppress warnings about conflicts, set the `warn.conflicts` argument of `library()` to `FALSE`.
+
+```{r}
+library(dplyr, warn.conflicts = FALSE)
+
+slice(iris, 1)
+```
+
+```{r include = FALSE}
+unloadNamespace("dplyr")
+```
+
+## `suppressPackageStartupMessages()`
+
+Surround `library()` with `suppressPackageStartupMessages()`.
+
+```{r}
+suppressPackageStartupMessages(library(dplyr))
+
+slice(iris, 1)
+```
+
+```{r include = FALSE}
+unloadNamespace("dplyr")
+```
+
+## Set `message = FALSE` and `warning = FALSE` for a chunk
+
+If we were working in R Markdown, we could suppress messages and warnings in the chunk containing `library()` calls, then put our "real code" in a different chunk:
+
+<pre><code>```{r, message = FALSE, warning = FALSE}  
+library(dplyr)  
+```
+
+Some text.
+
+`r ''````{r}     
+slice(iris, 1)
+```</code></pre>
+
+We can do the same in plain R code, suitable for `reprex()`ing, by using special comments that start with `#+`. Note that the second `#+` is significant, because it begins a new chunk capable of emitting messages and warnings.
+
+
+```{r eval = FALSE}
+#+ message = FALSE, warning = FALSE
+library(dplyr)
+message("You CANNOT hear me!")
+
+#+ 
+message("You can hear me!")
+slice(iris, 1)
+```
+
+## Special relationship between the reprex and tidyverse packages
+
+The `reprex::reprex()` function has a `tidyverse_quiet` argument that defaults to `TRUE`. If your reprex uses one or more tidyverse packages, consider attaching the tidyverse metapackage, instead of individual packages, in order to enjoy a quiet startup.
+
+```{r, R.options = list(tidyverse.quiet = TRUE)}
+library(tidyverse) # instead of library(dplyr)
+
+slice(iris, 1)
+```
+
+Note that this default behaviour can be overridden by setting `tidyverse_quiet = FALSE` in a specific `reprex()` call or by setting the option `reprex.tidyverse_quiet = FALSE` in the `.Rprofile` startup file.
