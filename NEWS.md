@@ -1,5 +1,7 @@
 # reprex (development version)
 
+* New article on techniques for making package startup quieter (#187, @marionlouveaux).
+
 * UTF-8 encoding: Following the lead of knitr, reprex makes explicit use of UTF-8 internally (#237 @krlmlr, #261).
 
 * `venue = "so"` (SO = Stack Overflow) has converged with default `venue = "gh"` (GitHub). As of January 2019, SO [supports CommonMark fenced code blocks](https://meta.stackexchange.com/questions/125148/implement-style-fenced-markdown-code-blocks/322000#322000). The only remaining difference is that Stack
