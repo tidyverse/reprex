@@ -2,12 +2,16 @@
 
 * New article on techniques for making package startup quieter (#187, @marionlouveaux).
 
+* `reprex_locale()` is a new thin wrapper around `reprex()` that renders in a temporarily-altered locale (#250).
+
 * UTF-8 encoding: Following the lead of knitr, reprex makes explicit use of UTF-8 internally (#237 @krlmlr, #261).
 
 * `venue = "so"` (SO = Stack Overflow) has converged with default `venue = "gh"` (GitHub). As of January 2019, SO [supports CommonMark fenced code blocks](https://meta.stackexchange.com/questions/125148/implement-style-fenced-markdown-code-blocks/322000#322000). The only remaining difference is that Stack
 Overflow does not support the collapsible details tag that we use on GitHub for the session info requested via `si = TRUE` (#231).
 
 ## Dependency changes
+
+R 3.1 is no longer explicitly supported or tested. Our general practice is to support the current release (3.6, at time of writing), devel, and the 4 previous versions of R (3.5, 3.4, 3.3, 3.2).
 
 * devtools is no longer in Suggests. It is replaced by sessioninfo.
 

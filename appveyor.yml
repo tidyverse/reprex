@@ -13,6 +13,7 @@ install:
 environment:
   NOT_CRAN: true
   USE_RTOOLS: true
+  PKGTYPE: both
 
 cache:
   - C:\RLibrary
