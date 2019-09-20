@@ -90,3 +90,18 @@ test_that("venue = 'html' works", {
   ret <- ret[nzchar(ret)]
   expect_identical(ret, output)
 })
+
+test_that("venue = 'plain-md' has no md syntax indicator nor ad by default", {
+  skip_on_cran()
+  input <- c(
+    "#' Hello world",
+    "## comment",
+    "1:5"
+  )
+  ret <- reprex(input = input, venue = "plain-md", show = FALSE)
+  expect_equal(sum(grepl(x=ret, pattern='```')), 2)
+  expect_true(!any(grepl(x=ret, pattern='```.+r')))
+  expect_true(!any(grepl(x=ret, pattern='<sup>Created on.+by the.+/sup')))
+  ret <- reprex(input = input, venue = "plain-md", show = FALSE, advertise = TRUE)
+  expect_true(any(grepl(x=ret, pattern='<sup>Created on.+by the.+/sup')))
+})

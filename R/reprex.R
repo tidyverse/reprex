@@ -77,6 +77,11 @@
 #' * "ds" for Discourse, e.g.,
 #'   [community.rstudio.com](https://community.rstudio.com). Note: this is
 #'   currently just an alias for "gh".
+#' * "plain-md" for simple, plain markdown without the `r` syntax highlighting
+#'   indicator on the opening backticks of fenced code blocks, and without the
+#'   advertising footer; useful anywhere plain simple
+#'   markdown is desired, but particularly useful for pasting inline within
+#'   Slack posts (as opposed to snippets).
 #' @param advertise Logical. Whether to include a footer that describes when and
 #'   how the reprex was created. If unspecified, the option `reprex.advertise`
 #'   is consulted and, if that is not defined, default is `TRUE` for venues
@@ -237,7 +242,7 @@
 #' @export
 reprex <- function(x = NULL,
                    input = NULL, outfile = NULL,
-                   venue = c("gh", "r", "rtf", "html", "so", "ds"),
+                   venue = c("gh", "r", "rtf", "html", "so", "ds", "plain-md"),
 
                    render = TRUE,
 
@@ -257,6 +262,13 @@ reprex <- function(x = NULL,
 
   advertise       <- advertise %||%
     getOption("reprex.advertise") %||% (venue %in% c("gh", "html"))
+
+  remove_md_syntax_indicator <- FALSE
+  if (venue=='plain-md') {
+    remove_md_syntax_indicator <- TRUE
+    venue <- 'gh'
+  }
+
   si              <- arg_option(si)
   style           <- arg_option(style)
   show            <- arg_option(show)
@@ -312,6 +324,13 @@ reprex <- function(x = NULL,
 
   message("Rendering reprex...")
   reprex_render(r_file, std_file)
+
+  if (remove_md_syntax_indicator) {
+    md_lines <- readLines(files[['md_file']])
+    md_lines <- gsub(x=md_lines, pattern='``` r', replacement='```')
+    writeLines(md_lines, files[['md_file']])
+  }
+
   ## 1. when venue = "r" or "rtf", the reprex_file != md_file, so we need both
   ## 2. use our own "md_file" instead of the normalized, absolutized path
   ##    returned by rmarkdown::render() and, therefore, reprex_()

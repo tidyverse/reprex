@@ -5,9 +5,9 @@
 \title{Render a reprex}
 \usage{
 reprex(x = NULL, input = NULL, outfile = NULL, venue = c("gh", "r",
-  "rtf", "html", "so", "ds"), render = TRUE, advertise = NULL,
-  si = opt(FALSE), style = opt(FALSE), show = opt(TRUE),
-  comment = opt("#>"), tidyverse_quiet = opt(TRUE),
+  "rtf", "html", "so", "ds", "plain-md"), render = TRUE,
+  advertise = NULL, si = opt(FALSE), style = opt(FALSE),
+  show = opt(TRUE), comment = opt("#>"), tidyverse_quiet = opt(TRUE),
   std_out_err = opt(FALSE))
 }
 \arguments{
@@ -44,6 +44,11 @@ support CommonMark-style fenced code blocks in January 2019.
 \item "ds" for Discourse, e.g.,
 \href{https://community.rstudio.com}{community.rstudio.com}. Note: this is
 currently just an alias for "gh".
+\item "plain-md" for simple, plain markdown without the \code{r} syntax highlighting
+indicator on the opening backticks of fenced code blocks, and without the
+advertising footer; useful anywhere plain simple
+markdown is desired, but particularly useful for pasting inline within
+Slack posts (as opposed to snippets).
 }}
 
 \item{render}{Logical. Whether to call \code{\link[rmarkdown:render]{rmarkdown::render()}} on the templated
