@@ -8,21 +8,31 @@
 
 <title>Render a reprex — reprex • reprex</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -32,7 +42,6 @@
 
 
 <meta property="og:title" content="Render a reprex — reprex" />
-
 <meta property="og:description" content="Run a bit of R code using rmarkdown::render() and write the rendered result
 to user's clipboard. The goal is to make it easy to share a small
 reproducible example (&quot;reprex&quot;), e.g., in a GitHub issue. Reprex source can
@@ -42,33 +51,27 @@ read from current selection or active document in RStudio
 (with reprex_addin())
 provided directly as expression, character vector, or string
 read from file
-" />
 
-<meta property="og:description" content="reprex can also be used for syntax highlighting (with or without rendering);
+
+reprex can also be used for syntax highlighting (with or without rendering);
 see below for more." />
-
 <meta property="og:image" content="https://reprex.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
 
+
 <!-- mathjax -->
-<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<!-- google analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
-<script>
- window.dataLayer = window.dataLayer || [];
- function gtag(){dataLayer.push(arguments);}
- gtag('js', new Date());
 
- gtag('config', 'UA-115082821-1');
-</script>
+
   </head>
 
   <body>
@@ -120,6 +123,9 @@ see below for more." />
       <a href="../articles/articles/rtf.html">reprex venue RTF</a>
     </li>
     <li>
+      <a href="../articles/articles/suppress-startup-messages.html">Suppress package startup messages</a>
+    </li>
+    <li>
       <a href="../articles/reprex-dos-and-donts.html">Reprex do's and don'ts</a>
     </li>
   </ul>
@@ -129,7 +135,7 @@ see below for more." />
 </li>
         <li>
   <a href="https://github.com/tidyverse/reprex">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -140,6 +146,7 @@ see below for more." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -151,8 +158,7 @@ see below for more." />
     </div>
 
     <div class="ref-description">
-    
-    <p>Run a bit of R code using <code><a href='https://www.rdocumentation.org/packages/rmarkdown/topics/render'>rmarkdown::render()</a></code> and write the rendered result
+    <p>Run a bit of R code using <code><a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>rmarkdown::render()</a></code> and write the rendered result
 to user's clipboard. The goal is to make it easy to share a small
 reproducible example ("reprex"), e.g., in a GitHub issue. Reprex source can
 be</p><ul>
@@ -163,17 +169,25 @@ be</p><ul>
 <li><p>read from file</p></li>
 </ul>
 
-    <p>reprex can also be used for syntax highlighting (with or without rendering);
+<p>reprex can also be used for syntax highlighting (with or without rendering);
 see below for more.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>reprex</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"gh"</span>, <span class='st'>"r"</span>,
-  <span class='st'>"rtf"</span>, <span class='st'>"html"</span>, <span class='st'>"so"</span>, <span class='st'>"ds"</span>), <span class='kw'>render</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>advertise</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>si</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>FALSE</span>), <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>FALSE</span>), <span class='kw'>show</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>TRUE</span>),
-  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='st'>"#&gt;"</span>), <span class='kw'>tidyverse_quiet</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>TRUE</span>),
-  <span class='kw'>std_out_err</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>FALSE</span>))</pre>
-    
+    <pre class="usage"><span class='fu'>reprex</span>(
+  <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"gh"</span>, <span class='st'>"r"</span>, <span class='st'>"rtf"</span>, <span class='st'>"html"</span>, <span class='st'>"so"</span>, <span class='st'>"ds"</span>),
+  <span class='kw'>render</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>advertise</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>si</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>FALSE</span>),
+  <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>FALSE</span>),
+  <span class='kw'>show</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>TRUE</span>),
+  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='st'>"#&gt;"</span>),
+  <span class='kw'>tidyverse_quiet</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>TRUE</span>),
+  <span class='kw'>std_out_err</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>FALSE</span>)
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -196,7 +210,7 @@ assumed to hold reprex code as character vector.</p></td>
 like <code>foo_reprex.R</code>, <code>foo_reprex.md</code>, and, if <code>venue = "r"</code>,
 <code>foo_rendered.R</code>. If <code>outfile = NA</code>, expect output files in
 a location and with basename derived from <code>input</code>, if sensible, or in
-current working directory with basename derived from <code><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile()</a></code>
+current working directory with basename derived from <code><a href='https://rdrr.io/r/base/tempfile.html'>tempfile()</a></code>
 otherwise.</p></td>
     </tr>
     <tr>
@@ -221,7 +235,7 @@ currently just an alias for "gh".</p></li>
     </tr>
     <tr>
       <th>render</th>
-      <td><p>Logical. Whether to call <code><a href='https://www.rdocumentation.org/packages/rmarkdown/topics/render'>rmarkdown::render()</a></code> on the templated
+      <td><p>Logical. Whether to call <code><a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>rmarkdown::render()</a></code> on the templated
 reprex, i.e. whether to actually run the code. Defaults to <code>TRUE</code>. Exists
 primarily for the sake of internal testing.</p></td>
     </tr>
@@ -234,14 +248,14 @@ is consulted and, if that is not defined, default is <code>TRUE</code> for venue
     </tr>
     <tr>
       <th>si</th>
-      <td><p>Logical. Whether to include <code><a href='https://www.rdocumentation.org/packages/sessioninfo/topics/session_info'>sessioninfo::session_info()</a></code>, if
-available, or <code><a href='https://www.rdocumentation.org/packages/utils/topics/sessionInfo'>sessionInfo()</a></code> at the end of the reprex. When <code>venue</code> is
+      <td><p>Logical. Whether to include <code><a href='https://rdrr.io/pkg/sessioninfo/man/session_info.html'>sessioninfo::session_info()</a></code>, if
+available, or <code><a href='https://rdrr.io/r/utils/sessionInfo.html'>sessionInfo()</a></code> at the end of the reprex. When <code>venue</code> is
 "gh", the session info is wrapped in a collapsible details tag. Read more
 about <code><a href='opt.html'>opt()</a></code>.</p></td>
     </tr>
     <tr>
       <th>style</th>
-      <td><p>Logical. Whether to style code with <code><a href='https://www.rdocumentation.org/packages/styler/topics/style_text'>styler::style_text()</a></code>.
+      <td><p>Logical. Whether to style code with <code><a href='https://rdrr.io/pkg/styler/man/style_text.html'>styler::style_text()</a></code>.
 Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
     </tr>
     <tr>
@@ -264,22 +278,22 @@ for the tidyverse package. Read more about <code><a href='opt.html'>opt()</a></c
       <th>std_out_err</th>
       <td><p>Logical. Whether to append a section for output sent to
 stdout and stderr by the reprex rendering process. This can be necessary to
-reveal output if the reprex spawns child processes or <code><a href='https://www.rdocumentation.org/packages/base/topics/system'>system()</a></code> calls.
+reveal output if the reprex spawns child processes or <code><a href='https://rdrr.io/r/base/system.html'>system()</a></code> calls.
 Note this cannot be properly interleaved with output from the main R
 process, nor is there any guarantee that the lines from standard output and
-standard error are in correct chronological order. See <code><a href='https://www.rdocumentation.org/packages/callr/topics/r'>callr::r()</a></code> for
+standard error are in correct chronological order. See <code><a href='https://rdrr.io/pkg/callr/man/r.html'>callr::r()</a></code> for
 more. Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Character vector of rendered reprex, invisibly.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     
-    <p>The usual "code + commented output" is returned invisibly, put on the
+
+<p>The usual "code + commented output" is returned invisibly, put on the
 clipboard, and written to file. An HTML preview displays in RStudio's Viewer
 pane, if available, or in the default browser, otherwise. Leading <code>"&gt; "</code>
 prompts, are stripped from the input code. Read more at
@@ -289,7 +303,7 @@ prompts, are stripped from the input code. Read more at
 <code>error = TRUE</code>. Note that <code>error = TRUE</code>, because a common use case is bug
 reporting.</p></li>
 <li><p>reprex also sets knitr's <code>upload.fun</code>. It defaults to
-<code><a href='https://www.rdocumentation.org/packages/knitr/topics/imgur_upload'>knitr::imgur_upload()</a></code> so figures produced by the reprex appear properly
+<code><a href='https://rdrr.io/pkg/knitr/man/imgur_upload.html'>knitr::imgur_upload()</a></code> so figures produced by the reprex appear properly
 on GitHub, Stack Overflow, or Discourse. Note that this function requires
 the packages httr &amp; xml2 or RCurl &amp; XML, depending on your knitr version.
 When <code>venue = "r"</code>, <code>upload.fun</code> is set to <code>identity</code>, so that figures
@@ -297,11 +311,12 @@ remain local. In that case, you may also want to set <code>outfile</code>.
 You can supplement or override these options with special comments in your
 code (see examples).</p></li>
 </ul>
-    
+
     <h2 class="hasAnchor" id="syntax-highlighting"><a class="anchor" href="#syntax-highlighting"></a>Syntax highlighting</h2>
 
     
-    <p>A secondary use case for reprex is to produce syntax highlighted code
+
+<p>A secondary use case for reprex is to produce syntax highlighted code
 snippets, with or without rendering, to paste into presentation software,
 such as Keynote or PowerPoint. Use <code>venue = "rtf"</code>.</p>
 <p>This feature is experimental and currently rather limited. It probably only
@@ -310,19 +325,18 @@ works on macOS and requires the installation of the
 command line tool, which can be installed via
 <a href='https://formulae.brew.sh/formula/highlight'>homebrew</a>. This venue is
 discussed in <a href='https://reprex.tidyverse.org/articles/articles/rtf.html'>an article</a></p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'># put some code like this on the clipboard</span>
 <span class='co'># (y &lt;- 1:4)</span>
 <span class='co'># mean(y)</span>
 <span class='fu'>reprex</span>()
 
 <span class='co'># provide code as an expression</span>
-<span class='fu'>reprex</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Binomial'>rbinom</a></span>(<span class='fl'>3</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>prob</span> <span class='kw'>=</span> <span class='fl'>0.5</span>))
-<span class='fu'>reprex</span>({<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>4</span>; <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='no'>y</span>)})
-<span class='fu'>reprex</span>({<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>4</span>; <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='no'>y</span>)}, <span class='kw'>style</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>reprex</span>(<span class='fu'><a href='https://rdrr.io/r/stats/Binomial.html'>rbinom</a></span>(<span class='fl'>3</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>prob</span> <span class='kw'>=</span> <span class='fl'>0.5</span>))
+<span class='fu'>reprex</span>({<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>4</span>; <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>y</span>)})
+<span class='fu'>reprex</span>({<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>4</span>; <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>y</span>)}, <span class='kw'>style</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># note that you can include newlines in those brackets</span>
 <span class='co'># in fact, that is often a good idea</span>
@@ -333,22 +347,22 @@ discussed in <a href='https://reprex.tidyverse.org/articles/articles/rtf.html'>a
 })
 
 <span class='co'>## provide code via character vector</span>
-<span class='fu'>reprex</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"x &lt;- 1:4"</span>, <span class='st'>"y &lt;- 2:5"</span>, <span class='st'>"x + y"</span>))
+<span class='fu'>reprex</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x &lt;- 1:4"</span>, <span class='st'>"y &lt;- 2:5"</span>, <span class='st'>"x + y"</span>))
 
 <span class='co'>## if just one line, terminate with '\n'</span>
 <span class='fu'>reprex</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='st'>"rnorm(3)\n"</span>)
 
 <span class='co'>## customize the output comment prefix</span>
-<span class='fu'>reprex</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Binomial'>rbinom</a></span>(<span class='fl'>3</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>prob</span> <span class='kw'>=</span> <span class='fl'>0.5</span>), <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>"#;-)"</span>)
+<span class='fu'>reprex</span>(<span class='fu'><a href='https://rdrr.io/r/stats/Binomial.html'>rbinom</a></span>(<span class='fl'>3</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>prob</span> <span class='kw'>=</span> <span class='fl'>0.5</span>), <span class='kw'>comment</span> <span class='kw'>=</span> <span class='st'>"#;-)"</span>)
 
 <span class='co'># override a default chunk option</span>
 <span class='fu'>reprex</span>({
   <span class='co'>#+ setup, include = FALSE</span>
-  <span class='kw pkg'>knitr</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/knitr/topics/opts_chunk'>opts_chunk</a></span>$<span class='fu'>set</span>(<span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='kw pkg'>knitr</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/knitr/man/opts_chunk.html'>opts_chunk</a></span>$<span class='fu'>set</span>(<span class='kw'>collapse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
   <span class='co'>#+ actual-reprex-code</span>
   (<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>4</span>)
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/median'>median</a></span>(<span class='no'>y</span>)
+  <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span>(<span class='no'>y</span>)
 })
 
 <span class='co'># add prose, use general markdown formatting</span>
@@ -358,51 +372,51 @@ discussed in <a href='https://reprex.tidyverse.org/articles/articles/rtf.html'>a
   <span class='co'>#' Look at my cute example. I love the</span>
   <span class='co'>#' [reprex](https://github.com/tidyverse/reprex#readme) package!</span>
   <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>4</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='no'>y</span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>y</span>)
 }, <span class='kw'>advertise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='co'># read reprex from file</span>
-<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>(), <span class='st'>"foofy.R"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/writeLines'>writeLines</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"x &lt;- 1:4"</span>, <span class='st'>"mean(x)"</span>), <span class='no'>tmp</span>)
+<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='st'>"foofy.R"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x &lt;- 1:4"</span>, <span class='st'>"mean(x)"</span>), <span class='no'>tmp</span>)
 <span class='fu'>reprex</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='no'>tmp</span>)
 
 <span class='co'># read from file and write to similarly-named outfiles</span>
 <span class='fu'>reprex</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='no'>tmp</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list.files'>list.files</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/basename'>dirname</a></span>(<span class='no'>tmp</span>), <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"foofy"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>tmp</span>), <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"foofy"</span>)
 
 <span class='co'># clean up</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/files'>file.remove</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list.files'>list.files</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/basename'>dirname</a></span>(<span class='no'>tmp</span>), <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"foofy"</span>, <span class='kw'>full.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>tmp</span>), <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"foofy"</span>, <span class='kw'>full.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
 
 <span class='co'># write rendered reprex to file</span>
-<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>(), <span class='st'>"foofy"</span>)
+<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='st'>"foofy"</span>)
 <span class='fu'>reprex</span>({
   <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>4</span>
   <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>:<span class='fl'>5</span>
   <span class='no'>x</span> + <span class='no'>y</span>
 }, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='no'>tmp</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list.files'>list.files</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/basename'>dirname</a></span>(<span class='no'>tmp</span>), <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"foofy"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>tmp</span>), <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"foofy"</span>)
 
 <span class='co'># clean up</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/files'>file.remove</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list.files'>list.files</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/basename'>dirname</a></span>(<span class='no'>tmp</span>), <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"foofy"</span>, <span class='kw'>full.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>tmp</span>), <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"foofy"</span>, <span class='kw'>full.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
 
 <span class='co'># write reprex to file AND keep figure local too, i.e. don't post to imgur</span>
-<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>(), <span class='st'>"foofy"</span>)
+<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='st'>"foofy"</span>)
 <span class='fu'>reprex</span>({
   <span class='co'>#+ setup, include = FALSE</span>
-  <span class='kw pkg'>knitr</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/knitr/topics/opts_knit'>opts_knit</a></span>$<span class='fu'>set</span>(<span class='kw'>upload.fun</span> <span class='kw'>=</span> <span class='no'>identity</span>)
+  <span class='kw pkg'>knitr</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/knitr/man/opts_knit.html'>opts_knit</a></span>$<span class='fu'>set</span>(<span class='kw'>upload.fun</span> <span class='kw'>=</span> <span class='no'>identity</span>)
 
   <span class='co'>#+ actual-reprex-code</span>
   <span class='co'>#' Some prose</span>
   <span class='co'>## regular comment</span>
   (<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>4</span>)
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/median'>median</a></span>(<span class='no'>x</span>)
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>x</span>)
+  <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span>(<span class='no'>x</span>)
+  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>x</span>)
   }, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='no'>tmp</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list.files'>list.files</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/basename'>dirname</a></span>(<span class='no'>tmp</span>), <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"foofy"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>tmp</span>), <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"foofy"</span>)
 
 <span class='co'># clean up</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/unlink'>unlink</a></span>(
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list.files'>list.files</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/basename'>dirname</a></span>(<span class='no'>tmp</span>), <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"foofy"</span>, <span class='kw'>full.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
+<span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span>(
+  <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>tmp</span>), <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"foofy"</span>, <span class='kw'>full.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
   <span class='kw'>recursive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )
 
@@ -426,7 +440,7 @@ discussed in <a href='https://reprex.tidyverse.org/articles/articles/rtf.html'>a
 <span class='co'>## use this when you want to make your code hard to execute :)</span>
 <span class='fu'>reprex</span>({
   <span class='co'>#+ setup, include = FALSE</span>
-  <span class='kw pkg'>knitr</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/knitr/topics/opts_chunk'>opts_chunk</a></span>$<span class='fu'>set</span>(<span class='kw'>comment</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>prompt</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  <span class='kw pkg'>knitr</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/knitr/man/opts_chunk.html'>opts_chunk</a></span>$<span class='fu'>set</span>(<span class='kw'>comment</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>prompt</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
   <span class='co'>#+ actual-reprex-code</span>
   <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>4</span>
@@ -435,26 +449,22 @@ discussed in <a href='https://reprex.tidyverse.org/articles/articles/rtf.html'>a
 })
 
 <span class='co'>## leading prompts are stripped from source</span>
-<span class='fu'>reprex</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"&gt; x &lt;- 1:3"</span>, <span class='st'>"&gt; median(x)"</span>))
-<span class='co'># }</span><div class='input'>
-</div></pre>
+<span class='fu'>reprex</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"&gt; x &lt;- 1:3"</span>, <span class='st'>"&gt; median(x)"</span>))
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#syntax-highlighting">Syntax highlighting</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="tidyverse">
@@ -467,11 +477,14 @@ discussed in <a href='https://reprex.tidyverse.org/articles/articles/rtf.html'>a
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

@@ -1,11 +1,12 @@
 pandoc: '2.2'
-pkgdown: 1.3.0
+pkgdown: 1.4.1
 pkgdown_sha: ~
 articles:
   datapasta-reprex: articles/datapasta-reprex.html
   learn-reprex: articles/learn-reprex.html
   magic-reprex: articles/magic-reprex.html
   rtf: articles/rtf.html
+  suppress-startup-messages: articles/suppress-startup-messages.html
   reprex-dos-and-donts: reprex-dos-and-donts.html
 urls:
   reference: https://reprex.tidyverse.org/reference

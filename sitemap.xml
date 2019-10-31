@@ -34,6 +34,9 @@
     <loc>https://reprex.tidyverse.org/articles/articles/rtf.html</loc>
   </url>
   <url>
+    <loc>https://reprex.tidyverse.org/articles/articles/suppress-startup-messages.html</loc>
+  </url>
+  <url>
     <loc>https://reprex.tidyverse.org/articles/reprex-dos-and-donts.html</loc>
   </url>
 </urlset>
