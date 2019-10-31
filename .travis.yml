@@ -1,7 +1,7 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
 language: R
-sudo: false
+cran: https://demo.rstudiopm.com/all/__linux__/xenial/latest
 cache: packages
 
 addons:
