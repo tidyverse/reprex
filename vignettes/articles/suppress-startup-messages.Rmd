@@ -123,8 +123,15 @@ slice(iris, 1)
 
 The `reprex::reprex()` function has a `tidyverse_quiet` argument that defaults to `TRUE`. If your reprex uses one or more tidyverse packages, consider attaching the tidyverse metapackage, instead of individual packages, in order to enjoy a quiet startup.
 
-```{r, R.options = list(tidyverse.quiet = TRUE)}
+<!-- faking this so I don't have to install tidyverse just for pkgdown -->
+```{r eval = FALSE}
 library(tidyverse) # instead of library(dplyr)
+
+slice(iris, 1)
+```
+
+```{r echo = FALSE}
+suppressPackageStartupMessages(library(dplyr))
 
 slice(iris, 1)
 ```
