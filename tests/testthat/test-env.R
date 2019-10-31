@@ -15,7 +15,7 @@ test_that("reprex doesn't write into environment of caller", {
   expect_identical(z, "don't touch me")
 
   ## concrete example I have suffered from:
-  ## assign object to name of object inside reprex_()
+  ## assign object to name of object inside reprex_impl()
   expect_match(reprex(r_file <- 0L, show = FALSE), "r_file <- 0L", all = FALSE)
 })
 
