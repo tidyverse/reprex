@@ -9,14 +9,12 @@ addons:
     packages:
       - xsel
 
-before_script:
-  - sh -e /etc/init.d/xvfb start
-  - sleep 3
-
 env:
   global:
-    - DISPLAY=:99.0
     - _R_CHECK_FORCE_SUGGESTS_=false
+
+services:
+  - xvfb
 
 matrix:
   include:
