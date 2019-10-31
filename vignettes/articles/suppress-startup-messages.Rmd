@@ -14,23 +14,27 @@ knitr::opts_chunk$set(
 )
 ```
 
-Sometimes your reprex uses packages that emit messages and warnings at startup. In general, these are worth reading! They can alert you to the root cause of your problem, such as a function in one package masking a function in another. But in many cases, this is just distracting, startup noise.
+Sometimes your reprex uses packages that emit messages and warnings at startup (dplyr is a very common culprit). In general, these are worth reading! They can alert you to the root cause of your problem, such as a function in one package masking a function in another. But in many cases, this is just distracting, startup noise.
 
 How can you silence this chatter, specifically? We don't want to suppress messages and warnings, in general, because they are an important part of the reprex.
 
 ## TL;DR
 
-Here's a preview of various techniques. More details are below.
+Here's a quick look at various techniques. They are described in more detail below.
 
-There are a few ways to call `library()` that make it quieter.
+Call `library()` with `warn.conflicts = FALSE`.
 
 ```{r, eval = FALSE}
 library(dplyr, warn.conflicts = FALSE)
-# or
+```
+
+Surround a chatty `library()` call with `suppressPackageStartupMessages()`.
+
+```{r, eval = FALSE}
 suppressPackageStartupMessages(library(dplyr))
 ```
 
-Use special `#+` comments to break your reprex into "chunks", in the `.Rmd` sense, and use chunk options to muffle the chunk with `library()` calls. The second `#+` comment is very important!
+Break your reprex into "chunks", in the `.Rmd` sense, and use a special `#+` comment to silence messages and/or warnings for the chunk that holds a chatty `library()` call. Note that the second `#+` comment is very important, so you don't silence messages and warnings for the entire reprex.
 
 ```{r, eval = FALSE}
 #+ message = FALSE, warning = FALSE
@@ -115,7 +119,7 @@ message("You can hear me!")
 slice(iris, 1)
 ```
 
-## Special relationship between the reprex and tidyverse packages
+## reprex knows about `tidyverse_quiet`
 
 The `reprex::reprex()` function has a `tidyverse_quiet` argument that defaults to `TRUE`. If your reprex uses one or more tidyverse packages, consider attaching the tidyverse metapackage, instead of individual packages, in order to enjoy a quiet startup.
 

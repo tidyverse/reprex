@@ -28,7 +28,9 @@ matrix:
       after_failure:
       - find . -name testthat.Rout | xargs cat
       before_cache:
-      - Rscript -e 'remotes::install_cran("pkgdown")' -e 'remotes::install_github("tidyverse/tidytemplate")'
+      - Rscript -e 'remotes::install_cran("pkgdown")'
+      - Rscript -e 'remotes::install_github("tidyverse/tidytemplate")'
+      - Rscript -e 'remotes::install_cran("dplyr")'
       deploy:
         provider: script
         script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE)'
