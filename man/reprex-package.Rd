@@ -6,7 +6,7 @@
 \alias{_PACKAGE}
 \title{reprex: Prepare Reproducible Example Code via the Clipboard}
 \description{
-\if{html}{\figure{logo.png}{options: align='right'}}
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
 Convenience wrapper that uses the 'rmarkdown' package to render
   small snippets of code to target formats that include both code and output.
@@ -27,13 +27,13 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Jennifer Bryan \email{jenny@rstudio.com} (0000-0002-6983-2759)
+\strong{Maintainer}: Jennifer Bryan \email{jenny@rstudio.com} (\href{https://orcid.org/0000-0002-6983-2759}{ORCID})
 
 Authors:
 \itemize{
-  \item Jim Hester \email{james.hester@rstudio.com} (0000-0002-2739-7082)
+  \item Jim Hester \email{james.hester@rstudio.com} (\href{https://orcid.org/0000-0002-2739-7082}{ORCID})
   \item David Robinson \email{admiral.david@gmail.com}
-  \item Hadley Wickham \email{hadley@rstudio.com} (0000-0003-4757-117X)
+  \item Hadley Wickham \email{hadley@rstudio.com} (\href{https://orcid.org/0000-0003-4757-117X}{ORCID})
 }
 
 Other contributors:
