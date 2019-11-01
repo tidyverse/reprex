@@ -1,5 +1,3 @@
-context("knitr options")
-
 test_that("`comment` works", {
   skip_on_cran()
   src <- c(
