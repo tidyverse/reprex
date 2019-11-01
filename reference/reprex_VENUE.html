@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • reprex</title>
+<title>Venue-specific shortcuts — reprex_venue • reprex</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -41,7 +41,9 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Venue-specific shortcuts — reprex_venue" />
+<meta property="og:description" content="These are thin wrappers around reprex() that incorporate the target venue
+as a suffix in the function name, for easier access via auto-completion." />
 <meta property="og:image" content="https://reprex.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -62,7 +64,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -137,72 +139,41 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Venue-specific shortcuts</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/reprex/blob/master/R/venues.R'><code>R/venues.R</code></a></small>
+    <div class="hidden name"><code>reprex_VENUE.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>These are thin wrappers around <code><a href='reprex.html'>reprex()</a></code> that incorporate the target <code>venue</code>
+as a suffix in the function name, for easier access via auto-completion.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>reprex_html</span>(<span class='no'>...</span>)
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="opt.html">opt</a></code> </p>
-        </td>
-        <td><p>Consult an option, then default</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="reprex.html">reprex()</a></code> </p>
-        </td>
-        <td><p>Render a reprex</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="reprex_VENUE.html">reprex_html()</a></code> <code><a href="reprex_VENUE.html">reprex_r()</a></code> <code><a href="reprex_VENUE.html">reprex_rtf()</a></code> </p>
-        </td>
-        <td><p>Venue-specific shortcuts</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="reprex_addin.html">reprex_addin()</a></code> <code><a href="reprex_addin.html">reprex_selection()</a></code> </p>
-        </td>
-        <td><p>Render a reprex</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="reprex_locale.html">reprex_locale()</a></code> </p>
-        </td>
-        <td><p>Render a reprex in a specific locale</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="un-reprex.html">reprex_invert()</a></code> <code><a href="un-reprex.html">reprex_clean()</a></code> <code><a href="un-reprex.html">reprex_rescue()</a></code> </p>
-        </td>
-        <td><p>Un-render a reprex</p></td>
-      </tr>
-    </tbody>
+<span class='fu'>reprex_r</span>(<span class='no'>...</span>)
+
+<span class='fu'>reprex_rtf</span>(<span class='no'>...</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>...</th>
+      <td><p>Passed along to <code><a href='reprex.html'>reprex()</a></code>.</p></td>
+    </tr>
     </table>
-  </div>
 
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#arguments">Arguments</a></li>
     </ul>
+
   </div>
 </div>
 
