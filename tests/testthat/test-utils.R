@@ -1,5 +1,3 @@
-context("utils")
-
 test_that("locate_input() works", {
   expect_identical("clipboard", locate_input(NULL))
   expect_identical("path", locate_input(path_temp()))

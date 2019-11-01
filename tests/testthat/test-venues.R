@@ -1,5 +1,3 @@
-context("venues")
-
 test_that("venue = 'gh' works with/without leading prose", {
   skip_on_cran()
   input <- c(

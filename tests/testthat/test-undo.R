@@ -1,5 +1,3 @@
-context("undo")
-
 ## intentionally forcing continuation lines
 input <- c(
   "## a comment",

@@ -1,5 +1,3 @@
-context("environments")
-
 test_that("can't see environment of caller", {
   skip_on_cran()
   z <- "don't touch me"

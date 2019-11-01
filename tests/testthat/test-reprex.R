@@ -1,5 +1,3 @@
-context("reprex")
-
 ## https://github.com/tidyverse/reprex/issues/152
 test_that("keep.source is TRUE inside the reprex()", {
   skip_on_cran()

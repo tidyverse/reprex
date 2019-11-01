@@ -1,5 +1,3 @@
-context("test-filepaths")
-
 test_that("make_filebase() defaults to 'reprex' inside a dir inside tempdir", {
   x <- make_filebase(outfile = NULL, infile = NULL)
   expect_equal(fs::path_file(x), "reprex")

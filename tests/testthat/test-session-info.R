@@ -1,5 +1,3 @@
-context("session info")
-
 test_that("session info is omitted / included", {
   skip_on_cran()
   if (rlang::is_installed("sessioninfo")) {
