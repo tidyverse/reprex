@@ -1,6 +1,6 @@
 # reprex (development version)
 
-* `reprex_VENUE(...)` is a new way to call `reprex(..., venue = "VENUE")`. For example, `reprex_r()` is equivalent to `reprex(venue = "r")`. This makes non-default venues easier to access via auto-completion (#ijk).
+* `reprex_VENUE(...)` is a new way to call `reprex(..., venue = "VENUE")`. For example, `reprex_r()` is equivalent to `reprex(venue = "r")`. This makes non-default venues easier to access via auto-completion (#256).
 
 * `prex()` and `prex_VENUE()` are new **unexported** functions that, like `reprex()`, render a small bit of code, but with less reproducibility! The code is evaluated in the global workspace of the current process, with the current working directory. This pragmatic hack is useful when preparing a series of related snippets, e.g., for a Keynote or PowerPoint presentation, and there's not enough space to make each one self-contained.
 
