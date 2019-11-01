@@ -1,13 +1,16 @@
 # reprex (development version)
 
+* `reprex_VENUE(...)` is a new way to call `reprex(..., venue = "VENUE")`. For example, `reprex_r()` is equivalent to `reprex(venue = "r")`. This makes non-default venues easier to access via auto-completion (#256).
+
+* `prex()` and `prex_VENUE()` are new **unexported** functions that, like `reprex()`, render a small bit of code, but with less reproducibility! The code is evaluated in the global workspace of the current process, with the current working directory. This pragmatic hack is useful when preparing a series of related snippets, e.g., for a Keynote or PowerPoint presentation, and there's not enough space to make each one self-contained.
+
 * New article on techniques for making package startup quieter (#187, @marionlouveaux).
 
 * `reprex_locale()` is a new thin wrapper around `reprex()` that renders in a temporarily-altered locale (#250).
 
 * UTF-8 encoding: Following the lead of knitr, reprex makes explicit use of UTF-8 internally (#237 @krlmlr, #261).
 
-* `venue = "so"` (SO = Stack Overflow) has converged with default `venue = "gh"` (GitHub). As of January 2019, SO [supports CommonMark fenced code blocks](https://meta.stackexchange.com/questions/125148/implement-style-fenced-markdown-code-blocks/322000#322000). The only remaining difference is that Stack
-Overflow does not support the collapsible details tag that we use on GitHub for the session info requested via `si = TRUE` (#231).
+* `venue = "so"` (SO = Stack Overflow) has converged with default `venue = "gh"` (GitHub). As of January 2019, SO [supports CommonMark fenced code blocks](https://meta.stackexchange.com/questions/125148/implement-style-fenced-markdown-code-blocks/322000#322000). The only remaining difference is that Stack Overflow does not support the collapsible details tag that we use on GitHub for the session info requested via `si = TRUE` (#231).
 
 ## Dependency changes
 
