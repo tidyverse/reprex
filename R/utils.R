@@ -113,3 +113,15 @@ collapse <- function(x, sep = "\n") {
 backtick <- function(x) encodeString(x, quote = "`")
 
 newline <- function(x) paste0(x, "\n")
+
+jira_requires_pandoc_2_7_3 <- function(venue) {
+  # jira support for pandoc conversion was added in version 2.7.3
+  if (venue == "jira" && !rmarkdown::pandoc_available("2.7.3")) {
+    stop(
+      "Pandoc version ", rmarkdown::pandoc_version(), " is found.\n",
+      "`venue = \"jira\"` requires pandoc 2.7.3 or later.",
+      call. = FALSE
+    )
+  }
+  invisible(venue)
+}

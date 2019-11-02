@@ -18,6 +18,7 @@ reprex_impl <- function(x_expr = NULL,
   venue <- ds_is_gh(venue)
   venue <- so_is_gh(venue)
   venue <- rtf_requires_highlight(venue)
+  venue <- jira_requires_pandoc_2_7_3(venue)
 
   advertise       <- advertise %||%
     getOption("reprex.advertise") %||% (venue %in% c("gh", "html", "jira"))
@@ -111,14 +112,6 @@ reprex_impl <- function(x_expr = NULL,
 
   if (venue == "jira") {
     jira_file <-  files[["jira_file"]]
-    # jira support for pandoc conversion was added in version 2.7.3
-    if (!rmarkdown::pandoc_available("2.7.3")) {
-      stop(
-        "Pandoc version ", rmarkdown::pandoc_version(), " is found.\n",
-        "`venue = \"jira\"` requires pandoc 2.7.3 or later.",
-        call. = FALSE
-      )
-    }
     rmarkdown::pandoc_convert(md_file, to = "jira", output = jira_file)
     reprex_file <- jira_file
   }
