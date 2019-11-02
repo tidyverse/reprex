@@ -1,13 +1,61 @@
-#' Consult an option, then default
+#' reprex options
 #'
-#' Arguments that appear like so in the usage:
+#' @description
+#' Some [reprex()] behaviour can be controlled via an option, providing a way
+#' for the user to set personal defaults. The pattern for option names is
+#' `reprex.<arg>`, where `<arg>` is an argument of [reprex()]. Here are the main
+#' ones:
+#'   * `reprex.advertise`
+#'   * `reprex.si`
+#'   * `reprex.style`
+#'   * `reprex.show`
+#'   * `reprex.comment`
+#'   * `reprex.tidyverse_quiet`
+#'   * `reprex.std_out_err`
+#'
+#' A few more options exist, but are only consulted in specific situations:
+#'   * `reprex.venue`: Only consulted by [reprex_selection()]. [reprex()]
+#'     itself reveals the possible values for `venue` in the "Usage" section
+#'     of its help file and defaults to the first value, in the usual
+#'     [match.arg()] way.
+#'   * `reprex.highlight.hl_style`: Only relevant to `venue = "rtf`. Details are
+#'     in the article
+#'     [reprex venue RTF](https://reprex.tidyverse.org/articles/articles/rtf.html).
+#'   * `reprex.highlight.font`: See above.
+#'   * `reprex.highlight.font_size`: See above.
+#'   * `reprex.highlight.other`: See above.
+#'
+#' Here's code you could put in `.Rprofile` to set reprex options. It would be
+#' rare to want non-default behaviour for all of these! We only do so here for
+#' the sake of exposition:
 #' ```
-#' f(..., arg = opt(DEFAULT), ...)
+#' options(
+#'   reprex.advertise       = FALSE,
+#'   reprex.si              = TRUE,
+#'   reprex.style           = TRUE,
+#'   reprex.show            = FALSE,
+#'   reprex.comment         = "#;-)",
+#'   reprex.tidyverse_quiet = FALSE,
+#'   reprex.std_out_err     = TRUE,
+#'   reprex.venue           = "html", # NOTE: only affects reprex_selection()!
+#'   reprex.highlight.hl_style  = "darkbone", # NOTE: only affects RTF venue
+#'   reprex.highlight.font      = "Courier",
+#'   reprex.highlight.font_size = 35,
+#'   reprex.highlight.other     = "--line-numbers"
+#' )
 #' ```
+#' The function `usethis::edit_r_profile()` is handy for creating and/or opening
+#' your `.Rprofile`.
+#'
+#' @section Explaining the `opt()` helper:
+#' Arguments that appear like so in [reprex()]:
+#' ```
+#' reprex(..., arg = opt(DEFAULT), ...)
+#' ````
 #' get their value according to this logic:
 #' ```
 #' user-specified value or, if not given,
-#'   getOption("reprex.arg") or if does not exist,
+#'   getOption("reprex.arg") or, if does not exist,
 #'     DEFAULT
 #' ```
 #' It's shorthand for:
@@ -16,21 +64,8 @@
 #' ```
 #' This is not an exported function and should not be called directly.
 #'
-#' Many of the arguments of [reprex()] use `opt()`. If you don't like the
-#' official defaults, override them in your `.Rprofile`. Here's an example for
-#' someone who dislikes the "Created by ..." string, always wants session info,
-#' prefers to restyle their code, uses a winky face comment string, and likes
-#' the tidyverse startup message.
-#' ```
-#' options(
-#'   reprex.advertise = FALSE,
-#'   reprex.si = TRUE,
-#'   reprex.style = TRUE,
-#'   reprex.comment = "#;-)",
-#'   reprex.tidyverse_quiet = FALSE
-#' )
-#' ```
-#' @name opt
+#' @name reprex_options
+#' @aliases opt
 NULL
 
 optionally <- function(x, opt_name = NA_character_) {
