@@ -5,6 +5,7 @@
 \alias{reprex_html}
 \alias{reprex_r}
 \alias{reprex_rtf}
+\alias{reprex_jira}
 \title{Venue-specific shortcuts}
 \usage{
 reprex_html(...)
@@ -12,6 +13,8 @@ reprex_html(...)
 reprex_r(...)
 
 reprex_rtf(...)
+
+reprex_jira(...)
 }
 \arguments{
 \item{...}{Passed along to \code{\link[=reprex]{reprex()}}.}
