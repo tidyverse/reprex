@@ -88,3 +88,25 @@ test_that("venue = 'html' works", {
   ret <- ret[nzchar(ret)]
   expect_identical(ret, output)
 })
+
+test_that("venue = 'jira' works", {
+  skip_on_cran()
+  input <- c(
+    "#' Hello **strong** _world_",
+    "## comment",
+    "1:5",
+    "#' Created with `reprex` package (see [docs](https://reprex.tidyverse.org))"
+  )
+  output <- c(
+    "Hello *strong* _world_",
+    "{code:r}",
+    "## comment",
+    "1:5",
+    "#&gt; [1] 1 2 3 4 5",
+    "{code}",
+    "Created with {{reprex}} package (see [docs|https://reprex.tidyverse.org])"
+  )
+  ret <- reprex(input = input, venue = "jira", show = FALSE, advertise = FALSE)
+  ret <- ret[nzchar(ret)]
+  expect_identical(ret, output)
+})
