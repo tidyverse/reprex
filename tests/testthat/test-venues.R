@@ -106,7 +106,12 @@ test_that("venue = 'jira' works", {
     "{code}",
     "Created with {{reprex}} package (see [docs|https://reprex.tidyverse.org])"
   )
-  ret <- reprex(input = input, venue = "jira", show = FALSE, advertise = FALSE)
-  ret <- ret[nzchar(ret)]
-  expect_identical(ret, output)
+  jira_reprex <- function() reprex(input = input, venue = "jira", show = FALSE, advertise = FALSE)
+  if (rmarkdown::pandoc_available("2.7.3")) {
+    ret <- jira_reprex()
+    ret <- ret[nzchar(ret)]
+    expect_identical(ret, output)
+  } else {
+    expect_error(jira_reprex())
+  }
 })
