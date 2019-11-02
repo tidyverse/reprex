@@ -44,8 +44,8 @@ the sake of exposition:\preformatted{options(
   reprex.tidyverse_quiet = FALSE,
   reprex.std_out_err     = TRUE,
   reprex.venue           = "html", # NOTE: only affects reprex_selection()!
-  reprex.highlight.hl_style  = "darkbone", # NOTE: only affects RTF venue
-  reprex.highlight.font      = "Courier",
+  reprex.highlight.hl_style  = "acid", # NOTE: only affects RTF venue
+  reprex.highlight.font      = "Andale Mono Regular",
   reprex.highlight.font_size = 35,
   reprex.highlight.other     = "--line-numbers"
 )

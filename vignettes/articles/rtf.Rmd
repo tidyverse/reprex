@@ -2,7 +2,7 @@
 title: "reprex venue RTF"
 ---
 
-Use `reprex(venue = "rtf")` to get output in [Rich Text Format](https://en.wikipedia.org/wiki/Rich_Text_Format). This is useful for creating syntax highlighted code snippets -- rendered or not -- to paste into software such as Keynote or PowerPoint.
+Use `reprex_rtf()` or `reprex(venue = "rtf")` to get output in [Rich Text Format](https://en.wikipedia.org/wiki/Rich_Text_Format). This is useful for creating syntax highlighted code snippets -- rendered or not -- to paste into software such as Keynote or PowerPoint.
 
 Why is RTF special? Although Pandoc can produce RTF and, therefore, so can `rmarkdown::render()` and `reprex::reprex()`, Pandoc's syntax highlighting is unavailable for RTF output. For now, we've got to get the functionality from somewhere else. Syntax highlighting is a non-issue for `venue = "gh"` (GitHub) and `venue = "so"` (Stack Overflow), because the target sites take care of that when the Markdown content is displayed.
 
@@ -13,17 +13,17 @@ Why is RTF special? Although Pandoc can produce RTF and, therefore, so can `rmar
 </p>
 
 `reprex(venue = "rtf")` was introduced in v0.2.1 and is experimental. It requires the installation of the
-[highlight](http://www.andre-simon.de/doku/highlight/en/highlight.php) command line tool and has only been tested on macOS. It is useful to me already and accumulating some usage is the best way to figure out how to make it useful to others. It would be preferable to use something like the [highlight package](https://cran.r-project.org/web/packages/highlight/index.html) at some point in the future, but let us experiment with this hack in the meantime.
+[highlight](http://www.andre-simon.de/doku/highlight/en/highlight.php) command line tool and has only been tested on macOS. It is useful to me already and accumulating some usage is the best way to figure out how to make it useful to others. It would be preferable to use something like the [highlight package](https://cran.r-project.org/package=highlight) at some point in the future, but let us experiment with this hack in the meantime.
 
 If you use [homebrew](https://brew.sh), here's an easy way to install highlight from the shell:
 
-```
+```{sh eval = FALSE}
 brew install highlight
 ```
 
-Here is the highlight call implied by the default behaviour of `reprex(..., venue = "rtf")`:
+Here is the highlight call implied by the default behaviour of `reprex_rtf(...)` or `reprex(..., venue = "rtf")`:
 
-```
+```{sh eval = FALSE}
 highlight foo_reprex.R --out-format rtf --no-trailing-nl --encoding=UTF-8 --style darkbone --font 'Courier Regular' --font-size 50 > foo_reprex.rtf
 ```
 
@@ -66,11 +66,11 @@ You could also set options for a specific Project in `.Rprofile` inside the Proj
 
 List available themes:
 
-```
+```{sh eval = FALSE}
 highlight --list-scripts=themes
 ```
 
-Galleries of highlighting styles (likely to overlap with the ones you have):
+But what do these themes *look like*? Here are some galleries that probably have high overlap with your themes:
 
 <http://www.andre-simon.de/doku/highlight/en/theme-samples.php>  
 <https://rclickhandbuch.files.wordpress.com/2014/09/knitrthemesoverview.pdf>
@@ -112,9 +112,9 @@ options(op)
 knitr::include_graphics("img/anotherdark-andale-60-line-numbers.png")
 ```
 
-## Render ... or not
+## Run ... or not
 
-If you just want to highlight code, but not render it, set chunk option `eval = FALSE` option, i.e. put a special comment as the first line of your reprex source:
+If you just want to highlight code, but not run it, set chunk option `eval = FALSE` option, i.e. put a special comment as the first line of your reprex source:
 
 ```{r eval-false, eval = FALSE}
 #+ eval = FALSE
@@ -128,9 +128,88 @@ The above source, when `reprex()`ed, will not include the usual output. This is 
 knitr::include_graphics("img/eval-false.png")
 ```
 
-## How to selectively hide and reveal code
+## What if each snippet can't be self-contained?
 
-When preparing snippets for a presentation, you may not have the luxury of making each snippet completely self-contained. In the future, we may create a way to run the reprex in the current workspace, as opposed to the usual reprex practice of using a separate R process. For now you can use chunk options to selectively hide code, i.e. to run a large snippet, but only include a small bit in the output.
+### `reprex:::prex()` and friends
+
+When preparing bits of code for a presentation, it can be impractical to make each snippet completely self-contained. You really need to run the snippets in the current workspace and session. But `reprex()` does not allow this.
+
+The **unexported** function `prex()` addresses this use case. It's like `reprex()`, but much less reproducible!
+
+  * Code is evaluated in the global environment of the current R session.
+  * Current working directory is used.
+  * `advertise = FALSE` is the default.
+
+`prex()` also has "venue as suffix" variants, so `reprex:::prex_rtf(...)` is short for `reprex:::prex(..., venue = "rtf")`.
+
+This code defines `x` and `y` in the current workspace and writes the file `stuff.txt` to the current working directory.
+
+```{r eval = FALSE}
+x <- 1
+y <- 4
+writeLines("blah blah", file.path(getwd(), "stuff.txt"))
+```
+
+Now we can show the difference between `prex()` and `reprex()`.
+
+```{r eval = FALSE}
+prex({
+  ls()
+  x + y
+  readLines("stuff.txt")  
+})
+```
+
+yields
+
+```{r eval = FALSE}
+ls()
+#> [1] "x" "y"
+x + y
+#> [1] 5
+readLines("stuff.txt")
+#> [1] "blah blah"
+```
+
+`x` and `y` can be found, even though they aren't defined in the snippet, and `stuff.txt` can be read.
+
+This is very different from executing the same code via `reprex()`:
+
+```{r eval = FALSE}
+reprex({
+  ls()
+  x + y
+  readLines("stuff.txt")  
+})
+```
+
+which yields:
+
+```{r eval = FALSE}
+ls()
+#> character(0)
+x + y
+#> Error in eval(expr, envir, enclos): object 'x' not found
+readLines("stuff.txt")
+#> Warning in file(con, "r"): cannot open file 'stuff.txt': No such file or
+#> directory
+#> Error in file(con, "r"): cannot open the connection
+```
+
+`x` and `y` can't be found, because `reprex()` works in a clean session, and `stuff.txt` can't be found, because `reprex()` works in a temp directory, by default.
+
+If you're going to `prex()` a lot, you'll want to do something like this in your `.R` file of snippets or in the project-specific or user-level `.Rprofile`:
+
+```{r eval = FALSE}
+prex <- reprex:::prex
+prex_rtf <- reprex:::prex_rtf
+```
+
+## Selectively hide and reveal code
+
+*Before `prex()` existed, you had to use a more cumbersome technique to produce small snippets, by hiding code. We leave this here in case it is still useful in some situations.*
+
+You can use knitr chunk options to selectively hide code, i.e. to run a large snippet, but only include a small bit in the output.
 
 This is easiest to show by example. If you `reprex()` this code, only the last three lines and their output will appear in the output. But the other lines will be run, i.e. `str_reverse()` will be defined, as will the `bizzaro()` generic and default method.
 
