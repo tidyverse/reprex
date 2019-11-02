@@ -4,9 +4,6 @@
     <loc>https://reprex.tidyverse.org/index.html</loc>
   </url>
   <url>
-    <loc>https://reprex.tidyverse.org/reference/opt.html</loc>
-  </url>
-  <url>
     <loc>https://reprex.tidyverse.org/reference/reprex-package.html</loc>
   </url>
   <url>
@@ -20,6 +17,9 @@
   </url>
   <url>
     <loc>https://reprex.tidyverse.org/reference/reprex_locale.html</loc>
+  </url>
+  <url>
+    <loc>https://reprex.tidyverse.org/reference/reprex_options.html</loc>
   </url>
   <url>
     <loc>https://reprex.tidyverse.org/reference/un-reprex.html</loc>

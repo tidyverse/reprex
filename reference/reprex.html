@@ -180,12 +180,12 @@ see below for more.</p>
   <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"gh"</span>, <span class='st'>"r"</span>, <span class='st'>"rtf"</span>, <span class='st'>"html"</span>, <span class='st'>"so"</span>, <span class='st'>"ds"</span>),
   <span class='kw'>render</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>advertise</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>si</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>FALSE</span>),
-  <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>FALSE</span>),
-  <span class='kw'>show</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>TRUE</span>),
-  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='st'>"#&gt;"</span>),
-  <span class='kw'>tidyverse_quiet</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>TRUE</span>),
-  <span class='kw'>std_out_err</span> <span class='kw'>=</span> <span class='fu'><a href='opt.html'>opt</a></span>(<span class='fl'>FALSE</span>)
+  <span class='kw'>si</span> <span class='kw'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span>(<span class='fl'>FALSE</span>),
+  <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span>(<span class='fl'>FALSE</span>),
+  <span class='kw'>show</span> <span class='kw'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span>(<span class='fl'>TRUE</span>),
+  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span>(<span class='st'>"#&gt;"</span>),
+  <span class='kw'>tidyverse_quiet</span> <span class='kw'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span>(<span class='fl'>TRUE</span>),
+  <span class='kw'>std_out_err</span> <span class='kw'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span>(<span class='fl'>FALSE</span>)
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -251,28 +251,28 @@ is consulted and, if that is not defined, default is <code>TRUE</code> for venue
       <td><p>Logical. Whether to include <code><a href='https://rdrr.io/pkg/sessioninfo/man/session_info.html'>sessioninfo::session_info()</a></code>, if
 available, or <code><a href='https://rdrr.io/r/utils/sessionInfo.html'>sessionInfo()</a></code> at the end of the reprex. When <code>venue</code> is
 "gh", the session info is wrapped in a collapsible details tag. Read more
-about <code><a href='opt.html'>opt()</a></code>.</p></td>
+about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
     </tr>
     <tr>
       <th>style</th>
       <td><p>Logical. Whether to style code with <code><a href='https://rdrr.io/pkg/styler/man/style_text.html'>styler::style_text()</a></code>.
-Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
+Read more about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
     </tr>
     <tr>
       <th>show</th>
       <td><p>Logical. Whether to show rendered output in a viewer (RStudio or
-browser). Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
+browser). Read more about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
     </tr>
     <tr>
       <th>comment</th>
       <td><p>Character. Prefix with which to comment out output, defaults
-to <code>"#&gt;"</code>. Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
+to <code>"#&gt;"</code>. Read more about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
     </tr>
     <tr>
       <th>tidyverse_quiet</th>
       <td><p>Logical. Sets the option <code>tidyverse.quiet</code>, which
 suppresses (<code>TRUE</code>, the default) or includes (<code>FALSE</code>) the startup message
-for the tidyverse package. Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
+for the tidyverse package. Read more about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
     </tr>
     <tr>
       <th>std_out_err</th>
@@ -282,7 +282,7 @@ reveal output if the reprex spawns child processes or <code><a href='https://rdr
 Note this cannot be properly interleaved with output from the main R
 process, nor is there any guarantee that the lines from standard output and
 standard error are in correct chronological order. See <code><a href='https://rdrr.io/pkg/callr/man/r.html'>callr::r()</a></code> for
-more. Read more about <code><a href='opt.html'>opt()</a></code>.</p></td>
+more. Read more about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
     </tr>
     </table>
 
