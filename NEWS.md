@@ -101,7 +101,7 @@ This was a non-functioning release created by CRAN maintainers by commenting out
 
 # reprex 0.1.1
 
-  * pandoc added to SystemRequirements.
+  * Pandoc added to SystemRequirements.
 
 # reprex 0.1.0
 

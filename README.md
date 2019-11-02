@@ -52,7 +52,7 @@ devtools::install_github("tidyverse/reprex")
 On Linux, you probably want to install
 [xclip](https://github.com/astrand/xclip) or
 [xsel](http://www.vergenet.net/~conrad/software/xsel/), so reprex can
-access the X11 clipboard. This is ‘nice to have’, but not mandatory. The
+access the X11 clipboard. This is 'nice to have', but not mandatory. The
 usual `sudo apt-get install` or `sudo yum install` installation methods
 should work for both xclip and xsel.
 
@@ -69,7 +69,7 @@ Then call `reprex()`, where the default target venue is GitHub:
 reprex()
 ```
 
-A nicely rendered HTML preview will display in RStudio’s Viewer (if
+A nicely rendered HTML preview will display in RStudio's Viewer (if
 you’re in RStudio) or your default browser otherwise.
 
 ![](man/figures/README-viewer-screenshot.png)
