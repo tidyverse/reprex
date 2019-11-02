@@ -1,6 +1,6 @@
 reprex_impl <- function(x_expr = NULL,
                         input  = NULL, outfile = NULL,
-                        venue  = c("gh", "r", "rtf", "html", "so", "ds"),
+                        venue  = c("gh", "r", "rtf", "html", "so", "ds", "jira"),
 
                         render = TRUE,
                         new_session = TRUE,
@@ -20,7 +20,7 @@ reprex_impl <- function(x_expr = NULL,
   venue <- rtf_requires_highlight(venue)
 
   advertise       <- advertise %||%
-    getOption("reprex.advertise") %||% (venue %in% c("gh", "html"))
+    getOption("reprex.advertise") %||% (venue %in% c("gh", "html", "jira"))
   si              <- arg_option(si)
   style           <- arg_option(style)
   show            <- arg_option(show)
@@ -75,7 +75,7 @@ reprex_impl <- function(x_expr = NULL,
 
   message("Rendering reprex...")
   reprex_render(r_file, std_file, new_session)
-  ## 1. when venue = "r" or "rtf", the reprex_file != md_file, so we need both
+  ## 1. when venue = "r", "rtf" or "jira" the reprex_file != md_file, so we need both
   ## 2. use our own "md_file" instead of the normalized, absolutized path
   ##    returned by rmarkdown::render() and, therefore, reprex_render()
   reprex_file <- md_file <- files[["md_file"]]
@@ -107,6 +107,20 @@ reprex_impl <- function(x_expr = NULL,
       message("Writing reprex as highlighted RTF:\n  * ", reprex_file)
     }
     reprex_file <- rtf_file
+  }
+
+  if (venue == "jira") {
+    jira_file <-  files[["jira_file"]]
+    # jira support for pandoc conversion was added in version 2.7.3
+    if (!rmarkdown::pandoc_available("2.7.3")) {
+      stop(
+        "Pandoc version ", rmarkdown::pandoc_version(), " is found.\n",
+        "`venue = \"jira\"` requires pandoc 2.7.3 or later.",
+        call. = FALSE
+      )
+    }
+    rmarkdown::pandoc_convert(md_file, to = "jira", output = jira_file)
+    reprex_file <- jira_file
   }
 
   if (venue == "html") {

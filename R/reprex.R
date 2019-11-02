@@ -77,10 +77,13 @@
 #' * "ds" for Discourse, e.g.,
 #'   [community.rstudio.com](https://community.rstudio.com). Note: this is
 #'   currently just an alias for "gh".
+#' * "jira" for
+#'   [Jira](https://jira.atlassian.com/secure/WikiRendererHelpAction.jspa?section=advanced).
+#'   Note: this requires pandoc 2.7.3 or later.
 #' @param advertise Logical. Whether to include a footer that describes when and
 #'   how the reprex was created. If unspecified, the option `reprex.advertise`
 #'   is consulted and, if that is not defined, default is `TRUE` for venues
-#'   `"gh"`, `"html"`, `"so"`, `"ds"` and `FALSE` for `"r"` and `"rtf"`.
+#'   `"gh"`, `"html"`, `"so"`, `"ds"`, `"jira"` and `FALSE` for `"r"` and `"rtf"`.
 #' @param si Logical. Whether to include [sessioninfo::session_info()], if
 #'   available, or [sessionInfo()] at the end of the reprex. When `venue` is
 #'   "gh", the session info is wrapped in a collapsible details tag. Read more
@@ -237,7 +240,7 @@
 #' @export
 reprex <- function(x = NULL,
                    input = NULL, outfile = NULL,
-                   venue = c("gh", "r", "rtf", "html", "so", "ds"),
+                   venue = c("gh", "r", "rtf", "html", "so", "ds", "jira"),
 
                    render = TRUE,
 
