@@ -85,7 +85,7 @@ reprex_locale({
 \itemize{
 \item The \href{https://www.gnu.org/software/libc/manual/html_node/Locale-Names.html}{Locale Names}
 section of the GNU C docs, for more about XPG syntax
-\item The \href{https://cran.rstudio.com/doc/manuals/r-devel/R-admin.html#Internationalization}{Internationalization and Localization}
+\item The \href{https://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Internationalization}{Internationalization and Localization}
 section of the R Installation and Administration manual
 }
 }

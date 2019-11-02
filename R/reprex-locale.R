@@ -40,7 +40,7 @@
 #'   Names](https://www.gnu.org/software/libc/manual/html_node/Locale-Names.html)
 #'   section of the GNU C docs, for more about XPG syntax
 #'   * The [Internationalization and
-#'   Localization](https://cran.rstudio.com/doc/manuals/r-devel/R-admin.html#Internationalization)
+#'   Localization](https://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Internationalization)
 #'   section of the R Installation and Administration manual
 #'
 #' @return Character vector of rendered reprex, invisibly.
