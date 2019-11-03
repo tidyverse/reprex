@@ -4,7 +4,10 @@
 \alias{reprex_document}
 \title{reprex document format}
 \usage{
-reprex_document()
+reprex_document(pandoc_args = NULL)
+}
+\arguments{
+\item{pandoc_args}{Additional command line options to pass to pandoc}
 }
 \value{
 something

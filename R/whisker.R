@@ -1,6 +1,5 @@
 apply_template <- function(x, reprex_data = NULL) {
   data <- with(reprex_data, list(
-    yaml = yaml_md(),
     tidyverse_quiet = as.character(tidyverse_quiet),
     comment = comment,
     upload_fun = "knitr::imgur_upload",
@@ -28,7 +27,6 @@ apply_template <- function(x, reprex_data = NULL) {
   }
 
   data$ad <- if (reprex_data$advertise) prose(data$ad) else NULL
-  data$yaml <- collapse(data$yaml)
   data$body <- collapse(x)
   whisker::whisker.render(read_template("REPREX"), data = data)
 }
@@ -41,28 +39,6 @@ read_template <- function(slug) {
     mustWork = TRUE
   )
   readLines(path)
-}
-
-yaml_md <- function(pandoc_version = rmarkdown::pandoc_version()) {
-  yaml <- c(
-    "---",
-    "output:",
-    "  reprex::reprex_document:",
-    "    pandoc_args:",
-    "      - '--from=markdown-implicit_figures'",
-    "      - '--to=commonmark'",
-    if (!is.null(pandoc_version)) {
-      if (pandoc_version < "1.16") {
-    "      - '--no-wrap'"
-      } else {
-    "      - '--wrap=preserve'"
-      }
-    },
-    "---"
-  )
-  ## prepend with `#' ` in a separate step because
-  ## https://github.com/klutometis/roxygen/issues/668
-  prose(yaml)
 }
 
 si <- function(details = FALSE) {
