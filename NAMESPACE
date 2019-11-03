@@ -3,6 +3,7 @@
 export(reprex)
 export(reprex_addin)
 export(reprex_clean)
+export(reprex_document)
 export(reprex_html)
 export(reprex_invert)
 export(reprex_locale)

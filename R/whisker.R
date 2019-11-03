@@ -47,7 +47,7 @@ yaml_md <- function(pandoc_version = rmarkdown::pandoc_version()) {
   yaml <- c(
     "---",
     "output:",
-    "  md_document:",
+    "  reprex::reprex_document:",
     "    pandoc_args:",
     "      - '--from=markdown-implicit_figures'",
     "      - '--to=commonmark'",
