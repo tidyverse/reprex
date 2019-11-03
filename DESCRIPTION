@@ -58,7 +58,7 @@ Suggests:
     sessioninfo,
     shiny,
     spelling,
-    styler (>= 1.0.2),
+    styler (>= 1.2.0),
     testthat (>= 2.1.0)
 VignetteBuilder: 
     knitr
