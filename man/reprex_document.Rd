@@ -4,10 +4,17 @@
 \alias{reprex_document}
 \title{reprex document format}
 \usage{
-reprex_document(pandoc_args = NULL)
+reprex_document(pandoc_args = NULL, comment = "#>", tidyverse_quiet = TRUE)
 }
 \arguments{
 \item{pandoc_args}{Additional command line options to pass to pandoc}
+
+\item{comment}{Character. Prefix with which to comment out output, defaults
+to \code{"#>"}. Read more about \code{\link[=opt]{opt()}}.}
+
+\item{tidyverse_quiet}{Logical. Sets the option \code{tidyverse.quiet}, which
+suppresses (\code{TRUE}, the default) or includes (\code{FALSE}) the startup message
+for the tidyverse package. Read more about \code{\link[=opt]{opt()}}.}
 }
 \value{
 something

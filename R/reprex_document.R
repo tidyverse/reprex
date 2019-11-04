@@ -1,5 +1,6 @@
 #' reprex document format
 #'
+#' @inheritParams reprex
 #' @inheritParams rmarkdown::md_document
 #' @return something
 #' @export
