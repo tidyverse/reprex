@@ -1,6 +1,7 @@
 #' ---
 #' output:
 #'   reprex::reprex_document:
+#'     venue: "{{{venue}}}"
 #'     comment: "{{{comment}}}"
 #'     tidyverse_quiet: {{{tidyverse_quiet}}}
 #' ---

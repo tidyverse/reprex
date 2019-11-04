@@ -1,5 +1,6 @@
 apply_template <- function(x, reprex_data = NULL) {
   data <- with(reprex_data, list(
+    venue = venue,
     tidyverse_quiet = as.character(tidyverse_quiet),
     comment = comment,
     ad = "Created on `r Sys.Date()` by the [reprex package](https://reprex.tidyverse.org) (v`r utils::packageVersion(\"reprex\")`)"

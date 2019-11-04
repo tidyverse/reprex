@@ -4,11 +4,15 @@
 #' @inheritParams rmarkdown::md_document
 #' @return something
 #' @export
-reprex_document <- function(pandoc_args = NULL,
+reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
+                            pandoc_args = NULL,
                             comment = "#>",
                             tidyverse_quiet = TRUE) {
   #html_preview = FALSE,
   #keep_html = FALSE
+
+  venue <- tolower(venue)
+  venue <- match.arg(venue)
 
   pandoc_args <- c(
     pandoc_args,
@@ -25,8 +29,11 @@ reprex_document <- function(pandoc_args = NULL,
     R.options = list(tidyverse.quiet = tidyverse_quiet)
   )
   opts_knit <- list(
-    # TODO: once venue is known here, set to identity for venue = "r"
-    upload.fun = knitr::imgur_upload
+    upload.fun = switch(
+      venue,
+      r = identity,
+      knitr::imgur_upload
+    )
   )
 
   format <- rmarkdown::output_format(

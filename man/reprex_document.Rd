@@ -4,9 +4,33 @@
 \alias{reprex_document}
 \title{reprex document format}
 \usage{
-reprex_document(pandoc_args = NULL, comment = "#>", tidyverse_quiet = TRUE)
+reprex_document(
+  venue = c("gh", "r", "rtf", "html", "so", "ds"),
+  pandoc_args = NULL,
+  comment = "#>",
+  tidyverse_quiet = TRUE
+)
 }
 \arguments{
+\item{venue}{Character. Must be one of the following (case insensitive):
+\itemize{
+\item "gh" for \href{https://github.github.com/gfm/}{GitHub-Flavored Markdown}, the
+default
+\item "r" for a runnable R script, with commented output interleaved
+\item "rtf" for
+\href{https://en.wikipedia.org/wiki/Rich_Text_Format}{Rich Text Format}
+(not supported for un-reprexing)
+\item "html" for an HTML fragment suitable for inclusion in a larger HTML
+document (not supported for un-reprexing)
+\item "so" for
+\href{https://stackoverflow.com/editing-help#syntax-highlighting}{Stack Overflow Markdown}.
+Note: this is just an alias for "gh", since Stack Overflow started to
+support CommonMark-style fenced code blocks in January 2019.
+\item "ds" for Discourse, e.g.,
+\href{https://community.rstudio.com}{community.rstudio.com}. Note: this is
+currently just an alias for "gh".
+}}
+
 \item{pandoc_args}{Additional command line options to pass to pandoc}
 
 \item{comment}{Character. Prefix with which to comment out output, defaults
