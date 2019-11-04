@@ -2,10 +2,10 @@
 #' output:
 #'   reprex::reprex_document:
 #'     comment: "{{{comment}}}"
+#'     tidyverse_quiet: {{{tidyverse_quiet}}}
 #' ---
 
 #+ reprex-setup, include = FALSE
-options(tidyverse.quiet = {{{tidyverse_quiet}}})
 knitr::opts_knit$set(upload.fun = {{{upload_fun}}})
 
 #+ reprex-body

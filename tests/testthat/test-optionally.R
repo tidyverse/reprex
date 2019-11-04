@@ -31,7 +31,7 @@ test_that("`tidyverse_quiet` can be set via option", {
     list(reprex.tidyverse_quiet = FALSE),
     out <- reprex(mean(1:3), render = FALSE)
   )
-  expect_match(out, "tidyverse.quiet = FALSE", fixed = TRUE, all = FALSE)
+  expect_match(out, "tidyverse_quiet: FALSE", fixed = TRUE, all = FALSE)
 })
 
 test_that("`std_out_err` can be set via option", {

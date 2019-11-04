@@ -4,7 +4,8 @@
 #' @return something
 #' @export
 reprex_document <- function(pandoc_args = NULL,
-                            comment = "#>") {
+                            comment = "#>",
+                            tidyverse_quiet = TRUE) {
   #html_preview = FALSE,
   #keep_html = FALSE
 
@@ -16,9 +17,11 @@ reprex_document <- function(pandoc_args = NULL,
   )
 
   opts_chunk <- list(
+    # fixed defaults
     collapse = TRUE, error = TRUE,
-    comment = comment
-    #R.options = list(tidyverse.quiet = TRUE)
+    # explicitly exposed for user configuration
+    comment = comment,
+    R.options = list(tidyverse.quiet = tidyverse_quiet)
   )
 
   format <- rmarkdown::output_format(
