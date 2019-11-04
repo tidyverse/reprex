@@ -24,9 +24,16 @@ reprex_document <- function(pandoc_args = NULL,
     comment = comment,
     R.options = list(tidyverse.quiet = tidyverse_quiet)
   )
+  opts_knit <- list(
+    # TODO: once venue is known here, set to identity for venue = "r"
+    upload.fun = knitr::imgur_upload
+  )
 
   format <- rmarkdown::output_format(
-    knitr = rmarkdown::knitr_options(opts_chunk = opts_chunk),
+    knitr = rmarkdown::knitr_options(
+      opts_knit = opts_knit,
+      opts_chunk = opts_chunk
+    ),
     pandoc = rmarkdown::pandoc_options(
       to = "commonmark",
       from = rmarkdown::from_rmarkdown(implicit_figures = FALSE),

@@ -5,9 +5,6 @@
 #'     tidyverse_quiet: {{{tidyverse_quiet}}}
 #' ---
 
-#+ reprex-setup, include = FALSE
-knitr::opts_knit$set(upload.fun = {{{upload_fun}}})
-
 #+ reprex-body
 {{{body}}}
 

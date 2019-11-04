@@ -2,7 +2,6 @@ apply_template <- function(x, reprex_data = NULL) {
   data <- with(reprex_data, list(
     tidyverse_quiet = as.character(tidyverse_quiet),
     comment = comment,
-    upload_fun = "knitr::imgur_upload",
     ad = "Created on `r Sys.Date()` by the [reprex package](https://reprex.tidyverse.org) (v`r utils::packageVersion(\"reprex\")`)"
   ))
 
@@ -20,10 +19,6 @@ apply_template <- function(x, reprex_data = NULL) {
 
   if (reprex_data$venue %in% c("gh", "so")) {
     data$ad <- paste0("<sup>", data$ad, "</sup>")
-  }
-
-  if (reprex_data$venue == "r") {
-    data$upload_fun <- "identity"
   }
 
   data$ad <- if (reprex_data$advertise) prose(data$ad) else NULL
