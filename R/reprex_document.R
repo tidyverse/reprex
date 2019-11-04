@@ -47,6 +47,7 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
       ext = ".md",
       args = pandoc_args
     ),
+    clean_supporting = FALSE,
     base_format = rmarkdown::md_document()
   )
   format
