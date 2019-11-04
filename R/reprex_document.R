@@ -3,7 +3,8 @@
 #' @inheritParams rmarkdown::md_document
 #' @return something
 #' @export
-reprex_document <- function(pandoc_args = NULL) {
+reprex_document <- function(pandoc_args = NULL,
+                            comment = "#>") {
   #html_preview = FALSE,
   #keep_html = FALSE
 
@@ -14,9 +15,14 @@ reprex_document <- function(pandoc_args = NULL) {
     }
   )
 
+  opts_chunk <- list(
+    collapse = TRUE, error = TRUE,
+    comment = comment
+    #R.options = list(tidyverse.quiet = TRUE)
+  )
+
   format <- rmarkdown::output_format(
-    knitr = NULL,
-    #knitr = knitr_options(opts_chunk = list(dev = 'png'))
+    knitr = rmarkdown::knitr_options(opts_chunk = opts_chunk),
     pandoc = rmarkdown::pandoc_options(
       to = "commonmark",
       from = rmarkdown::from_rmarkdown(implicit_figures = FALSE),

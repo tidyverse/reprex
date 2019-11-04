@@ -172,7 +172,7 @@ reprex_render <- function(input, std_out_err = NULL, new_session = TRUE) {
           crayon.enabled = FALSE
         )
         rmarkdown::render(
-          input, output_format = reprex::reprex_document(),
+          input,
           quiet = TRUE, envir = globalenv(), encoding = "UTF-8")
       },
       args = list(input = input),
@@ -182,7 +182,7 @@ reprex_render <- function(input, std_out_err = NULL, new_session = TRUE) {
     )
   } else {
     rmarkdown::render(
-      input, output_format = reprex_document(),
+      input,
       quiet = TRUE, envir = globalenv(), encoding = "UTF-8",
       knit_root_dir = getwd()
     )
