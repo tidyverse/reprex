@@ -19,12 +19,3 @@ test_that("`comment` works", {
   long_form <- reprex(input = c(header, src), show = FALSE, advertise = FALSE)
   expect_identical(arg_form, long_form)
 })
-
-test_that("venue determines default value of `upload.fun`", {
-  skip_on_cran()
-  skip("restore when output format knows about venue")
-  out <- reprex(plot(1), render = FALSE)
-  expect_match(out, "knitr::imgur_upload", all = FALSE)
-  out <- reprex(plot(1), render = FALSE, venue = "r")
-  expect_match(out, "identity", all = FALSE)
-})
