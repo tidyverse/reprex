@@ -57,11 +57,10 @@ reprex_impl <- function(x_expr = NULL,
 
   r_file <- files[["r_file"]]
   if (would_clobber(r_file)) { return(invisible()) }
-  std_file <- if (std_out_err) files[["std_file"]] else NULL
 
   data <- list(
     venue = venue, advertise = advertise, session_info = session_info,
-    comment = comment, tidyverse_quiet = tidyverse_quiet, std_file = std_file
+    comment = comment, tidyverse_quiet = tidyverse_quiet, std_out_err = std_out_err
   )
   src <- apply_template(src, data)
   write_lines(src, r_file)
@@ -74,7 +73,7 @@ reprex_impl <- function(x_expr = NULL,
   }
 
   message("Rendering reprex...")
-  reprex_render(r_file, std_file, new_session)
+  reprex_render(r_file, new_session)
   ## 1. when venue = "r" or "rtf", the reprex_file != md_file, so we need both
   ## 2. use our own "md_file" instead of the normalized, absolutized path
   ##    returned by rmarkdown::render() and, therefore, reprex_render()
@@ -82,7 +81,7 @@ reprex_impl <- function(x_expr = NULL,
 
   if (std_out_err) {
     ## replace "std_file" placeholder with its contents
-    inject_file(md_file, std_file, tag = "standard output and standard error")
+    inject_file(md_file, files[["std_file"]], tag = "standard output and standard error")
   }
 
   if (outfile_given) {
@@ -160,31 +159,4 @@ reprex_impl <- function(x_expr = NULL,
   }
 
   invisible(out_lines)
-}
-
-reprex_render <- function(input, std_out_err = NULL, new_session = TRUE) {
-  if (new_session) {
-    callr::r_safe(
-      function(input) {
-        options(
-          keep.source = TRUE,
-          rlang_trace_top_env = globalenv(),
-          crayon.enabled = FALSE
-        )
-        rmarkdown::render(
-          input,
-          quiet = TRUE, envir = globalenv(), encoding = "UTF-8")
-      },
-      args = list(input = input),
-      spinner = interactive(),
-      stdout = std_out_err,
-      stderr = std_out_err
-    )
-  } else {
-    rmarkdown::render(
-      input,
-      quiet = TRUE, envir = globalenv(), encoding = "UTF-8",
-      knit_root_dir = getwd()
-    )
-  }
 }

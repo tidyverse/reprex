@@ -26,7 +26,9 @@ make_filebase <- function(outfile = NULL, infile = NULL) {
 make_filenames <- function(filebase = "foo", suffix = "reprex") {
   add_suffix <- function(x, suffix = "") paste0(x, "_", suffix)
 
-  filebase <- add_suffix(filebase, suffix)
+  if (nzchar(suffix)) {
+    filebase <- add_suffix(filebase, suffix)
+  }
   ## make this a list so I am never tempted to index with `[` instead of `[[`
   ## can cause sneaky name problems with the named list used as data for
   ## the whisker template

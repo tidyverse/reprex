@@ -10,6 +10,7 @@ reprex_document(
   session_info = FALSE,
   comment = "#>",
   tidyverse_quiet = TRUE,
+  std_out_err = FALSE,
   pandoc_args = NULL
 )
 }
@@ -49,6 +50,14 @@ to \code{"#>"}. Read more about \code{\link[=opt]{opt()}}.}
 \item{tidyverse_quiet}{Logical. Sets the option \code{tidyverse.quiet}, which
 suppresses (\code{TRUE}, the default) or includes (\code{FALSE}) the startup message
 for the tidyverse package. Read more about \code{\link[=opt]{opt()}}.}
+
+\item{std_out_err}{Logical. Whether to append a section for output sent to
+stdout and stderr by the reprex rendering process. This can be necessary to
+reveal output if the reprex spawns child processes or \code{system()} calls.
+Note this cannot be properly interleaved with output from the main R
+process, nor is there any guarantee that the lines from standard output and
+standard error are in correct chronological order. See \code{\link[callr:r]{callr::r()}} for
+more. Read more about \code{\link[=opt]{opt()}}.}
 
 \item{pandoc_args}{Additional command line options to pass to pandoc}
 }

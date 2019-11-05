@@ -93,13 +93,15 @@ inject_file <- function(path, inject_path, pre_process = enfence, ...) {
   inject_lines <- read_lines(inject_path)
   inject_lines <- pre_process(inject_lines, ...)
 
-  inject_locus <- grep(backtick(inject_path), lines, fixed = TRUE)
-  lines <- c(
-    lines[seq_len(inject_locus - 1)],
-    inject_lines,
-    lines[-seq_len(inject_locus)]
-  )
-  write_lines(lines, path)
+  inject_locus <- grep(backtick(path_file(inject_path)), lines, fixed = TRUE)
+  if (length(inject_locus)) {
+    lines <- c(
+      lines[seq_len(inject_locus - 1)],
+      inject_lines,
+      lines[-seq_len(inject_locus)]
+    )
+    write_lines(lines, path)
+  }
   path
 }
 
