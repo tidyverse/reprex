@@ -4,6 +4,7 @@
 #'     venue: "{{{venue}}}"
 #'     comment: "{{{comment}}}"
 #'     tidyverse_quiet: {{{tidyverse_quiet}}}
+#'     session_info: {{{session_info}}}
 #' ---
 
 #+ reprex-body
@@ -12,5 +13,3 @@
 {{{std_file_stub}}}
 
 {{{ad}}}
-
-{{{si}}}

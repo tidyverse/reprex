@@ -6,9 +6,10 @@
 \usage{
 reprex_document(
   venue = c("gh", "r", "rtf", "html", "so", "ds"),
-  pandoc_args = NULL,
+  session_info = FALSE,
   comment = "#>",
-  tidyverse_quiet = TRUE
+  tidyverse_quiet = TRUE,
+  pandoc_args = NULL
 )
 }
 \arguments{
@@ -31,7 +32,10 @@ support CommonMark-style fenced code blocks in January 2019.
 currently just an alias for "gh".
 }}
 
-\item{pandoc_args}{Additional command line options to pass to pandoc}
+\item{session_info}{Logical. Whether to include
+\code{\link[sessioninfo:session_info]{sessioninfo::session_info()}}, if available, or \code{\link[=sessionInfo]{sessionInfo()}} at the end
+of the reprex. When \code{venue} is "gh", the session info is wrapped in a
+collapsible details tag. Read more about \code{\link[=opt]{opt()}}.}
 
 \item{comment}{Character. Prefix with which to comment out output, defaults
 to \code{"#>"}. Read more about \code{\link[=opt]{opt()}}.}
@@ -39,6 +43,8 @@ to \code{"#>"}. Read more about \code{\link[=opt]{opt()}}.}
 \item{tidyverse_quiet}{Logical. Sets the option \code{tidyverse.quiet}, which
 suppresses (\code{TRUE}, the default) or includes (\code{FALSE}) the startup message
 for the tidyverse package. Read more about \code{\link[=opt]{opt()}}.}
+
+\item{pandoc_args}{Additional command line options to pass to pandoc}
 }
 \value{
 something

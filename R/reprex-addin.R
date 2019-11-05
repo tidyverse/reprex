@@ -72,9 +72,9 @@ reprex_addin <- function() { # nocov start
       ),
       shiny::tags$hr(),
       shiny::checkboxInput(
-        "si",
+        "session_info",
         "Append session info",
-        getOption("reprex.si", FALSE)
+        getOption("reprex.session_info", FALSE)
       ),
       shiny::checkboxInput(
         "show",
@@ -90,7 +90,7 @@ reprex_addin <- function() { # nocov start
         input$source,
         input$venue,
         input$source_file,
-        as.logical(input$si),
+        as.logical(input$session_info),
         as.logical(input$show)
       ))
     })
@@ -101,7 +101,7 @@ reprex_addin <- function() { # nocov start
 }
 
 reprex_guess <- function(source, venue = "gh", source_file = NULL,
-                         si = FALSE, show = FALSE) {
+                         session_info = FALSE, show = FALSE) {
   reprex_input <- switch(
     source,
     clipboard = NULL,
@@ -113,7 +113,7 @@ reprex_guess <- function(source, venue = "gh", source_file = NULL,
   reprex(
     input = reprex_input,
     venue = venue,
-    si = si,
+    session_info = session_info,
     show = show
   )
 }

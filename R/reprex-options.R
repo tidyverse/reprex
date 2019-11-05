@@ -6,7 +6,7 @@
 #' `reprex.<arg>`, where `<arg>` is an argument of [reprex()]. Here are the main
 #' ones:
 #'   * `reprex.advertise`
-#'   * `reprex.si`
+#'   * `reprex.session_info`
 #'   * `reprex.style`
 #'   * `reprex.show`
 #'   * `reprex.comment`
@@ -31,7 +31,7 @@
 #' ```
 #' options(
 #'   reprex.advertise       = FALSE,
-#'   reprex.si              = TRUE,
+#'   reprex.session_info    = TRUE,
 #'   reprex.style           = TRUE,
 #'   reprex.show            = FALSE,
 #'   reprex.comment         = "#;-)",

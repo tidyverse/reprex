@@ -129,7 +129,7 @@ But wait, there’s more\!
   - Use the `outfile` argument to control where results are left behind.
     Use `outfile = NA` to work in current working directory.
     
-  - Append session info via `reprex(..., si = TRUE)`.
+  - Append session info via `reprex(..., session_info = TRUE)`.
 
   - Get clean, runnable code from wild-caught reprexes with
     

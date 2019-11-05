@@ -11,7 +11,7 @@ for the user to set personal defaults. The pattern for option names is
 ones:
 \itemize{
 \item \code{reprex.advertise}
-\item \code{reprex.si}
+\item \code{reprex.session_info}
 \item \code{reprex.style}
 \item \code{reprex.show}
 \item \code{reprex.comment}
@@ -37,7 +37,7 @@ Here's code you could put in \code{.Rprofile} to set reprex options. It would be
 rare to want non-default behaviour for all of these! We only do so here for
 the sake of exposition:\preformatted{options(
   reprex.advertise       = FALSE,
-  reprex.si              = TRUE,
+  reprex.session_info    = TRUE,
   reprex.style           = TRUE,
   reprex.show            = FALSE,
   reprex.comment         = "#;-)",

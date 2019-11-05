@@ -6,7 +6,7 @@ reprex_impl <- function(x_expr = NULL,
                         new_session = TRUE,
 
                         advertise       = NULL,
-                        si              = opt(FALSE),
+                        session_info    = opt(FALSE),
                         style           = opt(FALSE),
                         show            = opt(TRUE),
                         comment         = opt("#>"),
@@ -21,7 +21,7 @@ reprex_impl <- function(x_expr = NULL,
 
   advertise       <- advertise %||%
     getOption("reprex.advertise") %||% (venue %in% c("gh", "html"))
-  si              <- arg_option(si)
+  session_info    <- arg_option(session_info)
   style           <- arg_option(style)
   show            <- arg_option(show)
   comment         <- arg_option(comment)
@@ -30,7 +30,7 @@ reprex_impl <- function(x_expr = NULL,
 
   if (!is.null(input)) stopifnot(is.character(input))
   if (!is.null(outfile)) stopifnot(is.character(outfile) || is.na(outfile))
-  stopifnot(is_toggle(advertise), is_toggle(si), is_toggle(style))
+  stopifnot(is_toggle(advertise), is_toggle(session_info), is_toggle(style))
   stopifnot(is_toggle(show), is_toggle(render))
   stopifnot(is.character(comment))
   stopifnot(is_toggle(tidyverse_quiet), is_toggle(std_out_err))
@@ -60,7 +60,7 @@ reprex_impl <- function(x_expr = NULL,
   std_file <- if (std_out_err) files[["std_file"]] else NULL
 
   data <- list(
-    venue = venue, advertise = advertise, si = si,
+    venue = venue, advertise = advertise, session_info = session_info,
     comment = comment, tidyverse_quiet = tidyverse_quiet, std_file = std_file
   )
   src <- apply_template(src, data)

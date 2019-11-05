@@ -81,10 +81,10 @@
 #'   how the reprex was created. If unspecified, the option `reprex.advertise`
 #'   is consulted and, if that is not defined, default is `TRUE` for venues
 #'   `"gh"`, `"html"`, `"so"`, `"ds"` and `FALSE` for `"r"` and `"rtf"`.
-#' @param si Logical. Whether to include [sessioninfo::session_info()], if
-#'   available, or [sessionInfo()] at the end of the reprex. When `venue` is
-#'   "gh", the session info is wrapped in a collapsible details tag. Read more
-#'   about [opt()].
+#' @param session_info Logical. Whether to include
+#'   [sessioninfo::session_info()], if available, or [sessionInfo()] at the end
+#'   of the reprex. When `venue` is "gh", the session info is wrapped in a
+#'   collapsible details tag. Read more about [opt()].
 #' @param style Logical. Whether to style code with [styler::style_text()].
 #'   Read more about [opt()].
 #' @param show Logical. Whether to show rendered output in a viewer (RStudio or
@@ -242,7 +242,7 @@ reprex <- function(x = NULL,
                    render = TRUE,
 
                    advertise       = NULL,
-                   si              = opt(FALSE),
+                   session_info    = opt(FALSE),
                    style           = opt(FALSE),
                    show            = opt(TRUE),
                    comment         = opt("#>"),
@@ -258,7 +258,7 @@ reprex <- function(x = NULL,
     new_session = TRUE,
 
     advertise       = advertise,
-    si              = si,
+    session_info    = session_info,
     style           = style,
     show            = show,
     comment         = comment,

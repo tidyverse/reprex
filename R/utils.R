@@ -105,6 +105,10 @@ inject_file <- function(path, inject_path, pre_process = enfence, ...) {
 
 prose <- function(x) paste0("#' ", x)
 
+r_chunk <- function(code, label = NULL) {
+  c(sprintf("```{r %s}", label %||% ""), label, code, "```")
+}
+
 collapse <- function(x, sep = "\n") {
   stopifnot(is.character(sep), length(sep) == 1)
   paste(x, collapse = sep)

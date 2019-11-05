@@ -1,7 +1,7 @@
-test_that("`si` can be set via option", {
+test_that("`session_info` can be set via option", {
   skip_on_cran()
   withr::with_options(
-    list(reprex.si = TRUE),
+    list(reprex.session_info = TRUE),
     out <- reprex(1, render = FALSE)
   )
   expect_match(out, "session_*[iI]nfo", all = FALSE)

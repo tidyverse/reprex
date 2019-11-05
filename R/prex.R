@@ -33,7 +33,7 @@ prex <- function(x = NULL,
                  render = TRUE,
 
                  advertise       = FALSE,       # <-- different from reprex
-                 si              = opt(FALSE),
+                 session_info    = opt(FALSE),
                  style           = opt(FALSE),
                  show            = opt(TRUE),
                  comment         = opt("#>"),
@@ -48,7 +48,7 @@ prex <- function(x = NULL,
     new_session = FALSE,                        # <-- different from reprex()
 
     advertise       = advertise,
-    si              = si,
+    session_info    = session_info,
     style           = style,
     show            = show,
     comment         = comment,
