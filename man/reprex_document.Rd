@@ -6,6 +6,7 @@
 \usage{
 reprex_document(
   venue = c("gh", "r", "rtf", "html", "so", "ds"),
+  advertise = NULL,
   session_info = FALSE,
   comment = "#>",
   tidyverse_quiet = TRUE,
@@ -31,6 +32,11 @@ support CommonMark-style fenced code blocks in January 2019.
 \href{https://community.rstudio.com}{community.rstudio.com}. Note: this is
 currently just an alias for "gh".
 }}
+
+\item{advertise}{Logical. Whether to include a footer that describes when and
+how the reprex was created. If unspecified, the option \code{reprex.advertise}
+is consulted and, if that is not defined, default is \code{TRUE} for venues
+\code{"gh"}, \code{"html"}, \code{"so"}, \code{"ds"} and \code{FALSE} for \code{"r"} and \code{"rtf"}.}
 
 \item{session_info}{Logical. Whether to include
 \code{\link[sessioninfo:session_info]{sessioninfo::session_info()}}, if available, or \code{\link[=sessionInfo]{sessionInfo()}} at the end

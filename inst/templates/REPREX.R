@@ -2,6 +2,7 @@
 #' output:
 #'   reprex::reprex_document:
 #'     venue: "{{{venue}}}"
+#'     advertise: {{{advertise}}}
 #'     comment: "{{{comment}}}"
 #'     tidyverse_quiet: {{{tidyverse_quiet}}}
 #'     session_info: {{{session_info}}}
@@ -11,5 +12,3 @@
 {{{body}}}
 
 {{{std_file_stub}}}
-
-{{{ad}}}

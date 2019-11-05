@@ -5,6 +5,7 @@
 #' @return something
 #' @export
 reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
+                            advertise = NULL,
                             session_info = FALSE,
                             comment = "#>",
                             tidyverse_quiet = TRUE,
@@ -14,6 +15,8 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
 
   venue <- tolower(venue)
   venue <- match.arg(venue)
+  advertise <- advertise %||%
+    getOption("reprex.advertise") %||% (venue %in% c("gh", "html"))
 
   opts_chunk <- list(
     # fixed defaults
@@ -38,18 +41,35 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
   )
 
   pre_knit <- function(input, ...) {
-    if (!isTRUE(session_info)) { return() }
+    if (!isTRUE(advertise) && !isTRUE(session_info)) { return() }
+
     # I don't know why the pre_knit hook operates on the **original** input
     # instead of the to-be-knitted input, but I need to operate on the latter.
     # So I brute force the correct path.
     knit_input <- sub(".R$", ".spin.Rmd", input)
-    knit_input_lines <- read_lines(knit_input)
-    # TO RECONSIDER: once I am convinced that so == gh, I can eliminate the
-    # `details` argument of `si()`. Empirically, there seems to be no downside
-    # on SO when we embed session info in the html tags that are favorable for
-    # GitHub. They apparently are ignored.
-    knit_input_lines <- c(knit_input_lines, "", si(details = venue == "gh"))
-    write_lines(knit_input_lines, knit_input)
+    input_lines <- read_lines(knit_input)
+
+    if (isTRUE(advertise)) {
+      ad <- paste0(
+        "Created on `r Sys.Date()` by the ",
+        "[reprex package](https://reprex.tidyverse.org) ",
+        "(v`r utils::packageVersion(\"reprex\")`)"
+      )
+      if (venue %in% c("gh", "so")) {
+        ad <- paste0("<sup>", ad, "</sup>")
+      }
+      input_lines <- c(input_lines, "", ad)
+    }
+
+    if (isTRUE(session_info)) {
+      # TO RECONSIDER: once I am convinced that so == gh, I can eliminate the
+      # `details` argument of `si()`. Empirically, there seems to be no downside
+      # on SO when we embed session info in the html tags that are favorable for
+      # GitHub. They apparently are ignored.
+      input_lines <- c(input_lines, "", si(details = venue == "gh"))
+    }
+
+    write_lines(input_lines, knit_input)
   }
 
   format <- rmarkdown::output_format(

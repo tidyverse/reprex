@@ -1,22 +1,17 @@
 apply_template <- function(x, reprex_data = NULL) {
   data <- with(reprex_data, list(
     venue = venue,
+    advertise = advertise,
     session_info = session_info,
     comment = comment,
-    tidyverse_quiet = as.character(tidyverse_quiet),
-    ad = "Created on `r Sys.Date()` by the [reprex package](https://reprex.tidyverse.org) (v`r utils::packageVersion(\"reprex\")`)"
+    tidyverse_quiet = tidyverse_quiet,
+    body = collapse(x)
   ))
 
   if (!is.null(reprex_data$std_file)) {
     data$std_file_stub <- prose(newline(backtick(reprex_data$std_file)))
   }
 
-  if (reprex_data$venue %in% c("gh", "so")) {
-    data$ad <- paste0("<sup>", data$ad, "</sup>")
-  }
-
-  data$ad <- if (reprex_data$advertise) prose(data$ad) else NULL
-  data$body <- collapse(x)
   whisker::whisker.render(read_template("REPREX"), data = data)
 }
 
