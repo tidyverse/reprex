@@ -7,6 +7,7 @@
 reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
                             advertise = NULL,
                             session_info = FALSE,
+                            style = FALSE,
                             comment = "#>",
                             tidyverse_quiet = TRUE,
                             std_out_err = FALSE,
@@ -19,6 +20,7 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
   venue <- normalize_venue(venue)
 
   advertise <- set_advertise(advertise, venue)
+  style     <- style_requires_styler(style)
 
   opts_chunk <- list(
     # fixed defaults
@@ -27,6 +29,9 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
     comment = comment,
     R.options = list(tidyverse.quiet = tidyverse_quiet)
   )
+  if (isTRUE(style)) {
+    opts_chunk[["tidy"]] <- "styler"
+  }
   opts_knit <- list(
     upload.fun = switch(
       venue,

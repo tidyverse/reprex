@@ -69,8 +69,7 @@ is consulted and, if that is not defined, default is \code{TRUE} for venues
 of the reprex. When \code{venue} is "gh", the session info is wrapped in a
 collapsible details tag. Read more about \code{\link[=opt]{opt()}}.}
 
-\item{style}{Logical. Whether to style code with \code{\link[styler:style_text]{styler::style_text()}}.
-Read more about \code{\link[=opt]{opt()}}.}
+\item{style}{Logical. Whether to set the knitr chunk option \code{tidy = "styler"}, which re-styles code with the \href{https://styler.r-lib.org}{styler package}. Read more about \code{\link[=opt]{opt()}}.}
 
 \item{show}{Logical. Whether to show rendered output in a viewer (RStudio or
 browser). Read more about \code{\link[=opt]{opt()}}.}

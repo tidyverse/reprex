@@ -85,8 +85,9 @@
 #'   [sessioninfo::session_info()], if available, or [sessionInfo()] at the end
 #'   of the reprex. When `venue` is "gh", the session info is wrapped in a
 #'   collapsible details tag. Read more about [opt()].
-#' @param style Logical. Whether to style code with [styler::style_text()].
-#'   Read more about [opt()].
+#' @param style Logical. Whether to set the knitr chunk option `tidy =
+#'   "styler"`, which re-styles code with the [styler
+#'   package](https://styler.r-lib.org). Read more about [opt()].
 #' @param show Logical. Whether to show rendered output in a viewer (RStudio or
 #'   browser). Read more about [opt()].
 #' @param comment Character. Prefix with which to comment out output, defaults

@@ -20,6 +20,7 @@ reprex_impl <- function(x_expr = NULL,
   advertise       <- set_advertise(advertise, venue)
   session_info    <- arg_option(session_info)
   style           <- arg_option(style)
+  style           <- style_requires_styler(style)
   show            <- arg_option(show)
   show            <- show_requires_interactive(show)
   comment         <- arg_option(comment)
@@ -45,9 +46,6 @@ reprex_impl <- function(x_expr = NULL,
   src <- ensure_not_empty(src)
   src <- ensure_not_dogfood(src)
   src <- ensure_no_prompts(src)
-  if (style) {
-    src <- ensure_stylish(src)
-  }
 
   outfile_given <- !is.null(outfile)
   infile <- if (where == "path") input else NULL
@@ -58,7 +56,8 @@ reprex_impl <- function(x_expr = NULL,
 
   format_params <- list(
     venue = venue,
-    advertise = advertise, session_info = session_info, comment = comment,
+    advertise = advertise, session_info = session_info,
+    style = style, comment = comment,
     tidyverse_quiet = tidyverse_quiet, std_out_err = std_out_err
   )
   src <- c(yamlify(format_params), "", src)
@@ -167,6 +166,14 @@ set_advertise <- function(advertise, venue) {
     (venue %in% c("gh", "html"))
 }
 
+style_requires_styler <- function(style) {
+  if (!requireNamespace("styler", quietly = TRUE)) {
+    message("Install the styler package in order to use `style = TRUE`.")
+    style <- FALSE
+  }
+  invisible(style)
+}
+
 show_requires_interactive <- function(show) {
   if (show && !is_interactive()) {
     message("Non-interactive session, setting `show = FALSE`.")
@@ -196,6 +203,7 @@ remove_defaults <- function(x) {
     venue           = "gh",
     advertise       = TRUE,
     session_info    = FALSE,
+    style           = FALSE,
     comment         = "#>",
     tidyverse_quiet = TRUE,
     std_out_err     = FALSE
