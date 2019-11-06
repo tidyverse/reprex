@@ -24,6 +24,7 @@ reprex_impl <- function(x_expr = NULL,
   session_info    <- arg_option(session_info)
   style           <- arg_option(style)
   show            <- arg_option(show)
+  show            <- show_requires_interactive(show)
   comment         <- arg_option(comment)
   tidyverse_quiet <- arg_option(tidyverse_quiet)
   std_out_err     <- arg_option(std_out_err)

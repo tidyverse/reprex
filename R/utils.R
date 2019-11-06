@@ -76,6 +76,14 @@ so_is_gh <- function(venue) {
   venue
 }
 
+show_requires_interactive <- function(show) {
+  if (show && !interactive()) {
+    message("Non-interactive session, setting `show = FALSE`.")
+    show <- FALSE
+  }
+  invisible(show)
+}
+
 pandoc2.0 <- function() rmarkdown::pandoc_available("2.0")
 
 enfence <- function(lines,
