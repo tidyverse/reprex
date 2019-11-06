@@ -6,10 +6,6 @@ is_path <- function(x) {
   length(x) == 1 && is.character(x) && !grepl("\n$", x)
 }
 
-interactive <- function(...) {
-  stop("In this house, we use rlang::is_interactive()")
-}
-
 locate_input <- function(input) {
   if (is.null(input)) return("clipboard")
   if (is_path(input)) {

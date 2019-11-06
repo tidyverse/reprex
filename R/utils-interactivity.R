@@ -1,3 +1,7 @@
+interactive <- function(...) {
+  stop("In this house, we use rlang::is_interactive()")
+}
+
 ## wrap clipr::clipr_available() so I can tweak its behaviour
 clipboard_available <- function() {
   if (is_interactive()) {
