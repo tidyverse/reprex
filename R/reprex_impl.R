@@ -15,9 +15,7 @@ reprex_impl <- function(x_expr = NULL,
 
   venue <- tolower(venue)
   venue <- match.arg(venue)
-  venue <- ds_is_gh(venue)
-  venue <- so_is_gh(venue)
-  venue <- rtf_requires_highlight(venue)
+  venue <- normalize_venue(venue)
 
   advertise       <- advertise %||%
     getOption("reprex.advertise") %||% (venue %in% c("gh", "html"))

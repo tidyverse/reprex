@@ -16,6 +16,8 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
 
   venue <- tolower(venue)
   venue <- match.arg(venue)
+  venue <- normalize_venue(venue)
+
   advertise <- advertise %||%
     getOption("reprex.advertise") %||% (venue %in% c("gh", "html"))
 

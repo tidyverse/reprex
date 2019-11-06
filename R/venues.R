@@ -29,3 +29,33 @@ reprex_rtf <- function(...) reprex(..., venue = "rtf")
 # reprex_ds <- function(...) reprex(..., venue = "ds")
 
 # nocov ends
+
+normalize_venue <- function(venue) {
+  venue <- ds_is_gh(venue)
+  venue <- so_is_gh(venue)
+  venue <- rtf_requires_highlight(venue)
+  venue
+}
+
+ds_is_gh <- function(venue) {
+  if (venue == "ds") {
+    message(
+      "FYI, the Discourse venue \"ds\" is currently an alias for the ",
+      "default GitHub venue \"gh\".\nYou don't need to specify it."
+    )
+    venue <- "gh"
+  }
+  venue
+}
+
+so_is_gh <- function(venue) {
+  if (venue == "so") {
+    message(
+      "FYI, the Stack Overflow venue \"so\" is no longer necessary. Due to ",
+      "changes at\nStack Overflow, the markdown produced by the default GitHub ",
+      "venue \"gh\" works in\nboth places. You don't need to specify it."
+    )
+    venue <- "gh"
+  }
+  venue
+}

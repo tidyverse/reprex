@@ -53,28 +53,6 @@ escape_newlines <- function(x) {
   gsub("\n", "\\\\n", x, perl = TRUE)
 }
 
-ds_is_gh <- function(venue) {
-  if (venue == "ds") {
-    message(
-      "FYI, the Discourse venue \"ds\" is currently an alias for the ",
-      "default GitHub venue \"gh\".\nYou don't need to specify it."
-    )
-    venue <- "gh"
-  }
-  venue
-}
-
-so_is_gh <- function(venue) {
-  if (venue == "so") {
-    message(
-      "FYI, the Stack Overflow venue \"so\" is no longer necessary. Due to ",
-      "changes at\nStack Overflow, the markdown produced by the default GitHub ",
-      "venue \"gh\" works in\nboth places. You don't need to specify it."
-    )
-    venue <- "gh"
-  }
-  venue
-}
 
 show_requires_interactive <- function(show) {
   if (show && !is_interactive()) {
