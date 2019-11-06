@@ -6,7 +6,7 @@ test_that("UTF-8 encoding, string input", {
     "x <- c('\u00C0', '\u00CB', '\u00D0')",
     "print(x)"
   )
-  out_utf8 <- reprex(input = in_utf8, show = FALSE, advertise = FALSE)
+  out_utf8 <- reprex(input = in_utf8)
 
   expect_true(all(Encoding(out_utf8) %in% c("unknown", "UTF-8")))
 
@@ -20,7 +20,7 @@ test_that("UTF-8 encoding, string input", {
   expect_match(out_utf8[i_out], "[\u00D0]")
 
   in_latin1 <- iconv(in_utf8, from = "UTF-8", to = "latin1")
-  out_latin1 <- reprex(input = in_latin1, show = FALSE, advertise = FALSE)
+  out_latin1 <- reprex(input = in_latin1)
 
   expect_identical(
     charToRaw(paste0(out_utf8, collapse = "\n")),

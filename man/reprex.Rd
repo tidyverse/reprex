@@ -13,10 +13,11 @@ reprex(
   advertise = NULL,
   session_info = opt(FALSE),
   style = opt(FALSE),
-  show = opt(TRUE),
+  html_preview = opt(TRUE),
   comment = opt("#>"),
   tidyverse_quiet = opt(TRUE),
-  std_out_err = opt(FALSE)
+  std_out_err = opt(FALSE),
+  show
 )
 }
 \arguments{
@@ -71,8 +72,9 @@ collapsible details tag. Read more about \code{\link[=opt]{opt()}}.}
 
 \item{style}{Logical. Whether to set the knitr chunk option \code{tidy = "styler"}, which re-styles code with the \href{https://styler.r-lib.org}{styler package}. Read more about \code{\link[=opt]{opt()}}.}
 
-\item{show}{Logical. Whether to show rendered output in a viewer (RStudio or
-browser). Read more about \code{\link[=opt]{opt()}}.}
+\item{html_preview}{Logical. Whether to show rendered output in a viewer
+(RStudio or browser). Always \code{FALSE} in a noninteractive session. Read more
+about \code{\link[=opt]{opt()}}.}
 
 \item{comment}{Character. Prefix with which to comment out output, defaults
 to \code{"#>"}. Read more about \code{\link[=opt]{opt()}}.}
@@ -88,6 +90,9 @@ Note this cannot be properly interleaved with output from the main R
 process, nor is there any guarantee that the lines from standard output and
 standard error are in correct chronological order. See \code{\link[callr:r]{callr::r()}} for
 more. Read more about \code{\link[=opt]{opt()}}.}
+
+\item{show}{Deprecated, in favor of \code{html_preview}, for greater consistency
+with other rmarkdown output formats.}
 }
 \value{
 Character vector of rendered reprex, invisibly.

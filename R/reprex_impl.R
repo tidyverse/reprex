@@ -8,7 +8,7 @@ reprex_impl <- function(x_expr = NULL,
                         advertise       = NULL,
                         session_info    = opt(FALSE),
                         style           = opt(FALSE),
-                        show            = opt(TRUE),
+                        html_preview    = opt(TRUE),
                         comment         = opt("#>"),
                         tidyverse_quiet = opt(TRUE),
                         std_out_err     = opt(FALSE)) {
@@ -21,8 +21,9 @@ reprex_impl <- function(x_expr = NULL,
   session_info    <- arg_option(session_info)
   style           <- arg_option(style)
   style           <- style_requires_styler(style)
-  show            <- arg_option(show)
-  show            <- show_requires_interactive(show)
+  html_preview    <- arg_option(html_preview)
+  html_preview    <- html_preview_requires_interactive(html_preview)
+
   comment         <- arg_option(comment)
   tidyverse_quiet <- arg_option(tidyverse_quiet)
   std_out_err     <- arg_option(std_out_err)
@@ -30,7 +31,7 @@ reprex_impl <- function(x_expr = NULL,
   if (!is.null(input)) stopifnot(is.character(input))
   if (!is.null(outfile)) stopifnot(is.character(outfile) || is.na(outfile))
   stopifnot(is_toggle(advertise), is_toggle(session_info), is_toggle(style))
-  stopifnot(is_toggle(show), is_toggle(render))
+  stopifnot(is_toggle(html_preview), is_toggle(render))
   stopifnot(is.character(comment))
   stopifnot(is_toggle(tidyverse_quiet), is_toggle(std_out_err))
 
@@ -57,7 +58,7 @@ reprex_impl <- function(x_expr = NULL,
   format_params <- list(
     venue = venue,
     advertise = advertise, session_info = session_info,
-    style = style, comment = comment,
+    style = style, html_preview = html_preview, comment = comment,
     tidyverse_quiet = tidyverse_quiet, std_out_err = std_out_err
   )
   src <- c(yamlify(format_params), "", src)
@@ -71,7 +72,7 @@ reprex_impl <- function(x_expr = NULL,
   }
 
   message("Rendering reprex...")
-  reprex_render(r_file, new_session)
+  reprex_render(r_file, new_session, html_preview)
   ## 1. when venue = "r" or "rtf", the reprex_file != md_file, so we need both
   ## 2. use our own "md_file" instead of the normalized, absolutized path
   ##    returned by rmarkdown::render() and, therefore, reprex_render()
@@ -120,23 +121,6 @@ reprex_impl <- function(x_expr = NULL,
     reprex_file <- html_fragment_file
   }
 
-  if (show) {
-    html_file <- files[["html_file"]]
-    rmarkdown::render(
-      md_file,
-      output_file = html_file,
-      clean = FALSE,
-      quiet = TRUE,
-      encoding = "UTF-8",
-      output_options = if (pandoc2.0()) list(pandoc_args = "--quiet")
-    )
-
-    ## html must live in session temp dir in order to display within RStudio
-    html_file <- force_tempdir(html_file)
-    viewer <- getOption("viewer") %||% utils::browseURL
-    viewer(html_file)
-  }
-
   out_lines <- read_lines(reprex_file)
 
   if (clipboard_available()) {
@@ -174,12 +158,12 @@ style_requires_styler <- function(style) {
   invisible(style)
 }
 
-show_requires_interactive <- function(show) {
-  if (show && !is_interactive()) {
-    message("Non-interactive session, setting `show = FALSE`.")
-    show <- FALSE
+html_preview_requires_interactive <- function(html_preview) {
+  if (html_preview && !is_interactive()) {
+    message("Non-interactive session, setting `html_preview = FALSE`.")
+    html_preview <- FALSE
   }
-  invisible(show)
+  invisible(html_preview)
 }
 
 # re-express reprex() args as yaml for the reprex_document() format ----
@@ -204,6 +188,7 @@ remove_defaults <- function(x) {
     advertise       = TRUE,
     session_info    = FALSE,
     style           = FALSE,
+    html_preview    = TRUE,
     comment         = "#>",
     tidyverse_quiet = TRUE,
     std_out_err     = FALSE

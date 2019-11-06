@@ -35,10 +35,19 @@ prex <- function(x = NULL,
                  advertise       = FALSE,       # <-- different from reprex
                  session_info    = opt(FALSE),
                  style           = opt(FALSE),
-                 show            = opt(TRUE),
+                 html_preview    = opt(TRUE),
                  comment         = opt("#>"),
                  tidyverse_quiet = opt(TRUE),
-                 std_out_err     = opt(FALSE)) {
+                 std_out_err     = opt(FALSE),
+                 show) {
+  if (!missing(show)) {
+    html_preview <- show
+    warning(
+      "`show` is deprecated, please use `html_preview` instead",
+      immediate. = TRUE, call. = FALSE
+    )
+  }
+
   reprex_impl(
     x_expr = substitute(x),
     input = input, outfile = outfile,
@@ -50,7 +59,7 @@ prex <- function(x = NULL,
     advertise       = advertise,
     session_info    = session_info,
     style           = style,
-    show            = show,
+    html_preview    = html_preview,
     comment         = comment,
     tidyverse_quiet = tidyverse_quiet,
     std_out_err     = std_out_err

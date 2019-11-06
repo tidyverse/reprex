@@ -8,7 +8,7 @@
 #'   * `reprex.advertise`
 #'   * `reprex.session_info`
 #'   * `reprex.style`
-#'   * `reprex.show`
+#'   * `reprex.html_preview` (previously, `reprex.show`)
 #'   * `reprex.comment`
 #'   * `reprex.tidyverse_quiet`
 #'   * `reprex.std_out_err`
@@ -33,7 +33,7 @@
 #'   reprex.advertise       = FALSE,
 #'   reprex.session_info    = TRUE,
 #'   reprex.style           = TRUE,
-#'   reprex.show            = FALSE,
+#'   reprex.html_preview    = FALSE,
 #'   reprex.comment         = "#;-)",
 #'   reprex.tidyverse_quiet = FALSE,
 #'   reprex.std_out_err     = TRUE,

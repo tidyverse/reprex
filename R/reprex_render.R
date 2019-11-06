@@ -1,5 +1,7 @@
 reprex_render <- function(input, new_session = TRUE) {
-  std_path <- std_out_err_path(input)
+  opts <- get_document_options(input)
+  std_path <- std_out_err_path(input, opts)
+  html_preview <- isTRUE(opts[["html_preview"]])
 
   if (new_session) {
     callr::r_safe(
@@ -29,22 +31,48 @@ reprex_render <- function(input, new_session = TRUE) {
       knit_root_dir = getwd()
     )
   }
+
+  if (html_preview) {
+    md_path <- make_filenames(make_filebase(outfile = NA, infile = input), suffix = "")$reprex_file
+    preview(md_path)
+  }
 }
 
-std_out_err_path <- function(input) {
+get_document_options <- function(input) {
   yaml_input <- input
   if (tolower(path_ext(input)) == "r") {
     yaml_input <- knitr::spin(input, knit = FALSE)
     on.exit(file_delete(yaml_input), add = TRUE)
   }
   yaml <- rmarkdown::yaml_front_matter(yaml_input)
-  std_out_err <- tryCatch(
-    yaml[["output"]][["reprex::reprex_document"]][["std_out_err"]],
-    error = function(e) NULL
+  tryCatch(
+    yaml[["output"]][["reprex::reprex_document"]]
+    error = function(e) list()
   )
+}
+
+std_out_err_path <- function(input, opts) {
+  std_out_err <- opts[["std_out_err"]]
   if (is.null(std_out_err) || !isTRUE(std_out_err)) {
     NULL
   } else {
     make_filenames(make_filebase(outfile = NA, infile = input), suffix = "")$std_file
   }
+}
+
+preview <- function(md_file) {
+  preview_file <- make_filenames(make_filebase(outfile = NA, infile = input), suffix = "")$html_file
+  rmarkdown::render(
+    md_file,
+    output_file = html_file,
+    clean = FALSE,
+    quiet = TRUE,
+    encoding = "UTF-8",
+    output_options = if (pandoc2.0()) list(pandoc_args = "--quiet")
+  )
+
+  ## html must live in session temp dir in order to display within RStudio
+  preview_file <- force_tempdir(preview_file)
+  viewer <- getOption("viewer") %||% utils::browseURL
+  viewer(preview_file)
 }

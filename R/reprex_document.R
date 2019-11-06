@@ -11,10 +11,10 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
                             comment = "#>",
                             tidyverse_quiet = TRUE,
                             std_out_err = FALSE,
-                            pandoc_args = NULL) {
-  #html_preview = FALSE,
-  #keep_html = FALSE
-
+                            pandoc_args = NULL,
+                            # needs to exist, even if we don't consult here
+                            # in order to specify it in YAML for reprex_render()
+                            html_preview = NULL) {
   venue <- tolower(venue)
   venue <- match.arg(venue)
   venue <- normalize_venue(venue)
@@ -77,6 +77,20 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
     }
   }
 
+  pp_save_pp_args <- function(metadata,
+                              input_file, output_file,
+                              clean, verbose) {
+    save(
+      metadata, input_file, output_file, clean, verbose,
+      file = "~/rrr/reprex/post_processor_args.RData"
+    )
+    output_file
+  }
+
+  pp_merge <- get("merge_post_processors", asNamespace("rmarkdown"))
+  post_processor <- pp_merge(NULL, pp_save_pp_args)
+  #post_processor <- pp_merge(post_processor, pp_html_preview)
+
   format <- rmarkdown::output_format(
     knitr = rmarkdown::knitr_options(
       opts_knit = opts_knit,
@@ -90,6 +104,7 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
     ),
     clean_supporting = FALSE,
     pre_knit = pre_knit,
+    post_processor = post_processor,
     base_format = rmarkdown::md_document()
   )
   format
@@ -108,7 +123,7 @@ ad <- function(venue) {
     "[reprex package](https://reprex.tidyverse.org) ",
     "(v`r utils::packageVersion(\"reprex\")`)"
   )
-  if (venue %in% c("gh", "so")) {
+  if (venue %in% c("gh", "so", "html")) {
     txt <- paste0("<sup>", txt, "</sup>")
   }
   txt

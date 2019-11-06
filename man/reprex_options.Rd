@@ -13,7 +13,7 @@ ones:
 \item \code{reprex.advertise}
 \item \code{reprex.session_info}
 \item \code{reprex.style}
-\item \code{reprex.show}
+\item \code{reprex.html_preview} (previously, \code{reprex.show})
 \item \code{reprex.comment}
 \item \code{reprex.tidyverse_quiet}
 \item \code{reprex.std_out_err}
@@ -39,7 +39,7 @@ the sake of exposition:\preformatted{options(
   reprex.advertise       = FALSE,
   reprex.session_info    = TRUE,
   reprex.style           = TRUE,
-  reprex.show            = FALSE,
+  reprex.html_preview    = FALSE,
   reprex.comment         = "#;-)",
   reprex.tidyverse_quiet = FALSE,
   reprex.std_out_err     = TRUE,

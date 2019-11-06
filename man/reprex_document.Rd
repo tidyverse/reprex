@@ -12,7 +12,8 @@ reprex_document(
   comment = "#>",
   tidyverse_quiet = TRUE,
   std_out_err = FALSE,
-  pandoc_args = NULL
+  pandoc_args = NULL,
+  html_preview = NULL
 )
 }
 \arguments{
@@ -63,6 +64,10 @@ standard error are in correct chronological order. See \code{\link[callr:r]{call
 more. Read more about \code{\link[=opt]{opt()}}.}
 
 \item{pandoc_args}{Additional command line options to pass to pandoc}
+
+\item{html_preview}{Logical. Whether to show rendered output in a viewer
+(RStudio or browser). Always \code{FALSE} in a noninteractive session. Read more
+about \code{\link[=opt]{opt()}}.}
 }
 \value{
 something

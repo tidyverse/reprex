@@ -38,7 +38,7 @@ NULL
 #'   #' More text
 #'   y <- 2:5
 #'   x + y
-#' }, show = FALSE, advertise = FALSE, outfile = tmp_in)
+#' }, html_preview = FALSE, advertise = FALSE, outfile = tmp_in)
 #' tmp_out <- file.path(tempdir(), "roundtrip-output")
 #' x <- reprex_invert(x, outfile = tmp_out)
 #' x

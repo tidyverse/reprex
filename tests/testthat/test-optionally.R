@@ -20,7 +20,7 @@ test_that("`comment` can be set via option", {
   skip_on_cran()
   withr::with_options(
     list(reprex.comment = "#? "),
-    out <- reprex(rnorm(1), show = FALSE)
+    out <- reprex(rnorm(1))
   )
   expect_match(out, "^#\\?", all = FALSE)
 })

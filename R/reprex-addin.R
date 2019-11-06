@@ -77,9 +77,9 @@ reprex_addin <- function() { # nocov start
         getOption("reprex.session_info", FALSE)
       ),
       shiny::checkboxInput(
-        "show",
+        "html_preview",
         "Preview HTML",
-        getOption("reprex.show", TRUE)
+        getOption("reprex.html_preview", TRUE)
       )
     )
   )
@@ -91,7 +91,7 @@ reprex_addin <- function() { # nocov start
         input$venue,
         input$source_file,
         as.logical(input$session_info),
-        as.logical(input$show)
+        as.logical(input$html_preview)
       ))
     })
   }
@@ -101,7 +101,7 @@ reprex_addin <- function() { # nocov start
 }
 
 reprex_guess <- function(source, venue = "gh", source_file = NULL,
-                         session_info = FALSE, show = FALSE) {
+                         session_info = FALSE, html_preview = FALSE) {
   reprex_input <- switch(
     source,
     clipboard = NULL,
@@ -114,7 +114,7 @@ reprex_guess <- function(source, venue = "gh", source_file = NULL,
     input = reprex_input,
     venue = venue,
     session_info = session_info,
-    show = show
+    html_preview = html_preview
   )
 }
 
