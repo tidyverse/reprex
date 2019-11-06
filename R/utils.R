@@ -105,7 +105,7 @@ inject_file <- function(path, inject_path, pre_process = enfence, ...) {
   path
 }
 
-prose <- function(x) paste0("#' ", x)
+roxygen_comment <- function(x) paste0("#' ", x)
 
 r_chunk <- function(code, label = NULL) {
   c(sprintf("```{r %s}", label %||% ""), label, code, "```")

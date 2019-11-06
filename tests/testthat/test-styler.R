@@ -7,9 +7,9 @@ test_that("ugly code gets restyled", {
     advertise = FALSE,
     render = FALSE
   )
-  i <- which(ret == "#+ reprex-body")
+  i <- grep("^a", ret)
   expect_identical(
-    ret[i + 1:3],
+    ret[i + 0:2],
     c("a <- function(x) {", "  1 + 1", "}")
   )
 })

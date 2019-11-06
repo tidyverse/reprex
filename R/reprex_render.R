@@ -38,7 +38,10 @@ std_out_err_path <- function(input) {
     on.exit(file_delete(yaml_input), add = TRUE)
   }
   yaml <- rmarkdown::yaml_front_matter(yaml_input)
-  std_out_err <- yaml[["output"]][["reprex::reprex_document"]][["std_out_err"]]
+  std_out_err <- tryCatch(
+    yaml[["output"]][["reprex::reprex_document"]][["std_out_err"]],
+    error = function(e) NULL
+  )
   if (is.null(std_out_err) || !isTRUE(std_out_err)) {
     NULL
   } else {

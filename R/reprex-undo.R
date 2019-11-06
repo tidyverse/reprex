@@ -191,7 +191,7 @@ reprex_undo <- function(input = NULL,
 
 convert_md_to_r <- function(lines, comment = "#>", drop_output = FALSE) {
   lines_info <- classify_fenced_lines(lines, comment = comment)
-  lines_out <- ifelse(lines_info == "prose" & nzchar(lines), prose(lines), lines)
+  lines_out <- ifelse(lines_info == "prose" & nzchar(lines), roxygen_comment(lines), lines)
   drop_classes <- c("bt", if (drop_output) "output")
   lines_out[!lines_info %in% drop_classes]
 }

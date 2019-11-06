@@ -1,5 +1,9 @@
 ensure_not_empty <- function(x) {
-  if (length(x) < 1) read_template("BETTER_THAN_NOTHING") else x
+  if (length(x) > 0) {
+    x
+  } else {
+    read_lines(path_package("reprex", "templates", "BETTER_THAN_NOTHING.R"))
+  }
 }
 
 ensure_not_dogfood <- function(x) {

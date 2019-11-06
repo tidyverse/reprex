@@ -18,7 +18,9 @@
 
 R 3.1 is no longer explicitly supported or tested. Our general practice is to support the current release (3.6, at time of writing), devel, and the 4 previous versions of R (3.5, 3.4, 3.3, 3.2).
 
-* devtools is no longer in Suggests. It is replaced by sessioninfo.
+* sessioninfo is new in Suggests, replacing devtools.
+
+* glue is new in Imports, replacing whisker.
 
 * knitr moves from Suggests to Imports (although it was already a hard dependency via rmarkdown), so we can require v1.23 or higher, which represents a
 major switch to UTF-8.

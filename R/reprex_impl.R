@@ -58,11 +58,12 @@ reprex_impl <- function(x_expr = NULL,
   r_file <- files[["r_file"]]
   if (would_clobber(r_file)) { return(invisible()) }
 
-  data <- list(
-    venue = venue, advertise = advertise, session_info = session_info,
-    comment = comment, tidyverse_quiet = tidyverse_quiet, std_out_err = std_out_err
+  format_params <- list(
+    venue = venue,
+    advertise = advertise, session_info = session_info, comment = comment,
+    tidyverse_quiet = tidyverse_quiet, std_out_err = std_out_err
   )
-  src <- apply_template(src, data)
+  src <- c(yamlify(format_params), "", src)
   write_lines(src, r_file)
   if (outfile_given) {
     message("Preparing reprex as .R file:\n  * ", r_file)
@@ -159,4 +160,51 @@ reprex_impl <- function(x_expr = NULL,
   }
 
   invisible(out_lines)
+}
+
+# re-express reprex() args as yaml for the reprex_document() format ----
+yamlify <- function(x) {
+  x <- remove_defaults(x)
+  if (length(x) < 1) {
+    return(decorate_yaml("output: reprex::reprex_document"))
+  }
+  lines <- c(
+    "output:",
+    "  reprex::reprex_document:",
+    paste0("    ", nv(x))
+  )
+  decorate_yaml(lines)
+}
+
+decorate_yaml <- function(x) roxygen_comment(x <- c("---", x, "---"))
+
+remove_defaults <- function(x) {
+  defaults <- list(
+    venue           = "gh",
+    advertise       = TRUE,
+    session_info    = FALSE,
+    comment         = "#>",
+    tidyverse_quiet = TRUE,
+    std_out_err     = FALSE
+  )
+
+  compare_one <- function(nm) identical(x[[nm]], defaults[[nm]])
+  is_default <- vapply(names(x), compare_one, logical(1))
+
+  novel_names <- setdiff(names(x), names(defaults))
+  if (length(novel_names) > 0) {
+    novel_names <- glue::glue_collapse(novel_names, sep = ", ")
+    message(
+      "These parameter(s) are not recognized for the `reprex_document()` format:\n",
+      novel_names
+    )
+  }
+
+  x[!is_default]
+}
+
+nv <- function(x) {
+  is_character <- vapply(x, is.character, logical(1))
+  x[is_character] <- vapply(x[is_character], dQuote, character(1), q = FALSE)
+  glue::glue("{name}: {value}", name = names(x), value = x)
 }
