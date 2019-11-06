@@ -5,7 +5,7 @@ test_that("reprex() suppresses tidyverse startup message by default", {
     input = sprintf("library(%s)\n", "tidyverse"),
     show = FALSE, advertise = FALSE
   )
-  expect_false(any(grepl("dplyr", ret)))
+  expect_false(any(grepl("Attaching", ret)))
 })
 
 test_that("reprex() has control over tidyverse startup message", {
@@ -18,12 +18,12 @@ test_that("reprex() has control over tidyverse startup message", {
     show = FALSE,
     advertise = FALSE
   )
-  expect_false(any(grepl("dplyr", ret)))
+  expect_false(any(grepl("Attaching", ret)))
 
   ret <- reprex(
     input = sprintf("library(%s)\n", "tidyverse"),
     tidyverse_quiet = FALSE,
     show = FALSE
   )
-  expect_match(ret, "dplyr", all = FALSE)
+  expect_match(ret, "Attaching", all = FALSE)
 })
