@@ -25,7 +25,8 @@ Given R code on the clipboard, selected in RStudio, as an expression
 (quoted or not), or in a file …
 
   - run it via `rmarkdown::render()`,
-  - with deliberate choices re: arguments and setup chunk.
+  - with deliberate choices re: `render()` arguments, knitr options, and
+    Pandoc options.
 
 Get resulting runnable code + output as
 
