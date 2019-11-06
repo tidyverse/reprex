@@ -17,8 +17,7 @@ reprex_impl <- function(x_expr = NULL,
   venue <- match.arg(venue)
   venue <- normalize_venue(venue)
 
-  advertise       <- advertise %||%
-    getOption("reprex.advertise") %||% (venue %in% c("gh", "html"))
+  advertise       <- set_advertise(advertise, venue)
   session_info    <- arg_option(session_info)
   style           <- arg_option(style)
   show            <- arg_option(show)
@@ -159,6 +158,21 @@ reprex_impl <- function(x_expr = NULL,
   }
 
   invisible(out_lines)
+}
+
+set_advertise <- function(advertise, venue) {
+  advertise %||%
+    getOption("reprex.advertise") %||%
+    # these parentheses are important
+    (venue %in% c("gh", "html"))
+}
+
+show_requires_interactive <- function(show) {
+  if (show && !is_interactive()) {
+    message("Non-interactive session, setting `show = FALSE`.")
+    show <- FALSE
+  }
+  invisible(show)
 }
 
 # re-express reprex() args as yaml for the reprex_document() format ----

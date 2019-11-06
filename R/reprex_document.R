@@ -18,8 +18,7 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
   venue <- match.arg(venue)
   venue <- normalize_venue(venue)
 
-  advertise <- advertise %||%
-    getOption("reprex.advertise") %||% (venue %in% c("gh", "html"))
+  advertise <- set_advertise(advertise, venue)
 
   opts_chunk <- list(
     # fixed defaults
