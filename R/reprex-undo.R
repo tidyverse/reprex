@@ -183,7 +183,7 @@ reprex_undo <- function(input = NULL,
     message("Clean code is on the clipboard.")
   }
   if (outfile_given) {
-    writeLines(x_out, r_file)
+    write_lines(x_out, r_file)
     message("Writing clean code as R script:\n  * ", r_file)
   }
   invisible(x_out)

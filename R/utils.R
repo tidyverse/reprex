@@ -15,15 +15,6 @@ locate_input <- function(input) {
   }
 }
 
-read_lines <- function(path, error = FALSE) {
-  if (is.null(path)) return(NULL)
-  xfun::read_utf8(path, error = error)
-}
-
-write_lines <- function(text, path) {
-  xfun::write_utf8(text, path)
-}
-
 trim_ws <- function(x) {
   sub("\\s*$", "", sub("^\\s*", "", x))
 }

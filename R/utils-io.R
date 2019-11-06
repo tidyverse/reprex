@@ -1,3 +1,20 @@
+readLines <- function(...) {
+  stop("In this house, we use read_lines() for UTF-8 reasons.")
+}
+
+writeLines <- function(...) {
+  stop("In this house, we use write_lines() for UTF-8 reasons.")
+}
+
+read_lines <- function(path, error = FALSE) {
+  if (is.null(path)) return(NULL)
+  xfun::read_utf8(path, error = error)
+}
+
+write_lines <- function(text, path) {
+  xfun::write_utf8(text, path)
+}
+
 ## note that all paths pass through fs and, therefore, path_tidy()
 make_filebase <- function(outfile = NULL, infile = NULL) {
   if (is.null(outfile)) {

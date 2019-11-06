@@ -106,7 +106,7 @@ test_that("reprex_invert() can write to specific outfile", {
   code <- c("x <- 1:3", "median(x)")
   invert_me <- reprex(input = code, show = FALSE, advertise = FALSE)
   out <- reprex_invert(input = invert_me, outfile = "foo")
-  expect_identical(readLines("foo_clean.R"), out)
+  expect_identical(read_lines("foo_clean.R"), out)
 })
 
 test_that("reprex_invert() can name its own outfile", {
@@ -120,7 +120,7 @@ test_that("reprex_invert() can name its own outfile", {
   msg <- sub("\n$", "", msg)
   outfile <- regmatches(msg, regexpr("reprex(.*)", msg))
   withr::local_file(outfile)
-  expect_identical(readLines(outfile), out)
+  expect_identical(read_lines(outfile), out)
 })
 
 test_that("reprex_invert() can name outfile based on input filepath", {
@@ -130,7 +130,7 @@ test_that("reprex_invert() can name outfile based on input filepath", {
   code <- c("x <- 1:3", "median(x)")
   reprex(input = code, show = FALSE, advertise = FALSE, outfile = "a")
   out <- reprex_invert(input = "a_reprex.md", outfile = NA)
-  expect_identical(readLines("a_reprex_clean.R"), out)
+  expect_identical(read_lines("a_reprex_clean.R"), out)
 })
 
 test_that("reprex_invert(venue = 'gh') doesn't strip leading ws", {

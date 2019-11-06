@@ -77,7 +77,7 @@ test_that("newlines in code are protected and uniformly so across venues", {
 
   input_file <- path_temp("foo.R")
   withr::local_file(input_file)
-  writeLines(
+  write_lines(
     escape_newlines('paste(letters[1:3], collapse = "\n")'),
     input_file
   )

@@ -10,8 +10,8 @@ test_that("expected outfiles are written and messaged, venue = 'gh'", {
   withr::local_file(c("foo_reprex.R", "foo_reprex.md"))
   msg <- capture_messages(ret <- reprex(1:5, outfile = "foo", show = FALSE))
   expect_identical(msg[1:3], base_msg)
-  expect_match(readLines("foo_reprex.R"), "1:5", all = FALSE)
-  expect_identical(ret, readLines("foo_reprex.md"))
+  expect_match(read_lines("foo_reprex.R"), "1:5", all = FALSE)
+  expect_identical(ret, read_lines("foo_reprex.md"))
 })
 
 test_that("expected outfiles are written and messaged, venue = 'R'", {
@@ -26,9 +26,9 @@ test_that("expected outfiles are written and messaged, venue = 'R'", {
     msg[4],
     "Writing reprex as commented R script:\n  * foo_reprex_rendered.R\n"
   )
-  expect_match(readLines("foo_reprex.R"), "1:5", all = FALSE)
-  expect_identical(ret, readLines("foo_reprex_rendered.R"))
-  expect_match(readLines("foo_reprex.md"), "1:5", all = FALSE)
+  expect_match(read_lines("foo_reprex.R"), "1:5", all = FALSE)
+  expect_identical(ret, read_lines("foo_reprex_rendered.R"))
+  expect_match(read_lines("foo_reprex.md"), "1:5", all = FALSE)
 })
 
 test_that("`.md` extension is stripped from outfile", {
@@ -44,9 +44,9 @@ test_that(".R outfile doesn't clobber .R infile", {
   skip_on_cran()
   temporarily()
   withr::local_file(c("foo.R", "foo_reprex.R", "foo_reprex.md"))
-  writeLines("1:5", "foo.R")
+  write_lines("1:5", "foo.R")
   ret <- reprex(input = "foo.R", show = FALSE, outfile = NA)
-  expect_identical("1:5", readLines("foo.R"))
+  expect_identical("1:5", read_lines("foo.R"))
 })
 
 test_that("outfiles in a subdirectory works", {
@@ -65,7 +65,7 @@ test_that("outfiles based on input file", {
   skip_on_cran()
   temporarily()
   withr::local_file(c("foo.R", "foo_reprex.R", "foo_reprex.md"))
-  writeLines("1:5", "foo.R")
+  write_lines("1:5", "foo.R")
   msg <- capture_messages(
     ret <- reprex(input = "foo.R", show = FALSE, outfile = NA)
   )
@@ -94,7 +94,7 @@ test_that("pre-existing foo_reprex.R doesn't get clobbered w/o user's OK", {
   temporarily()
   withr::local_file(c("foo_reprex.R", "foo_reprex.md"))
   ret <- reprex(1:3, show = FALSE, outfile = "foo")
-  expect_match(readLines("foo_reprex.md"), "1:3", all = FALSE, fixed = TRUE)
+  expect_match(read_lines("foo_reprex.md"), "1:3", all = FALSE, fixed = TRUE)
   reprex(max(4:6), show = FALSE, outfile = "foo")
-  expect_match(readLines("foo_reprex.md"), "1:3", all = FALSE, fixed = TRUE)
+  expect_match(read_lines("foo_reprex.md"), "1:3", all = FALSE, fixed = TRUE)
 })
