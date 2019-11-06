@@ -6,6 +6,10 @@ is_path <- function(x) {
   length(x) == 1 && is.character(x) && !grepl("\n$", x)
 }
 
+interactive <- function(...) {
+  stop("In this house, we use rlang::is_interactive()")
+}
+
 locate_input <- function(input) {
   if (is.null(input)) return("clipboard")
   if (is_path(input)) {
@@ -77,7 +81,7 @@ so_is_gh <- function(venue) {
 }
 
 show_requires_interactive <- function(show) {
-  if (show && !interactive()) {
+  if (show && !is_interactive()) {
     message("Non-interactive session, setting `show = FALSE`.")
     show <- FALSE
   }

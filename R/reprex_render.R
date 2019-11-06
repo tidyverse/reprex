@@ -15,7 +15,7 @@ reprex_render <- function(input, new_session = TRUE) {
         )
       },
       args = list(input = input),
-      spinner = interactive(),
+      spinner = is_interactive(),
       stdout = std_path,
       stderr = std_path
     )

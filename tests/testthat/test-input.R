@@ -1,23 +1,10 @@
-out <- c("``` r", "1:5", "#> [1] 1 2 3 4 5", "```")
-
-exp_msg <- switch(
-  as.character(clipboard_available()),
-  `TRUE` = "Rendered reprex is on the clipboard.",
-  "Unable to put result on the clipboard"
-)
-
-test_that("reprex: clipboard input works", {
-  skip_on_cran()
-  # explicitly permit clipboard access in non-interactive session
-  withr::local_envvar(c(CLIPR_ALLOW = TRUE))
-  skip_if_not(
-    clipboard_available(),
-    "System clipboard is not available - skipping test."
-  )
-
-  clipr::write_clip("1:5")
-  expect_match(reprex(render = FALSE), "^1:5$", all = FALSE)
-})
+# test_that("reprex: clipboard input works")
+# This test was removed:
+#   * Feels like I'm just testing clipr, which seems silly.
+#   * Because clipr and reprex have erected so many safeguards against
+#     clipboard access in a noninteractive session, for CRAN reasons, this test
+#     requires a great deal of gymnastics to bypass all of that.
+#   * Normal usage will absolutely and immediately reveal clipboard problems.
 
 test_that("reprex: expression input works", {
   skip_on_cran()
@@ -26,6 +13,7 @@ test_that("reprex: expression input works", {
 
 ## https://github.com/tidyverse/reprex/issues/241
 test_that("reprex: expression input preserves `!!`", {
+  skip_on_cran()
   res <- reprex(
     {f <- function(c6d573e) rlang::qq_show(how_many(!!rlang::enquo(c6d573e)))},
     render = FALSE

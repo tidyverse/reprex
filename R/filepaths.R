@@ -62,7 +62,7 @@ would_clobber <- function(path) {
   if (!file_exists(path)) {
     return(FALSE)
   }
-  if (!interactive()) {
+  if (!is_interactive()) {
     return(TRUE)
   }
   nope(

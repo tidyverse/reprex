@@ -44,7 +44,7 @@ Imports:
     fs,
     glue,
     knitr (>= 1.23),
-    rlang,
+    rlang (>= 0.4.0),
     rmarkdown,
     utils,
     withr,

@@ -8,7 +8,7 @@ temporarily <- function(env = parent.frame()) {
 }
 
 ## useful during interactive test development to toggle the
-## rlang_interactive escape hatch in reprex:::interactive()
+## rlang_interactive escape hatch
 interactive_mode <- function() {
   before <- getOption("rlang_interactive", default = TRUE)
   after <- if (before) FALSE else TRUE

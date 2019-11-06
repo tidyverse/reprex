@@ -146,7 +146,7 @@ reprex_impl <- function(x_expr = NULL,
   if (clipboard_available()) {
     clipr::write_clip(out_lines)
     message("Rendered reprex is on the clipboard.")
-  } else if (interactive()) {
+  } else if (is_interactive()) {
     clipr::dr_clipr()
     message(
       "Unable to put result on the clipboard. How to get it:\n",
