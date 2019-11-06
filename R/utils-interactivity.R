@@ -11,10 +11,6 @@ clipboard_available <- function() {
   }
 }
 
-is_testing <- function() {
-  identical(Sys.getenv("TESTTHAT"), "true")
-}
-
 ## returns TRUE if user says "no"
 ##         FALSE otherwise
 nope <- function(..., yes = "yes", no = "no") {
