@@ -1,41 +1,46 @@
-reprex_render <- function(input, new_session = TRUE) {
-  opts <- get_document_options(input)
-  std_path <- std_out_err_path(input, opts)
-  html_preview <- isTRUE(opts[["html_preview"]])
+reprex_render <- function(input,
+                          html_preview = NULL) {
+  yaml_opts <- get_document_options(input)
+  html_preview <-
+    (html_preview %||% yaml_opts[["html_preview"]] %||% is_interactive()) &&
+    is_interactive()
+  stopifnot(is_toggle(html_preview))
+  std_path <- std_out_err_path(input, yaml_opts)
 
-  if (new_session) {
-    callr::r_safe(
-      function(input) {
-        options(
-          keep.source = TRUE,
-          rlang_trace_top_env = globalenv(),
-          crayon.enabled = FALSE
-        )
-        rmarkdown::render(
-          input,
-          quiet = TRUE, envir = globalenv(), encoding = "UTF-8"
-        )
-      },
-      args = list(input = input),
-      spinner = is_interactive(),
-      stdout = std_path,
-      stderr = std_path
-    )
-  } else {
-    if (!is.null(std_path)) {
-      message("Must use `new_session = TRUE` to capture standard output and error.")
-    }
-    rmarkdown::render(
-      input,
-      quiet = TRUE, envir = globalenv(), encoding = "UTF-8",
-      knit_root_dir = getwd()
-    )
-  }
-
+  out <- callr::r_safe(
+    function(input) {
+      options(
+        keep.source = TRUE,
+        rlang_trace_top_env = globalenv(),
+        crayon.enabled = FALSE
+      )
+      rmarkdown::render(
+        input,
+        quiet = TRUE, envir = globalenv(), encoding = "UTF-8"
+      )
+    },
+    args = list(input = input),
+    spinner = is_interactive(),
+    stdout = std_path,
+    stderr = std_path
+  )
   if (html_preview) {
-    md_path <- make_filenames(make_filebase(outfile = NA, infile = input), suffix = "")$reprex_file
-    preview(md_path)
+    preview(input)
   }
+  out
+}
+
+prex_render <- function(input,
+                        html_preview = TRUE) {
+  out <- rmarkdown::render(
+    input,
+    quiet = TRUE, envir = globalenv(), encoding = "UTF-8",
+    knit_root_dir = getwd()
+  )
+  if (html_preview) {
+    preview(input)
+  }
+  out
 }
 
 get_document_options <- function(input) {
@@ -46,7 +51,7 @@ get_document_options <- function(input) {
   }
   yaml <- rmarkdown::yaml_front_matter(yaml_input)
   tryCatch(
-    yaml[["output"]][["reprex::reprex_document"]]
+    yaml[["output"]][["reprex::reprex_document"]],
     error = function(e) list()
   )
 }
@@ -60,11 +65,13 @@ std_out_err_path <- function(input, opts) {
   }
 }
 
-preview <- function(md_file) {
-  preview_file <- make_filenames(make_filebase(outfile = NA, infile = input), suffix = "")$html_file
+preview <- function(input) {
+  filenames <- make_filenames(make_filebase(outfile = NA, infile = input), suffix = "")
+  md_file      <- filenames$md_file
+  preview_file <- filenames$html_file
   rmarkdown::render(
     md_file,
-    output_file = html_file,
+    output_file = preview_file,
     clean = FALSE,
     quiet = TRUE,
     encoding = "UTF-8",

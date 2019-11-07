@@ -72,7 +72,12 @@ reprex_impl <- function(x_expr = NULL,
   }
 
   message("Rendering reprex...")
-  reprex_render(r_file, new_session, html_preview)
+  if (new_session) {
+    reprex_render(r_file)
+  } else {
+    prex_render(r_file)
+  }
+
   ## 1. when venue = "r" or "rtf", the reprex_file != md_file, so we need both
   ## 2. use our own "md_file" instead of the normalized, absolutized path
   ##    returned by rmarkdown::render() and, therefore, reprex_render()
