@@ -92,7 +92,7 @@ more. Read more about \code{\link[=opt]{opt()}}.}
 about \code{\link[=opt]{opt()}}.}
 
 \item{show}{Deprecated, in favor of \code{html_preview}, for greater consistency
-with other rmarkdown output formats.}
+with other R Markdown output formats.}
 }
 \value{
 Character vector of rendered reprex, invisibly.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/reprex_document.R
 \name{reprex_document}
 \alias{reprex_document}
-\title{reprex document format}
+\title{reprex output format}
 \usage{
 reprex_document(
   venue = c("gh", "r", "rtf", "html", "so", "ds"),
@@ -70,8 +70,33 @@ more. Read more about \code{\link[=opt]{opt()}}.}
 about \code{\link[=opt]{opt()}}.}
 }
 \value{
-something
+An R Markdown output format to pass to \code{\link[rmarkdown:render]{rmarkdown::render()}}.
 }
 \description{
-reprex document format
+This is an R Markdown output format designed specifically for making
+"reprexes", typically formed via the \code{\link[=reprex]{reprex()}} function and then rendered
+with \code{\link[=reprex_render]{reprex_render()}}. It is a heavily modified version of
+\code{\link[rmarkdown:md_document]{rmarkdown::md_document()}}. The arguments have different spheres of
+influence:
+\itemize{
+\item \code{venue} potentially affects input preparation and \code{\link[=reprex_render]{reprex_render()}}.
+\item Add content to the primary input, prior to rendering:
+\itemize{
+\item \code{advertise}
+\item \code{session_info}
+\item \code{std_out_err} (also consulted by \code{\link[=reprex_render]{reprex_render()}})
+}
+\item Influence knitr package or chunk options:
+\itemize{
+\item \code{style}
+\item \code{comment}
+\item \code{tidyverse_quiet}
+}
+\item \code{html_preview} really targets \code{\link[=reprex_render]{reprex_render()}}, but it is a formal
+argument of \code{reprex_document()} so that it can be included in the YAML
+frontmatter.
+}
+}
+\examples{
+reprex_document()
 }

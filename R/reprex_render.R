@@ -17,7 +17,7 @@
 #' * [rmarkdown::render()] is executed in a new R session, by using
 #'   [callr::r()]. The goal is to eliminate the leakage of objects, attached
 #'   packages, and other aspects of session state from the current session into
-#'   the rendering session.
+#'   the rendering session. The system and user-level `.Rprofile`s are ignored.
 #' * Code is evaluated in the `globalenv()` of this new R session, which means
 #'   that method dispatch works the way most people expect it to.
 #' * The input file is assumed to be UTF-8, which is a knitr requirement as of
@@ -27,10 +27,10 @@
 #'
 #' `reprex_render()` was designed to work with the [reprex_document()] output
 #' format, typically through a call to [reprex()]. `reprex_render()` may work
-#' with other rmarkdown output formats, but it is not well-tested.
+#' with other R Markdown output formats, but it is not well-tested.
 #'
 #' @param input The input file to be rendered. This can be a `.R` script or a
-#'   `.Rmd` R Markdown document (.Rmd).
+#'   `.Rmd` R Markdown document.
 #' @inheritParams reprex
 #'
 #' @return The output of [rmarkdown::render()] is passed through, i.e. the path

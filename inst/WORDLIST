@@ -20,6 +20,7 @@ else's
 eval
 executability
 formatR
+frontmatter
 fs
 funder
 gh

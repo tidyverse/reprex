@@ -8,7 +8,7 @@ reprex_render(input, html_preview = NULL)
 }
 \arguments{
 \item{input}{The input file to be rendered. This can be a \code{.R} script or a
-\code{.Rmd} R Markdown document (.Rmd).}
+\code{.Rmd} R Markdown document.}
 
 \item{html_preview}{Logical. Whether to show rendered output in a viewer
 (RStudio or browser). Always \code{FALSE} in a noninteractive session. Read more
@@ -35,7 +35,7 @@ Key features to note
 \item \code{\link[rmarkdown:render]{rmarkdown::render()}} is executed in a new R session, by using
 \code{\link[callr:r]{callr::r()}}. The goal is to eliminate the leakage of objects, attached
 packages, and other aspects of session state from the current session into
-the rendering session.
+the rendering session. The system and user-level \code{.Rprofile}s are ignored.
 \item Code is evaluated in the \code{globalenv()} of this new R session, which means
 that method dispatch works the way most people expect it to.
 \item The input file is assumed to be UTF-8, which is a knitr requirement as of
@@ -46,7 +46,7 @@ error of the rendering R session are captured and injected into the result.
 
 \code{reprex_render()} was designed to work with the \code{\link[=reprex_document]{reprex_document()}} output
 format, typically through a call to \code{\link[=reprex]{reprex()}}. \code{reprex_render()} may work
-with other rmarkdown output formats, but it is not well-tested.
+with other R Markdown output formats, but it is not well-tested.
 }
 \examples{
 \dontrun{

@@ -107,7 +107,7 @@
 #'   (RStudio or browser). Always `FALSE` in a noninteractive session. Read more
 #'   about [opt()].
 #' @param show Deprecated, in favor of `html_preview`, for greater consistency
-#' with other rmarkdown output formats.
+#' with other R Markdown output formats.
 #'
 #' @return Character vector of rendered reprex, invisibly.
 #' @examples

@@ -1,9 +1,29 @@
-#' reprex document format
+#' reprex output format
+#'
+#' This is an R Markdown output format designed specifically for making
+#' "reprexes", typically formed via the [reprex()] function and then rendered
+#' with [reprex_render()]. It is a heavily modified version of
+#' [rmarkdown::md_document()]. The arguments have different spheres of
+#' influence:
+#'   * `venue` potentially affects input preparation and [reprex_render()].
+#'   * Add content to the primary input, prior to rendering:
+#'     - `advertise`
+#'     - `session_info`
+#'     - `std_out_err` (also consulted by [reprex_render()])
+#'   * Influence knitr package or chunk options:
+#'     - `style`
+#'     - `comment`
+#'     - `tidyverse_quiet`
+#'   * `html_preview` really targets [reprex_render()], but it is a formal
+#'     argument of `reprex_document()` so that it can be included in the YAML
+#'     frontmatter.
 #'
 #' @inheritParams reprex
 #' @inheritParams rmarkdown::md_document
-#' @return something
+#' @return An R Markdown output format to pass to [rmarkdown::render()].
 #' @export
+#' @examples
+#' reprex_document()
 reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
 
                             advertise       = NULL,
