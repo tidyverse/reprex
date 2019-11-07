@@ -8,8 +8,8 @@ expect_error_free <- function(...) {
 #    - restore original working directory
 #    - delete the directory
 # BUT also works when called in the Console, for interactive development joy
-scoped_temporary_dir <- function(pattern = "reprextests",
-                                 env = parent.frame()) {
+scoped_temporary_wd <- function(pattern = "reprextests",
+                                env = parent.frame()) {
   tmp <- fs::dir_create(fs::file_temp(pattern))
 
   # Can't schedule deferred events if calling this from the R console, which

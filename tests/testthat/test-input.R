@@ -28,7 +28,7 @@ test_that("reprex: character input works", {
 
 test_that("reprex: file input works", {
   skip_on_cran()
-  scoped_temporary_dir()
+  scoped_temporary_wd()
 
   write("1:5", "foo.R")
   expect_match(reprex(input = "foo.R", render = FALSE), "^1:5$", all = FALSE)
@@ -36,7 +36,7 @@ test_that("reprex: file input works", {
 
 test_that("reprex: file input in a subdirectory works", {
   skip_on_cran()
-  scoped_temporary_dir()
+  scoped_temporary_wd()
 
   dir_create("foo")
   write("1:5", path("foo", "foo.R"))
