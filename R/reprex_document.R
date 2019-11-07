@@ -82,7 +82,8 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
                               clean, verbose) {
     save(
       metadata, input_file, output_file, clean, verbose,
-      file = "~/rrr/reprex/post_processor_args.RData"
+      file = "~/rrr/reprex/post_processor_args.RData",
+      version = 2
     )
     output_file
   }
