@@ -80,7 +80,7 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
         # `details` argument of `si()`. Empirically, there seems to be no downside
         # on SO when we embed session info in the html tags that are favorable for
         # GitHub. They apparently are ignored.
-        input_lines <- c(input_lines, "", si(details = venue == "gh"))
+        input_lines <- c(input_lines, "", si(details = venue %in% c("gh", "html")))
       }
 
       write_lines(input_lines, knit_input)
@@ -149,6 +149,7 @@ si <- function(details = FALSE) {
       "</details>"
     )
   }
+  txt
 }
 
 session_info_string <- function() {
