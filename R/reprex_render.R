@@ -5,9 +5,9 @@ reprex_render <- function(input,
     (html_preview %||% yaml_opts[["html_preview"]] %||% is_interactive()) &&
     is_interactive()
   stopifnot(is_toggle(html_preview))
-  std_path <- std_out_err_path(input, yaml_opts)
+  std_file <- std_out_err_path(input, yaml_opts)
 
-  out <- callr::r_safe(
+  md_file <- callr::r_safe(
     function(input) {
       options(
         keep.source = TRUE,
@@ -21,18 +21,24 @@ reprex_render <- function(input,
     },
     args = list(input = input),
     spinner = is_interactive(),
-    stdout = std_path,
-    stderr = std_path
+    stdout = std_file,
+    stderr = std_file
   )
-  if (html_preview) {
-    preview(input)
+
+  if (!is.null(std_file)) {
+    ## replace "std_file" placeholder with its contents
+    inject_file(md_file, std_file, tag = "standard output and standard error")
   }
-  out
+
+  if (html_preview) {
+    preview(md_file)
+  }
+  md_file
 }
 
 prex_render <- function(input,
                         html_preview = TRUE) {
-  out <- rmarkdown::render(
+  md_file <- rmarkdown::render(
     input,
     quiet = TRUE, envir = globalenv(), encoding = "UTF-8",
     knit_root_dir = getwd()
@@ -40,7 +46,7 @@ prex_render <- function(input,
   if (html_preview) {
     preview(input)
   }
-  out
+  md_file
 }
 
 get_document_options <- function(input) {
@@ -67,10 +73,10 @@ std_out_err_path <- function(input, opts) {
 
 preview <- function(input) {
   filenames <- make_filenames(make_filebase(outfile = NA, infile = input), suffix = "")
-  md_file      <- filenames$md_file
+  #md_file      <- filenames$md_file
   #preview_file <- filenames$html_file
   preview_file <- rmarkdown::render(
-    md_file,
+    input,
     #output_file = preview_file,
     clean = FALSE,
     quiet = TRUE,

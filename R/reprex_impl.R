@@ -83,11 +83,6 @@ reprex_impl <- function(x_expr = NULL,
   ##    returned by rmarkdown::render() and, therefore, reprex_render()
   reprex_file <- md_file <- files[["md_file"]]
 
-  if (std_out_err) {
-    ## replace "std_file" placeholder with its contents
-    inject_file(md_file, files[["std_file"]], tag = "standard output and standard error")
-  }
-
   if (outfile_given) {
     message("Writing reprex markdown:\n  * ", md_file)
   }
