@@ -28,16 +28,16 @@ test_that("reprex: character input works", {
 
 test_that("reprex: file input works", {
   skip_on_cran()
-  temporarily()
-  withr::local_file("foo.R")
+  scoped_temporary_dir()
+
   write("1:5", "foo.R")
   expect_match(reprex(input = "foo.R", render = FALSE), "^1:5$", all = FALSE)
 })
 
 test_that("reprex: file input in a subdirectory works", {
   skip_on_cran()
-  temporarily()
-  withr::defer(dir_delete("foo"))
+  scoped_temporary_dir()
+
   dir_create("foo")
   write("1:5", path("foo", "foo.R"))
   expect_match(
