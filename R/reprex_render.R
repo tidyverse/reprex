@@ -1,32 +1,46 @@
 #' Render a document in a new R session
 #'
+#' @description
 #' This is a wrapper around [rmarkdown::render()] that enforces the "reprex"
-#' mentality:
-
+#' mentality. Here's a simplified version of what happens:
+#' ```
+#' callr::r(
+#'   function(input) {
+#'     rmarkdown::render(input, envir = globalenv(), encoding = "UTF-8")
+#'   },
+#'   args = list(input = input),
+#'   spinner = is_interactive(),
+#'   stdout = std_file, stderr = std_file
+#' )
+#' ```
+#' Key features to note
 #' * [rmarkdown::render()] is executed in a new R session, by using
 #'   [callr::r()]. The goal is to eliminate the leakage of objects, attached
 #'   packages, and other aspects of session state from the current session into
 #'   the rendering session.
-#'
-#' * Code is evaluated in the `globalenv()` of this new R session:
-#'   `render(..., envir = globalenv())`. This means that method dispatch works
-#'   the way most people expect it to.
-
+#' * Code is evaluated in the `globalenv()` of this new R session, which means
+#'   that method dispatch works the way most people expect it to.
 #' * The input file is assumed to be UTF-8, which is a knitr requirement as of
-#'   v1.24: `render(..., encoding = "UTF-8")`.
-#'
+#'   v1.24.
 #' * If the YAML frontmatter includes `std_err_out: TRUE`, standard output and
 #'   error of the rendering R session are captured and injected into the result.
-
 #'
+#' `reprex_render()` was designed to work with the [reprex_document()] output
+#' format, typically through a call to [reprex()]. `reprex_render()` may work
+#' with other rmarkdown output formats, but it is not well-tested.
 #'
-#' @param input
-#' @param html_preview
+#' @param input The input file to be rendered. This can be a `.R` script or a
+#'   `.Rmd` R Markdown document (.Rmd).
+#' @inheritParams reprex
 #'
-#' @return
+#' @return The output of [rmarkdown::render()] is passed through, i.e. the path
+#'   of the output file.
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' reprex_render("input.Rmd")
+#' }
 reprex_render <- function(input,
                           html_preview = NULL) {
   yaml_opts <- get_document_options(input)
