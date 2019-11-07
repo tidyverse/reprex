@@ -59,10 +59,10 @@ prex <- function(x = NULL,
     advertise       = advertise,
     session_info    = session_info,
     style           = style,
-    html_preview    = html_preview,
     comment         = comment,
     tidyverse_quiet = tidyverse_quiet,
-    std_out_err     = std_out_err
+    std_out_err     = std_out_err,
+    html_preview    = html_preview
   )
 }
 

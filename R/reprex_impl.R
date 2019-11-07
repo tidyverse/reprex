@@ -8,10 +8,10 @@ reprex_impl <- function(x_expr = NULL,
                         advertise       = NULL,
                         session_info    = opt(FALSE),
                         style           = opt(FALSE),
-                        html_preview    = opt(TRUE),
                         comment         = opt("#>"),
                         tidyverse_quiet = opt(TRUE),
-                        std_out_err     = opt(FALSE)) {
+                        std_out_err     = opt(FALSE),
+                        html_preview    = opt(TRUE)) {
 
   venue <- tolower(venue)
   venue <- match.arg(venue)
@@ -23,7 +23,6 @@ reprex_impl <- function(x_expr = NULL,
   style           <- style_requires_styler(style)
   html_preview    <- arg_option(html_preview)
   html_preview    <- html_preview_requires_interactive(html_preview)
-
   comment         <- arg_option(comment)
   tidyverse_quiet <- arg_option(tidyverse_quiet)
   std_out_err     <- arg_option(std_out_err)

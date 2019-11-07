@@ -5,22 +5,32 @@
 #' @return something
 #' @export
 reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
-                            advertise = NULL,
-                            session_info = FALSE,
-                            style = FALSE,
-                            comment = "#>",
-                            tidyverse_quiet = TRUE,
-                            std_out_err = FALSE,
+
+                            advertise       = NULL,
+                            session_info    = opt(FALSE),
+                            style           = opt(FALSE),
+                            comment         = opt("#>"),
+                            tidyverse_quiet = opt(TRUE),
+                            std_out_err     = opt(FALSE),
                             pandoc_args = NULL,
-                            # needs to exist, even if we don't consult here
-                            # in order to specify it in YAML for reprex_render()
-                            html_preview = NULL) {
+                            # must exist, so that it is tolerated in the YAML
+                            html_preview) {
   venue <- tolower(venue)
   venue <- match.arg(venue)
   venue <- normalize_venue(venue)
 
-  advertise <- set_advertise(advertise, venue)
-  style     <- style_requires_styler(style)
+  advertise       <- set_advertise(advertise, venue)
+  session_info    <- arg_option(session_info)
+  style           <- arg_option(style)
+  style           <- style_requires_styler(style)
+  # html_preview is actually an input for for reprex_render()
+  comment         <- arg_option(comment)
+  tidyverse_quiet <- arg_option(tidyverse_quiet)
+  std_out_err     <- arg_option(std_out_err)
+
+  stopifnot(is_toggle(advertise), is_toggle(session_info), is_toggle(style))
+  stopifnot(is.character(comment))
+  stopifnot(is_toggle(tidyverse_quiet), is_toggle(std_out_err))
 
   opts_chunk <- list(
     # fixed defaults

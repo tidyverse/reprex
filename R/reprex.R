@@ -88,9 +88,6 @@
 #' @param style Logical. Whether to set the knitr chunk option `tidy =
 #'   "styler"`, which re-styles code with the [styler
 #'   package](https://styler.r-lib.org). Read more about [opt()].
-#' @param html_preview Logical. Whether to show rendered output in a viewer
-#'   (RStudio or browser). Always `FALSE` in a noninteractive session. Read more
-#'   about [opt()].
 #' @param comment Character. Prefix with which to comment out output, defaults
 #'   to `"#>"`. Read more about [opt()].
 #' @param render Logical. Whether to call [rmarkdown::render()] on the templated
@@ -106,6 +103,9 @@
 #'   process, nor is there any guarantee that the lines from standard output and
 #'   standard error are in correct chronological order. See [callr::r()] for
 #'   more. Read more about [opt()].
+#' @param html_preview Logical. Whether to show rendered output in a viewer
+#'   (RStudio or browser). Always `FALSE` in a noninteractive session. Read more
+#'   about [opt()].
 #' @param show Deprecated, in favor of `html_preview`, for greater consistency
 #' with other rmarkdown output formats.
 #'
@@ -248,10 +248,10 @@ reprex <- function(x = NULL,
                    advertise       = NULL,
                    session_info    = opt(FALSE),
                    style           = opt(FALSE),
-                   html_preview    = opt(TRUE),
                    comment         = opt("#>"),
                    tidyverse_quiet = opt(TRUE),
                    std_out_err     = opt(FALSE),
+                   html_preview    = opt(TRUE),
                    show) {
   if (!missing(show)) {
     html_preview <- show

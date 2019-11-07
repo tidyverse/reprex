@@ -7,13 +7,13 @@
 reprex_document(
   venue = c("gh", "r", "rtf", "html", "so", "ds"),
   advertise = NULL,
-  session_info = FALSE,
-  style = FALSE,
-  comment = "#>",
-  tidyverse_quiet = TRUE,
-  std_out_err = FALSE,
+  session_info = opt(FALSE),
+  style = opt(FALSE),
+  comment = opt("#>"),
+  tidyverse_quiet = opt(TRUE),
+  std_out_err = opt(FALSE),
   pandoc_args = NULL,
-  html_preview = NULL
+  html_preview
 )
 }
 \arguments{
