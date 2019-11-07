@@ -15,6 +15,9 @@ write_lines <- function(text, path) {
   xfun::write_utf8(text, path)
 }
 
+# TODO: this is factored incorrectly
+#       functionality around creating a reprex directory and file name out of
+#       thin air needs to be separated from operating on a path
 ## note that all paths pass through fs and, therefore, path_tidy()
 make_filebase <- function(outfile = NULL, infile = NULL) {
   if (is.null(outfile)) {

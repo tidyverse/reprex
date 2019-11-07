@@ -68,10 +68,10 @@ std_out_err_path <- function(input, opts) {
 preview <- function(input) {
   filenames <- make_filenames(make_filebase(outfile = NA, infile = input), suffix = "")
   md_file      <- filenames$md_file
-  preview_file <- filenames$html_file
-  rmarkdown::render(
+  #preview_file <- filenames$html_file
+  preview_file <- rmarkdown::render(
     md_file,
-    output_file = preview_file,
+    #output_file = preview_file,
     clean = FALSE,
     quiet = TRUE,
     encoding = "UTF-8",
