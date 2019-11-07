@@ -1,3 +1,32 @@
+#' Render a document in a new R session
+#'
+#' This is a wrapper around [rmarkdown::render()] that enforces the "reprex"
+#' mentality:
+
+#' * [rmarkdown::render()] is executed in a new R session, by using
+#'   [callr::r()]. The goal is to eliminate the leakage of objects, attached
+#'   packages, and other aspects of session state from the current session into
+#'   the rendering session.
+#'
+#' * Code is evaluated in the `globalenv()` of this new R session:
+#'   `render(..., envir = globalenv())`. This means that method dispatch works
+#'   the way most people expect it to.
+
+#' * The input file is assumed to be UTF-8, which is a knitr requirement as of
+#'   v1.24: `render(..., encoding = "UTF-8")`.
+#'
+#' * If the YAML frontmatter includes `std_err_out: TRUE`, standard output and
+#'   error of the rendering R session are captured and injected into the result.
+
+#'
+#'
+#' @param input
+#' @param html_preview
+#'
+#' @return
+#' @export
+#'
+#' @examples
 reprex_render <- function(input,
                           html_preview = NULL) {
   yaml_opts <- get_document_options(input)
