@@ -35,16 +35,18 @@ Key features to note
 \item \code{\link[rmarkdown:render]{rmarkdown::render()}} is executed in a new R session, by using
 \code{\link[callr:r]{callr::r()}}. The goal is to eliminate the leakage of objects, attached
 packages, and other aspects of session state from the current session into
-the rendering session. The system and user-level \code{.Rprofile}s are ignored.
+the rendering session. Also, the system and user-level \code{.Rprofile}s are
+ignored.
 \item Code is evaluated in the \code{globalenv()} of this new R session, which means
 that method dispatch works the way most people expect it to.
 \item The input file is assumed to be UTF-8, which is a knitr requirement as of
 v1.24.
 \item If the YAML frontmatter includes \code{std_err_out: TRUE}, standard output and
-error of the rendering R session are captured and injected into the result.
+error of the rendering R session are captured in \code{std_file}, which is
+then injected into the rendered result.
 }
 
-\code{reprex_render()} was designed to work with the \code{\link[=reprex_document]{reprex_document()}} output
+\code{reprex_render()} is designed to work with the \code{\link[=reprex_document]{reprex_document()}} output
 format, typically through a call to \code{\link[=reprex]{reprex()}}. \code{reprex_render()} may work
 with other R Markdown output formats, but it is not well-tested.
 }

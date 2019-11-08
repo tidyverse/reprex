@@ -56,13 +56,13 @@ reprex_impl <- function(x_expr = NULL,
   )
   if (would_clobber(r_file)) { return(invisible()) }
 
-  format_params <- list(
+  reprex_document_options <- list(
     venue = venue,
     advertise = advertise, session_info = session_info,
     style = style, html_preview = html_preview, comment = comment,
     tidyverse_quiet = tidyverse_quiet, std_out_err = std_out_err
   )
-  src <- c(yamlify(format_params), "", src)
+  src <- c(yamlify(reprex_document_options), "", src)
   write_lines(src, r_file)
   if (outfile_given) {
     message("Preparing reprex as .R file:\n  * ", r_file)

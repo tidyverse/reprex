@@ -74,9 +74,9 @@ An R Markdown output format to pass to \code{\link[rmarkdown:render]{rmarkdown::
 }
 \description{
 This is an R Markdown output format designed specifically for making
-"reprexes", typically formed via the \code{\link[=reprex]{reprex()}} function and then rendered
-with \code{\link[=reprex_render]{reprex_render()}}. It is a heavily modified version of
-\code{\link[rmarkdown:md_document]{rmarkdown::md_document()}}. The arguments have different spheres of
+"reprexes", typically created via the \code{\link[=reprex]{reprex()}} function, which ultimately
+renders the document with \code{\link[=reprex_render]{reprex_render()}}. It is a heavily modified version
+of \code{\link[rmarkdown:md_document]{rmarkdown::md_document()}}. The arguments have different spheres of
 influence:
 \itemize{
 \item \code{venue} potentially affects input preparation and \code{\link[=reprex_render]{reprex_render()}}.
@@ -92,7 +92,7 @@ influence:
 \item \code{comment}
 \item \code{tidyverse_quiet}
 }
-\item \code{html_preview} really targets \code{\link[=reprex_render]{reprex_render()}}, but it is a formal
+\item \code{html_preview} is only consulted by \code{\link[=reprex_render]{reprex_render()}}, but it is a formal
 argument of \code{reprex_document()} so that it can be included in the YAML
 frontmatter.
 }

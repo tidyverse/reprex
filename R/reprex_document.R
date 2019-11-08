@@ -1,9 +1,9 @@
 #' reprex output format
 #'
 #' This is an R Markdown output format designed specifically for making
-#' "reprexes", typically formed via the [reprex()] function and then rendered
-#' with [reprex_render()]. It is a heavily modified version of
-#' [rmarkdown::md_document()]. The arguments have different spheres of
+#' "reprexes", typically created via the [reprex()] function, which ultimately
+#' renders the document with [reprex_render()]. It is a heavily modified version
+#' of [rmarkdown::md_document()]. The arguments have different spheres of
 #' influence:
 #'   * `venue` potentially affects input preparation and [reprex_render()].
 #'   * Add content to the primary input, prior to rendering:
@@ -14,7 +14,7 @@
 #'     - `style`
 #'     - `comment`
 #'     - `tidyverse_quiet`
-#'   * `html_preview` really targets [reprex_render()], but it is a formal
+#'   * `html_preview` is only consulted by [reprex_render()], but it is a formal
 #'     argument of `reprex_document()` so that it can be included in the YAML
 #'     frontmatter.
 #'
@@ -82,8 +82,8 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
     pre_knit <- function(input, ...) {
 
       # I don't know why the pre_knit hook operates on the **original** input
-      # instead of the to-be-knitted input, but I need to operate on the latter.
-      # So I brute force the correct path.
+      # instead of the to-be-knitted (post-spinning) input, but I need to
+      # operate on the latter. So I brute force the correct path.
       knit_input <- sub(".R$", ".spin.Rmd", input)
       input_lines <- read_lines(knit_input)
 
@@ -107,6 +107,7 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
     }
   }
 
+  # for debugging / devel purposes
   pp_save_pp_args <- function(metadata,
                               input_file, output_file,
                               clean, verbose) {
@@ -121,7 +122,6 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
 
   pp_merge <- get("merge_post_processors", asNamespace("rmarkdown"))
   post_processor <- pp_merge(NULL, pp_save_pp_args)
-  #post_processor <- pp_merge(post_processor, pp_html_preview)
 
   format <- rmarkdown::output_format(
     knitr = rmarkdown::knitr_options(

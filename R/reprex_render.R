@@ -17,15 +17,17 @@
 #' * [rmarkdown::render()] is executed in a new R session, by using
 #'   [callr::r()]. The goal is to eliminate the leakage of objects, attached
 #'   packages, and other aspects of session state from the current session into
-#'   the rendering session. The system and user-level `.Rprofile`s are ignored.
+#'   the rendering session. Also, the system and user-level `.Rprofile`s are
+#'   ignored.
 #' * Code is evaluated in the `globalenv()` of this new R session, which means
 #'   that method dispatch works the way most people expect it to.
 #' * The input file is assumed to be UTF-8, which is a knitr requirement as of
 #'   v1.24.
 #' * If the YAML frontmatter includes `std_err_out: TRUE`, standard output and
-#'   error of the rendering R session are captured and injected into the result.
+#'   error of the rendering R session are captured in `std_file`, which is
+#'   then injected into the rendered result.
 #'
-#' `reprex_render()` was designed to work with the [reprex_document()] output
+#' `reprex_render()` is designed to work with the [reprex_document()] output
 #' format, typically through a call to [reprex()]. `reprex_render()` may work
 #' with other R Markdown output formats, but it is not well-tested.
 #'
@@ -43,7 +45,7 @@
 #' }
 reprex_render <- function(input,
                           html_preview = NULL) {
-  yaml_opts <- get_document_options(input)
+  yaml_opts <- reprex_document_options(input)
 
   html_preview <-
     (html_preview %||% yaml_opts[["html_preview"]] %||% is_interactive()) &&
@@ -79,7 +81,7 @@ reprex_render <- function(input,
     preview(md_file)
   }
 
-  md_file
+  invisible(md_file)
 }
 
 prex_render <- function(input,
@@ -109,7 +111,7 @@ preview <- function(input) {
   viewer(preview_file)
 }
 
-get_document_options <- function(input) {
+reprex_document_options <- function(input) {
   yaml_input <- input
   if (tolower(path_ext(input)) == "r") {
     yaml_input <- knitr::spin(input, knit = FALSE)
