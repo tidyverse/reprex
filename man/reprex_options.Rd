@@ -11,7 +11,7 @@ for the user to set personal defaults. The pattern for option names is
 ones:
 \itemize{
 \item \code{reprex.advertise}
-\item \code{reprex.session_info}
+\item \code{reprex.session_info} (previously, \code{reprex.si})
 \item \code{reprex.style}
 \item \code{reprex.html_preview} (previously, \code{reprex.show})
 \item \code{reprex.comment}

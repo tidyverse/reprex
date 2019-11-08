@@ -17,7 +17,8 @@ reprex(
   tidyverse_quiet = opt(TRUE),
   std_out_err = opt(FALSE),
   html_preview = opt(TRUE),
-  show
+  show,
+  si
 )
 }
 \arguments{
@@ -93,6 +94,8 @@ about \code{\link[=opt]{opt()}}.}
 
 \item{show}{Deprecated, in favor of \code{html_preview}, for greater consistency
 with other R Markdown output formats.}
+
+\item{si}{Deprecated, in favor of \code{session_info}.}
 }
 \value{
 Character vector of rendered reprex, invisibly.

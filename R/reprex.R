@@ -108,6 +108,7 @@
 #'   about [opt()].
 #' @param show Deprecated, in favor of `html_preview`, for greater consistency
 #' with other R Markdown output formats.
+#' @param si Deprecated, in favor of `session_info`.
 #'
 #' @return Character vector of rendered reprex, invisibly.
 #' @examples
@@ -252,11 +253,19 @@ reprex <- function(x = NULL,
                    tidyverse_quiet = opt(TRUE),
                    std_out_err     = opt(FALSE),
                    html_preview    = opt(TRUE),
-                   show) {
+                   show, si) {
   if (!missing(show)) {
     html_preview <- show
     warning(
       "`show` is deprecated, please use `html_preview` instead",
+      immediate. = TRUE, call. = FALSE
+    )
+  }
+
+  if (!missing(si)) {
+    session_info <- si
+    warning(
+      "`si` is deprecated, please use `session_info` instead",
       immediate. = TRUE, call. = FALSE
     )
   }
