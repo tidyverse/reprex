@@ -4,11 +4,20 @@
 \alias{reprex}
 \title{Render a reprex}
 \usage{
-reprex(x = NULL, input = NULL, outfile = NULL, venue = c("gh",
-  "so", "ds", "r", "rtf"), render = TRUE, advertise = NULL,
-  si = opt(FALSE), style = opt(FALSE), show = opt(TRUE),
-  comment = opt("#>"), tidyverse_quiet = opt(TRUE),
-  std_out_err = opt(FALSE))
+reprex(
+  x = NULL,
+  input = NULL,
+  outfile = NULL,
+  venue = c("gh", "r", "rtf", "html", "so", "ds"),
+  render = TRUE,
+  advertise = NULL,
+  si = opt(FALSE),
+  style = opt(FALSE),
+  show = opt(TRUE),
+  comment = opt("#>"),
+  tidyverse_quiet = opt(TRUE),
+  std_out_err = opt(FALSE)
+)
 }
 \arguments{
 \item{x}{An expression. If not given, \code{reprex()} looks for code in
@@ -31,13 +40,19 @@ otherwise.}
 \itemize{
 \item "gh" for \href{https://github.github.com/gfm/}{GitHub-Flavored Markdown}, the
 default
-\item "so" for \href{https://stackoverflow.com/editing-help}{Stack Overflow Markdown}
+\item "r" for a runnable R script, with commented output interleaved
+\item "rtf" for
+\href{https://en.wikipedia.org/wiki/Rich_Text_Format}{Rich Text Format}
+(not supported for un-reprexing)
+\item "html" for an HTML fragment suitable for inclusion in a larger HTML
+document (not supported for un-reprexing)
+\item "so" for
+\href{https://stackoverflow.com/editing-help#syntax-highlighting}{Stack Overflow Markdown}.
+Note: this is just an alias for "gh", since Stack Overflow started to
+support CommonMark-style fenced code blocks in January 2019.
 \item "ds" for Discourse, e.g.,
 \href{https://community.rstudio.com}{community.rstudio.com}. Note: this is
-currently just an alias for "gh"!
-\item "r" for a runnable R script, with commented output interleaved
-\item "rtf" for \href{https://en.wikipedia.org/wiki/Rich_Text_Format}{Rich Text Format} (not supported for
-un-reprexing)
+currently just an alias for "gh".
 }}
 
 \item{render}{Logical. Whether to call \code{\link[rmarkdown:render]{rmarkdown::render()}} on the templated
@@ -47,12 +62,12 @@ primarily for the sake of internal testing.}
 \item{advertise}{Logical. Whether to include a footer that describes when and
 how the reprex was created. If unspecified, the option \code{reprex.advertise}
 is consulted and, if that is not defined, default is \code{TRUE} for venues
-\code{"gh"}, \code{"so"}, \code{"ds"}, and \code{FALSE} for \code{"r"} and \code{"rtf"}.}
+\code{"gh"}, \code{"html"}, \code{"so"}, \code{"ds"} and \code{FALSE} for \code{"r"} and \code{"rtf"}.}
 
-\item{si}{Logical. Whether to include \code{\link[devtools:session_info]{devtools::session_info()}}, if
+\item{si}{Logical. Whether to include \code{\link[sessioninfo:session_info]{sessioninfo::session_info()}}, if
 available, or \code{\link[=sessionInfo]{sessionInfo()}} at the end of the reprex. When \code{venue} is
-"gh" or "ds", the session info is wrapped in a collapsible details tag.
-Read more about \code{\link[=opt]{opt()}}.}
+"gh", the session info is wrapped in a collapsible details tag. Read more
+about \code{\link[=opt]{opt()}}.}
 
 \item{style}{Logical. Whether to style code with \code{\link[styler:style_text]{styler::style_text()}}.
 Read more about \code{\link[=opt]{opt()}}.}
@@ -72,8 +87,8 @@ stdout and stderr by the reprex rendering process. This can be necessary to
 reveal output if the reprex spawns child processes or \code{system()} calls.
 Note this cannot be properly interleaved with output from the main R
 process, nor is there any guarantee that the lines from standard output and
-standard error are in correct chronological order. See \code{\link[callr:r_safe]{callr::r_safe()}}
-for more. Read more about \code{\link[=opt]{opt()}}.}
+standard error are in correct chronological order. See \code{\link[callr:r]{callr::r()}} for
+more. Read more about \code{\link[=opt]{opt()}}.}
 }
 \value{
 Character vector of rendered reprex, invisibly.
@@ -128,7 +143,8 @@ This feature is experimental and currently rather limited. It probably only
 works on macOS and requires the installation of the
 \href{http://www.andre-simon.de/doku/highlight/en/highlight.php}{highlight}
 command line tool, which can be installed via
-\href{http://brewformulas.org/Highlight}{homebrew}. This venue is discussed in \href{https://reprex.tidyverse.org/articles/articles/rtf.html}{an article}
+\href{https://formulae.brew.sh/formula/highlight}{homebrew}. This venue is
+discussed in \href{https://reprex.tidyverse.org/articles/articles/rtf.html}{an article}
 }
 
 \examples{
@@ -225,21 +241,20 @@ unlink(
   recursive = TRUE
 )
 
-## target venue = Stack Overflow
-## https://stackoverflow.com/editing-help
-ret <- reprex({
-  x <- 1:4
-  y <- 2:5
-  x + y
-}, venue = "so")
-ret
-
 ## target venue = R, also good for email or Slack snippets
 ret <- reprex({
   x <- 1:4
   y <- 2:5
   x + y
 }, venue = "R")
+ret
+
+## target venue = html
+ret <- reprex({
+  x <- 1:4
+  y <- 2:5
+  x + y
+}, venue = "html")
 ret
 
 ## include prompt and don't comment the output

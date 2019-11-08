@@ -1,6 +1,7 @@
+url: https://reprex.tidyverse.org
+
 template:
   package: tidytemplate
-  default_assets: false
 
 home:
   strip_header: true
@@ -10,24 +11,8 @@ authors:
     href: https://jennybryan.org
 
 navbar:
-  type: default
-  left:
-  - text: Reprex do's and don'ts
-    href: articles/reprex-dos-and-donts.html
-  - text: Articles
-    menu:
-    - text: How to use reprex
-      href: articles/articles/learn-reprex.html
-    - text: Magic reprex by N. Tierney
-      href: articles/articles/magic-reprex.html
-    - text: reprex venue RTF
-      href: articles/articles/rtf.html
-    - text: Using datapasta with reprex
-      href: articles/articles/datapasta-reprex.html
-  - text: Reference
-    href: reference/index.html
-  - text: News
-    href: news/index.html
-  right:
-  - icon: fa-github fa-lg
-    href: https://github.com/tidyverse/reprex
+  components:
+    home: ~
+    intro:
+      text: Reprex do's and don'ts
+      href: articles/reprex-dos-and-donts.html

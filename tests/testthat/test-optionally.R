@@ -1,5 +1,3 @@
-context("optionally")
-
 test_that("`si` can be set via option", {
   skip_on_cran()
   withr::with_options(

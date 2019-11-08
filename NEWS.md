@@ -1,4 +1,39 @@
-# reprex *development version*
+# reprex (development version)
+
+* `reprex_VENUE(...)` is a new way to call `reprex(..., venue = "VENUE")`. For example, `reprex_r()` is equivalent to `reprex(venue = "r")`. This makes non-default venues easier to access via auto-completion (#256).
+
+* `prex()` and `prex_VENUE()` are new **unexported** functions that, like `reprex()`, render a small bit of code, but with less reproducibility! The code is evaluated in the global workspace of the current process, with the current working directory. This pragmatic hack is useful when preparing a series of related snippets, e.g., for a Keynote or PowerPoint presentation, and there's not enough space to make each one self-contained.
+
+* New article on techniques for making package startup quieter (#187, @marionlouveaux).
+
+* `reprex_locale()` is a new thin wrapper around `reprex()` that renders in a temporarily-altered locale (#250).
+
+* UTF-8 encoding: Following the lead of knitr, reprex makes explicit use of UTF-8 internally (#237 @krlmlr, #261).
+
+* `venue = "so"` (SO = Stack Overflow) has converged with default `venue = "gh"` (GitHub). As of January 2019, SO [supports CommonMark fenced code blocks](https://meta.stackexchange.com/questions/125148/implement-style-fenced-markdown-code-blocks/322000#322000). The only remaining difference is that Stack Overflow does not support the collapsible details tag that we use on GitHub for the session info requested via `si = TRUE` (#231).
+
+## Dependency changes
+
+R 3.1 is no longer explicitly supported or tested. Our general practice is to support the current release (3.6, at time of writing), devel, and the 4 previous versions of R (3.5, 3.4, 3.3, 3.2).
+
+* devtools is no longer in Suggests. It is replaced by sessioninfo.
+
+* knitr moves from Suggests to Imports (although it was already a hard dependency via rmarkdown), so we can require v1.23 or higher, which represents a
+major switch to UTF-8.
+
+* xfun is a new direct dependency, though it was already an indirect dependency via knitr. Related to UTF-8 enforcement.
+
+# reprex 0.3.0
+
+* The `crayon.enabled` option is explicitly set to `FALSE` when rendering the reprex (#238, #239).
+
+* Expression input is once again captured via `substitute()` (as opposed to `rlang::enexpr()`), which is more favorable for reprexes involving tidy eval (#241).
+
+* New venue "html" to render HTML fragments, useful for pasting in sites without markdown but that allow HTML (#236 @cwickham).
+
+* The YAML of reprex's template has been updated in light of the stricter YAML parser used in Pandoc >= 2.2.2.
+
+* `rlang::set_attrs()` has been soft-deprecated and is no longer used internally.
 
 # reprex 0.2.1
 
@@ -66,7 +101,7 @@ This was a non-functioning release created by CRAN maintainers by commenting out
 
 # reprex 0.1.1
 
-  * pandoc added to SystemRequirements.
+  * Pandoc added to SystemRequirements.
 
 # reprex 0.1.0
 

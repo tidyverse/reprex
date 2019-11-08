@@ -1,5 +1,3 @@
-context("input")
-
 out <- c("``` r", "1:5", "#> [1] 1 2 3 4 5", "```")
 
 exp_msg <- switch(
@@ -10,7 +8,13 @@ exp_msg <- switch(
 
 test_that("reprex: clipboard input works", {
   skip_on_cran()
-  skip_if_no_clipboard()
+  # explicitly permit clipboard access in non-interactive session
+  withr::local_envvar(c(CLIPR_ALLOW = TRUE))
+  skip_if_not(
+    clipboard_available(),
+    "System clipboard is not available - skipping test."
+  )
+
   clipr::write_clip("1:5")
   expect_match(reprex(render = FALSE), "^1:5$", all = FALSE)
 })
@@ -18,6 +22,15 @@ test_that("reprex: clipboard input works", {
 test_that("reprex: expression input works", {
   skip_on_cran()
   expect_match(reprex(1:5, render = FALSE), "^1:5$", all = FALSE)
+})
+
+## https://github.com/tidyverse/reprex/issues/241
+test_that("reprex: expression input preserves `!!`", {
+  res <- reprex(
+    {f <- function(c6d573e) rlang::qq_show(how_many(!!rlang::enquo(c6d573e)))},
+    render = FALSE
+  )
+  expect_match(res, "!!rlang::enquo(c6d573e)", all = FALSE, fixed = TRUE)
 })
 
 test_that("reprex: character input works", {
@@ -48,9 +61,11 @@ test_that("reprex: file input in a subdirectory works", {
 
 test_that("Circular use is detected before source file written", {
   skip_on_cran()
-  ret <- reprex(y <- 2, venue = "gh", show = FALSE)
+  ret <- reprex(exp(1), venue = "gh", show = FALSE)
   expect_error(reprex(input = ret, render = FALSE), "Aborting")
-  ret <- reprex(y <- 2, venue = "so", show = FALSE)
+  ret <- reprex(exp(1), venue = "r", show = FALSE)
+  expect_error(reprex(input = ret, render = FALSE), "Aborting")
+  ret <- reprex(exp(1), venue = "html", show = FALSE)
   expect_error(reprex(input = ret, render = FALSE), "Aborting")
 })
 

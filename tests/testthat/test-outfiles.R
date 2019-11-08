@@ -1,5 +1,3 @@
-context("outfiles")
-
 base_msg <- c(
   "Preparing reprex as .R file:\n  * foo_reprex.R\n",
   "Rendering reprex...\n",

@@ -1,5 +1,3 @@
-context("tidyverse")
-
 test_that("reprex() suppresses tidyverse startup message by default", {
   skip_on_cran()
   skip_if_not_installed("tidyverse", minimum_version = "1.2.1")

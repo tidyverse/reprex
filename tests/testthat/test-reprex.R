@@ -1,5 +1,3 @@
-context("reprex")
-
 ## https://github.com/tidyverse/reprex/issues/152
 test_that("keep.source is TRUE inside the reprex()", {
   skip_on_cran()
@@ -25,4 +23,12 @@ test_that("reprex() doesn't leak files by default", {
   reprex(writeLines("test", "test.txt"), show = FALSE, advertise = FALSE)
   ret <- reprex(readLines("test.txt"), show = FALSE, advertise = FALSE)
   expect_match(ret, "cannot open file 'test.txt'", all = FALSE)
+})
+
+test_that("rmarkdown::render() context is trimmed from rlang backtrace", {
+  skip_on_cran()
+  input <- "f <- function() g(); g <- function() h(); h <- function() rlang::abort('foo'); f()\n"
+  ret <- reprex(input = input, show = FALSE, advertise = FALSE)
+  expect_false(any(grepl("tryCatch", ret)))
+  expect_false(any(grepl("rmarkdown::render", ret)))
 })

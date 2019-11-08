@@ -1,5 +1,3 @@
-context("expression stringification")
-
 test_that("simple statements are stringified", {
   expect_identical(stringify_expression(1:5), "1:5")
   expect_identical(stringify_expression({1:5}), "1:5")

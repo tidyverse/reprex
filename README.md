@@ -1,4 +1,4 @@
-# reprex <img src="man/figures/logo.png" align="right" />
+# reprex <img src="man/figures/logo.png" align="right" height="139" />
 
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/reprex)](https://cran.r-project.org/package=reprex)
 [![Travis-CI Build
@@ -8,6 +8,8 @@ Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/reprex?bran
 [![Coverage
 status](https://codecov.io/gh/tidyverse/reprex/branch/master/graph/badge.svg)](https://codecov.io/github/tidyverse/reprex?branch=master)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
+
+## Overview
 
 Prepare reprexes for posting to [GitHub
 issues](https://guides.github.com/features/issues/),
@@ -27,7 +29,7 @@ Given R code on the clipboard, selected in RStudio, as an expression
 
 Get resulting runnable code + output as
 
-  - Markdown, formatted for target venue, e.g. `gh` or `so`, or as
+  - Markdown, suitable for GitHub or Stack Overflow, or as
   - R code, augmented with commented output.
 
 Result is returned invisibly, placed on the clipboard, and written to a
@@ -50,7 +52,7 @@ devtools::install_github("tidyverse/reprex")
 On Linux, you probably want to install
 [xclip](https://github.com/astrand/xclip) or
 [xsel](http://www.vergenet.net/~conrad/software/xsel/), so reprex can
-access the X11 clipboard. This is ‘nice to have’, but not mandatory. The
+access the X11 clipboard. This is 'nice to have', but not mandatory. The
 usual `sudo apt-get install` or `sudo yum install` installation methods
 should work for both xclip and xsel.
 
@@ -67,12 +69,12 @@ Then call `reprex()`, where the default target venue is GitHub:
 reprex()
 ```
 
-A nicely rendered HTML preview will display in RStudio’s Viewer (if
+A nicely rendered HTML preview will display in RStudio's Viewer (if
 you’re in RStudio) or your default browser otherwise.
 
 ![](man/figures/README-viewer-screenshot.png)
 
-The relevant bit of GitHub-flavored Markdown is ready to be pasted from
+The relevant bit of CommonMark Markdown is ready to be pasted from
 your clipboard:
 
     ``` r
@@ -93,6 +95,8 @@ mean(y)
 
 Anyone else can copy, paste, and run this immediately.
 
+In addition to GitHub, this markdown also works on Stack Overflow and Discourse. Those venues can be formally requested via `venue = "so"` and `venue = "ds"`, but they are just aliases for `venue = "gh"`.
+
 Instead of reading from the clipboard, you can:
 
   - `reprex(mean(rnorm(10)))` to get code from expression.
@@ -109,12 +113,12 @@ Instead of reading from the clipboard, you can:
 
 But wait, there’s more\!
 
-  - Set the target venue to Stack Overflow with `reprex(..., venue =
-    "so")`.
-
   - Get a runnable R script, augmented with commented output, with
     `reprex(..., venue = "R")`. This is useful for Slack, email, etc.
-    
+
+  - Get html with `reprex(..., venue = "html")`. Useful for sites that don't
+    support markdown.
+
   - Prepare rendered, syntax-highlighted code snippets to paste into
     Keynote or PowerPoint, with `reprex(..., venue = "rtf")`. This
     feature is still experimental; see the [associated article](https://reprex.tidyverse.org/articles/articles/rtf.html) for more.
@@ -124,6 +128,8 @@ But wait, there’s more\!
 
   - Use the `outfile` argument to control where results are left behind.
     Use `outfile = NA` to work in current working directory.
+    
+  - Append session info via `reprex(..., si = TRUE)`.
 
   - Get clean, runnable code from wild-caught reprexes with
     

@@ -34,6 +34,7 @@ make_filenames <- function(filebase = "foo", suffix = "reprex") {
     r_file    = path_ext_set(filebase, "R"),
     md_file   = path_ext_set(filebase, "md"),
     rtf_file  = path_ext_set(filebase, "rtf"),
+    html_fragment_file = path_ext_set(add_suffix(filebase, "fragment"), "html"),
     std_file  = path_ext_set(add_suffix(filebase, "std_out_err"), "txt"),
     rout_file = path_ext_set(add_suffix(filebase, "rendered"), "R"),
     html_file = path_ext_set(filebase, "html")

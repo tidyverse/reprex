@@ -1,5 +1,3 @@
-context("undo")
-
 ## intentionally forcing continuation lines
 input <- c(
   "## a comment",
@@ -15,13 +13,6 @@ test_that("round trip, venue = 'gh': reprex() --> reprex_invert()", {
   skip_on_cran()
   output <- reprex(input = input, show = FALSE, advertise = FALSE)
   res <- reprex_invert(output)
-  expect_identical(input, res[nzchar(res)])
-})
-
-test_that("round trip, venue = 'so': reprex() --> reprex_invert()", {
-  skip_on_cran()
-  output <- reprex(input = input, venue = "so", show = FALSE, advertise = FALSE)
-  res <- reprex_invert(output, venue = "so")
   expect_identical(input, res[nzchar(res)])
 })
 

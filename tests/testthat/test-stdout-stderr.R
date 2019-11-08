@@ -1,5 +1,3 @@
-context("stdout-stderr")
-
 test_that("stdout is captured", {
   skip_on_cran()
   out <- reprex(

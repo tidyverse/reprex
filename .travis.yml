@@ -1,36 +1,39 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
 language: R
-sudo: false
+cran: https://demo.rstudiopm.com/all/__linux__/xenial/latest
 cache: packages
 
 addons:
   apt:
     packages:
-      - xclip
-
-before_script:
-  - sh -e /etc/init.d/xvfb start
-  - sleep 3
+      - xsel
 
 env:
   global:
-    - DISPLAY=:99.0
     - _R_CHECK_FORCE_SUGGESTS_=false
 
-r:
-- 3.2
-- 3.3
-- oldrel
-- devel
+services:
+  - xvfb
 
 matrix:
   include:
-  - r: 3.1
-    warnings_are_errors: false
-  - r: release
-    env: DISPLAY=""
-
-# Only report coverage for the release version
-after_success:
-  - test $TRAVIS_R_VERSION_STRING = 'release' && Rscript -e 'covr::codecov()'
+    - r: devel
+    - r: release
+      after_success:
+      - Rscript -e 'covr::codecov()'
+      - find . -name testthat.Rout | xargs cat
+      after_failure:
+      - find . -name testthat.Rout | xargs cat
+      before_cache:
+      - Rscript -e 'remotes::install_cran("pkgdown")'
+      - Rscript -e 'remotes::install_github("tidyverse/tidytemplate")'
+      - Rscript -e 'remotes::install_cran("dplyr")'
+      deploy:
+        provider: script
+        script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE)'
+        skip_cleanup: true
+    - r: 3.5
+    - r: 3.4
+    - r: 3.3
+    - r: 3.2

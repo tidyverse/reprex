@@ -11,8 +11,9 @@ install:
   ps: Bootstrap
 
 environment:
-  global:
-    USE_RTOOLS: true
+  NOT_CRAN: true
+  USE_RTOOLS: true
+  PKGTYPE: both
 
 cache:
   - C:\RLibrary

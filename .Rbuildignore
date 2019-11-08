@@ -1,4 +1,5 @@
-^slides$
+^pkgdown$
+^talks
 ^cran-correspondence$
 ^CRAN-RELEASE$
 ^.*\.Rproj$

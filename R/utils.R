@@ -15,9 +15,13 @@ locate_input <- function(input) {
   }
 }
 
-read_lines <- function(path) {
+read_lines <- function(path, error = FALSE) {
   if (is.null(path)) return(NULL)
-  readLines(path)
+  xfun::read_utf8(path, error = error)
+}
+
+write_lines <- function(text, path) {
+  xfun::write_utf8(text, path)
 }
 
 trim_ws <- function(x) {
@@ -34,7 +38,7 @@ trim_common_leading_ws <- function(x) {
 
 ingest_clipboard <- function() {
   if (clipboard_available()) {
-    return(suppressWarnings(clipr::read_clip()))
+    return(suppressWarnings(enc2utf8(clipr::read_clip())))
   }
   message("No input provided and clipboard is not available.")
   character()
@@ -60,6 +64,18 @@ ds_is_gh <- function(venue) {
   venue
 }
 
+so_is_gh <- function(venue) {
+  if (venue == "so") {
+    message(
+      "FYI, the Stack Overflow venue \"so\" is no longer necessary. Due to ",
+      "changes at\nStack Overflow, the markdown produced by the default GitHub ",
+      "venue \"gh\" works in\nboth places. You don't need to specify it."
+    )
+    venue <- "gh"
+  }
+  venue
+}
+
 pandoc2.0 <- function() rmarkdown::pandoc_available("2.0")
 
 enfence <- function(lines,
@@ -73,8 +89,8 @@ enfence <- function(lines,
 
 
 inject_file <- function(path, inject_path, pre_process = enfence, ...) {
-  lines <- readLines(path, encoding = "UTF-8")
-  inject_lines <- readLines(inject_path, encoding = "UTF-8")
+  lines <- read_lines(path)
+  inject_lines <- read_lines(inject_path)
   inject_lines <- pre_process(inject_lines, ...)
 
   inject_locus <- grep(backtick(inject_path), lines, fixed = TRUE)
@@ -83,7 +99,7 @@ inject_file <- function(path, inject_path, pre_process = enfence, ...) {
     inject_lines,
     lines[-seq_len(inject_locus)]
   )
-  writeLines(lines, path)
+  write_lines(lines, path)
   path
 }
 
