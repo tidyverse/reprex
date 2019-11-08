@@ -161,8 +161,10 @@ reprex_undo <- function(input = NULL,
   outfile_given <- !is.null(outfile)
   infile <- if (where == "path") input else NULL
   if (outfile_given) {
-    files <- make_filenames(make_filebase(outfile, infile), suffix = "clean")
-    r_file <- files[["r_file"]]
+    r_file <- path_mutate(
+      make_filebase(outfile, infile),
+      suffix = "clean", ext = "R"
+    )
     if (would_clobber(r_file)) {
       return(invisible())
     }

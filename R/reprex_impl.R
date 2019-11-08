@@ -49,9 +49,11 @@ reprex_impl <- function(x_expr = NULL,
 
   outfile_given <- !is.null(outfile)
   infile <- if (where == "path") input else NULL
-  files <- make_filenames(make_filebase(outfile, infile))
 
-  r_file <- files[["r_file"]]
+  r_file <- path_mutate(
+    make_filebase(outfile, infile),
+    suffix = "reprex", ext = "R"
+  )
   if (would_clobber(r_file)) { return(invisible()) }
 
   format_params <- list(
@@ -80,14 +82,14 @@ reprex_impl <- function(x_expr = NULL,
   ## 1. when venue = "r" or "rtf", the reprex_file != md_file, so we need both
   ## 2. use our own "md_file" instead of the normalized, absolutized path
   ##    returned by rmarkdown::render() and, therefore, reprex_render()
-  reprex_file <- md_file <- files[["md_file"]]
+  reprex_file <- md_file <- path_ext_set(r_file, "md")
 
   if (outfile_given) {
     message("Writing reprex markdown:\n  * ", md_file)
   }
 
   if (venue %in% c("r", "rtf")) {
-    rout_file <- files[["rout_file"]]
+    rout_file <- path_mutate(r_file, suffix = "rendered", ext = "R")
     output_lines <- read_lines(md_file)
     output_lines <- convert_md_to_r(output_lines, comment = comment)
     write_lines(output_lines, rout_file)
@@ -98,7 +100,7 @@ reprex_impl <- function(x_expr = NULL,
   }
 
   if (venue == "rtf") {
-    rtf_file <- files[["rtf_file"]]
+    rtf_file <- path_ext_set(r_file, "rtf")
     reprex_highlight(reprex_file, rtf_file)
     if (outfile_given) {
       message("Writing reprex as highlighted RTF:\n  * ", reprex_file)
@@ -107,7 +109,11 @@ reprex_impl <- function(x_expr = NULL,
   }
 
   if (venue == "html") {
-    html_fragment_file <- files[["html_fragment_file"]]
+    # I bet this is fragile, if input is 'foo/foo' for same reason as with
+    # main render call in reprex_render()
+    # where I decided to use let render() determine output and I take it
+    # from the return value
+    html_fragment_file <- path_mutate(r_file, suffix = "fragment", ext = "html")
     rmarkdown::render(
       md_file,
       output_format = rmarkdown::html_fragment(self_contained = FALSE),

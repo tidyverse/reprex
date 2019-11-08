@@ -110,17 +110,13 @@ std_out_err_path <- function(input, opts) {
   if (is.null(std_out_err) || !isTRUE(std_out_err)) {
     NULL
   } else {
-    make_filenames(make_filebase(outfile = NA, infile = input), suffix = "")$std_file
+    path_mutate(input, suffix = "std_out_err", ext = "txt")
   }
 }
 
 preview <- function(input) {
-  filenames <- make_filenames(make_filebase(outfile = NA, infile = input), suffix = "")
-  #md_file      <- filenames$md_file
-  #preview_file <- filenames$html_file
   preview_file <- rmarkdown::render(
     input,
-    #output_file = preview_file,
     clean = FALSE,
     quiet = TRUE,
     encoding = "UTF-8",

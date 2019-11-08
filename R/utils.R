@@ -55,13 +55,12 @@ enfence <- function(lines,
   collapse(c(tag, "``` sh", lines, "```"))
 }
 
-
 inject_file <- function(path, inject_path, pre_process = enfence, ...) {
   lines <- read_lines(path)
   inject_lines <- read_lines(inject_path)
   inject_lines <- pre_process(inject_lines, ...)
 
-  inject_locus <- grep(backtick(path_file(inject_path)), lines, fixed = TRUE)
+  inject_locus <- grep(backtick(inject_path), lines, fixed = TRUE)
   if (length(inject_locus)) {
     lines <- c(
       lines[seq_len(inject_locus - 1)],

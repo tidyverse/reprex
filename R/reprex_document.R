@@ -143,9 +143,7 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
 }
 
 std_out_err_stub <- function(input) {
-  std_file <- make_filenames(
-    make_filebase(outfile = NA, infile = path_file(input)),
-    suffix = "")$std_file
+  std_file <- path_mutate(input, suffix = "std_out_err", ext = "txt")
   backtick(std_file)
 }
 

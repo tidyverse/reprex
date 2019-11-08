@@ -17,16 +17,24 @@ write_lines <- function(text, path, sep = "\n") {
   base::writeLines(enc2utf8(text), con = path, sep = sep, useBytes = TRUE)
 }
 
-# TODO: this is factored incorrectly
-#       functionality around creating a reprex directory and file name out of
-#       thin air needs to be separated from operating on a path
-## note that all paths pass through fs and, therefore, path_tidy()
+reprex_default_filebase <- function(in_temp_dir) {
+  if (in_temp_dir) {
+    # outfile is NULL --> reprex in sub-directory, within session temp directory
+    # example: /private/var/.../.../.../reprex97d77de2835c/reprex
+    target_dir <- path_real(dir_create(file_temp("reprex")))
+    path(target_dir, "reprex")
+  } else {
+    # infile = NULL, outfile is NA --> reprex in working directory
+    # TODO: I'd love to devise a better way to express "work in current working
+    # directory", i.e. I've concluded that `outfile = NA` is yucky
+    # example: reprexbfa165580676
+    path_file(file_temp("reprex"))
+  }
+}
+
 make_filebase <- function(outfile = NULL, infile = NULL) {
   if (is.null(outfile)) {
-    ## work inside a new directory, within session temp directory
-    target_dir <- path_real(dir_create(file_temp("reprex")))
-    ## example: /private/var/.../.../.../reprex97d77de2835c/reprex
-    return(path(target_dir, "reprex"))
+    return(reprex_default_filebase(in_temp_dir = TRUE))
   }
 
   if (!is.na(outfile)) {
@@ -34,9 +42,7 @@ make_filebase <- function(outfile = NULL, infile = NULL) {
   }
 
   if (is.null(infile)) {
-    ## outfile = NA, infile = NULL --> reprex in working directory
-    ## example: reprexbfa165580676
-    path_file(file_temp("reprex"))
+    return(reprex_default_filebase(in_temp_dir = FALSE))
   } else {
     ## outfile = NA, infile = "sthg" --> follow infile's lead
     ## example: basename_of_infile
@@ -45,24 +51,23 @@ make_filebase <- function(outfile = NULL, infile = NULL) {
   }
 }
 
-make_filenames <- function(filebase = "foo", suffix = "reprex") {
-  add_suffix <- function(x, suffix = "") paste0(x, "_", suffix)
-
+add_suffix <- function(x, suffix = "reprex") {
+  orig_ext <- path_ext(x)
+  filebase <- path_ext_remove(x)
   if (nzchar(suffix)) {
-    filebase <- add_suffix(filebase, suffix)
+    filebase <- paste0(filebase, "_", suffix)
   }
-  ## make this a list so I am never tempted to index with `[` instead of `[[`
-  ## can cause sneaky name problems with the named list used as data for
-  ## the whisker template
-  list(
-    r_file    = path_ext_set(filebase, "R"),
-    md_file   = path_ext_set(filebase, "md"),
-    rtf_file  = path_ext_set(filebase, "rtf"),
-    html_fragment_file = path_ext_set(add_suffix(filebase, "fragment"), "html"),
-    std_file  = path_ext_set(add_suffix(filebase, "std_out_err"), "txt"),
-    rout_file = path_ext_set(add_suffix(filebase, "rendered"), "R"),
-    html_file = path_ext_set(filebase, "html")
-  )
+  path_ext_set(filebase, orig_ext)
+}
+
+path_mutate <- function(path, suffix = "", ext = NULL) {
+  if (nzchar(suffix)) {
+    path <- add_suffix(path, suffix)
+  }
+  if (!is.null(ext)) {
+    path <- path_ext_set(path, ext)
+  }
+  path
 }
 
 force_tempdir <- function(path) {
