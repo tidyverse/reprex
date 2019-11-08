@@ -139,4 +139,6 @@ But wait, there’s more\!
       - `reprex_rescue()`, when you’re dealing with copy/paste from R
         Console
 
-Please note that the 'reprex' project is released with a [Contributor Code of Conduct](https://reprex.tidyverse.org/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+## Code of Conduct
+
+Please note that the reprex project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/1/0/0/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
