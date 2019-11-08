@@ -1,5 +1,13 @@
 # reprex (development version)
 
+* `reprex()` has been internally refactored to make better use of the official
+  machinery for extending rmarkdown:
+  - `reprex_document()` is a new R Markdown output format. The user code
+    provided to `reprex()` is written to a file with YAML that specifies
+    `output: reprex::reprex_document`.
+  - `reprex_render()` is a newly exported function. It is the intended way to
+    render `reprex_document`s.
+
 * The `si` argument of `reprex()` is now `session_info`. Being explicit seems more important than saving characters, given auto-completions.
 
 * The `show` argument of `reprex()` is now `html_preview`, for the sake of consistency with other R Markdown output formats.
