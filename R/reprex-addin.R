@@ -24,7 +24,7 @@ reprex_addin <- function() { # nocov start
   if (any(!dep_ok)) {
     stop(
       "Install these packages in order to use the reprex addin:\n",
-      collapse(names(dep_ok[!dep_ok])), call. = FALSE
+      glue::glue_collapse(names(dep_ok[!dep_ok]), sep = "\n"), call. = FALSE
     )
   }
 

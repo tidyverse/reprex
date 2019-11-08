@@ -46,41 +46,10 @@ escape_newlines <- function(x) {
 
 pandoc2.0 <- function() rmarkdown::pandoc_available("2.0")
 
-enfence <- function(lines,
-                    tag = NULL,
-                    fallback = "-- nothing to show --") {
-  if (length(lines) == 0) {
-    lines <- fallback
-  }
-  collapse(c(tag, "``` sh", lines, "```"))
-}
-
-inject_file <- function(path, inject_path, pre_process = enfence, ...) {
-  lines <- read_lines(path)
-  inject_lines <- read_lines(inject_path)
-  inject_lines <- pre_process(inject_lines, ...)
-
-  inject_locus <- grep(backtick(inject_path), lines, fixed = TRUE)
-  if (length(inject_locus)) {
-    lines <- c(
-      lines[seq_len(inject_locus - 1)],
-      inject_lines,
-      lines[-seq_len(inject_locus)]
-    )
-    write_lines(lines, path)
-  }
-  path
-}
-
 roxygen_comment <- function(x) paste0("#' ", x)
 
 r_chunk <- function(code, label = NULL) {
   c(sprintf("```{r %s}", label %||% ""), label, code, "```")
-}
-
-collapse <- function(x, sep = "\n") {
-  stopifnot(is.character(sep), length(sep) == 1)
-  paste(x, collapse = sep)
 }
 
 backtick <- function(x) encodeString(x, quote = "`")

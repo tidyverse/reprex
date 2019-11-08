@@ -44,11 +44,14 @@
 reprex_render <- function(input,
                           html_preview = NULL) {
   yaml_opts <- get_document_options(input)
+
   html_preview <-
     (html_preview %||% yaml_opts[["html_preview"]] %||% is_interactive()) &&
     is_interactive()
   stopifnot(is_toggle(html_preview))
-  std_file <- std_out_err_path(input, yaml_opts)
+
+  std_out_err <- yaml_opts[["std_out_err"]] %||% FALSE
+  std_file    <- std_out_err_path(input, std_out_err)
 
   md_file <- callr::r_safe(
     function(input) {
@@ -69,13 +72,13 @@ reprex_render <- function(input,
   )
 
   if (!is.null(std_file)) {
-    ## replace "std_file" placeholder with its contents
     inject_file(md_file, std_file, tag = "standard output and standard error")
   }
 
   if (html_preview) {
     preview(md_file)
   }
+
   md_file
 }
 
@@ -92,6 +95,20 @@ prex_render <- function(input,
   md_file
 }
 
+
+preview <- function(input) {
+  preview_file <- rmarkdown::render(
+    input,
+    clean = FALSE, quiet = TRUE, encoding = "UTF-8",
+    output_options = if (pandoc2.0()) list(pandoc_args = "--quiet")
+  )
+
+  ## html must live in session temp dir in order to display within RStudio
+  preview_file <- force_tempdir(preview_file)
+  viewer <- getOption("viewer") %||% utils::browseURL
+  viewer(preview_file)
+}
+
 get_document_options <- function(input) {
   yaml_input <- input
   if (tolower(path_ext(input)) == "r") {
@@ -105,8 +122,7 @@ get_document_options <- function(input) {
   )
 }
 
-std_out_err_path <- function(input, opts) {
-  std_out_err <- opts[["std_out_err"]]
+std_out_err_path <- function(input, std_out_err) {
   if (is.null(std_out_err) || !isTRUE(std_out_err)) {
     NULL
   } else {
@@ -114,17 +130,29 @@ std_out_err_path <- function(input, opts) {
   }
 }
 
-preview <- function(input) {
-  preview_file <- rmarkdown::render(
-    input,
-    clean = FALSE,
-    quiet = TRUE,
-    encoding = "UTF-8",
-    output_options = if (pandoc2.0()) list(pandoc_args = "--quiet")
-  )
-
-  ## html must live in session temp dir in order to display within RStudio
-  preview_file <- force_tempdir(preview_file)
-  viewer <- getOption("viewer") %||% utils::browseURL
-  viewer(preview_file)
+enfence <- function(lines,
+                    tag = NULL,
+                    fallback = "-- nothing to show --") {
+  if (length(lines) == 0) {
+    lines <- fallback
+  }
+  glue::glue_collapse(c(tag, "``` sh", lines, "```"), sep = "\n")
 }
+
+inject_file <- function(path, inject_path, pre_process = enfence, ...) {
+  lines <- read_lines(path)
+  inject_lines <- read_lines(inject_path)
+  inject_lines <- pre_process(inject_lines, ...)
+
+  inject_locus <- grep(backtick(inject_path), lines, fixed = TRUE)
+  if (length(inject_locus)) {
+    lines <- c(
+      lines[seq_len(inject_locus - 1)],
+      inject_lines,
+      lines[-seq_len(inject_locus)]
+    )
+    write_lines(lines, path)
+  }
+  path
+}
+
