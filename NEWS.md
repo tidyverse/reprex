@@ -25,8 +25,6 @@ R 3.1 is no longer explicitly supported or tested. Our general practice is to su
 * knitr moves from Suggests to Imports (although it was already a hard dependency via rmarkdown), so we can require v1.23 or higher, which represents a
 major switch to UTF-8.
 
-* xfun is a new direct dependency, though it was already an indirect dependency via knitr. Related to UTF-8 enforcement.
-
 # reprex 0.3.0
 
 * The `crayon.enabled` option is explicitly set to `FALSE` when rendering the reprex (#238, #239).

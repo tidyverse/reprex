@@ -47,8 +47,7 @@ Imports:
     rlang (>= 0.4.0),
     rmarkdown,
     utils,
-    withr,
-    xfun
+    withr
 Suggests: 
     covr,
     fortunes,

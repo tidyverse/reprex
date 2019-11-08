@@ -6,13 +6,15 @@ writeLines <- function(...) {
   stop("In this house, we use write_lines() for UTF-8 reasons.")
 }
 
-read_lines <- function(path, error = FALSE) {
+read_lines <- function(path, n = -1L) {
   if (is.null(path)) return(NULL)
-  xfun::read_utf8(path, error = error)
+  base::readLines(path, n = n, encoding = "UTF-8", warn = FALSE)
 }
 
-write_lines <- function(text, path) {
-  xfun::write_utf8(text, path)
+write_lines <- function(text, path, sep = "\n") {
+  path <- file(path, open = "wb")
+  on.exit(close(path), add = TRUE)
+  base::writeLines(enc2utf8(text), con = path, sep = sep, useBytes = TRUE)
 }
 
 # TODO: this is factored incorrectly
