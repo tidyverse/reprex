@@ -70,6 +70,34 @@ path_mutate <- function(path, suffix = "", ext = NULL) {
   path
 }
 
+r_file <- function(path) {
+  path_mutate(path, suffix = "reprex", ext = "R")
+}
+
+r_file_clean <- function(path) {
+  path_mutate(path, suffix = "clean", ext = "R")
+}
+
+r_file_rendered <- function(path) {
+  path_mutate(path, suffix = "rendered", ext = "R")
+}
+
+md_file <- function(path) {
+  path_mutate(path, ext = "md")
+}
+
+std_file <- function(path) {
+  path_mutate(path, suffix = "std_out_err", ext = "txt")
+}
+
+html_file <- function(path) {
+  path_mutate(path, suffix = "fragment", ext = "html")
+}
+
+rtf_file <- function(path) {
+  path_mutate(path, ext = "rtf")
+}
+
 force_tempdir <- function(path) {
   if (is_in_tempdir(path)) {
     path

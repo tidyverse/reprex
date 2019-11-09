@@ -92,9 +92,9 @@ prex_render <- function(input,
     knit_root_dir = getwd()
   )
   if (html_preview) {
-    preview(input)
+    preview(md_file)
   }
-  md_file
+  invisible(md_file)
 }
 
 
@@ -128,7 +128,7 @@ std_out_err_path <- function(input, std_out_err) {
   if (is.null(std_out_err) || !isTRUE(std_out_err)) {
     NULL
   } else {
-    path_mutate(input, suffix = "std_out_err", ext = "txt")
+    std_file(input)
   }
 }
 

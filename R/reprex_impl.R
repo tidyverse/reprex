@@ -49,12 +49,12 @@ reprex_impl <- function(x_expr = NULL,
 
   outfile_given <- !is.null(outfile)
   infile <- if (where == "path") input else NULL
+  filebase <- make_filebase(outfile, infile)
 
-  r_file <- path_mutate(
-    make_filebase(outfile, infile),
-    suffix = "reprex", ext = "R"
-  )
-  if (would_clobber(r_file)) { return(invisible()) }
+  r_file <- r_file(filebase)
+  if (would_clobber(r_file)) {
+    return(invisible())
+  }
 
   reprex_document_options <- list(
     venue = venue,
@@ -79,51 +79,16 @@ reprex_impl <- function(x_expr = NULL,
     prex_render(r_file)
   }
 
-  ## 1. when venue = "r" or "rtf", the reprex_file != md_file, so we need both
-  ## 2. use our own "md_file" instead of the normalized, absolutized path
-  ##    returned by rmarkdown::render() and, therefore, reprex_render()
-  reprex_file <- md_file <- path_ext_set(r_file, "md")
+  reprex_file <- switch(
+    venue,
+    r    = r_file_rendered(r_file),
+    rtf  = rtf_file(r_file),
+    html = html_file(r_file),
+    md_file(r_file)
+  )
 
   if (outfile_given) {
-    message("Writing reprex markdown:\n  * ", md_file)
-  }
-
-  if (venue %in% c("r", "rtf")) {
-    rout_file <- path_mutate(r_file, suffix = "rendered", ext = "R")
-    output_lines <- read_lines(md_file)
-    output_lines <- convert_md_to_r(output_lines, comment = comment)
-    write_lines(output_lines, rout_file)
-    if (outfile_given) {
-      message("Writing reprex as commented R script:\n  * ", rout_file)
-    }
-    reprex_file <- rout_file
-  }
-
-  if (venue == "rtf") {
-    rtf_file <- path_ext_set(r_file, "rtf")
-    reprex_highlight(reprex_file, rtf_file)
-    if (outfile_given) {
-      message("Writing reprex as highlighted RTF:\n  * ", reprex_file)
-    }
-    reprex_file <- rtf_file
-  }
-
-  if (venue == "html") {
-    # I bet this is fragile, if input is 'foo/foo' for same reason as with
-    # main render call in reprex_render()
-    # where I decided to use let render() determine output and I take it
-    # from the return value
-    html_fragment_file <- path_mutate(r_file, suffix = "fragment", ext = "html")
-    rmarkdown::render(
-      md_file,
-      output_format = rmarkdown::html_fragment(self_contained = FALSE),
-      output_file = html_fragment_file,
-      clean = FALSE,
-      quiet = TRUE,
-      encoding = "UTF-8",
-      output_options = if (pandoc2.0()) list(pandoc_args = "--quiet")
-    )
-    reprex_file <- html_fragment_file
+    message("Writing reprex file:\n  * ", reprex_file)
   }
 
   out_lines <- read_lines(reprex_file)

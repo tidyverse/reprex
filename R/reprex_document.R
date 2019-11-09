@@ -107,7 +107,20 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
     }
   }
 
-  # for debugging / devel purposes
+  # output_format$post-processor ----
+  # The post_processor is run after processing with Pandoc.
+  # It is the last substantial operation before `render()` returns.
+  #
+  # Important points about a valid post_processor:
+  # * The signature is non-negotiable.
+  # * `input_file` is the primary input to ?pandoc conversion? (gosh, it's hard
+  #   to tell) and I believe it's not relevant to us.
+  # * MUST return a file path that is, morally, the (new) `output_file`.
+  # * `output_file` is the output of ?pandoc conversion? (see above re: how it
+  #   is hard to tell) and all previously run post_processors. I think it is the
+  #   true input of a post_processor.
+
+  # used only for debugging / devel purposes
   pp_save_pp_args <- function(metadata,
                               input_file, output_file,
                               clean, verbose) {
@@ -120,8 +133,68 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
     output_file
   }
 
-  pp_merge <- get("merge_post_processors", asNamespace("rmarkdown"))
-  post_processor <- pp_merge(NULL, pp_save_pp_args)
+  # used when venue is "r" or "rtf"
+  pp_md_to_r <- function(metadata,
+                         input_file, output_file,
+                         clean, verbose) {
+    rout_file <- r_file_rendered(output_file)
+    output_lines <- read_lines(output_file)
+    output_lines <- convert_md_to_r(output_lines, comment = comment)
+    write_lines(output_lines, rout_file)
+    output_file
+  }
+
+  # used when venue is "rtf"
+  pp_highlight <- function(metadata,
+                           input_file, output_file,
+                           clean, verbose) {
+    browser()
+    rout_file <- r_file_rendered(output_file)
+    rtf_file <- rtf_file(output_file)
+    reprex_highlight(rout_file, rtf_file)
+    output_file
+  }
+
+  # used when venue is "html"
+  pp_html_render <- function(metadata,
+                             input_file, output_file,
+                             clean, verbose) {
+    # I bet this is fragile, if input is 'foo/foo' for same reason as with
+    # main render call in reprex_render()
+    # where I decided to use let render() determine output and I take it
+    # from the return value
+    # I might have to accomplish the path I want by copying the input (the md)
+    # to something with "fragment" in it, then let the html file name be
+    # auto-generated
+    html_file <- html_file(output_file)
+    rmarkdown::render(
+      output_file,
+      output_format = rmarkdown::html_fragment(self_contained = FALSE),
+      output_file = html_file,
+      clean = FALSE,
+      quiet = TRUE,
+      encoding = "UTF-8",
+      output_options = if (pandoc2.0()) list(pandoc_args = "--quiet")
+    )
+    output_file
+  }
+
+  # rmarkdown::merge_post_processors() is First In Last Run
+  pp_push <- get("merge_post_processors", asNamespace("rmarkdown"))
+  # Therefore we start with a dummy post_processor.
+  post_processor <- function(metadata,
+                             input_file, output_file,
+                             clean, verbose) { output_file }
+  if (venue == "html") {
+    post_processor <- pp_push(post_processor, pp_html_render)
+  }
+  if (venue == "rtf") {
+    post_processor <- pp_push(post_processor, pp_highlight)
+  }
+  if (venue %in% c("r", "rtf")) {
+    post_processor <- pp_push(post_processor, pp_md_to_r)
+  }
+  #post_processor <- pp_push(post_processor, pp_save_pp_args)
 
   format <- rmarkdown::output_format(
     knitr = rmarkdown::knitr_options(
@@ -143,8 +216,7 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
 }
 
 std_out_err_stub <- function(input) {
-  std_file <- path_mutate(input, suffix = "std_out_err", ext = "txt")
-  backtick(std_file)
+  backtick(std_file(input))
 }
 
 ad <- function(venue) {

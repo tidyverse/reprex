@@ -16,7 +16,7 @@ test_that("expected outfiles are written and messaged, venue = 'gh'", {
   expect_messages_to_include(
     msg,
     c("Preparing reprex as .R file", "foo_reprex.R",
-      "Writing reprex markdown", "foo_reprex.md"
+      "Writing reprex file", "foo_reprex.md"
     )
   )
   expect_match(read_lines("foo_reprex.R"), "1:5", all = FALSE)
@@ -33,8 +33,7 @@ test_that("expected outfiles are written and messaged, venue = 'R'", {
   expect_messages_to_include(
     msg,
     c("Preparing reprex as .R file", "foo_reprex.R",
-      "Writing reprex markdown", "foo_reprex.md",
-      "Writing reprex as commented R script:", "foo_reprex_rendered.R"
+      "Writing reprex file", "foo_reprex_rendered.R"
     )
   )
   expect_match(read_lines("foo_reprex.R"), "1:5", all = FALSE)
@@ -71,7 +70,7 @@ test_that("outfiles in a subdirectory works", {
   expect_messages_to_include(
     msg,
     c("Preparing reprex as .R file", "foo/foo_reprex.R",
-      "Writing reprex markdown", "foo/foo_reprex.md"
+      "Writing reprex file", "foo/foo_reprex.md"
     )
   )
 })
@@ -88,7 +87,7 @@ test_that("outfiles based on input file", {
   expect_messages_to_include(
     msg,
     c("Preparing reprex as .R file", "foo_reprex.R",
-      "Writing reprex markdown", "foo_reprex.md"
+      "Writing reprex file", "foo_reprex.md"
     )
   )
 })
@@ -109,7 +108,7 @@ test_that("outfiles based on tempfile()", {
   expect_messages_to_include(
     msg,
     c("Preparing reprex as .R file", r_file,
-      "Writing reprex markdown", md_file
+      "Writing reprex file", md_file
     )
   )
 })
