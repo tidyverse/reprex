@@ -91,7 +91,7 @@ std_file <- function(path) {
 }
 
 html_file <- function(path) {
-  path_mutate(path, suffix = "fragment", ext = "html")
+  path_mutate(path, suffix = "reprex", ext = "html")
 }
 
 rtf_file <- function(path) {

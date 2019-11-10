@@ -159,23 +159,27 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
   pp_html_render <- function(metadata,
                              input_file, output_file,
                              clean, verbose) {
-    # I bet this is fragile, if input is 'foo/foo' for same reason as with
-    # main render call in reprex_render()
-    # where I decided to use let render() determine output and I take it
-    # from the return value
-    # I might have to accomplish the path I want by copying the input (the md)
-    # to something with "fragment" in it, then let the html file name be
-    # auto-generated
-    html_file <- html_file(output_file)
-    rmarkdown::render(
+    output_file <- rmarkdown::render(
       output_file,
       output_format = rmarkdown::html_fragment(self_contained = FALSE),
-      output_file = html_file,
       clean = FALSE,
       quiet = TRUE,
       encoding = "UTF-8",
       output_options = if (pandoc2.0()) list(pandoc_args = "--quiet")
     )
+    output_file <- file_move(output_file, html_file(output_file))
+    # the html_fragment() output is a bit too minimal
+    # I add an encoding specification
+    # I think this is positive-to-neutral for the reprex output and, if I don't,
+    # viewing the fragment in the browser results in mojibake
+    output_lines <- read_lines(output_file)
+    output_lines <- c(
+      "<head>",
+      "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">",
+      "</head>",
+      output_lines
+    )
+    write_lines(output_lines, output_file)
     output_file
   }
 

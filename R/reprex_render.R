@@ -44,7 +44,11 @@
 #' reprex_render("input.Rmd")
 #' }
 reprex_render <- function(input,
-                          html_preview = NULL) {
+                          html_preview = NULL,
+                          encoding = "UTF-8") {
+  if (!identical(encoding, "UTF-8")) {
+    stop("`reprex_render()` requires an input file with UTF-8 encoding")
+  }
   yaml_opts <- reprex_document_options(input)
 
   html_preview <-
