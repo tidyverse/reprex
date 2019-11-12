@@ -11,12 +11,14 @@ reprex(
   venue = c("gh", "r", "rtf", "html", "so", "ds"),
   render = TRUE,
   advertise = NULL,
-  si = opt(FALSE),
+  session_info = opt(FALSE),
   style = opt(FALSE),
-  show = opt(TRUE),
   comment = opt("#>"),
   tidyverse_quiet = opt(TRUE),
-  std_out_err = opt(FALSE)
+  std_out_err = opt(FALSE),
+  html_preview = opt(TRUE),
+  show,
+  si
 )
 }
 \arguments{
@@ -64,16 +66,12 @@ how the reprex was created. If unspecified, the option \code{reprex.advertise}
 is consulted and, if that is not defined, default is \code{TRUE} for venues
 \code{"gh"}, \code{"html"}, \code{"so"}, \code{"ds"} and \code{FALSE} for \code{"r"} and \code{"rtf"}.}
 
-\item{si}{Logical. Whether to include \code{\link[sessioninfo:session_info]{sessioninfo::session_info()}}, if
-available, or \code{\link[=sessionInfo]{sessionInfo()}} at the end of the reprex. When \code{venue} is
-"gh", the session info is wrapped in a collapsible details tag. Read more
-about \code{\link[=opt]{opt()}}.}
+\item{session_info}{Logical. Whether to include
+\code{\link[sessioninfo:session_info]{sessioninfo::session_info()}}, if available, or \code{\link[=sessionInfo]{sessionInfo()}} at the end
+of the reprex. When \code{venue} is "gh", the session info is wrapped in a
+collapsible details tag. Read more about \code{\link[=opt]{opt()}}.}
 
-\item{style}{Logical. Whether to style code with \code{\link[styler:style_text]{styler::style_text()}}.
-Read more about \code{\link[=opt]{opt()}}.}
-
-\item{show}{Logical. Whether to show rendered output in a viewer (RStudio or
-browser). Read more about \code{\link[=opt]{opt()}}.}
+\item{style}{Logical. Whether to set the knitr chunk option \code{tidy = "styler"}, which re-styles code with the \href{https://styler.r-lib.org}{styler package}. Read more about \code{\link[=opt]{opt()}}.}
 
 \item{comment}{Character. Prefix with which to comment out output, defaults
 to \code{"#>"}. Read more about \code{\link[=opt]{opt()}}.}
@@ -89,6 +87,15 @@ Note this cannot be properly interleaved with output from the main R
 process, nor is there any guarantee that the lines from standard output and
 standard error are in correct chronological order. See \code{\link[callr:r]{callr::r()}} for
 more. Read more about \code{\link[=opt]{opt()}}.}
+
+\item{html_preview}{Logical. Whether to show rendered output in a viewer
+(RStudio or browser). Always \code{FALSE} in a noninteractive session. Read more
+about \code{\link[=opt]{opt()}}.}
+
+\item{show}{Deprecated, in favor of \code{html_preview}, for greater consistency
+with other R Markdown output formats.}
+
+\item{si}{Deprecated, in favor of \code{session_info}.}
 }
 \value{
 Character vector of rendered reprex, invisibly.

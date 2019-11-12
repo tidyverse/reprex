@@ -45,7 +45,7 @@ If you're asking for R help, reporting a bug, or requesting a new feature, you'r
 
 **Consider including so-called "session info"**, i.e. your OS and versions of R and add-on packages, if it's conceivable that it matters.
 
-  - Use `reprex(..., si = TRUE)` for this.
+  - Use `reprex(..., session_info = TRUE)` for this.
 
 **Whitespace rationing is not in effect.**
 

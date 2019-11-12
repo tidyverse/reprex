@@ -38,7 +38,7 @@ NULL
 #'   #' More text
 #'   y <- 2:5
 #'   x + y
-#' }, show = FALSE, advertise = FALSE, outfile = tmp_in)
+#' }, html_preview = FALSE, advertise = FALSE, outfile = tmp_in)
 #' tmp_out <- file.path(tempdir(), "roundtrip-output")
 #' x <- reprex_invert(x, outfile = tmp_out)
 #' x
@@ -161,8 +161,8 @@ reprex_undo <- function(input = NULL,
   outfile_given <- !is.null(outfile)
   infile <- if (where == "path") input else NULL
   if (outfile_given) {
-    files <- make_filenames(make_filebase(outfile, infile), suffix = "clean")
-    r_file <- files[["r_file"]]
+    filebase <- make_filebase(outfile, infile)
+    r_file <- r_file_clean(filebase)
     if (would_clobber(r_file)) {
       return(invisible())
     }
@@ -183,7 +183,7 @@ reprex_undo <- function(input = NULL,
     message("Clean code is on the clipboard.")
   }
   if (outfile_given) {
-    writeLines(x_out, r_file)
+    write_lines(x_out, r_file)
     message("Writing clean code as R script:\n  * ", r_file)
   }
   invisible(x_out)
@@ -191,7 +191,7 @@ reprex_undo <- function(input = NULL,
 
 convert_md_to_r <- function(lines, comment = "#>", drop_output = FALSE) {
   lines_info <- classify_fenced_lines(lines, comment = comment)
-  lines_out <- ifelse(lines_info == "prose" & nzchar(lines), prose(lines), lines)
+  lines_out <- ifelse(lines_info == "prose" & nzchar(lines), roxygen_comment(lines), lines)
   drop_classes <- c("bt", if (drop_output) "output")
   lines_out[!lines_info %in% drop_classes]
 }

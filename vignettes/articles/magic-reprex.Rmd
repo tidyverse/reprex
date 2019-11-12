@@ -141,7 +141,7 @@ ggplot(data = lm_augmented,
 ![](http://i.imgur.com/h72ZEKG.png)
 ```
 
-You can even show the results of the `session_info()`, for maximum reproducibility, by adding the argument: `reprex::reprex(si = TRUE)`, which adds a super nifty drop down box for the session info.
+You can even show the results of the `session_info()`, for maximum reproducibility, by adding the argument: `reprex::reprex(session_info = TRUE)`, which adds a super nifty drop down box for the session info.
 
 
 <p>

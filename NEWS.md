@@ -1,8 +1,26 @@
 # reprex (development version)
 
+* `reprex()` has been internally refactored to make better use of the official
+  machinery for extending rmarkdown:
+  - `reprex_document()` is a new R Markdown output format.
+  - `reprex_render()` is a newly exported function.
+  - A `reprex_document()` is designed to be rendered with `reprex_render()`.
+    `reprex_render()` is designed to act on a `reprex_document()`. This is the
+    heart of what the `reprex()` function does, in addition to various
+    interface and workflow niceties.
+  - Two R Markdown templates ship with the package, which an RStudio user can
+    access via *File > New File > R Markdown ... > From Template*. One is
+    minimal; the other uses lots of reprex features. Both include
+    `knit: reprex::reprex_render` in the YAML, which causes the RStudio "Knit"
+    button to use `reprex_render()`.
+
+* The `si` argument of `reprex()` is now `session_info`. Being explicit seems more important than saving characters, given auto-completions.
+
+* The `show` argument of `reprex()` is now `html_preview`, for the sake of consistency with other R Markdown output formats.
+
 * `reprex_VENUE(...)` is a new way to call `reprex(..., venue = "VENUE")`. For example, `reprex_r()` is equivalent to `reprex(venue = "r")`. This makes non-default venues easier to access via auto-completion (#256).
 
-* `prex()` and `prex_VENUE()` are new **unexported** functions that, like `reprex()`, render a small bit of code, but with less reproducibility! The code is evaluated in the global workspace of the current process, with the current working directory. This pragmatic hack is useful when preparing a series of related snippets, e.g., for a Keynote or PowerPoint presentation, and there's not enough space to make each one self-contained.
+* `prex()`, `prex_VENUE()`, and `prex_render()` are new **unexported** functions that, like `reprex()`, render a small bit of code, but with less reproducibility! The code is evaluated in the global workspace of the current process, with the current working directory. This pragmatic hack is useful when preparing a series of related snippets, e.g., for a Keynote or PowerPoint presentation, and there's not enough space to make each one self-contained.
 
 * New article on techniques for making package startup quieter (#187, @marionlouveaux).
 
@@ -16,12 +34,12 @@
 
 R 3.1 is no longer explicitly supported or tested. Our general practice is to support the current release (3.6, at time of writing), devel, and the 4 previous versions of R (3.5, 3.4, 3.3, 3.2).
 
-* devtools is no longer in Suggests. It is replaced by sessioninfo.
+* sessioninfo is new in Suggests, replacing devtools.
+
+* glue is new in Imports, replacing whisker.
 
 * knitr moves from Suggests to Imports (although it was already a hard dependency via rmarkdown), so we can require v1.23 or higher, which represents a
 major switch to UTF-8.
-
-* xfun is a new direct dependency, though it was already an indirect dependency via knitr. Related to UTF-8 enforcement.
 
 # reprex 0.3.0
 

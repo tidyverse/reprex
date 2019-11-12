@@ -20,6 +20,7 @@ else's
 eval
 executability
 formatR
+frontmatter
 fs
 funder
 gh
@@ -39,9 +40,11 @@ lifecycle
 macOS
 McBain
 metapackage
+noninteractive
 oducible
 ORCID
 outfiles
+pandoc
 Pandoc
 Pandoc's
 php
@@ -87,7 +90,6 @@ wordpress
 workspaces
 www
 xclip
-xfun
 XPG
 xsel
 YAML

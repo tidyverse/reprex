@@ -81,14 +81,13 @@
 #'   how the reprex was created. If unspecified, the option `reprex.advertise`
 #'   is consulted and, if that is not defined, default is `TRUE` for venues
 #'   `"gh"`, `"html"`, `"so"`, `"ds"` and `FALSE` for `"r"` and `"rtf"`.
-#' @param si Logical. Whether to include [sessioninfo::session_info()], if
-#'   available, or [sessionInfo()] at the end of the reprex. When `venue` is
-#'   "gh", the session info is wrapped in a collapsible details tag. Read more
-#'   about [opt()].
-#' @param style Logical. Whether to style code with [styler::style_text()].
-#'   Read more about [opt()].
-#' @param show Logical. Whether to show rendered output in a viewer (RStudio or
-#'   browser). Read more about [opt()].
+#' @param session_info Logical. Whether to include
+#'   [sessioninfo::session_info()], if available, or [sessionInfo()] at the end
+#'   of the reprex. When `venue` is "gh", the session info is wrapped in a
+#'   collapsible details tag. Read more about [opt()].
+#' @param style Logical. Whether to set the knitr chunk option `tidy =
+#'   "styler"`, which re-styles code with the [styler
+#'   package](https://styler.r-lib.org). Read more about [opt()].
 #' @param comment Character. Prefix with which to comment out output, defaults
 #'   to `"#>"`. Read more about [opt()].
 #' @param render Logical. Whether to call [rmarkdown::render()] on the templated
@@ -104,6 +103,12 @@
 #'   process, nor is there any guarantee that the lines from standard output and
 #'   standard error are in correct chronological order. See [callr::r()] for
 #'   more. Read more about [opt()].
+#' @param html_preview Logical. Whether to show rendered output in a viewer
+#'   (RStudio or browser). Always `FALSE` in a noninteractive session. Read more
+#'   about [opt()].
+#' @param show Deprecated, in favor of `html_preview`, for greater consistency
+#' with other R Markdown output formats.
+#' @param si Deprecated, in favor of `session_info`.
 #'
 #' @return Character vector of rendered reprex, invisibly.
 #' @examples
@@ -242,12 +247,28 @@ reprex <- function(x = NULL,
                    render = TRUE,
 
                    advertise       = NULL,
-                   si              = opt(FALSE),
+                   session_info    = opt(FALSE),
                    style           = opt(FALSE),
-                   show            = opt(TRUE),
                    comment         = opt("#>"),
                    tidyverse_quiet = opt(TRUE),
-                   std_out_err     = opt(FALSE)) {
+                   std_out_err     = opt(FALSE),
+                   html_preview    = opt(TRUE),
+                   show, si) {
+  if (!missing(show)) {
+    html_preview <- show
+    warning(
+      "`show` is deprecated, please use `html_preview` instead",
+      immediate. = TRUE, call. = FALSE
+    )
+  }
+
+  if (!missing(si)) {
+    session_info <- si
+    warning(
+      "`si` is deprecated, please use `session_info` instead",
+      immediate. = TRUE, call. = FALSE
+    )
+  }
 
   reprex_impl(
     x_expr = substitute(x),
@@ -258,9 +279,9 @@ reprex <- function(x = NULL,
     new_session = TRUE,
 
     advertise       = advertise,
-    si              = si,
+    session_info    = session_info,
     style           = style,
-    show            = show,
+    html_preview    = html_preview,
     comment         = comment,
     tidyverse_quiet = tidyverse_quiet,
     std_out_err     = std_out_err

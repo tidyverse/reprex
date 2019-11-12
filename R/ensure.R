@@ -1,5 +1,9 @@
 ensure_not_empty <- function(x) {
-  if (length(x) < 1) read_template("BETTER_THAN_NOTHING") else x
+  if (length(x) > 0) {
+    x
+  } else {
+    read_lines(path_package("reprex", "templates", "BETTER_THAN_NOTHING.R"))
+  }
 }
 
 ensure_not_dogfood <- function(x) {
@@ -10,7 +14,7 @@ ensure_not_dogfood <- function(x) {
     ## a non-interactive call
     if (!yep(
       "First three lines of putative code are:\n",
-      collapse(lines, sep = "\n"), "\n",
+      glue::glue_collapse(lines, sep = "\n"), "\n",
       "which doesn't look like R code.\n",
       "Are we going in circles? Did you just run reprex()?\n",
       "In that case, the clipboard now holds the *rendered* result.\n",
@@ -37,7 +41,7 @@ ensure_not_dogfood <- function(x) {
     lines <- paste0("  ", x[html_start + 0:2])
     if (!yep(
       "First three lines of putative code are:\n",
-      collapse(lines, sep = "\n"), "\n",
+      glue::glue_collapse(lines, sep = "\n"), "\n",
       "which looks like html, not R code.\n",
       "Are we going in circles? Did you just run `reprex(..., venue = \"html\")`?\n",
       "In that case, the clipboard now holds the *rendered* result.\n",
@@ -59,11 +63,3 @@ ensure_no_prompts <- function(x, prompt = getOption("prompt")) {
   sub(regex, "", x)
 }
 
-ensure_stylish <- function(x) {
-  if (requireNamespace("styler", quietly = TRUE)) {
-    x <- styler::style_text(x)
-  } else {
-    message("Install the styler package in order to use `style = TRUE`.")
-  }
-  x
-}

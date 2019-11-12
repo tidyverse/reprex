@@ -6,9 +6,9 @@
 #' `reprex.<arg>`, where `<arg>` is an argument of [reprex()]. Here are the main
 #' ones:
 #'   * `reprex.advertise`
-#'   * `reprex.si`
+#'   * `reprex.session_info` (previously, `reprex.si`)
 #'   * `reprex.style`
-#'   * `reprex.show`
+#'   * `reprex.html_preview` (previously, `reprex.show`)
 #'   * `reprex.comment`
 #'   * `reprex.tidyverse_quiet`
 #'   * `reprex.std_out_err`
@@ -31,9 +31,9 @@
 #' ```
 #' options(
 #'   reprex.advertise       = FALSE,
-#'   reprex.si              = TRUE,
+#'   reprex.session_info    = TRUE,
 #'   reprex.style           = TRUE,
-#'   reprex.show            = FALSE,
+#'   reprex.html_preview    = FALSE,
 #'   reprex.comment         = "#;-)",
 #'   reprex.tidyverse_quiet = FALSE,
 #'   reprex.std_out_err     = TRUE,

@@ -1,7 +1,7 @@
-test_that("`si` can be set via option", {
+test_that("`session_info` can be set via option", {
   skip_on_cran()
   withr::with_options(
-    list(reprex.si = TRUE),
+    list(reprex.session_info = TRUE),
     out <- reprex(1, render = FALSE)
   )
   expect_match(out, "session_*[iI]nfo", all = FALSE)
@@ -20,7 +20,7 @@ test_that("`comment` can be set via option", {
   skip_on_cran()
   withr::with_options(
     list(reprex.comment = "#? "),
-    out <- reprex(rnorm(1), show = FALSE)
+    out <- reprex(rnorm(1))
   )
   expect_match(out, "^#\\?", all = FALSE)
 })
@@ -31,7 +31,7 @@ test_that("`tidyverse_quiet` can be set via option", {
     list(reprex.tidyverse_quiet = FALSE),
     out <- reprex(mean(1:3), render = FALSE)
   )
-  expect_match(out, "tidyverse.quiet = FALSE", fixed = TRUE, all = FALSE)
+  expect_match(out, "tidyverse_quiet: FALSE", fixed = TRUE, all = FALSE)
 })
 
 test_that("`std_out_err` can be set via option", {
