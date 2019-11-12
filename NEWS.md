@@ -2,11 +2,17 @@
 
 * `reprex()` has been internally refactored to make better use of the official
   machinery for extending rmarkdown:
-  - `reprex_document()` is a new R Markdown output format. The user code
-    provided to `reprex()` is written to a file with YAML that specifies
-    `output: reprex::reprex_document`.
-  - `reprex_render()` is a newly exported function. It is the intended way to
-    render `reprex_document`s.
+  - `reprex_document()` is a new R Markdown output format.
+  - `reprex_render()` is a newly exported function.
+  - A `reprex_document()` is designed to be rendered with `reprex_render()`.
+    `reprex_render()` is designed to act on a `reprex_document()`. This is the
+    heart of what the `reprex()` function does, in addition to various
+    interface and workflow niceties.
+  - Two R Markdown templates ship with the package, which an RStudio user can
+    access via *File > New File > R Markdown ... > From Template*. One is
+    minimal; the other uses lots of reprex features. Both include
+    `knit: reprex::reprex_render` in the YAML, which causes the RStudio "Knit"
+    button to use `reprex_render()`.
 
 * The `si` argument of `reprex()` is now `session_info`. Being explicit seems more important than saving characters, given auto-completions.
 
@@ -14,7 +20,7 @@
 
 * `reprex_VENUE(...)` is a new way to call `reprex(..., venue = "VENUE")`. For example, `reprex_r()` is equivalent to `reprex(venue = "r")`. This makes non-default venues easier to access via auto-completion (#256).
 
-* `prex()` and `prex_VENUE()` are new **unexported** functions that, like `reprex()`, render a small bit of code, but with less reproducibility! The code is evaluated in the global workspace of the current process, with the current working directory. This pragmatic hack is useful when preparing a series of related snippets, e.g., for a Keynote or PowerPoint presentation, and there's not enough space to make each one self-contained.
+* `prex()`, `prex_VENUE()`, and `prex_render()` are new **unexported** functions that, like `reprex()`, render a small bit of code, but with less reproducibility! The code is evaluated in the global workspace of the current process, with the current working directory. This pragmatic hack is useful when preparing a series of related snippets, e.g., for a Keynote or PowerPoint presentation, and there's not enough space to make each one self-contained.
 
 * New article on techniques for making package startup quieter (#187, @marionlouveaux).
 
