@@ -4,7 +4,7 @@
 \alias{reprex_render}
 \title{Render a document in a new R session}
 \usage{
-reprex_render(input, html_preview = NULL)
+reprex_render(input, html_preview = NULL, encoding = "UTF-8")
 }
 \arguments{
 \item{input}{The input file to be rendered. This can be a \code{.R} script or a
@@ -13,6 +13,11 @@ reprex_render(input, html_preview = NULL)
 \item{html_preview}{Logical. Whether to show rendered output in a viewer
 (RStudio or browser). Always \code{FALSE} in a noninteractive session. Read more
 about \code{\link[=opt]{opt()}}.}
+
+\item{encoding}{The encoding of the input file. Note that the only acceptable
+value is "UTF-8", which is required by knitr as of v1.24. This is exposed
+as an argument purely for technical convenience, relating to the "Knit"
+button in the RStudio IDE.}
 }
 \value{
 The output of \code{\link[rmarkdown:render]{rmarkdown::render()}} is passed through, i.e. the path

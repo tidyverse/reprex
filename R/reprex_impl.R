@@ -73,19 +73,12 @@ reprex_impl <- function(x_expr = NULL,
   }
 
   message("Rendering reprex...")
-  if (new_session) {
-    reprex_render(r_file)
-  } else {
-    prex_render(r_file)
-  }
-
-  reprex_file <- switch(
-    venue,
-    r    = r_file_rendered(r_file),
-    rtf  = rtf_file(r_file),
-    html = html_file(r_file),
-    md_file(r_file)
-  )
+  reprex_file <- reprex_render_impl(r_file, new_session = new_session)
+  # for reasons re: the RStudio "Knit" button, reprex_render_impl() may return
+  # path to the html_preview, but reprex_file attribute will always be the
+  # content the user requested and that belongs on clipboard and as the return
+  # value
+  reprex_file <- attr(reprex_file, "reprex_file", exact = TRUE)
 
   if (outfile_given) {
     message("Writing reprex file:\n  * ", reprex_file)

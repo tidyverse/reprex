@@ -34,6 +34,10 @@
 #' @param input The input file to be rendered. This can be a `.R` script or a
 #'   `.Rmd` R Markdown document.
 #' @inheritParams reprex
+#' @param encoding The encoding of the input file. Note that the only acceptable
+#'   value is "UTF-8", which is required by knitr as of v1.24. This is exposed
+#'   as an argument purely for technical convenience, relating to the "Knit"
+#'   button in the RStudio IDE.
 #'
 #' @return The output of [rmarkdown::render()] is passed through, i.e. the path
 #'   of the output file.
@@ -49,66 +53,88 @@ reprex_render <- function(input,
   if (!identical(encoding, "UTF-8")) {
     stop("`reprex_render()` requires an input file with UTF-8 encoding")
   }
-  yaml_opts <- reprex_document_options(input)
-
-  html_preview <-
-    (html_preview %||% yaml_opts[["html_preview"]] %||% is_interactive()) &&
-    is_interactive()
-  stopifnot(is_toggle(html_preview))
-
-  std_out_err <- yaml_opts[["std_out_err"]] %||% FALSE
-  std_file    <- std_out_err_path(input, std_out_err)
-
-  reprex_file <- callr::r_safe(
-    function(input) {
-      options(
-        keep.source = TRUE,
-        rlang_trace_top_env = globalenv(),
-        crayon.enabled = FALSE
-      )
-      rmarkdown::render(
-        input,
-        quiet = TRUE, envir = globalenv(), encoding = "UTF-8"
-      )
-    },
-    args = list(input = input),
-    spinner = is_interactive(),
-    stdout = std_file,
-    stderr = std_file
+  reprex_render_impl(
+    input,
+    new_session = TRUE,
+    html_preview = html_preview
   )
-
-  browser()
-  if (!is.null(std_file)) {
-    inject_file(reprex_file, std_file)
-  }
-
-  if (html_preview) {
-    preview_file <- preview(reprex_file)
-    invisible(structure(preview_file, reprex_file = reprex_file))
-  } else {
-    invisible(reprex_file)
-  }
 }
 
 prex_render <- function(input,
                         html_preview = TRUE) {
-  reprex_file <- rmarkdown::render(
+  reprex_render_impl(
     input,
-    quiet = TRUE, envir = globalenv(), encoding = "UTF-8",
-    knit_root_dir = getwd()
+    new_session = FALSE,
+    html_preview = html_preview
   )
+}
 
+reprex_render_impl <- function(input,
+                               new_session = TRUE,
+                               html_preview = NULL) {
+  yaml_opts <- reprex_document_options(input)
+  venue <- yaml_opts[["venue"]] %||% "gh"
+  html_preview <-
+    (html_preview %||% yaml_opts[["html_preview"]] %||% is_interactive()) &&
+    is_interactive()
+  stopifnot(is_toggle(html_preview))
+  std_out_err <- new_session && (yaml_opts[["std_out_err"]] %||% FALSE)
+  std_file <- std_out_err_path(input, std_out_err)
+
+  if (new_session) {
+    md_file <- callr::r(
+      function(input) {
+        options(
+          keep.source = TRUE,
+          rlang_trace_top_env = globalenv(),
+          crayon.enabled = FALSE
+        )
+        rmarkdown::render(
+          input,
+          quiet = TRUE, envir = globalenv(), encoding = "UTF-8"
+        )
+      },
+      args = list(input = input),
+      spinner = is_interactive(),
+      stdout = std_file,
+      stderr = std_file
+    )
+
+    if (!is.null(std_file)) {
+      inject_file(md_file, std_file)
+    }
+  } else {
+    md_file <- rmarkdown::render(
+      input,
+      quiet = TRUE, envir = globalenv(), encoding = "UTF-8",
+      knit_root_dir = getwd()
+    )
+  }
+
+  reprex_file <- md_file
+
+  if (venue %in% c("r", "rtf")) {
+    reprex_file <- pp_md_to_r(input, comment = yaml_opts[["comment"]] %||% "#>")
+  }
+
+  if (venue == "rtf") {
+    reprex_file <- pp_highlight(input)
+  }
+
+  if (venue == "html") {
+    reprex_file <- pp_html_render(input)
+  }
+
+  # TODO: figure out how to get the "Knit" button to display a preview :(
   if (html_preview) {
-    preview_file <- preview(reprex_file)
+    preview_file <- preview(md_file)
     invisible(structure(preview_file, reprex_file = reprex_file))
   } else {
-    invisible(reprex_file)
+    invisible(structure(reprex_file, reprex_file = reprex_file))
   }
 }
 
-
 preview <- function(input) {
-  browser()
   # TODO: if input file is rtf or r, input should be md
   # TODO: if it's already html, don't render again?
 
@@ -151,12 +177,7 @@ std_out_err_path <- function(input, std_out_err) {
 }
 
 inject_file <- function(path, inject_path) {
-  venue <- switch(path_ext(path), md = "gh", html = "html", return())
-  regex <- switch(
-    venue,
-    gh =   glue::glue("(`)(.*)({inject_path})(`)"),
-    html = glue::glue("(<code>)(.*)({inject_path})(</code>)")
-  )
+  regex <- glue::glue("(`)(.*)({inject_path})(`)")
 
   lines <- read_lines(path)
   inject_locus <- grep(regex, lines)
@@ -164,7 +185,7 @@ inject_file <- function(path, inject_path) {
   # a user should never see this, but it can happen during development
   if (length(inject_locus) > 1) {
     message("multiple placeholders for std_out_err! taking the last")
-    inject_locus <- tail(inject_locus, 1)
+    inject_locus <- inject_locus[length(inject_locus)]
   }
 
   if (length(inject_locus)) {
@@ -172,11 +193,7 @@ inject_file <- function(path, inject_path) {
     if (length(inject_lines) == 0) {
       inject_lines <- "-- nothing to show --"
     }
-    inject_lines <- switch(
-      venue,
-      gh = wrap_gh(inject_lines),
-      html = wrap_html(inject_lines)
-    )
+    inject_lines <- c("``` sh", inject_lines, "```")
     regex <- glue::glue("(.*){regex}(.*)")
     lines <- c(
       lines[seq_len(inject_locus - 1)],
@@ -190,12 +207,44 @@ inject_file <- function(path, inject_path) {
   path
 }
 
-wrap_gh <- function(lines) {
-  c("``` sh", lines, "```")
+# used when venue is "r" or "rtf"
+pp_md_to_r <- function(input, comment = "#>") {
+  rout_file <- r_file_rendered(input)
+  output_lines <- read_lines(md_file(input))
+  output_lines <- convert_md_to_r(output_lines, comment = comment)
+  write_lines(output_lines, rout_file)
+  rout_file
 }
 
-wrap_html <- function(lines) {
-  lines[1] <- glue::glue("<pre><code>{lines[1]}")
-  lines[length(lines)] <- glue::glue("{lines[length(lines)]}</code></pre>")
-  lines
+# used when venue is "rtf"
+pp_highlight <- function(input) {
+  rtf_file <- rtf_file(input)
+  reprex_highlight(r_file_rendered(input), rtf_file)
+  rtf_file
+}
+
+# used when venue is "html"
+pp_html_render <- function(input) {
+  output_file <- rmarkdown::render(
+    md_file(input),
+    output_format = rmarkdown::html_fragment(self_contained = FALSE),
+    clean = FALSE,
+    quiet = TRUE,
+    encoding = "UTF-8",
+    output_options = if (pandoc2.0()) list(pandoc_args = "--quiet")
+  )
+  output_file <- file_move(output_file, html_file(output_file))
+  # the html_fragment() output is a bit too minimal
+  # I add an encoding specification
+  # I think this is positive-to-neutral for the reprex output and, if I don't,
+  # viewing the fragment in the browser results in mojibake
+  output_lines <- read_lines(output_file)
+  output_lines <- c(
+    "<head>",
+    "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">",
+    "</head>",
+    output_lines
+  )
+  write_lines(output_lines, output_file)
+  output_file
 }
