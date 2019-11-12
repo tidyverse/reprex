@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>reprex options — reprex_options • reprex</title>
+<title>Render a document in a new R session — reprex_render • reprex</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -41,53 +41,36 @@
 
 
 
-<meta property="og:title" content="reprex options — reprex_options" />
-<meta property="og:description" content="Some reprex() behaviour can be controlled via an option, providing a way
-for the user to set personal defaults. The pattern for option names is
-reprex.&amp;lt;arg&amp;gt;, where &amp;lt;arg&amp;gt; is an argument of reprex(). Here are the main
-ones:
-reprex.advertise
-reprex.session_info (previously, reprex.si)
-reprex.style
-reprex.html_preview (previously, reprex.show)
-reprex.comment
-reprex.tidyverse_quiet
-reprex.std_out_err
-
-
-A few more options exist, but are only consulted in specific situations:
-reprex.venue: Only consulted by reprex_selection(). reprex()
-itself reveals the possible values for venue in the &quot;Usage&quot; section
-of its help file and defaults to the first value, in the usual
-match.arg() way.
-reprex.highlight.hl_style: Only relevant to venue = &quot;rtf. Details are
-in the article
-reprex venue RTF.
-reprex.highlight.font: See above.
-reprex.highlight.font_size: See above.
-reprex.highlight.other: See above.
-
-
-Here's code you could put in .Rprofile to set reprex options. It would be
-rare to want non-default behaviour for all of these! We only do so here for
-the sake of exposition:options(
-  reprex.advertise       = FALSE,
-  reprex.session_info    = TRUE,
-  reprex.style           = TRUE,
-  reprex.html_preview    = FALSE,
-  reprex.comment         = &quot;#;-)&quot;,
-  reprex.tidyverse_quiet = FALSE,
-  reprex.std_out_err     = TRUE,
-  reprex.venue           = &quot;html&quot;, # NOTE: only affects reprex_selection()!
-  reprex.highlight.hl_style  = &quot;acid&quot;, # NOTE: only affects RTF venue
-  reprex.highlight.font      = &quot;Andale Mono Regular&quot;,
-  reprex.highlight.font_size = 35,
-  reprex.highlight.other     = &quot;--line-numbers&quot;
+<meta property="og:title" content="Render a document in a new R session — reprex_render" />
+<meta property="og:description" content="This is a wrapper around rmarkdown::render() that enforces the &quot;reprex&quot;
+mentality. Here's a simplified version of what happens:callr::r(
+  function(input) {
+    rmarkdown::render(input, envir = globalenv(), encoding = &quot;UTF-8&quot;)
+  },
+  args = list(input = input),
+  spinner = is_interactive(),
+  stdout = std_file, stderr = std_file
 )
 
 
-The function usethis::edit_r_profile() is handy for creating and/or opening
-your .Rprofile." />
+Key features to note
+rmarkdown::render() is executed in a new R session, by using
+callr::r(). The goal is to eliminate the leakage of objects, attached
+packages, and other aspects of session state from the current session into
+the rendering session. Also, the system and user-level .Rprofiles are
+ignored.
+Code is evaluated in the globalenv() of this new R session, which means
+that method dispatch works the way most people expect it to.
+The input file is assumed to be UTF-8, which is a knitr requirement as of
+v1.24.
+If the YAML frontmatter includes std_err_out: TRUE, standard output and
+error of the rendering R session are captured in std_file, which is
+then injected into the rendered result.
+
+
+reprex_render() is designed to work with the reprex_document() output
+format, typically through a call to reprex(). reprex_render() may work
+with other R Markdown output formats, but it is not well-tested." />
 <meta property="og:image" content="https://reprex.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -193,84 +176,84 @@ your .Rprofile." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>reprex options</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverse/reprex/blob/master/R/reprex-options.R'><code>R/reprex-options.R</code></a></small>
-    <div class="hidden name"><code>reprex_options.Rd</code></div>
+    <h1>Render a document in a new R session</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/reprex/blob/master/R/reprex_render.R'><code>R/reprex_render.R</code></a></small>
+    <div class="hidden name"><code>reprex_render.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Some <code><a href='reprex.html'>reprex()</a></code> behaviour can be controlled via an option, providing a way
-for the user to set personal defaults. The pattern for option names is
-<code>reprex.&lt;arg&gt;</code>, where <code>&lt;arg&gt;</code> is an argument of <code><a href='reprex.html'>reprex()</a></code>. Here are the main
-ones:</p><ul>
-<li><p><code>reprex.advertise</code></p></li>
-<li><p><code>reprex.session_info</code> (previously, <code>reprex.si</code>)</p></li>
-<li><p><code>reprex.style</code></p></li>
-<li><p><code>reprex.html_preview</code> (previously, <code>reprex.show</code>)</p></li>
-<li><p><code>reprex.comment</code></p></li>
-<li><p><code>reprex.tidyverse_quiet</code></p></li>
-<li><p><code>reprex.std_out_err</code></p></li>
-</ul>
-
-<p>A few more options exist, but are only consulted in specific situations:</p><ul>
-<li><p><code>reprex.venue</code>: Only consulted by <code><a href='reprex_addin.html'>reprex_selection()</a></code>. <code><a href='reprex.html'>reprex()</a></code>
-itself reveals the possible values for <code>venue</code> in the "Usage" section
-of its help file and defaults to the first value, in the usual
-<code><a href='https://rdrr.io/r/base/match.arg.html'>match.arg()</a></code> way.</p></li>
-<li><p><code>reprex.highlight.hl_style</code>: Only relevant to <code>venue = "rtf</code>. Details are
-in the article
-<a href='https://reprex.tidyverse.org/articles/articles/rtf.html'>reprex venue RTF</a>.</p></li>
-<li><p><code>reprex.highlight.font</code>: See above.</p></li>
-<li><p><code>reprex.highlight.font_size</code>: See above.</p></li>
-<li><p><code>reprex.highlight.other</code>: See above.</p></li>
-</ul>
-
-<p>Here's code you could put in <code>.Rprofile</code> to set reprex options. It would be
-rare to want non-default behaviour for all of these! We only do so here for
-the sake of exposition:</p><pre>options(
-  reprex.advertise       = FALSE,
-  reprex.session_info    = TRUE,
-  reprex.style           = TRUE,
-  reprex.html_preview    = FALSE,
-  reprex.comment         = "#;-)",
-  reprex.tidyverse_quiet = FALSE,
-  reprex.std_out_err     = TRUE,
-  reprex.venue           = "html", # NOTE: only affects reprex_selection()!
-  reprex.highlight.hl_style  = "acid", # NOTE: only affects RTF venue
-  reprex.highlight.font      = "Andale Mono Regular",
-  reprex.highlight.font_size = 35,
-  reprex.highlight.other     = "--line-numbers"
+    <p>This is a wrapper around <code><a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>rmarkdown::render()</a></code> that enforces the "reprex"
+mentality. Here's a simplified version of what happens:</p><pre>callr::r(
+  function(input) {
+    rmarkdown::render(input, envir = globalenv(), encoding = "UTF-8")
+  },
+  args = list(input = input),
+  spinner = is_interactive(),
+  stdout = std_file, stderr = std_file
 )
 </pre>
 
-<p>The function <code>usethis::edit_r_profile()</code> is handy for creating and/or opening
-your <code>.Rprofile</code>.</p>
+<p>Key features to note</p><ul>
+<li><p><code><a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>rmarkdown::render()</a></code> is executed in a new R session, by using
+<code><a href='https://rdrr.io/pkg/callr/man/r.html'>callr::r()</a></code>. The goal is to eliminate the leakage of objects, attached
+packages, and other aspects of session state from the current session into
+the rendering session. Also, the system and user-level <code>.Rprofile</code>s are
+ignored.</p></li>
+<li><p>Code is evaluated in the <code><a href='https://rdrr.io/r/base/environment.html'>globalenv()</a></code> of this new R session, which means
+that method dispatch works the way most people expect it to.</p></li>
+<li><p>The input file is assumed to be UTF-8, which is a knitr requirement as of
+v1.24.</p></li>
+<li><p>If the YAML frontmatter includes <code>std_err_out: TRUE</code>, standard output and
+error of the rendering R session are captured in <code>std_file</code>, which is
+then injected into the rendered result.</p></li>
+</ul>
+
+<p><code>reprex_render()</code> is designed to work with the <code><a href='reprex_document.html'>reprex_document()</a></code> output
+format, typically through a call to <code><a href='reprex.html'>reprex()</a></code>. <code>reprex_render()</code> may work
+with other R Markdown output formats, but it is not well-tested.</p>
     </div>
 
+    <pre class="usage"><span class='fu'>reprex_render</span>(<span class='no'>input</span>, <span class='kw'>html_preview</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"UTF-8"</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>input</th>
+      <td><p>The input file to be rendered. This can be a <code>.R</code> script or a
+<code>.Rmd</code> R Markdown document.</p></td>
+    </tr>
+    <tr>
+      <th>html_preview</th>
+      <td><p>Logical. Whether to show rendered output in a viewer
+(RStudio or browser). Always <code>FALSE</code> in a noninteractive session. Read more
+about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>encoding</th>
+      <td><p>The encoding of the input file. Note that the only acceptable
+value is "UTF-8", which is required by knitr as of v1.24. This is exposed
+as an argument purely for technical convenience, relating to the "Knit"
+button in the RStudio IDE.</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="explaining-the-opt-helper"><a class="anchor" href="#explaining-the-opt-helper"></a>Explaining the <code>opt()</code> helper</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    
+    <p>The output of <code><a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>rmarkdown::render()</a></code> is passed through, i.e. the path
+of the output file.</p>
 
-<p>Arguments that appear like so in <code><a href='reprex.html'>reprex()</a></code>:</p><pre>reprex(..., arg = opt(DEFAULT), ...)
-</pre>
-
-<p>get their value according to this logic:</p><pre>user-specified value or, if not given,
-  getOption("reprex.arg") or, if does not exist,
-    DEFAULT
-</pre>
-
-<p>It's shorthand for:</p><pre>f(..., arg = getOption("reprex.arg", DEFAULT), ...)
-</pre>
-
-<p>This is not an exported function and should not be called directly.</p>
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'>reprex_render</span>(<span class='st'>"input.Rmd"</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#explaining-the-opt-helper">Explaining the <code>opt()</code> helper</a></li>
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>

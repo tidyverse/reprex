@@ -99,7 +99,7 @@ see below for more." />
         <a class="navbar-brand" href="../index.html">reprex</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9001</span>
         </div>
       </div>
     </div>
@@ -188,12 +188,14 @@ see below for more.</p>
   <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"gh"</span>, <span class='st'>"r"</span>, <span class='st'>"rtf"</span>, <span class='st'>"html"</span>, <span class='st'>"so"</span>, <span class='st'>"ds"</span>),
   <span class='kw'>render</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>advertise</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>si</span> <span class='kw'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span>(<span class='fl'>FALSE</span>),
+  <span class='kw'>session_info</span> <span class='kw'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span>(<span class='fl'>FALSE</span>),
   <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span>(<span class='fl'>FALSE</span>),
-  <span class='kw'>show</span> <span class='kw'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span>(<span class='fl'>TRUE</span>),
   <span class='kw'>comment</span> <span class='kw'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span>(<span class='st'>"#&gt;"</span>),
   <span class='kw'>tidyverse_quiet</span> <span class='kw'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span>(<span class='fl'>TRUE</span>),
-  <span class='kw'>std_out_err</span> <span class='kw'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span>(<span class='fl'>FALSE</span>)
+  <span class='kw'>std_out_err</span> <span class='kw'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span>(<span class='fl'>FALSE</span>),
+  <span class='kw'>html_preview</span> <span class='kw'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span>(<span class='fl'>TRUE</span>),
+  <span class='no'>show</span>,
+  <span class='no'>si</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -255,21 +257,15 @@ is consulted and, if that is not defined, default is <code>TRUE</code> for venue
 <code>"gh"</code>, <code>"html"</code>, <code>"so"</code>, <code>"ds"</code> and <code>FALSE</code> for <code>"r"</code> and <code>"rtf"</code>.</p></td>
     </tr>
     <tr>
-      <th>si</th>
-      <td><p>Logical. Whether to include <code><a href='https://rdrr.io/pkg/sessioninfo/man/session_info.html'>sessioninfo::session_info()</a></code>, if
-available, or <code><a href='https://rdrr.io/r/utils/sessionInfo.html'>sessionInfo()</a></code> at the end of the reprex. When <code>venue</code> is
-"gh", the session info is wrapped in a collapsible details tag. Read more
-about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
+      <th>session_info</th>
+      <td><p>Logical. Whether to include
+<code><a href='https://rdrr.io/pkg/sessioninfo/man/session_info.html'>sessioninfo::session_info()</a></code>, if available, or <code><a href='https://rdrr.io/r/utils/sessionInfo.html'>sessionInfo()</a></code> at the end
+of the reprex. When <code>venue</code> is "gh", the session info is wrapped in a
+collapsible details tag. Read more about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
     </tr>
     <tr>
       <th>style</th>
-      <td><p>Logical. Whether to style code with <code><a href='https://rdrr.io/pkg/styler/man/style_text.html'>styler::style_text()</a></code>.
-Read more about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>show</th>
-      <td><p>Logical. Whether to show rendered output in a viewer (RStudio or
-browser). Read more about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
+      <td><p>Logical. Whether to set the knitr chunk option <code>tidy = "styler"</code>, which re-styles code with the <a href='https://styler.r-lib.org'>styler package</a>. Read more about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
     </tr>
     <tr>
       <th>comment</th>
@@ -291,6 +287,21 @@ Note this cannot be properly interleaved with output from the main R
 process, nor is there any guarantee that the lines from standard output and
 standard error are in correct chronological order. See <code><a href='https://rdrr.io/pkg/callr/man/r.html'>callr::r()</a></code> for
 more. Read more about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>html_preview</th>
+      <td><p>Logical. Whether to show rendered output in a viewer
+(RStudio or browser). Always <code>FALSE</code> in a noninteractive session. Read more
+about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>show</th>
+      <td><p>Deprecated, in favor of <code>html_preview</code>, for greater consistency
+with other R Markdown output formats.</p></td>
+    </tr>
+    <tr>
+      <th>si</th>
+      <td><p>Deprecated, in favor of <code>session_info</code>.</p></td>
     </tr>
     </table>
 

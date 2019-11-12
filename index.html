@@ -56,7 +56,7 @@
         <a class="navbar-brand" href="index.html">reprex</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9001</span>
         </div>
       </div>
     </div>
@@ -127,7 +127,7 @@
 <p>Given R code on the clipboard, selected in RStudio, as an expression (quoted or not), or in a file …</p>
 <ul>
 <li>run it via <code><a href="https://rdrr.io/pkg/rmarkdown/man/render.html">rmarkdown::render()</a></code>,</li>
-<li>with deliberate choices re: arguments and setup chunk.</li>
+<li>with deliberate choices re: <code>render()</code> arguments, knitr options, and Pandoc options.</li>
 </ul>
 <p>Get resulting runnable code + output as</p>
 <ul>
@@ -183,7 +183,7 @@
 <li><p>Prepare rendered, syntax-highlighted code snippets to paste into Keynote or PowerPoint, with <code><a href="reference/reprex.html">reprex(..., venue = "rtf")</a></code>. This feature is still experimental; see the <a href="https://reprex.tidyverse.org/articles/articles/rtf.html">associated article</a> for more.</p></li>
 <li><p>By default, figures are uploaded to <a href="http://imgur.com">imgur.com</a> and the resulting URL is dropped into an inline image tag.</p></li>
 <li><p>Use the <code>outfile</code> argument to control where results are left behind. Use <code>outfile = NA</code> to work in current working directory.</p></li>
-<li><p>Append session info via <code><a href="reference/reprex.html">reprex(..., si = TRUE)</a></code>.</p></li>
+<li><p>Append session info via <code><a href="reference/reprex.html">reprex(..., session_info = TRUE)</a></code>.</p></li>
 <li>
 <p>Get clean, runnable code from wild-caught reprexes with</p>
 <ul>

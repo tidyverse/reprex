@@ -16,10 +16,16 @@
     <loc>https://reprex.tidyverse.org/reference/reprex_addin.html</loc>
   </url>
   <url>
+    <loc>https://reprex.tidyverse.org/reference/reprex_document.html</loc>
+  </url>
+  <url>
     <loc>https://reprex.tidyverse.org/reference/reprex_locale.html</loc>
   </url>
   <url>
     <loc>https://reprex.tidyverse.org/reference/reprex_options.html</loc>
+  </url>
+  <url>
+    <loc>https://reprex.tidyverse.org/reference/reprex_render.html</loc>
   </url>
   <url>
     <loc>https://reprex.tidyverse.org/reference/un-reprex.html</loc>
