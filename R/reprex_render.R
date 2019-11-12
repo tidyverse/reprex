@@ -135,7 +135,6 @@ reprex_render_impl <- function(input,
 }
 
 preview <- function(input) {
-  # TODO: if input file is rtf or r, input should be md
   # TODO: if it's already html, don't render again?
 
   # we specify output_dir in order to make sure the preview html:
