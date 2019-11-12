@@ -84,23 +84,24 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
       # I don't know why the pre_knit hook operates on the **original** input
       # instead of the to-be-knitted (post-spinning) input, but I need to
       # operate on the latter. So I brute force the correct path.
-      knit_input <- sub(".R$", ".spin.Rmd", input)
+      # This is a no-op if input starts as `.Rmd`.
+      knit_input <- sub("[.]R$", ".spin.Rmd", input)
       input_lines <- read_lines(knit_input)
-
-      if (isTRUE(std_out_err)) {
-        input_lines <- c(input_lines, "", std_out_err_stub(input))
-      }
 
       if (isTRUE(advertise)) {
         input_lines <- c(input_lines, "", ad(venue))
       }
 
+      if (isTRUE(std_out_err)) {
+        input_lines <- c(
+          input_lines, "", std_out_err_stub(input, venue %in% c("gh", "html"))
+        )
+      }
+
       if (isTRUE(session_info)) {
-        # TO RECONSIDER: once I am convinced that so == gh, I can eliminate the
-        # `details` argument of `si()`. Empirically, there seems to be no downside
-        # on SO when we embed session info in the html tags that are favorable for
-        # GitHub. They apparently are ignored.
-        input_lines <- c(input_lines, "", si(details = venue %in% c("gh", "html")))
+        input_lines <- c(
+          input_lines, "", si(details = venue %in% c("gh", "html"))
+        )
       }
 
       write_lines(input_lines, knit_input)
@@ -141,18 +142,16 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
     output_lines <- read_lines(output_file)
     output_lines <- convert_md_to_r(output_lines, comment = comment)
     write_lines(output_lines, rout_file)
-    output_file
+    rout_file
   }
 
   # used when venue is "rtf"
   pp_highlight <- function(metadata,
                            input_file, output_file,
                            clean, verbose) {
-    browser()
-    rout_file <- r_file_rendered(output_file)
     rtf_file <- rtf_file(output_file)
-    reprex_highlight(rout_file, rtf_file)
-    output_file
+    reprex_highlight(output_file, rtf_file)
+    rtf_file
   }
 
   # used when venue is "html"
@@ -219,8 +218,18 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
   format
 }
 
-std_out_err_stub <- function(input) {
-  backtick(std_file(input))
+std_out_err_stub <- function(input, details = FALSE) {
+  txt <- backtick(std_file(input))
+  if (details) {
+    c(
+      "<details style=\"margin-bottom:10px;\">",
+      "<summary>Standard output and standard error</summary>",
+      txt,
+      "</details>"
+    )
+  } else {
+    c("#### Standard output and error", txt)
+  }
 }
 
 ad <- function(venue) {
@@ -235,11 +244,16 @@ ad <- function(venue) {
   txt
 }
 
+# TO RECONSIDER: once I am convinced that so == gh, I can eliminate the
+# `details` argument of `si()`. Empirically, there seems to be no downside
+# on SO when we embed session info in the html tags that are favorable for
+# GitHub. They apparently are ignored.
 si <- function(details = FALSE) {
   txt <- r_chunk(session_info_string())
   if (details) {
     txt <- c(
-      "<details><summary>Session info</summary>",
+      "<details style=\"margin-bottom:10px;\">",
+      "<summary>Session info</summary>",
       txt,
       "</details>"
     )

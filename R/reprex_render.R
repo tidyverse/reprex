@@ -59,7 +59,7 @@ reprex_render <- function(input,
   std_out_err <- yaml_opts[["std_out_err"]] %||% FALSE
   std_file    <- std_out_err_path(input, std_out_err)
 
-  md_file <- callr::r_safe(
+  reprex_file <- callr::r_safe(
     function(input) {
       options(
         keep.source = TRUE,
@@ -77,42 +77,56 @@ reprex_render <- function(input,
     stderr = std_file
   )
 
+  browser()
   if (!is.null(std_file)) {
-    inject_file(md_file, std_file, tag = "standard output and standard error")
+    inject_file(reprex_file, std_file)
   }
 
   if (html_preview) {
-    preview(md_file)
+    preview_file <- preview(reprex_file)
+    invisible(structure(preview_file, reprex_file = reprex_file))
+  } else {
+    invisible(reprex_file)
   }
-
-  invisible(md_file)
 }
 
 prex_render <- function(input,
                         html_preview = TRUE) {
-  md_file <- rmarkdown::render(
+  reprex_file <- rmarkdown::render(
     input,
     quiet = TRUE, envir = globalenv(), encoding = "UTF-8",
     knit_root_dir = getwd()
   )
+
   if (html_preview) {
-    preview(md_file)
+    preview_file <- preview(reprex_file)
+    invisible(structure(preview_file, reprex_file = reprex_file))
+  } else {
+    invisible(reprex_file)
   }
-  invisible(md_file)
 }
 
 
 preview <- function(input) {
+  browser()
+  # TODO: if input file is rtf or r, input should be md
+  # TODO: if it's already html, don't render again?
+
+  # we specify output_dir in order to make sure the preview html:
+  # 1. lives in session temp dir (necessary in order to display within RStudio)
+  # 2. is not co-located with input because, for .html, the file rendered for
+  #    preview can overwrite the input file, which is the actual reprex file
   preview_file <- rmarkdown::render(
     input,
+    output_dir = file_temp("reprex-preview"),
     clean = FALSE, quiet = TRUE, encoding = "UTF-8",
     output_options = if (pandoc2.0()) list(pandoc_args = "--quiet")
   )
 
-  ## html must live in session temp dir in order to display within RStudio
-  preview_file <- force_tempdir(preview_file)
   viewer <- getOption("viewer") %||% utils::browseURL
   viewer(preview_file)
+
+  invisible(preview_file)
 }
 
 reprex_document_options <- function(input) {
@@ -136,25 +150,39 @@ std_out_err_path <- function(input, std_out_err) {
   }
 }
 
-enfence <- function(lines,
-                    tag = NULL,
-                    fallback = "-- nothing to show --") {
-  if (length(lines) == 0) {
-    lines <- fallback
-  }
-  glue::glue_collapse(c(tag, "``` sh", lines, "```"), sep = "\n")
-}
+inject_file <- function(path, inject_path) {
+  venue <- switch(path_ext(path), md = "gh", html = "html", return())
+  regex <- switch(
+    venue,
+    gh =   glue::glue("(`)(.*)({inject_path})(`)"),
+    html = glue::glue("(<code>)(.*)({inject_path})(</code>)")
+  )
 
-inject_file <- function(path, inject_path, pre_process = enfence, ...) {
   lines <- read_lines(path)
-  inject_lines <- read_lines(inject_path)
-  inject_lines <- pre_process(inject_lines, ...)
+  inject_locus <- grep(regex, lines)
 
-  inject_locus <- grep(backtick(inject_path), lines, fixed = TRUE)
+  # a user should never see this, but it can happen during development
+  if (length(inject_locus) > 1) {
+    message("multiple placeholders for std_out_err! taking the last")
+    inject_locus <- tail(inject_locus, 1)
+  }
+
   if (length(inject_locus)) {
+    inject_lines <- read_lines(inject_path)
+    if (length(inject_lines) == 0) {
+      inject_lines <- "-- nothing to show --"
+    }
+    inject_lines <- switch(
+      venue,
+      gh = wrap_gh(inject_lines),
+      html = wrap_html(inject_lines)
+    )
+    regex <- glue::glue("(.*){regex}(.*)")
     lines <- c(
       lines[seq_len(inject_locus - 1)],
+      sub(regex, "\\1", lines[inject_locus]),
       inject_lines,
+      sub(regex, "\\6", lines[inject_locus]),
       lines[-seq_len(inject_locus)]
     )
     write_lines(lines, path)
@@ -162,3 +190,12 @@ inject_file <- function(path, inject_path, pre_process = enfence, ...) {
   path
 }
 
+wrap_gh <- function(lines) {
+  c("``` sh", lines, "```")
+}
+
+wrap_html <- function(lines) {
+  lines[1] <- glue::glue("<pre><code>{lines[1]}")
+  lines[length(lines)] <- glue::glue("{lines[length(lines)]}</code></pre>")
+  lines
+}

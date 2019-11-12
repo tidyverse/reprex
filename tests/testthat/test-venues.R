@@ -79,6 +79,9 @@ test_that("venue = 'html' works", {
     "1:5"
   )
   output <- c(
+    "<head>",
+    "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">",
+    "</head>",
     "<p>Hello world</p>",
     "<pre class=\"r\"><code>## comment",
     "1:5",
