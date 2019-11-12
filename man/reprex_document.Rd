@@ -96,6 +96,18 @@ influence:
 argument of \code{reprex_document()} so that it can be included in the YAML
 frontmatter.
 }
+
+RStudio users can create new R Markdown documents with the
+\code{reprex_document()} format using built-in templates. Do
+\emph{File > New File > R Markdown ... > From Template} and choose one of:
+\itemize{
+\item reprex (minimal)
+\item reprex (lots of features)
+}
+
+Both include \code{knit: reprex::reprex_render} in the YAML, which causes the
+RStudio "Knit" button to use \code{reprex_render()}. If you render these documents
+yourself, you should do same.
 }
 \examples{
 reprex_document()

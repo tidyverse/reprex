@@ -1,5 +1,6 @@
 #' reprex output format
 #'
+#' @description
 #' This is an R Markdown output format designed specifically for making
 #' "reprexes", typically created via the [reprex()] function, which ultimately
 #' renders the document with [reprex_render()]. It is a heavily modified version
@@ -17,6 +18,16 @@
 #'   * `html_preview` is only consulted by [reprex_render()], but it is a formal
 #'     argument of `reprex_document()` so that it can be included in the YAML
 #'     frontmatter.
+#'
+#' RStudio users can create new R Markdown documents with the
+#' `reprex_document()` format using built-in templates. Do
+#' *File > New File > R Markdown ... > From Template* and choose one of:
+#'   * reprex (minimal)
+#'   * reprex (lots of features)
+#'
+#' Both include `knit: reprex::reprex_render` in the YAML, which causes the
+#' RStudio "Knit" button to use `reprex_render()`. If you render these documents
+#' yourself, you should do same.
 #'
 #' @inheritParams reprex
 #' @inheritParams rmarkdown::md_document
