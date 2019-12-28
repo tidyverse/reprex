@@ -1,6 +1,6 @@
 # reprex <img src="man/figures/logo.png" align="right" height="139" />
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/reprex)](https://cran.r-project.org/package=reprex)
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/reprex)](https://cran.r-project.org/package=reprex)
 [![Travis-CI Build
 Status](https://travis-ci.org/tidyverse/reprex.svg?branch=master)](https://travis-ci.org/tidyverse/reprex)
 [![AppVeyor Build
