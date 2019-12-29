@@ -99,7 +99,10 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
       knit_input <- sub("[.]R$", ".spin.Rmd", input)
       input_lines <- read_lines(knit_input)
 
-      if (isTRUE(advertise)) {
+      if (
+        isTRUE(advertise) &&
+        !"<!-- Advertised by the reprex package-->" %in% input_lines
+      ) {
         input_lines <- c(input_lines, "", ad(venue))
       }
 
@@ -160,7 +163,7 @@ ad <- function(venue) {
   if (venue %in% c("gh", "so", "html")) {
     txt <- paste0("<sup>", txt, "</sup>")
   }
-  txt
+  paste0("<!-- Advertised by the reprex package-->\n", txt)
 }
 
 # TO RECONSIDER: once I am convinced that so == gh, I can eliminate the
