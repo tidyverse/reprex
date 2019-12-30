@@ -193,7 +193,7 @@
 </h1>
 <ul>
 <li><p>The <code>crayon.enabled</code> option is explicitly set to <code>FALSE</code> when rendering the reprex (<a href='https://github.com/tidyverse/reprex/issues/238'>#238</a>, <a href='https://github.com/tidyverse/reprex/issues/239'>#239</a>).</p></li>
-<li><p>Expression input is once again captured via <code><a href="https://rdrr.io/r/base/substitute.html">substitute()</a></code> (as opposed to <code><a href="https://rlang.r-lib.org/reference/quotation.html">rlang::enexpr()</a></code>), which is more favorable for reprexes involving tidy eval (<a href='https://github.com/tidyverse/reprex/issues/241'>#241</a>).</p></li>
+<li><p>Expression input is once again captured via <code><a href="https://rdrr.io/r/base/substitute.html">substitute()</a></code> (as opposed to <code><a href="https://rlang.r-lib.org/reference/nse-defuse.html">rlang::enexpr()</a></code>), which is more favorable for reprexes involving tidy eval (<a href='https://github.com/tidyverse/reprex/issues/241'>#241</a>).</p></li>
 <li><p>New venue “html” to render HTML fragments, useful for pasting in sites without markdown but that allow HTML (<a href='https://github.com/tidyverse/reprex/issues/236'>#236</a> <a href='https://github.com/cwickham'>@cwickham</a>).</p></li>
 <li><p>The YAML of reprex’s template has been updated in light of the stricter YAML parser used in Pandoc &gt;= 2.2.2.</p></li>
 <li><p><code><a href="https://rlang.r-lib.org/reference/set_attrs.html">rlang::set_attrs()</a></code> has been soft-deprecated and is no longer used internally.</p></li>
