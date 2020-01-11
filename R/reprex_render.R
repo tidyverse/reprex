@@ -226,11 +226,13 @@ pp_highlight <- function(input) {
 pp_html_render <- function(input) {
   output_file <- rmarkdown::render(
     md_file(input),
-    output_format = rmarkdown::html_fragment(self_contained = FALSE),
+    output_format = rmarkdown::html_fragment(
+      self_contained = FALSE,
+      pandoc_args = if (pandoc2.0()) c("--metadata", "pagetitle='reprex-preview'")
+    ),
     clean = FALSE,
     quiet = TRUE,
-    encoding = "UTF-8",
-    output_options = if (pandoc2.0()) list(pandoc_args = "--quiet")
+    encoding = "UTF-8"
   )
   output_file <- file_move(output_file, html_file(output_file))
   # the html_fragment() output is a bit too minimal
