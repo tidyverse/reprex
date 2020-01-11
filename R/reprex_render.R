@@ -228,7 +228,7 @@ pp_html_render <- function(input) {
     md_file(input),
     output_format = rmarkdown::html_fragment(
       self_contained = FALSE,
-      pandoc_args = if (pandoc2.0()) c("--metadata", "pagetitle='reprex-preview'")
+      pandoc_args = if (pandoc2.0()) "--quiet"
     ),
     clean = FALSE,
     quiet = TRUE,
