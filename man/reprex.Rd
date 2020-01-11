@@ -177,8 +177,8 @@ reprex({
 ## provide code via character vector
 reprex(input = c("x <- 1:4", "y <- 2:5", "x + y"))
 
-## if just one line, terminate with '\\n'
-reprex(input = "rnorm(3)\\n")
+## if just one line, terminate with '\n'
+reprex(input = "rnorm(3)\n")
 
 ## customize the output comment prefix
 reprex(rbinom(3, size = 10, prob = 0.5), comment = "#;-)")

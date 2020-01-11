@@ -65,5 +65,5 @@ Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.99.9001
+RoxygenNote: 7.0.2
 SystemRequirements: pandoc (>= 1.12.3) - http://pandoc.org
