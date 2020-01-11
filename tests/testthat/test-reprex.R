@@ -29,3 +29,9 @@ test_that("rmarkdown::render() context is trimmed from rlang backtrace", {
   expect_false(any(grepl("tryCatch", ret)))
   expect_false(any(grepl("rmarkdown::render", ret)))
 })
+
+test_that("reprex() works even if user uses fancy quotes", {
+  skip_on_cran()
+  withr::local_options(list(useFancyQuotes = TRUE))
+  expect_error_free(reprex(1, venue = "R"))
+})

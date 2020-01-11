@@ -175,7 +175,7 @@ remove_defaults <- function(x) {
 nv <- function(x) {
   is_character <- vapply(x, is.character, logical(1))
   # dQuote didn't gain the `q` argument until R 3.6
-  withr::local_options(list(fancyQuotes = FALSE))
+  withr::local_options(list(useFancyQuotes = FALSE))
   x[is_character] <- vapply(x[is_character], dQuote, character(1))
   glue::glue("{name}: {value}", name = names(x), value = x)
 }
