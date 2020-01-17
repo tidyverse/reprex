@@ -81,20 +81,23 @@ reprex_render_impl <- function(input,
   std_out_err <- new_session && (yaml_opts[["std_out_err"]] %||% FALSE)
   std_file <- std_out_err_path(input, std_out_err)
 
+  render_options <- list(
+    keep.source = TRUE,
+    rlang_trace_top_env = globalenv(),
+    rlang_force_unhandled_error = TRUE,
+    rlang_backtrace_on_error = "full",
+    crayon.enabled = FALSE
+  )
   if (new_session) {
     md_file <- callr::r(
-      function(input) {
-        options(
-          keep.source = TRUE,
-          rlang_trace_top_env = globalenv(),
-          crayon.enabled = FALSE
-        )
+      function(input, opts) {
+        options(opts)
         rmarkdown::render(
           input,
           quiet = TRUE, envir = globalenv(), encoding = "UTF-8"
         )
       },
-      args = list(input = input),
+      args = list(input = input, opts = render_options),
       spinner = is_interactive(),
       stdout = std_file,
       stderr = std_file
@@ -104,10 +107,13 @@ reprex_render_impl <- function(input,
       inject_file(md_file, std_file)
     }
   } else {
-    md_file <- rmarkdown::render(
-      input,
-      quiet = TRUE, envir = globalenv(), encoding = "UTF-8",
-      knit_root_dir = getwd()
+    withr::with_options(
+      render_options,
+      md_file <- rmarkdown::render(
+        input,
+        quiet = TRUE, envir = globalenv(), encoding = "UTF-8",
+        knit_root_dir = getwd()
+      )
     )
   }
 

@@ -24,14 +24,36 @@ test_that("reprex() doesn't leak files by default", {
 
 test_that("rmarkdown::render() context is trimmed from rlang backtrace", {
   skip_on_cran()
-  input <- "f <- function() g(); g <- function() h(); h <- function() rlang::abort('foo'); f()\n"
+  input <- c(
+    "f <- function() rlang::abort('foo')",
+    "f()",
+    "rlang::last_error()",
+    "rlang::last_trace()"
+  )
   ret <- reprex(input = input, advertise = FALSE)
   expect_false(any(grepl("tryCatch", ret)))
   expect_false(any(grepl("rmarkdown::render", ret)))
 })
 
+test_that("rlang::last_error() and last_trace() work", {
+  skip_on_cran()
+
+  input <- c(
+    "f <- function() rlang::abort('foo')",
+    "f()",
+    "rlang::last_error()",
+    "rlang::last_trace()"
+  )
+  ret <- reprex(input = input, advertise = FALSE)
+  m <- match("rlang::last_error()", ret)
+  expect_false(grepl("Error", ret[m + 1]))
+  m <- match("rlang::last_trace()", ret)
+  expect_false(grepl("Error", ret[m + 1]))
+})
+
 test_that("reprex() works even if user uses fancy quotes", {
   skip_on_cran()
   withr::local_options(list(useFancyQuotes = TRUE))
+  # use non-default venue to force some quoted yaml to be written
   expect_error_free(reprex(1, venue = "R"))
 })
