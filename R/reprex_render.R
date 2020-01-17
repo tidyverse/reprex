@@ -81,7 +81,7 @@ reprex_render_impl <- function(input,
   std_out_err <- new_session && (yaml_opts[["std_out_err"]] %||% FALSE)
   std_file <- std_out_err_path(input, std_out_err)
 
-  render_options <- list(
+  opts <- list(
     keep.source = TRUE,
     rlang_trace_top_env = globalenv(),
     rlang_force_unhandled_error = TRUE,
@@ -97,7 +97,7 @@ reprex_render_impl <- function(input,
           quiet = TRUE, envir = globalenv(), encoding = "UTF-8"
         )
       },
-      args = list(input = input, opts = render_options),
+      args = list(input = input, opts = opts),
       spinner = is_interactive(),
       stdout = std_file,
       stderr = std_file
@@ -108,7 +108,7 @@ reprex_render_impl <- function(input,
     }
   } else {
     withr::with_options(
-      render_options,
+      opts,
       md_file <- rmarkdown::render(
         input,
         quiet = TRUE, envir = globalenv(), encoding = "UTF-8",
