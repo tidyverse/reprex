@@ -37,7 +37,6 @@ test_that("rmarkdown::render() context is trimmed from rlang backtrace", {
 
 test_that("rlang::last_error() and last_trace() work", {
   skip_on_cran()
-  skip_if_not_installed("rlang", minimum_version = "0.4.3")
 
   input <- c(
     "f <- function() rlang::abort('foo')",
@@ -46,7 +45,10 @@ test_that("rlang::last_error() and last_trace() work", {
     "rlang::last_trace()"
   )
   ret <- reprex(input = input, advertise = FALSE)
-  expect_false(any(grepl("no error was recorded", ret)))
+  m <- match("rlang::last_error()", ret)
+  expect_false(grepl("Error", ret[m + 1]))
+  m <- match("rlang::last_trace()", ret)
+  expect_false(grepl("Error", ret[m + 1]))
 })
 
 test_that("reprex() works even if user uses fancy quotes", {
