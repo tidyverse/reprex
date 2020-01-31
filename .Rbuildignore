@@ -18,3 +18,5 @@
 ^SUPPORT\.md$
 ^\.github$
 ^LICENSE\.md$
+^\.github/workflows/R-CMD-check\.yaml$
+^\.github/workflows/pkgdown\.yaml$
