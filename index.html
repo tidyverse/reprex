@@ -116,7 +116,7 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="reprex" class="section level1">
+<div id="reprex-" class="section level1">
 
 
 <div id="overview" class="section level2">
@@ -140,33 +140,33 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Install from CRAN:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"reprex"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"reprex"</span>)</span></code></pre></div>
 <p>or get a development version from GitHub:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"tidyverse/reprex"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"tidyverse/reprex"</span>)</span></code></pre></div>
 <p>On Linux, you probably want to install <a href="https://github.com/astrand/xclip">xclip</a> or <a href="http://www.vergenet.net/~conrad/software/xsel/">xsel</a>, so reprex can access the X11 clipboard. This is ‘nice to have’, but not mandatory. The usual <code>sudo apt-get install</code> or <code>sudo yum install</code> installation methods should work for both xclip and xsel.</p>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>Let’s say you copy this code onto your clipboard:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">(y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(y)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>(y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(y)</span></code></pre></div>
 <p>Then call <code><a href="reference/reprex.html">reprex()</a></code>, where the default target venue is GitHub:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="reference/reprex.html">reprex</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw"><a href="reference/reprex.html">reprex</a></span>()</span></code></pre></div>
 <p>A nicely rendered HTML preview will display in RStudio’s Viewer (if you’re in RStudio) or your default browser otherwise.</p>
 <p><img src="reference/figures/README-viewer-screenshot.png"></p>
 <p>The relevant bit of CommonMark Markdown is ready to be pasted from your clipboard:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="st">```</span><span class="dt"> r</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="dt">(y &lt;- 1:4)</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="dt">#&gt; [1] 1 2 3 4</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="dt">mean(y)</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="dt">#&gt; [1] 2.5</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="st">```</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="st">```</span><span class="dt"> r</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="dt">(y &lt;- 1:4)</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="dt">#&gt; [1] 1 2 3 4</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="dt">mean(y)</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="dt">#&gt; [1] 2.5</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="st">```</span></span></code></pre></div>
 <p>Here’s what that Markdown would look like rendered in a GitHub issue:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">(y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt; [1] 1 2 3 4</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(y)</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; [1] 2.5</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>(y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co">#&gt; [1] 1 2 3 4</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(y)</span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt; [1] 2.5</span></span></code></pre></div>
 <p>Anyone else can copy, paste, and run this immediately.</p>
 <p>In addition to GitHub, this markdown also works on Stack Overflow and Discourse. Those venues can be formally requested via <code>venue = "so"</code> and <code>venue = "ds"</code>, but they are just aliases for <code>venue = "gh"</code>.</p>
 <p>Instead of reading from the clipboard, you can:</p>
@@ -252,6 +252,7 @@
 <li><a href="https://cran.r-project.org/package=reprex"><img src="https://www.r-pkg.org/badges/version/reprex" alt="CRAN_Status_Badge"></a></li>
 <li><a href="https://travis-ci.org/tidyverse/reprex"><img src="https://travis-ci.org/tidyverse/reprex.svg?branch=master" alt="Travis-CI Build Status"></a></li>
 <li><a href="https://ci.appveyor.com/project/tidyverse/reprex"><img src="https://ci.appveyor.com/api/projects/status/github/tidyverse/reprex?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
+<li><a href="https://github.com/tidyverse/reprex"><img src="https://github.com/tidyverse/reprex/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 <li><a href="https://codecov.io/github/tidyverse/reprex?branch=master"><img src="https://codecov.io/gh/tidyverse/reprex/branch/master/graph/badge.svg" alt="Coverage status"></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="lifecycle"></a></li>
 </ul>
