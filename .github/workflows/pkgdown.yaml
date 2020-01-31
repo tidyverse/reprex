@@ -15,7 +15,9 @@ jobs:
         run: |
           Rscript -e 'install.packages("remotes")' \
                   -e 'remotes::install_deps(dependencies = TRUE)' \
-                  -e 'remotes::install_github("jimhester/pkgdown@github-actions-deploy")'
+                  -e 'remotes::install_github("jimhester/pkgdown@github-actions-deploy")' \
+                  -e 'remotes::install_github("tidyverse/tidytemplate")' \
+                  -e 'remotes::install_cran("dplyr")'
       - name: Install package
         run: R CMD INSTALL .
       - name: Deploy package
