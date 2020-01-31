@@ -170,27 +170,27 @@
 <p>So you know that when you run <code><a href="../../reference/reprex.html">reprex()</a></code>, and it gives you a reproducible example, it will work!</p>
 <p>Also worth mentioning is that rather magically, <code><a href="../../reference/reprex.html">reprex()</a></code> also handles images. I didn’t even notice this at first. It was just one of those things where “it just works”. <code><a href="../../reference/reprex.html">reprex()</a></code> handles this by uploading them to imgur using the <code><a href="https://rdrr.io/pkg/knitr/man/imgur_upload.html">knitr::imgur_upload()</a></code> function, which creates markdown links to the images.</p>
 <p>so</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyverse)</span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># run a lm</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a></span>
-<span id="cb1-6"><a href="#cb1-6"></a>lm_fit &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>. , <span class="dt">data =</span> iris)</span>
-<span id="cb1-7"><a href="#cb1-7"></a></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="co"># use broom to clean it up</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(broom)</span>
-<span id="cb1-11"><a href="#cb1-11"></a></span>
-<span id="cb1-12"><a href="#cb1-12"></a>lm_augmented &lt;-<span class="st"> </span><span class="kw">augment</span>(lm_fit)</span>
-<span id="cb1-13"><a href="#cb1-13"></a></span>
-<span id="cb1-14"><a href="#cb1-14"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(lm_augmented)</span>
-<span id="cb1-15"><a href="#cb1-15"></a></span>
-<span id="cb1-16"><a href="#cb1-16"></a><span class="co"># Explore the fit of the model</span></span>
-<span id="cb1-17"><a href="#cb1-17"></a></span>
-<span id="cb1-18"><a href="#cb1-18"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> lm_augmented,</span>
-<span id="cb1-19"><a href="#cb1-19"></a>   <span class="kw">aes</span>(<span class="dt">x =</span> .fitted,</span>
-<span id="cb1-20"><a href="#cb1-20"></a>       <span class="dt">y =</span> Sepal.Length)) <span class="op">+</span></span>
-<span id="cb1-21"><a href="#cb1-21"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyverse)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co"># run a lm</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">lm_fit &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(Sepal.Length <span class="op">~</span><span class="st"> </span>. , <span class="dt">data =</span> iris)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co"># use broom to clean it up</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(broom)</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">lm_augmented &lt;-<span class="st"> </span><span class="kw">augment</span>(lm_fit)</a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(lm_augmented)</a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co"># Explore the fit of the model</span></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="kw">ggplot</span>(<span class="dt">data =</span> lm_augmented,</a>
+<a class="sourceLine" id="cb1-19" data-line-number="19">   <span class="kw">aes</span>(<span class="dt">x =</span> .fitted,</a>
+<a class="sourceLine" id="cb1-20" data-line-number="20">       <span class="dt">y =</span> Sepal.Length)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-21" data-line-number="21"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p>gets turned into</p>
 <pre><code>library(tidyverse)
 #&gt; Loading tidyverse: ggplot2
