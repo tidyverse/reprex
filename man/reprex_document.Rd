@@ -8,6 +8,7 @@ reprex_document(
   venue = c("gh", "r", "rtf", "html", "so", "ds"),
   advertise = NULL,
   session_info = opt(FALSE),
+  renv_lockfile = opt(FALSE),
   style = opt(FALSE),
   comment = opt("#>"),
   tidyverse_quiet = opt(TRUE),
@@ -45,6 +46,9 @@ is consulted and, if that is not defined, default is \code{TRUE} for venues
 \code{\link[sessioninfo:session_info]{sessioninfo::session_info()}}, if available, or \code{\link[=sessionInfo]{sessionInfo()}} at the end
 of the reprex. When \code{venue} is "gh", the session info is wrapped in a
 collapsible details tag. Read more about \code{\link[=opt]{opt()}}.}
+
+\item{renv_lockfile}{Logical. Whether to include a lockfile generated
+by \code{\link[renv:snapshot]{renv::snapshot()}}. Read more about \code{\link[=opt]{opt()}}.}
 
 \item{style}{Logical. Whether to set the knitr chunk option \code{tidy = "styler"}, which re-styles code with the \href{https://styler.r-lib.org}{styler package}. Read more about \code{\link[=opt]{opt()}}.}
 

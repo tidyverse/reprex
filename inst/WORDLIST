@@ -37,6 +37,7 @@ knitr
 knitr's
 knitrthemesoverview
 lifecycle
+lockfile
 macOS
 McBain
 metapackage
@@ -51,6 +52,7 @@ php
 rclickhandbuch
 RCurl
 realise
+renv
 regexes
 repr
 reprex's

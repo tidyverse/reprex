@@ -12,6 +12,7 @@ ones:
 \itemize{
 \item \code{reprex.advertise}
 \item \code{reprex.session_info} (previously, \code{reprex.si})
+\item \code{reprex.renv_lockfile}
 \item \code{reprex.style}
 \item \code{reprex.html_preview} (previously, \code{reprex.show})
 \item \code{reprex.comment}
@@ -38,6 +39,7 @@ rare to want non-default behaviour for all of these! We only do so here for
 the sake of exposition:\preformatted{options(
   reprex.advertise       = FALSE,
   reprex.session_info    = TRUE,
+  reprex.renv_lockfile   = TRUE,
   reprex.style           = TRUE,
   reprex.html_preview    = FALSE,
   reprex.comment         = "#;-)",
