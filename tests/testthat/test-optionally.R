@@ -7,6 +7,15 @@ test_that("`session_info` can be set via option", {
   expect_match(out, "session_*[iI]nfo", all = FALSE)
 })
 
+test_that("`renv_lockfile` can be set via option", {
+  skip_on_cran()
+  withr::with_options(
+    list(reprex.renv_lockfile = TRUE),
+    out <- reprex(1, render = FALSE)
+  )
+  expect_match(out, "renv", all = FALSE)
+})
+
 test_that("`advertise` can be set via option", {
   skip_on_cran()
   withr::with_options(

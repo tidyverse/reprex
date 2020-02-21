@@ -7,6 +7,7 @@ reprex_impl <- function(x_expr = NULL,
 
                         advertise       = NULL,
                         session_info    = opt(FALSE),
+                        renv_lockfile   = opt(FALSE),
                         style           = opt(FALSE),
                         comment         = opt("#>"),
                         tidyverse_quiet = opt(TRUE),
@@ -19,6 +20,7 @@ reprex_impl <- function(x_expr = NULL,
 
   advertise       <- set_advertise(advertise, venue)
   session_info    <- arg_option(session_info)
+  renv_lockfile   <- arg_option(renv_lockfile)
   style           <- arg_option(style)
   style           <- style_requires_styler(style)
   html_preview    <- arg_option(html_preview)
@@ -29,8 +31,12 @@ reprex_impl <- function(x_expr = NULL,
 
   if (!is.null(input)) stopifnot(is.character(input))
   if (!is.null(outfile)) stopifnot(is.character(outfile) || is.na(outfile))
-  stopifnot(is_toggle(advertise), is_toggle(session_info), is_toggle(style))
-  stopifnot(is_toggle(html_preview), is_toggle(render))
+
+  stopifnot(
+    is_toggle(advertise), is_toggle(session_info), is_toggle(renv_lockfile),
+    is_toggle(style), is_toggle(html_preview), is_toggle(render)
+  )
+
   stopifnot(is.character(comment))
   stopifnot(is_toggle(tidyverse_quiet), is_toggle(std_out_err))
 
@@ -58,7 +64,7 @@ reprex_impl <- function(x_expr = NULL,
 
   reprex_document_options <- list(
     venue = venue,
-    advertise = advertise, session_info = session_info,
+    advertise = advertise, session_info = session_info, renv_lockfile = renv_lockfile,
     style = style, html_preview = html_preview, comment = comment,
     tidyverse_quiet = tidyverse_quiet, std_out_err = std_out_err
   )
@@ -89,7 +95,7 @@ reprex_impl <- function(x_expr = NULL,
   if (clipboard_available()) {
     clipr::write_clip(out_lines)
     message("Rendered reprex is on the clipboard.")
-  } else if (is_interactive()) {
+  } else if (rlang::is_interactive()) {
     clipr::dr_clipr()
     message(
       "Unable to put result on the clipboard. How to get it:\n",
@@ -150,6 +156,7 @@ remove_defaults <- function(x) {
     venue           = "gh",
     advertise       = TRUE,
     session_info    = FALSE,
+    renv_lockfile   = FALSE,
     style           = FALSE,
     html_preview    = TRUE,
     comment         = "#>",

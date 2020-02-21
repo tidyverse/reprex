@@ -77,6 +77,11 @@ reprex_addin <- function() { # nocov start
         getOption("reprex.session_info", FALSE)
       ),
       shiny::checkboxInput(
+        "renv_lockfile",
+        "Append lockfile",
+        getOption("reprex.renv_lockfile", FALSE)
+      ),
+      shiny::checkboxInput(
         "html_preview",
         "Preview HTML",
         getOption("reprex.html_preview", TRUE)
@@ -91,6 +96,7 @@ reprex_addin <- function() { # nocov start
         input$venue,
         input$source_file,
         as.logical(input$session_info),
+        as.logical(input$renv_lockfile),
         as.logical(input$html_preview)
       ))
     })
@@ -101,7 +107,8 @@ reprex_addin <- function() { # nocov start
 }
 
 reprex_guess <- function(source, venue = "gh", source_file = NULL,
-                         session_info = FALSE, html_preview = FALSE) {
+                         session_info = FALSE, renv_lockfile = FALSE,
+                         html_preview = FALSE) {
   reprex_input <- switch(
     source,
     clipboard = NULL,
@@ -114,6 +121,7 @@ reprex_guess <- function(source, venue = "gh", source_file = NULL,
     input = reprex_input,
     venue = venue,
     session_info = session_info,
+    renv_lockfile = renv_lockfile,
     html_preview = html_preview
   )
 }

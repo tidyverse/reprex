@@ -85,6 +85,8 @@
 #'   [sessioninfo::session_info()], if available, or [sessionInfo()] at the end
 #'   of the reprex. When `venue` is "gh", the session info is wrapped in a
 #'   collapsible details tag. Read more about [opt()].
+#' @param renv_lockfile Logical. Whether to include a lockfile generated
+#'   by [renv::snapshot()]. Read more about [opt()].
 #' @param style Logical. Whether to set the knitr chunk option `tidy =
 #'   "styler"`, which re-styles code with the [styler
 #'   package](https://styler.r-lib.org). Read more about [opt()].
@@ -248,6 +250,7 @@ reprex <- function(x = NULL,
 
                    advertise       = NULL,
                    session_info    = opt(FALSE),
+                   renv_lockfile   = opt(FALSE),
                    style           = opt(FALSE),
                    comment         = opt("#>"),
                    tidyverse_quiet = opt(TRUE),
@@ -280,6 +283,7 @@ reprex <- function(x = NULL,
 
     advertise       = advertise,
     session_info    = session_info,
+    renv_lockfile   = renv_lockfile,
     style           = style,
     html_preview    = html_preview,
     comment         = comment,

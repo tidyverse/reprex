@@ -52,6 +52,7 @@ Suggests:
     covr,
     fortunes,
     miniUI,
+    renv,
     rprojroot,
     rstudioapi,
     sessioninfo,

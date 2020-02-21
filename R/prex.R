@@ -34,6 +34,7 @@ prex <- function(x = NULL,
 
                  advertise       = FALSE,       # <-- different from reprex
                  session_info    = opt(FALSE),
+                 renv_lockfile   = opt(FALSE),
                  style           = opt(FALSE),
                  html_preview    = opt(TRUE),
                  comment         = opt("#>"),
@@ -58,6 +59,7 @@ prex <- function(x = NULL,
 
     advertise       = advertise,
     session_info    = session_info,
+    renv_lockfile   = renv_lockfile,
     style           = style,
     comment         = comment,
     tidyverse_quiet = tidyverse_quiet,

@@ -7,6 +7,7 @@
 #' ones:
 #'   * `reprex.advertise`
 #'   * `reprex.session_info` (previously, `reprex.si`)
+#'   * `reprex.renv_lockfile`
 #'   * `reprex.style`
 #'   * `reprex.html_preview` (previously, `reprex.show`)
 #'   * `reprex.comment`
@@ -32,6 +33,7 @@
 #' options(
 #'   reprex.advertise       = FALSE,
 #'   reprex.session_info    = TRUE,
+#'   reprex.renv_lockfile   = TRUE,
 #'   reprex.style           = TRUE,
 #'   reprex.html_preview    = FALSE,
 #'   reprex.comment         = "#;-)",
