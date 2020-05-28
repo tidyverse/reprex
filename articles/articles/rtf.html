@@ -12,13 +12,14 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../../tidyverse.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../../bootstrap-toc.css">
+<script src="../../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
 <script src="../../pkgdown.js"></script><link href="../../tidyverse-2.css" rel="stylesheet">
 <meta property="og:title" content="reprex venue RTF">
-<meta property="og:description" content="">
+<meta property="og:description" content="reprex">
 <meta property="og:image" content="https://reprex.tidyverse.org/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -32,7 +33,7 @@
   gtag('config', 'UA-115082821-1');
 </script>
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -46,7 +47,7 @@
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../../index.html">reprex</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
           <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9001</span>
         </div>
@@ -91,7 +92,7 @@
   <a href="../../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/reprex">
+  <a href="https://github.com/tidyverse/reprex/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -109,7 +110,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>reprex venue RTF</h1>
+      <h1 data-toc-skip>reprex venue RTF</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/tidyverse/reprex/blob/master/vignettes/articles/rtf.Rmd"><code>vignettes/articles/rtf.Rmd</code></a></small>
@@ -136,10 +137,10 @@
 <h2 class="hasAnchor">
 <a href="#basic-usage" class="anchor"></a>Basic usage</h2>
 <p>Let’s reprex some code and stick it on a Keynote slide with other non-R “features”.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../../reference/reprex.html">reprex</a></span>({</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">  (x &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="dv">3</span>))</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(x)</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">}, <span class="dt">venue =</span> <span class="st">"rtf"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../../reference/reprex.html">reprex</a></span>({
+  (<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">3</span>))
+  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">x</span>)
+}, <span class="kw">venue</span> <span class="kw">=</span> <span class="st">"rtf"</span>)</pre></body></html></div>
 <p><img src="img/keynote-w00t.png" width="75%"></p>
 </div>
 <div id="highlight-options" class="section level2">
@@ -147,11 +148,11 @@
 <a href="#highlight-options" class="anchor"></a>highlight options</h2>
 <p>If you don’t like the defaults, control highlight command line arguments by setting <code>reprex.highlight.*</code> options. Why options? I didn’t want to burden <code><a href="../../reference/reprex.html">reprex()</a></code> with even more arguments and this is usually something you want to set globally for yourself or for an entire project or talk or course.</p>
 <p>Example of setting options in <code>.Rprofile</code>:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="dt">reprex.highlight.hl_style  =</span> <span class="st">"darkbone"</span>,</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">  <span class="dt">reprex.highlight.font      =</span> <span class="st">"Source Code Pro"</span>,</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">  <span class="dt">reprex.highlight.font_size =</span> <span class="dv">50</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(
+  <span class="kw">reprex.highlight.hl_style</span>  <span class="kw">=</span> <span class="st">"darkbone"</span>,
+  <span class="kw">reprex.highlight.font</span>      <span class="kw">=</span> <span class="st">"Source Code Pro"</span>,
+  <span class="kw">reprex.highlight.font_size</span> <span class="kw">=</span> <span class="fl">50</span>
+)</pre></body></html></div>
 <p>The supported options are <code>reprex.highlight.hl_style</code>, <code>reprex.highlight.font</code>, <code>reprex.highlight.font_size</code> (all shown above), and <code>reprex.highlight.other</code> (a catchall for anything else, shown below).</p>
 <p>You could set options for all your reprexing by doing this in your user-level <code>.Rprofile</code>. Create or open this file via <code>usethis::edit_r_profile()</code>.</p>
 <p>You could also set options for a specific Project in <code>.Rprofile</code> inside the Project. Create or open this file via <code>usethis::edit_r_profile("project")</code>.</p>
@@ -161,36 +162,36 @@
 <p>But what do these themes <em>look like</em>? Here are some galleries that probably have high overlap with your themes:</p>
 <p><a href="http://www.andre-simon.de/doku/highlight/en/theme-samples.php" class="uri">http://www.andre-simon.de/doku/highlight/en/theme-samples.php</a><br><a href="https://rclickhandbuch.files.wordpress.com/2014/09/knitrthemesoverview.pdf" class="uri">https://rclickhandbuch.files.wordpress.com/2014/09/knitrthemesoverview.pdf</a></p>
 <p>You can also override defaults on-the-fly. Here’s how to do that for a single call using withr and, as a bonus, how to use <code>reprex.highlight.other</code> to send arbitrary command line arguments to highlight:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">withr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/withr/man/with_options.html">with_options</a></span>(</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="dt">new =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">    <span class="dt">reprex.highlight.hl_style  =</span> <span class="st">"dusk"</span>,</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">    <span class="dt">reprex.highlight.font      =</span> <span class="st">"Fira Code Regular"</span>,</a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">    <span class="dt">reprex.highlight.font_size =</span> <span class="dv">35</span>,</a>
-<a class="sourceLine" id="cb6-6" data-line-number="6">    <span class="dt">reprex.highlight.other     =</span> <span class="st">"--line-numbers --line-number-length=2 --zeroes"</span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">  ),</a>
-<a class="sourceLine" id="cb6-8" data-line-number="8">  reprex<span class="op">::</span><span class="kw"><a href="https://reprex.tidyverse.org/reference/reprex.html">reprex</a></span>(<span class="dt">input =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"(x &lt;- rnorm(3))"</span>, <span class="st">"mean(x)"</span>), <span class="dt">venue =</span> <span class="st">"rtf"</span>)</a>
-<a class="sourceLine" id="cb6-9" data-line-number="9">)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="kw pkg">withr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/withr/man/with_options.html">with_options</a></span>(
+  <span class="kw">new</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(
+    <span class="kw">reprex.highlight.hl_style</span>  <span class="kw">=</span> <span class="st">"dusk"</span>,
+    <span class="kw">reprex.highlight.font</span>      <span class="kw">=</span> <span class="st">"Fira Code Regular"</span>,
+    <span class="kw">reprex.highlight.font_size</span> <span class="kw">=</span> <span class="fl">35</span>,
+    <span class="kw">reprex.highlight.other</span>     <span class="kw">=</span> <span class="st">"--line-numbers --line-number-length=2 --zeroes"</span>
+  ),
+  <span class="kw pkg">reprex</span><span class="kw ns">::</span><span class="fu"><a href="../../reference/reprex.html">reprex</a></span>(<span class="kw">input</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"(x &lt;- rnorm(3))"</span>, <span class="st">"mean(x)"</span>), <span class="kw">venue</span> <span class="kw">=</span> <span class="st">"rtf"</span>)
+)</pre></body></html></div>
 <p><img src="img/dusk-fira-35-line-numbers.png" width="60%"></p>
 <p>Here’s how to set highlight options for part of an R session:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">op &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">  <span class="dt">reprex.highlight.hl_style  =</span> <span class="st">"anotherdark"</span>,</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">  <span class="dt">reprex.highlight.font      =</span> <span class="st">"Andale Mono Regular"</span>,</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">  <span class="dt">reprex.highlight.font_size =</span> <span class="dv">60</span>,</a>
-<a class="sourceLine" id="cb7-5" data-line-number="5">  <span class="dt">reprex.highlight.other     =</span> <span class="st">"--line-numbers"</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6">)</a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8">reprex<span class="op">::</span><span class="kw"><a href="https://reprex.tidyverse.org/reference/reprex.html">reprex</a></span>(<span class="dt">input =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"(x &lt;- rnorm(3))"</span>, <span class="st">"mean(x)"</span>), <span class="dt">venue =</span> <span class="st">"rtf"</span>)</a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(op)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">op</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(
+  <span class="kw">reprex.highlight.hl_style</span>  <span class="kw">=</span> <span class="st">"anotherdark"</span>,
+  <span class="kw">reprex.highlight.font</span>      <span class="kw">=</span> <span class="st">"Andale Mono Regular"</span>,
+  <span class="kw">reprex.highlight.font_size</span> <span class="kw">=</span> <span class="fl">60</span>,
+  <span class="kw">reprex.highlight.other</span>     <span class="kw">=</span> <span class="st">"--line-numbers"</span>
+)
+
+<span class="kw pkg">reprex</span><span class="kw ns">::</span><span class="fu"><a href="../../reference/reprex.html">reprex</a></span>(<span class="kw">input</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"(x &lt;- rnorm(3))"</span>, <span class="st">"mean(x)"</span>), <span class="kw">venue</span> <span class="kw">=</span> <span class="st">"rtf"</span>)
+
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="no">op</span>)</pre></body></html></div>
 <p><img src="img/anotherdark-andale-60-line-numbers.png" width="85%"></p>
 </div>
 <div id="run-or-not" class="section level2">
 <h2 class="hasAnchor">
 <a href="#run-or-not" class="anchor"></a>Run … or not</h2>
 <p>If you just want to highlight code, but not run it, set chunk option <code>eval = FALSE</code> option, i.e. put a special comment as the first line of your reprex source:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co">#+ eval = FALSE</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">(x &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="dv">3</span>))</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="co">#+ eval = FALSE</span>
+(<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">3</span>))
+<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">x</span>)</pre></body></html></div>
 <p>The above source, when <code><a href="../../reference/reprex.html">reprex()</a></code>ed, will not include the usual output. This is not specific to <code>venue = "rtf"</code>, but it’s more likely to come up in this setting.</p>
 <p><img src="img/eval-false.png" width="20%"></p>
 </div>
@@ -210,42 +211,42 @@
 </ul>
 <p><code>prex()</code> also has “venue as suffix” variants, so <code>reprex:::prex_rtf(...)</code> is short for <code>reprex:::prex(..., venue = "rtf")</code>.</p>
 <p>This code defines <code>x</code> and <code>y</code> in the current workspace and writes the file <code>stuff.txt</code> to the current working directory.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">y &lt;-<span class="st"> </span><span class="dv">4</span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span>(<span class="st">"blah blah"</span>, <span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span>(), <span class="st">"stuff.txt"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fl">1</span>
+<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fl">4</span>
+<span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span>(<span class="st">"blah blah"</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span>(), <span class="st">"stuff.txt"</span>))</pre></body></html></div>
 <p>Now we can show the difference between <code>prex()</code> and <code><a href="../../reference/reprex.html">reprex()</a></code>.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">prex</span>({</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">  <span class="kw"><a href="https://rdrr.io/r/base/ls.html">ls</a></span>()</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3">  x <span class="op">+</span><span class="st"> </span>y</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">  <span class="kw"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(<span class="st">"stuff.txt"</span>)  </a>
-<a class="sourceLine" id="cb10-5" data-line-number="5">})</a></code></pre></div>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu">prex</span>({
+  <span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span>()
+  <span class="no">x</span> + <span class="no">y</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(<span class="st">"stuff.txt"</span>)
+})</pre></body></html></div>
 <p>yields</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/ls.html">ls</a></span>()</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; [1] "x" "y"</span></a>
-<a class="sourceLine" id="cb11-3" data-line-number="3">x <span class="op">+</span><span class="st"> </span>y</a>
-<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">#&gt; [1] 5</span></a>
-<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(<span class="st">"stuff.txt"</span>)</a>
-<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="co">#&gt; [1] "blah blah"</span></a></code></pre></div>
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span>()
+<span class="co">#&gt; [1] "x" "y"</span>
+<span class="no">x</span> + <span class="no">y</span>
+<span class="co">#&gt; [1] 5</span>
+<span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(<span class="st">"stuff.txt"</span>)
+<span class="co">#&gt; [1] "blah blah"</span></pre></body></html></div>
 <p><code>x</code> and <code>y</code> can be found, even though they aren’t defined in the snippet, and <code>stuff.txt</code> can be read.</p>
 <p>This is very different from executing the same code via <code><a href="../../reference/reprex.html">reprex()</a></code>:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="../../reference/reprex.html">reprex</a></span>({</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2">  <span class="kw"><a href="https://rdrr.io/r/base/ls.html">ls</a></span>()</a>
-<a class="sourceLine" id="cb12-3" data-line-number="3">  x <span class="op">+</span><span class="st"> </span>y</a>
-<a class="sourceLine" id="cb12-4" data-line-number="4">  <span class="kw"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(<span class="st">"stuff.txt"</span>)  </a>
-<a class="sourceLine" id="cb12-5" data-line-number="5">})</a></code></pre></div>
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="../../reference/reprex.html">reprex</a></span>({
+  <span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span>()
+  <span class="no">x</span> + <span class="no">y</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(<span class="st">"stuff.txt"</span>)
+})</pre></body></html></div>
 <p>which yields:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/ls.html">ls</a></span>()</a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co">#&gt; character(0)</span></a>
-<a class="sourceLine" id="cb13-3" data-line-number="3">x <span class="op">+</span><span class="st"> </span>y</a>
-<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">#&gt; Error in eval(expr, envir, enclos): object 'x' not found</span></a>
-<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(<span class="st">"stuff.txt"</span>)</a>
-<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co">#&gt; Warning in file(con, "r"): cannot open file 'stuff.txt': No such file or</span></a>
-<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co">#&gt; directory</span></a>
-<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="co">#&gt; Error in file(con, "r"): cannot open the connection</span></a></code></pre></div>
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span>()
+<span class="co">#&gt; character(0)</span>
+<span class="no">x</span> + <span class="no">y</span>
+<span class="co">#&gt; Error in eval(expr, envir, enclos): object 'x' not found</span>
+<span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(<span class="st">"stuff.txt"</span>)
+<span class="co">#&gt; Warning in file(con, "r"): cannot open file 'stuff.txt': No such file or</span>
+<span class="co">#&gt; directory</span>
+<span class="co">#&gt; Error in file(con, "r"): cannot open the connection</span></pre></body></html></div>
 <p><code>x</code> and <code>y</code> can’t be found, because <code><a href="../../reference/reprex.html">reprex()</a></code> works in a clean session, and <code>stuff.txt</code> can’t be found, because <code><a href="../../reference/reprex.html">reprex()</a></code> works in a temp directory, by default.</p>
 <p>If you’re going to <code>prex()</code> a lot, you’ll want to do something like this in your <code>.R</code> file of snippets or in the project-specific or user-level <code>.Rprofile</code>:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">prex &lt;-<span class="st"> </span>reprex<span class="op">:::</span>prex</a>
-<a class="sourceLine" id="cb14-2" data-line-number="2">prex_rtf &lt;-<span class="st"> </span>reprex<span class="op">:::</span>prex_rtf</a></code></pre></div>
+<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">prex</span> <span class="kw">&lt;-</span> <span class="kw pkg">reprex</span><span class="kw ns">:::</span><span class="no">prex</span>
+<span class="no">prex_rtf</span> <span class="kw">&lt;-</span> <span class="kw pkg">reprex</span><span class="kw ns">:::</span><span class="no">prex_rtf</span></pre></body></html></div>
 </div>
 </div>
 <div id="selectively-hide-and-reveal-code" class="section level2">
@@ -254,50 +255,41 @@
 <p><em>Before <code>prex()</code> existed, you had to use a more cumbersome technique to produce small snippets, by hiding code. We leave this here in case it is still useful in some situations.</em></p>
 <p>You can use knitr chunk options to selectively hide code, i.e. to run a large snippet, but only include a small bit in the output.</p>
 <p>This is easiest to show by example. If you <code><a href="../../reference/reprex.html">reprex()</a></code> this code, only the last three lines and their output will appear in the output. But the other lines will be run, i.e. <code>str_reverse()</code> will be defined, as will the <code>bizzaro()</code> generic and default method.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co">#+ include = FALSE</span></a>
-<a class="sourceLine" id="cb15-2" data-line-number="2">str_reverse &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb15-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span>(</a>
-<a class="sourceLine" id="cb15-4" data-line-number="4">    <span class="kw"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span>(x, <span class="st">""</span>),</a>
-<a class="sourceLine" id="cb15-5" data-line-number="5">    <span class="dt">FUN =</span> <span class="cf">function</span>(z) <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/rev.html">rev</a></span>(z), <span class="dt">collapse =</span> <span class="st">""</span>),</a>
-<a class="sourceLine" id="cb15-6" data-line-number="6">    <span class="dt">FUN.VALUE =</span> <span class="st">""</span>)</a>
-<a class="sourceLine" id="cb15-7" data-line-number="7">}</a>
-<a class="sourceLine" id="cb15-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb15-9" data-line-number="9"><span class="co">#+ include = FALSE</span></a>
-<a class="sourceLine" id="cb15-10" data-line-number="10">bizarro &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb15-11" data-line-number="11">  <span class="kw"><a href="https://rdrr.io/r/base/UseMethod.html">UseMethod</a></span>(<span class="st">"bizarro"</span>)</a>
-<a class="sourceLine" id="cb15-12" data-line-number="12">}</a>
-<a class="sourceLine" id="cb15-13" data-line-number="13">bizarro.default &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb15-14" data-line-number="14">  <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span>(</a>
-<a class="sourceLine" id="cb15-15" data-line-number="15">    <span class="st">"Don't know how to make bizzaro &lt;"</span>,</a>
-<a class="sourceLine" id="cb15-16" data-line-number="16">    <span class="kw"><a href="https://rdrr.io/r/base/class.html">class</a></span>(x)[[<span class="dv">1</span>]], <span class="st">"&gt;"</span>,</a>
-<a class="sourceLine" id="cb15-17" data-line-number="17">    <span class="dt">call. =</span> <span class="ot">FALSE</span></a>
-<a class="sourceLine" id="cb15-18" data-line-number="18">  )</a>
-<a class="sourceLine" id="cb15-19" data-line-number="19">}</a>
-<a class="sourceLine" id="cb15-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb15-21" data-line-number="21"><span class="co">#+ include = TRUE</span></a>
-<a class="sourceLine" id="cb15-22" data-line-number="22">bizarro.character &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">str_reverse</span>(x)</a>
-<a class="sourceLine" id="cb15-23" data-line-number="23"></a>
-<a class="sourceLine" id="cb15-24" data-line-number="24"><span class="kw">bizarro</span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"abc"</span>, <span class="st">"def"</span>))</a>
-<a class="sourceLine" id="cb15-25" data-line-number="25"></a>
-<a class="sourceLine" id="cb15-26" data-line-number="26"><span class="kw">bizarro</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="co">#+ include = FALSE</span>
+<span class="no">str_reverse</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">x</span>) {
+  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span>(
+    <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span>(<span class="no">x</span>, <span class="st">""</span>),
+    <span class="kw">FUN</span> <span class="kw">=</span> <span class="kw">function</span>(<span class="no">z</span>) <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/rev.html">rev</a></span>(<span class="no">z</span>), <span class="kw">collapse</span> <span class="kw">=</span> <span class="st">""</span>),
+    <span class="kw">FUN.VALUE</span> <span class="kw">=</span> <span class="st">""</span>)
+}
+
+<span class="co">#+ include = FALSE</span>
+<span class="no">bizarro</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">x</span>) {
+  <span class="fu"><a href="https://rdrr.io/r/base/UseMethod.html">UseMethod</a></span>(<span class="st">"bizarro"</span>)
+}
+<span class="no">bizarro.default</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">x</span>) {
+  <span class="fu"><a href="https://rdrr.io/r/base/stop.html">stop</a></span>(
+    <span class="st">"Don't know how to make bizzaro &lt;"</span>,
+    <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">x</span>)<span class="kw">[[</span><span class="fl">1</span>]], <span class="st">"&gt;"</span>,
+    <span class="kw">call.</span> <span class="kw">=</span> <span class="fl">FALSE</span>
+  )
+}
+
+<span class="co">#+ include = TRUE</span>
+<span class="no">bizarro.character</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">x</span>) <span class="fu">str_reverse</span>(<span class="no">x</span>)
+
+<span class="fu">bizarro</span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"abc"</span>, <span class="st">"def"</span>))
+
+<span class="fu">bizarro</span>(<span class="fl">1</span>:<span class="fl">5</span>)</pre></body></html></div>
 <p><img src="img/bizarro-selective-reveal.png" width="70%"></p>
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#basic-usage">Basic usage</a></li>
-      <li><a href="#highlight-options">highlight options</a></li>
-      <li><a href="#run-or-not">Run … or not</a></li>
-      <li><a href="#what-if-each-snippet-cant-be-self-contained">What if each snippet can’t be self-contained?</a></li>
-      <li><a href="#selectively-hide-and-reveal-code">Selectively hide and reveal code</a></li>
-      </ul>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
 
