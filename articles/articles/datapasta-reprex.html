@@ -19,7 +19,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
 <script src="../../pkgdown.js"></script><link href="../../tidyverse-2.css" rel="stylesheet">
 <meta property="og:title" content="Using datapasta with reprex">
-<meta property="og:description" content="reprex">
+<meta property="og:description" content="">
 <meta property="og:image" content="https://reprex.tidyverse.org/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -33,7 +33,7 @@
   gtag('config', 'UA-115082821-1');
 </script>
 </head>
-<body data-spy="scroll" data-target="#toc">
+<body>
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -92,7 +92,7 @@
   <a href="../../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/reprex/">
+  <a href="https://github.com/tidyverse/reprex">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -110,7 +110,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Using datapasta with reprex</h1>
+      <h1>Using datapasta with reprex</h1>
                         <h4 class="author">Mara Averick</h4>
             
       
@@ -159,11 +159,18 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
+        <div id="tocnav">
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+<li><a href="#scenario-1-from-spreadsheet-to-reprex-with-tribble_paste">Scenario 1: From spreadsheet to reprex with <code>tribble_paste()</code></a></li>
+      <li><a href="#scenario-2-from-r-object-to-tibble-with-dpasta">Scenario 2: From R object to tibble with <code>dpasta()</code></a></li>
+      <li><a href="#fin">Fin</a></li>
+      </ul>
 </div>
+      </div>
 
 </div>
 

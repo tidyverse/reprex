@@ -41,7 +41,7 @@
   gtag('config', 'UA-115082821-1');
 </script>
 </head>
-<body data-spy="scroll" data-target="#toc">
+<body>
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -100,7 +100,7 @@
   <a href="news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/reprex/">
+  <a href="https://github.com/tidyverse/reprex">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -117,7 +117,7 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="reprex" class="section level1">
+<div id="reprex-" class="section level1">
 
 
 <div id="overview" class="section level2">
@@ -141,33 +141,33 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Install from CRAN:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"reprex"</span>)</pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"reprex"</span>)</span></code></pre></div>
 <p>or get a development version from GitHub:</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu">install_github</span>(<span class="st">"tidyverse/reprex"</span>)</pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"tidyverse/reprex"</span>)</span></code></pre></div>
 <p>On Linux, you probably want to install <a href="https://github.com/astrand/xclip">xclip</a> or <a href="http://www.vergenet.net/~conrad/software/xsel/">xsel</a>, so reprex can access the X11 clipboard. This is ‘nice to have’, but not mandatory. The usual <code>sudo apt-get install</code> or <code>sudo yum install</code> installation methods should work for both xclip and xsel.</p>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>Let’s say you copy this code onto your clipboard:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">(y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">mean</span>(y)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>(y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(y)</span></code></pre></div>
 <p>Then call <code><a href="reference/reprex.html">reprex()</a></code>, where the default target venue is GitHub:</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="reference/reprex.html">reprex</a></span>()</pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw"><a href="reference/reprex.html">reprex</a></span>()</span></code></pre></div>
 <p>A nicely rendered HTML preview will display in RStudio’s Viewer (if you’re in RStudio) or your default browser otherwise.</p>
 <p><img src="reference/figures/README-viewer-screenshot.png"></p>
 <p>The relevant bit of CommonMark Markdown is ready to be pasted from your clipboard:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="st">```</span><span class="dt"> r</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="dt">(y &lt;- 1:4)</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="dt">#&gt; [1] 1 2 3 4</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="dt">mean(y)</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="dt">#&gt; [1] 2.5</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="st">```</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="st">```</span><span class="dt"> r</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="dt">(y &lt;- 1:4)</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="dt">#&gt; [1] 1 2 3 4</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="dt">mean(y)</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="dt">#&gt; [1] 2.5</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="st">```</span></span></code></pre></div>
 <p>Here’s what that Markdown would look like rendered in a GitHub issue:</p>
-<div class="sourceCode" id="cb6"><pre class="r">(<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fl">1</span>:<span class="fl">4</span>)
-<span class="co">#&gt; [1] 1 2 3 4</span>
-<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">y</span>)
-<span class="co">#&gt; [1] 2.5</span></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>(y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co">#&gt; [1] 1 2 3 4</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="kw"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(y)</span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt; [1] 2.5</span></span></code></pre></div>
 <p>Anyone else can copy, paste, and run this immediately.</p>
 <p>In addition to GitHub, this markdown also works on Stack Overflow and Discourse. Those venues can be formally requested via <code>venue = "so"</code> and <code>venue = "ds"</code>, but they are just aliases for <code>venue = "gh"</code>.</p>
 <p>Instead of reading from the clipboard, you can:</p>
@@ -207,13 +207,13 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
 <li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=reprex">https://​cloud.r-project.org/​package=reprex</a>
 </li>
-<li>Browse source code at <br><a href="https://github.com/tidyverse/reprex/">https://​github.com/​tidyverse/​reprex/​</a>
+<li>Browse source code at <br><a href="https://github.com/tidyverse/reprex">https://​github.com/​tidyverse/​reprex</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/tidyverse/reprex/issues">https://​github.com/​tidyverse/​reprex/​issues</a>
 </li>
@@ -237,11 +237,11 @@
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>
-<a href="https://jennybryan.org">Jennifer Bryan</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-6983-2759" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Jim Hester <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-2739-7082" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<a href="https://jennybryan.org">Jennifer Bryan</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-6983-2759" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID"></a> </li>
+<li>Jim Hester <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-2739-7082" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID"></a> </li>
 <li>David Robinson <br><small class="roles"> Author </small>  </li>
 <li>
-<a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-4757-117X" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-4757-117X" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID"></a> </li>
 <li>
 <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a> <br><small class="roles"> Copyright holder, funder </small>  </li>
 </ul>
