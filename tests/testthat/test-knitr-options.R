@@ -26,6 +26,11 @@ test_that("`tidyverse_quiet` works", {
     tidyverse_quiet = FALSE
   )
   expect_match(ret, "Attaching", all = FALSE)
+})
+
+test_that("`tidyverse_quiet` works for tidymodels", {
+  skip_on_cran()
+  skip_if_not_installed("tidymodels")
 
   ret <- reprex(
     input = sprintf("library(%s)\n", "tidymodels"),
@@ -40,6 +45,7 @@ test_that("`tidyverse_quiet` works", {
   expect_match(ret, "Attaching", all = FALSE)
 
 })
+
 
 test_that("`style` works", {
   skip_on_cran()
