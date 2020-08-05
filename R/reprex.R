@@ -93,9 +93,10 @@
 #' @param render Logical. Whether to call [rmarkdown::render()] on the templated
 #'   reprex, i.e. whether to actually run the code. Defaults to `TRUE`. Exists
 #'   primarily for the sake of internal testing.
-#' @param tidyverse_quiet Logical. Sets the option `tidyverse.quiet`, which
-#'   suppresses (`TRUE`, the default) or includes (`FALSE`) the startup message
-#'   for the tidyverse package. Read more about [opt()].
+#' @param tidyverse_quiet Logical. Sets the options `tidyverse.quiet` and
+#'   `tidymodels.quiet`, which suppress (`TRUE`, the default) or include
+#'   (`FALSE`) the startup messages for the tidyverse and tidymodels packages.
+#'   Read more about [opt()].
 #' @param std_out_err Logical. Whether to append a section for output sent to
 #'   stdout and stderr by the reprex rendering process. This can be necessary to
 #'   reveal output if the reprex spawns child processes or `system()` calls.
