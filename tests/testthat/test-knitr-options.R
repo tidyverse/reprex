@@ -26,6 +26,19 @@ test_that("`tidyverse_quiet` works", {
     tidyverse_quiet = FALSE
   )
   expect_match(ret, "Attaching", all = FALSE)
+
+  ret <- reprex(
+    input = sprintf("library(%s)\n", "tidymodels"),
+    tidyverse_quiet = TRUE
+  )
+  expect_false(any(grepl("Attaching", ret)))
+
+  ret <- reprex(
+    input = sprintf("library(%s)\n", "tidymodels"),
+    tidyverse_quiet = FALSE
+  )
+  expect_match(ret, "Attaching", all = FALSE)
+
 })
 
 test_that("`style` works", {
