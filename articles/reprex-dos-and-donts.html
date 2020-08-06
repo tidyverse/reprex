@@ -108,7 +108,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="reprex-dos-and-donts_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Reprex do’s and don’ts</h1>
@@ -131,8 +131,7 @@
 <li>If you must make some objects, minimize their size and complexity.</li>
 <li>Many of the functions and packages you already use to import data from delimited files also offer a way to create a small data frame “inline”:
 <ul>
-<li>
-<code><a href="https://rdrr.io/r/utils/read.table.html">read.table()</a></code> and friends have a <code>text</code> argument. Example: <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv(text = "a,b\n1,2\n3,4")</a></code>.</li>
+<li><p><code><a href="https://rdrr.io/r/utils/read.table.html">read.table()</a></code> and friends have a <code>text</code> argument. Example: <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv(text = "a,b\n1,2\n3,4")</a></code>.</p></li>
 <li>
 <p><code><a href="https://tibble.tidyverse.org/reference/tribble.html">tibble::tribble()</a></code> lets you use a natural and readable layout. Example:</p>
 <pre><code><a href="https://tibble.tidyverse.org/reference/tribble.html">  tibble::tribble(
@@ -169,9 +168,9 @@
 </ul>
 <p><strong>Pack it in, pack it out, and don’t take liberties with other people’s computers.</strong> You are asking people to run this code!</p>
 <ul>
-<li>Don’t start with <code><a href="https://rdrr.io/r/base/rm.html">rm(list = ls())</a></code>. It is anti-social to clobber other people’s workspaces.</li>
-<li>Don’t start with <code>setwd("C:\Users\jenny\path\that\only\I\have")</code>, because it won’t work on anyone else’s computer.</li>
-<li>Don’t mask built-in functions, i.e. don’t define a new function named <code>c</code> or <code>mean</code>.</li>
+<li><p>Don’t start with <code><a href="https://rdrr.io/r/base/rm.html">rm(list = ls())</a></code>. It is anti-social to clobber other people’s workspaces.</p></li>
+<li><p>Don’t start with <code>setwd("C:\Users\jenny\path\that\only\I\have")</code>, because it won’t work on anyone else’s computer.</p></li>
+<li><p>Don’t mask built-in functions, i.e. don’t define a new function named <code>c</code> or <code>mean</code>.</p></li>
 <li>
 <p>If you change options, store original values at the start, do your thing, then restore them:</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r">opar &lt;- par(pch = 19)
@@ -184,7 +183,7 @@ par(opar)</pre></body></html></div>
 &lt;blah blah blah&gt;
 file.remove("foo.txt")</pre></body></html></div>
 </li>
-<li>Don’t delete files or objects that you didn’t create in the first place.</li>
+<li><p>Don’t delete files or objects that you didn’t create in the first place.</p></li>
 <li><p>Take advantage of R’s built-in ability to create temporary files and directories. Read up on <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/tempfile.html"><code><a href="https://rdrr.io/r/base/tempfile.html">tempfile()</a></code> and <code><a href="https://rdrr.io/r/base/tempfile.html">tempdir()</a></code></a>.</p></li>
 </ul>
 </div>

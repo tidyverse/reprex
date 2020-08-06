@@ -118,8 +118,9 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="reprex" class="section level1">
+<div id="reprex-" class="section level1">
 
+<!-- badges: start -->
 
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
@@ -151,19 +152,19 @@
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>Let’s say you copy this code onto your clipboard:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">(y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">mean</span>(y)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>(y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">mean</span>(y)</span></code></pre></div>
 <p>Then call <code><a href="reference/reprex.html">reprex()</a></code>, where the default target venue is GitHub:</p>
 <div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="reference/reprex.html">reprex</a></span>()</pre></div>
 <p>A nicely rendered HTML preview will display in RStudio’s Viewer (if you’re in RStudio) or your default browser otherwise.</p>
 <p><img src="reference/figures/README-viewer-screenshot.png"></p>
 <p>The relevant bit of CommonMark Markdown is ready to be pasted from your clipboard:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="st">```</span><span class="dt"> r</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="dt">(y &lt;- 1:4)</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="dt">#&gt; [1] 1 2 3 4</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="dt">mean(y)</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="dt">#&gt; [1] 2.5</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="st">```</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="st">```</span><span class="dt"> r</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="dt">(y &lt;- 1:4)</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="dt">#&gt; [1] 1 2 3 4</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="dt">mean(y)</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="dt">#&gt; [1] 2.5</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="st">```</span></span></code></pre></div>
 <p>Here’s what that Markdown would look like rendered in a GitHub issue:</p>
 <div class="sourceCode" id="cb6"><pre class="r">(<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fl">1</span>:<span class="fl">4</span>)
 <span class="co">#&gt; [1] 1 2 3 4</span>
@@ -252,10 +253,8 @@
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://cran.r-project.org/package=reprex"><img src="https://www.r-pkg.org/badges/version/reprex" alt="CRAN_Status_Badge"></a></li>
-<li><a href="https://travis-ci.org/tidyverse/reprex"><img src="https://travis-ci.org/tidyverse/reprex.svg?branch=master" alt="Travis-CI Build Status"></a></li>
-<li><a href="https://ci.appveyor.com/project/tidyverse/reprex"><img src="https://ci.appveyor.com/api/projects/status/github/tidyverse/reprex?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
-<li><a href="https://github.com/tidyverse/reprex"><img src="https://github.com/tidyverse/reprex/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://codecov.io/github/tidyverse/reprex?branch=master"><img src="https://codecov.io/gh/tidyverse/reprex/branch/master/graph/badge.svg" alt="Coverage status"></a></li>
+<li><a href="https://github.com/tidyverse/reprex/actions"><img src="https://github.com/tidyverse/reprex/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://codecov.io/gh/tidyverse/reprex?branch=master"><img src="https://codecov.io/gh/tidyverse/reprex/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="lifecycle"></a></li>
 </ul>
 </div>

@@ -108,7 +108,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="rtf_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>reprex venue RTF</h1>
@@ -131,9 +131,9 @@
 
 <p><code><a href="../../reference/reprex.html">reprex(venue = "rtf")</a></code> was introduced in v0.2.1 and is experimental. It requires the installation of the <a href="http://www.andre-simon.de/doku/highlight/en/highlight.php">highlight</a> command line tool and has only been tested on macOS. It is useful to me already and accumulating some usage is the best way to figure out how to make it useful to others. It would be preferable to use something like the <a href="https://cran.r-project.org/package=highlight">highlight package</a> at some point in the future, but let us experiment with this hack in the meantime.</p>
 <p>If you use <a href="https://brew.sh">homebrew</a>, here’s an easy way to install highlight from the shell:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="ex">brew</span> install highlight</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="ex">brew</span> install highlight</span></code></pre></div>
 <p>Here is the highlight call implied by the default behaviour of <code><a href="../../reference/reprex_VENUE.html">reprex_rtf(...)</a></code> or <code><a href="../../reference/reprex.html">reprex(..., venue = "rtf")</a></code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="ex">highlight</span> foo_reprex.R --out-format rtf --no-trailing-nl --encoding=UTF-8 --style darkbone --font <span class="st">'Courier Regular'</span> --font-size 50 <span class="op">&gt;</span> foo_reprex.rtf</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="ex">highlight</span> foo_reprex.R --out-format rtf --no-trailing-nl --encoding=UTF-8 --style darkbone --font <span class="st">'Courier Regular'</span> --font-size 50 <span class="op">&gt;</span> foo_reprex.rtf</span></code></pre></div>
 <div id="basic-usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#basic-usage" class="anchor"></a>Basic usage</h2>
@@ -159,7 +159,7 @@
 <p>You could also set options for a specific Project in <code>.Rprofile</code> inside the Project. Create or open this file via <code>usethis::edit_r_profile("project")</code>.</p>
 <p><code>hl_style</code> must be one of your existing highlight themes and <code>font</code> must be one of your installed fonts.</p>
 <p>List available themes:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="ex">highlight</span> --list-scripts=themes</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="ex">highlight</span> --list-scripts=themes</span></code></pre></div>
 <p>But what do these themes <em>look like</em>? Here are some galleries that probably have high overlap with your themes:</p>
 <p><a href="http://www.andre-simon.de/doku/highlight/en/theme-samples.php" class="uri">http://www.andre-simon.de/doku/highlight/en/theme-samples.php</a><br><a href="https://rclickhandbuch.files.wordpress.com/2014/09/knitrthemesoverview.pdf" class="uri">https://rclickhandbuch.files.wordpress.com/2014/09/knitrthemesoverview.pdf</a></p>
 <p>You can also override defaults on-the-fly. Here’s how to do that for a single call using withr and, as a bonus, how to use <code>reprex.highlight.other</code> to send arbitrary command line arguments to highlight:</p>
@@ -255,7 +255,7 @@
 <a href="#selectively-hide-and-reveal-code" class="anchor"></a>Selectively hide and reveal code</h2>
 <p><em>Before <code>prex()</code> existed, you had to use a more cumbersome technique to produce small snippets, by hiding code. We leave this here in case it is still useful in some situations.</em></p>
 <p>You can use knitr chunk options to selectively hide code, i.e. to run a large snippet, but only include a small bit in the output.</p>
-<p>This is easiest to show by example. If you <code><a href="../../reference/reprex.html">reprex()</a></code> this code, only the last three lines and their output will appear in the output. But the other lines will be run, i.e. <code>str_reverse()</code> will be defined, as will the <code>bizzaro()</code> generic and default method.</p>
+<p>This is easiest to show by example. If you <code><a href="../../reference/reprex.html">reprex()</a></code> this code, only the last three lines and their output will appear in the output. But the other lines will be run, i.e. <code>str_reverse()</code> will be defined, as will the <code>bizzaro()</code> generic and default method.</p>
 <div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="co">#+ include = FALSE</span>
 <span class="no">str_reverse</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">x</span>) {
   <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span>(
