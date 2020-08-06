@@ -16,13 +16,13 @@ test_that("`tidyverse_quiet` works", {
   skip_if_not_installed("tidyverse", minimum_version = "1.2.1")
 
   ret <- reprex(
-    input = sprintf("library(%s)\n", "tidyverse"),
+    input = "library(tidyverse)\n",
     tidyverse_quiet = TRUE
   )
   expect_false(any(grepl("Attaching", ret)))
 
   ret <- reprex(
-    input = sprintf("library(%s)\n", "tidyverse"),
+    input = "library(tidyverse)\n",
     tidyverse_quiet = FALSE
   )
   expect_match(ret, "Attaching", all = FALSE)
@@ -33,13 +33,13 @@ test_that("`tidyverse_quiet` works for tidymodels", {
   skip_if_not_installed("tidymodels")
 
   ret <- reprex(
-    input = sprintf("library(%s)\n", "tidymodels"),
+    input = "library(tidymodels)\n",
     tidyverse_quiet = TRUE
   )
   expect_false(any(grepl("Attaching", ret)))
 
   ret <- reprex(
-    input = sprintf("library(%s)\n", "tidymodels"),
+    input = "library(tidymodels)\n",
     tidyverse_quiet = FALSE
   )
   expect_match(ret, "Attaching", all = FALSE)
