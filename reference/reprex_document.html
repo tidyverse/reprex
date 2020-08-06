@@ -43,6 +43,10 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
 
 
 <meta property="og:title" content="reprex output format — reprex_document" />
@@ -281,9 +285,10 @@ to <code>"#&gt;"</code>. Read more about <code><a href='reprex_options.html'>opt
     </tr>
     <tr>
       <th>tidyverse_quiet</th>
-      <td><p>Logical. Sets the option <code>tidyverse.quiet</code>, which
-suppresses (<code>TRUE</code>, the default) or includes (<code>FALSE</code>) the startup message
-for the tidyverse package. Read more about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
+      <td><p>Logical. Sets the options <code>tidyverse.quiet</code> and
+<code>tidymodels.quiet</code>, which suppress (<code>TRUE</code>, the default) or include
+(<code>FALSE</code>) the startup messages for the tidyverse and tidymodels packages.
+Read more about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
     </tr>
     <tr>
       <th>std_out_err</th>
@@ -342,6 +347,9 @@ about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
 #&gt; $knitr$opts_chunk$R.options$tidyverse.quiet
 #&gt; [1] TRUE
 #&gt; 
+#&gt; $knitr$opts_chunk$R.options$tidymodels.quiet
+#&gt; [1] TRUE
+#&gt; 
 #&gt; 
 #&gt; 
 #&gt; $knitr$opts_knit
@@ -362,7 +370,7 @@ about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
 #&gt;         stop("failed to upload ", file)
 #&gt;     structure(res$link[[1]], XML = res)
 #&gt; }
-#&gt; &lt;bytecode: 0x7ff651caeea8&gt;
+#&gt; &lt;bytecode: 0x7fdbd0737a70&gt;
 #&gt; &lt;environment: namespace:knitr&gt;
 #&gt; 
 #&gt; 
@@ -423,8 +431,8 @@ about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
 #&gt;     }
 #&gt;     write_lines(input_lines, knit_input)
 #&gt; }
-#&gt; &lt;bytecode: 0x7ff64ff010a0&gt;
-#&gt; &lt;environment: 0x7ff64ff1ae00&gt;
+#&gt; &lt;bytecode: 0x7fdbd01f5e48&gt;
+#&gt; &lt;environment: 0x7fdbd01f9f28&gt;
 #&gt; 
 #&gt; $post_knit
 #&gt; NULL
@@ -446,8 +454,8 @@ about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
 #&gt;     if (is.function(overlay)) 
 #&gt;         overlay()
 #&gt; }
-#&gt; &lt;bytecode: 0x7ff651e78d98&gt;
-#&gt; &lt;environment: 0x7ff651e78858&gt;
+#&gt; &lt;bytecode: 0x7fdbcf3248f8&gt;
+#&gt; &lt;environment: 0x7fdbcf324380&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "rmarkdown_output_format"</div></pre>

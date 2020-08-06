@@ -43,6 +43,10 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+<!--optional theme-->
+<link href="../.css" rel="stylesheet">
+
+
 
 
 <meta property="og:title" content="Render a reprex — reprex" />
@@ -278,9 +282,10 @@ to <code>"#&gt;"</code>. Read more about <code><a href='reprex_options.html'>opt
     </tr>
     <tr>
       <th>tidyverse_quiet</th>
-      <td><p>Logical. Sets the option <code>tidyverse.quiet</code>, which
-suppresses (<code>TRUE</code>, the default) or includes (<code>FALSE</code>) the startup message
-for the tidyverse package. Read more about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
+      <td><p>Logical. Sets the options <code>tidyverse.quiet</code> and
+<code>tidymodels.quiet</code>, which suppress (<code>TRUE</code>, the default) or include
+(<code>FALSE</code>) the startup messages for the tidyverse and tidymodels packages.
+Read more about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
     </tr>
     <tr>
       <th>std_out_err</th>
