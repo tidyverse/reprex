@@ -76,9 +76,10 @@ collapsible details tag. Read more about \code{\link[=opt]{opt()}}.}
 \item{comment}{Character. Prefix with which to comment out output, defaults
 to \code{"#>"}. Read more about \code{\link[=opt]{opt()}}.}
 
-\item{tidyverse_quiet}{Logical. Sets the option \code{tidyverse.quiet}, which
-suppresses (\code{TRUE}, the default) or includes (\code{FALSE}) the startup message
-for the tidyverse package. Read more about \code{\link[=opt]{opt()}}.}
+\item{tidyverse_quiet}{Logical. Sets the options \code{tidyverse.quiet} and
+\code{tidymodels.quiet}, which suppress (\code{TRUE}, the default) or include
+(\code{FALSE}) the startup messages for the tidyverse and tidymodels packages.
+Read more about \code{\link[=opt]{opt()}}.}
 
 \item{std_out_err}{Logical. Whether to append a section for output sent to
 stdout and stderr by the reprex rendering process. This can be necessary to

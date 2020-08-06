@@ -52,6 +52,8 @@ library(tidyverse)
 slice(iris, 1)
 ```
 
+`tidyverse_quiet` also silences startup messages from the [tidymodels](https://www.tidymodels.org) meta-package.
+
 ## dplyr is chatty at startup
 
 dplyr is a common culprit for noisy startup, so we use it as an example. Note this messaging as a baseline.
@@ -136,4 +138,4 @@ suppressPackageStartupMessages(library(dplyr))
 slice(iris, 1)
 ```
 
-Note that this default behaviour can be overridden by setting `tidyverse_quiet = FALSE` in a specific `reprex()` call or by setting the option `reprex.tidyverse_quiet = FALSE` in the `.Rprofile` startup file.
+Note that this default behaviour can be overridden by setting `tidyverse_quiet = FALSE` in a specific `reprex()` call or by setting the option `reprex.tidyverse_quiet = FALSE` in the `.Rprofile` startup file. The `tidyverse_quiet` argument and `reprex.tidyverse_quiet` option also affect startup messages from the [tidymodels](https://www.tidymodels.org) meta-package.

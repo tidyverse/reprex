@@ -78,6 +78,7 @@ SystemRequirements
 templated
 tibble
 tidyeval
+tidymodels
 tidyverse
 Tierney
 Tierney's
