@@ -24,6 +24,8 @@
 
 * New article on techniques for making package startup quieter (#187, @marionlouveaux).
 
+*  The `tidyverse_quiet` argument and `reprex.tidyverse_quiet` option also affect startup messages from the [tidymodels](https://www.tidymodels.org) meta-package (#326, @juliasilge).
+
 * `reprex_locale()` is a new thin wrapper around `reprex()` that renders in a temporarily-altered locale (#250).
 
 * UTF-8 encoding: Following the lead of knitr, reprex makes explicit use of UTF-8 internally (#237 @krlmlr, #261).
