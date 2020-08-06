@@ -60,7 +60,6 @@ mentality. Here's a simplified version of what happens:callr::r(
   stdout = std_file, stderr = std_file
 )
 
-
 Key features to note
 rmarkdown::render() is executed in a new R session, by using
 callr::r(). The goal is to eliminate the leakage of objects, attached
@@ -106,7 +105,7 @@ with other R Markdown output formats, but it is not well-tested." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -166,7 +165,7 @@ with other R Markdown output formats, but it is not well-tested." />
   <a href="../news/index.html">Changelog</a>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/reprex">
+  <a href="https://github.com/tidyverse/reprex/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -191,15 +190,14 @@ with other R Markdown output formats, but it is not well-tested." />
 
     <div class="ref-description">
     <p>This is a wrapper around <code><a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>rmarkdown::render()</a></code> that enforces the "reprex"
-mentality. Here's a simplified version of what happens:</p><pre>callr::r(
-  function(input) {
-    rmarkdown::render(input, envir = globalenv(), encoding = "UTF-8")
+mentality. Here's a simplified version of what happens:</p><pre><span class='kw pkg'>callr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/callr/man/r.html'>r</a></span>(
+  <span class='kw'>function</span>(<span class='no'>input</span>) {
+    <span class='kw pkg'>rmarkdown</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>render</a></span>(<span class='no'>input</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>globalenv</a></span>(), <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"UTF-8"</span>)
   },
-  args = list(input = input),
-  spinner = is_interactive(),
-  stdout = std_file, stderr = std_file
-)
-</pre>
+  <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='no'>input</span>),
+  <span class='kw'>spinner</span> <span class='kw'>=</span> <span class='fu'>is_interactive</span>(),
+  <span class='kw'>stdout</span> <span class='kw'>=</span> <span class='no'>std_file</span>, <span class='kw'>stderr</span> <span class='kw'>=</span> <span class='no'>std_file</span>
+)</pre>
 
 <p>Key features to note</p><ul>
 <li><p><code><a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>rmarkdown::render()</a></code> is executed in a new R session, by using
@@ -256,14 +254,10 @@ of the output file.</p>
 <span class='fu'>reprex_render</span>(<span class='st'>"input.Rmd"</span>)
 }</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
