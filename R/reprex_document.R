@@ -71,7 +71,7 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
     R.options = list(
       tidyverse.quiet = tidyverse_quiet,
       tidymodels.quiet = tidyverse_quiet
-      )
+    )
   )
   if (isTRUE(style)) {
     opts_chunk[["tidy"]] <- "styler"
