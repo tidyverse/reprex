@@ -35,10 +35,11 @@ test_that("rmarkdown::render() context is trimmed from rlang backtrace", {
   expect_false(any(grepl("rmarkdown::render", ret)))
 })
 
-test_that("rlang::last_error() and last_trace() work", {
+test_that("rlang::last_error() and last_trace() can work", {
   skip_on_cran()
 
   input <- c(
+    "options('rlang:::force_unhandled_error' = TRUE)",
     "f <- function() rlang::abort('foo')",
     "f()",
     "rlang::last_error()",
