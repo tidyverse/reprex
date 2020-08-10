@@ -117,7 +117,8 @@ be
 reprex can also be used for syntax highlighting (with or without rendering);
 see below for more.
 }
-\details{
+\section{Details}{
+
 The usual "code + commented output" is returned invisibly, put on the
 clipboard, and written to file. An HTML preview displays in RStudio's Viewer
 pane, if available, or in the default browser, otherwise. Leading \code{"> "}
@@ -139,6 +140,7 @@ You can supplement or override these options with special comments in your
 code (see examples).
 }
 }
+
 \section{Syntax highlighting}{
 
 A secondary use case for reprex is to produce syntax highlighted code
@@ -151,16 +153,6 @@ works on macOS and requires the installation of the
 command line tool, which can be installed via
 \href{https://formulae.brew.sh/formula/highlight}{homebrew}. This venue is
 discussed in \href{https://reprex.tidyverse.org/articles/articles/rtf.html}{an article}
-}
-
-\section{Backtraces}{
-
-The functions \code{rlang::last_error()} and \code{rlang::last_trace()} do not work the
-same inside \code{reprex()} as they do in an interactive session. This is outside
-the scope of the reprex package and should get resolved by future changes in
-the evaluate package. In the meantime, enable these functions in a specific
-reprex by setting an rlang option \emph{in the code snippet} you are reprexing:\preformatted{options("rlang:::force_unhandled_error" = TRUE)
-}
 }
 
 \examples{

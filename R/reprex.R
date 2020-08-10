@@ -15,7 +15,7 @@
 #' reprex can also be used for syntax highlighting (with or without rendering);
 #' see below for more.
 #'
-#' @details
+#' @section Details:
 #' The usual "code + commented output" is returned invisibly, put on the
 #' clipboard, and written to file. An HTML preview displays in RStudio's Viewer
 #' pane, if available, or in the default browser, otherwise. Leading `"> "`
@@ -47,17 +47,6 @@
 #' [homebrew](https://formulae.brew.sh/formula/highlight). This venue is
 #' discussed in [an
 #' article](https://reprex.tidyverse.org/articles/articles/rtf.html)
-#'
-#' @section Backtraces:
-#' The functions `rlang::last_error()` and `rlang::last_trace()` do not work the
-#' same inside `reprex()` as they do in an interactive session. This is outside
-#' the scope of the reprex package and should get resolved by future changes in
-#' the evaluate package. In the meantime, enable these functions in a specific
-#' reprex by setting an rlang option *in the code snippet* you are reprexing:
-#'
-#' ```
-#' options("rlang:::force_unhandled_error" = TRUE)
-#' ````
 #'
 #' @param x An expression. If not given, `reprex()` looks for code in
 #'   `input` or on the clipboard, in that order.
