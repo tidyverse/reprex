@@ -319,9 +319,7 @@ with other R Markdown output formats.</p></td>
     <p>Character vector of rendered reprex, invisibly.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    
-
-<p>The usual "code + commented output" is returned invisibly, put on the
+    <p>The usual "code + commented output" is returned invisibly, put on the
 clipboard, and written to file. An HTML preview displays in RStudio's Viewer
 pane, if available, or in the default browser, otherwise. Leading <code>"&gt; "</code>
 prompts, are stripped from the input code. Read more at
@@ -353,6 +351,16 @@ works on macOS and requires the installation of the
 command line tool, which can be installed via
 <a href='https://formulae.brew.sh/formula/highlight'>homebrew</a>. This venue is
 discussed in <a href='https://reprex.tidyverse.org/articles/articles/rtf.html'>an article</a></p>
+    <h2 class="hasAnchor" id="backtraces"><a class="anchor" href="#backtraces"></a>Backtraces</h2>
+
+    
+
+<p>The functions <code><a href='https://rlang.r-lib.org/reference/last_error.html'>rlang::last_error()</a></code> and <code><a href='https://rlang.r-lib.org/reference/last_error.html'>rlang::last_trace()</a></code> do not work the
+same inside <code>reprex()</code> as they do in an interactive session. This is outside
+the scope of the reprex package and should get resolved by future changes in
+the evaluate package. In the meantime, enable these functions in a specific
+reprex by setting an rlang option <em>in the code snippet</em> you are reprexing:</p><pre><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span>(<span class='st'>"rlang:::force_unhandled_error"</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
