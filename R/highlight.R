@@ -4,7 +4,7 @@ reprex_highlight <- function(rout_file, reprex_file, arg_string = NULL) {
     "highlight ", rout_file,
     " --out-format=rtf --no-trailing-nl --encoding=UTF-8",
     arg_string,
-    " > ", reprex_file
+    " -o ", reprex_file
   )
   res <- system(cmd)
   if (res > 0) {
