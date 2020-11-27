@@ -1,11 +1,10 @@
 reprex_highlight <- function(rout_file, reprex_file, arg_string = NULL) {
   arg_string <- arg_string %||% highlight_args()
-  out <- ifelse(.Platform$OS.type == "windows", " -o ", " > ")
   cmd <- paste0(
     "highlight ", rout_file,
     " --out-format=rtf --no-trailing-nl --encoding=UTF-8",
     arg_string,
-    out, reprex_file
+    " -o ", reprex_file
   )
   res <- system(cmd)
   if (res > 0) {
