@@ -171,21 +171,21 @@ written to file. Three different functions address various forms of
 wild-caught reprex.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>reprex_invert</span>(
-  <span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"gh"</span>, <span class='st'>"r"</span>, <span class='st'>"so"</span>, <span class='st'>"ds"</span>),
-  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span>(<span class='st'>"#&gt;"</span>)
-)
+    <pre class="usage"><span class='fu'>reprex_invert</span><span class='op'>(</span>
+  input <span class='op'>=</span> <span class='cn'>NULL</span>,
+  outfile <span class='op'>=</span> <span class='cn'>NULL</span>,
+  venue <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"gh"</span>, <span class='st'>"r"</span>, <span class='st'>"so"</span>, <span class='st'>"ds"</span><span class='op'>)</span>,
+  comment <span class='op'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span><span class='op'>(</span><span class='st'>"#&gt;"</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'>reprex_clean</span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span>(<span class='st'>"#&gt;"</span>))
+<span class='fu'>reprex_clean</span><span class='op'>(</span>input <span class='op'>=</span> <span class='cn'>NULL</span>, outfile <span class='op'>=</span> <span class='cn'>NULL</span>, comment <span class='op'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span><span class='op'>(</span><span class='st'>"#&gt;"</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>reprex_rescue</span>(
-  <span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>prompt</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"prompt"</span>),
-  <span class='kw'>continue</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"continue"</span>)
-)</pre>
+<span class='fu'>reprex_rescue</span><span class='op'>(</span>
+  input <span class='op'>=</span> <span class='cn'>NULL</span>,
+  outfile <span class='op'>=</span> <span class='cn'>NULL</span>,
+  prompt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"prompt"</span><span class='op'>)</span>,
+  continue <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"continue"</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -260,69 +260,70 @@ commands.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'>## a rendered reprex can be inverted, at least approximately</span>
-<span class='no'>tmp_in</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='st'>"roundtrip-input"</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='reprex.html'>reprex</a></span>({
+<span class='va'>tmp_in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"roundtrip-input"</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='reprex.html'>reprex</a></span><span class='op'>(</span><span class='op'>{</span>
   <span class='co'>#' Some text</span>
   <span class='co'>#+ chunk-label-and-options-cannot-be-recovered, message = TRUE</span>
-  (<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>4</span>)
+  <span class='op'>(</span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span>
   <span class='co'>#' More text</span>
-  <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>:<span class='fl'>5</span>
-  <span class='no'>x</span> + <span class='no'>y</span>
-}, <span class='kw'>html_preview</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>advertise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='no'>tmp_in</span>)
-<span class='no'>tmp_out</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='st'>"roundtrip-output"</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex_invert</span>(<span class='no'>x</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='no'>tmp_out</span>)
-<span class='no'>x</span>
+  <span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fl'>2</span><span class='op'>:</span><span class='fl'>5</span>
+  <span class='va'>x</span> <span class='op'>+</span> <span class='va'>y</span>
+<span class='op'>}</span>, html_preview <span class='op'>=</span> <span class='cn'>FALSE</span>, advertise <span class='op'>=</span> <span class='cn'>FALSE</span>, outfile <span class='op'>=</span> <span class='va'>tmp_in</span><span class='op'>)</span>
+<span class='va'>tmp_out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"roundtrip-output"</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>reprex_invert</span><span class='op'>(</span><span class='va'>x</span>, outfile <span class='op'>=</span> <span class='va'>tmp_out</span><span class='op'>)</span>
+<span class='va'>x</span>
 
 <span class='co'># clean up</span>
-<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span>(
-  <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>tmp_in</span>), <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"roundtrip"</span>, <span class='kw'>full.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-)
-}
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span><span class='op'>(</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span><span class='op'>(</span><span class='va'>tmp_in</span><span class='op'>)</span>, pattern <span class='op'>=</span> <span class='st'>"roundtrip"</span>, full.names <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='op'>}</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'>## a displayed reprex can be cleaned of commented output</span>
-<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='st'>"commented-code"</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
+<span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"commented-code"</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
   <span class='st'>"## a regular comment, which is retained"</span>,
   <span class='st'>"(x &lt;- 1:4)"</span>,
   <span class='st'>"#&gt; [1] 1 2 3 4"</span>,
   <span class='st'>"median(x)"</span>,
   <span class='st'>"#&gt; [1] 2.5"</span>
-  )
-<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex_clean</span>(<span class='no'>x</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='no'>tmp</span>)
-<span class='no'>out</span>
+  <span class='op'>)</span>
+<span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'>reprex_clean</span><span class='op'>(</span><span class='va'>x</span>, outfile <span class='op'>=</span> <span class='va'>tmp</span><span class='op'>)</span>
+<span class='va'>out</span>
 
 <span class='co'># clean up</span>
-<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span>(
-  <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>tmp</span>), <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"commented-code"</span>, <span class='kw'>full.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-)
+<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span><span class='op'>(</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>, pattern <span class='op'>=</span> <span class='st'>"commented-code"</span>, full.names <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='op'>)</span>
 
 <span class='co'>## round trip with reprex(..., venue = "R")</span>
-<span class='no'>code_in</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x &lt;- rnorm(2)"</span>, <span class='st'>"min(x)"</span>)
-<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='reprex.html'>reprex</a></span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='no'>code_in</span>, <span class='kw'>venue</span> <span class='kw'>=</span> <span class='st'>"R"</span>, <span class='kw'>advertise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='no'>res</span>
-(<span class='no'>code_out</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex_clean</span>(<span class='no'>res</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='no'>code_in</span>, <span class='no'>code_out</span>)
-}
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='va'>code_in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x &lt;- rnorm(2)"</span>, <span class='st'>"min(x)"</span><span class='op'>)</span>
+<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='reprex.html'>reprex</a></span><span class='op'>(</span>input <span class='op'>=</span> <span class='va'>code_in</span>, venue <span class='op'>=</span> <span class='st'>"R"</span>, advertise <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='va'>res</span>
+<span class='op'>(</span><span class='va'>code_out</span> <span class='op'>&lt;-</span> <span class='fu'>reprex_clean</span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>code_in</span>, <span class='va'>code_out</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'>## rescue a reprex that was copied from a live R session</span>
-<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='st'>"live-transcript"</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
+<span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"live-transcript"</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
   <span class='st'>"&gt; ## a regular comment, which is retained"</span>,
   <span class='st'>"&gt; (x &lt;- 1:4)"</span>,
   <span class='st'>"[1] 1 2 3 4"</span>,
   <span class='st'>"&gt; median(x)"</span>,
   <span class='st'>"[1] 2.5"</span>
-)
-<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'>reprex_rescue</span>(<span class='no'>x</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='no'>tmp</span>)
-<span class='no'>out</span>
+<span class='op'>)</span>
+<span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'>reprex_rescue</span><span class='op'>(</span><span class='va'>x</span>, outfile <span class='op'>=</span> <span class='va'>tmp</span><span class='op'>)</span>
+<span class='va'>out</span>
 
 <span class='co'># clean up</span>
-<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span>(
-  <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span>(<span class='no'>tmp</span>),<span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"live-transcript"</span>, <span class='kw'>full.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-)
-}</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span><span class='op'>(</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>,pattern <span class='op'>=</span> <span class='st'>"live-transcript"</span>, full.names <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

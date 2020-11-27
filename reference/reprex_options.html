@@ -93,6 +93,7 @@ the sake of exposition:options(
   reprex.highlight.other     = &quot;--line-numbers&quot;
 )
 
+
 The function usethis::edit_r_profile() is handy for creating and/or opening
 your .Rprofile." />
 <meta property="og:image" content="https://reprex.tidyverse.org/logo.png" />
@@ -234,20 +235,21 @@ in the article
 
 <p>Here's code you could put in <code>.Rprofile</code> to set reprex options. It would be
 rare to want non-default behaviour for all of these! We only do so here for
-the sake of exposition:</p><pre><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span>(
-  <span class='kw'>reprex.advertise</span>       <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>reprex.session_info</span>    <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>reprex.style</span>           <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>reprex.html_preview</span>    <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>reprex.comment</span>         <span class='kw'>=</span> <span class='st'>"#;-)"</span>,
-  <span class='kw'>reprex.tidyverse_quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>reprex.std_out_err</span>     <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>reprex.venue</span>           <span class='kw'>=</span> <span class='st'>"html"</span>, <span class='co'># NOTE: only affects reprex_selection()!</span>
-  <span class='kw'>reprex.highlight.hl_style</span>  <span class='kw'>=</span> <span class='st'>"acid"</span>, <span class='co'># NOTE: only affects RTF venue</span>
-  <span class='kw'>reprex.highlight.font</span>      <span class='kw'>=</span> <span class='st'>"Andale Mono Regular"</span>,
-  <span class='kw'>reprex.highlight.font_size</span> <span class='kw'>=</span> <span class='fl'>35</span>,
-  <span class='kw'>reprex.highlight.other</span>     <span class='kw'>=</span> <span class='st'>"--line-numbers"</span>
-)</pre>
+the sake of exposition:</p><pre><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>
+  reprex.advertise       <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  reprex.session_info    <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  reprex.style           <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  reprex.html_preview    <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  reprex.comment         <span class='op'>=</span> <span class='st'>"#;-)"</span>,
+  reprex.tidyverse_quiet <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  reprex.std_out_err     <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  reprex.venue           <span class='op'>=</span> <span class='st'>"html"</span>, <span class='co'># NOTE: only affects reprex_selection()!</span>
+  reprex.highlight.hl_style  <span class='op'>=</span> <span class='st'>"acid"</span>, <span class='co'># NOTE: only affects RTF venue</span>
+  reprex.highlight.font      <span class='op'>=</span> <span class='st'>"Andale Mono Regular"</span>,
+  reprex.highlight.font_size <span class='op'>=</span> <span class='fl'>35</span>,
+  reprex.highlight.other     <span class='op'>=</span> <span class='st'>"--line-numbers"</span>
+<span class='op'>)</span>
+</pre>
 
 <p>The function <code>usethis::edit_r_profile()</code> is handy for creating and/or opening
 your <code>.Rprofile</code>.</p>
@@ -259,14 +261,16 @@ your <code>.Rprofile</code>.</p>
 
     
 
-<p>Arguments that appear like so in <code><a href='reprex.html'>reprex()</a></code>:</p><pre><span class='fu'><a href='reprex.html'>reprex</a></span>(<span class='no'>...</span>, <span class='kw'>arg</span> <span class='kw'>=</span> <span class='fu'>opt</span>(<span class='no'>DEFAULT</span>), <span class='no'>...</span>)</pre>
+<p>Arguments that appear like so in <code><a href='reprex.html'>reprex()</a></code>:</p><pre><span class='fu'><a href='reprex.html'>reprex</a></span><span class='op'>(</span><span class='va'>...</span>, arg <span class='op'>=</span> <span class='fu'>opt</span><span class='op'>(</span><span class='va'>DEFAULT</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
+</pre>
 
 <p>get their value according to this logic:</p><pre>user-specified value or, if not given,
   getOption("reprex.arg") or, if does not exist,
     DEFAULT
 </pre>
 
-<p>It's shorthand for:</p><pre><span class='fu'>f</span>(<span class='no'>...</span>, <span class='kw'>arg</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"reprex.arg"</span>, <span class='no'>DEFAULT</span>), <span class='no'>...</span>)</pre>
+<p>It's shorthand for:</p><pre><span class='fu'>f</span><span class='op'>(</span><span class='va'>...</span>, arg <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"reprex.arg"</span>, <span class='va'>DEFAULT</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
+</pre>
 
 <p>This is not an exported function and should not be called directly.</p>
 

@@ -108,7 +108,8 @@
 
       
 
-      </header><script src="magic-reprex_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="magic-reprex_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="magic-reprex_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="magic-reprex_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Magic reprex</h1>
@@ -172,27 +173,28 @@
 <p>So you know that when you run <code><a href="../../reference/reprex.html">reprex()</a></code>, and it gives you a reproducible example, it will work!</p>
 <p>Also worth mentioning is that rather magically, <code><a href="../../reference/reprex.html">reprex()</a></code> also handles images. I didn’t even notice this at first. It was just one of those things where “it just works”. <code><a href="../../reference/reprex.html">reprex()</a></code> handles this by uploading them to imgur using the <code><a href="https://rdrr.io/pkg/knitr/man/imgur_upload.html">knitr::imgur_upload()</a></code> function, which creates markdown links to the images.</p>
 <p>so</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>)
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span>
 
 <span class="co"># run a lm</span>
 
-<span class="no">lm_fit</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="no">Sepal.Length</span> ~ <span class="no">.</span> , <span class="kw">data</span> <span class="kw">=</span> <span class="no">iris</span>)
+<span class="va">lm_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Sepal.Length</span> <span class="op">~</span> <span class="va">.</span> , data <span class="op">=</span> <span class="va">iris</span><span class="op">)</span>
 
 <span class="co"># use broom to clean it up</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">broom</span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">broom</span><span class="op">)</span>
 
-<span class="no">lm_augmented</span> <span class="kw">&lt;-</span> <span class="fu">augment</span>(<span class="no">lm_fit</span>)
+<span class="va">lm_augmented</span> <span class="op">&lt;-</span> <span class="fu">augment</span><span class="op">(</span><span class="va">lm_fit</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">lm_augmented</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">lm_augmented</span><span class="op">)</span>
 
 <span class="co"># Explore the fit of the model</span>
 
-<span class="fu">ggplot</span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">lm_augmented</span>,
-   <span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">.fitted</span>,
-       <span class="kw">y</span> <span class="kw">=</span> <span class="no">Sepal.Length</span>)) +
-  <span class="fu">geom_point</span>()</pre></body></html></div>
+<span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lm_augmented</span>,
+   <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">.fitted</span>,
+       y <span class="op">=</span> <span class="va">Sepal.Length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>gets turned into</p>
 <pre><code>library(tidyverse)
 #&gt; Loading tidyverse: ggplot2

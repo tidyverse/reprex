@@ -225,17 +225,17 @@ RStudio "Knit" button to use <code><a href='reprex_render.html'>reprex_render()<
 yourself, you should do same.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>reprex_document</span>(
-  <span class='kw'>venue</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"gh"</span>, <span class='st'>"r"</span>, <span class='st'>"rtf"</span>, <span class='st'>"html"</span>, <span class='st'>"so"</span>, <span class='st'>"ds"</span>),
-  <span class='kw'>advertise</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>session_info</span> <span class='kw'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span>(<span class='fl'>FALSE</span>),
-  <span class='kw'>style</span> <span class='kw'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span>(<span class='fl'>FALSE</span>),
-  <span class='kw'>comment</span> <span class='kw'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span>(<span class='st'>"#&gt;"</span>),
-  <span class='kw'>tidyverse_quiet</span> <span class='kw'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span>(<span class='fl'>TRUE</span>),
-  <span class='kw'>std_out_err</span> <span class='kw'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span>(<span class='fl'>FALSE</span>),
-  <span class='kw'>pandoc_args</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>html_preview</span>
-)</pre>
+    <pre class="usage"><span class='fu'>reprex_document</span><span class='op'>(</span>
+  venue <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"gh"</span>, <span class='st'>"r"</span>, <span class='st'>"rtf"</span>, <span class='st'>"html"</span>, <span class='st'>"so"</span>, <span class='st'>"ds"</span><span class='op'>)</span>,
+  advertise <span class='op'>=</span> <span class='cn'>NULL</span>,
+  session_info <span class='op'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span><span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span>,
+  style <span class='op'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span><span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span>,
+  comment <span class='op'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span><span class='op'>(</span><span class='st'>"#&gt;"</span><span class='op'>)</span>,
+  tidyverse_quiet <span class='op'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span><span class='op'>(</span><span class='cn'>TRUE</span><span class='op'>)</span>,
+  std_out_err <span class='op'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span><span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span>,
+  pandoc_args <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>html_preview</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -317,7 +317,8 @@ about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
     <p>An R Markdown output format to pass to <code><a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>rmarkdown::render()</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>reprex_document</span>()</div><div class='output co'>#&gt; $knitr
+    <pre class="examples"><div class='input'><span class='fu'>reprex_document</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $knitr
 #&gt; $knitr$opts_chunk
 #&gt; $knitr$opts_chunk$dev
 #&gt; [1] "png"
@@ -370,7 +371,7 @@ about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
 #&gt;         stop("failed to upload ", file)
 #&gt;     structure(res$link[[1]], XML = res)
 #&gt; }
-#&gt; &lt;bytecode: 0x7f95dcc295a0&gt;
+#&gt; &lt;bytecode: 0x7f98b596b5c0&gt;
 #&gt; &lt;environment: namespace:knitr&gt;
 #&gt; 
 #&gt; 
@@ -431,8 +432,8 @@ about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
 #&gt;     }
 #&gt;     write_lines(input_lines, knit_input)
 #&gt; }
-#&gt; &lt;bytecode: 0x7f95dc831cd0&gt;
-#&gt; &lt;environment: 0x7f95dc833e20&gt;
+#&gt; &lt;bytecode: 0x7f98b2687378&gt;
+#&gt; &lt;environment: 0x7f98b2685500&gt;
 #&gt; 
 #&gt; $post_knit
 #&gt; NULL
@@ -454,8 +455,8 @@ about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
 #&gt;     if (is.function(overlay)) 
 #&gt;         overlay()
 #&gt; }
-#&gt; &lt;bytecode: 0x7f95dcc82b50&gt;
-#&gt; &lt;environment: 0x7f95dcc825d8&gt;
+#&gt; &lt;bytecode: 0x7f98b59c0f68&gt;
+#&gt; &lt;environment: 0x7f98b59c0a28&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "rmarkdown_output_format"</div></pre>

@@ -60,6 +60,7 @@ mentality. Here's a simplified version of what happens:callr::r(
   stdout = std_file, stderr = std_file
 )
 
+
 Key features to note
 rmarkdown::render() is executed in a new R session, by using
 callr::r(). The goal is to eliminate the leakage of objects, attached
@@ -190,14 +191,15 @@ with other R Markdown output formats, but it is not well-tested." />
 
     <div class="ref-description">
     <p>This is a wrapper around <code><a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>rmarkdown::render()</a></code> that enforces the "reprex"
-mentality. Here's a simplified version of what happens:</p><pre><span class='kw pkg'>callr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/callr/man/r.html'>r</a></span>(
-  <span class='kw'>function</span>(<span class='no'>input</span>) {
-    <span class='kw pkg'>rmarkdown</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>render</a></span>(<span class='no'>input</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>globalenv</a></span>(), <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"UTF-8"</span>)
-  },
-  <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>input</span> <span class='kw'>=</span> <span class='no'>input</span>),
-  <span class='kw'>spinner</span> <span class='kw'>=</span> <span class='fu'>is_interactive</span>(),
-  <span class='kw'>stdout</span> <span class='kw'>=</span> <span class='no'>std_file</span>, <span class='kw'>stderr</span> <span class='kw'>=</span> <span class='no'>std_file</span>
-)</pre>
+mentality. Here's a simplified version of what happens:</p><pre><span class='fu'>callr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/callr/man/r.html'>r</a></span><span class='op'>(</span>
+  <span class='kw'>function</span><span class='op'>(</span><span class='va'>input</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='fu'>rmarkdown</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>render</a></span><span class='op'>(</span><span class='va'>input</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>globalenv</a></span><span class='op'>(</span><span class='op'>)</span>, encoding <span class='op'>=</span> <span class='st'>"UTF-8"</span><span class='op'>)</span>
+  <span class='op'>}</span>,
+  args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>input <span class='op'>=</span> <span class='va'>input</span><span class='op'>)</span>,
+  spinner <span class='op'>=</span> <span class='fu'>is_interactive</span><span class='op'>(</span><span class='op'>)</span>,
+  stdout <span class='op'>=</span> <span class='va'>std_file</span>, stderr <span class='op'>=</span> <span class='va'>std_file</span>
+<span class='op'>)</span>
+</pre>
 
 <p>Key features to note</p><ul>
 <li><p><code><a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>rmarkdown::render()</a></code> is executed in a new R session, by using
@@ -219,7 +221,7 @@ format, typically through a call to <code><a href='reprex.html'>reprex()</a></co
 with other R Markdown output formats, but it is not well-tested.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>reprex_render</span>(<span class='no'>input</span>, <span class='kw'>html_preview</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"UTF-8"</span>)</pre>
+    <pre class="usage"><span class='fu'>reprex_render</span><span class='op'>(</span><span class='va'>input</span>, html_preview <span class='op'>=</span> <span class='cn'>NULL</span>, encoding <span class='op'>=</span> <span class='st'>"UTF-8"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -250,9 +252,10 @@ button in the RStudio IDE.</p></td>
 of the output file.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>reprex_render</span>(<span class='st'>"input.Rmd"</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>reprex_render</span><span class='op'>(</span><span class='st'>"input.Rmd"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
