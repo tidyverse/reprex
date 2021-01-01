@@ -10,9 +10,6 @@
     <loc>https://reprex.tidyverse.org/reference/reprex.html</loc>
   </url>
   <url>
-    <loc>https://reprex.tidyverse.org/reference/reprex_VENUE.html</loc>
-  </url>
-  <url>
     <loc>https://reprex.tidyverse.org/reference/reprex_addin.html</loc>
   </url>
   <url>
@@ -26,6 +23,9 @@
   </url>
   <url>
     <loc>https://reprex.tidyverse.org/reference/reprex_render.html</loc>
+  </url>
+  <url>
+    <loc>https://reprex.tidyverse.org/reference/reprex_venue.html</loc>
   </url>
   <url>
     <loc>https://reprex.tidyverse.org/reference/un-reprex.html</loc>
