@@ -89,19 +89,46 @@ reprex_render_impl <- function(input,
     crayon.enabled = FALSE
   )
   if (new_session) {
-    md_file <- callr::r(
-      function(input, opts) {
-        options(opts)
-        rmarkdown::render(
-          input,
-          quiet = TRUE, envir = globalenv(), encoding = "UTF-8"
-        )
-      },
-      args = list(input = input, opts = opts),
-      spinner = is_interactive(),
-      stdout = std_file,
-      stderr = std_file
+    out <- tryCatch(
+      callr::r(
+        function(input, opts) {
+          options(opts)
+          rmarkdown::render(
+            input,
+            quiet = TRUE, envir = globalenv(), encoding = "UTF-8"
+          )
+        },
+        args = list(input = input, opts = opts),
+        spinner = is_interactive(),
+        stdout = std_file,
+        stderr = std_file
+      ),
+      error = function(e) e
     )
+
+    # reprex has crashed R
+    if (inherits(out, "error")) {
+      if (!inherits(out, "callr_status_error")) {
+        abort(glue::glue("
+          Internal error: Unhandled error from `rmarkdown::render()` in the \\
+          external process"))
+      }
+      if (!isTRUE(std_out_err)) {
+        abort(glue::glue("
+          This reprex appears to crash R
+          Call `reprex()` again with `std_out_err = TRUE` to get more info"))
+      }
+      md_lines <- c(
+        "This reprex appears to crash R.",
+        "See standard output and standard error for more details.",
+        "",
+        std_out_err_stub(input, venue %in% c("gh", "html"))
+      )
+      md_file <- md_file(input)
+      write_lines(md_lines, md_file)
+    } else {
+      md_file <- out
+    }
 
     if (!is.null(std_file)) {
       inject_file(md_file, std_file)
