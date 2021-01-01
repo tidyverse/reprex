@@ -7,21 +7,11 @@ expect_error_free <- function(...) {
 # 3. schedules these cleanup actions for when env goes out of scope:
 #    - restore original working directory
 #    - delete the directory
-# BUT also works when called in the Console, for interactive development joy
-scoped_temporary_wd <- function(pattern = "reprextests",
+local_temp_wd <- function(pattern = "reprextests",
                                 env = parent.frame()) {
-  tmp <- fs::dir_create(fs::file_temp(pattern))
 
-  # Can't schedule deferred events if calling this from the R console, which
-  # is useful when developing tests
-  if (identical(env, globalenv())) {
-    message("Switching to a temporary working directory!")
-    message("Manually restore wd: setwd(rstudioapi::getActiveProject())")
-    setwd(tmp)
-  } else {
-    withr::local_dir(tmp, .local_envir = env)
-    withr::defer(dir_delete(tmp), envir = env)
-  }
+  tmp <- withr::local_tempdir(pattern = pattern, .local_envir = env)
+  withr::local_dir(tmp, .local_envir = env)
   invisible(tmp)
 }
 

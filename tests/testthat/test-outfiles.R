@@ -8,7 +8,7 @@ expect_messages_to_include <- function(haystack, needles) {
 
 test_that("expected outfiles are written and messaged, venue = 'gh'", {
   skip_on_cran()
-  scoped_temporary_wd()
+  local_temp_wd()
 
   msg <- capture_messages(
     ret <- reprex(1:5, outfile = "foo")
@@ -25,7 +25,7 @@ test_that("expected outfiles are written and messaged, venue = 'gh'", {
 
 test_that("expected outfiles are written and messaged, venue = 'R'", {
   skip_on_cran()
-  scoped_temporary_wd()
+  local_temp_wd()
 
   msg <- capture_messages(
     ret <- reprex(1:5, outfile = "foo", venue = "R")
@@ -43,7 +43,7 @@ test_that("expected outfiles are written and messaged, venue = 'R'", {
 
 test_that("`.md` extension is stripped from outfile", {
   skip_on_cran()
-  scoped_temporary_wd()
+  local_temp_wd()
 
   ret <- reprex(1:5, outfile = "foo.md")
   expect_true(file_exists("foo_reprex.R"))
@@ -52,7 +52,7 @@ test_that("`.md` extension is stripped from outfile", {
 
 test_that(".R outfile doesn't clobber .R infile", {
   skip_on_cran()
-  scoped_temporary_wd()
+  local_temp_wd()
 
   write_lines("1:5", "foo.R")
   ret <- reprex(input = "foo.R", outfile = NA)
@@ -61,7 +61,7 @@ test_that(".R outfile doesn't clobber .R infile", {
 
 test_that("outfiles in a subdirectory works", {
   skip_on_cran()
-  scoped_temporary_wd()
+  local_temp_wd()
 
   dir_create("foo")
   msg <- capture_messages(
@@ -77,7 +77,7 @@ test_that("outfiles in a subdirectory works", {
 
 test_that("outfiles based on input file", {
   skip_on_cran()
-  scoped_temporary_wd()
+  local_temp_wd()
 
   write_lines("1:5", "foo.R")
   msg <- capture_messages(
@@ -94,7 +94,7 @@ test_that("outfiles based on input file", {
 
 test_that("outfiles based on tempfile()", {
   skip_on_cran()
-  scoped_temporary_wd()
+  local_temp_wd()
 
   msg <- capture_messages(
     ret <- reprex(input = c("x <- 1:3", "min(x)"), outfile = NA)
@@ -115,7 +115,7 @@ test_that("outfiles based on tempfile()", {
 
 test_that("pre-existing foo_reprex.R doesn't get clobbered w/o user's OK", {
   skip_on_cran()
-  scoped_temporary_wd()
+  local_temp_wd()
 
   ret <- reprex(1:3, outfile = "foo")
   expect_match(read_lines("foo_reprex.md"), "1:3", all = FALSE, fixed = TRUE)
