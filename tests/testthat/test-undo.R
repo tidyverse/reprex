@@ -101,7 +101,7 @@ test_that("reprex_rescue() can cope with leading whitespace", {
 
 test_that("reprex_invert() can write to specific outfile", {
   skip_on_cran()
-  scoped_temporary_wd()
+  local_temp_wd()
 
   code <- c("x <- 1:3", "median(x)")
   invert_me <- reprex(input = code, advertise = FALSE)
@@ -111,7 +111,7 @@ test_that("reprex_invert() can write to specific outfile", {
 
 test_that("reprex_invert() can name its own outfile", {
   skip_on_cran()
-  scoped_temporary_wd()
+  local_temp_wd()
 
   code <- c("x <- 1:3", "median(x)")
   invert_me <- reprex(input = code, advertise = FALSE)
@@ -125,7 +125,7 @@ test_that("reprex_invert() can name its own outfile", {
 
 test_that("reprex_invert() can name outfile based on input filepath", {
   skip_on_cran()
-  scoped_temporary_wd()
+  local_temp_wd()
 
   code <- c("x <- 1:3", "median(x)")
   reprex(input = code, advertise = FALSE, outfile = "a")
@@ -135,7 +135,7 @@ test_that("reprex_invert() can name outfile based on input filepath", {
 
 test_that("reprex_invert(venue = 'gh') doesn't strip leading ws", {
   skip_on_cran()
-  scoped_temporary_wd()
+  local_temp_wd()
 
   input <- c("head(", "    letters)")
   reprexed <- reprex(
