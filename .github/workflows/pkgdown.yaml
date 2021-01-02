@@ -15,33 +15,34 @@ jobs:
       - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-r@v1
+        id: install-r
 
       - uses: r-lib/actions/setup-pandoc@v1
 
-      - name: Query dependencies
+      - name: Install system dependencies
+        run: brew install harfbuzz fribidi
+
+     - name: Install pak and query dependencies
         run: |
-          install.packages('remotes')
-          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
-          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
+          install.packages("pak", repos = "https://r-lib.github.io/p/pak/dev/")
+          saveRDS(pak::pkg_deps_tree(c("local::.", "pkgdown", "dplyr" "tidyverse/tidytemplate"), dependencies = TRUE), ".github/r-depends.rds")
         shell: Rscript {0}
 
       - name: Cache R packages
         uses: actions/cache@v2
         with:
           path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+          key: ${{ runner.os }}-${{ steps.install-r.outputs.installed-r-version }}-1-${{ hashFiles('.github/r-depends.rds') }}
+          restore-keys: ${{ runner.os }}-${{ steps.install-r.outputs.installed-r-version }}-1-
 
-      - name: Install dependencies
+      - name: Install package and dependencies
         run: |
-          remotes::install_deps(dependencies = TRUE)
-          install.packages("pkgdown", type = "binary")
-          install.packages("dplyr")
-          remotes::install_github("tidyverse/tidytemplate")
-        shell: Rscript {0}
-
-      - name: Install package
-        run: R CMD INSTALL .
+          pak::local_install(upgrade = TRUE)
+          pak::local_install_dev_deps()
+          pak::pkg_install("pkgdown")
+          pak::pkg_install("dplyr")
+          pak::pkg_install("tidyverse/tidytemplate")
+       shell: Rscript {0}
 
       - name: Deploy package
         run: |
