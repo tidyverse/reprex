@@ -22,7 +22,7 @@ jobs:
       - name: Install system dependencies
         run: brew install harfbuzz fribidi
 
-     - name: Install pak and query dependencies
+      - name: Install pak and query dependencies
         run: |
           install.packages("pak", repos = "https://r-lib.github.io/p/pak/dev/")
           saveRDS(pak::pkg_deps_tree(c("local::.", "pkgdown", "dplyr" "tidyverse/tidytemplate"), dependencies = TRUE), ".github/r-depends.rds")
