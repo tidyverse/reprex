@@ -2,7 +2,7 @@
 
 <!-- badges: start -->
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/reprex)](https://cran.r-project.org/package=reprex)
-[![R build status](https://github.com/tidyverse/reprex/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/reprex/actions)
+[![R-CMD-check](https://github.com/tidyverse/reprex/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/reprex/actions)
 [![Codecov test coverage](https://codecov.io/gh/tidyverse/reprex/branch/master/graph/badge.svg)](https://codecov.io/gh/tidyverse/reprex?branch=master)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 <!-- badges: end -->
