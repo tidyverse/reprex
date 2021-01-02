@@ -24,13 +24,15 @@
 
 * New article on techniques for making package startup quieter (#187, @marionlouveaux).
 
-*  The `tidyverse_quiet` argument and `reprex.tidyverse_quiet` option also affect startup messages from the [tidymodels](https://www.tidymodels.org) meta-package (#326, @juliasilge).
+*  The `tidyverse_quiet` argument and `reprex.tidyverse_quiet` option also affects startup messages from the [tidymodels](https://www.tidymodels.org) meta-package (#326, @juliasilge).
 
 * `reprex_locale()` is a new thin wrapper around `reprex()` that renders in a temporarily-altered locale (#250).
 
 * UTF-8 encoding: Following the lead of knitr, reprex makes explicit use of UTF-8 internally (#237 @krlmlr, #261).
 
 * `venue = "so"` (SO = Stack Overflow) has converged with default `venue = "gh"` (GitHub). As of January 2019, SO [supports CommonMark fenced code blocks](https://meta.stackexchange.com/questions/125148/implement-style-fenced-markdown-code-blocks/322000#322000). The only remaining difference is that Stack Overflow does not support the collapsible details tag that we use on GitHub for the session info requested via `si = TRUE` (#231).
+
+* When the reprex causes R to crash, `reprex(std_out_err = TRUE)` is able to provide more information about the crash, in some cases (#312).
 
 ## Dependency changes
 
