@@ -65,6 +65,7 @@ test_that("reprex() errors for an R crash, by default", {
 })
 
 test_that("reprex() copes with an R crash, when `std_out_err = TRUE`", {
+  skip_on_os("windows")
   # TODO: consider switching to expect_snapshot() after switch to 3e
   code <- 'utils::getFromNamespace("crash", "callr")()\n'
   expect_error_free(
