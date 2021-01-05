@@ -2,9 +2,13 @@
 title: "reprex venue RTF"
 ---
 
-Use `reprex_rtf()` or `reprex(venue = "rtf")` to get output in [Rich Text Format](https://en.wikipedia.org/wiki/Rich_Text_Format). This is useful for creating syntax highlighted code snippets -- rendered or not -- to paste into software such as Keynote or PowerPoint.
+Use `reprex_rtf()` or `reprex(venue = "rtf")` to get output in [Rich Text Format](https://en.wikipedia.org/wiki/Rich_Text_Format).
+This is useful for creating syntax highlighted code snippets -- rendered or not -- to paste into software such as Keynote or PowerPoint.
 
-Why is RTF special? Although Pandoc can produce RTF and, therefore, so can `rmarkdown::render()` and `reprex::reprex()`, Pandoc's syntax highlighting is unavailable for RTF output. For now, we've got to get the functionality from somewhere else. Syntax highlighting is a non-issue for `venue = "gh"` (GitHub) and `venue = "so"` (Stack Overflow), because the target sites take care of that when the Markdown content is displayed.
+Why is RTF special?
+Although Pandoc can produce RTF and, therefore, so can `rmarkdown::render()` and `reprex::reprex()`, Pandoc's syntax highlighting is unavailable for RTF output.
+For now, we've got to get the functionality from somewhere else.
+Syntax highlighting is a non-issue for `venue = "gh"` (GitHub) and `venue = "so"` (Stack Overflow), because the target sites take care of that when the Markdown content is displayed.
 
 <p>
 <div style="height: auto">
@@ -12,19 +16,52 @@ Why is RTF special? Although Pandoc can produce RTF and, therefore, so can `rmar
 </div>
 </p>
 
-`reprex(venue = "rtf")` was introduced in v0.2.1 and is experimental. It requires the installation of the
-[highlight](http://www.andre-simon.de/doku/highlight/en/highlight.php) command line tool and has only been tested on macOS. It is useful to me already and accumulating some usage is the best way to figure out how to make it useful to others. It would be preferable to use something like the [highlight package](https://cran.r-project.org/package=highlight) at some point in the future, but let us experiment with this hack in the meantime.
+The "rtf" venue was introduced in reprex v0.2.1 and is experimental.
+The [highlight](http://www.andre-simon.de/doku/highlight/en/highlight.php) command line tool must (1) be installed and (2) be on your `PATH`.
+People have successfully used `reprex_rtf()` on macOS and Windows (specifically, Windows 10 + Windows PowerShell 5.1).
+We consider it experimental because of the rather hacky way we shell out to highlight and, long-term, it would be preferable to get syntax-highlighted RTF through a proper R package.
+The existing [highlight R package](https://cran.r-project.org/package=highlight) can't do this (yet?).
 
-If you use [homebrew](https://brew.sh), here's an easy way to install highlight from the shell:
+### How to install highlight
+
+For macOS users who use [homebrew](https://brew.sh):
 
 ```{sh eval = FALSE}
 brew install highlight
 ```
 
+For Windows users who use [chocolatey](https://chocolatey.org/):
+
+```{sh eval = FALSE}
+choco install highlight
+```
+
+On Windows, this does not seem to add highlight to your `PATH`.
+You may [need to do this manually](https://www.maketecheasier.com/what-is-the-windows-path/).
+In my case, I added `C:\Program Files\Highlight` to `PATH`.
+
+`reprex_rtf()` should work when `Sys.which("highlight")`, executed in R, correctly returns the path to your highlight executable.
+
+Here's how that looks for me on macOS:
+
+```{r eval = FALSE}
+Sys.which("highlight")
+#>                  highlight 
+#> "/usr/local/bin/highlight" 
+```
+
+and on Windows:
+
+```{r eval = FALSE}
+Sys.which("highlight")
+#>                              highlight 
+#> "C:\\PROGRA~1\\HIGHLI~1\\HIGHLI~2.EXE" 
+```
+
 Here is the highlight call implied by the default behaviour of `reprex_rtf(...)` or `reprex(..., venue = "rtf")`:
 
 ```{sh eval = FALSE}
-highlight foo_reprex.R --out-format rtf --no-trailing-nl --encoding=UTF-8 --style darkbone --font 'Courier Regular' --font-size 50 > foo_reprex.rtf
+highlight -i foo_reprex.R --out-format rtf --no-trailing-nl --encoding=UTF-8 --style darkbone --font 'Courier Regular' --font-size 50 -o foo_reprex.rtf
 ```
 
 ## Basic usage
@@ -44,7 +81,9 @@ knitr::include_graphics("img/keynote-w00t.png")
 
 ## highlight options
 
-If you don't like the defaults, control highlight command line arguments by setting `reprex.highlight.*` options. Why options? I didn't want to burden `reprex()` with even more arguments and this is usually something you want to set globally for yourself or for an entire project or talk or course.
+If you don't like the defaults, control highlight command line arguments by setting `reprex.highlight.*` options.
+Why options?
+I didn't want to burden `reprex()` with even more arguments and this is usually something you want to set globally for yourself or for an entire project or talk or course.
 
 Example of setting options in `.Rprofile`:
 
@@ -70,12 +109,14 @@ List available themes:
 highlight --list-scripts=themes
 ```
 
-But what do these themes *look like*? Here are some galleries that probably have high overlap with your themes:
+But what do these themes *look like*?
+Here are some galleries that probably have high overlap with your themes:
 
 <http://www.andre-simon.de/doku/highlight/en/theme-samples.php>  
 <https://rclickhandbuch.files.wordpress.com/2014/09/knitrthemesoverview.pdf>
 
-You can also override defaults on-the-fly. Here's how to do that for a single call using withr and, as a bonus, how to use `reprex.highlight.other` to send arbitrary command line arguments to highlight:
+You can also override defaults on-the-fly.
+Here's how to do that for a single call using withr and, as a bonus, how to use `reprex.highlight.other` to send arbitrary command line arguments to highlight:
 
 ```{r dusk-fira-35-line-numbers, eval = FALSE}
 withr::with_options(
@@ -112,6 +153,8 @@ options(op)
 knitr::include_graphics("img/anotherdark-andale-60-line-numbers.png")
 ```
 
+Once, for an important talk, I even created a custom highlight theme that matched my Keynote theme (see [how-to notes](https://github.com/jennybc/debugging/blob/master/how-to/highlight-custom-theme.md)).
+
 ## Run ... or not
 
 If you just want to highlight code, but not run it, set chunk option `eval = FALSE` option, i.e. put a special comment as the first line of your reprex source:
@@ -122,7 +165,8 @@ If you just want to highlight code, but not run it, set chunk option `eval = FAL
 mean(x)
 ```
 
-The above source, when `reprex()`ed, will not include the usual output. This is not specific to `venue = "rtf"`, but it's more likely to come up in this setting.
+The above source, when `reprex()`ed, will not include the usual output.
+This is not specific to `venue = "rtf"`, but it's more likely to come up in this setting.
 
 ```{r echo = FALSE, out.width = "20%"}
 knitr::include_graphics("img/eval-false.png")
@@ -132,9 +176,11 @@ knitr::include_graphics("img/eval-false.png")
 
 ### `reprex:::prex()` and friends
 
-When preparing bits of code for a presentation, it can be impractical to make each snippet completely self-contained. You really need to run the snippets in the current workspace and session. But `reprex()` does not allow this.
+When preparing bits of code for a presentation, it can be impractical to make each snippet completely self-contained.
+You really need to run the snippets in the current workspace and session. But `reprex()` does not allow this.
 
-The **unexported** function `prex()` addresses this use case. It's like `reprex()`, but much less reproducible!
+The **unexported** function `prex()` addresses this use case.
+It's like `reprex()`, but much less reproducible!
 
   * Code is evaluated in the global environment of the current R session.
   * Current working directory is used.
