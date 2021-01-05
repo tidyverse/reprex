@@ -253,11 +253,14 @@ prex_rtf <- reprex:::prex_rtf
 
 ## Selectively hide and reveal code
 
-*Before `prex()` existed, you had to use a more cumbersome technique to produce small snippets, by hiding code. We leave this here in case it is still useful in some situations.*
+*Before `prex()` existed, you had to use a more cumbersome technique to produce small snippets, by hiding code.
+We leave this here in case it is still useful in some situations.*
 
 You can use knitr chunk options to selectively hide code, i.e. to run a large snippet, but only include a small bit in the output.
 
-This is easiest to show by example. If you `reprex()` this code, only the last three lines and their output will appear in the output. But the other lines will be run, i.e. `str_reverse()` will be defined, as will the `bizzaro()` generic and default method.
+This is easiest to show by example.
+If you `reprex()` this code, only the last three lines and their output will appear in the output.
+But the other lines will be run, i.e. `str_reverse()` will be defined, as will the `bizzaro()` generic and default method.
 
 ```{r bizarro-selective-reveal, eval = FALSE}
 #+ include = FALSE
