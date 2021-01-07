@@ -7,7 +7,11 @@ reprex_highlight <- function(rout_file, reprex_file, arg_string = NULL) {
     arg_string,
     " -o ", reprex_file
   )
-  res <- system(cmd)
+  if (is_windows()) {
+    res <- shell(cmd)
+  } else {
+    res <- system(cmd)
+  }
   if (res > 0) {
     stop("`highlight` call unsuccessful.", call. = FALSE)
   }

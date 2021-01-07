@@ -34,6 +34,8 @@
 
 * When the reprex causes R to crash, `reprex(std_out_err = TRUE)` is able to provide more information about the crash, in some cases (#312).
 
+* Experimental venue "rtf" now works on Windows, to approximately the same extent as it works on macOS. In both cases, it still requires a working installation of the highlight command line tool (#331).
+
 ## Dependency changes
 
 R 3.1 is no longer explicitly supported or tested. Our general practice is to support the current release (3.6, at time of writing), devel, and the 4 previous versions of R (3.5, 3.4, 3.3, 3.2).

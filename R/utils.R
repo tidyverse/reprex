@@ -1,3 +1,7 @@
+is_windows <- function() {
+  .Platform$OS.type == "windows"
+}
+
 is_toggle <- function(x) {
   length(x) == 1 && is.logical(x) && !is.na(x)
 }
@@ -35,6 +39,24 @@ ingest_clipboard <- function() {
   }
   message("No input provided and clipboard is not available.")
   character()
+}
+
+write_clip_windows_rtf <- function(path) {
+  cmd <- glue::glue('
+    powershell -Command "\\
+    Add-Type -AssemblyName System.Windows.Forms | Out-Null;\\
+    [Windows.Forms.Clipboard]::SetText(
+    (Get-Content -Raw {path}),\\
+    [Windows.Forms.TextDataFormat]::Rtf
+    )"')
+  res <- system(cmd)
+  if (res > 0) {
+    #stop("Failed to put RTF on the Windows clipboard", call. = FALSE)
+    message("Failed to put RTF on the Windows clipboard :(")
+    invisible(FALSE)
+  } else {
+    invisible(TRUE)
+  }
 }
 
 escape_regex <- function(x) {
