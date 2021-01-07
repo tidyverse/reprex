@@ -1,0 +1,71 @@
+What happens inside render()?
+Notes made when preparing to write my own output format
+
+https://github.com/rstudio/rmarkdown/blame/master/R/render.R
+
+1. knitr::spin(spin_input, knit = FALSE, envir = envir, format = "Rmd")
+   line 397
+
+   Only thought here is that default metadata is added unconditionally,
+   so I will need to find a way to make sure that is ignored (by having
+   user metadata elsewhere in the file) or removed.
+
+   I suppose I will still be including my own frontmatter, in order to
+   specify the output format. This could be a good reason to do so via
+   YAML instead of in the render() call.
+
+2. YAML front matter is read
+   line 420
+
+   Seems pretty boring / irrelevant?
+
+3. output format is read from YAML, if wasn't specified in the call
+   line 461
+
+   Seems pretty important but unless I start doing something with options
+   doesn't seem to affect me.
+
+4. pandoc_to is set
+   line 469
+
+   Determined from the output format: `output_format$pandoc$to`
+
+5. output_format$intermediates_generator is called
+   line 502
+
+   Seems irrelevant to me but this is my first chance to do something via
+   the custom output format.
+
+6. pre_knit handler is called
+   line 532
+
+   Chance to act on the input file, which at this point is the Rmd output of
+   spin(knit = FALSE).
+
+7. knitr options and hooks are set
+   line 615
+
+   Calls to knitr::opts_knit$set(), knitr::opts_chunk$set().
+   I'd need to figure out how to the the tidyverse_quiet R option.
+
+8. Main knit
+   line 740
+
+9. post_knit handler is called
+   line 748
+
+   Well, this is what the comment says, but the code seems a bit surprising. I
+   think it's more accurate to say we're registering a post_knit handler.
+
+10. pre-processor
+    line 819
+
+    Again, feels like we're registering a pre-processor.
+
+11. Call pandoc
+    line 890
+
+    output_format$pandoc$args is a very important argument
+
+12. Call post processor
+    line 949
