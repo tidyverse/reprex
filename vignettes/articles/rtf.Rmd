@@ -2,8 +2,9 @@
 title: "reprex venue RTF"
 ---
 
-Use `reprex_rtf()` or `reprex(venue = "rtf")` to get output in [Rich Text Format](https://en.wikipedia.org/wiki/Rich_Text_Format).
-This is useful for creating syntax highlighted code snippets -- rendered or not -- to paste into software such as Keynote or PowerPoint.
+Use `reprex_rtf()` to get output in [Rich Text Format](https://en.wikipedia.org/wiki/Rich_Text_Format).
+It is a convenience wrapper around `reprex(venue = "rtf")`.
+This is useful for creating syntax highlighted code snippets -- rendered or not -- to paste into software such as Keynote, PowerPoint, or Word.
 
 Why is RTF special?
 Although Pandoc can produce RTF and, therefore, so can `rmarkdown::render()` and `reprex::reprex()`, Pandoc's syntax highlighting is unavailable for RTF output.
@@ -24,21 +25,25 @@ The existing [highlight R package](https://cran.r-project.org/package=highlight)
 
 ### How to install highlight
 
-For macOS users who use [homebrew](https://brew.sh):
+The highlight website offers downloads in various forms, for various OSes:
+
+* <http://www.andre-simon.de/zip/download.php>
+
+For macOS users who use [homebrew](https://brew.sh), this works:
 
 ```{sh eval = FALSE}
 brew install highlight
 ```
 
-For Windows users who use [chocolatey](https://chocolatey.org/):
+For Windows users who use [chocolatey](https://chocolatey.org/), this works:
 
 ```{sh eval = FALSE}
 choco install highlight
 ```
 
-On Windows, this does not seem to add highlight to your `PATH`.
-You may [need to do this manually](https://www.maketecheasier.com/what-is-the-windows-path/).
-In my case, I added `C:\Program Files\Highlight` to `PATH`.
+On Windows, the chocolatey method did not add highlight to my `PATH` and this could affect other methods of installation as well.
+In this case, you'll [need to do this manually](https://www.maketecheasier.com/what-is-the-windows-path/).
+In my case, I needed to add `C:\Program Files\Highlight` to `PATH`.
 
 `reprex_rtf()` should work when `Sys.which("highlight")`, executed in R, correctly returns the path to your highlight executable.
 
@@ -58,7 +63,7 @@ Sys.which("highlight")
 #> "C:\\PROGRA~1\\HIGHLI~1\\HIGHLI~2.EXE" 
 ```
 
-Here is the highlight call implied by the default behaviour of `reprex_rtf(...)` or `reprex(..., venue = "rtf")`:
+Here is the highlight call implied by the default behaviour of `reprex_rtf()`:
 
 ```{sh eval = FALSE}
 highlight -i foo_reprex.R --out-format rtf --no-trailing-nl --encoding=UTF-8 --style darkbone --font 'Courier Regular' --font-size 50 -o foo_reprex.rtf
@@ -85,7 +90,7 @@ If you don't like the defaults, control highlight command line arguments by sett
 Why options?
 I didn't want to burden `reprex()` with even more arguments and this is usually something you want to set globally for yourself or for an entire project or talk or course.
 
-Example of setting options in `.Rprofile`:
+Set these options with code like this:
 
 ```{r eval = FALSE}
 options(
@@ -100,7 +105,10 @@ The supported options are `reprex.highlight.hl_style`, `reprex.highlight.font`, 
 You could set options for all your reprexing by doing this in your user-level `.Rprofile`. Create or open this file via `usethis::edit_r_profile()`.
 
 You could also set options for a specific Project in `.Rprofile` inside the Project. Create or open this file via `usethis::edit_r_profile("project")`.
- 
+
+Finally, you might collect all of the R snippets destined for inclusion in, e.g. some talk slides, in a `.R` file.
+It would make sense to set the `reprex.highlight.*` options at the start of that file.
+
 `hl_style` must be one of your existing highlight themes and `font` must be one of your installed fonts.
 
 List available themes:
@@ -153,7 +161,12 @@ options(op)
 knitr::include_graphics("img/anotherdark-andale-60-line-numbers.png")
 ```
 
-Once, for an important talk, I even created a custom highlight theme that matched my Keynote theme (see [how-to notes](https://github.com/jennybc/debugging/blob/master/how-to/highlight-custom-theme.md)).
+Experience has shown that it is hard to predict which aspects of the RTF will be honored when you paste into the target document.
+We're talking about things like the font size or background color.
+This seems to vary greatly across applications and operating systems and you'll just have to experiment to find a workflow that is practical for you.
+
+Note that it is even possible to create a custom highlight theme, e.g. to match the theme of a Keynote or Powerpoint slide deck with respect to background color, font, etc.
+A specific example of this is documented in these [how-to notes](https://github.com/jennybc/debugging/blob/master/how-to/highlight-custom-theme.md)).
 
 ## Run ... or not
 
