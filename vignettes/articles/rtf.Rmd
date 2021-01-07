@@ -44,6 +44,8 @@ choco install highlight
 On Windows, the chocolatey method did not add highlight to my `PATH` and this could affect other methods of installation as well.
 In this case, you'll [need to do this manually](https://www.maketecheasier.com/what-is-the-windows-path/).
 In my case, I needed to add `C:\Program Files\Highlight` to `PATH`.
+A second issue we've seen is with the scoop package manager for Windows, which uses a shim-based method of making the executables it install findable.
+The shim method appears to be less resilient to the different ways of calling highlight from R.
 
 `reprex_rtf()` should work when `Sys.which("highlight")`, executed in R, correctly returns the path to your highlight executable.
 
