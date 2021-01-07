@@ -189,7 +189,14 @@ unlink(list.files(here::here("internal"), pattern = "alfa_reprex", full.names = 
 ## A more complicated and worse solution
 
 The first working script that I wrote was actually much more complicated and demonstrably worse.
-It looked something like this, which I save to `write_clipboard_rtf_beta.ps1`:
+It was heavily influenced by:
+
+  *  <https://stackoverflow.com/questions/58551865/how-to-set-clipboards-plain-text-and-html-part-at-the-same-time-in-powershell> 
+  * <https://devblogs.microsoft.com/powershell/copy-console-screen-to-system-clipboard/>
+  * <https://stackoverflow.com/questions/16286957/how-to-copy-both-html-and-text-to-the-clipboard>
+  * <https://github.com/xavi-/node-copy-paste/issues/52#issuecomment-271694848>
+  
+My script started like this, which I save to `write_clipboard_rtf_beta.ps1`:
 
 ```{cat, engine.opts = list(file = "write_clipboard_rtf_beta.ps1")}
 Add-Type -AssemblyName "System.Windows.Forms"
@@ -233,9 +240,7 @@ Then you had one minute after calling `reprex_rtf()` to paste the RTF somewhere.
 
 Luckily using the simpler approach to writing rich text to the clipboard also solved the persistence problem at the same time.
 
-But if I ever need the more complicated version -- maybe to write an image? -- I'd have to grapple with this.
-I think there might be a way to request persistence FILL THIS IN.
-This would also go away if we were accessing the clipboard more directly.
+I turns out that the `SetData` method can be called with a boolean `$true` to affect persistence (which I apparently overlooked in some of the examples I took as inspiration).
 
 ## What PowerShell are we talking about?
 
@@ -244,3 +249,44 @@ Pragmatically, they are very similar, but if things don't seem to work as docume
 When we shell out to `powershell` from R, we are using Windows PowerShell.
 On my Windows 10 VM, I have Windows PowerShell 5.1.
 If my solution doesn't work for people on different versions of Windows, consider that this may be due to their having a different version of Windows PowerShell.
+
+## Thought and link dump
+
+Clearing browser tabs and Untitled14, etc.
+
+### How R writes to the Windows clipboard
+
+It happens here:
+
+[`src/library/utils/src/windows/util.c#L272-L338`](https://github.com/wch/r-source/blob/73683e489b07ecdda1d715929fe131504297e385/src/library/utils/src/windows/util.c#L272-L338)
+
+You could imagine registering the rich text format, but that seems exceedingly unlikely.
+More likely: an R package that uses OS-level APIs on macOS and Windows to read/write the clipboard.
+
+### Other languages
+
+Proper clipboard access in Python comes from [Python for Windows (pywin32) Extensions](https://github.com/mhammond/pywin32)
+
+> Yori is a CMD replacement shell that supports backquotes, job control, and improves tab completion, file matching, aliases, command history, and more. It includes a handful of native Win32 tools that implement commonly needed tasks which can be used with any shell.
+
+<https://github.com/malxau/yori/blob/4f20ad8f01a67385013670f6075f0260eab41f5b/lib/clip.c>
+
+
+
+### Stack Overflow threads
+
+<https://stackoverflow.com/questions/51977190/how-to-copy-rich-text-format-to-clipboard-with-python>
+
+### .NET
+
+The `DataFormats` class provides static, predefined Clipboard format names:
+
+  * <https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.dataformats?view=net-5.0>
+
+The `Clipboard.SetText` method:
+
+  * <https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.clipboard.settext?view=net-5.0>
+  
+The `TextDataFormat` Enum:
+
+  * <https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.textdataformat?view=net-5.0>
