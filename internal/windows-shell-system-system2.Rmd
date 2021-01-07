@@ -1,0 +1,136 @@
+---
+title: "Running an external process on Windows"
+output: github_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  error = TRUE
+)
+```
+
+Figuring out how to write RTF to the Windows clipboard made me think more about the functions `system()`, `system2()`, and (Windows only) `shell()`.
+
+Here's the highlight call used in `reprex_rtf()`, which converts such a `.R` file into RTF:
+
+```{sh eval = FALSE}
+highlight -i foo_reprex.R --out-format rtf --no-trailing-nl --encoding=UTF-8 --style darkbone --font 'Courier Regular' --font-size 50 -o gamma_reprex.rtf
+```
+
+There are many ways to invoke this from R:
+
+* `system()`: Docs say "not recommended for new code".
+* `system2()`: Officially, the "right" thing to use, at least on *nix.
+* `shell()`: Exists only on Windows. Explicitly runs `cmd` under a shell, which
+  is not the case for `system()` or `system2()` on Windows.
+* `processx::run()`
+
+`system()` and `system2()` only differ with respect to how the ultimately-run command is constructed.
+`system2()` is recommended for new code and takes care of some fiddly details, e.g. quoting.
+However, due to quoting nightmares, there are calls that can only be formed by `system()` and some that can't be formed at all (which is one of the reasons processx exists).
+The main thing to know is that on Windows `command` is executed directly, not within a shell, such as `cmd.exe` or `powershell.exe`.
+
+This is easiest to see in an example.
+`dir` is a command built into `cmd.exe`.
+It will work inside `shell()` but not within `system()` or `system2()`.
+
+```{r}
+shell("dir", intern = TRUE)
+print(system("dir"))
+print(system2("dir"))
+```
+
+How did this come up?
+Depending on how you have installed highlight, the `system()` and `shell()` calls below might produce different results.
+Specifically, the `system()` call is reported to fail here if highlight was installed via scoop, which uses a shim-based method of putting things it installs on the `PATH`.
+This may additionally have something to do with Windows short paths (?).
+
+```{r}
+system("highlight --version")
+shell("highlight --version")
+Sys.which("highlight")
+```
+
+In any case, my current hypothesis is that I should invoke highlight via `shell()` on Windows, to be more resilient to the different ways users may have installed highlight.
+
+Let's prove I can invoke highlight in several ways by implementing `reprex_rtf()` "by hand".
+First, we render a reprex to the "r" venue and explicitly write a local output file.
+
+```{r}
+library(reprex)
+
+reprex_r(sample(LETTERS, 5), outfile = here::here("internal/gamma"))
+```
+
+The output of this `gamma_reprex_rendered.R` is the input for the next step, which is to form RTF.
+
+More objects and helpers we'll use:
+
+```{r}
+r_file <- here::here("internal/gamma_reprex_rendered.R")
+rtf_file <- here::here("internal/gamma_reprex_rendered.rtf")
+```
+
+### `system()`
+
+```{r}
+(cmd <- glue::glue("
+   highlight -i {r_file} --out-format=rtf --no-trailing-nl --encoding=UTF-8 \\
+   -o {rtf_file}"))
+
+system(cmd)
+
+readLines(rtf_file)
+```
+
+### `system2()`
+
+```{r}
+unlink(rtf_file)
+
+(args <- c(
+  glue::glue("-i {r_file}"),
+  "--out-format=rtf", "--no-trailing-nl", "--encoding=UTF-8",
+  glue::glue("-o {rtf_file}")
+))
+
+print(system2("highlight", args))
+
+readLines(rtf_file)
+```
+
+### `shell()`
+
+```{r}
+unlink(rtf_file)
+
+(cmd <- glue::glue("
+   highlight -i {r_file} --out-format=rtf --no-trailing-nl --encoding=UTF-8 \\
+   -o {rtf_file}"))
+
+print(shell(cmd))
+
+readLines(rtf_file)
+
+unlink(rtf_file)
+
+print(shell(cmd, shell = "cmd"))
+
+readLines(rtf_file)
+
+unlink(rtf_file)
+
+print(shell(cmd, shell = "powershell"))
+
+readLines(rtf_file)
+```
+
+### Clean up
+
+```{r}
+unlink(list.files(here::here("internal"), pattern = "gamma_reprex", full.names = TRUE))
+```
