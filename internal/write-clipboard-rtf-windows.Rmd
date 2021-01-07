@@ -211,8 +211,9 @@ writeLines(readLines("write_clipboard_rtf_beta.ps1"))
 ```
 
 Here I instantiate a new `DataObject`, add the RTF to it, then set the clipboard to this object.
-In addition to being more convoluated, this had a huge functional problem: the RTF disappears from the clipboard as soon as the PowerShell exits.
+In addition to being more convoluted, this had a huge functional problem: the RTF disappears from the clipboard as soon as the PowerShell exits.
 During interactive development, you don't notice this, but it means the approach basically doesn't work from R.
+[This discussion](https://answers.microsoft.com/en-us/windows/forum/windows_10-start-win_general/clipboard-content-gets-deleted-after-the-uwp-app/192b6275-5143-40a9-bbe0-941c99329ee6) about a different tool contains a good description of why information placed on the clipboard by a certain app might disappear once that app is closed.
 
 This was very hard to figure out.
 To prove to myself that I was, indeed, writing the RTF to the clipboard, I inserted this at the end the script:
@@ -271,13 +272,32 @@ Proper clipboard access in Python comes from [Python for Windows (pywin32) Exten
 
 <https://github.com/malxau/yori/blob/4f20ad8f01a67385013670f6075f0260eab41f5b/lib/clip.c>
 
+### PowerShell
+
+How to get help for PowerShell commands:
+
+``` pwsh
+Get-Help Get-Service
+help Get-Service
+help Get-Service -Full
+help Get-Service -Detailed
+```
+
+From <https://www.tutorialspoint.com/how-to-use-powershell-help-commands>
 
 
-### Stack Overflow threads
+
+### Stack Overflow threads (or similar)
 
 <https://stackoverflow.com/questions/51977190/how-to-copy-rich-text-format-to-clipboard-with-python>
 
+<https://superuser.com/questions/1080239/run-powershell-command-from-cmd>
+
 ### .NET
+
+The `ClipBoard` class:
+
+  * <https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.clipboard?view=net-5.0>
 
 The `DataFormats` class provides static, predefined Clipboard format names:
 
@@ -290,3 +310,4 @@ The `Clipboard.SetText` method:
 The `TextDataFormat` Enum:
 
   * <https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.textdataformat?view=net-5.0>
+  * I saw exactly how to use this enum here: <https://github.com/gangstanthony/PowerShell/blob/master/Get-Clipboard.ps1>
