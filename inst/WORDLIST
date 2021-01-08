@@ -1,6 +1,6 @@
 AFAICT
 Addins
-Backtraces
+CMD
 Codecov
 CommonMark
 Heeris
@@ -8,6 +8,8 @@ McBain
 ORCID
 Pandoc
 Pandoc's
+PowerShell
+Powerpoint
 RCurl
 RStudio's
 RTF
@@ -26,6 +28,7 @@ andre
 behaviour
 bryan
 callr
+chocolatey
 customised
 datapasta
 datapasta's
@@ -38,12 +41,14 @@ ds
 else's
 eval
 executability
+findable
 formatR
 frontmatter
 fs
 funder
 gh
 github
+hacky
 homebrew
 http
 https
@@ -69,7 +74,6 @@ repr
 reprex's
 reprexing
 reproducibility
-rlang
 rmarkdown
 roxygen
 rstudio
