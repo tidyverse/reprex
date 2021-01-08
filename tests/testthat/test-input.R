@@ -62,9 +62,10 @@ test_that("Leading prompts are removed", {
   input <- c("x <- 1:3", "median(x)")
   res <- reprex(input = input, render = FALSE)
   input2 <- paste0(getOption("prompt"), input)
-  expect_message(
-    res2 <- reprex(input = input2, render = FALSE),
-    "Removing leading prompts"
+
+  local_reprex_quiet(FALSE)
+  expect_snapshot(
+    res2 <- reprex(input = input2, render = FALSE, html_preview = FALSE),
   )
   expect_identical(res, res2)
 })
