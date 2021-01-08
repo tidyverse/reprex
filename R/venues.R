@@ -39,10 +39,9 @@ normalize_venue <- function(venue) {
 
 ds_is_gh <- function(venue) {
   if (venue == "ds") {
-    message(
-      "FYI, the Discourse venue \"ds\" is currently an alias for the ",
-      "default GitHub venue \"gh\".\nYou don't need to specify it."
-    )
+    reprex_inform(glue::glue('
+      The Discourse venue "ds" is an alias for the default GitHub venue "gh".
+      There is no need to specify the venue.'))
     venue <- "gh"
   }
   venue
@@ -50,11 +49,9 @@ ds_is_gh <- function(venue) {
 
 so_is_gh <- function(venue) {
   if (venue == "so") {
-    message(
-      "FYI, the Stack Overflow venue \"so\" is no longer necessary. Due to ",
-      "changes at\nStack Overflow, the markdown produced by the default GitHub ",
-      "venue \"gh\" works in\nboth places. You don't need to specify it."
-    )
+    reprex_inform(glue::glue('
+      The Stack Overflow venue "so" is an alias for the default GitHub venue "gh".
+      There is no need to specify the venue.'))
     venue <- "gh"
   }
   venue
