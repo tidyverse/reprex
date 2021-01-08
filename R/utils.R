@@ -37,7 +37,7 @@ ingest_clipboard <- function() {
       enc2utf8(clipr::read_clip() %||% character())
     ))
   }
-  message("No input provided and clipboard is not available.")
+  reprex_inform("No input provided and clipboard is not available.")
   character()
 }
 
@@ -52,7 +52,7 @@ write_clip_windows_rtf <- function(path) {
   res <- system(cmd)
   if (res > 0) {
     #stop("Failed to put RTF on the Windows clipboard", call. = FALSE)
-    message("Failed to put RTF on the Windows clipboard :(")
+    reprex_inform("Failed to put RTF on the Windows clipboard :(")
     invisible(FALSE)
   } else {
     invisible(TRUE)
@@ -79,3 +79,7 @@ r_chunk <- function(code, label = NULL) {
 backtick <- function(x) encodeString(x, quote = "`")
 
 newline <- function(x) paste0(x, "\n")
+
+is_testing <- function() {
+  identical(Sys.getenv("TESTTHAT"), "true")
+}
