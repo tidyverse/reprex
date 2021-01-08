@@ -15,8 +15,6 @@ reprex_inform <- function(message) {
   }
 }
 
-
-
 message <- function(...) {
   stop("Internal error: use reprex_inform() instead of message()")
 }
