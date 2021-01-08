@@ -344,3 +344,64 @@ The `TextDataFormat` Enum:
 The `Clipboard.SetDataObject` method:
 
 - <https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.clipboard.setdataobject?view=net-5.0>
+
+### Handy syntax and patterns
+
+Sweeping the cutting room floor.
+
+``` r
+(args <- c("-File", "write_rtf_clipboard.ps1"))
+system2("powershell.exe", args, wait = FALSE)
+
+PS <- "Get-Clipboard -TextFormatType Rtf"
+(args <- c("-Command", shQuote(PS)))
+system2("powershell.exe", args, stdout = TRUE, stderr = TRUE)
+
+PS <- r"(Set-Clipboard -Value "clipboard stuff")"
+(args <- c("-Command", shQuote(PS)))
+system2("powershell.exe", args, stdout = TRUE, stderr = TRUE)
+
+PS <- "Get-Clipboard"
+(args <- c("-Command", shQuote(PS)))
+system2("powershell.exe", args, stdout = TRUE, stderr = TRUE)
+
+system("powershell.exe -File write_rtf_clipboard.ps1", wait = FALSE)
+system('powershell.exe -Command "Get-Clipboard -TextFormatType Rtf"')
+
+shell("Get-Location", shell = "powershell")
+
+# inline the script
+script_parts <- c(
+  "[Windows.Forms.Clipboard]::SetDataObject(",
+  "[Windows.Forms.DataObject]::new(",
+  "[Windows.Forms.DataFormats]::Rtf",
+  ",",
+  "(Get-Content -Raw ",
+  "minimal.rtf",
+  ")))"
+)
+PS <- paste(
+  "Add-Type -AssemblyName System.Windows.Forms | Out-Null",
+  paste0(script_parts, collapse = ""),
+  "Get-Clipboard -TextFormatType Rtf",
+  "Start-Sleep -Seconds 30",
+  sep = ";"
+)
+system2("powershell.exe", c("-Command", PS), wait = FALSE)
+args <- c("-Command", "Get-Clipboard -TextFormatType Rtf")
+system2("powershell.exe", args, stdout = TRUE, stderr = TRUE)
+
+command <- 'Set-Clipboard -Value "abc"'
+args <- c("-Command", shQuote(command))
+system2("powershell.exe", args, stdout = TRUE, stderr = TRUE)
+
+command <- 'Set-Clipboard -Value "abc"; Get-Clipboard'
+args <- c("-Command", shQuote(command))
+system2("powershell.exe", args, stdout = TRUE, stderr = TRUE)
+
+command <- "Get-Location"
+(args <- c("-Command", shQuote(command)))
+system2("powershell.exe", args, stdout = TRUE, stderr = TRUE)
+
+system2("powershell.exe", "Get-TimeZone", stdout = TRUE, stderr = TRUE)
+```
