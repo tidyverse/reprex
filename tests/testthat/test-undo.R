@@ -116,7 +116,7 @@ test_that("reprex_invert() can name its own outfile", {
   code <- c("x <- 1:3", "median(x)")
   invert_me <- reprex(input = code, advertise = FALSE)
 
-  local_reprex_quiet(FALSE)
+  local_reprex_loud()
   msg <- capture_messages(
     out <- reprex_invert(input = invert_me, outfile = NA)
   )

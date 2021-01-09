@@ -9,7 +9,7 @@ expect_messages_to_include <- function(haystack, needles) {
 test_that("expected outfiles are written and messaged, venue = 'gh'", {
   skip_on_cran()
   local_temp_wd()
-  local_reprex_quiet(FALSE)
+  local_reprex_loud()
 
   msg <- capture_messages(
     ret <- reprex(1:5, outfile = "foo")
@@ -27,7 +27,7 @@ test_that("expected outfiles are written and messaged, venue = 'gh'", {
 test_that("expected outfiles are written and messaged, venue = 'R'", {
   skip_on_cran()
   local_temp_wd()
-  local_reprex_quiet(FALSE)
+  local_reprex_loud()
 
   msg <- capture_messages(
     ret <- reprex(1:5, outfile = "foo", venue = "R")
@@ -64,7 +64,7 @@ test_that(".R outfile doesn't clobber .R infile", {
 test_that("outfiles in a subdirectory works", {
   skip_on_cran()
   local_temp_wd()
-  local_reprex_quiet(FALSE)
+  local_reprex_loud()
 
   dir_create("foo")
   msg <- capture_messages(
@@ -81,7 +81,7 @@ test_that("outfiles in a subdirectory works", {
 test_that("outfiles based on input file", {
   skip_on_cran()
   local_temp_wd()
-  local_reprex_quiet(FALSE)
+  local_reprex_loud()
 
   write_lines("1:5", "foo.R")
   msg <- capture_messages(
@@ -99,7 +99,7 @@ test_that("outfiles based on input file", {
 test_that("outfiles based on tempfile()", {
   skip_on_cran()
   local_temp_wd()
-  local_reprex_quiet(FALSE)
+  local_reprex_loud()
 
   msg <- capture_messages(
     ret <- reprex(input = c("x <- 1:3", "min(x)"), outfile = NA)

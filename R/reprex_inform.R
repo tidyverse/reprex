@@ -6,6 +6,10 @@ local_reprex_quiet <- function(reprex_quiet, env = parent.frame()) {
   withr::local_envvar(c(REPREX_QUIET = reprex_quiet), .local_envir = env)
 }
 
+local_reprex_loud <- function(env = parent.frame()) {
+  local_reprex_quiet("FALSE", env = env)
+}
+
 reprex_inform <- function(message) {
   quiet <- reprex_quiet() %|% is_testing()
   if (quiet) {

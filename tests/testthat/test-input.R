@@ -63,7 +63,7 @@ test_that("Leading prompts are removed", {
   res <- reprex(input = input, render = FALSE)
   input2 <- paste0(getOption("prompt"), input)
 
-  local_reprex_quiet(FALSE)
+  local_reprex_loud()
   expect_snapshot(
     res2 <- reprex(input = input2, render = FALSE, html_preview = FALSE),
   )
