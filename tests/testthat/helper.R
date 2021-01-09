@@ -8,7 +8,7 @@ expect_error_free <- function(...) {
 #    - restore original working directory
 #    - delete the directory
 local_temp_wd <- function(pattern = "reprextests",
-                                env = parent.frame()) {
+                          env = parent.frame()) {
 
   tmp <- withr::local_tempdir(pattern = pattern, .local_envir = env)
   withr::local_dir(tmp, .local_envir = env)

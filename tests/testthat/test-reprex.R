@@ -11,7 +11,7 @@ test_that("reprex() works with code that deals with srcrefs", {
     input = "utils::getParseData(parse(text = 'a'))\n",
     advertise = FALSE
   )
-  expect_known_output(print(ret), test_path("reference/srcref_reprex"))
+  expect_snapshot_output(print(ret))
 })
 
 ## https://github.com/tidyverse/reprex/issues/183
