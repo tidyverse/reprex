@@ -99,7 +99,7 @@ reprex_impl <- function(x_expr = NULL,
       "Unable to put result on the clipboard. How to get it:",
       "Capture what `reprex()` returns.",
       "Consult the output file. Control via `outfile` argument.",
-      glue::glue("Path to `outfile`: {reprex_file}")
+      "Path to `outfile`: {reprex_file}"
     ))
     if (yep("Open the output file for manual copy?")) {
       withr::defer(utils::file.edit(reprex_file))
