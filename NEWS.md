@@ -47,6 +47,10 @@ R 3.1 is no longer explicitly supported or tested. Our general practice is to su
 * knitr moves from Suggests to Imports (although it was already a hard dependency via rmarkdown), so we can require v1.23 or higher, which represents a
 major switch to UTF-8.
 
+* cli is new in Imports.
+
+* reprex now relies on testthat >= 3.0.0 and, specifically, uses third edition features.
+
 # reprex 0.3.0
 
 * The `crayon.enabled` option is explicitly set to `FALSE` when rendering the reprex (#238, #239).

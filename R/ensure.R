@@ -58,7 +58,7 @@ ensure_no_prompts <- function(x, prompt = getOption("prompt")) {
   regex <- paste0("^", escape_regex(prompt))
   prompts <- grepl(regex, x)
   if (any(prompts)) {
-    reprex_inform("Removing leading prompts from reprex source.")
+    reprex_info("Removing leading prompts from reprex source.")
   }
   sub(regex, "", x)
 }

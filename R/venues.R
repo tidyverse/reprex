@@ -39,7 +39,7 @@ normalize_venue <- function(venue) {
 
 ds_is_gh <- function(venue) {
   if (venue == "ds") {
-    reprex_inform('
+    reprex_info('
       The Discourse venue "ds" is an alias for the default GitHub venue "gh".
       There is no need to specify the venue.')
     venue <- "gh"
@@ -49,9 +49,9 @@ ds_is_gh <- function(venue) {
 
 so_is_gh <- function(venue) {
   if (venue == "so") {
-    reprex_inform('
-      The Stack Overflow venue "so" is an alias for the default GitHub venue "gh".
-      There is no need to specify the venue.')
+    reprex_info('
+      The Stack Overflow venue "so" is an alias for the default GitHub venue
+      "gh". There is no need to specify the venue.')
     venue <- "gh"
   }
   venue

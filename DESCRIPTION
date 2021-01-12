@@ -40,6 +40,7 @@ Depends:
     R (>= 3.2)
 Imports: 
     callr (>= 3.3.1),
+    cli,
     clipr (>= 0.4.0),
     fs,
     glue,
@@ -61,10 +62,10 @@ Suggests:
     testthat (>= 3.0.0)
 VignetteBuilder: 
     knitr
+Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 SystemRequirements: pandoc (>= 1.12.3) - http://pandoc.org
-Config/testthat/edition: 3

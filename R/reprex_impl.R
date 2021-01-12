@@ -65,14 +65,14 @@ reprex_impl <- function(x_expr = NULL,
   src <- c(yamlify(reprex_document_options), "", src)
   write_lines(src, r_file)
   if (outfile_given) {
-    reprex_inform(c("Preparing reprex as .R file:", r_file))
+    reprex_path("Preparing reprex as {.code .R} file:", r_file)
   }
 
   if (!render) {
     return(invisible(read_lines(r_file)))
   }
 
-  reprex_inform("Rendering reprex...")
+  reprex_info("Rendering reprex...")
   reprex_file <- reprex_render_impl(r_file, new_session = new_session)
   # for reasons re: the RStudio "Knit" button, reprex_render_impl() may return
   # path to the html_preview, but reprex_file attribute will always be the
@@ -81,7 +81,7 @@ reprex_impl <- function(x_expr = NULL,
   reprex_file <- attr(reprex_file, "reprex_file", exact = TRUE)
 
   if (outfile_given) {
-    reprex_inform(c("Writing reprex file:", reprex_file))
+    reprex_path("Writing reprex file:", reprex_file)
   }
 
   out_lines <- read_lines(reprex_file)
@@ -92,15 +92,20 @@ reprex_impl <- function(x_expr = NULL,
     } else {
       clipr::write_clip(out_lines)
     }
-    reprex_inform("Rendered reprex is on the clipboard.")
+    reprex_success("Rendered reprex is on the clipboard.")
   } else if (is_interactive()) {
     clipr::dr_clipr()
-    reprex_inform(c(
-      "Unable to put result on the clipboard. How to get it:",
-      "Capture what `reprex()` returns.",
-      "Consult the output file. Control via `outfile` argument.",
-      "Path to `outfile`: {reprex_file}"
-    ))
+    # TODO: come back and clean this up or put in a function
+    reprex_danger("Unable to put result on the clipboard. How to get it:")
+    cli::cli_ul()
+    cli::cli_li("Capture what {.fun reprex} returns.")
+    cli::cli_li("Consult the output file. Control via {.arg outfile} argument.")
+    cli::cli_li("Path to {.arg outfile}:")
+    cli::cli_ul()
+    # TODO: when filepath is long, there's an unexplained leading newline
+    cli::cli_li("{.file {reprex_file}}")
+    cli::cli_end()
+    cli::cli_end()
     if (yep("Open the output file for manual copy?")) {
       withr::defer(utils::file.edit(reprex_file))
     }
@@ -118,7 +123,9 @@ set_advertise <- function(advertise, venue) {
 
 style_requires_styler <- function(style) {
   if (!requireNamespace("styler", quietly = TRUE)) {
-    reprex_inform("Install the styler package in order to use `style = TRUE`.")
+    reprex_danger("
+      Install the {.pkg styler} package in order to use
+      {.code style = TRUE}.")
     style <- FALSE
   }
   invisible(style)
@@ -126,7 +133,8 @@ style_requires_styler <- function(style) {
 
 html_preview_requires_interactive <- function(html_preview) {
   if (html_preview && !is_interactive()) {
-    reprex_inform("Non-interactive session, setting `html_preview = FALSE`.")
+    reprex_info(
+      "Non-interactive session, setting {.code html_preview = FALSE}.")
     html_preview <- FALSE
   }
   invisible(html_preview)
@@ -165,10 +173,9 @@ remove_defaults <- function(x) {
 
   novel_names <- setdiff(names(x), names(defaults))
   if (length(novel_names) > 0) {
-    reprex_inform(c(
-      "These parameter(s) are not recognized for the `reprex_document()` format:",
-      novel_names
-    ))
+    reprex_danger("
+      {?This/These} parameter{?s} {?is/are} not recognized for the
+      {.fun reprex_document} format: {.code {novel_names}}.")
   }
 
   x[!is_default]

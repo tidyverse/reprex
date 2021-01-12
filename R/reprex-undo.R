@@ -180,11 +180,11 @@ reprex_undo <- function(input = NULL,
 
   if (clipboard_available()) {
     clipr::write_clip(x_out)
-    reprex_inform("Clean code is on the clipboard.")
+    reprex_success("Clean code is on the clipboard.")
   }
   if (outfile_given) {
     write_lines(x_out, r_file)
-    reprex_inform(c("Writing clean code as R script:", r_file))
+    reprex_path("Writing clean code as {.code .R} script:", r_file)
   }
   invisible(x_out)
 }

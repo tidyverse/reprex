@@ -1,7 +1,7 @@
 expect_messages_to_include <- function(haystack, needles) {
   lapply(
     needles,
-    function(x) expect_match(haystack, x, all = FALSE, fixed = TRUE)
+    function(x) expect_match(haystack, x, all = FALSE)
   )
   invisible()
 }
@@ -10,13 +10,14 @@ test_that("expected outfiles are written and messaged, venue = 'gh'", {
   skip_on_cran()
   local_temp_wd()
   local_reprex_loud()
+  local_cli_app()
 
   msg <- capture_messages(
     ret <- reprex(1:5, outfile = "foo")
   )
   expect_messages_to_include(
     msg,
-    c("Preparing reprex as .R file", "foo_reprex.R",
+    c("Preparing reprex as .*R.* file", "foo_reprex.R",
       "Writing reprex file", "foo_reprex.md"
     )
   )
@@ -28,13 +29,14 @@ test_that("expected outfiles are written and messaged, venue = 'R'", {
   skip_on_cran()
   local_temp_wd()
   local_reprex_loud()
+  local_cli_app()
 
   msg <- capture_messages(
     ret <- reprex(1:5, outfile = "foo", venue = "R")
   )
   expect_messages_to_include(
     msg,
-    c("Preparing reprex as .R file", "foo_reprex.R",
+    c("Preparing reprex as .*R.* file", "foo_reprex.R",
       "Writing reprex file", "foo_reprex_rendered.R"
     )
   )
@@ -65,6 +67,7 @@ test_that("outfiles in a subdirectory works", {
   skip_on_cran()
   local_temp_wd()
   local_reprex_loud()
+  local_cli_app()
 
   dir_create("foo")
   msg <- capture_messages(
@@ -72,7 +75,7 @@ test_that("outfiles in a subdirectory works", {
   )
   expect_messages_to_include(
     msg,
-    c("Preparing reprex as .R file", "foo/foo_reprex.R",
+    c("Preparing reprex as .*R.* file", "foo/foo_reprex.R",
       "Writing reprex file", "foo/foo_reprex.md"
     )
   )
@@ -82,6 +85,7 @@ test_that("outfiles based on input file", {
   skip_on_cran()
   local_temp_wd()
   local_reprex_loud()
+  local_cli_app()
 
   write_lines("1:5", "foo.R")
   msg <- capture_messages(
@@ -90,7 +94,7 @@ test_that("outfiles based on input file", {
   expect_true(file_exists("foo_reprex.md"))
   expect_messages_to_include(
     msg,
-    c("Preparing reprex as .R file", "foo_reprex.R",
+    c("Preparing reprex as .*R.* file", "foo_reprex.R",
       "Writing reprex file", "foo_reprex.md"
     )
   )
@@ -100,19 +104,20 @@ test_that("outfiles based on tempfile()", {
   skip_on_cran()
   local_temp_wd()
   local_reprex_loud()
+  local_cli_app()
 
   msg <- capture_messages(
     ret <- reprex(input = c("x <- 1:3", "min(x)"), outfile = NA)
   )
-  prep <- grep("Preparing", msg)
-  tempbase <- gsub(".*(reprex.*)_.*", "\\1", msg[prep])
+  r_file_line <- grep("_reprex[.]R\\n$", msg)
+  tempbase <- gsub(".*(reprex.*)_.*", "\\1", msg[r_file_line])
   r_file <- paste0(tempbase, "_reprex.R")
   md_file <- paste0(tempbase, "_reprex.md")
   expect_true(file_exists(r_file))
   expect_true(file_exists(md_file))
   expect_messages_to_include(
     msg,
-    c("Preparing reprex as .R file", r_file,
+    c("Preparing reprex as .*R.* file", r_file,
       "Writing reprex file", md_file
     )
   )

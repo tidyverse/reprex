@@ -216,7 +216,7 @@ inject_file <- function(path, inject_path) {
 
   # a user should never see this, but it can happen during development
   if (length(inject_locus) > 1) {
-    reprex_inform("multiple placeholders for std_out_err! taking the last")
+    reprex_warning("multiple placeholders for std_out_err! taking the last")
     inject_locus <- inject_locus[length(inject_locus)]
   }
 
