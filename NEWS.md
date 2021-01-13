@@ -38,7 +38,7 @@
 
 ## Dependency changes
 
-R 3.1 is no longer explicitly supported or tested. Our general practice is to support the current release (3.6, at time of writing), devel, and the 4 previous versions of R (3.5, 3.4, 3.3, 3.2).
+R 3.1 and R 3.2 are no longer explicitly supported or tested. Our general practice is to support the current release (4.0, at time of writing), devel, and the 4 previous versions of R (3.6, 3.5, 3.4, 3.3).
 
 * sessioninfo is new in Suggests, replacing devtools.
 
