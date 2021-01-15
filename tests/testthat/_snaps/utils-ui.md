@@ -46,4 +46,20 @@
       v Something descriptive:
     Message <cliMessage>
         path/to/file
+    Code
+      x <- "path/to/file"
+    Code
+      reprex_path("Something descriptive:", x)
+    Message <cliMessage>
+      v Something descriptive:
+    Message <cliMessage>
+        path/to/file
+    Code
+      y <- c("path", "to", "file")
+    Code
+      reprex_path("Something descriptive:", fs::path_join(y))
+    Message <cliMessage>
+      v Something descriptive:
+    Message <cliMessage>
+        path/to/file
 

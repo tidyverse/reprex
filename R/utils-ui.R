@@ -52,7 +52,6 @@ reprex_path <- function(header, path, .envir = parent.frame()) {
   reprex_success(header, .envir = .envir)
   cli::cli_ul()
   cli::cli_li()
-  # TODO: determine what to do re .envir here
   cli::cli_text("{.file {path}}")
 }
 

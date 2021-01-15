@@ -30,5 +30,11 @@ test_that("reprex_path() works and respects REPREX_QUIET", {
 
   local_reprex_loud()
   local_cli_app()
-  expect_snapshot(reprex_path("Something descriptive:", "path/to/file"))
+  expect_snapshot({
+    reprex_path("Something descriptive:", "path/to/file")
+    x <- "path/to/file"
+    reprex_path("Something descriptive:", x)
+    y <- c("path", "to", "file")
+    reprex_path("Something descriptive:", fs::path_join(y))
+  })
 })
