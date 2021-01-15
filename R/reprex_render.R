@@ -86,7 +86,8 @@ reprex_render_impl <- function(input,
     rlang_trace_top_env = globalenv(),
     `rlang:::force_unhandled_error` = TRUE,
     rlang_backtrace_on_error = "full",
-    crayon.enabled = FALSE
+    crayon.enabled = FALSE,
+    reprex.current_venue = venue
   )
   if (new_session) {
     out <- tryCatch(

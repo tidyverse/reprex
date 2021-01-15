@@ -36,6 +36,8 @@
 
 * Experimental venue "rtf" now works on Windows, to approximately the same extent as it works on macOS. In both cases, it still requires a working installation of the highlight command line tool (#331).
 
+* `reprex.current_venue` is a new read-only option that is set during `reprex_render()`. Other packages can use it to generate `reprex()`-compatible, `venue`-specific output.
+
 ## Dependency changes
 
 R 3.1 and R 3.2 are no longer explicitly supported or tested. Our general practice is to support the current release (4.0, at time of writing), devel, and the 4 previous versions of R (3.6, 3.5, 3.4, 3.3).

@@ -13,11 +13,13 @@
 #'   * `reprex.tidyverse_quiet`
 #'   * `reprex.std_out_err`
 #'
-#' A few more options exist, but are only consulted in specific situations:
-#'   * `reprex.venue`: Only consulted by [reprex_selection()]. [reprex()]
-#'     itself reveals the possible values for `venue` in the "Usage" section
-#'     of its help file and defaults to the first value, in the usual
-#'     [match.arg()] way.
+#' A few more options exist, but are only relevant to specific situations:
+#'   * `reprex.venue`: Can be used to control the `venue` used by the
+#'   [reprex_selection()] addin.
+#'   * `reprex.current_venue`: Read-only option that is set during
+#'   [reprex_render()]. Other packages that want to generate reprex-compatible
+#'   output can consult it via `getOption("reprex.current_venue")`, if they want
+#'   to tailor their output to the `venue`.
 #'   * `reprex.highlight.hl_style`: Only relevant to `venue = "rtf`. Details are
 #'     in the article
 #'     [reprex venue RTF](https://reprex.tidyverse.org/articles/articles/rtf.html).

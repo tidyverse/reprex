@@ -19,12 +19,14 @@ ones:
 \item \code{reprex.std_out_err}
 }
 
-A few more options exist, but are only consulted in specific situations:
+A few more options exist, but are only relevant to specific situations:
 \itemize{
-\item \code{reprex.venue}: Only consulted by \code{\link[=reprex_selection]{reprex_selection()}}. \code{\link[=reprex]{reprex()}}
-itself reveals the possible values for \code{venue} in the "Usage" section
-of its help file and defaults to the first value, in the usual
-\code{\link[=match.arg]{match.arg()}} way.
+\item \code{reprex.venue}: Can be used to control the \code{venue} used by the
+\code{\link[=reprex_selection]{reprex_selection()}} addin.
+\item \code{reprex.current_venue}: Read-only option that is set during
+\code{\link[=reprex_render]{reprex_render()}}. Other packages that want to generate reprex-compatible
+output can consult it via \code{getOption("reprex.current_venue")}, if they want
+to tailor their output to the \code{venue}.
 \item \code{reprex.highlight.hl_style}: Only relevant to \verb{venue = "rtf}. Details are
 in the article
 \href{https://reprex.tidyverse.org/articles/articles/rtf.html}{reprex venue RTF}.
