@@ -93,10 +93,10 @@ more. Read more about \code{\link[=opt]{opt()}}.}
 (RStudio or browser). Always \code{FALSE} in a noninteractive session. Read more
 about \code{\link[=opt]{opt()}}.}
 
-\item{show}{Deprecated, in favor of \code{html_preview}, for greater consistency
-with other R Markdown output formats.}
+\item{show}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}} in favor of \code{html_preview},
+for greater consistency with other R Markdown output formats.}
 
-\item{si}{Deprecated, in favor of \code{session_info}.}
+\item{si}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}} in favor of \code{session_info}.}
 }
 \value{
 Character vector of rendered reprex, invisibly.
@@ -143,16 +143,16 @@ code (see examples).
 
 \section{Syntax highlighting}{
 
-A secondary use case for reprex is to produce syntax highlighted code
-snippets, with or without rendering, to paste into presentation software,
-such as Keynote or PowerPoint. Use \code{venue = "rtf"}.
 
-This feature is experimental and currently rather limited. It probably only
-works on macOS and requires the installation of the
+\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
+
+A secondary use case for reprex is to produce syntax highlighted code
+snippets, with or without rendering, to paste into applications like
+Microsoft Word, PowerPoint, or Keynote. Use \code{venue = "rtf"} for this.
+
+This feature is experimental and requires the installation of the
 \href{http://www.andre-simon.de/doku/highlight/en/highlight.php}{highlight}
-command line tool, which can be installed via
-\href{https://formulae.brew.sh/formula/highlight}{homebrew}. This venue is
-discussed in \href{https://reprex.tidyverse.org/articles/articles/rtf.html}{an article}
+command line tool. The \code{"rtf"} venue is documented in \href{https://reprex.tidyverse.org/articles/articles/rtf.html}{its own article}
 }
 
 \examples{

@@ -36,16 +36,16 @@
 #' code (see examples).
 #'
 #' @section Syntax highlighting:
-#' A secondary use case for reprex is to produce syntax highlighted code
-#' snippets, with or without rendering, to paste into presentation software,
-#' such as Keynote or PowerPoint. Use `venue = "rtf"`.
 #'
-#' This feature is experimental and currently rather limited. It probably only
-#' works on macOS and requires the installation of the
+#' `r lifecycle::badge("experimental")`
+#'
+#' A secondary use case for reprex is to produce syntax highlighted code
+#' snippets, with or without rendering, to paste into applications like
+#' Microsoft Word, PowerPoint, or Keynote. Use `venue = "rtf"` for this.
+#'
+#' This feature is experimental and requires the installation of the
 #' [highlight](http://www.andre-simon.de/doku/highlight/en/highlight.php)
-#' command line tool, which can be installed via
-#' [homebrew](https://formulae.brew.sh/formula/highlight). This venue is
-#' discussed in [an
+#' command line tool. The `"rtf"` venue is documented in [its own
 #' article](https://reprex.tidyverse.org/articles/articles/rtf.html)
 #'
 #' @param x An expression. If not given, `reprex()` looks for code in
@@ -107,9 +107,9 @@
 #' @param html_preview Logical. Whether to show rendered output in a viewer
 #'   (RStudio or browser). Always `FALSE` in a noninteractive session. Read more
 #'   about [opt()].
-#' @param show Deprecated, in favor of `html_preview`, for greater consistency
-#' with other R Markdown output formats.
-#' @param si Deprecated, in favor of `session_info`.
+#' @param show `r lifecycle::badge("deprecated")` in favor of `html_preview`,
+#'   for greater consistency with other R Markdown output formats.
+#' @param si  `r lifecycle::badge("deprecated")` in favor of `session_info`.
 #'
 #' @return Character vector of rendered reprex, invisibly.
 #' @examples
