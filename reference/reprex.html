@@ -305,12 +305,12 @@ about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
     </tr>
     <tr>
       <th>show</th>
-      <td><p>Deprecated, in favor of <code>html_preview</code>, for greater consistency
-with other R Markdown output formats.</p></td>
+      <td><p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /> in favor of <code>html_preview</code>,
+for greater consistency with other R Markdown output formats.</p></td>
     </tr>
     <tr>
       <th>si</th>
-      <td><p>Deprecated, in favor of <code>session_info</code>.</p></td>
+      <td><p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /> in favor of <code>session_info</code>.</p></td>
     </tr>
     </table>
 
@@ -344,15 +344,14 @@ code (see examples).</p></li>
 
     
 
+
+<p><a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a></p>
 <p>A secondary use case for reprex is to produce syntax highlighted code
-snippets, with or without rendering, to paste into presentation software,
-such as Keynote or PowerPoint. Use <code>venue = "rtf"</code>.</p>
-<p>This feature is experimental and currently rather limited. It probably only
-works on macOS and requires the installation of the
+snippets, with or without rendering, to paste into applications like
+Microsoft Word, PowerPoint, or Keynote. Use <code>venue = "rtf"</code> for this.</p>
+<p>This feature is experimental and requires the installation of the
 <a href='http://www.andre-simon.de/doku/highlight/en/highlight.php'>highlight</a>
-command line tool, which can be installed via
-<a href='https://formulae.brew.sh/formula/highlight'>homebrew</a>. This venue is
-discussed in <a href='https://reprex.tidyverse.org/articles/articles/rtf.html'>an article</a></p>
+command line tool. The <code>"rtf"</code> venue is documented in <a href='https://reprex.tidyverse.org/articles/articles/rtf.html'>its own article</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
