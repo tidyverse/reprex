@@ -37,7 +37,7 @@ Remember: knitr supports many other languages than R, so you can reprex bits of 
 
 Let's try Python!
 
-```{python}
+```{python, python.reticulate = requireNamespace("reticulate")}
 x = 'hello, python world!'
 print(x.split(' '))
 ```
