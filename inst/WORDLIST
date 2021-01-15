@@ -29,6 +29,7 @@ behaviour
 bryan
 callr
 chocolatey
+cli
 customised
 datapasta
 datapasta's
@@ -88,6 +89,7 @@ stderr
 stdout
 styler
 templated
+testthat
 tibble
 tidyeval
 tidymodels
