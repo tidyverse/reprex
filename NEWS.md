@@ -14,7 +14,7 @@
     `knit: reprex::reprex_render` in the YAML, which causes the RStudio "Knit"
     button to use `reprex_render()`.
 
-* The `si` argument of `reprex()` is now `session_info`. Being explicit seems more important than saving characters, given auto-completions.
+* The `si` argument of `reprex()` is now `session_info`. Being explicit seems more important than saving characters, given auto-completion.
 
 * The `show` argument of `reprex()` is now `html_preview`, for the sake of consistency with other R Markdown output formats.
 
@@ -44,8 +44,7 @@ R 3.1 and R 3.2 are no longer explicitly supported or tested. Our general practi
 
 * glue is new in Imports, replacing whisker.
 
-* knitr moves from Suggests to Imports (although it was already a hard dependency via rmarkdown), so we can require v1.23 or higher, which represents a
-major switch to UTF-8.
+* knitr moves from Suggests to Imports (although it was already a hard dependency via rmarkdown), so we can require v1.23 or higher, which represents a major switch to UTF-8.
 
 * cli is new in Imports.
 
