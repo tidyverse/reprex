@@ -63,11 +63,13 @@ reprex.tidyverse_quiet
 reprex.std_out_err
 
 
-A few more options exist, but are only consulted in specific situations:
-reprex.venue: Only consulted by reprex_selection(). reprex()
-itself reveals the possible values for venue in the &quot;Usage&quot; section
-of its help file and defaults to the first value, in the usual
-match.arg() way.
+A few more options exist, but are only relevant to specific situations:
+reprex.venue: Can be used to control the venue used by the
+reprex_selection() addin.
+reprex.current_venue: Read-only option that is set during
+reprex_render(). Other packages that want to generate reprex-compatible
+output can consult it via getOption(&quot;reprex.current_venue&quot;), if they want
+to tailor their output to the venue.
 reprex.highlight.hl_style: Only relevant to venue = &quot;rtf. Details are
 in the article
 reprex venue RTF.
@@ -220,11 +222,13 @@ ones:</p><ul>
 <li><p><code>reprex.std_out_err</code></p></li>
 </ul>
 
-<p>A few more options exist, but are only consulted in specific situations:</p><ul>
-<li><p><code>reprex.venue</code>: Only consulted by <code><a href='reprex_addin.html'>reprex_selection()</a></code>. <code><a href='reprex.html'>reprex()</a></code>
-itself reveals the possible values for <code>venue</code> in the "Usage" section
-of its help file and defaults to the first value, in the usual
-<code><a href='https://rdrr.io/r/base/match.arg.html'>match.arg()</a></code> way.</p></li>
+<p>A few more options exist, but are only relevant to specific situations:</p><ul>
+<li><p><code>reprex.venue</code>: Can be used to control the <code>venue</code> used by the
+<code><a href='reprex_addin.html'>reprex_selection()</a></code> addin.</p></li>
+<li><p><code>reprex.current_venue</code>: Read-only option that is set during
+<code><a href='reprex_render.html'>reprex_render()</a></code>. Other packages that want to generate reprex-compatible
+output can consult it via <code><a href='https://rdrr.io/r/base/options.html'>getOption("reprex.current_venue")</a></code>, if they want
+to tailor their output to the <code>venue</code>.</p></li>
 <li><p><code>reprex.highlight.hl_style</code>: Only relevant to <code>venue = "rtf</code>. Details are
 in the article
 <a href='https://reprex.tidyverse.org/articles/articles/rtf.html'>reprex venue RTF</a>.</p></li>

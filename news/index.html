@@ -186,6 +186,7 @@
 <li><p><code>venue = "so"</code> (SO = Stack Overflow) has converged with default <code>venue = "gh"</code> (GitHub). As of January 2019, SO <a href="https://meta.stackexchange.com/questions/125148/implement-style-fenced-markdown-code-blocks/322000<a href='https://github.com/tidyverse/reprex/issues/322000'>#322000</a>">supports CommonMark fenced code blocks</a>. The only remaining difference is that Stack Overflow does not support the collapsible details tag that we use on GitHub for the session info requested via <code>si = TRUE</code> (<a href='https://github.com/tidyverse/reprex/issues/231'>#231</a>).</p></li>
 <li><p>When the reprex causes R to crash, <code><a href="../reference/reprex.html">reprex(std_out_err = TRUE)</a></code> is able to provide more information about the crash, in some cases (<a href='https://github.com/tidyverse/reprex/issues/312'>#312</a>).</p></li>
 <li><p>Experimental venue “rtf” now works on Windows, to approximately the same extent as it works on macOS. In both cases, it still requires a working installation of the highlight command line tool (<a href='https://github.com/tidyverse/reprex/issues/331'>#331</a>).</p></li>
+<li><p><code>reprex.current_venue</code> is a new read-only option that is set during <code><a href="../reference/reprex_render.html">reprex_render()</a></code>. Other packages can use it to generate <code><a href="../reference/reprex.html">reprex()</a></code>-compatible, <code>venue</code>-specific output.</p></li>
 </ul>
 <div id="dependency-changes" class="section level2">
 <h2 class="hasAnchor">
