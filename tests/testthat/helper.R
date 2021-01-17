@@ -10,8 +10,14 @@ expect_error_free <- function(...) {
 local_temp_wd <- function(pattern = "reprextests",
                           env = parent.frame()) {
 
+  old_wd <- getwd()
   tmp <- withr::local_tempdir(pattern = pattern, .local_envir = env)
   withr::local_dir(tmp, .local_envir = env)
+  reprex_path("Switching to temporary working directory:", tmp)
+  withr::defer(
+    reprex_path("Restoring original working directory:", old_wd),
+    envir = env
+  )
   invisible(tmp)
 }
 
