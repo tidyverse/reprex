@@ -79,6 +79,9 @@ reprex_render_impl <- function(input,
     is_interactive()
   stopifnot(is_toggle(html_preview))
   std_out_err <- new_session && (yaml_opts[["std_out_err"]] %||% FALSE)
+  if (tolower(path_ext(input)) == "rmd") {
+    input <- file_copy(input, rmd_file(input), overwrite = TRUE)
+  }
   std_file <- std_out_err_path(input, std_out_err)
 
   opts <- list(

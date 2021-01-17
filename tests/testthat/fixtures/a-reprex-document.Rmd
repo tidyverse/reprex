@@ -1,0 +1,17 @@
+---
+output:
+  reprex::reprex_document:
+    venue: "gh"
+    advertise: TRUE
+    session_info: TRUE
+    std_out_err: TRUE
+knit: reprex::reprex_render
+---
+
+Used in a test to make sure we don't add the reprex advertisement and stubs for session info and standard output/error to a source `.Rmd` document.
+Potentially over and over again.
+
+```{r}
+x <- rnorm(10)
+quantile(x)
+```

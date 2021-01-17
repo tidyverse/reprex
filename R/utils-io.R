@@ -98,6 +98,10 @@ rtf_file <- function(path) {
   path_mutate(path, ext = "rtf")
 }
 
+rmd_file <- function(path) {
+  path_mutate(path, suffix = "reprex", ext = "Rmd")
+}
+
 force_tempdir <- function(path) {
   if (is_in_tempdir(path)) {
     path
