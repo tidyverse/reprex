@@ -1,4 +1,4 @@
-#' Render a reprex
+#' Render a reprex, conveniently
 #'
 #' @description `reprex_addin()` opens an [RStudio
 #'   gadget](https://shiny.rstudio.com/articles/gadgets.html) and

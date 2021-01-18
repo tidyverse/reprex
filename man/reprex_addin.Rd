@@ -3,7 +3,7 @@
 \name{reprex_addin}
 \alias{reprex_addin}
 \alias{reprex_selection}
-\title{Render a reprex}
+\title{Render a reprex, conveniently}
 \usage{
 reprex_addin()
 
