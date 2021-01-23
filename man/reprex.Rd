@@ -132,10 +132,10 @@ reprex sets specific \href{http://yihui.name/knitr/options/}{knitr options}:
 reporting.
 \item reprex also sets knitr's \code{upload.fun}. It defaults to
 \code{\link[knitr:imgur_upload]{knitr::imgur_upload()}} so figures produced by the reprex appear properly
-on GitHub, Stack Overflow, or Discourse. Note that this function requires
-the packages httr & xml2 or RCurl & XML, depending on your knitr version.
-When \code{venue = "r"}, \code{upload.fun} is set to \code{identity}, so that figures
-remain local. In that case, you may also want to set \code{outfile}.
+on GitHub, Stack Overflow, or Discourse. Note that \code{imgur_upload()}
+requires the packages httr and xml2. When \code{venue = "r"}, \code{upload.fun} is
+set to \code{identity()}, so that figures remain local. In that case, you may
+also want to set \code{outfile}.
 You can supplement or override these options with special comments in your
 code (see examples).
 }

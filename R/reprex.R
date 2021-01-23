@@ -28,10 +28,10 @@
 #'   reporting.
 #' * reprex also sets knitr's `upload.fun`. It defaults to
 #'   [knitr::imgur_upload()] so figures produced by the reprex appear properly
-#'   on GitHub, Stack Overflow, or Discourse. Note that this function requires
-#'   the packages httr & xml2 or RCurl & XML, depending on your knitr version.
-#'   When `venue = "r"`, `upload.fun` is set to `identity`, so that figures
-#'   remain local. In that case, you may also want to set `outfile`.
+#'   on GitHub, Stack Overflow, or Discourse. Note that `imgur_upload()`
+#'   requires the packages httr and xml2. When `venue = "r"`, `upload.fun` is
+#'   set to `identity()`, so that figures remain local. In that case, you may
+#'   also want to set `outfile`.
 #' You can supplement or override these options with special comments in your
 #' code (see examples).
 #'
