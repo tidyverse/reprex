@@ -332,10 +332,10 @@ prompts, are stripped from the input code. Read more at
 reporting.</p></li>
 <li><p>reprex also sets knitr's <code>upload.fun</code>. It defaults to
 <code><a href='https://rdrr.io/pkg/knitr/man/imgur_upload.html'>knitr::imgur_upload()</a></code> so figures produced by the reprex appear properly
-on GitHub, Stack Overflow, or Discourse. Note that this function requires
-the packages httr &amp; xml2 or RCurl &amp; XML, depending on your knitr version.
-When <code>venue = "r"</code>, <code>upload.fun</code> is set to <code>identity</code>, so that figures
-remain local. In that case, you may also want to set <code>outfile</code>.
+on GitHub, Stack Overflow, or Discourse. Note that <code>imgur_upload()</code>
+requires the packages httr and xml2. When <code>venue = "r"</code>, <code>upload.fun</code> is
+set to <code><a href='https://rdrr.io/r/base/identity.html'>identity()</a></code>, so that figures remain local. In that case, you may
+also want to set <code>outfile</code>.
 You can supplement or override these options with special comments in your
 code (see examples).</p></li>
 </ul>
