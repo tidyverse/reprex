@@ -64,12 +64,18 @@
 #' @param venue Character. Must be one of the following (case insensitive):
 #' * "gh" for [GitHub-Flavored Markdown](https://github.github.com/gfm/), the
 #'   default
-#' * "r" for a runnable R script, with commented output interleaved
+#' * "r" for a runnable R script, with commented output interleaved. Also useful
+#'   for [Slack code snippets](https://slack.com/intl/en-ca/slack-tips/share-code-snippets);
+#'   select "R" from the "Type" drop-down menu to enjoy nice syntax
+#'   highlighting.
 #' * "rtf" for
 #'   [Rich Text Format](https://en.wikipedia.org/wiki/Rich_Text_Format)
 #'   (not supported for un-reprexing)
 #' * "html" for an HTML fragment suitable for inclusion in a larger HTML
 #'   document (not supported for un-reprexing)
+#' * "slack" for pasting into a Slack message. Works best if you opt out of
+#'   Slack's WYSIWYG interface and, instead, go to **Preferences > Advanced**
+#'   and select "Format messages with markup".
 #' * "so" for
 #'   [Stack Overflow Markdown](https://stackoverflow.com/editing-help#syntax-highlighting).
 #'   Note: this is just an alias for "gh", since Stack Overflow started to
@@ -80,7 +86,7 @@
 #' @param advertise Logical. Whether to include a footer that describes when and
 #'   how the reprex was created. If unspecified, the option `reprex.advertise`
 #'   is consulted and, if that is not defined, default is `TRUE` for venues
-#'   `"gh"`, `"html"`, `"so"`, `"ds"` and `FALSE` for `"r"` and `"rtf"`.
+#'   `"gh"`, `"html"`, `"so"`, `"ds"` and `FALSE` for `"r"`, `"rtf"`, `"slack"`.
 #' @param session_info Logical. Whether to include
 #'   [sessioninfo::session_info()], if available, or [sessionInfo()] at the end
 #'   of the reprex. When `venue` is "gh", the session info is wrapped in a
@@ -243,7 +249,7 @@
 #' @export
 reprex <- function(x = NULL,
                    input = NULL, outfile = NULL,
-                   venue = c("gh", "r", "rtf", "html", "so", "ds"),
+                   venue = c("gh", "r", "rtf", "html", "slack", "so", "ds"),
 
                    render = TRUE,
 

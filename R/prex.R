@@ -28,7 +28,7 @@
 prex <- function(x = NULL,
                  input = NULL,
                  outfile = NULL,                # <-- different from reprex
-                 venue = c("gh", "r", "rtf", "html", "so", "ds"),
+                 venue = c("gh", "r", "rtf", "html", "slack", "so", "ds"),
 
                  render = TRUE,
 
@@ -69,6 +69,7 @@ prex <- function(x = NULL,
 prex_html <- function(...) prex(..., venue = "html")
 prex_r    <- function(...) prex(..., venue = "r")
 prex_rtf  <- function(...) prex(..., venue = "rtf")
+prex_slack  <- function(...) prex(..., venue = "slack")
 
 # these should exist for completeness, but I predict they'd never get used and
 # they just clutter the auto-complete landscape

@@ -5,7 +5,7 @@
 \title{reprex output format}
 \usage{
 reprex_document(
-  venue = c("gh", "r", "rtf", "html", "so", "ds"),
+  venue = c("gh", "r", "rtf", "html", "slack", "so", "ds"),
   advertise = NULL,
   session_info = opt(FALSE),
   style = opt(FALSE),
@@ -21,12 +21,18 @@ reprex_document(
 \itemize{
 \item "gh" for \href{https://github.github.com/gfm/}{GitHub-Flavored Markdown}, the
 default
-\item "r" for a runnable R script, with commented output interleaved
+\item "r" for a runnable R script, with commented output interleaved. Also useful
+for \href{https://slack.com/intl/en-ca/slack-tips/share-code-snippets}{Slack code snippets};
+select "R" from the "Type" drop-down menu to enjoy nice syntax
+highlighting.
 \item "rtf" for
 \href{https://en.wikipedia.org/wiki/Rich_Text_Format}{Rich Text Format}
 (not supported for un-reprexing)
 \item "html" for an HTML fragment suitable for inclusion in a larger HTML
 document (not supported for un-reprexing)
+\item "slack" for pasting into a Slack message. Works best if you opt out of
+Slack's WYSIWYG interface and, instead, go to \strong{Preferences > Advanced}
+and select "Format messages with markup".
 \item "so" for
 \href{https://stackoverflow.com/editing-help#syntax-highlighting}{Stack Overflow Markdown}.
 Note: this is just an alias for "gh", since Stack Overflow started to
@@ -39,7 +45,7 @@ currently just an alias for "gh".
 \item{advertise}{Logical. Whether to include a footer that describes when and
 how the reprex was created. If unspecified, the option \code{reprex.advertise}
 is consulted and, if that is not defined, default is \code{TRUE} for venues
-\code{"gh"}, \code{"html"}, \code{"so"}, \code{"ds"} and \code{FALSE} for \code{"r"} and \code{"rtf"}.}
+\code{"gh"}, \code{"html"}, \code{"so"}, \code{"ds"} and \code{FALSE} for \code{"r"}, \code{"rtf"}, \code{"slack"}.}
 
 \item{session_info}{Logical. Whether to include
 \code{\link[sessioninfo:session_info]{sessioninfo::session_info()}}, if available, or \code{\link[=sessionInfo]{sessionInfo()}} at the end

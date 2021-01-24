@@ -158,6 +158,10 @@ reprex_render_impl <- function(input,
     reprex_file <- pp_highlight(input)
   }
 
+  if (venue == "slack") {
+    reprex_file <- pp_slackify(input)
+  }
+
   if (venue == "html") {
     reprex_file <- pp_html_render(input)
   }
@@ -250,6 +254,19 @@ pp_md_to_r <- function(input, comment = "#>") {
   output_lines <- convert_md_to_r(output_lines, comment = comment)
   write_lines(output_lines, rout_file)
   rout_file
+}
+
+# remove so-called "info strings" from opening code fences
+# https://github.github.com/gfm/#info-string
+pp_slackify <- function(input) {
+  md_file <- md_file(input)
+  output_lines <- remove_info_strings(read_lines(md_file))
+  write_lines(output_lines, md_file)
+  md_file
+}
+
+remove_info_strings <- function(x) {
+  sub("^```[^`]*$", "```", x, perl = TRUE)
 }
 
 # used when venue is "rtf"

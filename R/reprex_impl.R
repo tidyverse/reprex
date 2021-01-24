@@ -1,6 +1,6 @@
 reprex_impl <- function(x_expr = NULL,
                         input  = NULL, outfile = NULL,
-                        venue  = c("gh", "r", "rtf", "html", "so", "ds"),
+                        venue  = c("gh", "r", "rtf", "html", "slack", "so", "ds"),
 
                         render = TRUE,
                         new_session = TRUE,
@@ -115,10 +115,18 @@ reprex_impl <- function(x_expr = NULL,
 }
 
 set_advertise <- function(advertise, venue) {
+  default <- c(
+    gh    = TRUE,
+    ds    = TRUE,
+    html  = TRUE,
+    so    = TRUE,
+    r     = FALSE,
+    rtf   = FALSE,
+    slack = FALSE
+  )
   advertise %||%
     getOption("reprex.advertise") %||%
-    # these parentheses are important
-    (venue %in% c("gh", "html"))
+    default[[venue]]
 }
 
 style_requires_styler <- function(style) {
@@ -159,7 +167,8 @@ decorate_yaml <- function(x) roxygen_comment(x <- c("---", x, "---"))
 remove_defaults <- function(x) {
   defaults <- list(
     venue           = "gh",
-    advertise       = TRUE,
+    # this is the only conditional default, i.e. that depends on venue
+    advertise       = set_advertise(NULL, x[["venue"]]),
     session_info    = FALSE,
     style           = FALSE,
     html_preview    = TRUE,
