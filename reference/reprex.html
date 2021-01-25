@@ -193,7 +193,7 @@ see below for more.</p>
   x <span class='op'>=</span> <span class='cn'>NULL</span>,
   input <span class='op'>=</span> <span class='cn'>NULL</span>,
   outfile <span class='op'>=</span> <span class='cn'>NULL</span>,
-  venue <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"gh"</span>, <span class='st'>"r"</span>, <span class='st'>"rtf"</span>, <span class='st'>"html"</span>, <span class='st'>"so"</span>, <span class='st'>"ds"</span><span class='op'>)</span>,
+  venue <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"gh"</span>, <span class='st'>"r"</span>, <span class='st'>"rtf"</span>, <span class='st'>"html"</span>, <span class='st'>"slack"</span>, <span class='st'>"so"</span>, <span class='st'>"ds"</span><span class='op'>)</span>,
   render <span class='op'>=</span> <span class='cn'>TRUE</span>,
   advertise <span class='op'>=</span> <span class='cn'>NULL</span>,
   session_info <span class='op'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span><span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span>,
@@ -236,12 +236,18 @@ otherwise.</p></td>
       <td><p>Character. Must be one of the following (case insensitive):</p><ul>
 <li><p>"gh" for <a href='https://github.github.com/gfm/'>GitHub-Flavored Markdown</a>, the
 default</p></li>
-<li><p>"r" for a runnable R script, with commented output interleaved</p></li>
+<li><p>"r" for a runnable R script, with commented output interleaved. Also useful
+for <a href='https://slack.com/intl/en-ca/slack-tips/share-code-snippets'>Slack code snippets</a>;
+select "R" from the "Type" drop-down menu to enjoy nice syntax
+highlighting.</p></li>
 <li><p>"rtf" for
 <a href='https://en.wikipedia.org/wiki/Rich_Text_Format'>Rich Text Format</a>
 (not supported for un-reprexing)</p></li>
 <li><p>"html" for an HTML fragment suitable for inclusion in a larger HTML
 document (not supported for un-reprexing)</p></li>
+<li><p>"slack" for pasting into a Slack message. Works best if you opt out of
+Slack's WYSIWYG interface and, instead, go to <strong>Preferences &gt; Advanced</strong>
+and select "Format messages with markup".</p></li>
 <li><p>"so" for
 <a href='https://stackoverflow.com/editing-help#syntax-highlighting'>Stack Overflow Markdown</a>.
 Note: this is just an alias for "gh", since Stack Overflow started to
@@ -262,7 +268,7 @@ primarily for the sake of internal testing.</p></td>
       <td><p>Logical. Whether to include a footer that describes when and
 how the reprex was created. If unspecified, the option <code>reprex.advertise</code>
 is consulted and, if that is not defined, default is <code>TRUE</code> for venues
-<code>"gh"</code>, <code>"html"</code>, <code>"so"</code>, <code>"ds"</code> and <code>FALSE</code> for <code>"r"</code> and <code>"rtf"</code>.</p></td>
+<code>"gh"</code>, <code>"html"</code>, <code>"so"</code>, <code>"ds"</code> and <code>FALSE</code> for <code>"r"</code>, <code>"rtf"</code>, <code>"slack"</code>.</p></td>
     </tr>
     <tr>
       <th>session_info</th>

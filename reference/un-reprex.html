@@ -211,12 +211,18 @@ otherwise.</p></td>
       <td><p>Character. Must be one of the following (case insensitive):</p><ul>
 <li><p>"gh" for <a href='https://github.github.com/gfm/'>GitHub-Flavored Markdown</a>, the
 default</p></li>
-<li><p>"r" for a runnable R script, with commented output interleaved</p></li>
+<li><p>"r" for a runnable R script, with commented output interleaved. Also useful
+for <a href='https://slack.com/intl/en-ca/slack-tips/share-code-snippets'>Slack code snippets</a>;
+select "R" from the "Type" drop-down menu to enjoy nice syntax
+highlighting.</p></li>
 <li><p>"rtf" for
 <a href='https://en.wikipedia.org/wiki/Rich_Text_Format'>Rich Text Format</a>
 (not supported for un-reprexing)</p></li>
 <li><p>"html" for an HTML fragment suitable for inclusion in a larger HTML
 document (not supported for un-reprexing)</p></li>
+<li><p>"slack" for pasting into a Slack message. Works best if you opt out of
+Slack's WYSIWYG interface and, instead, go to <strong>Preferences &gt; Advanced</strong>
+and select "Format messages with markup".</p></li>
 <li><p>"so" for
 <a href='https://stackoverflow.com/editing-help#syntax-highlighting'>Stack Overflow Markdown</a>.
 Note: this is just an alias for "gh", since Stack Overflow started to
