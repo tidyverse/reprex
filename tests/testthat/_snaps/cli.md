@@ -20,7 +20,7 @@
     Code
       cli::cli_alert_success("SUCCESS!")
     Message <cliMessage>
-      [32m✓[39m SUCCESS!
+      v SUCCESS!
 
 # snapshot cli calls, but first start an app
 
