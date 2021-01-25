@@ -40,7 +40,7 @@ Depends:
     R (>= 3.3)
 Imports: 
     callr (>= 3.3.1),
-    cli,
+    cli (>= 2.2.0.9000),
     clipr (>= 0.4.0),
     fs,
     glue,
@@ -69,3 +69,5 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 SystemRequirements: pandoc (>= 1.12.3) - http://pandoc.org
+Remotes:  
+    r-lib/cli
