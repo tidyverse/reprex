@@ -7,11 +7,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r include = FALSE}
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
-library(reprex)
-```
-
 If you're asking for R help, reporting a bug, or requesting a new feature, you're more likely to succeed if you include a good reprex.
 
 ## Main requirements
@@ -20,22 +15,44 @@ If you're asking for R help, reporting a bug, or requesting a new feature, you'r
 
   - Think: `iris` or `mtcars`. Bore me.
   - If you must make some objects, minimize their size and complexity.
-  - Many of the functions and packages you already use to import data from delimited files also offer a way to create a small data frame "inline":
-    - `read.table()` and friends have a `text` argument. Example: `read.csv(text = "a,b\n1,2\n3,4")`.
+  - Many of the functions and packages you already use offer a way to create a small data frame "inline":
+    - `read.table()` and friends have a `text` argument. Example:
+
+        ``` r
+        read.csv(text = "a,b\n1,2\n3,4")
+        #>   a b
+        #> 1 1 2
+        #> 2 3 4
+        ```
+    
     - `tibble::tribble()` lets you use a natural and readable layout. Example:
     
-            tibble::tribble(
-              ~ a, ~ b,
-                1,   2,
-                3,   4
-            )
-            #> # A tibble: 2 x 2
-            #>       a     b
-            #>   <dbl> <dbl>
-            #> 1     1     2
-            #> 2     3     4
+        ``` r
+        tibble::tribble(
+          ~ a, ~ b,
+            1,   2,
+            3,   4
+        )
+        #> # A tibble: 2 x 2
+        #>       a     b
+        #>   <dbl> <dbl>
+        #> 1     1     2
+        #> 2     3     4
+        ```
+            
   - Get just a bit of something with `head()` or by indexing with the result of `sample()`. If anything is random, consider using `set.seed()` to make it repeatable.
-  - `dput()` is a good way to get the code to create an object you have lying around, if you simply cannot make do with built-in or simulated data. Copy and paste the *result* of this into your reprex.
+  - The [datapasta package](https://milesmcbain.github.io/datapasta/) can generate code for `data.frame()`, `tibble::tribble()`, or `data.table::data.table()` based on an existing R data frame. For example, a call to `tribble_format(head(ChickWeight, 3))` leaves this on the clipboard, ready to paste into your reprex:
+  
+    ``` r
+    tibble::tribble(
+     ~weight, ~Time, ~Chick, ~Diet,
+          42,     0,    "1",   "1",
+          51,     2,    "1",   "1",
+          59,     4,    "1",   "1"
+    )
+    
+    ```
+  - `dput()` is a decent last resort, i.e. if you simply cannot make do with built-in or simulated data or inline data creation in a more readable format. But `dput()` output is not very human-readable. Avoid if at all possible.
   - Look at official examples and try to write in that style. Consider adapting one.
 
 **Include commands on a strict "need to run" basis.**
@@ -49,7 +66,7 @@ If you're asking for R help, reporting a bug, or requesting a new feature, you'r
 
 **Whitespace rationing is not in effect.**
 
-  - Use good [coding style](http://style.tidyverse.org).
+  - Use good [coding style](https://style.tidyverse.org).
   - Use `reprex(..., style = TRUE)` to request automated styling of your code.
 
 **Pack it in, pack it out, and don't take liberties with other people's computers.** You are asking people to run this code!
@@ -70,7 +87,7 @@ If you're asking for R help, reporting a bug, or requesting a new feature, you'r
     file.remove("foo.txt")
     ```
   - Don't delete files or objects that you didn't create in the first place.
-  - Take advantage of R's built-in ability to create temporary files and directories. Read up on [`tempfile()` and `tempdir()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/tempfile.html).
+  - Take advantage of R's built-in ability to create temporary files and directories. Read up on [`tempfile()` and `tempdir()`](https://stat.ethz.ch/R-manual/R-patched/library/base/html/tempfile.html).
   
 ## This seems like a lot of work!
   
@@ -84,8 +101,6 @@ The remaining 20% of the time, you will create a reprex that is more likely to e
 
 [How to make a great R reproducible example?](https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example/16532098) thread on StackOverflow
 
-[How to write a reproducible example](http://adv-r.had.co.nz/Reproducibility.html) from Hadley Wickham's [Advanced R book](http://adv-r.had.co.nz)
-
 ## Package philosophy
 
 The reprex code:
@@ -98,15 +113,6 @@ The reprex code:
 
 Accomplished like so:
 
-  * Use `rmarkdown::render()` to run the code and capture output that you would normally see on your screen. This is done in a separate R process, via [callr](https://cran.r-project.org/package=callr), to guarantee it is self-contained.
+  * Use `rmarkdown::render()` to run the code and capture output that you would normally see on your screen. This is done in a separate R process, via [callr](https://callr.r-lib.org), to guarantee it is self-contained.
 
   * Use chunk option `comment = "#>"` to include the output while retaining executability.
-
-## Other work
-
-If I had known about [`formatR::tidy_eval()`](http://yihui.name/formatR/), I probably would never had made reprex! But alas I did not. AFAICT here are the main differences:
-
-  * `reprex()` accepts an expression as primary input, in addition to code on the clipboard, in a character vector, or in a file.
-  * `reprex()` runs the reprex in a separate R process, via [callr](https://cran.r-project.org/package=callr). `tidy_eval()` uses the existing R process and offers an `envir` argument.
-  * `reprex()` writes the code to a `.R` file and calls `rmarkdown::render()`. `tidy_eval()` runs the code line-by-line via `capture.output(eval(..., envir = envir))`.
-  * `reprex()` uploads figures to imgur and inserts the necessary link.
