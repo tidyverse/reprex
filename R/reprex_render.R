@@ -249,24 +249,32 @@ inject_file <- function(path, inject_path) {
 
 # used when venue is "r" or "rtf"
 pp_md_to_r <- function(input, comment = "#>") {
-  rout_file <- r_file_rendered(input)
   output_lines <- read_lines(md_file(input))
   output_lines <- convert_md_to_r(output_lines, comment = comment)
+  rout_file <- r_file_rendered(input)
   write_lines(output_lines, rout_file)
   rout_file
 }
 
-# remove so-called "info strings" from opening code fences
-# https://github.github.com/gfm/#info-string
 pp_slackify <- function(input) {
-  md_file <- md_file(input)
-  output_lines <- remove_info_strings(read_lines(md_file))
-  write_lines(output_lines, md_file)
-  md_file
+  output_lines <- read_lines(md_file(input))
+  output_lines <- remove_info_strings(output_lines)
+  output_lines <- simplify_image_links(output_lines)
+  slack_file <- md_file_slack(input)
+  write_lines(output_lines, slack_file)
+  slack_file
 }
 
+# remove "info strings" from opening code fences, e.g. ```r
+# https://spec.commonmark.org/0.29/#info-string
 remove_info_strings <- function(x) {
   sub("^```[^`]*$", "```", x, perl = TRUE)
+}
+
+# input:  ![](https://i.imgur.com/woc4vHs.png)
+# output: https://i.imgur.com/woc4vHs.png
+simplify_image_links <- function(x) {
+  sub("(^!\\[\\]\\()(.+)(\\)$)", "\\2", x, perl = TRUE)
 }
 
 # used when venue is "rtf"
