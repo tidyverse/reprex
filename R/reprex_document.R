@@ -35,7 +35,7 @@
 #' @export
 #' @examples
 #' reprex_document()
-reprex_document <- function(venue = c("gh", "r", "rtf", "html", "so", "ds"),
+reprex_document <- function(venue = c("gh", "r", "rtf", "html", "slack", "so", "ds"),
 
                             advertise       = NULL,
                             session_info    = opt(FALSE),
@@ -155,15 +155,16 @@ std_out_err_stub <- function(input, details = FALSE) {
 }
 
 ad <- function(venue) {
-  txt <- paste0(
-    "Created on `r Sys.Date()` by the ",
-    "[reprex package](https://reprex.tidyverse.org) ",
-    "(v`r utils::packageVersion(\"reprex\")`)"
-  )
-  if (venue %in% c("gh", "so", "html")) {
-    txt <- paste0("<sup>", txt, "</sup>")
+  if (venue %in% c("gh", "ds", "so", "html")) {
+    return(glue::glue('
+      <sup>Created on `r Sys.Date()` by the \\
+      [reprex package](https://reprex.tidyverse.org) \\
+      (v`r utils::packageVersion("reprex")`)</sup>'))
   }
-  txt
+  # what's left? venues "r", "rtf", "slack"
+  glue::glue('
+    Created on `r Sys.Date()` by the reprex package \\
+    v`r utils::packageVersion("reprex")` https://reprex.tidyverse.org')
 }
 
 # TO RECONSIDER: once I am convinced that so == gh, I can eliminate the
