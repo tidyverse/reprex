@@ -127,30 +127,48 @@
 <a href="#main-requirements" class="anchor"></a>Main requirements</h2>
 <p><strong>Use the smallest, simplest, most <a href="https://stat.ethz.ch/R-manual/R-patched/library/datasets/html/00Index.html">built-in data</a> possible.</strong></p>
 <ul>
-<li>Think: <code>iris</code> or <code>mtcars</code>. Bore me.</li>
-<li>If you must make some objects, minimize their size and complexity.</li>
-<li>Many of the functions and packages you already use to import data from delimited files also offer a way to create a small data frame “inline”:
+<li><p>Think: <code>iris</code> or <code>mtcars</code>. Bore me.</p></li>
+<li><p>If you must make some objects, minimize their size and complexity.</p></li>
+<li>
+<p>Many of the functions and packages you already use offer a way to create a small data frame “inline”:</p>
 <ul>
-<li><p><code><a href="https://rdrr.io/r/utils/read.table.html">read.table()</a></code> and friends have a <code>text</code> argument. Example: <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv(text = "a,b\n1,2\n3,4")</a></code>.</p></li>
+<li>
+<p><code><a href="https://rdrr.io/r/utils/read.table.html">read.table()</a></code> and friends have a <code>text</code> argument. Example:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>text <span class="op">=</span> <span class="st">"a,b\n1,2\n3,4"</span><span class="op">)</span>
+<span class="co">#&gt;   a b</span>
+<span class="co">#&gt; 1 1 2</span>
+<span class="co">#&gt; 2 3 4</span></code></pre></div>
+</li>
 <li>
 <p><code><a href="https://tibble.tidyverse.org/reference/tribble.html">tibble::tribble()</a></code> lets you use a natural and readable layout. Example:</p>
-<pre><code><a href="https://tibble.tidyverse.org/reference/tribble.html">  tibble::tribble(
-    ~ a, ~ b,
-      1,   2,
-      3,   4
-  )
-  #&gt; # A tibble: 2 x 2
-  #&gt;       a     b
-  #&gt;   &lt;dbl&gt; &lt;dbl&gt;
-  #&gt; 1     1     2
-  #&gt; 2     3     4</a></code></pre>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
+  <span class="op">~</span> <span class="va">a</span>, <span class="op">~</span> <span class="va">b</span>,
+    <span class="fl">1</span>,   <span class="fl">2</span>,
+    <span class="fl">3</span>,   <span class="fl">4</span>
+<span class="op">)</span>
+<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt;       a     b</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1     2</span>
+<span class="co">#&gt; 2     3     4</span></code></pre></div>
 </li>
 </ul>
 </li>
-<li>Get just a bit of something with <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code> or by indexing with the result of <code><a href="https://rdrr.io/r/base/sample.html">sample()</a></code>. If anything is random, consider using <code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> to make it repeatable.</li>
+<li><p>Get just a bit of something with <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code> or by indexing with the result of <code><a href="https://rdrr.io/r/base/sample.html">sample()</a></code>. If anything is random, consider using <code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> to make it repeatable.</p></li>
 <li>
-<code><a href="https://rdrr.io/r/base/dput.html">dput()</a></code> is a good way to get the code to create an object you have lying around, if you simply cannot make do with built-in or simulated data. Copy and paste the <em>result</em> of this into your reprex.</li>
-<li>Look at official examples and try to write in that style. Consider adapting one.</li>
+<p>The <a href="https://milesmcbain.github.io/datapasta/">datapasta package</a> can generate code for <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code>, <code><a href="https://tibble.tidyverse.org/reference/tribble.html">tibble::tribble()</a></code>, or <code>data.table::data.table()</code> based on an existing R data frame. For example, a call to <code>tribble_format(head(ChickWeight, 3))</code> leaves this on the clipboard, ready to paste into your reprex:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
+ <span class="op">~</span><span class="va">weight</span>, <span class="op">~</span><span class="va">Time</span>, <span class="op">~</span><span class="va">Chick</span>, <span class="op">~</span><span class="va">Diet</span>,
+      <span class="fl">42</span>,     <span class="fl">0</span>,    <span class="st">"1"</span>,   <span class="st">"1"</span>,
+      <span class="fl">51</span>,     <span class="fl">2</span>,    <span class="st">"1"</span>,   <span class="st">"1"</span>,
+      <span class="fl">59</span>,     <span class="fl">4</span>,    <span class="st">"1"</span>,   <span class="st">"1"</span>
+<span class="op">)</span></code></pre></div>
+</li>
+<li><p><code><a href="https://rdrr.io/r/base/dput.html">dput()</a></code> is a decent last resort, i.e. if you simply cannot make do with built-in or simulated data or inline data creation in a more readable format. But <code><a href="https://rdrr.io/r/base/dput.html">dput()</a></code> output is not very human-readable. Avoid if at all possible.</p></li>
+<li><p>Look at official examples and try to write in that style. Consider adapting one.</p></li>
 </ul>
 <p><strong>Include commands on a strict “need to run” basis.</strong></p>
 <ul>
@@ -163,7 +181,7 @@
 </ul>
 <p><strong>Whitespace rationing is not in effect.</strong></p>
 <ul>
-<li>Use good <a href="http://style.tidyverse.org">coding style</a>.</li>
+<li>Use good <a href="https://style.tidyverse.org">coding style</a>.</li>
 <li>Use <code><a href="../reference/reprex.html">reprex(..., style = TRUE)</a></code> to request automated styling of your code.</li>
 </ul>
 <p><strong>Pack it in, pack it out, and don’t take liberties with other people’s computers.</strong> You are asking people to run this code!</p>
@@ -173,18 +191,18 @@
 <li><p>Don’t mask built-in functions, i.e. don’t define a new function named <code>c</code> or <code>mean</code>.</p></li>
 <li>
 <p>If you change options, store original values at the start, do your thing, then restore them:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>opar &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">pch =</span> <span class="dv">19</span>)</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="op">&lt;</span>blah blah blah<span class="op">&gt;</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">par</span>(opar)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>opar &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">pch =</span> <span class="dv">19</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="op">&lt;</span>blah blah blah<span class="op">&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="kw">par</span>(opar)</span></code></pre></div>
 </li>
 <li>
 <p>If you create files, delete them when you’re done:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">write</span>(x, <span class="st">"foo.txt"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="op">&lt;</span>blah blah blah<span class="op">&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="kw">file.remove</span>(<span class="st">"foo.txt"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">write</span>(x, <span class="st">"foo.txt"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="op">&lt;</span>blah blah blah<span class="op">&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">file.remove</span>(<span class="st">"foo.txt"</span>)</span></code></pre></div>
 </li>
 <li><p>Don’t delete files or objects that you didn’t create in the first place.</p></li>
-<li><p>Take advantage of R’s built-in ability to create temporary files and directories. Read up on <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/tempfile.html"><code>tempfile()</code> and <code>tempdir()</code></a>.</p></li>
+<li><p>Take advantage of R’s built-in ability to create temporary files and directories. Read up on <a href="https://stat.ethz.ch/R-manual/R-patched/library/base/html/tempfile.html"><code>tempfile()</code> and <code>tempdir()</code></a>.</p></li>
 </ul>
 </div>
 <div id="this-seems-like-a-lot-of-work" class="section level2">
@@ -198,7 +216,6 @@
 <h2 class="hasAnchor">
 <a href="#further-reading" class="anchor"></a>Further reading:</h2>
 <p><a href="https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example/16532098">How to make a great R reproducible example?</a> thread on StackOverflow</p>
-<p><a href="http://adv-r.had.co.nz/Reproducibility.html">How to write a reproducible example</a> from Hadley Wickham’s <a href="http://adv-r.had.co.nz">Advanced R book</a></p>
 </div>
 <div id="package-philosophy" class="section level2">
 <h2 class="hasAnchor">
@@ -211,23 +228,8 @@
 </ul>
 <p>Accomplished like so:</p>
 <ul>
-<li><p>Use <code><a href="https://rdrr.io/pkg/rmarkdown/man/render.html">rmarkdown::render()</a></code> to run the code and capture output that you would normally see on your screen. This is done in a separate R process, via <a href="https://cran.r-project.org/package=callr">callr</a>, to guarantee it is self-contained.</p></li>
+<li><p>Use <code><a href="https://rdrr.io/pkg/rmarkdown/man/render.html">rmarkdown::render()</a></code> to run the code and capture output that you would normally see on your screen. This is done in a separate R process, via <a href="https://callr.r-lib.org">callr</a>, to guarantee it is self-contained.</p></li>
 <li><p>Use chunk option <code>comment = "#&gt;"</code> to include the output while retaining executability.</p></li>
-</ul>
-</div>
-<div id="other-work" class="section level2">
-<h2 class="hasAnchor">
-<a href="#other-work" class="anchor"></a>Other work</h2>
-<p>If I had known about <a href="http://yihui.name/formatR/"><code>formatR::tidy_eval()</code></a>, I probably would never had made reprex! But alas I did not. AFAICT here are the main differences:</p>
-<ul>
-<li>
-<code><a href="../reference/reprex.html">reprex()</a></code> accepts an expression as primary input, in addition to code on the clipboard, in a character vector, or in a file.</li>
-<li>
-<code><a href="../reference/reprex.html">reprex()</a></code> runs the reprex in a separate R process, via <a href="https://cran.r-project.org/package=callr">callr</a>. <code>tidy_eval()</code> uses the existing R process and offers an <code>envir</code> argument.</li>
-<li>
-<code><a href="../reference/reprex.html">reprex()</a></code> writes the code to a <code>.R</code> file and calls <code><a href="https://rdrr.io/pkg/rmarkdown/man/render.html">rmarkdown::render()</a></code>. <code>tidy_eval()</code> runs the code line-by-line via <code><a href="https://rdrr.io/r/utils/capture.output.html">capture.output(eval(..., envir = envir))</a></code>.</li>
-<li>
-<code><a href="../reference/reprex.html">reprex()</a></code> uploads figures to imgur and inserts the necessary link.</li>
 </ul>
 </div>
   </div>
