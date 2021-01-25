@@ -256,6 +256,8 @@ pp_md_to_r <- function(input, comment = "#>") {
   rout_file
 }
 
+# used when venue is "slack"
+# https://www.markdownguide.org/tools/slack/
 pp_slackify <- function(input) {
   output_lines <- read_lines(md_file(input))
   output_lines <- remove_info_strings(output_lines)
