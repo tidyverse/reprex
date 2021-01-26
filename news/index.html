@@ -163,6 +163,19 @@
 <h1 class="page-header" data-toc-text="development version">
 <a href="#reprex-development-version" class="anchor"></a>reprex (development version)<small> Unreleased </small>
 </h1>
+<div id="venues" class="section level2">
+<h2 class="hasAnchor">
+<a href="#venues" class="anchor"></a>Venues</h2>
+<ul>
+<li><p><code>reprex_VENUE(...)</code> is a new way to call <code><a href="../reference/reprex.html">reprex(..., venue = "VENUE")</a></code>. For example, <code><a href="../reference/reprex_venue.html">reprex_r()</a></code> is equivalent to <code><a href="../reference/reprex.html">reprex(venue = "r")</a></code>. This makes non-default venues easier to access via auto-completion (<a href='https://github.com/tidyverse/reprex/issues/256'>#256</a>).</p></li>
+<li><p><code>venue = "so"</code> (SO = Stack Overflow) has converged with default <code>venue = "gh"</code> (GitHub). As of January 2019, SO <a href="https://meta.stackexchange.com/questions/125148/implement-style-fenced-markdown-code-blocks/322000<a href='https://github.com/tidyverse/reprex/issues/322000'>#322000</a>">supports CommonMark fenced code blocks</a>. The only remaining difference is that Stack Overflow does not support the collapsible details tag that we use on GitHub to reduce the clutter from, e.g., session info (<a href='https://github.com/tidyverse/reprex/issues/231'>#231</a>).</p></li>
+<li><p>“rtf” (Rich Text Format) is a new experimental <code>venue</code> for pasting into applications like PowerPoint and Keynote. It is experimental because it requires a working installation of the highlight command line tool, which is left as a somewhat fiddly exercise for the user (<a href='https://github.com/tidyverse/reprex/issues/331'>#331</a>). <code>venue = "rtf"</code> is documented in its <a href="https://reprex.tidyverse.org/articles/articles/rtf.html">own article</a>.</p></li>
+<li><p><code>reprex.current_venue</code> is a new read-only option that is set during <code><a href="../reference/reprex_render.html">reprex_render()</a></code>. Other packages can use it to generate <code><a href="../reference/reprex.html">reprex()</a></code>-compatible, <code>venue</code>-aware output, such as an renv lockfile.</p></li>
+</ul>
+</div>
+<div id="implementation-and-internals" class="section level2">
+<h2 class="hasAnchor">
+<a href="#implementation-and-internals" class="anchor"></a>Implementation and internals</h2>
 <ul>
 <li>
 <p><code><a href="../reference/reprex.html">reprex()</a></code> has been internally refactored to make better use of the official machinery for extending rmarkdown:</p>
@@ -171,23 +184,26 @@
 <code><a href="../reference/reprex_document.html">reprex_document()</a></code> is a new R Markdown output format.</li>
 <li>
 <code><a href="../reference/reprex_render.html">reprex_render()</a></code> is a newly exported function.</li>
-<li>A <code><a href="../reference/reprex_document.html">reprex_document()</a></code> is designed to be rendered with <code><a href="../reference/reprex_render.html">reprex_render()</a></code>. <code><a href="../reference/reprex_render.html">reprex_render()</a></code> is designed to act on a <code><a href="../reference/reprex_document.html">reprex_document()</a></code>. This is the heart of what the <code><a href="../reference/reprex.html">reprex()</a></code> function does, in addition to various interface and workflow niceties.</li>
+<li>A <code><a href="../reference/reprex_document.html">reprex_document()</a></code> is designed to be rendered with <code><a href="../reference/reprex_render.html">reprex_render()</a></code>. <code><a href="../reference/reprex_render.html">reprex_render()</a></code> is designed to act on a <code><a href="../reference/reprex_document.html">reprex_document()</a></code>. This is (still) the heart of what the <code><a href="../reference/reprex.html">reprex()</a></code> function does, in addition to various interface and workflow niceties.</li>
 <li>Two R Markdown templates ship with the package, which an RStudio user can access via <em>File &gt; New File &gt; R Markdown … &gt; From Template</em>. One is minimal; the other uses lots of reprex features. Both include <code>knit: reprex::reprex_render</code> in the YAML, which causes the RStudio “Knit” button to use <code><a href="../reference/reprex_render.html">reprex_render()</a></code>.</li>
 </ul>
 </li>
+<li><p><code>prex()</code>, <code>prex_VENUE()</code>, and <code>prex_render()</code> are new <strong>unexported</strong> functions that, like <code><a href="../reference/reprex.html">reprex()</a></code>, render a small bit of code, but with much less <strong>re</strong>producibility! The code is evaluated in the global workspace of the current process, with the current working directory. This pragmatic hack is useful when preparing a series of related snippets, e.g., for a Keynote or PowerPoint presentation, and there’s not enough space to make each one self-contained.</p></li>
+<li><p>UTF-8 encoding: Following the lead of knitr, reprex makes explicit use of UTF-8 internally (<a href='https://github.com/tidyverse/reprex/issues/237'>#237</a> <a href='https://github.com/krlmlr'>@krlmlr</a>, <a href='https://github.com/tidyverse/reprex/issues/261'>#261</a>).</p></li>
+<li><p>When the reprex causes R to crash, <code><a href="../reference/reprex.html">reprex(std_out_err = TRUE)</a></code> is able to provide more information about the crash, in some cases (<a href='https://github.com/tidyverse/reprex/issues/312'>#312</a>).</p></li>
+</ul>
+</div>
+<div id="other-changes-and-improvements" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other-changes-and-improvements" class="anchor"></a>Other changes and improvements</h2>
+<ul>
+<li><p>The <code>tidyverse_quiet</code> argument and <code>reprex.tidyverse_quiet</code> option also control startup messages from the <a href="https://www.tidymodels.org">tidymodels</a> meta-package (<a href='https://github.com/tidyverse/reprex/issues/326'>#326</a>, <a href='https://github.com/juliasilge'>@juliasilge</a>).</p></li>
+<li><p><code><a href="../reference/reprex_locale.html">reprex_locale()</a></code> is a new thin wrapper around <code><a href="../reference/reprex.html">reprex()</a></code> that renders in a temporarily-altered locale (<a href='https://github.com/tidyverse/reprex/issues/250'>#250</a>).</p></li>
 <li><p>The <code>si</code> argument of <code><a href="../reference/reprex.html">reprex()</a></code> is now <code>session_info</code>. Being explicit seems more important than saving characters, given auto-completion.</p></li>
 <li><p>The <code>show</code> argument of <code><a href="../reference/reprex.html">reprex()</a></code> is now <code>html_preview</code>, for the sake of consistency with other R Markdown output formats.</p></li>
-<li><p><code>reprex_VENUE(...)</code> is a new way to call <code><a href="../reference/reprex.html">reprex(..., venue = "VENUE")</a></code>. For example, <code><a href="../reference/reprex_venue.html">reprex_r()</a></code> is equivalent to <code><a href="../reference/reprex.html">reprex(venue = "r")</a></code>. This makes non-default venues easier to access via auto-completion (<a href='https://github.com/tidyverse/reprex/issues/256'>#256</a>).</p></li>
-<li><p><code>prex()</code>, <code>prex_VENUE()</code>, and <code>prex_render()</code> are new <strong>unexported</strong> functions that, like <code><a href="../reference/reprex.html">reprex()</a></code>, render a small bit of code, but with less reproducibility! The code is evaluated in the global workspace of the current process, with the current working directory. This pragmatic hack is useful when preparing a series of related snippets, e.g., for a Keynote or PowerPoint presentation, and there’s not enough space to make each one self-contained.</p></li>
 <li><p>New article on techniques for making package startup quieter (<a href='https://github.com/tidyverse/reprex/issues/187'>#187</a>, <a href='https://github.com/marionlouveaux'>@marionlouveaux</a>).</p></li>
-<li><p>The <code>tidyverse_quiet</code> argument and <code>reprex.tidyverse_quiet</code> option also affects startup messages from the <a href="https://www.tidymodels.org">tidymodels</a> meta-package (<a href='https://github.com/tidyverse/reprex/issues/326'>#326</a>, <a href='https://github.com/juliasilge'>@juliasilge</a>).</p></li>
-<li><p><code><a href="../reference/reprex_locale.html">reprex_locale()</a></code> is a new thin wrapper around <code><a href="../reference/reprex.html">reprex()</a></code> that renders in a temporarily-altered locale (<a href='https://github.com/tidyverse/reprex/issues/250'>#250</a>).</p></li>
-<li><p>UTF-8 encoding: Following the lead of knitr, reprex makes explicit use of UTF-8 internally (<a href='https://github.com/tidyverse/reprex/issues/237'>#237</a> <a href='https://github.com/krlmlr'>@krlmlr</a>, <a href='https://github.com/tidyverse/reprex/issues/261'>#261</a>).</p></li>
-<li><p><code>venue = "so"</code> (SO = Stack Overflow) has converged with default <code>venue = "gh"</code> (GitHub). As of January 2019, SO <a href="https://meta.stackexchange.com/questions/125148/implement-style-fenced-markdown-code-blocks/322000<a href='https://github.com/tidyverse/reprex/issues/322000'>#322000</a>">supports CommonMark fenced code blocks</a>. The only remaining difference is that Stack Overflow does not support the collapsible details tag that we use on GitHub for the session info requested via <code>si = TRUE</code> (<a href='https://github.com/tidyverse/reprex/issues/231'>#231</a>).</p></li>
-<li><p>When the reprex causes R to crash, <code><a href="../reference/reprex.html">reprex(std_out_err = TRUE)</a></code> is able to provide more information about the crash, in some cases (<a href='https://github.com/tidyverse/reprex/issues/312'>#312</a>).</p></li>
-<li><p>Experimental venue “rtf” now works on Windows, to approximately the same extent as it works on macOS. In both cases, it still requires a working installation of the highlight command line tool (<a href='https://github.com/tidyverse/reprex/issues/331'>#331</a>).</p></li>
-<li><p><code>reprex.current_venue</code> is a new read-only option that is set during <code><a href="../reference/reprex_render.html">reprex_render()</a></code>. Other packages can use it to generate <code><a href="../reference/reprex.html">reprex()</a></code>-compatible, <code>venue</code>-specific output.</p></li>
 </ul>
+</div>
 <div id="dependency-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#dependency-changes" class="anchor"></a>Dependency changes</h2>
@@ -254,9 +270,9 @@
 <code>render</code>: determines if the reprex is actually rendered or just returns after producing the templated <code>.R</code> file. For internal testing.</li>
 </ul>
 </div>
-<div id="venues" class="section level2">
+<div id="venues-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#venues" class="anchor"></a>Venues</h2>
+<a href="#venues-1" class="anchor"></a>Venues</h2>
 <ul>
 <li><p>Line wrapping is preserved from source via a Pandoc option (<a href='https://github.com/tidyverse/reprex/issues/145'>#145</a> <a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/tidyverse/reprex/issues/175'>#175</a>).</p></li>
 <li><p><code>venue = "gh"</code> now targets CommonMark as the standard for GitHub Flavored Markdown (<a href='https://github.com/tidyverse/reprex/issues/77'>#77</a>).</p></li>
