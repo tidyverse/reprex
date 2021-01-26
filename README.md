@@ -122,7 +122,7 @@ But wait, there’s more\!
   - Get html with `reprex(..., venue = "html")`. Useful for sites that don't
     support Markdown.
 
-  - Prepare rendered, syntax-highlighted code snippets to paste into
+  - Prepare (un)rendered, syntax-highlighted code snippets to paste into
     Keynote or PowerPoint, with `reprex(..., venue = "rtf")`. This
     feature is still experimental; see the [associated article](https://reprex.tidyverse.org/articles/articles/rtf.html) for more.
 
