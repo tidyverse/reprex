@@ -1,4 +1,3 @@
-AFAICT
 Addins
 CMD
 Codecov
@@ -19,7 +18,6 @@ SystemRequirements
 Tierney
 Tierney's
 Un
-Wickham's
 XPG
 YAML
 addin
@@ -60,6 +58,7 @@ knitr
 knitr's
 knitrthemesoverview
 lifecycle
+lockfile
 macOS
 metapackage
 noninteractive
@@ -67,9 +66,11 @@ oducible
 outfiles
 pandoc
 php
+producibility
 rclickhandbuch
 realise
 regexes
+renv
 repr
 reprex's
 reprexing

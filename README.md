@@ -73,7 +73,7 @@ you’re in RStudio) or your default browser otherwise.
 
 ![](man/figures/README-viewer-screenshot.png)
 
-The relevant bit of Github-flavored Markdown is ready to be pasted from
+The relevant bit of GitHub-flavored Markdown is ready to be pasted from
 your clipboard:
 
     ``` r
