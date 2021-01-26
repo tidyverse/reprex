@@ -15,7 +15,7 @@ This template demonstrates many of the bells and whistles of the `reprex::reprex
 
 ## Code style
 
-Since `style` is `TRUE`, this difficult-to-read code will be restyled according to the Tidyverse style guide when it's rendered. Whitespace rationing is not in effect!
+Since `style` is `TRUE`, this difficult-to-read code (look at the `.Rmd` source file) will be restyled according to the Tidyverse style guide when it's rendered. Whitespace rationing is not in effect!
 
 ```{r}
 x=1;y=2;z=x+y;z
@@ -27,7 +27,7 @@ The tidyverse meta-package is quite chatty at startup, which can be very useful 
 
 However, when `tidyverse_quiet` is `FALSE`, the rendered result will include a tidyverse startup message about package versions and function masking.
 
-```{r}
+```{r, eval = requireNamespace("tidyverse", quietly = TRUE)}
 library(tidyverse)
 ```
 
@@ -37,14 +37,14 @@ Remember: knitr supports many other languages than R, so you can reprex bits of 
 
 Let's try Python!
 
-```{python, python.reticulate = requireNamespace("reticulate", quietly = TRUE)}
+```{python, eval = Sys.which("python") != "", python.reticulate = requireNamespace("reticulate", quietly = TRUE)}
 x = 'hello, python world!'
 print(x.split(' '))
 ```
 
 And bash!
 
-```{bash}
+```{bash, eval = Sys.which("bash") != ""}
 echo "Hello Bash!";
 pwd;
 ls | head;
@@ -52,7 +52,7 @@ ls | head;
 
 Write a function in C++, use Rcpp to wrap it and ...
 
-```{Rcpp}
+```{Rcpp, eval = requireNamespace("Rcpp", quietly = TRUE)}
 #include <Rcpp.h>
 using namespace Rcpp;
 
@@ -64,7 +64,7 @@ NumericVector timesTwo(NumericVector x) {
 
 then immediately call your C++ function from R!
 
-```{r}
+```{r, eval = requireNamespace("Rcpp", quietly = TRUE)}
 timesTwo(1:4)
 ```
 
