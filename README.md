@@ -11,8 +11,7 @@
 
 Prepare reprexes for posting to [GitHub
 issues](https://guides.github.com/features/issues/),
-[StackOverflow](https://stackoverflow.com/questions/tagged/r), or [Slack
-snippets](https://slack.com/intl/en-us/help/articles/204145658).
+[StackOverflow](https://stackoverflow.com/questions/tagged/r), in Slack [messages](https://slack.com/intl/en-ca/help/articles/201457107-Send-and-read-messages) or [snippets](https://slack.com/intl/en-ca/help/articles/204145658-Create-a-snippet), or even to paste into PowerPoint or Keynote slides.
 What is a `reprex`? It’s a **repr**oducible **ex**ample, as coined by
 [Romain
 Francois](https://twitter.com/romain_francois/status/530011023743655936).
@@ -28,10 +27,11 @@ Given R code on the clipboard, selected in RStudio, as an expression
 
 Get resulting runnable code + output as
 
-  - Markdown, suitable for GitHub or Stack Overflow, or as
-  - R code, augmented with commented output.
+  - Markdown, suitable for GitHub or Stack Overflow or Slack, or as
+  - R code, augmented with commented output, or as
+  - Plain HTML or (experimental) Rich Text
 
-Result is returned invisibly, placed on the clipboard, and written to a
+The result is returned invisibly, placed on the clipboard, and written to a
 file. Preview an HTML version in RStudio viewer or default browser.
 
 ## Installation
@@ -73,7 +73,7 @@ you’re in RStudio) or your default browser otherwise.
 
 ![](man/figures/README-viewer-screenshot.png)
 
-The relevant bit of CommonMark Markdown is ready to be pasted from
+The relevant bit of Github-flavored Markdown is ready to be pasted from
 your clipboard:
 
     ``` r
@@ -94,7 +94,7 @@ mean(y)
 
 Anyone else can copy, paste, and run this immediately.
 
-In addition to GitHub, this markdown also works on Stack Overflow and Discourse. Those venues can be formally requested via `venue = "so"` and `venue = "ds"`, but they are just aliases for `venue = "gh"`.
+In addition to GitHub, this Markdown also works on Stack Overflow and Discourse. Those venues can be formally requested via `venue = "so"` and `venue = "ds"`, but they are just aliases for `venue = "gh"`.
 
 Instead of reading from the clipboard, you can:
 
@@ -112,11 +112,15 @@ Instead of reading from the clipboard, you can:
 
 But wait, there’s more\!
 
+  - Get slightly different Markdown, optimized for Slack messages, with
+    `reprex(..., venue = "slack")`.
+
   - Get a runnable R script, augmented with commented output, with
-    `reprex(..., venue = "R")`. This is useful for Slack, email, etc.
+    `reprex(..., venue = "R")`. This is useful for Slack code snippets, email,
+    etc.
 
   - Get html with `reprex(..., venue = "html")`. Useful for sites that don't
-    support markdown.
+    support Markdown.
 
   - Prepare rendered, syntax-highlighted code snippets to paste into
     Keynote or PowerPoint, with `reprex(..., venue = "rtf")`. This
