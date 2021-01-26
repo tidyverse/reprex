@@ -131,7 +131,7 @@ pane, if available, or in the default browser, otherwise. Leading \code{"> "}
 prompts, are stripped from the input code. Read more at
 \url{https://reprex.tidyverse.org/}.
 
-reprex sets specific \href{http://yihui.name/knitr/options/}{knitr options}:
+reprex sets specific \href{https://yihui.org/knitr/options/}{knitr options}:
 \itemize{
 \item Chunk options default to \code{collapse = TRUE}, \code{comment = "#>"},
 \code{error = TRUE}. Note that \code{error = TRUE}, because a common use case is bug

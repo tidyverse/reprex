@@ -22,7 +22,7 @@
 #' prompts, are stripped from the input code. Read more at
 #' <https://reprex.tidyverse.org/>.
 #'
-#' reprex sets specific [knitr options](http://yihui.name/knitr/options/):
+#' reprex sets specific [knitr options](https://yihui.org/knitr/options/):
 #' * Chunk options default to `collapse = TRUE`, `comment = "#>"`,
 #'   `error = TRUE`. Note that `error = TRUE`, because a common use case is bug
 #'   reporting.

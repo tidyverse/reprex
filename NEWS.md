@@ -151,7 +151,7 @@ This was a non-functioning release created by CRAN maintainers by commenting out
   * The reprex is rendered via `callr::r_safe()` and is thus run in a clean, separate R process, eliminating any leakage of objects or loaded packages to/from the calling session.
 
   * `reprex()` gains optional arguments `opts_chunk` and `opts_knit`, taking named list as input, in order to supplement or override default knitr chunk and package options, respectively. (#33)
-    - This made the explicit `upload.fun` argument unnecessary, so it's gone. The `upload.fun` option defaults to `knitr::imgur_upload`, which means figures produced by the reprex will be uploaded to [imgur.com](http://imgur.com) and the associated image syntax will be put into the Markdown, e.g. `![](http://i.imgur.com/QPU5Cg9.png)`. (#15 @paternogbc)
+    - This made the explicit `upload.fun` argument unnecessary, so it's gone. The `upload.fun` option defaults to `knitr::imgur_upload`, which means figures produced by the reprex will be uploaded to [imgur.com](https://imgur.com/) and the associated image syntax will be put into the Markdown, e.g. `![](https://i.imgur.com/QPU5Cg9.png)`. (#15 @paternogbc)
     
   * Order of `reprex()` arguments has changed.
 

@@ -4,7 +4,7 @@
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/reprex)](https://cran.r-project.org/package=reprex)
 [![R-CMD-check](https://github.com/tidyverse/reprex/workflows/R-CMD-check/badge.svg)](https://github.com/tidyverse/reprex/actions)
 [![Codecov test coverage](https://codecov.io/gh/tidyverse/reprex/branch/master/graph/badge.svg)](https://codecov.io/gh/tidyverse/reprex?branch=master)
-[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
+[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 <!-- badges: end -->
 
 ## Overview
@@ -12,12 +12,12 @@
 Prepare reprexes for posting to [GitHub
 issues](https://guides.github.com/features/issues/),
 [StackOverflow](https://stackoverflow.com/questions/tagged/r), or [Slack
-snippets](https://get.slack.help/hc/en-us/articles/204145658-Create-a-snippet).
+snippets](https://slack.com/intl/en-us/help/articles/204145658).
 What is a `reprex`? It’s a **repr**oducible **ex**ample, as coined by
 [Romain
 Francois](https://twitter.com/romain_francois/status/530011023743655936).
 
-<a href="https://nypdecider.files.wordpress.com/2014/08/help-me-help-you.gif"><img src="man/figures/help-me-help-you.png" align="right" /></a>
+<a href="https://media.giphy.com/media/fdLR6LGwAiVNhGQNvf/giphy.gif"><img src="man/figures/help-me-help-you.png" align="right" /></a>
 
 Given R code on the clipboard, selected in RStudio, as an expression
 (quoted or not), or in a file …
@@ -122,7 +122,7 @@ But wait, there’s more\!
     Keynote or PowerPoint, with `reprex(..., venue = "rtf")`. This
     feature is still experimental; see the [associated article](https://reprex.tidyverse.org/articles/articles/rtf.html) for more.
 
-  - By default, figures are uploaded to [imgur.com](http://imgur.com)
+  - By default, figures are uploaded to [imgur.com](https://imgur.com/)
     and the resulting URL is dropped into an inline image tag.
 
   - Use the `outfile` argument to control where results are left behind.
@@ -140,4 +140,4 @@ But wait, there’s more\!
 
 ## Code of Conduct
 
-Please note that the reprex project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/1/0/0/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+Please note that the reprex project is released with a [Contributor Code of Conduct](https://reprex.tidyverse.org/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
