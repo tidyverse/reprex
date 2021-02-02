@@ -3,16 +3,54 @@ url: https://reprex.tidyverse.org
 template:
   package: tidytemplate
 
-home:
-  strip_header: true
-
 authors:
   Jennifer Bryan:
     href: https://jennybryan.org
 
+home:
+  strip_header: true
+
 navbar:
   components:
     home: ~
-    intro:
-      text: Reprex do's and don'ts
-      href: articles/reprex-dos-and-donts.html
+    news:
+      text: News
+      menu:
+      - text: "Blog posts"
+      - text: "reprex 1.0.0"
+        href: https://www.tidyverse.org/blog/2021/02/reprex-1-0-0/
+      - text: "------------------"
+      - text: "Change log"
+        href: news/index.html
+
+reference:
+  - title: The main function
+    contents:
+    - reprex
+  - title: Convenience
+    contents:
+    - reprex_addin
+    - reprex_r
+    - reprex_locale
+  - title: Going backwards
+    contents:
+    - reprex_clean
+  - title: Internals
+    contents:
+    - reprex_options
+    - reprex_document
+    - reprex_render
+
+articles:
+  - title: Pro tips
+    navbar: ~
+    contents:
+    - reprex-dos-and-donts
+    - articles/rtf
+    - articles/datapasta-reprex
+    - articles/suppress-startup-messages
+
+  - title: How to use reprex
+    contents:
+    - articles/learn-reprex
+    - articles/magic-reprex
