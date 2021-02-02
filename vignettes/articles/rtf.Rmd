@@ -168,7 +168,7 @@ We're talking about things like the font size or background color.
 This seems to vary greatly across applications and operating systems and you'll just have to experiment to find a workflow that is practical for you.
 
 Note that it is even possible to create a custom highlight theme, e.g. to match the theme of a Keynote or Powerpoint slide deck with respect to background color, font, etc.
-A specific example of this is documented in these [how-to notes](https://github.com/jennybc/debugging/blob/master/how-to/highlight-custom-theme.md)).
+A specific example of this is documented in these [how-to notes](https://github.com/jennybc/debugging/blob/master/how-to/highlight-custom-theme.md).
 
 ## Run ... or not
 
