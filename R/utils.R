@@ -33,34 +33,6 @@ trim_common_leading_ws <- function(x) {
   substring(x, num + 1)
 }
 
-ingest_clipboard <- function() {
-  if (clipboard_available()) {
-    return(suppressWarnings(
-      enc2utf8(clipr::read_clip() %||% character())
-    ))
-  }
-  reprex_warning("No input provided and clipboard is not available.")
-  character()
-}
-
-write_clip_windows_rtf <- function(path) {
-  cmd <- glue::glue('
-    powershell -Command "\\
-    Add-Type -AssemblyName System.Windows.Forms | Out-Null;\\
-    [Windows.Forms.Clipboard]::SetText(
-    (Get-Content -Raw {path}),\\
-    [Windows.Forms.TextDataFormat]::Rtf
-    )"')
-  res <- system(cmd)
-  if (res > 0) {
-    #stop("Failed to put RTF on the Windows clipboard", call. = FALSE)
-    reprex_danger("Failed to put RTF on the Windows clipboard :(")
-    invisible(FALSE)
-  } else {
-    invisible(TRUE)
-  }
-}
-
 escape_regex <- function(x) {
   chars <- c("*", ".", "?", "^", "+", "$", "|", "(", ")", "[", "]", "{", "}", "\\")
   gsub(paste0("([\\", paste(chars, collapse = "\\"), "])"), "\\\\\\1", x, perl = TRUE)

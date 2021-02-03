@@ -2,15 +2,6 @@ interactive <- function(...) {
   stop("In this house, we use rlang::is_interactive()")
 }
 
-## wrap clipr::clipr_available() so I can tweak its behaviour
-clipboard_available <- function() {
-  if (is_interactive()) {
-    clipr::clipr_available()
-  } else {
-    isTRUE(as.logical(Sys.getenv("CLIPR_ALLOW", FALSE)))
-  }
-}
-
 ## returns TRUE if user says "no"
 ##         FALSE otherwise
 nope <- function(..., yes = "yes", no = "no") {
