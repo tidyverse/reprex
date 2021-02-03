@@ -1,5 +1,5 @@
 interactive <- function(...) {
-  stop("In this house, we use rlang::is_interactive()")
+  abort("In this house, we use `rlang::is_interactive()`")
 }
 
 ## returns TRUE if user says "no"

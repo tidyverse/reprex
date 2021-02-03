@@ -1,9 +1,9 @@
 readLines <- function(...) {
-  stop("In this house, we use read_lines() for UTF-8 reasons.")
+  abort("In this house, we use `read_lines()` for UTF-8 reasons.")
 }
 
 writeLines <- function(...) {
-  stop("In this house, we use write_lines() for UTF-8 reasons.")
+  abort("In this house, we use `write_lines()` for UTF-8 reasons.")
 }
 
 read_lines <- function(path, n = -1L) {

@@ -18,7 +18,7 @@ write_clip_windows_rtf <- function(path) {
     )"')
   res <- system(cmd)
   if (res > 0) {
-    #stop("Failed to put RTF on the Windows clipboard", call. = FALSE)
+    #abort("Failed to put RTF on the Windows clipboard")
     reprex_danger("Failed to put RTF on the Windows clipboard :(")
     invisible(FALSE)
   } else {

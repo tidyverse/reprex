@@ -51,7 +51,7 @@ reprex_render <- function(input,
                           html_preview = NULL,
                           encoding = "UTF-8") {
   if (!identical(encoding, "UTF-8")) {
-    stop("`reprex_render()` requires an input file with UTF-8 encoding")
+    abort("`reprex_render()` requires an input file with UTF-8 encoding")
   }
   reprex_render_impl(
     input,

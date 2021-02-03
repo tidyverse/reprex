@@ -13,18 +13,16 @@ reprex_highlight <- function(rout_file, reprex_file, arg_string = NULL) {
     res <- system(cmd)
   }
   if (res > 0) {
-    stop("`highlight` call unsuccessful.", call. = FALSE)
+    abort("`highlight` call unsuccessful.")
   }
   res
 }
 
 rtf_requires_highlight <- function(venue) {
   if (venue == "rtf" && !highlight_found()) {
-    stop(
-      "`highlight` command line tool doesn't appear to be installed.\n",
-      "Therefore, `venue = \"rtf\"` is not supported.",
-      call. = FALSE
-    )
+    abort(glue::glue('
+      `highlight` command line tool doesn\'t appear to be installed
+      Therefore, `venue = "rtf"` is not supported'))
   }
   invisible(venue)
 }
