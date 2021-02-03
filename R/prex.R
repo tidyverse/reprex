@@ -42,9 +42,8 @@ prex <- function(x = NULL,
                  show) {
   if (!missing(show)) {
     html_preview <- show
-    warning(
-      "`show` is deprecated, please use `html_preview` instead",
-      immediate. = TRUE, call. = FALSE
+    reprex_warning(
+      "{.code show} is deprecated, please use {.code html_preview} instead"
     )
   }
 

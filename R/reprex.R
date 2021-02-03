@@ -263,17 +263,15 @@ reprex <- function(x = NULL,
                    show, si) {
   if (!missing(show)) {
     html_preview <- show
-    warning(
-      "`show` is deprecated, please use `html_preview` instead",
-      immediate. = TRUE, call. = FALSE
+    reprex_warning(
+      "{.code show} is deprecated, please use {.code html_preview} instead"
     )
   }
 
   if (!missing(si)) {
     session_info <- si
-    warning(
-      "`si` is deprecated, please use `session_info` instead",
-      immediate. = TRUE, call. = FALSE
+    reprex_warning(
+      "{.code si} is deprecated, please use {.code session_info} instead"
     )
   }
 
