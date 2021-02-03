@@ -11,7 +11,9 @@ is_path <- function(x) {
 }
 
 locate_input <- function(input) {
-  if (is.null(input)) return("clipboard")
+  if (is.null(input)) {
+    return("clipboard")
+  }
   if (is_path(input)) {
     "path"
   } else {
