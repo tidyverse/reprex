@@ -26,17 +26,26 @@ write_clip_windows_rtf <- function(path) {
   }
 }
 
+# this function basically returns the option, but with a hard NO if we detect
+# we're on RStudio server
+#
+# meant to reflect structural (lack of) clipboard availability, which is
+# not exactly same as clipr::clipr_available()'s empirical check of "try it
+# and see if it works"
 reprex_clipboard <- function() {
   x <- getOption("reprex.clipboard", NA)
-  if (length(x) == 1 && is.logical(x)) {
-    return(x)
+  if (length(x) != 1 || !is.logical(x)) {
+    abort(glue::glue("
+      The `reprex.clipboard` option must be TRUE, FALSE, or (logical) NA"))
   }
-  abort(glue::glue("
-    The `reprex.clipboard` option must be TRUE, FALSE, or (logical) NA"))
+  if (is_rstudio_server()) {
+    options("reprex.clipboard" = FALSE)
+  }
+  getOption("reprex.clipboard", NA)
 }
 
 clipboard_available <- function() {
-  if (is_rstudio_server() || isFALSE(reprex_clipboard())) {
+  if (isFALSE(reprex_clipboard())) {
     FALSE
   } else {
     clipr::clipr_available()
