@@ -172,11 +172,21 @@
 <h1 class="page-header" data-toc-text="development version">
 <a href="#reprex-development-version" class="anchor"></a>reprex (development version)<small> Unreleased </small>
 </h1>
+<div id="when-the-clipboard-isnt-available" class="section level2">
+<h2 class="hasAnchor">
+<a href="#when-the-clipboard-isnt-available" class="anchor"></a>When the clipboard isn’t available</h2>
+<p>reprex is easier to use in settings where we cannot access the user’s clipboard from R. Specifically, this applies to use on RStudio Server and RStudio Cloud.</p>
+<ul>
+<li>When <code><a href="../reference/reprex.html">reprex()</a></code> is called without <code>expr</code> or <code>input</code>, in a “no clipboard” context, the default is now to consult the current selection for reprex source. Previously this was only available via the <code><a href="../reference/reprex_addin.html">reprex_selection()</a></code> addin.</li>
+<li><em>more improvements coming soon</em></li>
+</ul>
+</div>
 <div id="dependency-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#dependency-changes" class="anchor"></a>Dependency changes</h2>
 <ul>
-<li>rstudioapi moves from Suggests to Imports.</li>
+<li><p>rstudioapi moves from Suggests to Imports. Related to improving the experience when reprex cannot access the user’s clipboard.</p></li>
+<li><p>mockr is new in Suggests; it’s used in the tests.</p></li>
 </ul>
 </div>
 </div>

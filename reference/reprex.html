@@ -55,10 +55,9 @@ to user's clipboard. The goal is to make it easy to share a small
 reproducible example (&quot;reprex&quot;), e.g., in a GitHub issue. Reprex source can
 be
 read from clipboard
-read from current selection or active document in RStudio
-(with reprex_addin())
 provided directly as expression, character vector, or string
 read from file
+read from current selection or active document in RStudio
 
 
 reprex can also be used for syntax highlighting (with or without rendering);
@@ -188,10 +187,9 @@ to user's clipboard. The goal is to make it easy to share a small
 reproducible example ("reprex"), e.g., in a GitHub issue. Reprex source can
 be</p><ul>
 <li><p>read from clipboard</p></li>
-<li><p>read from current selection or active document in RStudio
-(with <code><a href='reprex_addin.html'>reprex_addin()</a></code>)</p></li>
 <li><p>provided directly as expression, character vector, or string</p></li>
 <li><p>read from file</p></li>
+<li><p>read from current selection or active document in RStudio</p></li>
 </ul>
 
 <p>reprex can also be used for syntax highlighting (with or without rendering);
@@ -221,7 +219,10 @@ see below for more.</p>
     <tr>
       <th>x</th>
       <td><p>An expression. If not given, <code>reprex()</code> looks for code in
-<code>input</code> or on the clipboard, in that order.</p></td>
+<code>input</code>. If <code>input</code> is not provided, <code>reprex()</code> looks on the clipboard.</p>
+<p>When the clipboard is structurally unavailable, i.e. on RStudio Server or
+RStudio Cloud, <code>reprex()</code> consults the current selection instead of the
+clipboard.</p></td>
     </tr>
     <tr>
       <th>input</th>
@@ -336,10 +337,10 @@ for greater consistency with other R Markdown output formats.</p></td>
 
     
 
-<p>The usual "code + commented output" is returned invisibly, put on the
-clipboard, and written to file. An HTML preview displays in RStudio's Viewer
-pane, if available, or in the default browser, otherwise. Leading <code>"&gt; "</code>
-prompts, are stripped from the input code. Read more at
+<p>The usual "code + commented output" is returned invisibly, possibly put on
+the clipboard, and written to file. An HTML preview displays in RStudio's
+Viewer pane, if available, or in the default browser, otherwise. Leading
+<code>"&gt; "</code> prompts, are stripped from the input code. Read more at
 <a href='https://reprex.tidyverse.org/'>https://reprex.tidyverse.org/</a>.</p>
 <p>reprex sets specific <a href='https://yihui.org/knitr/options/'>knitr options</a>:</p><ul>
 <li><p>Chunk options default to <code>collapse = TRUE</code>, <code>comment = "#&gt;"</code>,
@@ -347,7 +348,7 @@ prompts, are stripped from the input code. Read more at
 reporting.</p></li>
 <li><p>reprex also sets knitr's <code>upload.fun</code>. It defaults to
 <code><a href='https://rdrr.io/pkg/knitr/man/imgur_upload.html'>knitr::imgur_upload()</a></code> so figures produced by the reprex appear properly
-on GitHub, Stack Overflow, or Discourse. Note that <code>imgur_upload()</code>
+on GitHub, Stack Overflow, Discourse, and Slack. Note that <code>imgur_upload()</code>
 requires the packages httr and xml2. When <code>venue = "r"</code>, <code>upload.fun</code> is
 set to <code><a href='https://rdrr.io/r/base/identity.html'>identity()</a></code>, so that figures remain local. In that case, you may
 also want to set <code>outfile</code>.

@@ -70,6 +70,11 @@ reprex.current_venue: Read-only option that is set during
 reprex_render(). Other packages that want to generate reprex-compatible
 output can consult it via getOption(&quot;reprex.current_venue&quot;), if they want
 to tailor their output to the venue.
+reprex.clipboard: When FALSE, reprex makes no attempt to access the
+user's clipboard, ever. This exists mostly for internal use, i.e. we set it
+to FALSE when we detect use from RStudio Server. But a user could set
+this to FALSE to explicitly opt-out of clipboard functionality. A Linux
+user with no intention of installing xclip or xsel might also do this.
 reprex.highlight.hl_style: Only relevant to venue = &quot;rtf. Details are
 in the article
 reprex venue RTF.
@@ -238,6 +243,11 @@ ones:</p><ul>
 <code><a href='reprex_render.html'>reprex_render()</a></code>. Other packages that want to generate reprex-compatible
 output can consult it via <code><a href='https://rdrr.io/r/base/options.html'>getOption("reprex.current_venue")</a></code>, if they want
 to tailor their output to the <code>venue</code>.</p></li>
+<li><p><code>reprex.clipboard</code>: When <code>FALSE</code>, reprex makes no attempt to access the
+user's clipboard, ever. This exists mostly for internal use, i.e. we set it
+to <code>FALSE</code> when we detect use from RStudio Server. But a user could set
+this to <code>FALSE</code> to explicitly opt-out of clipboard functionality. A Linux
+user with no intention of installing <code>xclip</code> or <code>xsel</code> might also do this.</p></li>
 <li><p><code>reprex.highlight.hl_style</code>: Only relevant to <code>venue = "rtf</code>. Details are
 in the article
 <a href='https://reprex.tidyverse.org/articles/articles/rtf.html'>reprex venue RTF</a>.</p></li>

@@ -204,7 +204,8 @@ wild-caught reprex.</p>
       <td><p>Character. If has length one and lacks a terminating newline,
 interpreted as the path to a file containing reprex code. Otherwise,
 assumed to hold reprex code as character vector. If not provided, the
-clipboard is consulted for input.</p></td>
+clipboard is consulted for input. If the clipboard is unavailable and
+we're in RStudio, the current selection is used.</p></td>
     </tr>
     <tr>
       <th>outfile</th>
