@@ -47,6 +47,7 @@ Imports:
     knitr (>= 1.23),
     rlang (>= 0.4.0),
     rmarkdown,
+    rstudioapi,
     utils,
     withr (>= 2.3.0)
 Suggests: 
@@ -54,7 +55,6 @@ Suggests:
     fortunes,
     miniUI,
     rprojroot,
-    rstudioapi,
     sessioninfo,
     shiny,
     spelling,

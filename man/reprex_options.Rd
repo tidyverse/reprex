@@ -6,7 +6,7 @@
 \title{reprex options}
 \description{
 Some \code{\link[=reprex]{reprex()}} behaviour can be controlled via an option, providing a way
-for the user to set personal defaults. The pattern for option names is
+for the user to set personal defaults. The pattern for such option names is
 \verb{reprex.<arg>}, where \verb{<arg>} is an argument of \code{\link[=reprex]{reprex()}}. Here are the main
 ones:
 \itemize{

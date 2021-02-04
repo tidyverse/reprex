@@ -1,5 +1,9 @@
 # reprex (development version)
 
+## Dependency changes
+
+* rstudioapi moves from Suggests to Imports.
+
 # reprex 1.0.0
 
 ## Venues

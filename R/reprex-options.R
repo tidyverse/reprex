@@ -2,7 +2,7 @@
 #'
 #' @description
 #' Some [reprex()] behaviour can be controlled via an option, providing a way
-#' for the user to set personal defaults. The pattern for option names is
+#' for the user to set personal defaults. The pattern for such option names is
 #' `reprex.<arg>`, where `<arg>` is an argument of [reprex()]. Here are the main
 #' ones:
 #'   * `reprex.advertise`

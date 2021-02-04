@@ -80,6 +80,7 @@ reproducibility
 rmarkdown
 roxygen
 rstudio
+rstudioapi
 rtf
 runnable
 sessioninfo

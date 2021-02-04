@@ -10,6 +10,16 @@ is_path <- function(x) {
   length(x) == 1 && is.character(x) && !grepl("\n$", x)
 }
 
+isFALSE <- function(x) identical(x, FALSE)
+
+is_rstudio_server <- function() {
+  if(rstudioapi::hasFun("versionInfo")) {
+    rstudioapi::versionInfo()$mode == "server"
+  } else {
+    FALSE
+  }
+}
+
 locate_input <- function(input) {
   if (is.null(input)) {
     return("clipboard")

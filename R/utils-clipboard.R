@@ -26,11 +26,19 @@ write_clip_windows_rtf <- function(path) {
   }
 }
 
-## wrap clipr::clipr_available() so I can tweak its behaviour
+reprex_clipboard <- function() {
+  x <- getOption("reprex.clipboard", NA)
+  if (length(x) == 1 && is.logical(x)) {
+    return(x)
+  }
+  abort(glue::glue("
+    The `reprex.clipboard` option must be TRUE, FALSE, or (logical) NA"))
+}
+
 clipboard_available <- function() {
-  if (is_interactive()) {
-    clipr::clipr_available()
+  if (is_rstudio_server() || isFALSE(reprex_clipboard())) {
+    FALSE
   } else {
-    isTRUE(as.logical(Sys.getenv("CLIPR_ALLOW", FALSE)))
+    clipr::clipr_available()
   }
 }

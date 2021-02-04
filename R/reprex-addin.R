@@ -18,7 +18,7 @@
 reprex_addin <- function() { # nocov start
 
   check_installed(
-    c("rstudioapi", "shiny", "miniUI"),
+    c("shiny", "miniUI"),
     "in order to use the reprex addin"
   )
   resource_path <- path_package("reprex", "addins")
