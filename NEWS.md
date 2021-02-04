@@ -1,8 +1,21 @@
 # reprex (development version)
 
+## When the clipboard isn't available
+
+reprex is easier to use in settings where we cannot access the user's clipboard from R.
+Specifically, this applies to use on RStudio Server and RStudio Cloud.
+
+* When `reprex()` is called without `expr` or `input`, in a "no clipboard"
+  context, the default is now to consult the current selection for reprex
+  source. Previously this was only available via the `reprex_selection()`
+  addin.
+* *more improvements coming soon*
+
 ## Dependency changes
 
-* rstudioapi moves from Suggests to Imports.
+* rstudioapi moves from Suggests to Imports. Related to improving the experience when reprex cannot access the user's clipboard.
+
+* mockr is new in Suggests; it's used in the tests.
 
 # reprex 1.0.0
 

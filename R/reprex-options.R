@@ -20,6 +20,11 @@
 #'   [reprex_render()]. Other packages that want to generate reprex-compatible
 #'   output can consult it via `getOption("reprex.current_venue")`, if they want
 #'   to tailor their output to the `venue`.
+#'   * `reprex.clipboard`: When `FALSE`, reprex makes no attempt to access the
+#'   user's clipboard, ever. This exists mostly for internal use, i.e. we set it
+#'   to `FALSE` when we detect use from RStudio Server. But a user could set
+#'   this to `FALSE` to explicitly opt-out of clipboard functionality. A Linux
+#'   user with no intention of installing `xclip` or `xsel` might also do this.
 #'   * `reprex.highlight.hl_style`: Only relevant to `venue = "rtf`. Details are
 #'     in the article
 #'     [reprex venue RTF](https://reprex.tidyverse.org/articles/articles/rtf.html).

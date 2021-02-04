@@ -20,10 +20,22 @@ is_rstudio_server <- function() {
   }
 }
 
+in_rstudio <- function() {
+  .Platform$GUI == "RStudio"
+}
+
 locate_input <- function(input) {
   if (is.null(input)) {
-    return("clipboard")
+    if (clipboard_available()) {
+      return("clipboard")
+    }
+    if (in_rstudio()) {
+      return("selection")
+    } else {
+      return(NULL)
+    }
   }
+
   if (is_path(input)) {
     "path"
   } else {

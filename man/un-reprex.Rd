@@ -27,7 +27,8 @@ reprex_rescue(
 \item{input}{Character. If has length one and lacks a terminating newline,
 interpreted as the path to a file containing reprex code. Otherwise,
 assumed to hold reprex code as character vector. If not provided, the
-clipboard is consulted for input.}
+clipboard is consulted for input. If the clipboard is unavailable and
+we're in RStudio, the current selection is used.}
 
 \item{outfile}{Optional basename for output file. When \code{NULL}, no file is
 left behind. If \code{outfile = "foo"}, expect an output file in current working

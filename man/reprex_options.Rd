@@ -27,6 +27,11 @@ A few more options exist, but are only relevant to specific situations:
 \code{\link[=reprex_render]{reprex_render()}}. Other packages that want to generate reprex-compatible
 output can consult it via \code{getOption("reprex.current_venue")}, if they want
 to tailor their output to the \code{venue}.
+\item \code{reprex.clipboard}: When \code{FALSE}, reprex makes no attempt to access the
+user's clipboard, ever. This exists mostly for internal use, i.e. we set it
+to \code{FALSE} when we detect use from RStudio Server. But a user could set
+this to \code{FALSE} to explicitly opt-out of clipboard functionality. A Linux
+user with no intention of installing \code{xclip} or \code{xsel} might also do this.
 \item \code{reprex.highlight.hl_style}: Only relevant to \verb{venue = "rtf}. Details are
 in the article
 \href{https://reprex.tidyverse.org/articles/articles/rtf.html}{reprex venue RTF}.

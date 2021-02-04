@@ -41,6 +41,7 @@ reprex_impl <- function(x_expr = NULL,
     clipboard = ingest_clipboard(),
     path      = read_lines(input),
     input     = escape_newlines(sub("\n$", "", enc2utf8(input))),
+    selection = rstudio_selection(),
     NULL
   )
   src <- ensure_not_empty(src)

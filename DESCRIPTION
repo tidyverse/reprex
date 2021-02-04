@@ -54,6 +54,7 @@ Suggests:
     covr,
     fortunes,
     miniUI,
+    mockr,
     rprojroot,
     sessioninfo,
     shiny,

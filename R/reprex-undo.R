@@ -9,7 +9,8 @@
 #' @param input Character. If has length one and lacks a terminating newline,
 #'   interpreted as the path to a file containing reprex code. Otherwise,
 #'   assumed to hold reprex code as character vector. If not provided, the
-#'   clipboard is consulted for input.
+#'   clipboard is consulted for input. If the clipboard is unavailable and
+#'   we're in RStudio, the current selection is used.
 #' @param outfile Optional basename for output file. When `NULL`, no file is
 #'   left behind. If `outfile = "foo"`, expect an output file in current working
 #'   directory named `foo_clean.R`. If `outfile = NA`, expect on output file in
@@ -154,6 +155,7 @@ reprex_undo <- function(input = NULL,
     clipboard = ingest_clipboard(),
     path      = read_lines(input),
     input     = escape_newlines(sub("\n$", "", input)),
+    selection = rstudio_selection(),
     NULL
   )
   comment <- arg_option(comment)

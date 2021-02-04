@@ -23,7 +23,11 @@ reprex(
 }
 \arguments{
 \item{x}{An expression. If not given, \code{reprex()} looks for code in
-\code{input} or on the clipboard, in that order.}
+\code{input}. If \code{input} is not provided, \code{reprex()} looks on the clipboard.
+
+When the clipboard is structurally unavailable, i.e. on RStudio Server or
+RStudio Cloud, \code{reprex()} consults the current selection instead of the
+clipboard.}
 
 \item{input}{Character. If has length one and lacks a terminating newline,
 interpreted as the path to a file containing reprex code. Otherwise,
@@ -114,10 +118,9 @@ reproducible example ("reprex"), e.g., in a GitHub issue. Reprex source can
 be
 \itemize{
 \item read from clipboard
-\item read from current selection or active document in RStudio
-(with \code{\link[=reprex_addin]{reprex_addin()}})
 \item provided directly as expression, character vector, or string
 \item read from file
+\item read from current selection or active document in RStudio
 }
 
 reprex can also be used for syntax highlighting (with or without rendering);
@@ -125,10 +128,10 @@ see below for more.
 }
 \section{Details}{
 
-The usual "code + commented output" is returned invisibly, put on the
-clipboard, and written to file. An HTML preview displays in RStudio's Viewer
-pane, if available, or in the default browser, otherwise. Leading \code{"> "}
-prompts, are stripped from the input code. Read more at
+The usual "code + commented output" is returned invisibly, possibly put on
+the clipboard, and written to file. An HTML preview displays in RStudio's
+Viewer pane, if available, or in the default browser, otherwise. Leading
+\code{"> "} prompts, are stripped from the input code. Read more at
 \url{https://reprex.tidyverse.org/}.
 
 reprex sets specific \href{https://yihui.org/knitr/options/}{knitr options}:
@@ -138,7 +141,7 @@ reprex sets specific \href{https://yihui.org/knitr/options/}{knitr options}:
 reporting.
 \item reprex also sets knitr's \code{upload.fun}. It defaults to
 \code{\link[knitr:imgur_upload]{knitr::imgur_upload()}} so figures produced by the reprex appear properly
-on GitHub, Stack Overflow, or Discourse. Note that \code{imgur_upload()}
+on GitHub, Stack Overflow, Discourse, and Slack. Note that \code{imgur_upload()}
 requires the packages httr and xml2. When \code{venue = "r"}, \code{upload.fun} is
 set to \code{identity()}, so that figures remain local. In that case, you may
 also want to set \code{outfile}.
