@@ -123,7 +123,7 @@ expose_reprex_output <- function(reprex_file, venue) {
 
 rstudio_open_and_select_all <- function(path) {
   rstudioapi::navigateToFile(path)
-  rstudioapi::getSourceEditorContext()
+  rstudioapi::getActiveDocumentContext()
   doc_id <- rstudioapi::documentId(allowConsole = FALSE)
   rg <- rstudioapi::document_range(
     start = rstudioapi::document_position(1, 1),
