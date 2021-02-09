@@ -5,10 +5,12 @@
 reprex is easier to use in settings where we cannot access the user's clipboard from R.
 Specifically, this applies to use on RStudio Server and RStudio Cloud.
 
-* When `reprex()` is called without `expr` or `input`, in a "no clipboard"
-  context, the default is now to consult the current selection for reprex
-  source. Previously this was only available via the `reprex_selection()`
-  addin.
+* When `reprex()` is called without `expr` or `input`, in a context where the
+  user's clipboard can't be reached from R, the default is now to consult the
+  current selection for reprex source. Previously this was only available via
+  the `reprex_selection()` addin. Note that this "current selection" default
+  behaviour will propagate to convenience wrappers around `reprex()`, such as
+  `reprex_locale()` and venue-specific functions like `reprex_r()`.
 * *more improvements coming soon*
 
 ## Dependency changes
