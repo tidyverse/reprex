@@ -39,7 +39,7 @@ reprex_addin <- function() { # nocov start
         "source",
         "Where is reprex source?",
         c(
-          "on the clipboard" = "clipboard",
+          "on the clipboard" = if (reprex_clipboard()) "clipboard",
           "current selection" = "cur_sel",
           "current file" = "cur_file",
           "another file" = "input_file"
