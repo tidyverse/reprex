@@ -147,5 +147,4 @@ rstudio_text_tidy <- function(x) {
   }
   x
 }
-
 # nocov end
