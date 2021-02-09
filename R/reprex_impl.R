@@ -130,7 +130,7 @@ rstudio_open_and_select_all <- function(path) {
   ct <- rstudioapi::getSourceEditorContext()
   print(ct)
   i <- 0
-  while(path_real(ct$path) != path_real(path)) {
+  while(ct$path == '' || path_real(ct$path) != path_real(path)) {
     if (i > 5) break
     i <- i + 1
     Sys.sleep(1)
