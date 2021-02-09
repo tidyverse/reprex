@@ -124,14 +124,15 @@ expose_reprex_output <- function(reprex_file, venue) {
 rstudio_open_and_select_all <- function(path) {
   rstudioapi::navigateToFile(path)
   # navigateToFile() is not synchronous, hence the while loop & sleep
+  # it takes an indeterminate amount of time for the active source file to
+  # actually be 'path'
   #
   # DO NOT fiddle with this unless you also do thorough manual tests,
   # including on RSP, Cloud, using reprex() and the addin and the gadget
   ct <- rstudioapi::getSourceEditorContext()
-  print(ct)
   i <- 0
   while(ct$path == '' || path_real(ct$path) != path_real(path)) {
-    if (i > 5) break
+    if (i > 4) break
     i <- i + 1
     Sys.sleep(1)
     ct <- rstudioapi::getSourceEditorContext()
