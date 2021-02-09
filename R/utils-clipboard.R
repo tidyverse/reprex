@@ -1,5 +1,5 @@
 ingest_clipboard <- function() {
-  if (clipboard_available()) {
+  if (reprex_clipboard()) {
     return(suppressWarnings(
       enc2utf8(clipr::read_clip() %||% character())
     ))
@@ -26,12 +26,10 @@ write_clip_windows_rtf <- function(path) {
   }
 }
 
-# this function basically returns the option, but with a hard NO if we detect
-# we're on RStudio server
-#
-# meant to reflect structural (lack of) clipboard availability, which is
-# not exactly same as clipr::clipr_available()'s empirical check of "try it
-# and see if it works"
+# reports clipr::clipr_available(), with some exceptions and niceties
+# - if we detect RStudio server, hard FALSE
+# - otherwise, if clipr_available() reports FALSE, call dr_clipr() ONCE
+# - use an option to persist this finding in current session
 reprex_clipboard <- function() {
   x <- getOption("reprex.clipboard", NA)
   if (length(x) != 1 || !is.logical(x)) {
@@ -39,15 +37,15 @@ reprex_clipboard <- function() {
       The `reprex.clipboard` option must be TRUE, FALSE, or (logical) NA"))
   }
   if (is_rstudio_server()) {
-    options("reprex.clipboard" = FALSE)
+    x <- FALSE
+    options("reprex.clipboard" = x)
   }
-  getOption("reprex.clipboard", NA)
-}
-
-clipboard_available <- function() {
-  if (isFALSE(reprex_clipboard())) {
-    FALSE
-  } else {
-    clipr::clipr_available()
+  if (is.na(x)) {
+    y <- clipr::clipr_available()
+    if (isFALSE(y)) {
+      clipr::dr_clipr()
+    }
+    options("reprex.clipboard" = y)
   }
+  getOption("reprex.clipboard")
 }

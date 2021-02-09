@@ -1,15 +1,15 @@
 test_that("locate_input() works", {
   with_mock(
-    clipboard_available = function() TRUE,
+    reprex_clipboard = function() TRUE,
     expect_identical("clipboard", locate_input(NULL))
   )
   with_mock(
-    clipboard_available = function() FALSE,
+    reprex_clipboard = function() FALSE,
     in_rstudio = function() TRUE,
     expect_identical("selection", locate_input(NULL))
   )
   with_mock(
-    clipboard_available = function() FALSE,
+    reprex_clipboard = function() FALSE,
     in_rstudio = function() FALSE,
     expect_null(locate_input(NULL))
   )

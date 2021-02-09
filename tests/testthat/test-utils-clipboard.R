@@ -8,11 +8,6 @@ test_that("reprex_clipboard() insists on length one logical", {
   expect_error(reprex_clipboard())
 })
 
-test_that("clipboard_available() respects the option when FALSE", {
-  withr::local_options(list("reprex.clipboard" = FALSE))
-  expect_false(clipboard_available())
-})
-
 test_that("ingest_clipboard() copes when clipboard not available", {
   withr::local_options(list("reprex.clipboard" = FALSE))
   local_cli_app()

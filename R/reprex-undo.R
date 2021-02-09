@@ -180,7 +180,7 @@ reprex_undo <- function(input = NULL,
     x_out <- sub(regex, "", x_out)
   }
 
-  if (clipboard_available()) {
+  if (reprex_clipboard()) {
     clipr::write_clip(x_out)
     reprex_success("Clean code is on the clipboard.")
   }

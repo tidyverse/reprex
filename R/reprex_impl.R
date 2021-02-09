@@ -87,7 +87,7 @@ reprex_impl <- function(x_expr = NULL,
 
   out_lines <- read_lines(reprex_file)
 
-  if (clipboard_available()) {
+  if (reprex_clipboard()) {
     if (venue == "rtf" && is_windows()) {
       write_clip_windows_rtf(reprex_file)
     } else {

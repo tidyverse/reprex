@@ -26,7 +26,7 @@ in_rstudio <- function() {
 
 locate_input <- function(input) {
   if (is.null(input)) {
-    if (clipboard_available()) {
+    if (reprex_clipboard()) {
       return("clipboard")
     }
     if (in_rstudio()) {
