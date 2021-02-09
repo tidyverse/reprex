@@ -122,32 +122,8 @@ expose_reprex_output <- function(reprex_file, venue) {
 }
 
 rstudio_open_and_select_all <- function(path) {
-  f <- function() {
-    print("getSourceEditorContext")
-    ct <- rstudioapi::getSourceEditorContext()
-    print(ct)
-    print("getActiveDocumentContext")
-    ct <- rstudioapi::getActiveDocumentContext()
-    print(ct)
-    print("documentId")
-    doc_id <- rstudioapi::documentId(allowConsole = FALSE)
-    print(doc_id)
-    doc_id
-  }
-
-  cat("before\n")
-  f()
-
   rstudioapi::navigateToFile(path)
-
-  cat("after navigateToFile\n")
-  f()
-
   rstudioapi::getActiveDocumentContext()
-
-  cat("after\n")
-  f()
-
   doc_id <- rstudioapi::documentId(allowConsole = FALSE)
   rg <- rstudioapi::document_range(
     start = rstudioapi::document_position(1, 1),
