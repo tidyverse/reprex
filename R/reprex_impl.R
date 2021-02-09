@@ -128,6 +128,7 @@ rstudio_open_and_select_all <- function(path) {
   # DO NOT fiddle with this unless you also do thorough manual tests,
   # including on RSP, Cloud, using reprex() and the addin and the gadget
   ct <- rstudioapi::getSourceEditorContext()
+  print(ct)
   i <- 0
   while(path_real(ct$path) != path_real(path)) {
     if (i > 5) break
