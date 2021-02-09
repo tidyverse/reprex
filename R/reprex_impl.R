@@ -123,6 +123,11 @@ expose_reprex_output <- function(reprex_file, venue) {
 
 rstudio_open_and_select_all <- function(path) {
   rstudioapi::navigateToFile(path)
+  # navigateToFile() is not synchronous, so we either need to sleep a little
+  # here or, I've found, explicitly requesting active document seems to work
+  #
+  # DO NOT fiddle with this unless you also do thorough manual tests,
+  # including on RSP, Cloud, using reprex() and the addin and the gadget
   rstudioapi::getActiveDocumentContext()
   doc_id <- rstudioapi::documentId(allowConsole = FALSE)
   rg <- rstudioapi::document_range(
