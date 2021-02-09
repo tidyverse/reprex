@@ -123,18 +123,23 @@ expose_reprex_output <- function(reprex_file, venue) {
 
 rstudio_open_and_select_all <- function(path) {
   rstudioapi::navigateToFile(path)
-  # navigateToFile() is not synchronous, hence the sleep
+  # navigateToFile() is not synchronous, hence the while loop & sleep
   #
   # DO NOT fiddle with this unless you also do thorough manual tests,
   # including on RSP, Cloud, using reprex() and the addin and the gadget
-  Sys.sleep(1)
-  #rstudioapi::getActiveDocumentContext()
-  doc_id <- rstudioapi::documentId(allowConsole = FALSE)
+  ct <- rstudioapi::getSourceEditorContext()
+  i <- 0
+  while(path_real(ct$path) != path_real(path)) {
+    if (i > 5) break
+    i <- i + 1
+    Sys.sleep(1)
+    ct <- rstudioapi::getSourceEditorContext()
+  }
   rg <- rstudioapi::document_range(
     start = rstudioapi::document_position(1, 1),
     end   = rstudioapi::document_position(Inf, Inf)
   )
-  rstudioapi::setSelectionRanges(rg, id = doc_id)
+  rstudioapi::setSelectionRanges(rg, id = ct$id)
   invisible()
 }
 
