@@ -10,7 +10,6 @@ test_that("reprex_clipboard() insists on length one logical", {
 
 test_that("ingest_clipboard() copes when clipboard not available", {
   withr::local_options(list("reprex.clipboard" = FALSE))
-  local_cli_app()
   local_reprex_loud()
   msg <- capture_messages(
     out <- ingest_clipboard()

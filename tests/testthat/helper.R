@@ -25,22 +25,6 @@ local_temp_wd <- function(pattern = "reprextests",
   invisible(tmp)
 }
 
-# based on advice from Hadley:
-# "I don't know what causes an app to start and stop, but if it's started
-# before the tests begin running, it'll pick up the wrong values and then
-# hold on to them for the rest of the sequence"
-#
-# otherwise, unicode and ANSI colours are impossible to suppress in
-# saved snapshots
-# the current values of options `crayon.enabled` and `cli.unicode`, both of
-# which are set to FALSE by test_that(), have no effect
-#
-# presumably this will get addressed upstream, in testthat and/or cli, but not
-# before I want to release
-local_cli_app <- function(env = parent.frame()) {
-  cli::start_app(.auto_close = TRUE, .envir = env)
-}
-
 ## useful during interactive test development to toggle the
 ## rlang_interactive escape hatch
 interactive_mode <- function() {

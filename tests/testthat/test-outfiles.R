@@ -10,7 +10,6 @@ test_that("expected outfiles are written and messaged, venue = 'gh'", {
   skip_on_cran()
   local_temp_wd()
   local_reprex_loud()
-  local_cli_app()
 
   msg <- capture_messages(
     ret <- reprex(1:5, outfile = "foo")
@@ -29,7 +28,6 @@ test_that("expected outfiles are written and messaged, venue = 'R'", {
   skip_on_cran()
   local_temp_wd()
   local_reprex_loud()
-  local_cli_app()
 
   msg <- capture_messages(
     ret <- reprex(1:5, outfile = "foo", venue = "R")
@@ -67,7 +65,6 @@ test_that("outfiles in a subdirectory works", {
   skip_on_cran()
   local_temp_wd()
   local_reprex_loud()
-  local_cli_app()
 
   dir_create("foo")
   msg <- capture_messages(
@@ -85,7 +82,6 @@ test_that("outfiles based on input file", {
   skip_on_cran()
   local_temp_wd()
   local_reprex_loud()
-  local_cli_app()
 
   write_lines("1:5", "foo.R")
   msg <- capture_messages(
@@ -104,7 +100,6 @@ test_that("outfiles based on tempfile()", {
   skip_on_cran()
   local_temp_wd()
   local_reprex_loud()
-  local_cli_app()
 
   msg <- capture_messages(
     ret <- reprex(input = c("x <- 1:3", "min(x)"), outfile = NA)

@@ -4,7 +4,6 @@ test_that("reprex_quiet() defaults to NA", {
 
 test_that("reprex_alert() and friends work", {
   local_reprex_loud()
-  local_cli_app()
 
   expect_snapshot({
     reprex_alert("alert", type = "")
@@ -20,7 +19,6 @@ test_that("reprex_alert() is under the control of REPREX_QUIET env var", {
   expect_snapshot(reprex_alert("alert", type = ""))
 
   local_reprex_loud()
-  local_cli_app()
   expect_snapshot(reprex_alert("alert", type = ""))
 })
 
@@ -29,7 +27,6 @@ test_that("reprex_path() works and respects REPREX_QUIET", {
   expect_snapshot(reprex_path("Something descriptive:", "path/to/file"))
 
   local_reprex_loud()
-  local_cli_app()
   expect_snapshot({
     reprex_path("Something descriptive:", "path/to/file")
     x <- "path/to/file"

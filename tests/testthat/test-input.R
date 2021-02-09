@@ -59,7 +59,6 @@ test_that("Circular use is detected before source file written", {
 
 test_that("Leading prompts are removed", {
   skip_on_cran()
-  local_cli_app()
 
   input <- c("x <- 1:3", "median(x)")
   res <- reprex(input = input, render = FALSE)

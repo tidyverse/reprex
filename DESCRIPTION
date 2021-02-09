@@ -40,7 +40,7 @@ Depends:
     R (>= 3.3)
 Imports: 
     callr (>= 3.3.1),
-    cli,
+    cli (>= 2.3.0),
     clipr (>= 0.4.0),
     fs,
     glue,
