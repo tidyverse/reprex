@@ -133,8 +133,12 @@ rstudio_selection <- function(context = rstudio_context()) {
 rstudio_context <- function() {
   rstudioapi::getSourceEditorContext()
 }
+# nocov end
 
 rstudio_text_tidy <- function(x) {
+  if (x == "") {
+    return(character())
+  }
   Encoding(x) <- "UTF-8"
   if (length(x) == 1) {
     ## rstudio_selection() returns catenated text
@@ -147,4 +151,4 @@ rstudio_text_tidy <- function(x) {
   }
   x
 }
-# nocov end
+
