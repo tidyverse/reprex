@@ -135,7 +135,7 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "slack", "so", "
     ),
     clean_supporting = FALSE,
     pre_knit = pre_knit,
-    base_format = rmarkdown::md_document()
+    base_format = rmarkdown::md_document(variant = "gfm")
   )
   format
 }
