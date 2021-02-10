@@ -17,7 +17,7 @@ ensure_not_dogfood <- function(x) {
       glue::glue_collapse(lines, sep = "\n"), "\n",
       "which doesn't look like R code.\n",
       "Are we going in circles? Did you just run reprex()?\n",
-      "In that case, the clipboard now holds the *rendered* result.\n",
+      "In that case, the clipboard or selection now holds the *rendered* result.\n",
       "Carry on with this reprex?"
     )) {
       abort("Aborting.")
@@ -29,7 +29,7 @@ ensure_not_dogfood <- function(x) {
     if (!yep(
       "Putative code contains lines that start with `#>`.\n",
       "Are we going in circles? Did you just run `reprex(..., venue = \"r\")`?\n",
-      "In that case, the clipboard now holds the *rendered* result.\n",
+      "In that case, the clipboard or selection now holds the *rendered* result.\n",
       "Carry on with this reprex?"
     )) {
       abort("Aborting.")
@@ -44,7 +44,7 @@ ensure_not_dogfood <- function(x) {
       glue::glue_collapse(lines, sep = "\n"), "\n",
       "which looks like html, not R code.\n",
       "Are we going in circles? Did you just run `reprex(..., venue = \"html\")`?\n",
-      "In that case, the clipboard now holds the *rendered* result.\n",
+      "In that case, the clipboard or selection now holds the *rendered* result.\n",
       "Carry on with this reprex?"
     )) {
       abort("Aborting.")
