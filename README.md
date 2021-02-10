@@ -31,8 +31,8 @@ Get resulting runnable code + output as
   - R code, augmented with commented output, or as
   - Plain HTML or (experimental) Rich Text
 
-The result is returned invisibly, placed on the clipboard, and written to a
-file. Preview an HTML version in RStudio viewer or default browser.
+The result is returned invisibly, written to a file and, if possible, placed on the clipboard.
+Preview an HTML version in RStudio viewer or default browser.
 
 ## Installation
 
@@ -57,7 +57,7 @@ should work for both xclip and xsel.
 
 ## Usage
 
-Let’s say you copy this code onto your clipboard:
+Let’s say you copy this code onto your clipboard (or, on RStudio Server or Cloud, select it):
 
     (y <- 1:4)
     mean(y)
@@ -74,7 +74,7 @@ you’re in RStudio) or your default browser otherwise.
 ![](man/figures/README-viewer-screenshot.png)
 
 The relevant bit of GitHub-flavored Markdown is ready to be pasted from
-your clipboard:
+your clipboard (on RStudio Server or Cloud, you will need to copy this yourself):
 
     ``` r
     (y <- 1:4)

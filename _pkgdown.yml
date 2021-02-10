@@ -30,7 +30,7 @@ reference:
   - title: Convenience
     contents:
     - reprex_addin
-    - reprex_r
+    - reprex_venue
     - reprex_locale
   - title: Going backwards
     contents:
