@@ -11,7 +11,8 @@ Specifically, this applies to use on RStudio Server and RStudio Cloud.
   the `reprex_selection()` addin. Note that this "current selection" default
   behaviour will propagate to convenience wrappers around `reprex()`, such as
   `reprex_locale()` and venue-specific functions like `reprex_r()`.
-* *more improvements coming soon*
+* In this context, the file containing the rendered reprex is opened so the
+  user can do a manual "copy".
 
 ## Dependency changes
 
