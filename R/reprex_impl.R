@@ -84,35 +84,65 @@ reprex_impl <- function(x_expr = NULL,
   if (outfile_given) {
     reprex_path("Writing reprex file:", reprex_file)
   }
+  expose_reprex_output(reprex_file, venue)
+  invisible(read_lines(reprex_file))
+}
 
-  out_lines <- read_lines(reprex_file)
-
+# goals in order of preference:
+# 1. put reprex output on clipboard
+# 2. open file for manual copy
+expose_reprex_output <- function(reprex_file, venue) {
   if (reprex_clipboard()) {
     if (venue == "rtf" && is_windows()) {
       write_clip_windows_rtf(reprex_file)
     } else {
-      clipr::write_clip(out_lines)
+      clipr::write_clip(read_lines(reprex_file))
     }
     reprex_success("Rendered reprex is on the clipboard.")
-  } else if (is_interactive()) {
-    clipr::dr_clipr()
-    # TODO: come back and clean this up or put in a function
-    reprex_danger("Unable to put result on the clipboard. How to get it:")
-    cli::cli_ul()
-    cli::cli_li("Capture what {.fun reprex} returns.")
-    cli::cli_li("Consult the output file. Control via {.arg outfile} argument.")
-    cli::cli_li("Path to {.arg outfile}:")
-    cli::cli_ul()
-    # TODO: when filepath is long, there's an unexplained leading newline
-    cli::cli_li("{.file {reprex_file}}")
-    cli::cli_end()
-    cli::cli_end()
-    if (yep("Open the output file for manual copy?")) {
-      withr::defer(utils::file.edit(reprex_file))
-    }
+    return(invisible())
   }
 
-  invisible(out_lines)
+  if (!is_interactive()) {
+    return(invisible())
+  }
+
+  if (venue == "rtf") {
+    reprex_path("Attempting to open RTF output file:", reprex_file)
+    utils::browseURL(reprex_file)
+    return(invisible())
+  }
+
+  reprex_path("Opening output file for manual copy:", reprex_file)
+  if (in_rstudio()) {
+    rstudio_open_and_select_all(reprex_file)
+  } else {
+    withr::defer_parent(utils::file.edit(reprex_file))
+  }
+  invisible()
+}
+
+rstudio_open_and_select_all <- function(path) {
+  rstudioapi::navigateToFile(path)
+  # navigateToFile() is not synchronous, hence the while loop & sleep
+  # it takes an indeterminate amount of time for the active source file to
+  # actually be 'path'
+  #
+  # DO NOT fiddle with this unless you also do thorough manual tests,
+  # including on RSP, Cloud, using reprex() and the addin and the gadget
+  ct <- rstudioapi::getSourceEditorContext()
+  i <- 0
+  while(ct$path == '' || path_real(ct$path) != path_real(path)) {
+    if (i > 4) break
+    i <- i + 1
+    Sys.sleep(1)
+    ct <- rstudioapi::getSourceEditorContext()
+  }
+  rg <- rstudioapi::document_range(
+    start = rstudioapi::document_position(1, 1),
+    end   = rstudioapi::document_position(Inf, Inf)
+  )
+  rstudioapi::setSelectionRanges(rg, id = ct$id)
+  invisible()
 }
 
 set_advertise <- function(advertise, venue) {

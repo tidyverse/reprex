@@ -63,7 +63,7 @@
 #'   "a" / 2
 #' }, language = "pt_BR")
 #'
-#' #' # get day-of-week and month to print in French (not Windows)
+#' # get day-of-week and month to print in French (not Windows)
 #' reprex_locale({
 #'   format(as.Date(c("2019-01-01", "2019-02-01")), "%a %b %d")
 #' }, locale = c(LC_TIME = "fr_FR"))
@@ -71,9 +71,9 @@
 #' # get day-of-week and month to print in French (Windows)
 #' # assumes that the relevant language is installed on the system
 #' # LC_TIME can also be specified as "French" or "French_France" here
-#  reprex_locale({
-#    format(as.Date(c("2019-01-01", "2019-02-01")), "%a %b %d")
-#  }, locale = c(LC_TIME = "French_France.1252"))
+#'  reprex_locale({
+#'    format(as.Date(c("2019-01-01", "2019-02-01")), "%a %b %d")
+#'  }, locale = c(LC_TIME = "French_France.1252"))
 #' }
 #' @export
 reprex_locale <- function(...,

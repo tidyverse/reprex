@@ -2,9 +2,10 @@
 #'
 #' @description
 #' Run a bit of R code using [rmarkdown::render()] and write the rendered result
-#' to user's clipboard. The goal is to make it easy to share a small
-#' reproducible example ("reprex"), e.g., in a GitHub issue. Reprex source can
-#' be
+#' to user's clipboard. If the clipboard is unavailable, the file containing
+#' the rendered result is opened for manual copy. The goal is to make it easy to
+#' share a small reproducible example ("reprex"), e.g., in a GitHub issue.
+#' Reprex source can be
 #'
 #' * read from clipboard
 #' * provided directly as expression, character vector, or string
@@ -15,10 +16,10 @@
 #' see below for more.
 #'
 #' @section Details:
-#' The usual "code + commented output" is returned invisibly, possibly put on
-#' the clipboard, and written to file. An HTML preview displays in RStudio's
-#' Viewer pane, if available, or in the default browser, otherwise. Leading
-#' `"> "` prompts, are stripped from the input code. Read more at
+#' The usual "code + commented output" is returned invisibly, written to file,
+#' and, whenever possible, put on the clipboard. An HTML preview displays in
+#' RStudio's Viewer pane, if available, or in the default browser, otherwise.
+#' Leading `"> "` prompts, are stripped from the input code. Read more at
 #' <https://reprex.tidyverse.org/>.
 #'
 #' reprex sets specific [knitr options](https://yihui.org/knitr/options/):
@@ -50,7 +51,7 @@
 #' @param x An expression. If not given, `reprex()` looks for code in
 #'   `input`. If `input` is not provided, `reprex()` looks on the clipboard.
 #'
-#'   When the clipboard is structurally unavailable, i.e. on RStudio Server or
+#'   When the clipboard is structurally unavailable, e.g., on RStudio Server or
 #'   RStudio Cloud, `reprex()` consults the current selection instead of the
 #'   clipboard.
 #' @param input Character. If has length one and lacks a terminating newline,

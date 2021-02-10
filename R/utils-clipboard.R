@@ -38,14 +38,14 @@ reprex_clipboard <- function() {
   }
   if (is_rstudio_server()) {
     x <- FALSE
-    options("reprex.clipboard" = x)
+    options(reprex.clipboard = x)
   }
   if (is.na(x)) {
     y <- clipr::clipr_available()
     if (isFALSE(y)) {
       clipr::dr_clipr()
     }
-    options("reprex.clipboard" = y)
+    options(reprex.clipboard = y)
   }
   getOption("reprex.clipboard")
 }
