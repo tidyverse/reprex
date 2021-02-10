@@ -26,11 +26,11 @@ Specifically, this applies to use on RStudio Server and RStudio Cloud.
 
 * `reprex_VENUE(...)` is a new way to call `reprex(..., venue = "VENUE")`. For example, `reprex_r()` is equivalent to `reprex(venue = "r")`. This makes non-default venues easier to access via auto-completion (#256).
 
-* `"slack"` is a new venue that tweaks the default Markdown output for pasting into Slack messages. It removes the `r` language identifier from the opening code fence, simplifies image links and, by default, suppresses the ad. Note that `venue = "slack"` or `reprex_slack()` work best for people who opt-out of the WYSIWYG message editor: in *Preferences > Advanced*, select *Format messages with markup setting*.
+* `"slack"` is a new venue that tweaks the default Markdown output for pasting into Slack messages. It removes the `r` language identifier from the opening code fence, simplifies image links and, by default, suppresses the ad. Note that `venue = "slack"` or `reprex_slack()` work best for people who opt-out of the WYSIWYG message editor: in *Preferences > Advanced*, select "Format messages with markup".
 
 * `venue = "so"` (SO = Stack Overflow) has converged with default `venue = "gh"` (GitHub). As of January 2019, SO [supports CommonMark fenced code blocks](https://meta.stackexchange.com/questions/125148/implement-style-fenced-markdown-code-blocks/322000#322000). The only remaining difference is that Stack Overflow does not support the collapsible details tag that we use on GitHub to reduce the clutter from, e.g., session info (#231).
 
-* "rtf" (Rich Text Format) is a new experimental `venue` for pasting into applications like PowerPoint and Keynote. It is experimental because it requires a working installation of the highlight command line tool, which is left as a somewhat fiddly exercise for the user (#331). `venue = "rtf"` is documented in its [own article](https://reprex.tidyverse.org/articles/articles/rtf.html).
+* `"rtf"` (Rich Text Format) is a new experimental `venue` for pasting into applications like PowerPoint and Keynote. It is experimental because it requires a working installation of the highlight command line tool, which is left as a somewhat fiddly exercise for the user (#331). `venue = "rtf"` is documented in its [own article](https://reprex.tidyverse.org/articles/articles/rtf.html).
 
 * `reprex.current_venue` is a new read-only option that is set during `reprex_render()`. Other packages can use it to generate `reprex()`-compatible, `venue`-aware output, such as an renv lockfile.
 
