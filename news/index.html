@@ -178,7 +178,7 @@
 <p>reprex is easier to use in settings where we cannot access the user’s clipboard from R. Specifically, this applies to use on RStudio Server and RStudio Cloud.</p>
 <ul>
 <li>When <code><a href="../reference/reprex.html">reprex()</a></code> is called without <code>expr</code> or <code>input</code>, in a context where the user’s clipboard can’t be reached from R, the default is now to consult the current selection for reprex source. Previously this was only available via the <code><a href="../reference/reprex_addin.html">reprex_selection()</a></code> addin. Note that this “current selection” default behaviour will propagate to convenience wrappers around <code><a href="../reference/reprex.html">reprex()</a></code>, such as <code><a href="../reference/reprex_locale.html">reprex_locale()</a></code> and venue-specific functions like <code><a href="../reference/reprex_venue.html">reprex_r()</a></code>.</li>
-<li><em>more improvements coming soon</em></li>
+<li>In this context, the file containing the rendered reprex is opened so the user can do a manual “copy”.</li>
 </ul>
 </div>
 <div id="dependency-changes" class="section level2">

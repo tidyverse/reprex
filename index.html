@@ -147,7 +147,7 @@
 <li>R code, augmented with commented output, or as</li>
 <li>Plain HTML or (experimental) Rich Text</li>
 </ul>
-<p>The result is returned invisibly, placed on the clipboard, and written to a file. Preview an HTML version in RStudio viewer or default browser.</p>
+<p>The result is returned invisibly, written to a file and, if possible, placed on the clipboard. Preview an HTML version in RStudio viewer or default browser.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -163,7 +163,7 @@
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<p>Let’s say you copy this code onto your clipboard:</p>
+<p>Let’s say you copy this code onto your clipboard (or, on RStudio Server or Cloud, select it):</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>(y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="kw">mean</span>(y)</span></code></pre></div>
 <p>Then call <code><a href="reference/reprex.html">reprex()</a></code>, where the default target venue is GitHub:</p>
@@ -171,7 +171,7 @@
 <code class="sourceCode R"><span class="fu"><a href="reference/reprex.html">reprex</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>A nicely rendered HTML preview will display in RStudio’s Viewer (if you’re in RStudio) or your default browser otherwise.</p>
 <p><img src="reference/figures/README-viewer-screenshot.png"></p>
-<p>The relevant bit of GitHub-flavored Markdown is ready to be pasted from your clipboard:</p>
+<p>The relevant bit of GitHub-flavored Markdown is ready to be pasted from your clipboard (on RStudio Server or Cloud, you will need to copy this yourself):</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="st">```</span><span class="dt"> r</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="dt">(y &lt;- 1:4)</span></span>
 <span id="cb5-3"><a href="#cb5-3"></a><span class="dt">#&gt; [1] 1 2 3 4</span></span>

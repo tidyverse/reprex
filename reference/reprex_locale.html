@@ -260,7 +260,7 @@ section of the R Installation and Administration manual</p></li>
   <span class='st'>"a"</span> <span class='op'>/</span> <span class='fl'>2</span>
 <span class='op'>}</span>, language <span class='op'>=</span> <span class='st'>"pt_BR"</span><span class='op'>)</span>
 
-<span class='co'>#' # get day-of-week and month to print in French (not Windows)</span>
+<span class='co'># get day-of-week and month to print in French (not Windows)</span>
 <span class='fu'>reprex_locale</span><span class='op'>(</span><span class='op'>{</span>
   <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2019-01-01"</span>, <span class='st'>"2019-02-01"</span><span class='op'>)</span><span class='op'>)</span>, <span class='st'>"%a %b %d"</span><span class='op'>)</span>
 <span class='op'>}</span>, locale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>LC_TIME <span class='op'>=</span> <span class='st'>"fr_FR"</span><span class='op'>)</span><span class='op'>)</span>
@@ -268,6 +268,9 @@ section of the R Installation and Administration manual</p></li>
 <span class='co'># get day-of-week and month to print in French (Windows)</span>
 <span class='co'># assumes that the relevant language is installed on the system</span>
 <span class='co'># LC_TIME can also be specified as "French" or "French_France" here</span>
+ <span class='fu'>reprex_locale</span><span class='op'>(</span><span class='op'>{</span>
+   <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2019-01-01"</span>, <span class='st'>"2019-02-01"</span><span class='op'>)</span><span class='op'>)</span>, <span class='st'>"%a %b %d"</span><span class='op'>)</span>
+ <span class='op'>}</span>, locale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>LC_TIME <span class='op'>=</span> <span class='st'>"French_France.1252"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>

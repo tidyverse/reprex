@@ -51,9 +51,10 @@
 
 <meta property="og:title" content="Render a reprex — reprex" />
 <meta property="og:description" content="Run a bit of R code using rmarkdown::render() and write the rendered result
-to user's clipboard. The goal is to make it easy to share a small
-reproducible example (&quot;reprex&quot;), e.g., in a GitHub issue. Reprex source can
-be
+to user's clipboard. If the clipboard is unavailable, the file containing
+the rendered result is opened for manual copy. The goal is to make it easy to
+share a small reproducible example (&quot;reprex&quot;), e.g., in a GitHub issue.
+Reprex source can be
 read from clipboard
 provided directly as expression, character vector, or string
 read from file
@@ -183,9 +184,10 @@ see below for more." />
 
     <div class="ref-description">
     <p>Run a bit of R code using <code><a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>rmarkdown::render()</a></code> and write the rendered result
-to user's clipboard. The goal is to make it easy to share a small
-reproducible example ("reprex"), e.g., in a GitHub issue. Reprex source can
-be</p><ul>
+to user's clipboard. If the clipboard is unavailable, the file containing
+the rendered result is opened for manual copy. The goal is to make it easy to
+share a small reproducible example ("reprex"), e.g., in a GitHub issue.
+Reprex source can be</p><ul>
 <li><p>read from clipboard</p></li>
 <li><p>provided directly as expression, character vector, or string</p></li>
 <li><p>read from file</p></li>
@@ -220,7 +222,7 @@ see below for more.</p>
       <th>x</th>
       <td><p>An expression. If not given, <code>reprex()</code> looks for code in
 <code>input</code>. If <code>input</code> is not provided, <code>reprex()</code> looks on the clipboard.</p>
-<p>When the clipboard is structurally unavailable, i.e. on RStudio Server or
+<p>When the clipboard is structurally unavailable, e.g., on RStudio Server or
 RStudio Cloud, <code>reprex()</code> consults the current selection instead of the
 clipboard.</p></td>
     </tr>
@@ -337,10 +339,10 @@ for greater consistency with other R Markdown output formats.</p></td>
 
     
 
-<p>The usual "code + commented output" is returned invisibly, possibly put on
-the clipboard, and written to file. An HTML preview displays in RStudio's
-Viewer pane, if available, or in the default browser, otherwise. Leading
-<code>"&gt; "</code> prompts, are stripped from the input code. Read more at
+<p>The usual "code + commented output" is returned invisibly, written to file,
+and, whenever possible, put on the clipboard. An HTML preview displays in
+RStudio's Viewer pane, if available, or in the default browser, otherwise.
+Leading <code>"&gt; "</code> prompts, are stripped from the input code. Read more at
 <a href='https://reprex.tidyverse.org/'>https://reprex.tidyverse.org/</a>.</p>
 <p>reprex sets specific <a href='https://yihui.org/knitr/options/'>knitr options</a>:</p><ul>
 <li><p>Chunk options default to <code>collapse = TRUE</code>, <code>comment = "#&gt;"</code>,
