@@ -128,14 +128,14 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "slack", "so", "
       opts_chunk = opts_chunk
     ),
     pandoc = rmarkdown::pandoc_options(
-      to = "commonmark",
+      to = "gfm",
       from = rmarkdown::from_rmarkdown(implicit_figures = FALSE),
       ext = ".md",
       args = pandoc_args
     ),
     clean_supporting = FALSE,
     pre_knit = pre_knit,
-    base_format = rmarkdown::md_document(variant = "gfm")
+    base_format = rmarkdown::md_document()
   )
   format
 }
