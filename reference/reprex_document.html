@@ -386,7 +386,7 @@ about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
 #&gt;         stop("failed to upload ", file)
 #&gt;     structure(res$link[[1]], XML = res)
 #&gt; }
-#&gt; &lt;bytecode: 0x7fa14321cea8&gt;
+#&gt; &lt;bytecode: 0x7ff4d7a7b278&gt;
 #&gt; &lt;environment: namespace:knitr&gt;
 #&gt; 
 #&gt; 
@@ -439,16 +439,15 @@ about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
 #&gt;     }
 #&gt;     if (isTRUE(std_out_err)) {
 #&gt;         input_lines &lt;- c(input_lines, "", std_out_err_stub(input, 
-#&gt;             venue %in% c("gh", "html")))
+#&gt;             venue))
 #&gt;     }
 #&gt;     if (isTRUE(session_info)) {
-#&gt;         input_lines &lt;- c(input_lines, "", si(details = venue %in% 
-#&gt;             c("gh", "html")))
+#&gt;         input_lines &lt;- c(input_lines, "", si(venue))
 #&gt;     }
 #&gt;     write_lines(input_lines, knit_input)
 #&gt; }
-#&gt; &lt;bytecode: 0x7fa13f4e3798&gt;
-#&gt; &lt;environment: 0x7fa13f4e19c8&gt;
+#&gt; &lt;bytecode: 0x7ff4d2a0e558&gt;
+#&gt; &lt;environment: 0x7ff4d2a09988&gt;
 #&gt; 
 #&gt; $post_knit
 #&gt; NULL
@@ -470,8 +469,8 @@ about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
 #&gt;     if (is.function(overlay)) 
 #&gt;         overlay()
 #&gt; }
-#&gt; &lt;bytecode: 0x7fa143276038&gt;
-#&gt; &lt;environment: 0x7fa143275af8&gt;
+#&gt; &lt;bytecode: 0x7ff4d7ad3de8&gt;
+#&gt; &lt;environment: 0x7ff4d7ad9128&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "rmarkdown_output_format"</div></pre>
