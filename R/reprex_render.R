@@ -93,21 +93,27 @@ reprex_render_impl <- function(input,
     reprex.current_venue = venue
   )
   if (new_session) {
-    out <- tryCatch(
-      callr::r(
-        function(input, opts) {
-          options(opts)
-          rmarkdown::render(
-            input,
-            quiet = TRUE, envir = globalenv(), encoding = "UTF-8"
-          )
-        },
-        args = list(input = input, opts = opts),
-        spinner = is_interactive(),
-        stdout = std_file,
-        stderr = std_file
-      ),
-      error = function(e) e
+    # if callr::r() picks up a local .Rprofile, it should be local to
+    # where the the reprex work is happening, not the session where reprex()
+    # was called
+    withr::with_dir(
+      path_dir(input),
+      out <- tryCatch(
+        callr::r(
+          function(input, opts) {
+            options(opts)
+            rmarkdown::render(
+              input,
+              quiet = TRUE, envir = globalenv(), encoding = "UTF-8"
+            )
+          },
+          args = list(input = path_file(input), opts = opts),
+          spinner = is_interactive(),
+          stdout = if (is.null(std_file)) NULL else path_file(std_file),
+          stderr = if (is.null(std_file)) NULL else path_file(std_file)
+        ),
+        error = function(e) e
+      )
     )
 
     # reprex has crashed R
