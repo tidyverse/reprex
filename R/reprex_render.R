@@ -199,7 +199,7 @@ reprex_document_options <- function(input) {
   yaml_input <- input
   if (tolower(path_ext(input)) == "r") {
     yaml_input <- knitr::spin(input, knit = FALSE)
-    on.exit(file_delete(yaml_input), add = TRUE)
+    withr::defer(file_delete(yaml_input))
   }
   yaml <- rmarkdown::yaml_front_matter(yaml_input)
   tryCatch(

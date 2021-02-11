@@ -13,7 +13,7 @@ read_lines <- function(path, n = -1L) {
 
 write_lines <- function(text, path, sep = "\n") {
   path <- file(path, open = "wb")
-  on.exit(close(path), add = TRUE)
+  withr::defer(close(path))
   base::writeLines(enc2utf8(text), con = path, sep = sep, useBytes = TRUE)
 }
 
