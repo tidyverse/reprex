@@ -107,15 +107,11 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "slack", "so", "
       }
 
       if (isTRUE(std_out_err)) {
-        input_lines <- c(
-          input_lines, "", std_out_err_stub(input, venue %in% c("gh", "html"))
-        )
+        input_lines <- c(input_lines, "", std_out_err_stub(input, venue))
       }
 
       if (isTRUE(session_info)) {
-        input_lines <- c(
-          input_lines, "", si(details = venue %in% c("gh", "html"))
-        )
+        input_lines <- c(input_lines, "", si(venue))
       }
 
       write_lines(input_lines, knit_input)
@@ -140,48 +136,35 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "slack", "so", "
   format
 }
 
-std_out_err_stub <- function(input, details = FALSE) {
+std_out_err_stub <- function(input, venue = "gh") {
   txt <- backtick(std_file(input))
-  if (details) {
-    c(
-      "<details style=\"margin-bottom:10px;\">",
-      "<summary>Standard output and standard error</summary>",
-      txt,
-      "</details>"
-    )
-  } else {
+  if (venue %in% c("gh", "html")) {
+    details(txt, desc = "Standard output and standard error")
+  } else { # venue %in% c("r", "rtf", "slack")
     c("#### Standard output and error", txt)
   }
 }
 
-ad <- function(venue) {
-  if (venue %in% c("gh", "ds", "so", "html")) {
-    return(glue::glue('
+ad <- function(venue = "gh") {
+  if (venue %in% c("gh", "html")) {
+    glue::glue('
       <sup>Created on `r Sys.Date()` by the \\
       [reprex package](https://reprex.tidyverse.org) \\
-      (v`r utils::packageVersion("reprex")`)</sup>'))
+      (v`r utils::packageVersion("reprex")`)</sup>')
+  } else { # venue %in% c("r", "rtf", "slack")
+    glue::glue('
+      Created on `r Sys.Date()` by the reprex package \\
+      v`r utils::packageVersion("reprex")` https://reprex.tidyverse.org')
   }
-  # what's left? venues "r", "rtf", "slack"
-  glue::glue('
-    Created on `r Sys.Date()` by the reprex package \\
-    v`r utils::packageVersion("reprex")` https://reprex.tidyverse.org')
 }
 
-# TO RECONSIDER: once I am convinced that so == gh, I can eliminate the
-# `details` argument of `si()`. Empirically, there seems to be no downside
-# on SO when we embed session info in the html tags that are favorable for
-# GitHub. They apparently are ignored.
-si <- function(details = FALSE) {
+si <- function(venue = "gh") {
   txt <- r_chunk(session_info_string())
-  if (details) {
-    txt <- c(
-      "<details style=\"margin-bottom:10px;\">",
-      "<summary>Session info</summary>",
-      txt,
-      "</details>"
-    )
+  if (venue %in% c("gh", "html")) {
+    details(txt, "Session info")
+  } else { # venue %in% c("r", "rtf", "slack")
+    txt
   }
-  txt
 }
 
 session_info_string <- function() {

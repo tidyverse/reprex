@@ -72,6 +72,15 @@ r_chunk <- function(code, label = NULL) {
   c(sprintf("```{r %s}", label %||% ""), label, code, "```")
 }
 
+details <- function(txt, desc = "Details") {
+  c(
+    "<details style=\"margin-bottom:10px;\">",
+    glue::glue("<summary>{desc}</summary>"),
+    txt,
+    "</details>"
+  )
+}
+
 backtick <- function(x) encodeString(x, quote = "`")
 
 newline <- function(x) paste0(x, "\n")
