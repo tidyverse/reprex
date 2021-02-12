@@ -128,8 +128,6 @@ would_clobber <- function(path) {
   if (!is_interactive()) {
     return(TRUE)
   }
-  nope(
-    "Oops, file already exists:\n  * ", path, "\n",
-    "Carry on and overwrite it?"
-  )
+  reprex_path("Oops, file already exists:", path, type = "warning")
+  nope("Carry on and overwrite it?")
 }

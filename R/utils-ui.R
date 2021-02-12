@@ -44,12 +44,12 @@ reprex_danger <- function(text, .envir = parent.frame()) {
   reprex_alert(text, type = "danger", .envir = .envir)
 }
 
-reprex_path <- function(header, path, .envir = parent.frame()) {
+reprex_path <- function(header, path, type = "success", .envir = parent.frame()) {
   quiet <- reprex_quiet() %|% is_testing()
   if (quiet) {
     return(invisible())
   }
-  reprex_success(header, .envir = .envir)
+  reprex_alert(header, type = type, .envir = .envir)
   cli::cli_ul()
   cli::cli_li()
   cli::cli_text("{.file {path}}")
