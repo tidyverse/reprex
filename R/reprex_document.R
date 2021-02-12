@@ -91,31 +91,30 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "slack", "so", "
     }
   )
 
-  pre_knit <- NULL
-  if (isTRUE(std_out_err) || isTRUE(advertise) || isTRUE(session_info)) {
-    pre_knit <- function(input, ...) {
+  pre_knit <- function(input, ...) {
 
-      # I don't know why the pre_knit hook operates on the **original** input
-      # instead of the to-be-knitted (post-spinning) input, but I need to
-      # operate on the latter. So I brute force the correct path.
-      # This is a no-op if input starts as `.Rmd`.
-      knit_input <- sub("[.]R$", ".spin.Rmd", input)
-      input_lines <- read_lines(knit_input)
+    # I don't know why the pre_knit hook operates on the **original** input
+    # instead of the to-be-knitted (post-spinning) input, but I need to
+    # operate on the latter. So I brute force the correct path.
+    # This is a no-op if input starts as `.Rmd`.
+    knit_input <- sub("[.]R$", ".spin.Rmd", input)
+    input_lines <- read_lines(knit_input)
 
-      if (isTRUE(advertise)) {
-        input_lines <- c(input_lines, "", ad(venue))
-      }
+    input_lines <- c(rprofile_alert(venue), "", input_lines)
 
-      if (isTRUE(std_out_err)) {
-        input_lines <- c(input_lines, "", std_out_err_stub(input, venue))
-      }
-
-      if (isTRUE(session_info)) {
-        input_lines <- c(input_lines, "", si(venue))
-      }
-
-      write_lines(input_lines, knit_input)
+    if (isTRUE(advertise)) {
+      input_lines <- c(input_lines, "", ad(venue))
     }
+
+    if (isTRUE(std_out_err)) {
+      input_lines <- c(input_lines, "", std_out_err_stub(input, venue))
+    }
+
+    if (isTRUE(session_info)) {
+      input_lines <- c(input_lines, "", si(venue))
+    }
+
+    write_lines(input_lines, knit_input)
   }
 
   format <- rmarkdown::output_format(
@@ -136,13 +135,20 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "slack", "so", "
   format
 }
 
-std_out_err_stub <- function(input, venue = "gh") {
-  txt <- backtick(std_file(input))
-  if (venue %in% c("gh", "html")) {
-    details(txt, desc = "Standard output and standard error")
-  } else { # venue %in% c("r", "rtf", "slack")
-    c("#### Standard output and error", txt)
+rprofile_alert <- function(venue = "gh") {
+  if (venue %in% c("gh", "html", "slack")) {
+    fmt <- '"*Local `.Rprofile` detected at `%s`*"'
+  } else { # venue %in% c("r", "rtf")
+    fmt <- '"Local .Rprofile detected at %s"'
   }
+  include_eval <-
+    "include = file.exists('.Rprofile'), eval = file.exists('.Rprofile')"
+
+  c(
+    glue::glue("```{{r, results = 'asis', echo = FALSE, {include_eval}}}"),
+    glue::glue('cat(sprintf({fmt}, normalizePath(".Rprofile")))'),
+    "```"
+  )
 }
 
 ad <- function(venue = "gh") {
@@ -155,6 +161,15 @@ ad <- function(venue = "gh") {
     glue::glue('
       Created on `r Sys.Date()` by the reprex package \\
       v`r utils::packageVersion("reprex")` https://reprex.tidyverse.org')
+  }
+}
+
+std_out_err_stub <- function(input, venue = "gh") {
+  txt <- backtick(std_file(input))
+  if (venue %in% c("gh", "html")) {
+    details(txt, desc = "Standard output and standard error")
+  } else { # venue %in% c("r", "rtf", "slack")
+    c("#### Standard output and error", txt)
   }
 }
 
