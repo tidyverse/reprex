@@ -14,6 +14,18 @@ Specifically, this applies to use on RStudio Server and RStudio Cloud.
 * In this context, the file containing the rendered reprex is opened so the
   user can do a manual "copy".
 
+## `.Rprofile`
+
+`reprex()` renders the reprex in a separate, fresh R session using `callr:r()`.
+As of callr 3.4.0 (released 2019-12-09), the default is `callr::r(..., user_profile = "project")`, which means that callr executes a `.Rprofile` found in current working directory.
+Most reprexes happen in a temp directory and there will be no such `.Rprofile`.
+But if the user intentionally reprexes in, e.g., an existing project with a `.Rprofile`, `callr::r()` and therefore `reprex()` honor it.
+In this version of reprex:
+
+* We explicitly make sure that the working directory of the `callr::r()` call is the same as the intended working directory of the reprex.
+* We alert the user that a local `.Rprofile` has been found.
+* We indicate the usage of a local `.Rprofile` in the rendered reprex.
+
 ## Dependency changes
 
 * rstudioapi moves from Suggests to Imports. Related to improving the experience when reprex cannot access the user's clipboard.

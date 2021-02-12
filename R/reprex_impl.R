@@ -73,6 +73,15 @@ reprex_impl <- function(x_expr = NULL,
     return(invisible(read_lines(r_file)))
   }
 
+  local_rprofile <- path(path_dir(path_real(r_file)), ".Rprofile")
+  if (file_exists(local_rprofile)) {
+    reprex_path(
+      "Local {.code .Rprofile} detected in reprex directory:",
+      local_rprofile,
+      type = "warning"
+    )
+   }
+
   reprex_info("Rendering reprex...")
   reprex_file <- reprex_render_impl(r_file, new_session = new_session)
   # for reasons re: the RStudio "Knit" button, reprex_render_impl() may return

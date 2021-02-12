@@ -2,6 +2,14 @@ expect_error_free <- function(...) {
   expect_error(..., regexp = NA)
 }
 
+expect_messages_to_include <- function(haystack, needles) {
+  lapply(
+    needles,
+    function(x) expect_match(haystack, x, all = FALSE)
+  )
+  invisible()
+}
+
 with_mock <- function(..., .parent = parent.frame()) {
   mockr::with_mock(..., .parent = .parent, .env = "reprex")
 }

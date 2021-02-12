@@ -1,11 +1,3 @@
-expect_messages_to_include <- function(haystack, needles) {
-  lapply(
-    needles,
-    function(x) expect_match(haystack, x, all = FALSE)
-  )
-  invisible()
-}
-
 test_that("expected outfiles are written and messaged, venue = 'gh'", {
   skip_on_cran()
   local_temp_wd()
