@@ -32,6 +32,8 @@ In this version of reprex:
 
 * mockr is new in Suggests; it's used in the tests.
 
+* We bumped the documented minimum version of Pandoc, because we use the `gfm` markdown variant to get GitHub-Flavored Markdown. The `gfm` variant was introduced in Pandoc 2.0 (released 2017-10-29).
+
 # reprex 1.0.0
 
 ## Venues

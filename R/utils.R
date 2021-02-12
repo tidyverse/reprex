@@ -64,8 +64,6 @@ escape_newlines <- function(x) {
   gsub("\n", "\\\\n", x, perl = TRUE)
 }
 
-pandoc2.0 <- function() rmarkdown::pandoc_available("2.0")
-
 roxygen_comment <- function(x) paste0("#' ", x)
 
 r_chunk <- function(code, label = NULL) {

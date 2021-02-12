@@ -86,9 +86,7 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "slack", "so", "
 
   pandoc_args <- c(
     pandoc_args,
-    if (rmarkdown::pandoc_available()) {
-      if (rmarkdown::pandoc_version() < "1.16") "--no-wrap" else "--wrap=preserve"
-    }
+    if (rmarkdown::pandoc_available()) "--wrap=preserve"
   )
 
   pre_knit <- function(input, ...) {

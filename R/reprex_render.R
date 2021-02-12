@@ -192,7 +192,7 @@ preview <- function(input) {
     input,
     output_dir = file_temp("reprex-preview"),
     clean = FALSE, quiet = TRUE, encoding = "UTF-8",
-    output_options = if (pandoc2.0()) list(pandoc_args = "--quiet")
+    output_options = list(pandoc_args = "--quiet")
   )
 
   viewer <- getOption("viewer") %||% utils::browseURL
@@ -298,7 +298,7 @@ pp_html_render <- function(input) {
     md_file(input),
     output_format = rmarkdown::html_fragment(
       self_contained = FALSE,
-      pandoc_args = if (pandoc2.0()) "--quiet"
+      pandoc_args = "--quiet"
     ),
     clean = FALSE,
     quiet = TRUE,
