@@ -22,3 +22,4 @@
 ^\.github/workflows/pkgdown\.yaml$
 ^revdep$
 ^img/debugging$
+^data-raw$

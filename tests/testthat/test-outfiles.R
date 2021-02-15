@@ -88,7 +88,7 @@ test_that("outfiles based on input file", {
   )
 })
 
-test_that("outfiles based on tempfile()", {
+test_that("outfiles when only wd is specified", {
   skip_on_cran()
   local_temp_wd()
   local_reprex_loud()
@@ -96,10 +96,10 @@ test_that("outfiles based on tempfile()", {
   msg <- capture_messages(
     ret <- reprex(input = c("x <- 1:3", "min(x)"), outfile = NA)
   )
-  r_file_line <- grep("_reprex[.]R\\n$", msg)
-  tempbase <- gsub(".*(reprex.*)_.*", "\\1", msg[r_file_line])
-  r_file <- paste0(tempbase, "_reprex.R")
-  md_file <- paste0(tempbase, "_reprex.md")
+  r_file_line <- grep("Preparing", msg) + 1
+  filebase <- gsub("[^a-z]*([a-z]+[-][a-z]+).*", "\\1", msg[r_file_line])
+  r_file <- paste0(filebase, "_reprex.R")
+  md_file <- paste0(filebase, "_reprex.md")
   expect_true(file_exists(r_file))
   expect_true(file_exists(md_file))
   expect_messages_to_include(

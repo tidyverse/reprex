@@ -17,18 +17,31 @@ write_lines <- function(text, path, sep = "\n") {
   base::writeLines(enc2utf8(text), con = path, sep = sep, useBytes = TRUE)
 }
 
+# we'll index into the (shuffled) adjective-animal list with this
+aa_i <- (function() {
+  i <- 0
+  function() {
+    i <<- i + 1
+    i
+  }
+})()
+
+reprex_aa <- function() adjective_animal[[aa_i()]]
+
 reprex_default_filebase <- function(in_temp_dir) {
+  # ugly but (probably) unique
+  ugly_dir <- file_temp("reprex-")
+  # human-friendly and unique within an R session, at least for first n reprexes
+  aa <- reprex_aa()
   if (in_temp_dir) {
-    # outfile is NULL --> reprex in sub-directory, within session temp directory
-    # example: /private/var/.../.../.../reprex97d77de2835c/reprex
-    target_dir <- path_real(dir_create(file_temp("reprex")))
-    path(target_dir, "reprex")
+    # wd not specified --> reprex in sub-directory of session temp directory
+    # example: /private/var/.../.../.../reprex-98183d9c49-prior-boa/prior-boa
+    target_dir <- path_real(dir_create(glue::glue("{ugly_dir}-{aa}")))
+    path(target_dir, aa)
   } else {
-    # infile = NULL, outfile is NA --> reprex in working directory
-    # TODO: I'd love to devise a better way to express "work in current working
-    # directory", i.e. I've concluded that `outfile = NA` is yucky
-    # example: reprexbfa165580676
-    path_file(file_temp("reprex"))
+    # no infile, wd is specified
+    # example: prior-boa
+    aa
   }
 }
 

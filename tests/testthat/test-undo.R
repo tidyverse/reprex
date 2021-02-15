@@ -120,9 +120,9 @@ test_that("reprex_invert() can name its own outfile", {
   msg <- capture_messages(
     out <- reprex_invert(input = invert_me, outfile = NA)
   )
-  msg <- sub("\n$", "", msg)
-  outfile <- regmatches(msg, regexpr("reprex(.*)", msg))
-  expect_identical(read_lines(outfile), out)
+  r_file_line <- grep("Writing clean code", msg) + 1
+  r_file <- trimws(msg[r_file_line])
+  expect_identical(read_lines(r_file), out)
 })
 
 test_that("reprex_invert() can name outfile based on input filepath", {
