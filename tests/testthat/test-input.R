@@ -7,13 +7,13 @@
 #   * Normal usage will absolutely and immediately reveal clipboard problems.
 
 test_that("reprex: expression input works", {
-  skip_on_cran()
-  expect_match(reprex(1:5, render = FALSE), "^1:5$", all = FALSE)
+  expect_snapshot(cli::cat_line(
+    reprex({x <- 1:5; mean(x)}, render = FALSE)
+  ))
 })
 
 ## https://github.com/tidyverse/reprex/issues/241
 test_that("reprex: expression input preserves `!!`", {
-  skip_on_cran()
   res <- reprex(
     {f <- function(c6d573e) rlang::qq_show(how_many(!!rlang::enquo(c6d573e)))},
     render = FALSE
@@ -22,29 +22,26 @@ test_that("reprex: expression input preserves `!!`", {
 })
 
 test_that("reprex: character input works", {
-  skip_on_cran()
-  expect_match(reprex(input = "1:5\n", render = FALSE), "^1:5$", all = FALSE)
+  expect_snapshot(cli::cat_line(
+    reprex(input = c("x <- 5:1", "mean(x)"), render = FALSE)
+  ))
 })
 
 test_that("reprex: file input works", {
-  skip_on_cran()
   local_temp_wd()
-
-  write("1:5", "foo.R")
-  expect_match(reprex(input = "foo.R", render = FALSE), "^1:5$", all = FALSE)
+  write_lines(c("x <- 6:10", "mean(x)"), "foo.R")
+  expect_snapshot(cli::cat_line(
+    reprex(input = "foo.R", render = FALSE)
+  ))
 })
 
 test_that("reprex: file input in a subdirectory works", {
-  skip_on_cran()
   local_temp_wd()
-
   dir_create("foo")
-  write("1:5", path("foo", "foo.R"))
-  expect_match(
-    reprex(input = path("foo", "foo.R"), render = FALSE),
-    "^1:5$",
-    all = FALSE
-  )
+  write_lines(c("x <- 11:15", "mean(x)"),  path("foo", "foo.R"))
+  expect_snapshot(cli::cat_line(
+    reprex(input = path("foo", "foo.R"), render = FALSE)
+  ))
 })
 
 test_that("Circular use is detected before source file written", {
@@ -66,14 +63,13 @@ test_that("Leading prompts are removed", {
 
   local_reprex_loud()
   expect_snapshot(
-    res2 <- reprex(input = input2, render = FALSE, html_preview = FALSE),
+    res2 <- reprex(input = input2, render = FALSE)
   )
   expect_identical(res, res2)
 })
 
 test_that("newlines in code are protected and uniformly so across venues", {
-  skip_on_cran()
-  ## NOTE: use of single vs double quotes is counter-intuitive, but deliberate
+  # NOTE: use of single vs double quotes is counter-intuitive, but deliberate
   input <- 'paste(letters[1:3], collapse = "\n")\n'
   chr_input <- reprex(input = input, render = FALSE)
 

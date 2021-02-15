@@ -1,6 +1,4 @@
 test_that(".Rprofile local to reprex target directory is consulted & messaged", {
-  local_reprex_loud()
-
   local_temp_wd("reprextests-aaa-")
   cat("x <- 'aaa'\n", file = ".Rprofile")
   cat("x\n", file = "foo.R")
@@ -9,6 +7,7 @@ test_that(".Rprofile local to reprex target directory is consulted & messaged", 
   local_temp_wd("reprextests-bbb-")
   cat("x <- 'bbb'\n", file = ".Rprofile")
 
+  local_reprex_loud()
   msg <- capture_messages(
     out <- reprex(x, outfile = NA, advertise = FALSE)
   )
