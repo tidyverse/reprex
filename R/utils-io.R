@@ -17,6 +17,79 @@ write_lines <- function(text, path, sep = "\n") {
   base::writeLines(enc2utf8(text), con = path, sep = sep, useBytes = TRUE)
 }
 
+retrofit_files <- function(infile = NULL, wd = NULL, outfile = "DEPRECATED") {
+  if (identical(outfile, "DEPRECATED")) {
+    return(list(infile = infile, wd = wd))
+  }
+  # `outfile` was specified
+
+  if (!is.null(wd)) {
+    reprex_warning("{.code outfile} is deprecated, in favor of {.code wd}")
+    return(list(infile = infile, wd = wd))
+  }
+  # `wd` was not specified
+
+  # cases to consider
+  # infile      outfile
+  # NULL        NA
+  # "foo.R"     NA
+  # "foo/bar.R" NA
+  # NULL        "foo"
+  # NULL        "foo/bar"
+  # "foo/bar.R" "blah"
+
+  if (is.na(outfile)) {
+    # historically, this was a good way to say "reprex in working directory"
+    if (is.null(infile)) {
+      reprex_warning("{.code outfile} is deprecated, in favor of {.code wd}")
+      reprex_warning(
+        'Use {.code reprex(wd = ".")} instead of {.code reprex(outfile = NA)}'
+      )
+      return(list(infile = NULL, wd = "."))
+    }
+    reprex_warning(
+      "{.code outfile} is deprecated, working directory will be derived from {.code input}"
+    )
+    return(list(infile = infile, wd = NULL))
+  }
+  # `outfile` is string
+
+  if (is.null(infile)) {
+    reprex_warning("{.code outfile} is deprecated")
+    reprex_warning(
+      "To control output filename, provide a filepath to {.code input}"
+    )
+    reprex_warning("Only taking working directory from {.code outfile}")
+    return(list(infile = NULL, wd = path_dir(outfile)))
+  }
+  # both `infile` and `outfile` are strings
+
+  reprex_warning("{.code outfile} is deprecated")
+  reprex_warning(
+    "Working directory and output filename will be determined from {.code input}"
+  )
+  list(infile = infile, wd = NULL)
+}
+
+plan_files <- function(infile = NULL, wd = NULL, outfile = "DEPRECATED") {
+  tmp <- retrofit_files(infile, wd, outfile)
+  infile <- tmp$infile
+  wd <- tmp$wd
+  chatty <- !is.null(infile) || !is.null(wd) || !identical(outfile, "DEPRECATED")
+
+  if (!is.null(infile) && !is.null(wd)) {
+    reprex_warning(
+      "Ignoring {.code wd}, working directory is determined by {.code input}"
+    )
+    wd <- NULL
+  }
+
+  list(
+    chatty = chatty,
+    filebase = make_filebase(infile, wd)
+  )
+}
+
 # we'll index into the (shuffled) adjective-animal list with this
 aa_i <- (function() {
   i <- 0
@@ -45,21 +118,18 @@ reprex_default_filebase <- function(in_temp_dir) {
   }
 }
 
-make_filebase <- function(outfile = NULL, infile = NULL) {
-  if (is.null(outfile)) {
-    return(reprex_default_filebase(in_temp_dir = TRUE))
-  }
-
-  if (!is.na(outfile)) {
-    return(path_ext_remove(outfile))
-  }
-
+make_filebase <- function(infile = NULL, wd = NULL) {
   if (is.null(infile)) {
-    return(reprex_default_filebase(in_temp_dir = FALSE))
+    if (is.null(wd)) {
+      reprex_default_filebase(in_temp_dir = TRUE)
+    } else {
+      if (wd == ".") {
+        reprex_default_filebase(in_temp_dir = FALSE)
+      } else {
+        path(wd, reprex_default_filebase(in_temp_dir = FALSE))
+      }
+    }
   } else {
-    ## outfile = NA, infile = "sthg" --> follow infile's lead
-    ## example: basename_of_infile
-    ## example: path/to/infile
     path_ext_remove(infile)
   }
 }

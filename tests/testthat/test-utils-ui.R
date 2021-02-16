@@ -32,6 +32,6 @@ test_that("reprex_path() works and respects REPREX_QUIET", {
     x <- "path/to/file"
     reprex_path("Something descriptive:", x)
     y <- c("path", "to", "file")
-    reprex_path("Something descriptive:", fs::path_join(y))
+    reprex_path("Something descriptive:", path_join(y))
   })
 })

@@ -1,5 +1,6 @@
 reprex_impl <- function(x_expr = NULL,
-                        input  = NULL, outfile = NULL,
+                        input  = NULL,
+                        wd     = NULL,
                         venue  = c("gh", "r", "rtf", "html", "slack", "so", "ds"),
 
                         render = TRUE,
@@ -11,7 +12,9 @@ reprex_impl <- function(x_expr = NULL,
                         comment         = opt("#>"),
                         tidyverse_quiet = opt(TRUE),
                         std_out_err     = opt(FALSE),
-                        html_preview    = opt(TRUE)) {
+                        html_preview    = opt(TRUE),
+
+                        outfile = "DEPRECATED") {
 
   venue <- tolower(venue)
   venue <- match.arg(venue)
@@ -48,11 +51,12 @@ reprex_impl <- function(x_expr = NULL,
   src <- ensure_not_dogfood(src)
   src <- ensure_no_prompts(src)
 
-  outfile_given <- !is.null(outfile)
-  infile <- if (where == "path") input else NULL
-  filebase <- make_filebase(outfile, infile)
+  reprex_files <- plan_files(
+    infile = if (where == "path") input else NULL,
+    wd = wd, outfile = outfile
+  )
 
-  r_file <- r_file(filebase)
+  r_file <- r_file(reprex_files$filebase)
   if (would_clobber(r_file)) {
     return(invisible())
   }
@@ -64,10 +68,10 @@ reprex_impl <- function(x_expr = NULL,
     tidyverse_quiet = tidyverse_quiet, std_out_err = std_out_err
   )
   src <- c(yamlify(reprex_document_options), "", src)
-  write_lines(src, r_file)
-  if (outfile_given) {
+  if (reprex_files$chatty) {
     reprex_path("Preparing reprex as {.code .R} file:", r_file)
   }
+  write_lines(src, r_file)
 
   if (!render) {
     return(invisible(read_lines(r_file)))
@@ -80,7 +84,7 @@ reprex_impl <- function(x_expr = NULL,
       local_rprofile,
       type = "warning"
     )
-   }
+  }
 
   reprex_info("Rendering reprex...")
   reprex_file <- reprex_render_impl(r_file, new_session = new_session)
@@ -90,7 +94,9 @@ reprex_impl <- function(x_expr = NULL,
   # value
   reprex_file <- attr(reprex_file, "reprex_file", exact = TRUE)
 
-  if (outfile_given) {
+  if (reprex_files$chatty) {
+    # TODO: be smarter about when to report full path vs. relative,
+    # i.e., consider if the user provided any path info
     reprex_path("Writing reprex file:", reprex_file)
   }
   expose_reprex_output(reprex_file, venue)

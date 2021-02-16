@@ -2,24 +2,42 @@
 
 ## When the clipboard isn't available
 
-reprex is easier to use in settings where we cannot access the user's clipboard from R.
+We've made reprex more pleasant to use in settings where we cannot access the user's clipboard from R.
 Specifically, this applies to use on RStudio Server and RStudio Cloud.
 
 * When `reprex()` is called without `expr` or `input`, in a context where the
   user's clipboard can't be reached from R, the default is now to consult the
   current selection for reprex source. Previously this was only available via
   the `reprex_selection()` addin. Note that this "current selection" default
-  behaviour will propagate to convenience wrappers around `reprex()`, such as
-  `reprex_locale()` and venue-specific functions like `reprex_r()`.
+  behaviour propagates to convenience wrappers around `reprex()`, such as
+  `reprex_locale()` and venue-specific functions like `reprex_r()`, and to the
+  un-`reprex()` functions, such as `reprex_clean()`.
 * In this context, the file containing the rendered reprex is opened so the
-  user can do a manual "copy".
+  user can manually copy its contents.
+  
+## Filepaths
+
+`wd` is a new argument to set the reprex working directory.
+As a result, the `outfile` argument is deprecated and the `input` argument has new significance.
+Here's how to use `input` and `wd` to control reprex filepaths:
+
+* To reprex in the current working directory,  
+  Previously: `reprex(outfile = NA)`  
+  Now: `reprex(wd = ".")`  
+  More generally, usage looks like `reprex(wd = "path/to/desired/wd")`.
+* If you care about reprex filename (and location), write your source to
+  `path/to/stuff.R` and call `reprex(input = "path/to/stuff.R")`. When `input`
+  is a filepath, it determines the working directory and how reprex files
+  are named, i.e. `wd` is no longer consulted.
+
+When reprex needs to invent file names, they are now based on a random "adjective-animal" slug.
 
 ## `.Rprofile`
 
 `reprex()` renders the reprex in a separate, fresh R session using `callr:r()`.
-As of callr 3.4.0 (released 2019-12-09), the default is `callr::r(..., user_profile = "project")`, which means that callr executes a `.Rprofile` found in current working directory.
+As of callr 3.4.0 (released 2019-12-09), the default became `callr::r(..., user_profile = "project")`, which means that callr executes a `.Rprofile` found in current working directory.
 Most reprexes happen in a temp directory and there will be no such `.Rprofile`.
-But if the user intentionally reprexes in, e.g., an existing project with a `.Rprofile`, `callr::r()` and therefore `reprex()` honor it.
+But if the user intentionally reprexes in an existing project with a `.Rprofile`, `callr::r()` and therefore `reprex()` honor it.
 In this version of reprex:
 
 * We explicitly make sure that the working directory of the `callr::r()` call is the same as the intended working directory of the reprex.

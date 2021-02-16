@@ -129,15 +129,16 @@ But wait, there’s more\!
   - By default, figures are uploaded to [imgur.com](https://imgur.com/)
     and the resulting URL is dropped into an inline image tag.
 
-  - Use the `outfile` argument to control where results are left behind.
-    Use `outfile = NA` to work in current working directory.
+  - If you really need to reprex in a specific directory, use the `wd`
+    argument. For example, `reprex(wd = ".")` requests the current
+    working directory.
     
   - Append session info via `reprex(..., session_info = TRUE)`.
 
   - Get clean, runnable code from wild-caught reprexes with
     
       - `reprex_invert()` = the opposite of `reprex()`
-      - `reprex_clean()`, e.g. when you copy/paste from GitHub or Stack
+      - `reprex_clean()`, e.g. when you copy/paste from GitHub or Stack
         Overflow
       - `reprex_rescue()`, when you’re dealing with copy/paste from R
         Console

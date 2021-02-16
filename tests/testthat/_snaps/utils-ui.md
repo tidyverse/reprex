@@ -53,7 +53,7 @@
         path/to/file
     Code
       y <- c("path", "to", "file")
-      reprex_path("Something descriptive:", fs::path_join(y))
+      reprex_path("Something descriptive:", path_join(y))
     Message <cliMessage>
       v Something descriptive:
         path/to/file

@@ -3,17 +3,19 @@ test_that("expected outfiles are written and messaged, venue = 'gh'", {
   local_temp_wd()
   local_reprex_loud()
 
-  msg <- capture_messages(
-    ret <- reprex(1:5, outfile = "foo")
-  )
+  msg <- trimws(capture_messages(
+    ret <- reprex(1:5, wd = ".")
+  ))
   expect_messages_to_include(
     msg,
-    c("Preparing reprex as .*R.* file", "foo_reprex.R",
-      "Writing reprex file", "foo_reprex.md"
+    c("Preparing reprex as .*.R.* file", "_reprex.R$",
+      "Writing reprex file", "_reprex.md$"
     )
   )
-  expect_match(read_lines("foo_reprex.R"), "1:5", all = FALSE)
-  expect_identical(ret, read_lines("foo_reprex.md"))
+  r_file <- grep("_reprex.R$", msg, value = TRUE)
+  expect_match(read_lines(r_file), "1:5", all = FALSE)
+  md_file <- grep("_reprex.md$", msg, value = TRUE)
+  expect_equal(ret, read_lines(md_file))
 })
 
 test_that("expected outfiles are written and messaged, venue = 'R'", {
@@ -21,27 +23,19 @@ test_that("expected outfiles are written and messaged, venue = 'R'", {
   local_temp_wd()
   local_reprex_loud()
 
-  msg <- capture_messages(
-    ret <- reprex(1:5, outfile = "foo", venue = "R")
-  )
+  msg <- trimws(capture_messages(
+    ret <- reprex(1:5, wd = ".", venue = "R")
+  ))
   expect_messages_to_include(
     msg,
-    c("Preparing reprex as .*R.* file", "foo_reprex.R",
-      "Writing reprex file", "foo_reprex_rendered.R"
+    c("Preparing reprex as .*R.* file", "_reprex.R",
+      "Writing reprex file", "_reprex_rendered.R"
     )
   )
-  expect_match(read_lines("foo_reprex.R"), "1:5", all = FALSE)
-  expect_identical(ret, read_lines("foo_reprex_rendered.R"))
-  expect_match(read_lines("foo_reprex.md"), "1:5", all = FALSE)
-})
-
-test_that("`.md` extension is stripped from outfile", {
-  skip_on_cran()
-  local_temp_wd()
-
-  ret <- reprex(1:5, outfile = "foo.md")
-  expect_true(file_exists("foo_reprex.R"))
-  expect_length(dir_ls(regexp = "foo.md"), 0)
+  r_file <- grep("_reprex.R$", msg, value = TRUE)
+  expect_match(read_lines(r_file), "1:5", all = FALSE)
+  rout_file <- grep("_reprex_rendered.R$", msg, value = TRUE)
+  expect_equal(ret, read_lines(rout_file))
 })
 
 test_that(".R outfile doesn't clobber .R infile", {
@@ -49,73 +43,36 @@ test_that(".R outfile doesn't clobber .R infile", {
   local_temp_wd()
 
   write_lines("1:5", "foo.R")
-  ret <- reprex(input = "foo.R", outfile = NA)
+  ret <- reprex(input = "foo.R")
   expect_identical("1:5", read_lines("foo.R"))
 })
 
-test_that("outfiles in a subdirectory works", {
+test_that("infile can have path components", {
   skip_on_cran()
   local_temp_wd()
   local_reprex_loud()
 
-  dir_create("foo")
+  dir_create("aaa")
+  write_lines("1:5", "aaa/bbb.R")
   msg <- capture_messages(
-    ret <- reprex(1:5, outfile = "foo/foo")
+    ret <- reprex(input = "aaa/bbb.R")
   )
   expect_messages_to_include(
     msg,
-    c("Preparing reprex as .*R.* file", "foo/foo_reprex.R",
-      "Writing reprex file", "foo/foo_reprex.md"
+    c("Preparing reprex as .*.R.* file", "aaa/bbb_reprex.R",
+      "Writing reprex file", "aaa/bbb_reprex.md"
     )
   )
 })
 
-test_that("outfiles based on input file", {
-  skip_on_cran()
-  local_temp_wd()
-  local_reprex_loud()
-
-  write_lines("1:5", "foo.R")
-  msg <- capture_messages(
-    ret <- reprex(input = "foo.R", outfile = NA)
-  )
-  expect_true(file_exists("foo_reprex.md"))
-  expect_messages_to_include(
-    msg,
-    c("Preparing reprex as .*R.* file", "foo_reprex.R",
-      "Writing reprex file", "foo_reprex.md"
-    )
-  )
-})
-
-test_that("outfiles when only wd is specified", {
-  skip_on_cran()
-  local_temp_wd()
-  local_reprex_loud()
-
-  msg <- capture_messages(
-    ret <- reprex(input = c("x <- 1:3", "min(x)"), outfile = NA)
-  )
-  r_file_line <- grep("Preparing", msg) + 1
-  filebase <- gsub("[^a-z]*([a-z]+[-][a-z]+).*", "\\1", msg[r_file_line])
-  r_file <- paste0(filebase, "_reprex.R")
-  md_file <- paste0(filebase, "_reprex.md")
-  expect_true(file_exists(r_file))
-  expect_true(file_exists(md_file))
-  expect_messages_to_include(
-    msg,
-    c("Preparing reprex as .*R.* file", r_file,
-      "Writing reprex file", md_file
-    )
-  )
-})
-
-test_that("pre-existing foo_reprex.R doesn't get clobbered w/o user's OK", {
+test_that("pre-existing xyz_reprex.R doesn't get clobbered w/o user's OK", {
   skip_on_cran()
   local_temp_wd()
 
-  ret <- reprex(1:3, outfile = "foo")
-  expect_match(read_lines("foo_reprex.md"), "1:3", all = FALSE, fixed = TRUE)
-  reprex(max(4:6), outfile = "foo")
-  expect_match(read_lines("foo_reprex.md"), "1:3", all = FALSE, fixed = TRUE)
+  write_lines("5:1", "xyz.R")
+  ret <- reprex(input = "xyz.R")
+  expect_match(read_lines("xyz_reprex.md"), "5:1", all = FALSE, fixed = TRUE)
+  write_lines("max(4:6)", "xyz.R")
+  reprex(input = "xyz.R")
+  expect_match(read_lines("xyz_reprex.md"), "5:1", all = FALSE, fixed = TRUE)
 })

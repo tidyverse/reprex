@@ -31,7 +31,8 @@
 #'   on GitHub, Stack Overflow, Discourse, and Slack. Note that `imgur_upload()`
 #'   requires the packages httr and xml2. When `venue = "r"`, `upload.fun` is
 #'   set to `identity()`, so that figures remain local. In that case, you may
-#'   also want to set `outfile`.
+#'   also want to provide a filepath to `input` or set `wd`, to control where
+#'   the reprex files are written.
 #' You can supplement or override these options with special comments in your
 #' code (see examples).
 #'
@@ -56,15 +57,16 @@
 #'   clipboard.
 #' @param input Character. If has length one and lacks a terminating newline,
 #'   interpreted as the path to a file containing reprex code. Otherwise,
-#'   assumed to hold reprex code as character vector.
-#' @param outfile Optional basename for output files. When `NULL`
-#'   (default), reprex writes to temp files below the session temp directory. If
-#'   `outfile = "foo"`, expect output files in current working directory,
-#'   like `foo_reprex.R`, `foo_reprex.md`, and, if `venue = "r"`,
-#'   `foo_rendered.R`. If `outfile = NA`, expect output files in
-#'   a location and with basename derived from `input`, if sensible, or in
-#'   current working directory with basename derived from [tempfile()]
-#'   otherwise.
+#'   assumed to hold reprex code as character vector. When `input` specifies a
+#'   filepath, it also determines the reprex working directory and the location
+#'   of all resulting files.
+#' @param wd An optional filepath that is consulted when `input` is not a
+#'   filepath. (By default, all work is done, quietly, in a subdirectory of the
+#'   session temp directory.)
+#'
+#'   The most common use of `wd` is to set `wd = "."`, which means "reprex right
+#'   HERE in the current working directory". Do this if you really must
+#'   demonstrate something with local files.
 #' @param venue Character. Must be one of the following (case insensitive):
 #' * "gh" for [GitHub-Flavored Markdown](https://github.github.com/gfm/), the
 #'   default
@@ -117,6 +119,9 @@
 #' @param html_preview Logical. Whether to show rendered output in a viewer
 #'   (RStudio or browser). Always `FALSE` in a noninteractive session. Read more
 #'   about [opt()].
+#' @param outfile `r lifecycle::badge("deprecated")` in favor of `wd` or
+#'   providing a filepath to `input`. To reprex in current working directory,
+#'   use `wd = "."` now, instead of `outfile = NA`.
 #' @param show `r lifecycle::badge("deprecated")` in favor of `html_preview`,
 #'   for greater consistency with other R Markdown output formats.
 #' @param si  `r lifecycle::badge("deprecated")` in favor of `session_info`.
@@ -171,25 +176,10 @@
 #'   mean(y)
 #' }, advertise = FALSE)
 #'
-#' # read reprex from file
+#' # read reprex from file and write resulting files to that location
 #' tmp <- file.path(tempdir(), "foofy.R")
 #' writeLines(c("x <- 1:4", "mean(x)"), tmp)
 #' reprex(input = tmp)
-#'
-#' # read from file and write to similarly-named outfiles
-#' reprex(input = tmp, outfile = NA)
-#' list.files(dirname(tmp), pattern = "foofy")
-#'
-#' # clean up
-#' file.remove(list.files(dirname(tmp), pattern = "foofy", full.names = TRUE))
-#'
-#' # write rendered reprex to file
-#' tmp <- file.path(tempdir(), "foofy")
-#' reprex({
-#'   x <- 1:4
-#'   y <- 2:5
-#'   x + y
-#' }, outfile = tmp)
 #' list.files(dirname(tmp), pattern = "foofy")
 #'
 #' # clean up
@@ -197,6 +187,7 @@
 #'
 #' # write reprex to file AND keep figure local too, i.e. don't post to imgur
 #' tmp <- file.path(tempdir(), "foofy")
+#' dir.create(tmp)
 #' reprex({
 #'   #+ setup, include = FALSE
 #'   knitr::opts_knit$set(upload.fun = identity)
@@ -207,14 +198,11 @@
 #'   (x <- 1:4)
 #'   median(x)
 #'   plot(x)
-#'   }, outfile = tmp)
+#'   }, wd = tmp)
 #' list.files(dirname(tmp), pattern = "foofy")
 #'
 #' # clean up
-#' unlink(
-#'   list.files(dirname(tmp), pattern = "foofy", full.names = TRUE),
-#'   recursive = TRUE
-#' )
+#' unlink(tmp, recursive = TRUE)
 #'
 #' ## target venue = R, also good for email or Slack snippets
 #' ret <- reprex({
@@ -252,7 +240,7 @@
 #' @import fs
 #' @export
 reprex <- function(x = NULL,
-                   input = NULL, outfile = NULL,
+                   input = NULL, wd = NULL,
                    venue = c("gh", "r", "rtf", "html", "slack", "so", "ds"),
 
                    render = TRUE,
@@ -264,7 +252,8 @@ reprex <- function(x = NULL,
                    tidyverse_quiet = opt(TRUE),
                    std_out_err     = opt(FALSE),
                    html_preview    = opt(TRUE),
-                   show, si) {
+                   outfile = "DEPRECATED",
+                   show = "DEPRECATED", si = "DEPRECATED") {
   if (!missing(show)) {
     html_preview <- show
     reprex_warning(
@@ -274,14 +263,16 @@ reprex <- function(x = NULL,
 
   if (!missing(si)) {
     session_info <- si
-    reprex_warning(
-      "{.code si} is deprecated, please use {.code session_info} instead"
-    )
+    # I kind of regret deprecating this, so let's not make a fuss
+    # reprex_warning(
+    #   "{.code si} is deprecated, please use {.code session_info} instead"
+    # )
   }
 
   reprex_impl(
     x_expr = substitute(x),
-    input = input, outfile = outfile,
+    input = input,
+    wd = wd,
     venue = venue,
 
     render = render,
@@ -293,6 +284,8 @@ reprex <- function(x = NULL,
     html_preview    = html_preview,
     comment         = comment,
     tidyverse_quiet = tidyverse_quiet,
-    std_out_err     = std_out_err
+    std_out_err     = std_out_err,
+
+    outfile = outfile
   )
 }

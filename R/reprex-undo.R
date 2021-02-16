@@ -6,17 +6,12 @@
 #' written to file. Three different functions address various forms of
 #' wild-caught reprex.
 #'
+#' @inheritParams reprex
 #' @param input Character. If has length one and lacks a terminating newline,
 #'   interpreted as the path to a file containing reprex code. Otherwise,
 #'   assumed to hold reprex code as character vector. If not provided, the
 #'   clipboard is consulted for input. If the clipboard is unavailable and
 #'   we're in RStudio, the current selection is used.
-#' @param outfile Optional basename for output file. When `NULL`, no file is
-#'   left behind. If `outfile = "foo"`, expect an output file in current working
-#'   directory named `foo_clean.R`. If `outfile = NA`, expect on output file in
-#'   a location and with basename derived from `input`, if a path, or in
-#'   current working directory with basename derived from [tempfile()]
-#'   otherwise.
 #' @param comment regular expression that matches commented output lines
 #' @param prompt character, the prompt at the start of R commands
 #' @param continue character, the prompt for continuation lines
@@ -50,24 +45,27 @@ NULL
 #' )
 #' }
 reprex_invert <- function(input = NULL,
-                          outfile = NULL,
+                          wd = NULL,
                           venue = c("gh", "r", "so", "ds"),
-                          comment = opt("#>")) {
+                          comment = opt("#>"),
+                          outfile = "DEPRECATED") {
   venue <- tolower(venue)
   venue <- match.arg(venue)
   venue <- ds_is_gh(venue)
   venue <- so_is_gh(venue)
 
   if (venue == "r") {
-    return(reprex_clean(input, outfile = outfile, comment = comment))
+    return(
+      reprex_clean(input, wd = wd, comment = comment, outfile = outfile))
   }
 
   reprex_undo(
     input,
-    outfile = outfile,
+    wd = wd,
     venue = venue,
     is_md = TRUE,
-    comment = comment
+    comment = comment,
+    outfile = outfile
   )
 }
 
@@ -103,9 +101,10 @@ reprex_invert <- function(input = NULL,
 #' identical(code_in, code_out)
 #' }
 reprex_clean <- function(input = NULL,
-                         outfile = NULL,
-                         comment = opt("#>")) {
-  reprex_undo(input, outfile = outfile, is_md = FALSE, comment = comment)
+                         wd = NULL,
+                         comment = opt("#>"),
+                         outfile = "DEPRECATED") {
+  reprex_undo(input, wd = wd, is_md = FALSE, comment = comment, outfile = outfile)
 }
 
 #' @describeIn un-reprex Assumes R code lines start with a prompt and that
@@ -133,22 +132,25 @@ reprex_clean <- function(input = NULL,
 #' )
 #' }
 reprex_rescue <- function(input = NULL,
-                          outfile = NULL,
+                          wd = NULL,
                           prompt = getOption("prompt"),
-                          continue = getOption("continue")) {
+                          continue = getOption("continue"),
+                          outfile = "DEPRECATED") {
   reprex_undo(
     input,
-    outfile = outfile,
+    wd = wd,
     is_md = FALSE,
-    prompt = paste(escape_regex(prompt), escape_regex(continue), sep = "|")
+    prompt = paste(escape_regex(prompt), escape_regex(continue), sep = "|"),
+    outfile = outfile
   )
 }
 
 reprex_undo <- function(input = NULL,
-                        outfile = NULL,
+                        wd = NULL,
                         venue,
                         is_md = FALSE,
-                        comment = NULL, prompt = NULL) {
+                        comment = NULL, prompt = NULL,
+                        outfile = "DEPRECATED") {
   where <- locate_input(input)
   src <- switch(
     where,
@@ -160,11 +162,19 @@ reprex_undo <- function(input = NULL,
   )
   comment <- arg_option(comment)
 
-  outfile_given <- !is.null(outfile)
-  infile <- if (where == "path") input else NULL
+  # TODO: temporary arrangement so I can rough in the outfile --> wd change
+  # this should really behave just like reprex() in terms of what happens
+  # with output
+  # writing a file should just happen and we should expose it via clipboard or
+  # by opening it (+ possibly 'select all')
+  # chatty = TRUE is sort of morally what we were doing here
+  prex_files <- plan_files(
+    infile = if (where == "path") input else NULL,
+    wd = wd, outfile = outfile
+  )
+  outfile_given <- prex_files$chatty
   if (outfile_given) {
-    filebase <- make_filebase(outfile, infile)
-    r_file <- r_file_clean(filebase)
+    r_file <- r_file_clean(prex_files$filebase)
     if (would_clobber(r_file)) {
       return(invisible())
     }

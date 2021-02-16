@@ -27,7 +27,6 @@
 #' prex(getwd())    # current working directory
 prex <- function(x = NULL,
                  input = NULL,
-                 outfile = NULL,                # <-- different from reprex
                  venue = c("gh", "r", "rtf", "html", "slack", "so", "ds"),
 
                  render = TRUE,
@@ -49,7 +48,8 @@ prex <- function(x = NULL,
 
   reprex_impl(
     x_expr = substitute(x),
-    input = input, outfile = outfile,
+    input = input,
+    wd = ".",                                   # <-- different from reprex
     venue = venue,
 
     render = render,

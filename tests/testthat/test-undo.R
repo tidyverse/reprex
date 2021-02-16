@@ -103,10 +103,10 @@ test_that("reprex_invert() can write to specific outfile", {
   skip_on_cran()
   local_temp_wd()
 
-  code <- c("x <- 1:3", "median(x)")
-  invert_me <- reprex(input = code, advertise = FALSE)
-  out <- reprex_invert(input = invert_me, outfile = "foo")
-  expect_identical(read_lines("foo_clean.R"), out)
+  write_lines(c("x <- 1:3", "median(x)"), "foo.R")
+  reprex(input = "foo.R", advertise = FALSE)
+  out <- reprex_invert(input = "foo_reprex.md")
+  expect_identical(read_lines("foo_reprex_clean.R"), out)
 })
 
 test_that("reprex_invert() can name its own outfile", {
@@ -115,34 +115,18 @@ test_that("reprex_invert() can name its own outfile", {
 
   code <- c("x <- 1:3", "median(x)")
   invert_me <- reprex(input = code, advertise = FALSE)
-
-  local_reprex_loud()
-  msg <- capture_messages(
-    out <- reprex_invert(input = invert_me, outfile = NA)
-  )
-  r_file_line <- grep("Writing clean code", msg) + 1
-  r_file <- trimws(msg[r_file_line])
+  out <- reprex_invert(input = invert_me, wd = ".")
+  r_file <- dir_ls(regexp = "_clean[.]R$")
   expect_identical(read_lines(r_file), out)
-})
-
-test_that("reprex_invert() can name outfile based on input filepath", {
-  skip_on_cran()
-  local_temp_wd()
-
-  code <- c("x <- 1:3", "median(x)")
-  reprex(input = code, advertise = FALSE, outfile = "a")
-  out <- reprex_invert(input = "a_reprex.md", outfile = NA)
-  expect_identical(read_lines("a_reprex_clean.R"), out)
 })
 
 test_that("reprex_invert(venue = 'gh') doesn't strip leading ws", {
   skip_on_cran()
   local_temp_wd()
 
-  input <- c("head(", "    letters)")
-  reprexed <- reprex(
-    input = input, venue = "gh", advertise = FALSE
-  )
-  inverted <- reprex_invert(reprexed, venue = "gh")
-  expect_match(inverted, input[2], all = FALSE, fixed = TRUE)
+  src <- c("head(", "    letters)")
+  write_lines(src, "whitespace.R")
+  invert_me <- reprex(input = "whitespace.R", venue = "gh", advertise = FALSE)
+  inverted <- reprex_invert(input = "whitespace_reprex.md", venue = "gh")
+  expect_equal(inverted, src)
 })

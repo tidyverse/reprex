@@ -9,18 +9,25 @@
 \usage{
 reprex_invert(
   input = NULL,
-  outfile = NULL,
+  wd = NULL,
   venue = c("gh", "r", "so", "ds"),
-  comment = opt("#>")
+  comment = opt("#>"),
+  outfile = "DEPRECATED"
 )
 
-reprex_clean(input = NULL, outfile = NULL, comment = opt("#>"))
+reprex_clean(
+  input = NULL,
+  wd = NULL,
+  comment = opt("#>"),
+  outfile = "DEPRECATED"
+)
 
 reprex_rescue(
   input = NULL,
-  outfile = NULL,
+  wd = NULL,
   prompt = getOption("prompt"),
-  continue = getOption("continue")
+  continue = getOption("continue"),
+  outfile = "DEPRECATED"
 )
 }
 \arguments{
@@ -30,12 +37,13 @@ assumed to hold reprex code as character vector. If not provided, the
 clipboard is consulted for input. If the clipboard is unavailable and
 we're in RStudio, the current selection is used.}
 
-\item{outfile}{Optional basename for output file. When \code{NULL}, no file is
-left behind. If \code{outfile = "foo"}, expect an output file in current working
-directory named \code{foo_clean.R}. If \code{outfile = NA}, expect on output file in
-a location and with basename derived from \code{input}, if a path, or in
-current working directory with basename derived from \code{\link[=tempfile]{tempfile()}}
-otherwise.}
+\item{wd}{An optional filepath that is consulted when \code{input} is not a
+filepath. (By default, all work is done, quietly, in a subdirectory of the
+session temp directory.)
+
+The most common use of \code{wd} is to set \code{wd = "."}, which means "reprex right
+HERE in the current working directory". Do this if you really must
+demonstrate something with local files.}
 
 \item{venue}{Character. Must be one of the following (case insensitive):
 \itemize{
@@ -63,6 +71,10 @@ currently just an alias for "gh".
 }}
 
 \item{comment}{regular expression that matches commented output lines}
+
+\item{outfile}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}} in favor of \code{wd} or
+providing a filepath to \code{input}. To reprex in current working directory,
+use \code{wd = "."} now, instead of \code{outfile = NA}.}
 
 \item{prompt}{character, the prompt at the start of R commands}
 
