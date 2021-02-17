@@ -209,8 +209,8 @@ wild-caught reprex.</p>
     <tr>
       <th>input</th>
       <td><p>Character. If has length one and lacks a terminating newline,
-interpreted as the path to a file containing reprex code. Otherwise,
-assumed to hold reprex code as character vector. If not provided, the
+interpreted as the path to a file containing the reprex. Otherwise,
+assumed to hold the reprex as a character vector. If not provided, the
 clipboard is consulted for input. If the clipboard is unavailable and
 we're in RStudio, the current selection is used.</p></td>
     </tr>
@@ -290,67 +290,50 @@ commands.</p></li>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'>## a rendered reprex can be inverted, at least approximately</span>
-<span class='va'>tmp_in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"roundtrip-input"</span><span class='op'>)</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='reprex.html'>reprex</a></span><span class='op'>(</span><span class='op'>{</span>
-  <span class='co'>#' Some text</span>
-  <span class='co'>#+ chunk-label-and-options-cannot-be-recovered, message = TRUE</span>
-  <span class='op'>(</span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span>
-  <span class='co'>#' More text</span>
-  <span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fl'>2</span><span class='op'>:</span><span class='fl'>5</span>
-  <span class='va'>x</span> <span class='op'>+</span> <span class='va'>y</span>
-<span class='op'>}</span>, html_preview <span class='op'>=</span> <span class='cn'>FALSE</span>, advertise <span class='op'>=</span> <span class='cn'>FALSE</span>, outfile <span class='op'>=</span> <span class='va'>tmp_in</span><span class='op'>)</span>
-<span class='va'>tmp_out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"roundtrip-output"</span><span class='op'>)</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>reprex_invert</span><span class='op'>(</span><span class='va'>x</span>, outfile <span class='op'>=</span> <span class='va'>tmp_out</span><span class='op'>)</span>
-<span class='va'>x</span>
+<span class='co'># a roundtrip: R code --&gt; rendered reprex, as gfm --&gt; R code</span>
+<span class='va'>original</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"original.R"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></span><span class='op'>(</span><span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"
+  #' Some text
+  #+ chunk-label-and-options-cannot-be-recovered, message = TRUE
+  (x &lt;- 1:4)
+  #' More text
+  y &lt;- 2:5
+  x + y"</span><span class='op'>)</span>, con <span class='op'>=</span> <span class='va'>original</span><span class='op'>)</span>
+<span class='fu'><a href='reprex.html'>reprex</a></span><span class='op'>(</span>input <span class='op'>=</span> <span class='va'>original</span>, html_preview <span class='op'>=</span> <span class='cn'>FALSE</span>, advertise <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='va'>reprexed</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span><span class='op'>(</span><span class='st'>"[.]R$"</span>, <span class='st'>"_reprex.md"</span>, <span class='va'>original</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='va'>reprexed</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>unreprexed</span> <span class='op'>&lt;-</span> <span class='fu'>reprex_invert</span><span class='op'>(</span>input <span class='op'>=</span> <span class='va'>reprexed</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></span><span class='op'>(</span><span class='va'>unreprexed</span><span class='op'>)</span>
 
 <span class='co'># clean up</span>
 <span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span><span class='op'>(</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span><span class='op'>(</span><span class='va'>tmp_in</span><span class='op'>)</span>, pattern <span class='op'>=</span> <span class='st'>"roundtrip"</span>, full.names <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span><span class='op'>(</span><span class='va'>original</span><span class='op'>)</span>, pattern <span class='op'>=</span> <span class='st'>"original"</span>, full.names <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='op'>)</span>
 <span class='op'>}</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'>## a displayed reprex can be cleaned of commented output</span>
-<span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"commented-code"</span><span class='op'>)</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-  <span class='st'>"## a regular comment, which is retained"</span>,
+<span class='co'># a roundtrip: R code --&gt; rendered reprex, as R code --&gt; original R code</span>
+<span class='va'>code_in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+  <span class='st'>"# a regular comment, which is retained"</span>,
   <span class='st'>"(x &lt;- 1:4)"</span>,
-  <span class='st'>"#&gt; [1] 1 2 3 4"</span>,
-  <span class='st'>"median(x)"</span>,
-  <span class='st'>"#&gt; [1] 2.5"</span>
-  <span class='op'>)</span>
-<span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'>reprex_clean</span><span class='op'>(</span><span class='va'>x</span>, outfile <span class='op'>=</span> <span class='va'>tmp</span><span class='op'>)</span>
-<span class='va'>out</span>
-
-<span class='co'># clean up</span>
-<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span><span class='op'>(</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>, pattern <span class='op'>=</span> <span class='st'>"commented-code"</span>, full.names <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+  <span class='st'>"median(x)"</span>
 <span class='op'>)</span>
-
-<span class='co'>## round trip with reprex(..., venue = "R")</span>
-<span class='va'>code_in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x &lt;- rnorm(2)"</span>, <span class='st'>"min(x)"</span><span class='op'>)</span>
-<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='reprex.html'>reprex</a></span><span class='op'>(</span>input <span class='op'>=</span> <span class='va'>code_in</span>, venue <span class='op'>=</span> <span class='st'>"R"</span>, advertise <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='va'>res</span>
-<span class='op'>(</span><span class='va'>code_out</span> <span class='op'>&lt;-</span> <span class='fu'>reprex_clean</span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>reprexed</span> <span class='op'>&lt;-</span> <span class='fu'><a href='reprex.html'>reprex</a></span><span class='op'>(</span>input <span class='op'>=</span> <span class='va'>code_in</span>, venue <span class='op'>=</span> <span class='st'>"r"</span>, advertise <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></span><span class='op'>(</span><span class='va'>reprexed</span><span class='op'>)</span>
+<span class='va'>code_out</span> <span class='op'>&lt;-</span> <span class='fu'>reprex_clean</span><span class='op'>(</span>input <span class='op'>=</span> <span class='va'>reprexed</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></span><span class='op'>(</span><span class='va'>code_out</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>code_in</span>, <span class='va'>code_out</span><span class='op'>)</span>
 <span class='op'>}</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'>## rescue a reprex that was copied from a live R session</span>
-<span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"live-transcript"</span><span class='op'>)</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-  <span class='st'>"&gt; ## a regular comment, which is retained"</span>,
+<span class='co'># rescue a reprex that was copied from a live R session</span>
+<span class='va'>from_r_console</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+  <span class='st'>"&gt; # a regular comment, which is retained"</span>,
   <span class='st'>"&gt; (x &lt;- 1:4)"</span>,
   <span class='st'>"[1] 1 2 3 4"</span>,
   <span class='st'>"&gt; median(x)"</span>,
   <span class='st'>"[1] 2.5"</span>
 <span class='op'>)</span>
-<span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'>reprex_rescue</span><span class='op'>(</span><span class='va'>x</span>, outfile <span class='op'>=</span> <span class='va'>tmp</span><span class='op'>)</span>
-<span class='va'>out</span>
-
-<span class='co'># clean up</span>
-<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span><span class='op'>(</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>,pattern <span class='op'>=</span> <span class='st'>"live-transcript"</span>, full.names <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='op'>)</span>
+<span class='va'>rescued</span> <span class='op'>&lt;-</span> <span class='fu'>reprex_rescue</span><span class='op'>(</span>input <span class='op'>=</span> <span class='va'>from_r_console</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></span><span class='op'>(</span><span class='va'>rescued</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>
