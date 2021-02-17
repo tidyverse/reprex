@@ -32,8 +32,8 @@ reprex_rescue(
 }
 \arguments{
 \item{input}{Character. If has length one and lacks a terminating newline,
-interpreted as the path to a file containing reprex code. Otherwise,
-assumed to hold reprex code as character vector. If not provided, the
+interpreted as the path to a file containing the reprex. Otherwise,
+assumed to hold the reprex as a character vector. If not provided, the
 clipboard is consulted for input. If the clipboard is unavailable and
 we're in RStudio, the current selection is used.}
 
@@ -107,66 +107,49 @@ commands.
 
 \examples{
 \dontrun{
-## a rendered reprex can be inverted, at least approximately
-tmp_in <- file.path(tempdir(), "roundtrip-input")
-x <- reprex({
+# a roundtrip: R code --> rendered reprex, as gfm --> R code
+original <- file.path(tempdir(), "original.R")
+writeLines(glue::glue("
   #' Some text
   #+ chunk-label-and-options-cannot-be-recovered, message = TRUE
   (x <- 1:4)
   #' More text
   y <- 2:5
-  x + y
-}, html_preview = FALSE, advertise = FALSE, outfile = tmp_in)
-tmp_out <- file.path(tempdir(), "roundtrip-output")
-x <- reprex_invert(x, outfile = tmp_out)
-x
+  x + y"), con = original)
+reprex(input = original, html_preview = FALSE, advertise = FALSE)
+reprexed <- sub("[.]R$", "_reprex.md", original)
+writeLines(readLines(reprexed))
+unreprexed <- reprex_invert(input = reprexed)
+writeLines(unreprexed)
 
 # clean up
 file.remove(
-  list.files(dirname(tmp_in), pattern = "roundtrip", full.names = TRUE)
+  list.files(dirname(original), pattern = "original", full.names = TRUE)
 )
 }
 \dontrun{
-## a displayed reprex can be cleaned of commented output
-tmp <- file.path(tempdir(), "commented-code")
-x <- c(
-  "## a regular comment, which is retained",
+# a roundtrip: R code --> rendered reprex, as R code --> original R code
+code_in <- c(
+  "# a regular comment, which is retained",
   "(x <- 1:4)",
-  "#> [1] 1 2 3 4",
-  "median(x)",
-  "#> [1] 2.5"
-  )
-out <- reprex_clean(x, outfile = tmp)
-out
-
-# clean up
-file.remove(
-  list.files(dirname(tmp), pattern = "commented-code", full.names = TRUE)
+  "median(x)"
 )
-
-## round trip with reprex(..., venue = "R")
-code_in <- c("x <- rnorm(2)", "min(x)")
-res <- reprex(input = code_in, venue = "R", advertise = FALSE)
-res
-(code_out <- reprex_clean(res))
+reprexed <- reprex(input = code_in, venue = "r", advertise = FALSE)
+writeLines(reprexed)
+code_out <- reprex_clean(input = reprexed)
+writeLines(code_out)
 identical(code_in, code_out)
 }
 \dontrun{
-## rescue a reprex that was copied from a live R session
-tmp <- file.path(tempdir(), "live-transcript")
-x <- c(
-  "> ## a regular comment, which is retained",
+# rescue a reprex that was copied from a live R session
+from_r_console <- c(
+  "> # a regular comment, which is retained",
   "> (x <- 1:4)",
   "[1] 1 2 3 4",
   "> median(x)",
   "[1] 2.5"
 )
-out <- reprex_rescue(x, outfile = tmp)
-out
-
-# clean up
-file.remove(
-  list.files(dirname(tmp),pattern = "live-transcript", full.names = TRUE)
-)
+rescued <- reprex_rescue(input = from_r_console)
+writeLines(rescued)
 }
 }
