@@ -58,7 +58,7 @@
         <a class="navbar-brand" href="index.html">reprex</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9001</span>
         </div>
       </div>
     </div>
@@ -200,7 +200,7 @@
 <li><p>Get html with <code><a href="reference/reprex.html">reprex(..., venue = "html")</a></code>. Useful for sites that don’t support Markdown.</p></li>
 <li><p>Prepare (un)rendered, syntax-highlighted code snippets to paste into Keynote or PowerPoint, with <code><a href="reference/reprex.html">reprex(..., venue = "rtf")</a></code>. This feature is still experimental; see the <a href="https://reprex.tidyverse.org/articles/articles/rtf.html">associated article</a> for more.</p></li>
 <li><p>By default, figures are uploaded to <a href="https://imgur.com/">imgur.com</a> and the resulting URL is dropped into an inline image tag.</p></li>
-<li><p>Use the <code>outfile</code> argument to control where results are left behind. Use <code>outfile = NA</code> to work in current working directory.</p></li>
+<li><p>If you really need to reprex in a specific directory, use the <code>wd</code> argument. For example, <code><a href="reference/reprex.html">reprex(wd = ".")</a></code> requests the current working directory.</p></li>
 <li><p>Append session info via <code><a href="reference/reprex.html">reprex(..., session_info = TRUE)</a></code>.</p></li>
 <li>
 <p>Get clean, runnable code from wild-caught reprexes with</p>

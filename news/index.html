@@ -94,7 +94,7 @@
         <a class="navbar-brand" href="../index.html">reprex</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9001</span>
         </div>
       </div>
     </div>
@@ -175,17 +175,30 @@
 <div id="when-the-clipboard-isnt-available" class="section level2">
 <h2 class="hasAnchor">
 <a href="#when-the-clipboard-isnt-available" class="anchor"></a>When the clipboard isn’t available</h2>
-<p>reprex is easier to use in settings where we cannot access the user’s clipboard from R. Specifically, this applies to use on RStudio Server and RStudio Cloud.</p>
+<p>We’ve made reprex more pleasant to use in settings where we cannot access the user’s clipboard from R. Specifically, this applies to use on RStudio Server and RStudio Cloud.</p>
 <ul>
-<li>When <code><a href="../reference/reprex.html">reprex()</a></code> is called without <code>expr</code> or <code>input</code>, in a context where the user’s clipboard can’t be reached from R, the default is now to consult the current selection for reprex source. Previously this was only available via the <code><a href="../reference/reprex_addin.html">reprex_selection()</a></code> addin. Note that this “current selection” default behaviour will propagate to convenience wrappers around <code><a href="../reference/reprex.html">reprex()</a></code>, such as <code><a href="../reference/reprex_locale.html">reprex_locale()</a></code> and venue-specific functions like <code><a href="../reference/reprex_venue.html">reprex_r()</a></code>.</li>
-<li>In this context, the file containing the rendered reprex is opened so the user can do a manual “copy”.</li>
+<li>When <code><a href="../reference/reprex.html">reprex()</a></code> is called without <code>expr</code> or <code>input</code>, in a context where the user’s clipboard can’t be reached from R, the default is now to consult the current selection for reprex source. Previously this was only available via the <code><a href="../reference/reprex_addin.html">reprex_selection()</a></code> addin. Note that this “current selection” default behaviour propagates to convenience wrappers around <code><a href="../reference/reprex.html">reprex()</a></code>, such as <code><a href="../reference/reprex_locale.html">reprex_locale()</a></code> and venue-specific functions like <code><a href="../reference/reprex_venue.html">reprex_r()</a></code>, and to the un-<code><a href="../reference/reprex.html">reprex()</a></code> functions, such as <code><a href="../reference/un-reprex.html">reprex_clean()</a></code>.</li>
+<li>In this context, the file containing the rendered reprex is opened so the user can manually copy its contents.</li>
 </ul>
+</div>
+<div id="filepaths" class="section level2">
+<h2 class="hasAnchor">
+<a href="#filepaths" class="anchor"></a>Filepaths</h2>
+<p><code>wd</code> is a new argument to set the reprex working directory. As a result, the <code>outfile</code> argument is deprecated and the <code>input</code> argument has new significance. Here’s how to use <code>input</code> and <code>wd</code> to control reprex filepaths:</p>
+<ul>
+<li>To reprex in the current working directory,<br>
+Previously: <code><a href="../reference/reprex.html">reprex(outfile = NA)</a></code><br>
+Now: <code><a href="../reference/reprex.html">reprex(wd = ".")</a></code><br>
+More generally, usage looks like <code><a href="../reference/reprex.html">reprex(wd = "path/to/desired/wd")</a></code>.</li>
+<li>If you care about reprex filename (and location), write your source to <code>path/to/stuff.R</code> and call <code><a href="../reference/reprex.html">reprex(input = "path/to/stuff.R")</a></code>. When <code>input</code> is a filepath, it determines the working directory and how reprex files are named, i.e. <code>wd</code> is no longer consulted.</li>
+</ul>
+<p>When reprex needs to invent file names, they are now based on a random “adjective-animal” slug.</p>
 </div>
 <div id="rprofile" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rprofile" class="anchor"></a><code>.Rprofile</code>
 </h2>
-<p><code><a href="../reference/reprex.html">reprex()</a></code> renders the reprex in a separate, fresh R session using <code>callr:r()</code>. As of callr 3.4.0 (released 2019-12-09), the default is <code><a href="https://rdrr.io/pkg/callr/man/r.html">callr::r(..., user_profile = "project")</a></code>, which means that callr executes a <code>.Rprofile</code> found in current working directory. Most reprexes happen in a temp directory and there will be no such <code>.Rprofile</code>. But if the user intentionally reprexes in, e.g., an existing project with a <code>.Rprofile</code>, <code><a href="https://rdrr.io/pkg/callr/man/r.html">callr::r()</a></code> and therefore <code><a href="../reference/reprex.html">reprex()</a></code> honor it. In this version of reprex:</p>
+<p><code><a href="../reference/reprex.html">reprex()</a></code> renders the reprex in a separate, fresh R session using <code>callr:r()</code>. As of callr 3.4.0 (released 2019-12-09), the default became <code><a href="https://rdrr.io/pkg/callr/man/r.html">callr::r(..., user_profile = "project")</a></code>, which means that callr executes a <code>.Rprofile</code> found in current working directory. Most reprexes happen in a temp directory and there will be no such <code>.Rprofile</code>. But if the user intentionally reprexes in an existing project with a <code>.Rprofile</code>, <code><a href="https://rdrr.io/pkg/callr/man/r.html">callr::r()</a></code> and therefore <code><a href="../reference/reprex.html">reprex()</a></code> honor it. In this version of reprex:</p>
 <ul>
 <li>We explicitly make sure that the working directory of the <code><a href="https://rdrr.io/pkg/callr/man/r.html">callr::r()</a></code> call is the same as the intended working directory of the reprex.</li>
 <li>We alert the user that a local <code>.Rprofile</code> has been found.</li>

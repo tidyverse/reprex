@@ -107,7 +107,7 @@ see below for more." />
         <a class="navbar-brand" href="../index.html">reprex</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9001</span>
         </div>
       </div>
     </div>
@@ -201,7 +201,7 @@ see below for more.</p>
     <pre class="usage"><span class='fu'>reprex</span><span class='op'>(</span>
   x <span class='op'>=</span> <span class='cn'>NULL</span>,
   input <span class='op'>=</span> <span class='cn'>NULL</span>,
-  outfile <span class='op'>=</span> <span class='cn'>NULL</span>,
+  wd <span class='op'>=</span> <span class='cn'>NULL</span>,
   venue <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"gh"</span>, <span class='st'>"r"</span>, <span class='st'>"rtf"</span>, <span class='st'>"html"</span>, <span class='st'>"slack"</span>, <span class='st'>"so"</span>, <span class='st'>"ds"</span><span class='op'>)</span>,
   render <span class='op'>=</span> <span class='cn'>TRUE</span>,
   advertise <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -211,8 +211,9 @@ see below for more.</p>
   tidyverse_quiet <span class='op'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span><span class='op'>(</span><span class='cn'>TRUE</span><span class='op'>)</span>,
   std_out_err <span class='op'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span><span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span>,
   html_preview <span class='op'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span><span class='op'>(</span><span class='cn'>TRUE</span><span class='op'>)</span>,
-  <span class='va'>show</span>,
-  <span class='va'>si</span>
+  outfile <span class='op'>=</span> <span class='st'>"DEPRECATED"</span>,
+  show <span class='op'>=</span> <span class='st'>"DEPRECATED"</span>,
+  si <span class='op'>=</span> <span class='st'>"DEPRECATED"</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -230,18 +231,18 @@ clipboard.</p></td>
       <th>input</th>
       <td><p>Character. If has length one and lacks a terminating newline,
 interpreted as the path to a file containing reprex code. Otherwise,
-assumed to hold reprex code as character vector.</p></td>
+assumed to hold reprex code as character vector. When <code>input</code> specifies a
+filepath, it also determines the reprex working directory and the location
+of all resulting files.</p></td>
     </tr>
     <tr>
-      <th>outfile</th>
-      <td><p>Optional basename for output files. When <code>NULL</code>
-(default), reprex writes to temp files below the session temp directory. If
-<code>outfile = "foo"</code>, expect output files in current working directory,
-like <code>foo_reprex.R</code>, <code>foo_reprex.md</code>, and, if <code>venue = "r"</code>,
-<code>foo_rendered.R</code>. If <code>outfile = NA</code>, expect output files in
-a location and with basename derived from <code>input</code>, if sensible, or in
-current working directory with basename derived from <code><a href='https://rdrr.io/r/base/tempfile.html'>tempfile()</a></code>
-otherwise.</p></td>
+      <th>wd</th>
+      <td><p>An optional filepath that is consulted when <code>input</code> is not a
+filepath. (By default, all work is done, quietly, in a subdirectory of the
+session temp directory.)</p>
+<p>The most common use of <code>wd</code> is to set <code>wd = "."</code>, which means "reprex right
+HERE in the current working directory". Do this if you really must
+demonstrate something with local files.</p></td>
     </tr>
     <tr>
       <th>venue</th>
@@ -322,6 +323,12 @@ more. Read more about <code><a href='reprex_options.html'>opt()</a></code>.</p><
 about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
     </tr>
     <tr>
+      <th>outfile</th>
+      <td><p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /> in favor of <code>wd</code> or
+providing a filepath to <code>input</code>. To reprex in current working directory,
+use <code>wd = "."</code> now, instead of <code>outfile = NA</code>.</p></td>
+    </tr>
+    <tr>
       <th>show</th>
       <td><p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /> in favor of <code>html_preview</code>,
 for greater consistency with other R Markdown output formats.</p></td>
@@ -353,7 +360,8 @@ reporting.</p></li>
 on GitHub, Stack Overflow, Discourse, and Slack. Note that <code>imgur_upload()</code>
 requires the packages httr and xml2. When <code>venue = "r"</code>, <code>upload.fun</code> is
 set to <code><a href='https://rdrr.io/r/base/identity.html'>identity()</a></code>, so that figures remain local. In that case, you may
-also want to set <code>outfile</code>.
+also want to provide a filepath to <code>input</code> or set <code>wd</code>, to control where
+the reprex files are written.
 You can supplement or override these options with special comments in your
 code (see examples).</p></li>
 </ul>
@@ -420,25 +428,10 @@ command line tool. The <code>"rtf"</code> venue is documented in <a href='https:
   <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
 <span class='op'>}</span>, advertise <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='co'># read reprex from file</span>
+<span class='co'># read reprex from file and write resulting files to that location</span>
 <span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"foofy.R"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x &lt;- 1:4"</span>, <span class='st'>"mean(x)"</span><span class='op'>)</span>, <span class='va'>tmp</span><span class='op'>)</span>
 <span class='fu'>reprex</span><span class='op'>(</span>input <span class='op'>=</span> <span class='va'>tmp</span><span class='op'>)</span>
-
-<span class='co'># read from file and write to similarly-named outfiles</span>
-<span class='fu'>reprex</span><span class='op'>(</span>input <span class='op'>=</span> <span class='va'>tmp</span>, outfile <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>, pattern <span class='op'>=</span> <span class='st'>"foofy"</span><span class='op'>)</span>
-
-<span class='co'># clean up</span>
-<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>, pattern <span class='op'>=</span> <span class='st'>"foofy"</span>, full.names <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># write rendered reprex to file</span>
-<span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"foofy"</span><span class='op'>)</span>
-<span class='fu'>reprex</span><span class='op'>(</span><span class='op'>{</span>
-  <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>
-  <span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fl'>2</span><span class='op'>:</span><span class='fl'>5</span>
-  <span class='va'>x</span> <span class='op'>+</span> <span class='va'>y</span>
-<span class='op'>}</span>, outfile <span class='op'>=</span> <span class='va'>tmp</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>, pattern <span class='op'>=</span> <span class='st'>"foofy"</span><span class='op'>)</span>
 
 <span class='co'># clean up</span>
@@ -446,6 +439,7 @@ command line tool. The <code>"rtf"</code> venue is documented in <a href='https:
 
 <span class='co'># write reprex to file AND keep figure local too, i.e. don't post to imgur</span>
 <span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"foofy"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>
 <span class='fu'>reprex</span><span class='op'>(</span><span class='op'>{</span>
   <span class='co'>#+ setup, include = FALSE</span>
   <span class='fu'>knitr</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/knitr/man/opts_knit.html'>opts_knit</a></span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span>upload.fun <span class='op'>=</span> <span class='va'>identity</span><span class='op'>)</span>
@@ -456,14 +450,11 @@ command line tool. The <code>"rtf"</code> venue is documented in <a href='https:
   <span class='op'>(</span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span>
   <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
   <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-  <span class='op'>}</span>, outfile <span class='op'>=</span> <span class='va'>tmp</span><span class='op'>)</span>
+  <span class='op'>}</span>, wd <span class='op'>=</span> <span class='va'>tmp</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>, pattern <span class='op'>=</span> <span class='st'>"foofy"</span><span class='op'>)</span>
 
 <span class='co'># clean up</span>
-<span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span><span class='op'>(</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>, pattern <span class='op'>=</span> <span class='st'>"foofy"</span>, full.names <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>,
-  recursive <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span><span class='op'>(</span><span class='va'>tmp</span>, recursive <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='co'>## target venue = R, also good for email or Slack snippets</span>
 <span class='va'>ret</span> <span class='op'>&lt;-</span> <span class='fu'>reprex</span><span class='op'>(</span><span class='op'>{</span>

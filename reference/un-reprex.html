@@ -98,7 +98,7 @@ wild-caught reprex." />
         <a class="navbar-brand" href="../index.html">reprex</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9001</span>
         </div>
       </div>
     </div>
@@ -182,18 +182,25 @@ wild-caught reprex.</p>
 
     <pre class="usage"><span class='fu'>reprex_invert</span><span class='op'>(</span>
   input <span class='op'>=</span> <span class='cn'>NULL</span>,
-  outfile <span class='op'>=</span> <span class='cn'>NULL</span>,
+  wd <span class='op'>=</span> <span class='cn'>NULL</span>,
   venue <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"gh"</span>, <span class='st'>"r"</span>, <span class='st'>"so"</span>, <span class='st'>"ds"</span><span class='op'>)</span>,
-  comment <span class='op'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span><span class='op'>(</span><span class='st'>"#&gt;"</span><span class='op'>)</span>
+  comment <span class='op'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span><span class='op'>(</span><span class='st'>"#&gt;"</span><span class='op'>)</span>,
+  outfile <span class='op'>=</span> <span class='st'>"DEPRECATED"</span>
 <span class='op'>)</span>
 
-<span class='fu'>reprex_clean</span><span class='op'>(</span>input <span class='op'>=</span> <span class='cn'>NULL</span>, outfile <span class='op'>=</span> <span class='cn'>NULL</span>, comment <span class='op'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span><span class='op'>(</span><span class='st'>"#&gt;"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>reprex_clean</span><span class='op'>(</span>
+  input <span class='op'>=</span> <span class='cn'>NULL</span>,
+  wd <span class='op'>=</span> <span class='cn'>NULL</span>,
+  comment <span class='op'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span><span class='op'>(</span><span class='st'>"#&gt;"</span><span class='op'>)</span>,
+  outfile <span class='op'>=</span> <span class='st'>"DEPRECATED"</span>
+<span class='op'>)</span>
 
 <span class='fu'>reprex_rescue</span><span class='op'>(</span>
   input <span class='op'>=</span> <span class='cn'>NULL</span>,
-  outfile <span class='op'>=</span> <span class='cn'>NULL</span>,
+  wd <span class='op'>=</span> <span class='cn'>NULL</span>,
   prompt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"prompt"</span><span class='op'>)</span>,
-  continue <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"continue"</span><span class='op'>)</span>
+  continue <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"continue"</span><span class='op'>)</span>,
+  outfile <span class='op'>=</span> <span class='st'>"DEPRECATED"</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -208,13 +215,13 @@ clipboard is consulted for input. If the clipboard is unavailable and
 we're in RStudio, the current selection is used.</p></td>
     </tr>
     <tr>
-      <th>outfile</th>
-      <td><p>Optional basename for output file. When <code>NULL</code>, no file is
-left behind. If <code>outfile = "foo"</code>, expect an output file in current working
-directory named <code>foo_clean.R</code>. If <code>outfile = NA</code>, expect on output file in
-a location and with basename derived from <code>input</code>, if a path, or in
-current working directory with basename derived from <code><a href='https://rdrr.io/r/base/tempfile.html'>tempfile()</a></code>
-otherwise.</p></td>
+      <th>wd</th>
+      <td><p>An optional filepath that is consulted when <code>input</code> is not a
+filepath. (By default, all work is done, quietly, in a subdirectory of the
+session temp directory.)</p>
+<p>The most common use of <code>wd</code> is to set <code>wd = "."</code>, which means "reprex right
+HERE in the current working directory". Do this if you really must
+demonstrate something with local files.</p></td>
     </tr>
     <tr>
       <th>venue</th>
@@ -245,6 +252,12 @@ currently just an alias for "gh".</p></li>
     <tr>
       <th>comment</th>
       <td><p>regular expression that matches commented output lines</p></td>
+    </tr>
+    <tr>
+      <th>outfile</th>
+      <td><p><img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle' /> in favor of <code>wd</code> or
+providing a filepath to <code>input</code>. To reprex in current working directory,
+use <code>wd = "."</code> now, instead of <code>outfile = NA</code>.</p></td>
     </tr>
     <tr>
       <th>prompt</th>
