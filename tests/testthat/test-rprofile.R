@@ -9,7 +9,7 @@ test_that(".Rprofile local to reprex target directory is consulted & messaged", 
 
   local_reprex_loud()
   msg <- capture_messages(
-    out <- reprex(x, outfile = NA, advertise = FALSE)
+    out <- reprex(x, wd = ".", advertise = FALSE)
   )
   expect_match(out, "bbb", all = FALSE)
   expect_messages_to_include(
@@ -18,7 +18,7 @@ test_that(".Rprofile local to reprex target directory is consulted & messaged", 
   )
 
   msg <- capture_messages(
-    out <- reprex(input = aaa_foo, outfile = NA, advertise = FALSE)
+    out <- reprex(input = aaa_foo, wd = ".", advertise = FALSE)
   )
   expect_match(out, "aaa", all = FALSE)
   expect_messages_to_include(
