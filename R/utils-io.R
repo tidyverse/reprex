@@ -17,6 +17,25 @@ write_lines <- function(text, path, sep = "\n") {
   base::writeLines(enc2utf8(text), con = path, sep = sep, useBytes = TRUE)
 }
 
+locate_input <- function(input) {
+  if (is.null(input)) {
+    if (reprex_clipboard()) {
+      return("clipboard")
+    }
+    if (in_rstudio()) {
+      return("selection")
+    } else {
+      return(NULL)
+    }
+  }
+
+  if (is_path(input)) {
+    "path"
+  } else {
+    "input"
+  }
+}
+
 retrofit_files <- function(infile = NULL, wd = NULL, outfile = "DEPRECATED") {
   if (identical(outfile, "DEPRECATED")) {
     return(list(infile = infile, wd = wd))

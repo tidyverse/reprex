@@ -20,25 +20,6 @@ in_rstudio <- function() {
   .Platform$GUI == "RStudio"
 }
 
-locate_input <- function(input) {
-  if (is.null(input)) {
-    if (reprex_clipboard()) {
-      return("clipboard")
-    }
-    if (in_rstudio()) {
-      return("selection")
-    } else {
-      return(NULL)
-    }
-  }
-
-  if (is_path(input)) {
-    "path"
-  } else {
-    "input"
-  }
-}
-
 trim_ws <- function(x) {
   sub("\\s*$", "", sub("^\\s*", "", x))
 }
