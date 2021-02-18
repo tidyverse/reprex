@@ -105,63 +105,6 @@ reprex_impl <- function(x_expr = NULL,
   invisible(read_lines(reprex_file))
 }
 
-# goals in order of preference:
-# 1. put reprex output on clipboard
-# 2. open file for manual copy
-expose_reprex_output <- function(reprex_file, rtf = FALSE) {
-  if (reprex_clipboard()) {
-    if (rtf && is_windows()) {
-      write_clip_windows_rtf(reprex_file)
-    } else {
-      clipr::write_clip(read_lines(reprex_file))
-    }
-    reprex_success("Reprex output is on the clipboard.")
-    return(invisible())
-  }
-
-  if (!is_interactive()) {
-    return(invisible())
-  }
-
-  if (rtf) {
-    reprex_path("Attempting to open RTF output file:", reprex_file)
-    utils::browseURL(reprex_file)
-    return(invisible())
-  }
-
-  reprex_path("Opening output file for manual copy:", reprex_file)
-  if (in_rstudio()) {
-    rstudio_open_and_select_all(reprex_file)
-  } else {
-    withr::defer_parent(utils::file.edit(reprex_file))
-  }
-  invisible()
-}
-
-rstudio_open_and_select_all <- function(path) {
-  rstudioapi::navigateToFile(path)
-  # navigateToFile() is not synchronous, hence the while loop & sleep
-  # it takes an indeterminate amount of time for the active source file to
-  # actually be 'path'
-  #
-  # DO NOT fiddle with this unless you also do thorough manual tests,
-  # including on RSP, Cloud, using reprex() and the addin and the gadget
-  ct <- rstudioapi::getSourceEditorContext()
-  i <- 0
-  while(ct$path == '' || path_real(ct$path) != path_real(path)) {
-    if (i > 4) break
-    i <- i + 1
-    Sys.sleep(1)
-    ct <- rstudioapi::getSourceEditorContext()
-  }
-  rg <- rstudioapi::document_range(
-    start = rstudioapi::document_position(1, 1),
-    end   = rstudioapi::document_position(Inf, Inf)
-  )
-  rstudioapi::setSelectionRanges(rg, id = ct$id)
-  invisible()
-}
-
 set_advertise <- function(advertise, venue) {
   default <- c(
     gh    = TRUE,
