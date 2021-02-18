@@ -59,9 +59,9 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "slack", "so", "
   tidyverse_quiet <- arg_option(tidyverse_quiet)
   std_out_err     <- arg_option(std_out_err)
 
-  stopifnot(is_toggle(advertise), is_toggle(session_info), is_toggle(style))
+  stopifnot(is_bool(advertise), is_bool(session_info), is_bool(style))
   stopifnot(is.character(comment))
-  stopifnot(is_toggle(tidyverse_quiet), is_toggle(std_out_err))
+  stopifnot(is_bool(tidyverse_quiet), is_bool(std_out_err))
 
   opts_chunk <- list(
     # fixed defaults

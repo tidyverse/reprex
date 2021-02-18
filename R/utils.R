@@ -2,10 +2,6 @@ is_windows <- function() {
   .Platform$OS.type == "windows"
 }
 
-is_toggle <- function(x) {
-  length(x) == 1 && is.logical(x) && !is.na(x)
-}
-
 is_path <- function(x) {
   length(x) == 1 && is.character(x) && !grepl("\n$", x)
 }

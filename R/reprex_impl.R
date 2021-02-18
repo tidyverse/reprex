@@ -32,10 +32,10 @@ reprex_impl <- function(x_expr = NULL,
 
   if (!is.null(input)) stopifnot(is.character(input))
   if (!is.null(wd)) stopifnot(is_string(wd))
-  stopifnot(is_toggle(advertise), is_toggle(session_info), is_toggle(style))
-  stopifnot(is_toggle(html_preview), is_toggle(render))
+  stopifnot(is_bool(advertise), is_bool(session_info), is_bool(style))
+  stopifnot(is_bool(html_preview), is_bool(render))
   stopifnot(is.character(comment))
-  stopifnot(is_toggle(tidyverse_quiet), is_toggle(std_out_err))
+  stopifnot(is_bool(tidyverse_quiet), is_bool(std_out_err))
 
   if (!is.null(outfile)) stopifnot(is.character(outfile) || is.na(outfile))
 
