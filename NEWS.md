@@ -12,7 +12,7 @@ Specifically, this applies to use on RStudio Server and RStudio Cloud.
   behaviour propagates to convenience wrappers around `reprex()`, such as
   `reprex_locale()` and venue-specific functions like `reprex_r()`, and to the
   un-`reprex()` functions, such as `reprex_clean()`.
-* In this context, the file containing the rendered reprex is opened so the
+* In this context, the file containing the (un)rendered reprex is opened so the
   user can manually copy its contents.
   
 ## Filepaths
@@ -27,8 +27,8 @@ Here's how to use `input` and `wd` to control reprex filepaths:
   More generally, usage looks like `reprex(wd = "path/to/desired/wd")`.
 * If you care about reprex filename (and location), write your source to
   `path/to/stuff.R` and call `reprex(input = "path/to/stuff.R")`. When `input`
-  is a filepath, it determines the working directory and how reprex files
-  are named, i.e. `wd` is no longer consulted.
+  is a filepath, that filepath determines the working directory and how reprex
+  files are named and `wd` is never even consulted.
 
 When reprex needs to invent file names, they are now based on a random "adjective-animal" slug.
 
