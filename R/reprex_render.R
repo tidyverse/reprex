@@ -304,7 +304,7 @@ pp_html_render <- function(input) {
     quiet = TRUE,
     encoding = "UTF-8"
   )
-  output_file <- file_move(output_file, html_file(output_file))
+  output_file <- file_move(output_file, html_file(input))
   # the html_fragment() output is a bit too minimal
   # I add an encoding specification
   # I think this is positive-to-neutral for the reprex output and, if I don't,

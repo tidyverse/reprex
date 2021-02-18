@@ -29,12 +29,12 @@ test_that("expected outfiles are written and messaged, venue = 'R'", {
   expect_messages_to_include(
     msg,
     c("Preparing reprex as .*R.* file", "_reprex.R",
-      "Writing reprex file", "_reprex_rendered.R"
+      "Writing reprex file", "_reprex_r.R"
     )
   )
   r_file <- grep("_reprex.R$", msg, value = TRUE)
   expect_match(read_lines(r_file), "1:5", all = FALSE)
-  rout_file <- grep("_reprex_rendered.R$", msg, value = TRUE)
+  rout_file <- grep("_reprex_r.R$", msg, value = TRUE)
   expect_equal(ret, read_lines(rout_file))
 })
 

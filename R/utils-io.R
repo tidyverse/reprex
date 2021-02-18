@@ -181,7 +181,7 @@ r_file_clean <- function(path) {
 }
 
 r_file_rendered <- function(path) {
-  path_mutate(path, suffix = "rendered", ext = "R")
+  path_mutate(path, suffix = "r", ext = "R")
 }
 
 md_file <- function(path) {
@@ -197,7 +197,7 @@ std_file <- function(path) {
 }
 
 html_file <- function(path) {
-  path_mutate(path, suffix = "reprex", ext = "html")
+  path_mutate(path, ext = "html")
 }
 
 rtf_file <- function(path) {
