@@ -10,7 +10,7 @@
 reprex_invert(
   input = NULL,
   wd = NULL,
-  venue = c("gh", "r", "so", "ds"),
+  venue = c("gh", "r"),
   comment = opt("#>"),
   outfile = "DEPRECATED"
 )
@@ -92,7 +92,7 @@ wild-caught reprex.
 \section{Functions}{
 \itemize{
 \item \code{reprex_invert}: Attempts to reverse the effect of \code{\link[=reprex]{reprex()}}. When
-\code{venue = "r"}, this just becomes a wrapper around \code{reprex_clean()}.
+\code{venue = "r"}, this just calls \code{reprex_clean()}.
 
 \item \code{reprex_clean}: Assumes R code is top-level, possibly interleaved with
 commented output, e.g., a displayed reprex copied from GitHub or the direct

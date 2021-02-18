@@ -20,7 +20,7 @@
 NULL
 
 #' @describeIn un-reprex Attempts to reverse the effect of [reprex()]. When
-#'   `venue = "r"`, this just becomes a wrapper around `reprex_clean()`.
+#'   `venue = "r"`, this just calls `reprex_clean()`.
 #' @inheritParams reprex
 #' @export
 #' @examples
@@ -47,13 +47,11 @@ NULL
 #' }
 reprex_invert <- function(input = NULL,
                           wd = NULL,
-                          venue = c("gh", "r", "so", "ds"),
+                          venue = c("gh", "r"),
                           comment = opt("#>"),
                           outfile = "DEPRECATED") {
   venue <- tolower(venue)
   venue <- match.arg(venue)
-  venue <- ds_is_gh(venue)
-  venue <- so_is_gh(venue)
 
   if (venue == "r") {
     return(
@@ -61,14 +59,7 @@ reprex_invert <- function(input = NULL,
     )
   }
 
-  reprex_undo(
-    input,
-    wd = wd,
-    venue = venue,
-    is_md = TRUE,
-    comment = comment,
-    outfile = outfile
-  )
+  reprex_undo(input, wd = wd, is_md = TRUE, comment = comment, outfile = outfile)
 }
 
 #' @describeIn un-reprex Assumes R code is top-level, possibly interleaved with
@@ -131,7 +122,6 @@ reprex_rescue <- function(input = NULL,
 
 reprex_undo <- function(input = NULL,
                         wd = NULL,
-                        venue,
                         is_md = FALSE,
                         comment = NULL, prompt = NULL,
                         outfile = "DEPRECATED") {
@@ -146,43 +136,31 @@ reprex_undo <- function(input = NULL,
   )
   comment <- arg_option(comment)
 
-  # TODO: temporary arrangement so I can rough in the outfile --> wd change
-  # this should really behave just like reprex() in terms of what happens
-  # with output
-  # writing a file should just happen and we should expose it via clipboard or
-  # by opening it (+ possibly 'select all')
-  # chatty = TRUE is sort of morally what we were doing here
-  prex_files <- plan_files(
+  undo_files <- plan_files(
     infile = if (where == "path") input else NULL,
     wd = wd, outfile = outfile
   )
-  outfile_given <- prex_files$chatty
-  if (outfile_given) {
-    r_file <- r_file_clean(prex_files$filebase)
-    if (would_clobber(r_file)) {
-      return(invisible())
-    }
+  r_file <- r_file_clean(undo_files$filebase)
+  if (would_clobber(r_file)) {
+    return(invisible())
   }
 
-  if (is_md) { ## reprex_invert
-    x_out <- convert_md_to_r(src, comment = comment, drop_output = TRUE)
-  } else if (is.null(prompt)) { ## reprex_clean
-    x_out <- src[!grepl(comment, src)]
-  } else { ## reprex_rescue
+  if (is_md) {                             # reprex_invert
+    out <- convert_md_to_r(src, comment = comment, drop_output = TRUE)
+  } else if (is.null(prompt)) {            # reprex_clean
+    out <- src[!grepl(comment, src)]
+  } else {                                 # reprex_rescue
     regex <- paste0("^\\s*", prompt)
-    x_out <- src[grepl(regex, src)]
-    x_out <- sub(regex, "", x_out)
+    out <- src[grepl(regex, src)]
+    out <- sub(regex, "", out)
   }
 
-  if (reprex_clipboard()) {
-    clipr::write_clip(x_out)
-    reprex_success("Clean code is on the clipboard.")
-  }
-  if (outfile_given) {
-    write_lines(x_out, r_file)
+  if (undo_files$chatty) {
     reprex_path("Writing clean code as {.code .R} script:", r_file)
   }
-  invisible(x_out)
+  write_lines(out, r_file)
+  expose_reprex_output(r_file)
+  invisible(out)
 }
 
 convert_md_to_r <- function(lines, comment = "#>", drop_output = FALSE) {
@@ -192,19 +170,19 @@ convert_md_to_r <- function(lines, comment = "#>", drop_output = FALSE) {
   lines_out[!lines_info %in% drop_classes]
 }
 
-## Classify lines in the presence of fenced code blocks.
-## Specifically, blocks fenced by three backticks.
-## This is true of the output from reprex(..., venue = "gh").
-## Classifies each line like so:
-##   * bt     = backticks
-##   * code   = code inside a fenced block
-##   * output = commented output inside a fenced block
-##   * prose  = outside a fenced block
+# Classify lines in the presence of fenced code blocks.
+# Specifically, blocks fenced by three backticks.
+# This is true of the output from reprex() with venue "gh" (+ "so", "ds", "slack")
+# Classifies each line like so:
+#   * bt     = backticks
+#   * code   = code inside a fenced block
+#   * output = commented output inside a fenced block
+#   * prose  = outside a fenced block
 classify_fenced_lines <- function(x, comment = "^#>") {
   x_shift <- c("", utils::head(x, -1))
   cumulative_fences <- cumsum(grepl("^```", x_shift))
   wut <- ifelse(grepl("^```", x), "bt",
-    ifelse(cumulative_fences %% 2 == 1, "code", "prose")
+                ifelse(cumulative_fences %% 2 == 1, "code", "prose")
   )
   wut <- ifelse(wut == "code" & grepl(comment, x), "output", wut)
   wut

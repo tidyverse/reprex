@@ -101,21 +101,21 @@ reprex_impl <- function(x_expr = NULL,
     # i.e., consider if the user provided any path info
     reprex_path("Writing reprex file:", reprex_file)
   }
-  expose_reprex_output(reprex_file, venue)
+  expose_reprex_output(reprex_file, rtf = (venue == "rtf"))
   invisible(read_lines(reprex_file))
 }
 
 # goals in order of preference:
 # 1. put reprex output on clipboard
 # 2. open file for manual copy
-expose_reprex_output <- function(reprex_file, venue) {
+expose_reprex_output <- function(reprex_file, rtf = FALSE) {
   if (reprex_clipboard()) {
-    if (venue == "rtf" && is_windows()) {
+    if (rtf && is_windows()) {
       write_clip_windows_rtf(reprex_file)
     } else {
       clipr::write_clip(read_lines(reprex_file))
     }
-    reprex_success("Rendered reprex is on the clipboard.")
+    reprex_success("Reprex output is on the clipboard.")
     return(invisible())
   }
 
@@ -123,7 +123,7 @@ expose_reprex_output <- function(reprex_file, venue) {
     return(invisible())
   }
 
-  if (venue == "rtf") {
+  if (rtf) {
     reprex_path("Attempting to open RTF output file:", reprex_file)
     utils::browseURL(reprex_file)
     return(invisible())
