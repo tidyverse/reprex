@@ -6,16 +6,21 @@ test_that("expected outfiles are written and messaged, venue = 'gh'", {
   msg <- trimws(capture_messages(
     ret <- reprex(1:5, wd = ".")
   ))
+
+  outfiles <- dir_ls()
+  expect_setequal(
+    gsub("[a-z-]+(_reprex.+)", "\\1", outfiles),
+    c("_reprex.R", "_reprex.md")
+  )
+  r_file <- grep("_reprex[.]R", outfiles, value = TRUE)
+  expect_match(read_lines(r_file), "1:5", all = FALSE)
+  md_file <- grep("_reprex[.]md", outfiles, value = TRUE)
+  expect_equal(ret, read_lines(md_file))
+
   expect_messages_to_include(
     msg,
-    c("Preparing reprex as .*.R.* file", "_reprex.R$",
-      "Writing reprex file", "_reprex.md$"
-    )
+    c("Preparing reprex as .*.R.* file", "Writing reprex file", outfiles)
   )
-  r_file <- grep("_reprex.R$", msg, value = TRUE)
-  expect_match(read_lines(r_file), "1:5", all = FALSE)
-  md_file <- grep("_reprex.md$", msg, value = TRUE)
-  expect_equal(ret, read_lines(md_file))
 })
 
 test_that("expected outfiles are written and messaged, venue = 'R'", {
@@ -26,16 +31,43 @@ test_that("expected outfiles are written and messaged, venue = 'R'", {
   msg <- trimws(capture_messages(
     ret <- reprex(1:5, wd = ".", venue = "R")
   ))
+
+  outfiles <- dir_ls()
+  expect_setequal(
+    gsub("[a-z-]+(_reprex.+)", "\\1", outfiles),
+    c("_reprex.R", "_reprex.md", "_reprex_r.R")
+  )
+  rout_file <- grep("_reprex_r[.]R", outfiles, value = TRUE)
+  expect_equal(ret, read_lines(rout_file))
+
   expect_messages_to_include(
     msg,
-    c("Preparing reprex as .*R.* file", "_reprex.R",
-      "Writing reprex file", "_reprex_r.R"
-    )
+    c("Preparing reprex as .*R.* file", "Writing reprex file", rout_file)
   )
-  r_file <- grep("_reprex.R$", msg, value = TRUE)
-  expect_match(read_lines(r_file), "1:5", all = FALSE)
-  rout_file <- grep("_reprex_r.R$", msg, value = TRUE)
-  expect_equal(ret, read_lines(rout_file))
+})
+
+test_that("expected outfiles are written and messaged, venue = 'html'", {
+  skip_on_cran()
+  local_temp_wd()
+  local_reprex_loud()
+
+  msg <- trimws(capture_messages(
+    ret <- reprex(1:5, wd = ".", venue = "html")
+  ))
+
+  outfiles <- dir_ls()
+  # punting on the issue of the `utf8.md` file and folder of files
+  expect_true(all(
+    c("_reprex.R", "_reprex.md", "_reprex.html") %in%
+      gsub("[a-z-]+(_reprex.+)", "\\1", outfiles)
+  ))
+  html_file <- grep("_reprex[.]html", outfiles, value = TRUE)
+  expect_equal(ret, read_lines(html_file))
+
+  expect_messages_to_include(
+    msg,
+    c("Preparing reprex as .*R.* file", "Writing reprex file", html_file)
+  )
 })
 
 test_that(".R outfile doesn't clobber .R infile", {
