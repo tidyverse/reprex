@@ -178,7 +178,7 @@
 <p>We’ve made reprex more pleasant to use in settings where we cannot access the user’s clipboard from R. Specifically, this applies to use on RStudio Server and RStudio Cloud.</p>
 <ul>
 <li>When <code><a href="../reference/reprex.html">reprex()</a></code> is called without <code>expr</code> or <code>input</code>, in a context where the user’s clipboard can’t be reached from R, the default is now to consult the current selection for reprex source. Previously this was only available via the <code><a href="../reference/reprex_addin.html">reprex_selection()</a></code> addin. Note that this “current selection” default behaviour propagates to convenience wrappers around <code><a href="../reference/reprex.html">reprex()</a></code>, such as <code><a href="../reference/reprex_locale.html">reprex_locale()</a></code> and venue-specific functions like <code><a href="../reference/reprex_venue.html">reprex_r()</a></code>, and to the un-<code><a href="../reference/reprex.html">reprex()</a></code> functions, such as <code><a href="../reference/un-reprex.html">reprex_clean()</a></code>.</li>
-<li>In this context, the file containing the rendered reprex is opened so the user can manually copy its contents.</li>
+<li>In this context, the file containing the (un)rendered reprex is opened so the user can manually copy its contents.</li>
 </ul>
 </div>
 <div id="filepaths" class="section level2">
@@ -190,7 +190,7 @@
 Previously: <code><a href="../reference/reprex.html">reprex(outfile = NA)</a></code><br>
 Now: <code><a href="../reference/reprex.html">reprex(wd = ".")</a></code><br>
 More generally, usage looks like <code><a href="../reference/reprex.html">reprex(wd = "path/to/desired/wd")</a></code>.</li>
-<li>If you care about reprex filename (and location), write your source to <code>path/to/stuff.R</code> and call <code><a href="../reference/reprex.html">reprex(input = "path/to/stuff.R")</a></code>. When <code>input</code> is a filepath, it determines the working directory and how reprex files are named, i.e. <code>wd</code> is no longer consulted.</li>
+<li>If you care about reprex filename (and location), write your source to <code>path/to/stuff.R</code> and call <code><a href="../reference/reprex.html">reprex(input = "path/to/stuff.R")</a></code>. When <code>input</code> is a filepath, that filepath determines the working directory and how reprex files are named and <code>wd</code> is never even consulted.</li>
 </ul>
 <p>When reprex needs to invent file names, they are now based on a random “adjective-animal” slug.</p>
 </div>

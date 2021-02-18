@@ -183,7 +183,7 @@ wild-caught reprex.</p>
     <pre class="usage"><span class='fu'>reprex_invert</span><span class='op'>(</span>
   input <span class='op'>=</span> <span class='cn'>NULL</span>,
   wd <span class='op'>=</span> <span class='cn'>NULL</span>,
-  venue <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"gh"</span>, <span class='st'>"r"</span>, <span class='st'>"so"</span>, <span class='st'>"ds"</span><span class='op'>)</span>,
+  venue <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"gh"</span>, <span class='st'>"r"</span><span class='op'>)</span>,
   comment <span class='op'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span><span class='op'>(</span><span class='st'>"#&gt;"</span><span class='op'>)</span>,
   outfile <span class='op'>=</span> <span class='st'>"DEPRECATED"</span>
 <span class='op'>)</span>
@@ -277,7 +277,7 @@ use <code>wd = "."</code> now, instead of <code>outfile = NA</code>.</p></td>
     
 <ul>
 <li><p><code>reprex_invert</code>: Attempts to reverse the effect of <code><a href='reprex.html'>reprex()</a></code>. When
-<code>venue = "r"</code>, this just becomes a wrapper around <code>reprex_clean()</code>.</p></li>
+<code>venue = "r"</code>, this just calls <code>reprex_clean()</code>.</p></li>
 <li><p><code>reprex_clean</code>: Assumes R code is top-level, possibly interleaved with
 commented output, e.g., a displayed reprex copied from GitHub or the direct
 output of <code><a href='reprex.html'>reprex(..., venue = "R")</a></code>. This function removes commented
