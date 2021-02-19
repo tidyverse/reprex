@@ -30,11 +30,10 @@ Here's how to use `input` and `wd` to control reprex filepaths:
   is a filepath, that filepath determines the working directory and how reprex
   files are named and `wd` is never even consulted.
 
+Various changes mean that more users will see reprex filepaths.
+Therefore, we've revised them to be more self-explanatory and human-friendly.
 When reprex needs to invent a file name, it is now based on a random "adjective-animal" slug.
 Bring on the `angry-hamster`!
-
-Various changes mean that more users will see reprex filepaths.
-Therefore, we've given them a makeover, so they are more self-explanatory and human-friendly.
 
 ## `.Rprofile`
 
