@@ -205,7 +205,7 @@ More generally, usage looks like <code><a href="../reference/reprex.html">reprex
 <li>We alert the user that a local <code>.Rprofile</code> has been found.</li>
 <li>We indicate the usage of a local <code>.Rprofile</code> in the rendered reprex.</li>
 </ul>
-<p>These changes are probably of special interest to users of the <a href="https://rstudio.github.io/renv/">renv package</a>.</p>
+<p>These changes are of special interest to users of the <a href="https://rstudio.github.io/renv/">renv package</a>, which uses <code>.Rprofile</code> to implement a project-specific R package library. Combined with the filepath changes (described above), this means an renv user can call <code><a href="../reference/reprex.html">reprex(wd = ".")</a></code>, to render a reprex with respect to a project-specific library.</p>
 </div>
 <div id="dependency-changes" class="section level2">
 <h2 class="hasAnchor">
