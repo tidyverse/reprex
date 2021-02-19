@@ -192,7 +192,8 @@ Now: <code><a href="../reference/reprex.html">reprex(wd = ".")</a></code><br>
 More generally, usage looks like <code><a href="../reference/reprex.html">reprex(wd = "path/to/desired/wd")</a></code>.</li>
 <li>If you care about reprex filename (and location), write your source to <code>path/to/stuff.R</code> and call <code><a href="../reference/reprex.html">reprex(input = "path/to/stuff.R")</a></code>. When <code>input</code> is a filepath, that filepath determines the working directory and how reprex files are named and <code>wd</code> is never even consulted.</li>
 </ul>
-<p>When reprex needs to invent file names, they are now based on a random “adjective-animal” slug.</p>
+<p>When reprex needs to invent a file name, it is now based on a random “adjective-animal” slug. Bring on the <code>angry-hamster</code>!</p>
+<p>Various changes mean that more users will see reprex filepaths. Therefore, we’ve given them a makeover, so they are more self-explanatory and human-friendly.</p>
 </div>
 <div id="rprofile" class="section level2">
 <h2 class="hasAnchor">
@@ -200,10 +201,11 @@ More generally, usage looks like <code><a href="../reference/reprex.html">reprex
 </h2>
 <p><code><a href="../reference/reprex.html">reprex()</a></code> renders the reprex in a separate, fresh R session using <code>callr:r()</code>. As of callr 3.4.0 (released 2019-12-09), the default became <code><a href="https://rdrr.io/pkg/callr/man/r.html">callr::r(..., user_profile = "project")</a></code>, which means that callr executes a <code>.Rprofile</code> found in current working directory. Most reprexes happen in a temp directory and there will be no such <code>.Rprofile</code>. But if the user intentionally reprexes in an existing project with a <code>.Rprofile</code>, <code><a href="https://rdrr.io/pkg/callr/man/r.html">callr::r()</a></code> and therefore <code><a href="../reference/reprex.html">reprex()</a></code> honor it. In this version of reprex:</p>
 <ul>
-<li>We explicitly make sure that the working directory of the <code><a href="https://rdrr.io/pkg/callr/man/r.html">callr::r()</a></code> call is the same as the intended working directory of the reprex.</li>
+<li>We explicitly make sure that the working directory of the <code><a href="https://rdrr.io/pkg/callr/man/r.html">callr::r()</a></code> call is the same as the effective working directory of the reprex.</li>
 <li>We alert the user that a local <code>.Rprofile</code> has been found.</li>
 <li>We indicate the usage of a local <code>.Rprofile</code> in the rendered reprex.</li>
 </ul>
+<p>These changes are probably of special interest to users of the <a href="https://rstudio.github.io/renv/">renv package</a>.</p>
 </div>
 <div id="dependency-changes" class="section level2">
 <h2 class="hasAnchor">
