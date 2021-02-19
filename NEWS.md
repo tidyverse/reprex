@@ -30,7 +30,11 @@ Here's how to use `input` and `wd` to control reprex filepaths:
   is a filepath, that filepath determines the working directory and how reprex
   files are named and `wd` is never even consulted.
 
-When reprex needs to invent file names, they are now based on a random "adjective-animal" slug.
+When reprex needs to invent a file name, it is now based on a random "adjective-animal" slug.
+Bring on the `angry-hamster`!
+
+Various changes mean that more users will see reprex filepaths.
+Therefore, we've given them a makeover, so they are more self-explanatory and human-friendly.
 
 ## `.Rprofile`
 
@@ -40,17 +44,23 @@ Most reprexes happen in a temp directory and there will be no such `.Rprofile`.
 But if the user intentionally reprexes in an existing project with a `.Rprofile`, `callr::r()` and therefore `reprex()` honor it.
 In this version of reprex:
 
-* We explicitly make sure that the working directory of the `callr::r()` call is the same as the intended working directory of the reprex.
+* We explicitly make sure that the working directory of the `callr::r()` call is
+  the same as the effective working directory of the reprex.
 * We alert the user that a local `.Rprofile` has been found.
 * We indicate the usage of a local `.Rprofile` in the rendered reprex.
 
+These changes are probably of special interest to users of the [renv package](https://rstudio.github.io/renv/).
+
 ## Dependency changes
 
-* rstudioapi moves from Suggests to Imports. Related to improving the experience when reprex cannot access the user's clipboard.
+* rstudioapi moves from Suggests to Imports. Related to improving the experience
+  when reprex cannot access the user's clipboard.
 
 * mockr is new in Suggests; it's used in the tests.
 
-* We bumped the documented minimum version of Pandoc, because we use the `gfm` markdown variant to get GitHub-Flavored Markdown. The `gfm` variant was introduced in Pandoc 2.0 (released 2017-10-29).
+* We bumped the documented minimum version of Pandoc, because we use the `gfm`
+  markdown variant to get GitHub-Flavored Markdown. The `gfm` variant was
+  introduced in Pandoc 2.0 (released 2017-10-29).
 
 # reprex 1.0.0
 
