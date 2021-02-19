@@ -49,7 +49,8 @@ In this version of reprex:
 * We alert the user that a local `.Rprofile` has been found.
 * We indicate the usage of a local `.Rprofile` in the rendered reprex.
 
-These changes are probably of special interest to users of the [renv package](https://rstudio.github.io/renv/).
+These changes are of special interest to users of the [renv package](https://rstudio.github.io/renv/), which uses `.Rprofile` to implement a project-specific R package library.
+Combined with the filepath changes (described above), this means an renv user can call `reprex(wd = ".")`, to render a reprex with respect to a project-specific library.
 
 ## Dependency changes
 
