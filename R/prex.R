@@ -40,15 +40,7 @@ prex <- function(x = NULL,
                  style           = opt(FALSE),
                  html_preview    = opt(TRUE),
                  comment         = opt("#>"),
-                 tidyverse_quiet = opt(TRUE),
-                 show) {
-  if (!missing(show)) {
-    html_preview <- show
-    reprex_warning(
-      "{.code show} is deprecated, please use {.code html_preview} instead"
-    )
-  }
-
+                 tidyverse_quiet = opt(TRUE)) {
   reprex_impl(
     x_expr = substitute(x),
     input = input,
