@@ -12,6 +12,10 @@
 #' `prex_rtf()` available for preparing code snippets that are scattered around
 #' a talk and that can't necessarily be self-contained.
 #'
+#' Specific `reprex()` arguments do not appear as `prex()` arguments or may have
+#' different capabilities (i.e., more limited).
+#' * `std_out_err`: not offered in `prex()`
+#'
 #' @noRd
 #' @keywords internal
 #'
@@ -37,7 +41,6 @@ prex <- function(x = NULL,
                  html_preview    = opt(TRUE),
                  comment         = opt("#>"),
                  tidyverse_quiet = opt(TRUE),
-                 std_out_err     = opt(FALSE),
                  show) {
   if (!missing(show)) {
     html_preview <- show
@@ -60,15 +63,15 @@ prex <- function(x = NULL,
     style           = style,
     comment         = comment,
     tidyverse_quiet = tidyverse_quiet,
-    std_out_err     = std_out_err,
+    std_out_err     = FALSE,                    # <-- different from reprex()
     html_preview    = html_preview
   )
 }
 
-prex_html <- function(...) prex(..., venue = "html")
-prex_r    <- function(...) prex(..., venue = "r")
-prex_rtf  <- function(...) prex(..., venue = "rtf")
-prex_slack  <- function(...) prex(..., venue = "slack")
+prex_html  <- function(...) prex(..., venue = "html")
+prex_r     <- function(...) prex(..., venue = "r")
+prex_rtf   <- function(...) prex(..., venue = "rtf")
+prex_slack <- function(...) prex(..., venue = "slack")
 
 # these should exist for completeness, but I predict they'd never get used and
 # they just clutter the auto-complete landscape
