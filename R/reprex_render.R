@@ -84,14 +84,6 @@ reprex_render_impl <- function(input,
   }
   std_file <- std_out_err_path(input, std_out_err)
 
-  opts <- list(
-    keep.source = TRUE,
-    rlang_trace_top_env = globalenv(),
-    `rlang:::force_unhandled_error` = TRUE,
-    rlang_backtrace_on_error = "full",
-    crayon.enabled = FALSE,
-    reprex.current_venue = venue
-  )
   if (new_session) {
     # if callr::r() picks up a local .Rprofile, it should be local to
     # where the the reprex work is happening, not the session where reprex()
@@ -100,14 +92,13 @@ reprex_render_impl <- function(input,
       path_dir(input),
       out <- tryCatch(
         callr::r(
-          function(input, opts) {
-            options(opts)
+          function(input) {
             rmarkdown::render(
               input,
               quiet = TRUE, envir = globalenv(), encoding = "UTF-8"
             )
           },
-          args = list(input = path_file(input), opts = opts),
+          args = list(input = path_file(input)),
           spinner = is_interactive(),
           stdout = if (is.null(std_file)) NULL else path_file(std_file),
           stderr = if (is.null(std_file)) NULL else path_file(std_file)
@@ -144,13 +135,10 @@ reprex_render_impl <- function(input,
       inject_file(md_file, std_file)
     }
   } else {
-    withr::with_options(
-      opts,
-      md_file <- rmarkdown::render(
-        input,
-        quiet = TRUE, envir = globalenv(), encoding = "UTF-8",
-        knit_root_dir = getwd()
-      )
+    md_file <- rmarkdown::render(
+      input,
+      quiet = TRUE, envir = globalenv(), encoding = "UTF-8",
+      knit_root_dir = getwd()
     )
   }
 

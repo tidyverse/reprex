@@ -99,6 +99,7 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "slack", "so", "
     input_lines <- read_lines(knit_input)
 
     input_lines <- c(rprofile_alert(venue), "", input_lines)
+    input_lines <- c(reprex_opts(venue), "", input_lines)
 
     if (isTRUE(advertise)) {
       input_lines <- c(input_lines, "", ad(venue))
@@ -131,6 +132,20 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "slack", "so", "
     base_format = rmarkdown::md_document()
   )
   format
+}
+
+reprex_opts <- function(venue = "gh") {
+  string <- glue::glue('
+    ```{{r reprex-options, include = FALSE}}
+    options(
+      keep.source = TRUE,
+      rlang_trace_top_env = globalenv(),
+      `rlang:::force_unhandled_error` = TRUE,
+      rlang_backtrace_on_error = "full",
+      crayon.enabled = FALSE,
+      reprex.current_venue = "{venue}"
+    )
+    ```')
 }
 
 rprofile_alert <- function(venue = "gh") {
