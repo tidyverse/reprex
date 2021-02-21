@@ -73,11 +73,14 @@ reprex_render_impl <- function(input,
                                new_session = TRUE,
                                html_preview = NULL) {
   yaml_opts <- reprex_document_options(input)
+
   venue <- yaml_opts[["venue"]] %||% "gh"
+
   html_preview <-
     (html_preview %||% yaml_opts[["html_preview"]] %||% is_interactive()) &&
     is_interactive()
   stopifnot(is_bool(html_preview))
+
   std_out_err <- new_session && (yaml_opts[["std_out_err"]] %||% FALSE)
   if (tolower(path_ext(input)) == "rmd") {
     input <- file_copy(input, rmd_file(input), overwrite = TRUE)
@@ -203,10 +206,10 @@ reprex_document_options <- function(input) {
 }
 
 std_out_err_path <- function(input, std_out_err) {
-  if (is.null(std_out_err) || !isTRUE(std_out_err)) {
-    NULL
-  } else {
+  if (isTRUE(std_out_err)) {
     std_file(input)
+  } else {
+    NULL
   }
 }
 
