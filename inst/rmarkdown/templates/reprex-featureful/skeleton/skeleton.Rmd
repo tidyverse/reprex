@@ -8,7 +8,7 @@ output:
     comment: "#;-)"
     tidyverse_quiet: FALSE
     std_out_err: TRUE
-knit: reprex::reprex_render
+knit: (function(...) reprex::reprex_render(..., html_preview = TRUE))
 ---
 
 This template demonstrates many of the bells and whistles of the `reprex::reprex_document()` output format. The YAML sets many options to non-default values, such as using `#;-)` as the comment in front of output.

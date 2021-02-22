@@ -78,8 +78,7 @@ reprex_render_impl <- function(input,
   comment <- yaml_opts[["comment"]] %||% "#>"
 
   html_preview <-
-    (html_preview %||% yaml_opts[["html_preview"]] %||% is_interactive()) &&
-    is_interactive()
+    html_preview %||% yaml_opts[["html_preview"]] %||% is_interactive()
   stopifnot(is_bool(html_preview))
 
   std_out_err <- new_session && (yaml_opts[["std_out_err"]] %||% FALSE)
@@ -168,24 +167,50 @@ reprex_render_impl <- function(input,
   }
 }
 
+# heavily influenced by the post_processor() function of github_document()
 preview <- function(input) {
-  # TODO: if it's already html, don't render again?
+  css <- rmarkdown::pandoc_path_arg(
+    path_package(
+      "rmarkdown",
+      "rmarkdown/templates/github_document/resources/github.css"
+    )
+  )
+  template <- rmarkdown::pandoc_path_arg(
+    path_package(
+      "rmarkdown",
+      "rmarkdown/templates/github_document/resources/preview.html"
+    )
+  )
+  args <- c(
+    "--standalone", "--self-contained", "--highlight-style", "pygments",
+    "--template", template,
+    "--variable", paste0("github-markdown-css:", css),
+    "--metadata", "pagetitle=PREVIEW"  # HTML5 requirement
+    # maybe add --quiet
+  )
 
-  # we specify output_dir in order to make sure the preview html:
+  # important considerations re: preview_file
   # 1. lives in session temp dir (necessary in order to display within RStudio)
   # 2. is not co-located with input because, for .html, the file rendered for
   #    preview can overwrite the input file, which is the actual reprex file
-  preview_file <- rmarkdown::render(
-    input,
-    output_dir = file_temp("reprex-preview"),
-    clean = FALSE, quiet = TRUE, encoding = "UTF-8",
-    output_options = list(pandoc_args = "--quiet")
+  preview_file <- preview_file(input)
+  rmarkdown::pandoc_convert(
+    input = input, to = "html", from = "gfm", output = preview_file,
+    options = args, verbose = TRUE
   )
 
-  viewer <- getOption("viewer") %||% utils::browseURL
-  viewer(preview_file)
+  preview_dir <- Sys.getenv("RMARKDOWN_PREVIEW_DIR", unset = NA)
+  cat("\npreview_dir: ", preview_dir, file = stderr())
+  if (!is.na(preview_dir)) {
+    cat("\nIn the if()", file = stderr())
+    relocated_preview_file <- tempfile("preview-", preview_dir, ".html")
+    file.copy(preview_file, relocated_preview_file)
+    file.remove(preview_file)
+    preview_file <- relocated_preview_file
+  }
 
-  invisible(preview_file)
+  cat("\nPreview created: ", preview_file, file = stderr())
+  input
 }
 
 reprex_document_options <- function(input) {
