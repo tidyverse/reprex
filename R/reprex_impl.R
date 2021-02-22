@@ -66,7 +66,7 @@ reprex_impl <- function(x_expr = NULL,
   reprex_document_options <- list(
     venue = venue,
     advertise = advertise, session_info = session_info,
-    style = style, html_preview = html_preview, comment = comment,
+    style = style, comment = comment,
     tidyverse_quiet = tidyverse_quiet, std_out_err = std_out_err
   )
   src <- c(yamlify(reprex_document_options), "", src)
@@ -89,12 +89,9 @@ reprex_impl <- function(x_expr = NULL,
   }
 
   reprex_info("Rendering reprex...")
-  reprex_file <- reprex_render_impl(r_file, new_session = new_session)
-  # for reasons re: the RStudio "Knit" button, reprex_render_impl() may return
-  # path to the html_preview, but reprex_file attribute will always be the
-  # content the user requested and that belongs on clipboard and as the return
-  # value
-  reprex_file <- attr(reprex_file, "reprex_file", exact = TRUE)
+  reprex_file <-reprex_render_impl(
+    r_file, new_session = new_session, html_preview = html_preview
+  )
 
   if (reprex_files$chatty) {
     # TODO: be smarter about when to report full path vs. relative,
@@ -162,7 +159,6 @@ remove_defaults <- function(x) {
     advertise       = set_advertise(NULL, x[["venue"]]),
     session_info    = FALSE,
     style           = FALSE,
-    html_preview    = TRUE,
     comment         = "#>",
     tidyverse_quiet = TRUE,
     std_out_err     = FALSE

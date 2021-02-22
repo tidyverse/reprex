@@ -15,9 +15,6 @@
 #'     - `style`
 #'     - `comment`
 #'     - `tidyverse_quiet`
-#'   * `html_preview` is only consulted by [reprex_render()], but it is a formal
-#'     argument of `reprex_document()` so that it can be included in the YAML
-#'     frontmatter.
 #'
 #' RStudio users can create new R Markdown documents with the
 #' `reprex_document()` format using built-in templates. Do
@@ -43,9 +40,7 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "slack", "so", "
                             comment         = opt("#>"),
                             tidyverse_quiet = opt(TRUE),
                             std_out_err     = opt(FALSE),
-                            pandoc_args = NULL,
-                            # must exist, so that it is tolerated in the YAML
-                            html_preview) {
+                            pandoc_args = NULL) {
   venue <- tolower(venue)
   venue <- match.arg(venue)
   venue <- normalize_venue(venue)
@@ -54,7 +49,6 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "slack", "so", "
   session_info    <- arg_option(session_info)
   style           <- arg_option(style)
   style           <- style_requires_styler(style)
-  # html_preview is actually an input for for reprex_render()
   comment         <- arg_option(comment)
   tidyverse_quiet <- arg_option(tidyverse_quiet)
   std_out_err     <- arg_option(std_out_err)

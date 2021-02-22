@@ -7,9 +7,7 @@
       }, render = FALSE))
     Output
       #' ---
-      #' output:
-      #'   reprex::reprex_document:
-      #'     html_preview: FALSE
+      #' output: reprex::reprex_document
       #' ---
       
       x <- 1:5
@@ -21,9 +19,7 @@
       cli::cat_line(reprex(input = c("x <- 5:1", "mean(x)"), render = FALSE))
     Output
       #' ---
-      #' output:
-      #'   reprex::reprex_document:
-      #'     html_preview: FALSE
+      #' output: reprex::reprex_document
       #' ---
       
       x <- 5:1
@@ -35,9 +31,7 @@
       cli::cat_line(reprex(input = "foo.R", render = FALSE))
     Output
       #' ---
-      #' output:
-      #'   reprex::reprex_document:
-      #'     html_preview: FALSE
+      #' output: reprex::reprex_document
       #' ---
       
       x <- 6:10
@@ -49,9 +43,7 @@
       cli::cat_line(reprex(input = path("foo", "foo.R"), render = FALSE))
     Output
       #' ---
-      #' output:
-      #'   reprex::reprex_document:
-      #'     html_preview: FALSE
+      #' output: reprex::reprex_document
       #' ---
       
       x <- 11:15

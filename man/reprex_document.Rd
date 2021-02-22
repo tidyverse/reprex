@@ -12,8 +12,7 @@ reprex_document(
   comment = opt("#>"),
   tidyverse_quiet = opt(TRUE),
   std_out_err = opt(FALSE),
-  pandoc_args = NULL,
-  html_preview
+  pandoc_args = NULL
 )
 }
 \arguments{
@@ -71,10 +70,6 @@ standard error are in correct chronological order. See \code{\link[callr:r]{call
 more. Read more about \code{\link[=opt]{opt()}}.}
 
 \item{pandoc_args}{Additional command line options to pass to pandoc}
-
-\item{html_preview}{Logical. Whether to show rendered output in a viewer
-(RStudio or browser). Always \code{FALSE} in a noninteractive session. Read more
-about \code{\link[=opt]{opt()}}.}
 }
 \value{
 An R Markdown output format to pass to \code{\link[rmarkdown:render]{rmarkdown::render()}}.
@@ -99,9 +94,6 @@ influence:
 \item \code{comment}
 \item \code{tidyverse_quiet}
 }
-\item \code{html_preview} is only consulted by \code{\link[=reprex_render]{reprex_render()}}, but it is a formal
-argument of \code{reprex_document()} so that it can be included in the YAML
-frontmatter.
 }
 
 RStudio users can create new R Markdown documents with the
