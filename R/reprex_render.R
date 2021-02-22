@@ -74,7 +74,8 @@ reprex_render_impl <- function(input,
                                html_preview = NULL) {
   yaml_opts <- reprex_document_options(input)
 
-  venue <- yaml_opts[["venue"]] %||% "gh"
+  venue   <- yaml_opts[["venue"]] %||% "gh"
+  comment <- yaml_opts[["comment"]] %||% "#>"
 
   html_preview <-
     (html_preview %||% yaml_opts[["html_preview"]] %||% is_interactive()) &&
@@ -145,25 +146,20 @@ reprex_render_impl <- function(input,
     )
   }
 
-  reprex_file <- md_file
+  # we can almost use the post_processor of output_format, but sadly we cannot
+  # we can't inject std_out_err until the connection to std_file is closed
+  # and we can't post process until the injection is done
+  reprex_file <- switch(
+    venue,
+    r     = pp_md_to_r(md_file, comment = comment),
+    rtf   = pp_highlight(pp_md_to_r(md_file, comment = comment)),
+    slack = pp_slackify(md_file),
+    html  = pp_html_render(md_file),
+    md_file
+  )
 
-  if (venue %in% c("r", "rtf")) {
-    reprex_file <- pp_md_to_r(input, comment = yaml_opts[["comment"]] %||% "#>")
-  }
-
-  if (venue == "rtf") {
-    reprex_file <- pp_highlight(input)
-  }
-
-  if (venue == "slack") {
-    reprex_file <- pp_slackify(input)
-  }
-
-  if (venue == "html") {
-    reprex_file <- pp_html_render(input)
-  }
-
-  # TODO: figure out how to get the "Knit" button to display a preview :(
+  # also something that would naturally go in a post_processor, but can't
+  # (see above)
   if (html_preview) {
     preview_file <- preview(md_file)
     invisible(structure(preview_file, reprex_file = reprex_file))
