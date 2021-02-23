@@ -212,21 +212,6 @@ preview_file <- function(path) {
   path_mutate(path, suffix = "preview", ext = "html")
 }
 
-force_tempdir <- function(path) {
-  if (is_in_tempdir(path)) {
-    path
-  } else {
-    file_copy(path, path_temp(path_file(path)), overwrite = TRUE)
-  }
-}
-
-is_in_tempdir <- function(path) {
-  identical(
-    path_real(path_temp()),
-    path_common(path_real(c(path, path_temp())))
-  )
-}
-
 would_clobber <- function(path) {
   if (!file_exists(path)) {
     return(FALSE)
