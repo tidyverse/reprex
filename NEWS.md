@@ -51,6 +51,10 @@ In this version of reprex:
 These changes are of special interest to users of the [renv package](https://rstudio.github.io/renv/), which uses `.Rprofile` to implement a project-specific R package library.
 Combined with the filepath changes (described above), this means an renv user can call `reprex(wd = ".")`, to render a reprex with respect to a project-specific library.
 
+## Other
+
+HTML preview should work better with more ways of using `reprex_render()`, i.e. usage that doesn't come via a call to `reprex()` (#293).
+
 ## Dependency changes
 
 * rstudioapi moves from Suggests to Imports. Related to improving the experience

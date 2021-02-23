@@ -1,6 +1,6 @@
 ---
 output: reprex::reprex_document
-knit: (function(...) reprex::reprex_render(..., html_preview = TRUE))
+knit: reprex::reprex_render
 ---
 
 Describe your issue very briefly here. Then show it with a minimal, self-contained example in the following R chunk.
