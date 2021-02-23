@@ -32,13 +32,3 @@ local_temp_wd <- function(pattern = "reprextests",
   )
   invisible(tmp)
 }
-
-## useful during interactive test development to toggle the
-## rlang_interactive escape hatch
-interactive_mode <- function() {
-  before <- getOption("rlang_interactive", default = TRUE)
-  after <- if (before) FALSE else TRUE
-  options(rlang_interactive = after)
-  cat("rlang_interactive:", before, "-->", after, "\n")
-  invisible()
-}
