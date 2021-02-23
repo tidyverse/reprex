@@ -94,7 +94,7 @@
         <a class="navbar-brand" href="../index.html">reprex</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9001</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9002</span>
         </div>
       </div>
     </div>
@@ -205,6 +205,11 @@ More generally, usage looks like <code><a href="../reference/reprex.html">reprex
 <li>We indicate the usage of a local <code>.Rprofile</code> in the rendered reprex.</li>
 </ul>
 <p>These changes are of special interest to users of the <a href="https://rstudio.github.io/renv/">renv package</a>, which uses <code>.Rprofile</code> to implement a project-specific R package library. Combined with the filepath changes (described above), this means an renv user can call <code><a href="../reference/reprex.html">reprex(wd = ".")</a></code>, to render a reprex with respect to a project-specific library.</p>
+</div>
+<div id="other" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other" class="anchor"></a>Other</h2>
+<p>HTML preview should work better with more ways of using <code><a href="../reference/reprex_render.html">reprex_render()</a></code>, i.e. usage that doesn’t come via a call to <code><a href="../reference/reprex.html">reprex()</a></code> (<a href='https://github.com/tidyverse/reprex/issues/293'>#293</a>).</p>
 </div>
 <div id="dependency-changes" class="section level2">
 <h2 class="hasAnchor">
