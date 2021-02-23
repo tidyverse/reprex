@@ -66,9 +66,6 @@ style
 comment
 tidyverse_quiet
 
-html_preview is only consulted by reprex_render(), but it is a formal
-argument of reprex_document() so that it can be included in the YAML
-frontmatter.
 
 
 RStudio users can create new R Markdown documents with the
@@ -204,7 +201,7 @@ yourself, you should do same." />
     <p>This is an R Markdown output format designed specifically for making
 "reprexes", typically created via the <code><a href='reprex.html'>reprex()</a></code> function, which ultimately
 renders the document with <code><a href='reprex_render.html'>reprex_render()</a></code>. It is a heavily modified version
-of <code><a href='https://rdrr.io/pkg/rmarkdown/man/md_document.html'>rmarkdown::md_document()</a></code>. The arguments have different spheres of
+of <code><a href='https://pkgs.rstudio.com/rmarkdown//reference/md_document.html'>rmarkdown::md_document()</a></code>. The arguments have different spheres of
 influence:</p><ul>
 <li><p><code>venue</code> potentially affects input preparation and <code><a href='reprex_render.html'>reprex_render()</a></code>.</p></li>
 <li><p>Add content to the primary input, prior to rendering:</p><ul>
@@ -217,9 +214,6 @@ influence:</p><ul>
 <li><p><code>comment</code></p></li>
 <li><p><code>tidyverse_quiet</code></p></li>
 </ul></li>
-<li><p><code>html_preview</code> is only consulted by <code><a href='reprex_render.html'>reprex_render()</a></code>, but it is a formal
-argument of <code>reprex_document()</code> so that it can be included in the YAML
-frontmatter.</p></li>
 </ul>
 
 <p>RStudio users can create new R Markdown documents with the
@@ -242,8 +236,7 @@ yourself, you should do same.</p>
   comment <span class='op'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span><span class='op'>(</span><span class='st'>"#&gt;"</span><span class='op'>)</span>,
   tidyverse_quiet <span class='op'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span><span class='op'>(</span><span class='cn'>TRUE</span><span class='op'>)</span>,
   std_out_err <span class='op'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span><span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span>,
-  pandoc_args <span class='op'>=</span> <span class='cn'>NULL</span>,
-  <span class='va'>html_preview</span>
+  pandoc_args <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -319,17 +312,11 @@ more. Read more about <code><a href='reprex_options.html'>opt()</a></code>.</p><
       <th>pandoc_args</th>
       <td><p>Additional command line options to pass to pandoc</p></td>
     </tr>
-    <tr>
-      <th>html_preview</th>
-      <td><p>Logical. Whether to show rendered output in a viewer
-(RStudio or browser). Always <code>FALSE</code> in a noninteractive session. Read more
-about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An R Markdown output format to pass to <code><a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>rmarkdown::render()</a></code>.</p>
+    <p>An R Markdown output format to pass to <code><a href='https://pkgs.rstudio.com/rmarkdown//reference/render.html'>rmarkdown::render()</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>reprex_document</span><span class='op'>(</span><span class='op'>)</span>
@@ -386,7 +373,7 @@ about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
 #&gt;         stop("failed to upload ", file)
 #&gt;     structure(res$link[[1]], XML = res)
 #&gt; }
-#&gt; &lt;bytecode: 0x7fe3e8205a98&gt;
+#&gt; &lt;bytecode: 0x7f80263b95b8&gt;
 #&gt; &lt;environment: namespace:knitr&gt;
 #&gt; 
 #&gt; 
@@ -435,6 +422,7 @@ about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
 #&gt;     knit_input &lt;- sub("[.]R$", ".spin.Rmd", input)
 #&gt;     input_lines &lt;- read_lines(knit_input)
 #&gt;     input_lines &lt;- c(rprofile_alert(venue), "", input_lines)
+#&gt;     input_lines &lt;- c(reprex_opts(venue), "", input_lines)
 #&gt;     if (isTRUE(advertise)) {
 #&gt;         input_lines &lt;- c(input_lines, "", ad(venue))
 #&gt;     }
@@ -447,8 +435,8 @@ about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
 #&gt;     }
 #&gt;     write_lines(input_lines, knit_input)
 #&gt; }
-#&gt; &lt;bytecode: 0x7fe3e60bd8e0&gt;
-#&gt; &lt;environment: 0x7fe3e5accdb0&gt;
+#&gt; &lt;bytecode: 0x7f8024560b50&gt;
+#&gt; &lt;environment: 0x7f8024562aa8&gt;
 #&gt; 
 #&gt; $post_knit
 #&gt; NULL
@@ -470,8 +458,8 @@ about <code><a href='reprex_options.html'>opt()</a></code>.</p></td>
 #&gt;     if (is.function(overlay)) 
 #&gt;         overlay()
 #&gt; }
-#&gt; &lt;bytecode: 0x7fe3e824f980&gt;
-#&gt; &lt;environment: 0x7fe3e824f440&gt;
+#&gt; &lt;bytecode: 0x7f8026421820&gt;
+#&gt; &lt;environment: 0x7f8026421270&gt;
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "rmarkdown_output_format"</div></pre>
