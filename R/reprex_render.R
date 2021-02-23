@@ -61,7 +61,7 @@ reprex_render <- function(input,
 }
 
 prex_render <- function(input,
-                        html_preview = TRUE) {
+                        html_preview = NULL) {
   reprex_render_impl(
     input,
     new_session = FALSE,
@@ -78,7 +78,7 @@ reprex_render_impl <- function(input,
   comment <- yaml_opts[["comment"]] %||% "#>"
 
   html_preview <-
-    html_preview %||% yaml_opts[["html_preview"]] %||% is_interactive()
+    html_preview %||% yaml_opts[["html_preview"]] %||% is_interactive_ish()
   stopifnot(is_bool(html_preview))
 
   std_out_err <- new_session && (yaml_opts[["std_out_err"]] %||% FALSE)
@@ -162,25 +162,84 @@ reprex_render_impl <- function(input,
   if (html_preview) {
     preview(md_file)
   }
-  reprex_file
+  invisible(reprex_file)
 }
 
+# heavily influenced by the post_processor() function of github_document()
 preview <- function(input) {
-  # we specify output_dir in order to make sure the preview html:
-  # 1. lives in session temp dir (necessary in order to display within RStudio)
-  # 2. is not co-located with input because, for .html, the file rendered for
-  #    preview can overwrite the input file, which is the actual reprex file
-  preview_file <- rmarkdown::render(
-    input,
-    output_dir = file_temp("reprex-preview"),
-    clean = FALSE, quiet = TRUE, encoding = "UTF-8",
-    output_options = list(pandoc_args = "--quiet")
+  css <- rmarkdown::pandoc_path_arg(
+    path_package(
+      "rmarkdown",
+      "rmarkdown/templates/github_document/resources/github.css"
+    )
+  )
+  css <- glue::glue("github-markdown-css:{css}")
+  template <- rmarkdown::pandoc_path_arg(
+    path_package(
+      "rmarkdown",
+      "rmarkdown/templates/github_document/resources/preview.html"
+    )
+  )
+  args <- c(
+    "--standalone", "--self-contained",
+    "--highlight-style", "pygments",
+    "--template", template,
+    "--variable", css,
+    "--metadata", "pagetitle=PREVIEW",
+    "--quiet"
   )
 
-  viewer <- getOption("viewer") %||% utils::browseURL
-  viewer(preview_file)
+  # important considerations re: HTML preview
+  # 1. where it lives matters, i.e. RStudio's decision to display it within
+  #    the app (vs. using an external browser) hinges on it being located below
+  #    session temp dir or RMARKDOWN_PREVIEW_DIR
+  # 2. best not to co-locate with input, because (a) the user really shouldn't
+  #    ever see such a preview file and (b) there's the potential for confusion
+  #    with the actual reprex file when `venue = "html"` (although we do use
+  #    a '_preview" suffix to disambiguate)
+  preview_file <- preview_file(input)
+  rmarkdown::pandoc_convert(
+    input = input, to = "html", from = "gfm", output = preview_file,
+    options = args, verbose = FALSE
+  )
+
+  # can be interesting re: detecting how we were called and what we should
+  # do re: getting the html open
+  # cat("\nRSTUDIO: ", Sys.getenv("RSTUDIO", unset = NA), file = stderr())
+  # cat("\n.Platform$GUI: ", .Platform$GUI, file = stderr())
+  # cat("\nis_interactive(): ", is_interactive(), file = stderr())
+  # cat("\nRMARKDOWN_PREVIEW_DIR: ", Sys.getenv("RMARKDOWN_PREVIEW_DIR", NA), file = stderr())
+  # cat("\ntempdir(): ", tempdir(), file = stderr())
+  # cat("\n")
+
+  preview_dir <- Sys.getenv("RMARKDOWN_PREVIEW_DIR", unset = tempdir())
+  preview_file <- file_move(preview_file, preview_dir)
+
+  if (!is_interactive()) {
+    # a rudimentary proxy for:
+    # "hey, we got here via the 'Knit' button"
+    # so, morally, the session IS still interactive
+    # this magic utterance causes RStudio to preview the file because of:
+    # https://github.com/rstudio/rstudio/blob/1f998005fcafe3372413e9eb0c0b0567c46056ce/src/cpp/session/modules/rmarkdown/SessionRMarkdown.cpp#L188
+    cat("\nPreview created: ", preview_file, file = stderr())
+  } else {
+    viewer <- getOption("viewer") %||% utils::browseURL
+    viewer(preview_file)
+  }
 
   invisible(preview_file)
+}
+
+# passes is_interactive() through EXCEPT for a specific set of conditions
+# that are intended to detect reprex_render() executed via RStudio's "Knit"
+# button
+is_interactive_ish <- function() {
+  if (is_interactive()) {
+    return(TRUE)
+  }
+
+  Sys.getenv("RSTUDIO", unset = "0") == "1" &&
+    !is.na(Sys.getenv("RMARKDOWN_PREVIEW_DIR", unset = NA))
 }
 
 reprex_document_options <- function(input) {
