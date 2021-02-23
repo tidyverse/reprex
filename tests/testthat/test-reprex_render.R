@@ -37,3 +37,46 @@ test_that("remove_info_strings() gets rid of 'info strings'", {
     ```")
   expect_equal(c("```", tail(x, -1)), remove_info_strings(x))
 })
+
+test_that("preview() works with the 'Knit' button", {
+  skip_on_cran()
+
+  local_temp_wd()
+  write_lines("3 * 5\n", "foo.R")
+  reprex(input = "foo.R")
+
+  withr::local_envvar(c(RMARKDOWN_PREVIEW_DIR = "."))
+  rlang::local_interactive(FALSE)
+
+  msg <- capture.output(
+    preview_file <- preview("foo_reprex.md"),
+    type = "message"
+  )
+
+  expect_true(file_exists("foo_reprex_preview.html"))
+  expect_equal(path_file(preview_file), "foo_reprex_preview.html")
+  expect_messages_to_include(
+    msg,
+    c("^Preview created:", "foo_reprex_preview.html$")
+  )
+})
+
+test_that("preview() calls viewer() in the interactive RStudio scenario", {
+  skip_on_cran()
+
+  local_temp_wd()
+  write_lines("10 / 5\n", "foo.R")
+  reprex(input = "foo.R")
+
+  rlang::local_interactive(TRUE)
+  local_options(viewer = function(...) cat("viewer!", file = stderr()))
+
+  msg <- capture.output(
+    preview_file <- preview("foo_reprex.md"),
+    type = "message"
+  )
+
+  expect_true(file_exists(preview_file))
+  expect_equal(path_file(preview_file), "foo_reprex_preview.html")
+  expect_messages_to_include(msg, "viewer!")
+})
