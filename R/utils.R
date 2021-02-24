@@ -9,7 +9,7 @@ is_path <- function(x) {
 isFALSE <- function(x) identical(x, FALSE)
 
 is_rstudio_server <- function() {
-  if(rstudioapi::hasFun("versionInfo")) {
+  if (rstudioapi::hasFun("versionInfo")) {
     rstudioapi::versionInfo()$mode == "server"
   } else {
     FALSE
