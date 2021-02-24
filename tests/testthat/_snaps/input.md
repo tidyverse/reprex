@@ -54,6 +54,5 @@
     Code
       res2 <- reprex(input = input2, render = FALSE)
     Message <cliMessage>
-      i Non-interactive session, setting `html_preview = FALSE`.
       i Removing leading prompts from reprex source.
 
