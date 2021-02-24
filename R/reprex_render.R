@@ -215,16 +215,16 @@ preview <- function(input) {
   preview_dir <- Sys.getenv("RMARKDOWN_PREVIEW_DIR", unset = tempdir())
   preview_file <- file_move(preview_file, preview_dir)
 
-  if (!is_interactive()) {
+  if (is_interactive()) {
+    viewer <- getOption("viewer") %||% utils::browseURL
+    viewer(preview_file)
+  } else {
     # a rudimentary proxy for:
     # "hey, we got here via the 'Knit' button"
     # so, morally, the session IS still interactive
     # this magic utterance causes RStudio to preview the file because of:
     # https://github.com/rstudio/rstudio/blob/1f998005fcafe3372413e9eb0c0b0567c46056ce/src/cpp/session/modules/rmarkdown/SessionRMarkdown.cpp#L188
     cat("\nPreview created: ", preview_file, file = stderr())
-  } else {
-    viewer <- getOption("viewer") %||% utils::browseURL
-    viewer(preview_file)
   }
 
   invisible(preview_file)
