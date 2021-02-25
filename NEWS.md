@@ -25,7 +25,7 @@ Here's how to use `input` and `wd` to control reprex filepaths:
   Previously: `reprex(outfile = NA)`  
   Now: `reprex(wd = ".")`  
   More generally, usage looks like `reprex(wd = "path/to/desired/wd")`.
-* If you care about reprex filename (and location), write your source to
+* If you really care about reprex filename (and location), write your source to
   `path/to/stuff.R` and call `reprex(input = "path/to/stuff.R")`. When `input`
   is a filepath, that filepath determines the working directory and how reprex
   files are named and `wd` is never even consulted.
