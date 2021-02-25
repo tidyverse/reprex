@@ -72,7 +72,7 @@ currently just an alias for "gh".
 
 \item{comment}{regular expression that matches commented output lines}
 
-\item{outfile}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}} in favor of \code{wd} or
+\item{outfile}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} in favor of \code{wd} or
 providing a filepath to \code{input}. To reprex in current working directory,
 use \code{wd = "."} now, instead of \code{outfile = NA}.}
 

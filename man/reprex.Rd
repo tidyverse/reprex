@@ -105,14 +105,14 @@ more. Read more about \code{\link[=opt]{opt()}}.}
 (RStudio or browser). Always \code{FALSE} in a noninteractive session. Read more
 about \code{\link[=opt]{opt()}}.}
 
-\item{outfile}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}} in favor of \code{wd} or
+\item{outfile}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} in favor of \code{wd} or
 providing a filepath to \code{input}. To reprex in current working directory,
 use \code{wd = "."} now, instead of \code{outfile = NA}.}
 
-\item{show}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}} in favor of \code{html_preview},
+\item{show}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} in favor of \code{html_preview},
 for greater consistency with other R Markdown output formats.}
 
-\item{si}{\ifelse{html}{\figure{lifecycle-deprecated.svg}{options: alt='Deprecated lifecycle'}}{\strong{Deprecated}} in favor of \code{session_info}.}
+\item{si}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} in favor of \code{session_info}.}
 }
 \value{
 Character vector of rendered reprex, invisibly.
@@ -161,7 +161,7 @@ code (see examples).
 \section{Syntax highlighting}{
 
 
-\ifelse{html}{\out{<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>}}{\strong{Experimental}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 A secondary use case for reprex is to produce syntax highlighted code
 snippets, with or without rendering, to paste into applications like
