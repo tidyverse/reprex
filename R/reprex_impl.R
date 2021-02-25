@@ -102,7 +102,7 @@ reprex_impl <- function(x_expr = NULL,
   invisible(read_lines(reprex_file))
 }
 
-set_advertise <- function(advertise, venue) {
+advertise_default <- function(venue) {
   default <- c(
     gh    = TRUE,
     ds    = TRUE,
@@ -112,9 +112,13 @@ set_advertise <- function(advertise, venue) {
     rtf   = FALSE,
     slack = FALSE
   )
+  default[[venue]]
+}
+
+set_advertise <- function(advertise, venue) {
   advertise %||%
     getOption("reprex.advertise") %||%
-    default[[venue]]
+    advertise_default(venue)
 }
 
 style_requires_styler <- function(style) {
@@ -156,7 +160,7 @@ remove_defaults <- function(x) {
   defaults <- list(
     venue           = "gh",
     # this is the only conditional default, i.e. that depends on venue
-    advertise       = set_advertise(NULL, x[["venue"]]),
+    advertise       = advertise_default(x[["venue"]]),
     session_info    = FALSE,
     style           = FALSE,
     comment         = "#>",
