@@ -190,7 +190,7 @@
 Previously: <code><a href="../reference/reprex.html">reprex(outfile = NA)</a></code><br>
 Now: <code><a href="../reference/reprex.html">reprex(wd = ".")</a></code><br>
 More generally, usage looks like <code><a href="../reference/reprex.html">reprex(wd = "path/to/desired/wd")</a></code>.</li>
-<li>If you care about reprex filename (and location), write your source to <code>path/to/stuff.R</code> and call <code><a href="../reference/reprex.html">reprex(input = "path/to/stuff.R")</a></code>. When <code>input</code> is a filepath, that filepath determines the working directory and how reprex files are named and <code>wd</code> is never even consulted.</li>
+<li>If you really care about reprex filename (and location), write your source to <code>path/to/stuff.R</code> and call <code><a href="../reference/reprex.html">reprex(input = "path/to/stuff.R")</a></code>. When <code>input</code> is a filepath, that filepath determines the working directory and how reprex files are named and <code>wd</code> is never even consulted.</li>
 </ul>
 <p>Various changes mean that more users will see reprex filepaths. Therefore, we’ve revised them to be more self-explanatory and human-friendly. When reprex needs to invent a file name, it is now based on a random “adjective-animal” slug. Bring on the <code>angry-hamster</code>!</p>
 </div>
