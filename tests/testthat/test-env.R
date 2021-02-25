@@ -20,8 +20,9 @@ test_that("reprex doesn't write into environment of caller", {
 test_that("I understand exactly what I'm putting in reprex env", {
   skip_on_cran()
   # https://github.com/r-lib/debugme/issues/50
+  pkg <- "debugme"
   skip_if(
-    requireNamespace("debugme", quietly = TRUE),
+    requireNamespace(pkg, quietly = TRUE),
     "styler --> tibble --> pillar --> debugme --> .Random.seed thing"
   )
 
