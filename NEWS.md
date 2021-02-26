@@ -37,7 +37,7 @@ Bring on the `angry-hamster`!
 
 ## `.Rprofile`
 
-`reprex()` renders the reprex in a separate, fresh R session using `callr:r()`.
+`reprex()` renders the reprex in a separate, fresh R session using `callr::r()`.
 As of callr 3.4.0 (released 2019-12-09), the default became `callr::r(..., user_profile = "project")`, which means that callr executes a `.Rprofile` found in current working directory.
 Most reprexes happen in a temp directory and there will be no such `.Rprofile`.
 But if the user intentionally reprexes in an existing project with a `.Rprofile`, `callr::r()` and therefore `reprex()` honor it.
