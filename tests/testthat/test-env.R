@@ -17,16 +17,20 @@ test_that("reprex doesn't write into environment of caller", {
   expect_match(reprex(r_file <- 0L), "r_file <- 0L", all = FALSE)
 })
 
-test_that("I understand exactly what I'm putting in reprex env", {
+test_that("reprex env doesn't bear traces of reprex or its dependencies", {
   skip_on_cran()
-  # https://github.com/r-lib/debugme/issues/50
-  pkg <- "debugme"
-  skip_if(
-    requireNamespace(pkg, quietly = TRUE),
-    "styler --> tibble --> pillar --> debugme --> .Random.seed thing"
-  )
 
   ret <- reprex(input = c("a <- 'a'", "ls(all.names = TRUE)"))
   ret <- ret[grepl("^#>", ret)]
-  expect_identical(ret, "#> [1] \"a\"")
+
+  # https://github.com/r-lib/debugme/issues/50
+  # styler --> tibble --> pillar --> debugme --> tickles RNG
+  pkg <- "debugme"
+  if(requireNamespace(pkg, quietly = TRUE)) {
+    # until debugme updates on CRAN, let's tolerate .Random.seed, but not
+    # require it either
+    expect_match(ret, '"a"', all = FALSE)
+  } else {
+    expect_identical(ret, "#> [1] \"a\"")
+  }
 })
