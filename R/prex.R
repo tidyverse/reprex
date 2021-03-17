@@ -31,7 +31,7 @@
 #' prex(getwd())    # current working directory
 prex <- function(x = NULL,
                  input = NULL,
-                 venue = c("gh", "r", "rtf", "html", "slack", "so", "ds"),
+                 venue = c("gh", "r", "rtf", "html", "slack", "so", "ds", "bb"),
 
                  render = TRUE,
 
@@ -64,6 +64,7 @@ prex_html  <- function(...) prex(..., venue = "html")
 prex_r     <- function(...) prex(..., venue = "r")
 prex_rtf   <- function(...) prex(..., venue = "rtf")
 prex_slack <- function(...) prex(..., venue = "slack")
+prex_bb    <- function(...) prex(..., venue = "bb")
 
 # these should exist for completeness, but I predict they'd never get used and
 # they just clutter the auto-complete landscape

@@ -111,3 +111,23 @@ test_that("venue = 'slack' works", {
   ret <- ret[nzchar(ret)]
   expect_identical(ret, output)
 })
+
+test_that("venue = 'bb' works", {
+  skip_on_cran()
+  input <- c(
+    "#' Hello world",
+    "## comment",
+    "1:5"
+  )
+  output <- c(
+    "Hello world",
+    "[code]",
+    "## comment",
+    "1:5",
+    "#> [1] 1 2 3 4 5",
+    "[/code]"
+  )
+  ret <- reprex(input = input, venue = "bb")
+  ret <- ret[nzchar(ret)]
+  expect_identical(ret, output)
+})

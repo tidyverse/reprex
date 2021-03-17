@@ -241,7 +241,7 @@
 #' @export
 reprex <- function(x = NULL,
                    input = NULL, wd = NULL,
-                   venue = c("gh", "r", "rtf", "html", "slack", "so", "ds"),
+                   venue = c("gh", "r", "rtf", "html", "slack", "so", "ds", "bb"),
 
                    render = TRUE,
 

@@ -154,6 +154,7 @@ reprex_render_impl <- function(input,
     rtf   = pp_highlight(pp_md_to_r(md_file, comment = comment)),
     slack = pp_slackify(md_file),
     html  = pp_html_render(md_file),
+    bb    = pp_md_to_bb(md_file),
     md_file
   )
 
@@ -312,6 +313,18 @@ pp_slackify <- function(input) {
   slack_file <- md_file_slack(input)
   write_lines(output_lines, slack_file)
   slack_file
+}
+
+# used when venue is "bb"
+# Hack to replace markdwon with bbcode for code chunks and images
+pp_md_to_bb <- function(input) {
+  bbout_file <- bb_file(input)
+  output_lines <- read_lines(md_file(input))
+  output_lines[grep("^``` r$", output_lines)] <- "[code=php]"
+  output_lines[grep("^```$", output_lines)] <- "[/code]"
+  output_lines <- gsub("^!\\[\\]\\((.+)\\)$", "[img]\\1[/img]", output_lines)
+  write_lines(output_lines, bbout_file)
+  bbout_file
 }
 
 # remove "info strings" from opening code fences, e.g. ```r

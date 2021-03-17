@@ -1,7 +1,7 @@
 reprex_impl <- function(x_expr = NULL,
                         input  = NULL,
                         wd     = NULL,
-                        venue  = c("gh", "r", "rtf", "html", "slack", "so", "ds"),
+                        venue  = c("gh", "r", "rtf", "html", "slack", "so", "ds", "bb"),
 
                         render = TRUE,
                         new_session = TRUE,
@@ -89,7 +89,7 @@ reprex_impl <- function(x_expr = NULL,
   }
 
   reprex_info("Rendering reprex...")
-  reprex_file <-reprex_render_impl(
+  reprex_file <- reprex_render_impl(
     r_file, new_session = new_session, html_preview = html_preview
   )
 
@@ -110,7 +110,8 @@ advertise_default <- function(venue) {
     so    = TRUE,
     r     = FALSE,
     rtf   = FALSE,
-    slack = FALSE
+    slack = FALSE,
+    bb    = FALSE
   )
   default[[venue]]
 }

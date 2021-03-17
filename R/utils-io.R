@@ -208,6 +208,10 @@ rmd_file <- function(path) {
   path_mutate(path, suffix = "reprex", ext = "Rmd")
 }
 
+bb_file <- function(path) {
+  path_mutate(path, suffix = "reprex", ext = "txt")
+}
+
 preview_file <- function(path) {
   path_mutate(path, suffix = "preview", ext = "html")
 }
