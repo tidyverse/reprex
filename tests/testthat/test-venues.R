@@ -121,7 +121,7 @@ test_that("venue = 'bb' works", {
   )
   output <- c(
     "Hello world",
-    "[code]",
+    "[code=php]",
     "## comment",
     "1:5",
     "#> [1] 1 2 3 4 5",

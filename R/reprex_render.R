@@ -320,6 +320,7 @@ pp_slackify <- function(input) {
 pp_md_to_bb <- function(input) {
   bbout_file <- bb_file(input)
   output_lines <- read_lines(md_file(input))
+  # default to php to add syntaxic colours for all BBcode versions.
   output_lines[grep("^``` r$", output_lines)] <- "[code=php]"
   output_lines[grep("^```$", output_lines)] <- "[/code]"
   output_lines <- gsub("^!\\[\\]\\((.+)\\)$", "[img]\\1[/img]", output_lines)

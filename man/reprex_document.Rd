@@ -5,7 +5,7 @@
 \title{reprex output format}
 \usage{
 reprex_document(
-  venue = c("gh", "r", "rtf", "html", "slack", "so", "ds"),
+  venue = c("gh", "r", "rtf", "html", "slack", "so", "ds", "bb"),
   advertise = NULL,
   session_info = opt(FALSE),
   style = opt(FALSE),

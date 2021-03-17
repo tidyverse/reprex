@@ -2,6 +2,7 @@
 
 export(reprex)
 export(reprex_addin)
+export(reprex_bb)
 export(reprex_clean)
 export(reprex_document)
 export(reprex_html)

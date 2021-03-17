@@ -8,7 +8,7 @@ reprex(
   x = NULL,
   input = NULL,
   wd = NULL,
-  venue = c("gh", "r", "rtf", "html", "slack", "so", "ds"),
+  venue = c("gh", "r", "rtf", "html", "slack", "so", "ds", "bb"),
   render = TRUE,
   advertise = NULL,
   session_info = opt(FALSE),
