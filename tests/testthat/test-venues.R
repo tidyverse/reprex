@@ -127,7 +127,7 @@ test_that("venue = 'bb' works", {
     "1:5",
     "#> [1] 1 2 3 4 5",
     "[/code]",
-    "Next is [i]italic[/i] or [i][b]bold italic[/b][/i]"
+    "Next is [i]italic[/i] or [b]bold[/b] or even [i][b]bold italic[/b][/i]"
   )
   ret <- reprex(input = input, venue = "bb")
   ret <- ret[nzchar(ret)]
