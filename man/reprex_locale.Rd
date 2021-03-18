@@ -41,7 +41,7 @@ Examples: \code{"en"}, \code{"de"}, \code{"en_GB"}, \code{"pt_BR"}.
 \section{\code{locale}}{
 
 Use the \code{locale} argument only if you want to affect something like how
-day-of-the week or month is converted to character. You are less likely to
+day-of-the-week or month is converted to character. You are less likely to
 need to set this than the \code{language} argument. You may have more success
 setting specific categories, such as \code{"LC_TIME"}, than multi-category
 shortcuts like \code{"LC_ALL"} or \code{"LANG"}. The \code{locale} values must follow the

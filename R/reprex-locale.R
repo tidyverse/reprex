@@ -15,7 +15,7 @@
 #'
 #' @section `locale`:
 #' Use the `locale` argument only if you want to affect something like how
-#' day-of-the week or month is converted to character. You are less likely to
+#' day-of-the-week or month is converted to character. You are less likely to
 #' need to set this than the `language` argument. You may have more success
 #' setting specific categories, such as `"LC_TIME"`, than multi-category
 #' shortcuts like `"LC_ALL"` or `"LANG"`. The `locale` values must follow the
