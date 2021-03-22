@@ -118,7 +118,8 @@ test_that("venue = 'bb' works", {
     "#' Hello world",
     "## comment",
     "1:5",
-    "#' Next is _italic_ or **bold** or even __*bold italic*__"
+    "#' Next is _italic_ or **bold** or even __*bold italic*__",
+    "code_with_underscores <- 1 * 2 * 3"
   )
   output <- c(
     "Hello world",
@@ -127,7 +128,10 @@ test_that("venue = 'bb' works", {
     "1:5",
     "#> [1] 1 2 3 4 5",
     "[/code]",
-    "Next is [i]italic[/i] or [b]bold[/b] or even [i][b]bold italic[/b][/i]"
+    "Next is [i]italic[/i] or [b]bold[/b] or even [i][b]bold italic[/b][/i]",
+    "[code=php]",
+    "code_with_underscores <- 1 * 2 * 3",
+    "[/code]"
   )
   ret <- reprex(input = input, venue = "bb")
   ret <- ret[nzchar(ret)]
