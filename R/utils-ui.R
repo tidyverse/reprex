@@ -44,15 +44,17 @@ reprex_danger <- function(text, .envir = parent.frame()) {
   reprex_alert(text, type = "danger", .envir = .envir)
 }
 
+# TODO: if a better built-in solution arises in the semantic UI, use it
+# https://github.com/r-lib/cli/issues/211
 reprex_path <- function(header, path, type = "success", .envir = parent.frame()) {
   quiet <- reprex_quiet() %|% is_testing()
   if (quiet) {
     return(invisible())
   }
   reprex_alert(header, type = type, .envir = .envir)
-  cli::cli_ul()
-  cli::cli_li()
-  cli::cli_text("{.file {path}}")
+  cli::cli_div(theme = list(.alert = list(`margin-left` = 2, before = "")))
+  cli::cli_alert("{.path {path}}")
+  cli::cli_end()
 }
 
 message <- function(...) {
