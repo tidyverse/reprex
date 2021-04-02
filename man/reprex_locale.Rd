@@ -46,7 +46,8 @@ need to set this than the \code{language} argument. You may have more success
 setting specific categories, such as \code{"LC_TIME"}, than multi-category
 shortcuts like \code{"LC_ALL"} or \code{"LANG"}. The \code{locale} values must follow the
 format dictated by your operating system and the requested locale must be
-installed. Note that the format for \code{locale} and \code{language} are different
+installed. On *nix systems, \code{locale -a} is a good way to see which locales
+are installed. Note that the format for \code{locale} and \code{language} are different
 from each other on Windows.
 
 Examples: \code{"en_CA.UTF-8"} (macOS), \code{"French_France.1252"} (Windows).
