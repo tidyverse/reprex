@@ -198,9 +198,9 @@ More generally, usage looks like <code><a href="../reference/reprex.html">reprex
 <h2 class="hasAnchor">
 <a href="#rprofile" class="anchor"></a><code>.Rprofile</code>
 </h2>
-<p><code><a href="../reference/reprex.html">reprex()</a></code> renders the reprex in a separate, fresh R session using <code><a href="https://rdrr.io/pkg/callr/man/r.html">callr::r()</a></code>. As of callr 3.4.0 (released 2019-12-09), the default became <code><a href="https://rdrr.io/pkg/callr/man/r.html">callr::r(..., user_profile = "project")</a></code>, which means that callr executes a <code>.Rprofile</code> found in current working directory. Most reprexes happen in a temp directory and there will be no such <code>.Rprofile</code>. But if the user intentionally reprexes in an existing project with a <code>.Rprofile</code>, <code><a href="https://rdrr.io/pkg/callr/man/r.html">callr::r()</a></code> and therefore <code><a href="../reference/reprex.html">reprex()</a></code> honor it. In this version of reprex:</p>
+<p><code><a href="../reference/reprex.html">reprex()</a></code> renders the reprex in a separate, fresh R session using <code><a href="https://callr.r-lib.org/reference/r.html">callr::r()</a></code>. As of callr 3.4.0 (released 2019-12-09), the default became <code><a href="https://callr.r-lib.org/reference/r.html">callr::r(..., user_profile = "project")</a></code>, which means that callr executes a <code>.Rprofile</code> found in current working directory. Most reprexes happen in a temp directory and there will be no such <code>.Rprofile</code>. But if the user intentionally reprexes in an existing project with a <code>.Rprofile</code>, <code><a href="https://callr.r-lib.org/reference/r.html">callr::r()</a></code> and therefore <code><a href="../reference/reprex.html">reprex()</a></code> honor it. In this version of reprex:</p>
 <ul>
-<li>We explicitly make sure that the working directory of the <code><a href="https://rdrr.io/pkg/callr/man/r.html">callr::r()</a></code> call is the same as the effective working directory of the reprex.</li>
+<li>We explicitly make sure that the working directory of the <code><a href="https://callr.r-lib.org/reference/r.html">callr::r()</a></code> call is the same as the effective working directory of the reprex.</li>
 <li>We alert the user that a local <code>.Rprofile</code> has been found.</li>
 <li>We indicate the usage of a local <code>.Rprofile</code> in the rendered reprex.</li>
 </ul>
@@ -383,7 +383,7 @@ More generally, usage looks like <code><a href="../reference/reprex.html">reprex
 <li><p><code>comment</code> argument added to specify prefix for commented output.</p></li>
 <li><p>Added an RStudio addin, accessed via “Render reprex”.</p></li>
 <li><p><code>input</code> argument to <code><a href="../reference/reprex.html">reprex()</a></code> and friends handles code as string, character vector, or file path.</p></li>
-<li><p>The reprex is rendered via <code><a href="https://rdrr.io/pkg/callr/man/r.html">callr::r_safe()</a></code> and is thus run in a clean, separate R process, eliminating any leakage of objects or loaded packages to/from the calling session.</p></li>
+<li><p>The reprex is rendered via <code><a href="https://callr.r-lib.org/reference/r.html">callr::r_safe()</a></code> and is thus run in a clean, separate R process, eliminating any leakage of objects or loaded packages to/from the calling session.</p></li>
 <li>
 <p><code><a href="../reference/reprex.html">reprex()</a></code> gains optional arguments <code>opts_chunk</code> and <code>opts_knit</code>, taking named list as input, in order to supplement or override default knitr chunk and package options, respectively. (<a href='https://github.com/tidyverse/reprex/issues/33'>#33</a>)</p>
 <ul>

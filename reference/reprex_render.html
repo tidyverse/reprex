@@ -200,7 +200,7 @@ with other R Markdown output formats, but it is not well-tested." />
 
     <div class="ref-description">
     <p>This is a wrapper around <code><a href='https://pkgs.rstudio.com/rmarkdown/reference/render.html'>rmarkdown::render()</a></code> that enforces the "reprex"
-mentality. Here's a simplified version of what happens:</p><pre><span class='fu'>callr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/callr/man/r.html'>r</a></span><span class='op'>(</span>
+mentality. Here's a simplified version of what happens:</p><pre><span class='fu'>callr</span><span class='fu'>::</span><span class='fu'><a href='https://callr.r-lib.org/reference/r.html'>r</a></span><span class='op'>(</span>
   <span class='kw'>function</span><span class='op'>(</span><span class='va'>input</span><span class='op'>)</span> <span class='op'>{</span>
     <span class='fu'>rmarkdown</span><span class='fu'>::</span><span class='fu'><a href='https://pkgs.rstudio.com/rmarkdown/reference/render.html'>render</a></span><span class='op'>(</span><span class='va'>input</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>globalenv</a></span><span class='op'>(</span><span class='op'>)</span>, encoding <span class='op'>=</span> <span class='st'>"UTF-8"</span><span class='op'>)</span>
   <span class='op'>}</span>,
@@ -212,7 +212,7 @@ mentality. Here's a simplified version of what happens:</p><pre><span class='fu'
 
 <p>Key features to note</p><ul>
 <li><p><code><a href='https://pkgs.rstudio.com/rmarkdown/reference/render.html'>rmarkdown::render()</a></code> is executed in a new R session, by using
-<code><a href='https://rdrr.io/pkg/callr/man/r.html'>callr::r()</a></code>. The goal is to eliminate the leakage of objects, attached
+<code><a href='https://callr.r-lib.org/reference/r.html'>callr::r()</a></code>. The goal is to eliminate the leakage of objects, attached
 packages, and other aspects of session state from the current session into
 the rendering session. Also, the system and user-level <code>.Rprofile</code>s are
 ignored.</p></li>
