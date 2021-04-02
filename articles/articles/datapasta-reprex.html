@@ -35,6 +35,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -49,7 +51,7 @@
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../../index.html">reprex</a>
         <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
+          <span class="partof">part of the <a href="https://tidyverse.org" class="external-link">tidyverse</a></span>
           <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0.9000</span>
         </div>
       </div>
@@ -93,7 +95,7 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Blog posts</li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2021/02/reprex-1-0-0/">reprex 1.0.0</a>
+      <a href="https://www.tidyverse.org/blog/2021/02/reprex-1-0-0/" class="external-link">reprex 1.0.0</a>
     </li>
     <li class="divider">
     <li>
@@ -102,7 +104,7 @@
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/reprex/">
+  <a href="https://github.com/tidyverse/reprex/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -121,17 +123,17 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Using datapasta with reprex</h1>
-                        <h4 class="author">Mara Averick</h4>
+                        <h4 data-toc-skip class="author">Mara Averick</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/reprex/blob/master/vignettes/articles/datapasta-reprex.Rmd"><code>vignettes/articles/datapasta-reprex.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/reprex/blob/master/vignettes/articles/datapasta-reprex.Rmd" class="external-link"><code>vignettes/articles/datapasta-reprex.Rmd</code></a></small>
       <div class="hidden name"><code>datapasta-reprex.Rmd</code></div>
 
     </div>
 
     
     
-<p>While using a built-in dataset for a reprex is ideal, sometimes you need to troubleshoot code with a bit of outside data. Meet <a href="https://github.com/MilesMcBain/datapasta">datapasta</a>, a package by <a href="https://twitter.com/milesmcbain">Miles McBain</a> for “reducing resistance associated with copying and pasting data to and from R.” Like reprex, datapasta has addin functionality, so you can select commands from the RStudio Addins and/or associate keyboard shortcuts with them for easy use.</p>
+<p>While using a built-in dataset for a reprex is ideal, sometimes you need to troubleshoot code with a bit of outside data. Meet <a href="https://github.com/MilesMcBain/datapasta" class="external-link">datapasta</a>, a package by <a href="https://twitter.com/milesmcbain" class="external-link">Miles McBain</a> for “reducing resistance associated with copying and pasting data to and from R.” Like reprex, datapasta has addin functionality, so you can select commands from the RStudio Addins and/or associate keyboard shortcuts with them for easy use.</p>
 <div id="scenario-1-from-spreadsheet-to-reprex-with-tribble_paste" class="section level2">
 <h2 class="hasAnchor">
 <a href="#scenario-1-from-spreadsheet-to-reprex-with-tribble_paste" class="anchor"></a>Scenario 1: From spreadsheet to reprex with <code>tribble_paste()</code>
@@ -149,7 +151,7 @@
 <code>datapasta::tribble_paste()</code>
 </p>
 </div>
-<p>While the output of <code>tribble_paste()</code> doesn’t have the same level of detail it would with <a href="https://stat.ethz.ch/R-manual/R-patched/library/base/html/dput.html"><code>dput()</code></a>, it works well enough for most scenarios, with the added benefit of being easy to read on the screen.</p>
+<p>While the output of <code>tribble_paste()</code> doesn’t have the same level of detail it would with <a href="https://stat.ethz.ch/R-manual/R-patched/library/base/html/dput.html" class="external-link"><code>dput()</code></a>, it works well enough for most scenarios, with the added benefit of being easy to read on the screen.</p>
 </div>
 <div id="scenario-2-from-r-object-to-tibble-with-dpasta" class="section level2">
 <h2 class="hasAnchor">
@@ -165,7 +167,7 @@
 <div id="fin" class="section level2">
 <h2 class="hasAnchor">
 <a href="#fin" class="anchor"></a>Fin</h2>
-<p>There’s more to datapasta than discussed here, so be sure to check out its <a href="https://github.com/MilesMcBain/datapasta">documentation</a>. Don’t forget, when it comes to reprex, less is always more, so wield the power of datapasta wisely.</p>
+<p>There’s more to datapasta than discussed here, so be sure to check out its <a href="https://github.com/MilesMcBain/datapasta" class="external-link">documentation</a>. Don’t forget, when it comes to reprex, less is always more, so wield the power of datapasta wisely.</p>
 </div>
   </div>
 
@@ -180,13 +182,14 @@
 
 
       <footer><div class="tidyverse">
-  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://jennybryan.org" class="external-link external-link">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz" class="external-link external-link">Hadley Wickham</a>, <a href="https://www.rstudio.com" class="external-link external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.</p>,<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link external-link">pkgdown</a> 1.6.1.9001.</p>
 </div>
 
 <div class="author">
   <p>
-    Developed by <a href="https://jennybryan.org">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
+    Developed by <a href="https://jennybryan.org" class="external-link">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
+    Site built by <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a>.
   </p>
 </div>
 
@@ -195,6 +198,8 @@
 
   
 
+
+  
 
   </body>
 </html>

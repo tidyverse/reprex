@@ -75,9 +75,15 @@
   gtag('config', 'UA-115082821-1');
 </script>
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -175,7 +181,7 @@
 </div>
     <div id="reprex-200" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.0">
-<a href="#reprex-200" class="anchor"></a>reprex 2.0.0<small> Unreleased </small>
+<a href="#reprex-200" class="anchor"></a>reprex 2.0.0<small> 2021-04-02 </small>
 </h1>
 <div id="when-the-clipboard-isnt-available" class="section level2">
 <h2 class="hasAnchor">
@@ -203,13 +209,13 @@ More generally, usage looks like <code><a href="../reference/reprex.html">reprex
 <h2 class="hasAnchor">
 <a href="#rprofile" class="anchor"></a><code>.Rprofile</code>
 </h2>
-<p><code><a href="../reference/reprex.html">reprex()</a></code> renders the reprex in a separate, fresh R session using <code><a href="https://callr.r-lib.org/reference/r.html">callr::r()</a></code>. As of callr 3.4.0 (released 2019-12-09), the default became <code><a href="https://callr.r-lib.org/reference/r.html">callr::r(..., user_profile = "project")</a></code>, which means that callr executes a <code>.Rprofile</code> found in current working directory. Most reprexes happen in a temp directory and there will be no such <code>.Rprofile</code>. But if the user intentionally reprexes in an existing project with a <code>.Rprofile</code>, <code><a href="https://callr.r-lib.org/reference/r.html">callr::r()</a></code> and therefore <code><a href="../reference/reprex.html">reprex()</a></code> honor it. In this version of reprex:</p>
+<p><code><a href="../reference/reprex.html">reprex()</a></code> renders the reprex in a separate, fresh R session using <code><a href="https://callr.r-lib.org/reference/r.html" class="external-link">callr::r()</a></code>. As of callr 3.4.0 (released 2019-12-09), the default became <code><a href="https://callr.r-lib.org/reference/r.html" class="external-link">callr::r(..., user_profile = "project")</a></code>, which means that callr executes a <code>.Rprofile</code> found in current working directory. Most reprexes happen in a temp directory and there will be no such <code>.Rprofile</code>. But if the user intentionally reprexes in an existing project with a <code>.Rprofile</code>, <code><a href="https://callr.r-lib.org/reference/r.html" class="external-link">callr::r()</a></code> and therefore <code><a href="../reference/reprex.html">reprex()</a></code> honor it. In this version of reprex:</p>
 <ul>
-<li>We explicitly make sure that the working directory of the <code><a href="https://callr.r-lib.org/reference/r.html">callr::r()</a></code> call is the same as the effective working directory of the reprex.</li>
+<li>We explicitly make sure that the working directory of the <code><a href="https://callr.r-lib.org/reference/r.html" class="external-link">callr::r()</a></code> call is the same as the effective working directory of the reprex.</li>
 <li>We alert the user that a local <code>.Rprofile</code> has been found.</li>
 <li>We indicate the usage of a local <code>.Rprofile</code> in the rendered reprex.</li>
 </ul>
-<p>These changes are of special interest to users of the <a href="https://rstudio.github.io/renv/">renv package</a>, which uses <code>.Rprofile</code> to implement a project-specific R package library. Combined with the filepath changes (described above), this means an renv user can call <code><a href="../reference/reprex.html">reprex(wd = ".")</a></code>, to render a reprex with respect to a project-specific library.</p>
+<p>These changes are of special interest to users of the <a href="https://rstudio.github.io/renv/" class="external-link">renv package</a>, which uses <code>.Rprofile</code> to implement a project-specific R package library. Combined with the filepath changes (described above), this means an renv user can call <code><a href="../reference/reprex.html">reprex(wd = ".")</a></code>, to render a reprex with respect to a project-specific library.</p>
 </div>
 <div id="other" class="section level2">
 <h2 class="hasAnchor">
@@ -236,7 +242,7 @@ More generally, usage looks like <code><a href="../reference/reprex.html">reprex
 <ul>
 <li><p><code>reprex_VENUE(...)</code> is a new way to call <code><a href="../reference/reprex.html">reprex(..., venue = "VENUE")</a></code>. For example, <code><a href="../reference/reprex_venue.html">reprex_r()</a></code> is equivalent to <code><a href="../reference/reprex.html">reprex(venue = "r")</a></code>. This makes non-default venues easier to access via auto-completion (<a href='https://github.com/tidyverse/reprex/issues/256'>#256</a>).</p></li>
 <li><p><code>"slack"</code> is a new venue that tweaks the default Markdown output for pasting into Slack messages. It removes the <code>r</code> language identifier from the opening code fence, simplifies image links and, by default, suppresses the ad. Note that <code>venue = "slack"</code> or <code><a href="../reference/reprex_venue.html">reprex_slack()</a></code> work best for people who opt-out of the WYSIWYG message editor: in <em>Preferences &gt; Advanced</em>, select “Format messages with markup”.</p></li>
-<li><p><code>venue = "so"</code> (SO = Stack Overflow) has converged with default <code>venue = "gh"</code> (GitHub). As of January 2019, SO <a href="https://meta.stackexchange.com/questions/125148/implement-style-fenced-markdown-code-blocks/322000<a href='https://github.com/tidyverse/reprex/issues/322000'>#322000</a>">supports CommonMark fenced code blocks</a>. The only remaining difference is that Stack Overflow does not support the collapsible details tag that we use on GitHub to reduce the clutter from, e.g., session info (<a href='https://github.com/tidyverse/reprex/issues/231'>#231</a>).</p></li>
+<li><p><code>venue = "so"</code> (SO = Stack Overflow) has converged with default <code>venue = "gh"</code> (GitHub). As of January 2019, SO <a href="https://meta.stackexchange.com/questions/125148/implement-style-fenced-markdown-code-blocks/322000<a href='https://github.com/tidyverse/reprex/issues/322000'>#322000</a>" class="external-link">supports CommonMark fenced code blocks</a>. The only remaining difference is that Stack Overflow does not support the collapsible details tag that we use on GitHub to reduce the clutter from, e.g., session info (<a href='https://github.com/tidyverse/reprex/issues/231'>#231</a>).</p></li>
 <li><p><code>"rtf"</code> (Rich Text Format) is a new experimental <code>venue</code> for pasting into applications like PowerPoint and Keynote. It is experimental because it requires a working installation of the highlight command line tool, which is left as a somewhat fiddly exercise for the user (<a href='https://github.com/tidyverse/reprex/issues/331'>#331</a>). <code>venue = "rtf"</code> is documented in its <a href="https://reprex.tidyverse.org/articles/articles/rtf.html">own article</a>.</p></li>
 <li><p><code>reprex.current_venue</code> is a new read-only option that is set during <code><a href="../reference/reprex_render.html">reprex_render()</a></code>. Other packages can use it to generate <code><a href="../reference/reprex.html">reprex()</a></code>-compatible, <code>venue</code>-aware output, such as an renv lockfile.</p></li>
 </ul>
@@ -265,7 +271,7 @@ More generally, usage looks like <code><a href="../reference/reprex.html">reprex
 <h2 class="hasAnchor">
 <a href="#other-changes-and-improvements" class="anchor"></a>Other changes and improvements</h2>
 <ul>
-<li><p>The <code>tidyverse_quiet</code> argument and <code>reprex.tidyverse_quiet</code> option also control startup messages from the <a href="https://www.tidymodels.org">tidymodels</a> meta-package (<a href='https://github.com/tidyverse/reprex/issues/326'>#326</a>, <a href='https://github.com/juliasilge'>@juliasilge</a>).</p></li>
+<li><p>The <code>tidyverse_quiet</code> argument and <code>reprex.tidyverse_quiet</code> option also control startup messages from the <a href="https://www.tidymodels.org" class="external-link">tidymodels</a> meta-package (<a href='https://github.com/tidyverse/reprex/issues/326'>#326</a>, <a href='https://github.com/juliasilge'>@juliasilge</a>).</p></li>
 <li><p><code><a href="../reference/reprex_locale.html">reprex_locale()</a></code> is a new thin wrapper around <code><a href="../reference/reprex.html">reprex()</a></code> that renders in a temporarily-altered locale (<a href='https://github.com/tidyverse/reprex/issues/250'>#250</a>).</p></li>
 <li><p>The <code>si</code> argument of <code><a href="../reference/reprex.html">reprex()</a></code> is now <code>session_info</code>. Being explicit seems more important than saving characters, given auto-completion.</p></li>
 <li><p>The <code>show</code> argument of <code><a href="../reference/reprex.html">reprex()</a></code> is now <code>html_preview</code>, for the sake of consistency with other R Markdown output formats.</p></li>
@@ -291,10 +297,10 @@ More generally, usage looks like <code><a href="../reference/reprex.html">reprex
 </h1>
 <ul>
 <li><p>The <code>crayon.enabled</code> option is explicitly set to <code>FALSE</code> when rendering the reprex (<a href='https://github.com/tidyverse/reprex/issues/238'>#238</a>, <a href='https://github.com/tidyverse/reprex/issues/239'>#239</a>).</p></li>
-<li><p>Expression input is once again captured via <code><a href="https://rdrr.io/r/base/substitute.html">substitute()</a></code> (as opposed to <code><a href="https://rlang.r-lib.org/reference/nse-defuse.html">rlang::enexpr()</a></code>), which is more favorable for reprexes involving tidy eval (<a href='https://github.com/tidyverse/reprex/issues/241'>#241</a>).</p></li>
+<li><p>Expression input is once again captured via <code><a href="https://rdrr.io/r/base/substitute.html" class="external-link">substitute()</a></code> (as opposed to <code><a href="https://rlang.r-lib.org/reference/nse-defuse.html" class="external-link">rlang::enexpr()</a></code>), which is more favorable for reprexes involving tidy eval (<a href='https://github.com/tidyverse/reprex/issues/241'>#241</a>).</p></li>
 <li><p>New venue “html” to render HTML fragments, useful for pasting in sites without markdown but that allow HTML (<a href='https://github.com/tidyverse/reprex/issues/236'>#236</a> <a href='https://github.com/cwickham'>@cwickham</a>).</p></li>
 <li><p>The YAML of reprex’s template has been updated in light of the stricter YAML parser used in Pandoc &gt;= 2.2.2.</p></li>
-<li><p><code><a href="https://rlang.r-lib.org/reference/set_attrs.html">rlang::set_attrs()</a></code> has been soft-deprecated and is no longer used internally.</p></li>
+<li><p><code><a href="https://rlang.r-lib.org/reference/set_attrs.html" class="external-link">rlang::set_attrs()</a></code> has been soft-deprecated and is no longer used internally.</p></li>
 </ul>
 </div>
     <div id="reprex-021" class="section level1">
@@ -305,7 +311,7 @@ More generally, usage looks like <code><a href="../reference/reprex.html">reprex
 <li><p>The reprex ad is formatted as superscript for <code>venue = "gh"</code> and <code>venue = "so"</code>, i.e. it is more subtle (<a href='https://github.com/tidyverse/reprex/issues/201'>#201</a>).</p></li>
 <li><p>New experimental venue “rtf” produces syntax highlighted snippets suitable for pasting into presentation software such as Keynote or PowerPoint. This venue is discussed in <a href="https://reprex.tidyverse.org/articles/articles/rtf.html">an article</a> (<a href='https://github.com/tidyverse/reprex/issues/26'>#26</a>).</p></li>
 <li><p>Arguments <code>opts_chunk</code> and <code>opts_knit</code> have been removed from <code><a href="../reference/reprex.html">reprex()</a></code>. The same effect has always been achievable via roxygen comments in the reprex code and the examples have always demonstrated this. Overriding knitr options doesn’t seem to come up often enough in real-world <code><a href="../reference/reprex.html">reprex()</a></code> usage to justify these arguments.</p></li>
-<li><p>Internal file system operations use the <a href="https://fs.r-lib.org">fs</a> package. This should not make any user-facing changes in reprex and we definitely want to know if it does.</p></li>
+<li><p>Internal file system operations use the <a href="https://fs.r-lib.org" class="external-link">fs</a> package. This should not make any user-facing changes in reprex and we definitely want to know if it does.</p></li>
 </ul>
 </div>
     <div id="reprex-020" class="section level1">
@@ -313,7 +319,7 @@ More generally, usage looks like <code><a href="../reference/reprex.html">reprex
 <a href="#reprex-020" class="anchor"></a>reprex 0.2.0<small> 2018-06-22 </small>
 </h1>
 <p>reprex has a website: <a href="https://reprex.tidyverse.org" class="uri">https://reprex.tidyverse.org</a>. It includes a contributed article from <a href='https://github.com/njtierney'>@njtierney</a> (<a href='https://github.com/tidyverse/reprex/issues/103'>#103</a>).</p>
-<p>reprex has moved to the <a href="https://github.com/tidyverse">tidyverse Organization</a>. It is installed as part of the <a href="https://www.tidyverse.org">tidyverse meta-package</a> and is <a href="https://www.tidyverse.org/help/">suggested to those seeking help</a>.</p>
+<p>reprex has moved to the <a href="https://github.com/tidyverse" class="external-link">tidyverse Organization</a>. It is installed as part of the <a href="https://www.tidyverse.org" class="external-link">tidyverse meta-package</a> and is <a href="https://www.tidyverse.org/help/" class="external-link">suggested to those seeking help</a>.</p>
 <p><code><a href="../reference/reprex.html">reprex()</a></code> gains several arguments and many arguments can now be controlled via an option, in case a user wants their own defaults.</p>
 <p>The new <code><a href="../reference/reprex_addin.html">reprex_selection()</a></code> add-in reprexes the current selection, with venue controlled by the option <code>reprex.venue</code>. It can be handy to bind to a keyboard shortcut (<a href='https://github.com/tidyverse/reprex/issues/84'>#84</a> <a href='https://github.com/hadley'>@hadley</a>).</p>
 <p>If reprex can’t write to the user’s clipboard (e.g. on RStudio server or Unix-like systems lacking xclip or xsel), it offers to open the output file for manual copy.</p>
@@ -333,7 +339,7 @@ More generally, usage looks like <code><a href="../reference/reprex.html">reprex
 <li>
 <code>tidyverse_quiet</code>: affords control of the startup message of the tidyverse meta-package. Defaults to <code>TRUE</code>, i.e. suppresses the message (important special case of <a href='https://github.com/tidyverse/reprex/issues/70'>#70</a>, <a href='https://github.com/tidyverse/reprex/issues/100'>#100</a>).</li>
 <li>
-<code>std_out_err</code>: appends output sent to stdout and stderr by the reprex rendering process. This can be necessary to reveal output if the reprex spawns child processes or has <code><a href="https://rdrr.io/r/base/system.html">system()</a></code> calls. Defaults to <code>FALSE</code> (<a href='https://github.com/tidyverse/reprex/issues/90'>#90</a>, <a href='https://github.com/tidyverse/reprex/issues/110'>#110</a>).</li>
+<code>std_out_err</code>: appends output sent to stdout and stderr by the reprex rendering process. This can be necessary to reveal output if the reprex spawns child processes or has <code><a href="https://rdrr.io/r/base/system.html" class="external-link">system()</a></code> calls. Defaults to <code>FALSE</code> (<a href='https://github.com/tidyverse/reprex/issues/90'>#90</a>, <a href='https://github.com/tidyverse/reprex/issues/110'>#110</a>).</li>
 <li>
 <code>render</code>: determines if the reprex is actually rendered or just returns after producing the templated <code>.R</code> file. For internal testing.</li>
 </ul>
@@ -345,7 +351,7 @@ More generally, usage looks like <code><a href="../reference/reprex.html">reprex
 <li><p>Line wrapping is preserved from source via a Pandoc option (<a href='https://github.com/tidyverse/reprex/issues/145'>#145</a> <a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/tidyverse/reprex/issues/175'>#175</a>).</p></li>
 <li><p><code>venue = "gh"</code> now targets CommonMark as the standard for GitHub Flavored Markdown (<a href='https://github.com/tidyverse/reprex/issues/77'>#77</a>).</p></li>
 <li><p><code>venue = "so"</code> has appropriate whitespace at the start.</p></li>
-<li><p><code>venue = "ds"</code> is a new value, corresponding to <a href="https://www.discourse.org" class="uri">https://www.discourse.org</a>, which is the platform behind <a href="https://community.rstudio.com">community.rstudio.com</a>. This is currently just an alias for the default <code>"gh"</code> GitHub venue, because the formatting appears to be compatible. Adding the <code>"ds"</code> value so Discourse can be documented and to guard against the possibility that some formatting is actually unique.</p></li>
+<li><p><code>venue = "ds"</code> is a new value, corresponding to <a href="https://www.discourse.org" class="external-link uri">https://www.discourse.org</a>, which is the platform behind <a href="https://community.rstudio.com" class="external-link">community.rstudio.com</a>. This is currently just an alias for the default <code>"gh"</code> GitHub venue, because the formatting appears to be compatible. Adding the <code>"ds"</code> value so Discourse can be documented and to guard against the possibility that some formatting is actually unique.</p></li>
 </ul>
 </div>
 <div id="other-changes" class="section level2">
@@ -354,7 +360,7 @@ More generally, usage looks like <code><a href="../reference/reprex.html">reprex
 <ul>
 <li><p>The <code>keep.source</code> option is set to <code>TRUE</code> when rendering the reprex, so reprexes involving srcrefs should work (<a href='https://github.com/tidyverse/reprex/issues/152'>#152</a>).</p></li>
 <li><p>The “undo” functions (<code><a href="../reference/un-reprex.html">reprex_invert()</a></code>, <code><a href="../reference/un-reprex.html">reprex_clean()</a></code>, <code><a href="../reference/un-reprex.html">reprex_rescue()</a></code>) handle <code>input</code> and <code>outfile</code> like <code><a href="../reference/reprex.html">reprex()</a></code> does. The <code>outfile</code> argument is new (<a href='https://github.com/tidyverse/reprex/issues/129'>#129</a>, <a href='https://github.com/tidyverse/reprex/issues/68'>#68</a>).</p></li>
-<li><p>The default value for knitr’s <code>upload.fun</code> is now set according to the venue. It is <code><a href="https://rdrr.io/pkg/knitr/man/imgur_upload.html">knitr::imgur_upload()</a></code> for all venues except <code>"r"</code>, where it is <code>identity</code> (<a href='https://github.com/tidyverse/reprex/issues/125'>#125</a>).</p></li>
+<li><p>The default value for knitr’s <code>upload.fun</code> is now set according to the venue. It is <code><a href="https://rdrr.io/pkg/knitr/man/imgur_upload.html" class="external-link">knitr::imgur_upload()</a></code> for all venues except <code>"r"</code>, where it is <code>identity</code> (<a href='https://github.com/tidyverse/reprex/issues/125'>#125</a>).</p></li>
 <li><p>The HTML preview should appear in the RStudio Viewer more consistently, especially on Windows (<a href='https://github.com/tidyverse/reprex/issues/75'>#75</a> <a href='https://github.com/yutannihilation'>@yutannihilation</a>).</p></li>
 <li><p>More rigorous use of UTF-8 encoding (<a href='https://github.com/tidyverse/reprex/issues/76'>#76</a> <a href='https://github.com/yutannihilation'>@yutannihilation</a>).</p></li>
 <li><p>Expression input handling has been refactored. As a result, formatR is no longer Suggested. Trailing comments – inline and on their own line – are also now retained (<a href='https://github.com/tidyverse/reprex/issues/89'>#89</a>, <a href='https://github.com/tidyverse/reprex/issues/91'>#91</a>, <a href='https://github.com/tidyverse/reprex/issues/114'>#114</a>, <a href='https://github.com/jennybc'>@jennybc</a> and <a href='https://github.com/jimhester'>@jimhester</a>).</p></li>
@@ -388,17 +394,17 @@ More generally, usage looks like <code><a href="../reference/reprex.html">reprex
 <li><p><code>comment</code> argument added to specify prefix for commented output.</p></li>
 <li><p>Added an RStudio addin, accessed via “Render reprex”.</p></li>
 <li><p><code>input</code> argument to <code><a href="../reference/reprex.html">reprex()</a></code> and friends handles code as string, character vector, or file path.</p></li>
-<li><p>The reprex is rendered via <code><a href="https://callr.r-lib.org/reference/r.html">callr::r_safe()</a></code> and is thus run in a clean, separate R process, eliminating any leakage of objects or loaded packages to/from the calling session.</p></li>
+<li><p>The reprex is rendered via <code><a href="https://callr.r-lib.org/reference/r.html" class="external-link">callr::r_safe()</a></code> and is thus run in a clean, separate R process, eliminating any leakage of objects or loaded packages to/from the calling session.</p></li>
 <li>
 <p><code><a href="../reference/reprex.html">reprex()</a></code> gains optional arguments <code>opts_chunk</code> and <code>opts_knit</code>, taking named list as input, in order to supplement or override default knitr chunk and package options, respectively. (<a href='https://github.com/tidyverse/reprex/issues/33'>#33</a>)</p>
 <ul>
-<li>This made the explicit <code>upload.fun</code> argument unnecessary, so it’s gone. The <code>upload.fun</code> option defaults to <code><a href="https://rdrr.io/pkg/knitr/man/imgur_upload.html">knitr::imgur_upload</a></code>, which means figures produced by the reprex will be uploaded to <a href="https://imgur.com/">imgur.com</a> and the associated image syntax will be put into the Markdown, e.g. <code>![](https://i.imgur.com/QPU5Cg9.png)</code>. (<a href='https://github.com/tidyverse/reprex/issues/15'>#15</a> <a href='https://github.com/paternogbc'>@paternogbc</a>)</li>
+<li>This made the explicit <code>upload.fun</code> argument unnecessary, so it’s gone. The <code>upload.fun</code> option defaults to <code><a href="https://rdrr.io/pkg/knitr/man/imgur_upload.html" class="external-link">knitr::imgur_upload</a></code>, which means figures produced by the reprex will be uploaded to <a href="https://imgur.com/" class="external-link">imgur.com</a> and the associated image syntax will be put into the Markdown, e.g. <code>![](https://i.imgur.com/QPU5Cg9.png)</code>. (<a href='https://github.com/tidyverse/reprex/issues/15'>#15</a> <a href='https://github.com/paternogbc'>@paternogbc</a>)</li>
 </ul>
 </li>
 <li><p>Order of <code><a href="../reference/reprex.html">reprex()</a></code> arguments has changed.</p></li>
-<li><p><code><a href="../reference/reprex.html">reprex()</a></code> gains the <code>si</code> argument to request that <code>devtools::session_info()</code> or <code><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo()</a></code> be appended to reprex code (<a href='https://github.com/tidyverse/reprex/issues/6'>#6</a> <a href='https://github.com/dgrtwo'>@dgrtwo</a>). When <code>si = TRUE</code> and <code>venue = "gh"</code> (the default), session info is wrapped in a collapsible details tag. See <a href="https://github.com/tidyverse/reprex/issues/55">an example</a> (<a href='https://github.com/tidyverse/reprex/issues/55'>#55</a>).</p></li>
+<li><p><code><a href="../reference/reprex.html">reprex()</a></code> gains the <code>si</code> argument to request that <code>devtools::session_info()</code> or <code><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo()</a></code> be appended to reprex code (<a href='https://github.com/tidyverse/reprex/issues/6'>#6</a> <a href='https://github.com/dgrtwo'>@dgrtwo</a>). When <code>si = TRUE</code> and <code>venue = "gh"</code> (the default), session info is wrapped in a collapsible details tag. See <a href="https://github.com/tidyverse/reprex/issues/55" class="external-link">an example</a> (<a href='https://github.com/tidyverse/reprex/issues/55'>#55</a>).</p></li>
 <li><p>Reprex code can be provided as an R expression. (<a href='https://github.com/tidyverse/reprex/issues/6'>#6</a> <a href='https://github.com/dgrtwo'>@dgrtwo</a>, <a href='https://github.com/tidyverse/reprex/issues/35'>#35</a>)</p></li>
-<li><p><code><a href="../reference/reprex.html">reprex()</a></code> uses clipboard functionality from <a href="https://CRAN.R-project.org/package=clipr"><code>clipr</code></a> and thus should work on Windows and suitably prepared Unix-like systems, in addition to Mac OS. (<a href='https://github.com/tidyverse/reprex/issues/16'>#16</a> <a href='https://github.com/mdlincoln'>@mdlincoln</a>)</p></li>
+<li><p><code><a href="../reference/reprex.html">reprex()</a></code> uses clipboard functionality from <a href="https://CRAN.R-project.org/package=clipr" class="external-link"><code>clipr</code></a> and thus should work on Windows and suitably prepared Unix-like systems, in addition to Mac OS. (<a href='https://github.com/tidyverse/reprex/issues/16'>#16</a> <a href='https://github.com/mdlincoln'>@mdlincoln</a>)</p></li>
 </ul>
 </div>
     <div id="reprex-0009000" class="section level1">
@@ -422,12 +428,12 @@ More generally, usage looks like <code><a href="../reference/reprex.html">reprex
 
       <footer>
       <div class="tidyverse">
-  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
+  <p><p>Developed by <a href="https://jennybryan.org" class="external-link">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.</p>,<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
 <div class="author">
   <p>
-    Developed by <a href='https://jennybryan.org'>Jennifer Bryan</a>, Jim Hester, David Robinson, <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.
+    Developed by <a href='https://jennybryan.org'>Jennifer Bryan</a>, Jim Hester, David Robinson, <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://www.rstudio.com'><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
@@ -437,6 +443,8 @@ More generally, usage looks like <code><a href="../reference/reprex.html">reprex
 
   
 
+
+  
 
   </body>
 </html>

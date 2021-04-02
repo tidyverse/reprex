@@ -35,6 +35,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -49,7 +51,7 @@
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">reprex</a>
         <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
+          <span class="partof">part of the <a href="https://tidyverse.org" class="external-link">tidyverse</a></span>
           <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0.9000</span>
         </div>
       </div>
@@ -93,7 +95,7 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Blog posts</li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2021/02/reprex-1-0-0/">reprex 1.0.0</a>
+      <a href="https://www.tidyverse.org/blog/2021/02/reprex-1-0-0/" class="external-link">reprex 1.0.0</a>
     </li>
     <li class="divider">
     <li>
@@ -102,7 +104,7 @@
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/reprex/">
+  <a href="https://github.com/tidyverse/reprex/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -123,7 +125,7 @@
       <h1 data-toc-skip>Reprex do’s and don’ts</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/reprex/blob/master/vignettes/reprex-dos-and-donts.Rmd"><code>vignettes/reprex-dos-and-donts.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/reprex/blob/master/vignettes/reprex-dos-and-donts.Rmd" class="external-link"><code>vignettes/reprex-dos-and-donts.Rmd</code></a></small>
       <div class="hidden name"><code>reprex-dos-and-donts.Rmd</code></div>
 
     </div>
@@ -134,7 +136,7 @@
 <div id="main-requirements" class="section level2">
 <h2 class="hasAnchor">
 <a href="#main-requirements" class="anchor"></a>Main requirements</h2>
-<p><strong>Use the smallest, simplest, most <a href="https://stat.ethz.ch/R-manual/R-patched/library/datasets/html/00Index.html">built-in data</a> possible.</strong></p>
+<p><strong>Use the smallest, simplest, most <a href="https://stat.ethz.ch/R-manual/R-patched/library/datasets/html/00Index.html" class="external-link">built-in data</a> possible.</strong></p>
 <ul>
 <li><p>Think: <code>iris</code> or <code>mtcars</code>. Bore me.</p></li>
 <li><p>If you must make some objects, minimize their size and complexity.</p></li>
@@ -142,17 +144,17 @@
 <p>Many of the functions and packages you already use offer a way to create a small data frame “inline”:</p>
 <ul>
 <li>
-<p><code><a href="https://rdrr.io/r/utils/read.table.html">read.table()</a></code> and friends have a <code>text</code> argument. Example:</p>
+<p><code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table()</a></code> and friends have a <code>text</code> argument. Example:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>text <span class="op">=</span> <span class="st">"a,b\n1,2\n3,4"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span>text <span class="op">=</span> <span class="st">"a,b\n1,2\n3,4"</span><span class="op">)</span>
 <span class="co">#&gt;   a b</span>
 <span class="co">#&gt; 1 1 2</span>
 <span class="co">#&gt; 2 3 4</span></code></pre></div>
 </li>
 <li>
-<p><code><a href="https://tibble.tidyverse.org/reference/tribble.html">tibble::tribble()</a></code> lets you use a natural and readable layout. Example:</p>
+<p><code><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tibble::tribble()</a></code> lets you use a natural and readable layout. Example:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span>
   <span class="op">~</span> <span class="va">a</span>, <span class="op">~</span> <span class="va">b</span>,
     <span class="fl">1</span>,   <span class="fl">2</span>,
     <span class="fl">3</span>,   <span class="fl">4</span>
@@ -165,24 +167,24 @@
 </li>
 </ul>
 </li>
-<li><p>Get just a bit of something with <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code> or by indexing with the result of <code><a href="https://rdrr.io/r/base/sample.html">sample()</a></code>. If anything is random, consider using <code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> to make it repeatable.</p></li>
+<li><p>Get just a bit of something with <code><a href="https://rdrr.io/r/utils/head.html" class="external-link">head()</a></code> or by indexing with the result of <code><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample()</a></code>. If anything is random, consider using <code><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed()</a></code> to make it repeatable.</p></li>
 <li>
-<p>The <a href="https://milesmcbain.github.io/datapasta/">datapasta package</a> can generate code for <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code>, <code><a href="https://tibble.tidyverse.org/reference/tribble.html">tibble::tribble()</a></code>, or <code>data.table::data.table()</code> based on an existing R data frame. For example, a call to <code>tribble_format(head(ChickWeight, 3))</code> leaves this on the clipboard, ready to paste into your reprex:</p>
+<p>The <a href="https://milesmcbain.github.io/datapasta/" class="external-link">datapasta package</a> can generate code for <code><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame()</a></code>, <code><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tibble::tribble()</a></code>, or <code>data.table::data.table()</code> based on an existing R data frame. For example, a call to <code>tribble_format(head(ChickWeight, 3))</code> leaves this on the clipboard, ready to paste into your reprex:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html" class="external-link">tribble</a></span><span class="op">(</span>
  <span class="op">~</span><span class="va">weight</span>, <span class="op">~</span><span class="va">Time</span>, <span class="op">~</span><span class="va">Chick</span>, <span class="op">~</span><span class="va">Diet</span>,
       <span class="fl">42</span>,     <span class="fl">0</span>,    <span class="st">"1"</span>,   <span class="st">"1"</span>,
       <span class="fl">51</span>,     <span class="fl">2</span>,    <span class="st">"1"</span>,   <span class="st">"1"</span>,
       <span class="fl">59</span>,     <span class="fl">4</span>,    <span class="st">"1"</span>,   <span class="st">"1"</span>
 <span class="op">)</span></code></pre></div>
 </li>
-<li><p><code><a href="https://rdrr.io/r/base/dput.html">dput()</a></code> is a decent last resort, i.e. if you simply cannot make do with built-in or simulated data or inline data creation in a more readable format. But <code><a href="https://rdrr.io/r/base/dput.html">dput()</a></code> output is not very human-readable. Avoid if at all possible.</p></li>
+<li><p><code><a href="https://rdrr.io/r/base/dput.html" class="external-link">dput()</a></code> is a decent last resort, i.e. if you simply cannot make do with built-in or simulated data or inline data creation in a more readable format. But <code><a href="https://rdrr.io/r/base/dput.html" class="external-link">dput()</a></code> output is not very human-readable. Avoid if at all possible.</p></li>
 <li><p>Look at official examples and try to write in that style. Consider adapting one.</p></li>
 </ul>
 <p><strong>Include commands on a strict “need to run” basis.</strong></p>
 <ul>
 <li>Ruthlessly strip out anything unrelated to the specific matter at hand.</li>
-<li>Include every single command that is required, e.g. loading specific packages via <code><a href="https://rdrr.io/r/base/library.html">library(foo)</a></code>.</li>
+<li>Include every single command that is required, e.g. loading specific packages via <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(foo)</a></code>.</li>
 </ul>
 <p><strong>Consider including so-called “session info”</strong>, i.e. your OS and versions of R and add-on packages, if it’s conceivable that it matters.</p>
 <ul>
@@ -190,12 +192,12 @@
 </ul>
 <p><strong>Whitespace rationing is not in effect.</strong></p>
 <ul>
-<li>Use good <a href="https://style.tidyverse.org">coding style</a>.</li>
+<li>Use good <a href="https://style.tidyverse.org" class="external-link">coding style</a>.</li>
 <li>Use <code><a href="../reference/reprex.html">reprex(..., style = TRUE)</a></code> to request automated styling of your code.</li>
 </ul>
 <p><strong>Pack it in, pack it out, and don’t take liberties with other people’s computers.</strong> You are asking people to run this code!</p>
 <ul>
-<li><p>Don’t start with <code><a href="https://rdrr.io/r/base/rm.html">rm(list = ls())</a></code>. It is anti-social to clobber other people’s workspaces.</p></li>
+<li><p>Don’t start with <code><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm(list = ls())</a></code>. It is anti-social to clobber other people’s workspaces.</p></li>
 <li><p>Don’t start with <code>setwd("C:\Users\jenny\path\that\only\I\have")</code>, because it won’t work on anyone else’s computer.</p></li>
 <li><p>Don’t mask built-in functions, i.e. don’t define a new function named <code>c</code> or <code>mean</code>.</p></li>
 <li>
@@ -211,7 +213,7 @@
 <span id="cb5-3"><a href="#cb5-3"></a><span class="kw">file.remove</span>(<span class="st">"foo.txt"</span>)</span></code></pre></div>
 </li>
 <li><p>Don’t delete files or objects that you didn’t create in the first place.</p></li>
-<li><p>Take advantage of R’s built-in ability to create temporary files and directories. Read up on <a href="https://stat.ethz.ch/R-manual/R-patched/library/base/html/tempfile.html"><code>tempfile()</code> and <code>tempdir()</code></a>.</p></li>
+<li><p>Take advantage of R’s built-in ability to create temporary files and directories. Read up on <a href="https://stat.ethz.ch/R-manual/R-patched/library/base/html/tempfile.html" class="external-link"><code>tempfile()</code> and <code>tempdir()</code></a>.</p></li>
 </ul>
 </div>
 <div id="this-seems-like-a-lot-of-work" class="section level2">
@@ -224,7 +226,7 @@
 <div id="further-reading" class="section level2">
 <h2 class="hasAnchor">
 <a href="#further-reading" class="anchor"></a>Further reading:</h2>
-<p><a href="https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example/16532098">How to make a great R reproducible example?</a> thread on StackOverflow</p>
+<p><a href="https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example/16532098" class="external-link">How to make a great R reproducible example?</a> thread on StackOverflow</p>
 </div>
 <div id="package-philosophy" class="section level2">
 <h2 class="hasAnchor">
@@ -237,7 +239,7 @@
 </ul>
 <p>Accomplished like so:</p>
 <ul>
-<li><p>Use <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">rmarkdown::render()</a></code> to run the code and capture output that you would normally see on your screen. This is done in a separate R process, via <a href="https://callr.r-lib.org">callr</a>, to guarantee it is self-contained.</p></li>
+<li><p>Use <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">rmarkdown::render()</a></code> to run the code and capture output that you would normally see on your screen. This is done in a separate R process, via <a href="https://callr.r-lib.org" class="external-link">callr</a>, to guarantee it is self-contained.</p></li>
 <li><p>Use chunk option <code>comment = "#&gt;"</code> to include the output while retaining executability.</p></li>
 </ul>
 </div>
@@ -254,13 +256,14 @@
 
 
       <footer><div class="tidyverse">
-  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://jennybryan.org" class="external-link external-link">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz" class="external-link external-link">Hadley Wickham</a>, <a href="https://www.rstudio.com" class="external-link external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.</p>,<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link external-link">pkgdown</a> 1.6.1.9001.</p>
 </div>
 
 <div class="author">
   <p>
-    Developed by <a href="https://jennybryan.org">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
+    Developed by <a href="https://jennybryan.org" class="external-link">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
+    Site built by <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a>.
   </p>
 </div>
 
@@ -269,6 +272,8 @@
 
   
 
+
+  
 
   </body>
 </html>

@@ -43,6 +43,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -134,11 +136,11 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p>Prepare reprexes for posting to <a href="https://guides.github.com/features/issues/">GitHub issues</a>, <a href="https://stackoverflow.com/questions/tagged/r">StackOverflow</a>, in Slack <a href="https://slack.com/intl/en-ca/help/articles/201457107-Send-and-read-messages">messages</a> or <a href="https://slack.com/intl/en-ca/help/articles/204145658-Create-a-snippet">snippets</a>, or even to paste into PowerPoint or Keynote slides. What is a <code>reprex</code>? It’s a <strong>repr</strong>oducible <strong>ex</strong>ample, as coined by <a href="https://twitter.com/romain_francois/status/530011023743655936">Romain Francois</a>.</p>
-<p><a href="https://media.giphy.com/media/fdLR6LGwAiVNhGQNvf/giphy.gif"><img src="reference/figures/help-me-help-you.png" align="right"></a></p>
+<p>Prepare reprexes for posting to <a href="https://guides.github.com/features/issues/" class="external-link">GitHub issues</a>, <a href="https://stackoverflow.com/questions/tagged/r" class="external-link">StackOverflow</a>, in Slack <a href="https://slack.com/intl/en-ca/help/articles/201457107-Send-and-read-messages" class="external-link">messages</a> or <a href="https://slack.com/intl/en-ca/help/articles/204145658-Create-a-snippet" class="external-link">snippets</a>, or even to paste into PowerPoint or Keynote slides. What is a <code>reprex</code>? It’s a <strong>repr</strong>oducible <strong>ex</strong>ample, as coined by <a href="https://twitter.com/romain_francois/status/530011023743655936" class="external-link">Romain Francois</a>.</p>
+<p><a href="https://media.giphy.com/media/fdLR6LGwAiVNhGQNvf/giphy.gif" class="external-link"><img src="reference/figures/help-me-help-you.png" align="right"></a></p>
 <p>Given R code on the clipboard, selected in RStudio, as an expression (quoted or not), or in a file …</p>
 <ul>
-<li>run it via <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">rmarkdown::render()</a></code>,</li>
+<li>run it via <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">rmarkdown::render()</a></code>,</li>
 <li>with deliberate choices re: <code>render()</code> arguments, knitr options, and Pandoc options.</li>
 </ul>
 <p>Get resulting runnable code + output as</p>
@@ -154,11 +156,11 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Install from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"reprex"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"reprex"</span><span class="op">)</span></code></pre></div>
 <p>or get a development version from GitHub:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidyverse/reprex"</span><span class="op">)</span></code></pre></div>
-<p>On Linux, you probably want to install <a href="https://github.com/astrand/xclip">xclip</a> or <a href="http://www.vergenet.net/~conrad/software/xsel/">xsel</a>, so reprex can access the X11 clipboard. This is ‘nice to have’, but not mandatory. The usual <code>sudo apt-get install</code> or <code>sudo yum install</code> installation methods should work for both xclip and xsel.</p>
+<p>On Linux, you probably want to install <a href="https://github.com/astrand/xclip" class="external-link">xclip</a> or <a href="http://www.vergenet.net/~conrad/software/xsel/" class="external-link">xsel</a>, so reprex can access the X11 clipboard. This is ‘nice to have’, but not mandatory. The usual <code>sudo apt-get install</code> or <code>sudo yum install</code> installation methods should work for both xclip and xsel.</p>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
@@ -182,7 +184,7 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span>
 <span class="co">#&gt; [1] 1 2 3 4</span>
-<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
 <span class="co">#&gt; [1] 2.5</span></code></pre></div>
 <p>Anyone else can copy, paste, and run this immediately.</p>
 <p>In addition to GitHub, this Markdown also works on Stack Overflow and Discourse. Those venues can be formally requested via <code>venue = "so"</code> and <code>venue = "ds"</code>, but they are just aliases for <code>venue = "gh"</code>.</p>
@@ -199,7 +201,7 @@
 <li><p>Get a runnable R script, augmented with commented output, with <code><a href="reference/reprex.html">reprex(..., venue = "R")</a></code>. This is useful for Slack code snippets, email, etc.</p></li>
 <li><p>Get html with <code><a href="reference/reprex.html">reprex(..., venue = "html")</a></code>. Useful for sites that don’t support Markdown.</p></li>
 <li><p>Prepare (un)rendered, syntax-highlighted code snippets to paste into Keynote or PowerPoint, with <code><a href="reference/reprex.html">reprex(..., venue = "rtf")</a></code>. This feature is still experimental; see the <a href="https://reprex.tidyverse.org/articles/articles/rtf.html">associated article</a> for more.</p></li>
-<li><p>By default, figures are uploaded to <a href="https://imgur.com/">imgur.com</a> and the resulting URL is dropped into an inline image tag.</p></li>
+<li><p>By default, figures are uploaded to <a href="https://imgur.com/" class="external-link">imgur.com</a> and the resulting URL is dropped into an inline image tag.</p></li>
 <li><p>If you really need to reprex in a specific directory, use the <code>wd</code> argument. For example, <code><a href="reference/reprex.html">reprex(wd = ".")</a></code> requests the current working directory.</p></li>
 <li><p>Append session info via <code><a href="reference/reprex.html">reprex(..., session_info = TRUE)</a></code>.</p></li>
 <li>
@@ -226,7 +228,7 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
 <li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=reprex">https://​cloud.r-project.org/​package=reprex</a>
 </li>
@@ -236,22 +238,25 @@
 </li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
 <li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
+
 <div class="community">
-<h2>Community</h2>
+<h2 data-toc-skip>Community</h2>
 <ul class="list-unstyled">
 <li><a href="CONTRIBUTING.html">Contributing guide</a></li>
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>
 <a href="https://jennybryan.org">Jennifer Bryan</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-6983-2759" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
@@ -264,21 +269,23 @@
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://cran.r-project.org/package=reprex"><img src="https://www.r-pkg.org/badges/version/reprex" alt="CRAN_Status_Badge"></a></li>
-<li><a href="https://github.com/tidyverse/reprex/actions"><img src="https://github.com/tidyverse/reprex/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://codecov.io/gh/tidyverse/reprex?branch=master"><img src="https://codecov.io/gh/tidyverse/reprex/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="lifecycle"></a></li>
+<li><a href="https://cran.r-project.org/package=reprex" class="external-link"><img src="https://www.r-pkg.org/badges/version/reprex" alt="CRAN_Status_Badge"></a></li>
+<li><a href="https://github.com/tidyverse/reprex/actions" class="external-link"><img src="https://github.com/tidyverse/reprex/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://codecov.io/gh/tidyverse/reprex?branch=master" class="external-link"><img src="https://codecov.io/gh/tidyverse/reprex/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="lifecycle"></a></li>
 </ul>
 </div>
-</div>
+
+  </div>
 </div>
 
 
       <footer><div class="tidyverse">
-  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://jennybryan.org" class="external-link">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.</p>,<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p>
 </div>
 
 <div class="author">
@@ -293,6 +300,8 @@
 
   
 
+
+  
 
   </body>
 </html>
