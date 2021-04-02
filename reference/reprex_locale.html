@@ -98,7 +98,7 @@ easier for an English-speaking audience to follow." />
         <a class="navbar-brand" href="../index.html">reprex</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9002</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
         </div>
       </div>
     </div>
@@ -227,7 +227,8 @@ need to set this than the <code>language</code> argument. You may have more succ
 setting specific categories, such as <code>"LC_TIME"</code>, than multi-category
 shortcuts like <code>"LC_ALL"</code> or <code>"LANG"</code>. The <code>locale</code> values must follow the
 format dictated by your operating system and the requested locale must be
-installed. Note that the format for <code>locale</code> and <code>language</code> are different
+installed. On *nix systems, <code>locale -a</code> is a good way to see which locales
+are installed. Note that the format for <code>locale</code> and <code>language</code> are different
 from each other on Windows.</p>
 <p>Examples: <code>"en_CA.UTF-8"</code> (macOS), <code>"French_France.1252"</code> (Windows).</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
