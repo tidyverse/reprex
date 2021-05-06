@@ -17,6 +17,8 @@ navbar:
       text: News
       menu:
       - text: "Blog posts"
+      - text: "reprex 2.0.0"
+        href: https://www.tidyverse.org/blog/2021/04/reprex-2-0-0/
       - text: "reprex 1.0.0"
         href: https://www.tidyverse.org/blog/2021/02/reprex-1-0-0/
       - text: "------------------"

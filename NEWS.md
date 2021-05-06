@@ -1,5 +1,7 @@
 # reprex (development version)
 
+# reprex 2.0.0
+
 ## When the clipboard isn't available
 
 We've made reprex more pleasant to use in settings where we cannot access the user's clipboard from R.

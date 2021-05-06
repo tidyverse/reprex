@@ -15,12 +15,13 @@
 #'
 #' @section `locale`:
 #' Use the `locale` argument only if you want to affect something like how
-#' day-of-the week or month is converted to character. You are less likely to
+#' day-of-the-week or month is converted to character. You are less likely to
 #' need to set this than the `language` argument. You may have more success
 #' setting specific categories, such as `"LC_TIME"`, than multi-category
 #' shortcuts like `"LC_ALL"` or `"LANG"`. The `locale` values must follow the
 #' format dictated by your operating system and the requested locale must be
-#' installed. Note that the format for `locale` and `language` are different
+#' installed. On *nix systems, `locale -a` is a good way to see which locales
+#' are installed. Note that the format for `locale` and `language` are different
 #' from each other on Windows.
 #'
 #' Examples: `"en_CA.UTF-8"` (macOS), `"French_France.1252"` (Windows).
