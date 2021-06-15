@@ -14,7 +14,7 @@ test_that(".Rprofile local to reprex target directory is consulted & messaged", 
   expect_match(out, "bbb", all = FALSE)
   expect_messages_to_include(
     msg,
-    c("Local `[.]Rprofile` detected", "bbb")
+    c("Local '[.]Rprofile' detected", "bbb")
   )
 
   msg <- capture_messages(
@@ -23,7 +23,7 @@ test_that(".Rprofile local to reprex target directory is consulted & messaged", 
   expect_match(out, "aaa", all = FALSE)
   expect_messages_to_include(
     msg,
-    c("Local `[.]Rprofile` detected", "aaa")
+    c("Local '[.]Rprofile' detected", "aaa")
   )
 })
 
