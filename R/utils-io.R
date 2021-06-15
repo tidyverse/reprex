@@ -154,12 +154,17 @@ make_filebase <- function(infile = NULL, wd = NULL) {
 }
 
 add_suffix <- function(x, suffix = "reprex") {
+  if (!nzchar(suffix)) {
+    return(x)
+  }
+
   orig_ext <- path_ext(x)
   filebase <- path_ext_remove(x)
-  if (nzchar(suffix)) {
-    filebase <- paste0(filebase, "_", suffix)
+  suffix <- paste0("_", suffix)
+  if (endsWith(filebase, suffix)) {
+    return(x)
   }
-  path_ext_set(filebase, orig_ext)
+  path_ext_set(paste0(filebase, suffix), orig_ext)
 }
 
 path_mutate <- function(path, suffix = "", ext = NULL) {

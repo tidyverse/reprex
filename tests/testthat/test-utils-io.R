@@ -34,3 +34,10 @@ test_that("retrofit_files() works", {
     retrofit_files(infile = "a/path/foo.R", outfile = "other/path/blah")
   )
 })
+
+# root cause of
+# https://github.com/tidyverse/reprex/issues/379
+test_that("we don't add a suffix more than once", {
+  x <- "blah_r.R"
+  expect_equal(x, add_suffix(x, suffix = "r"))
+})
