@@ -44,17 +44,17 @@
       reprex_path("Something descriptive:", "path/to/file")
     Message <cliMessage>
       v Something descriptive:
-        path/to/file
+        'path/to/file'
     Code
       x <- "path/to/file"
       reprex_path("Something descriptive:", x)
     Message <cliMessage>
       v Something descriptive:
-        path/to/file
+        'path/to/file'
     Code
       y <- c("path", "to", "file")
       reprex_path("Something descriptive:", path_join(y))
     Message <cliMessage>
       v Something descriptive:
-        path/to/file
+        'path/to/file'
 
