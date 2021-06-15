@@ -134,7 +134,7 @@ easier for an English-speaking audience to follow." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../articles/index.html">More...</a>
+      <a href="../articles/index.html">More articles...</a>
     </li>
   </ul>
 </li>
@@ -189,7 +189,7 @@ Typical usage is for someone on a Spanish system to create a reprex that is
 easier for an English-speaking audience to follow.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>reprex_locale</span><span class='op'>(</span><span class='va'>...</span>, language <span class='op'>=</span> <span class='st'>"en"</span>, locale <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>reprex_locale</span><span class='op'>(</span><span class='va'>...</span>, language <span class='op'>=</span> <span class='st'>"en"</span>, locale <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -222,7 +222,7 @@ for more.</p></td>
     
 
 <p>Use the <code>language</code> argument to express the preferred language of error
-messages. The output of <code><a href='https://rdrr.io/r/base/list.files.html'>dir(system.file(package = "translations"))</a></code> may
+messages. The output of <code>dir(system.file(package = "translations"))</code> may
 provide some helpful ideas. The <code>language</code> should generally follow "XPG
 syntax": a two-letter language code, optionally followed by other modifiers.</p>
 <p>Examples: <code>"en"</code>, <code>"de"</code>, <code>"en_GB"</code>, <code>"pt_BR"</code>.</p>
@@ -252,37 +252,37 @@ section of the R Installation and Administration manual</p></li>
 </div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-
-<span class='co'># if all you want to do is make sure messages are in English</span>
-<span class='fu'>reprex_locale</span><span class='op'>(</span><span class='st'>"a"</span> <span class='op'>/</span> <span class='fl'>2</span><span class='op'>)</span>
-
-<span class='co'># change messages to a specific language</span>
-<span class='fu'>reprex_locale</span><span class='op'>(</span><span class='op'>{</span>
-  <span class='st'>"a"</span> <span class='op'>/</span> <span class='fl'>2</span>
-<span class='op'>}</span>, language <span class='op'>=</span> <span class='st'>"it"</span><span class='op'>)</span>
-
-<span class='fu'>reprex_locale</span><span class='op'>(</span><span class='op'>{</span>
-  <span class='st'>"a"</span> <span class='op'>/</span> <span class='fl'>2</span>
-<span class='op'>}</span>, language <span class='op'>=</span> <span class='st'>"fr_CA"</span><span class='op'>)</span>
-
-<span class='fu'>reprex_locale</span><span class='op'>(</span><span class='op'>{</span>
-  <span class='st'>"a"</span> <span class='op'>/</span> <span class='fl'>2</span>
-<span class='op'>}</span>, language <span class='op'>=</span> <span class='st'>"pt_BR"</span><span class='op'>)</span>
-
-<span class='co'># get day-of-week and month to print in French (not Windows)</span>
-<span class='fu'>reprex_locale</span><span class='op'>(</span><span class='op'>{</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2019-01-01"</span>, <span class='st'>"2019-02-01"</span><span class='op'>)</span><span class='op'>)</span>, <span class='st'>"%a %b %d"</span><span class='op'>)</span>
-<span class='op'>}</span>, locale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>LC_TIME <span class='op'>=</span> <span class='st'>"fr_FR"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># get day-of-week and month to print in French (Windows)</span>
-<span class='co'># assumes that the relevant language is installed on the system</span>
-<span class='co'># LC_TIME can also be specified as "French" or "French_France" here</span>
- <span class='fu'>reprex_locale</span><span class='op'>(</span><span class='op'>{</span>
-   <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2019-01-01"</span>, <span class='st'>"2019-02-01"</span><span class='op'>)</span><span class='op'>)</span>, <span class='st'>"%a %b %d"</span><span class='op'>)</span>
- <span class='op'>}</span>, locale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>LC_TIME <span class='op'>=</span> <span class='st'>"French_France.1252"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># if all you want to do is make sure messages are in English</span></span>
+<span class='r-in'><span class='fu'>reprex_locale</span><span class='op'>(</span><span class='st'>"a"</span> <span class='op'>/</span> <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># change messages to a specific language</span></span>
+<span class='r-in'><span class='fu'>reprex_locale</span><span class='op'>(</span><span class='op'>{</span></span>
+<span class='r-in'>  <span class='st'>"a"</span> <span class='op'>/</span> <span class='fl'>2</span></span>
+<span class='r-in'><span class='op'>}</span>, language <span class='op'>=</span> <span class='st'>"it"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>reprex_locale</span><span class='op'>(</span><span class='op'>{</span></span>
+<span class='r-in'>  <span class='st'>"a"</span> <span class='op'>/</span> <span class='fl'>2</span></span>
+<span class='r-in'><span class='op'>}</span>, language <span class='op'>=</span> <span class='st'>"fr_CA"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>reprex_locale</span><span class='op'>(</span><span class='op'>{</span></span>
+<span class='r-in'>  <span class='st'>"a"</span> <span class='op'>/</span> <span class='fl'>2</span></span>
+<span class='r-in'><span class='op'>}</span>, language <span class='op'>=</span> <span class='st'>"pt_BR"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># get day-of-week and month to print in French (not Windows)</span></span>
+<span class='r-in'><span class='fu'>reprex_locale</span><span class='op'>(</span><span class='op'>{</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2019-01-01"</span>, <span class='st'>"2019-02-01"</span><span class='op'>)</span><span class='op'>)</span>, <span class='st'>"%a %b %d"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span>, locale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>LC_TIME <span class='op'>=</span> <span class='st'>"fr_FR"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># get day-of-week and month to print in French (Windows)</span></span>
+<span class='r-in'><span class='co'># assumes that the relevant language is installed on the system</span></span>
+<span class='r-in'><span class='co'># LC_TIME can also be specified as "French" or "French_France" here</span></span>
+<span class='r-in'> <span class='fu'>reprex_locale</span><span class='op'>(</span><span class='op'>{</span></span>
+<span class='r-in'>   <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2019-01-01"</span>, <span class='st'>"2019-02-01"</span><span class='op'>)</span><span class='op'>)</span>, <span class='st'>"%a %b %d"</span><span class='op'>)</span></span>
+<span class='r-in'> <span class='op'>}</span>, locale <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>LC_TIME <span class='op'>=</span> <span class='st'>"French_France.1252"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -294,7 +294,7 @@ section of the R Installation and Administration manual</p></li>
 
       <footer>
       <div class="tidyverse">
-  <p><p>Developed by <a href="https://jennybryan.org" class="external-link">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.</p>,<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
+  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">

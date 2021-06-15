@@ -82,7 +82,7 @@
     </li>
     <li class="divider">
     <li>
-      <a href="../../articles/index.html">More...</a>
+      <a href="../../articles/index.html">More articles...</a>
     </li>
   </ul>
 </li>
@@ -161,14 +161,14 @@
 <p><img src="https://raw.githubusercontent.com/tidyverse/reprex/master/img/reprex-copy.gif" alt="Gif of reprex copying code, running reprex, and demonstrating the html preview of the code text" style="width: 100%;max-height: 100%"></p>
 </div>
 
-<p>This means you can copy this to say, GitHub (<code><a href="../../reference/reprex.html">reprex(venue = "gh")</a></code>) (the default) to help you file an issue:</p>
+<p>This means you can copy this to say, GitHub (<code>reprex(venue = "gh")</code>) (the default) to help you file an issue:</p>
 <p>
 </p>
 <div style="height: auto">
 <p><img src="https://raw.githubusercontent.com/tidyverse/reprex/master/img/reprex-github.gif" alt="Gif of reprex copying code, running reprex, and demonstrating the html preview of the code text" style="width: 100%;max-height: 100%"></p>
 </div>
 
-<p>There is also an option for Stack Overflow (<code><a href="../../reference/reprex.html">reprex(venue = "so")</a></code>).</p>
+<p>There is also an option for Stack Overflow (<code>reprex(venue = "so")</code>).</p>
 <p>How does this work? <code><a href="../../reference/reprex.html">reprex()</a></code> takes the section of copied code and then runs <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">rmarkdown::render()</a></code> on it, which starts a fresh environment, and runs the code. This means that <code><a href="../../reference/reprex.html">reprex()</a></code> will fail hard and fail early if your examples aren’t reproducible. If you don’t have the correct library loaded, it will show the error messages.</p>
 <p>
 </p>
@@ -254,7 +254,7 @@ ggplot(data = lm_augmented,
   geom_point()
 
 ![](http://i.imgur.com/h72ZEKG.png)</code></pre>
-<p>You can even show the results of the <code>session_info()</code>, for maximum reproducibility, by adding the argument: <code><a href="../../reference/reprex.html">reprex::reprex(session_info = TRUE)</a></code>, which adds a super nifty drop down box for the session info.</p>
+<p>You can even show the results of the <code>session_info()</code>, for maximum reproducibility, by adding the argument: <code>reprex::reprex(session_info = TRUE)</code>, which adds a super nifty drop down box for the session info.</p>
 <p>
 </p>
 <div style="height: auto">
@@ -286,8 +286,7 @@ ggplot(data = lm_augmented,
 
 
       <footer><div class="tidyverse">
-  <p></p>
-<p>Developed by <a href="https://jennybryan.org" class="external-link external-link">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz" class="external-link external-link">Hadley Wickham</a>, <a href="https://www.rstudio.com" class="external-link external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.</p>,<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link external-link">pkgdown</a> 1.6.1.9001.</p>
+  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org" class="external-link">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">

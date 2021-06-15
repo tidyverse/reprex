@@ -1,7 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://reprex.tidyverse.org/404.html</loc>
+  </url>
+  <url>
+    <loc>https://reprex.tidyverse.org/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>https://reprex.tidyverse.org/CONTRIBUTING.html</loc>
+  </url>
+  <url>
+    <loc>https://reprex.tidyverse.org/ISSUE_TEMPLATE.html</loc>
+  </url>
+  <url>
+    <loc>https://reprex.tidyverse.org/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://reprex.tidyverse.org/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://reprex.tidyverse.org/SUPPORT.html</loc>
+  </url>
+  <url>
+    <loc>https://reprex.tidyverse.org/articles/articles/datapasta-reprex.html</loc>
+  </url>
+  <url>
+    <loc>https://reprex.tidyverse.org/articles/articles/learn-reprex.html</loc>
+  </url>
+  <url>
+    <loc>https://reprex.tidyverse.org/articles/articles/magic-reprex.html</loc>
+  </url>
+  <url>
+    <loc>https://reprex.tidyverse.org/articles/articles/rtf.html</loc>
+  </url>
+  <url>
+    <loc>https://reprex.tidyverse.org/articles/articles/suppress-startup-messages.html</loc>
+  </url>
+  <url>
+    <loc>https://reprex.tidyverse.org/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://reprex.tidyverse.org/articles/reprex-dos-and-donts.html</loc>
+  </url>
+  <url>
+    <loc>https://reprex.tidyverse.org/authors.html</loc>
+  </url>
+  <url>
     <loc>https://reprex.tidyverse.org/index.html</loc>
+  </url>
+  <url>
+    <loc>https://reprex.tidyverse.org/news/index.html</loc>
+  </url>
+  <url>
+    <loc>https://reprex.tidyverse.org/reference/index.html</loc>
   </url>
   <url>
     <loc>https://reprex.tidyverse.org/reference/reprex-package.html</loc>
@@ -29,23 +80,5 @@
   </url>
   <url>
     <loc>https://reprex.tidyverse.org/reference/un-reprex.html</loc>
-  </url>
-  <url>
-    <loc>https://reprex.tidyverse.org/articles/articles/datapasta-reprex.html</loc>
-  </url>
-  <url>
-    <loc>https://reprex.tidyverse.org/articles/articles/learn-reprex.html</loc>
-  </url>
-  <url>
-    <loc>https://reprex.tidyverse.org/articles/articles/magic-reprex.html</loc>
-  </url>
-  <url>
-    <loc>https://reprex.tidyverse.org/articles/articles/rtf.html</loc>
-  </url>
-  <url>
-    <loc>https://reprex.tidyverse.org/articles/articles/suppress-startup-messages.html</loc>
-  </url>
-  <url>
-    <loc>https://reprex.tidyverse.org/articles/reprex-dos-and-donts.html</loc>
   </url>
 </urlset>

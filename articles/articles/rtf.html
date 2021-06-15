@@ -82,7 +82,7 @@
     </li>
     <li class="divider">
     <li>
-      <a href="../../articles/index.html">More...</a>
+      <a href="../../articles/index.html">More articles...</a>
     </li>
   </ul>
 </li>
@@ -135,7 +135,7 @@
 
     
     
-<p>Use <code><a href="../../reference/reprex_venue.html">reprex_rtf()</a></code> to get output in <a href="https://en.wikipedia.org/wiki/Rich_Text_Format" class="external-link">Rich Text Format</a>. It is a convenience wrapper around <code><a href="../../reference/reprex.html">reprex(venue = "rtf")</a></code>. This is useful for creating syntax highlighted code snippets – rendered or not – to paste into software such as Keynote, PowerPoint, or Word.</p>
+<p>Use <code><a href="../../reference/reprex_venue.html">reprex_rtf()</a></code> to get output in <a href="https://en.wikipedia.org/wiki/Rich_Text_Format" class="external-link">Rich Text Format</a>. It is a convenience wrapper around <code>reprex(venue = "rtf")</code>. This is useful for creating syntax highlighted code snippets – rendered or not – to paste into software such as Keynote, PowerPoint, or Word.</p>
 <p>Why is RTF special? Although Pandoc can produce RTF and, therefore, so can <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">rmarkdown::render()</a></code> and <code><a href="../../reference/reprex.html">reprex::reprex()</a></code>, Pandoc’s syntax highlighting is unavailable for RTF output. For now, we’ve got to get the functionality from somewhere else. Syntax highlighting is a non-issue for <code>venue = "gh"</code> (GitHub) and <code>venue = "so"</code> (Stack Overflow), because the target sites take care of that when the Markdown content is displayed.</p>
 <p>
 </p>
@@ -146,7 +146,7 @@
 <p>The “rtf” venue was introduced in reprex v0.2.1 and is experimental. The <a href="http://www.andre-simon.de/doku/highlight/en/highlight.php" class="external-link">highlight</a> command line tool must (1) be installed and (2) be on your <code>PATH</code>. People have successfully used <code><a href="../../reference/reprex_venue.html">reprex_rtf()</a></code> on macOS and Windows (specifically, Windows 10 + Windows PowerShell 5.1). We consider it experimental because of the rather hacky way we shell out to highlight and, long-term, it would be preferable to get syntax-highlighted RTF through a proper R package. The existing <a href="https://cran.r-project.org/package=highlight" class="external-link">highlight R package</a> can’t do this (yet?).</p>
 <div id="how-to-install-highlight" class="section level3">
 <h3 class="hasAnchor">
-<a href="#how-to-install-highlight" class="anchor"></a>How to install highlight</h3>
+<a href="#how-to-install-highlight" class="anchor" aria-hidden="true"></a>How to install highlight</h3>
 <p>The highlight website offers downloads in various forms, for various OSes:</p>
 <ul>
 <li><a href="http://www.andre-simon.de/zip/download.php" class="external-link uri">http://www.andre-simon.de/zip/download.php</a></li>
@@ -156,7 +156,7 @@
 <p>For Windows users who use <a href="https://chocolatey.org/" class="external-link">chocolatey</a>, this works:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="ex">choco</span> install highlight</span></code></pre></div>
 <p>On Windows, the chocolatey method did not add highlight to my <code>PATH</code> and this could affect other methods of installation as well. In this case, you’ll <a href="https://www.maketecheasier.com/what-is-the-windows-path/" class="external-link">need to do this manually</a>. In my case, I needed to add <code>C:\Program Files\Highlight</code> to <code>PATH</code>. A second issue we’ve seen is with the scoop package manager for Windows, which uses a shim-based method of making the executables it installs findable. The shim method appears to be less resilient to the different ways of calling highlight from R.</p>
-<p><code><a href="../../reference/reprex_venue.html">reprex_rtf()</a></code> should work when <code><a href="https://rdrr.io/r/base/Sys.which.html" class="external-link">Sys.which("highlight")</a></code>, executed in R, correctly returns the path to your highlight executable.</p>
+<p><code><a href="../../reference/reprex_venue.html">reprex_rtf()</a></code> should work when <code>Sys.which("highlight")</code>, executed in R, correctly returns the path to your highlight executable.</p>
 <p>Here’s how that looks for me on macOS:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Sys.which.html" class="external-link">Sys.which</a></span><span class="op">(</span><span class="st">"highlight"</span><span class="op">)</span>
@@ -172,7 +172,7 @@
 </div>
 <div id="basic-usage" class="section level2">
 <h2 class="hasAnchor">
-<a href="#basic-usage" class="anchor"></a>Basic usage</h2>
+<a href="#basic-usage" class="anchor" aria-hidden="true"></a>Basic usage</h2>
 <p>Let’s reprex some code and stick it on a Keynote slide with other non-R “features”.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/reprex.html">reprex</a></span><span class="op">(</span><span class="op">{</span>
@@ -183,7 +183,7 @@
 </div>
 <div id="highlight-options" class="section level2">
 <h2 class="hasAnchor">
-<a href="#highlight-options" class="anchor"></a>highlight options</h2>
+<a href="#highlight-options" class="anchor" aria-hidden="true"></a>highlight options</h2>
 <p>If you don’t like the defaults, control highlight command line arguments by setting <code>reprex.highlight.*</code> options. Why options? I didn’t want to burden <code><a href="../../reference/reprex.html">reprex()</a></code> with even more arguments and this is usually something you want to set globally for yourself or for an entire project or talk or course.</p>
 <p>Set these options with code like this:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -231,7 +231,7 @@
 </div>
 <div id="run-or-not" class="section level2">
 <h2 class="hasAnchor">
-<a href="#run-or-not" class="anchor"></a>Run … or not</h2>
+<a href="#run-or-not" class="anchor" aria-hidden="true"></a>Run … or not</h2>
 <p>If you just want to highlight code, but not run it, set chunk option <code>eval = FALSE</code> option, i.e. put a special comment as the first line of your reprex source:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#+ eval = FALSE</span>
@@ -242,10 +242,10 @@
 </div>
 <div id="what-if-each-snippet-cant-be-self-contained" class="section level2">
 <h2 class="hasAnchor">
-<a href="#what-if-each-snippet-cant-be-self-contained" class="anchor"></a>What if each snippet can’t be self-contained?</h2>
+<a href="#what-if-each-snippet-cant-be-self-contained" class="anchor" aria-hidden="true"></a>What if each snippet can’t be self-contained?</h2>
 <div id="reprexprex-and-friends" class="section level3">
 <h3 class="hasAnchor">
-<a href="#reprexprex-and-friends" class="anchor"></a><code>reprex:::prex()</code> and friends</h3>
+<a href="#reprexprex-and-friends" class="anchor" aria-hidden="true"></a><code>reprex:::prex()</code> and friends</h3>
 <p>When preparing bits of code for a presentation, it can be impractical to make each snippet completely self-contained. You really need to run the snippets in the current workspace and session. But <code><a href="../../reference/reprex.html">reprex()</a></code> does not allow this.</p>
 <p>The <strong>unexported</strong> function <code>prex()</code> addresses this use case. It’s like <code><a href="../../reference/reprex.html">reprex()</a></code>, but much less reproducible!</p>
 <ul>
@@ -302,7 +302,7 @@
 </div>
 <div id="selectively-hide-and-reveal-code" class="section level2">
 <h2 class="hasAnchor">
-<a href="#selectively-hide-and-reveal-code" class="anchor"></a>Selectively hide and reveal code</h2>
+<a href="#selectively-hide-and-reveal-code" class="anchor" aria-hidden="true"></a>Selectively hide and reveal code</h2>
 <p><em>Before <code>prex()</code> existed, you had to use a more cumbersome technique to produce small snippets, by hiding code. We leave this here in case it is still useful in some situations.</em></p>
 <p>You can use knitr chunk options to selectively hide code, i.e. to run a large snippet, but only include a small bit in the output.</p>
 <p>This is easiest to show by example. If you <code><a href="../../reference/reprex.html">reprex()</a></code> this code, only the last three lines and their output will appear in the output. But the other lines will be run, i.e. <code>str_reverse()</code> will be defined, as will the <code>bizzaro()</code> generic and default method.</p>
@@ -348,8 +348,7 @@
 
 
       <footer><div class="tidyverse">
-  <p></p>
-<p>Developed by <a href="https://jennybryan.org" class="external-link external-link">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz" class="external-link external-link">Hadley Wickham</a>, <a href="https://www.rstudio.com" class="external-link external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.</p>,<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link external-link">pkgdown</a> 1.6.1.9001.</p>
+  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org" class="external-link">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">

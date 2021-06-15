@@ -159,7 +159,7 @@ with other R Markdown output formats, but it is not well-tested." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../articles/index.html">More...</a>
+      <a href="../articles/index.html">More articles...</a>
     </li>
   </ul>
 </li>
@@ -209,7 +209,7 @@ with other R Markdown output formats, but it is not well-tested." />
 
     <div class="ref-description">
     <p>This is a wrapper around <code><a href='https://pkgs.rstudio.com/rmarkdown/reference/render.html'>rmarkdown::render()</a></code> that enforces the "reprex"
-mentality. Here's a simplified version of what happens:</p><pre><span class='fu'>callr</span><span class='fu'>::</span><span class='fu'><a href='https://callr.r-lib.org/reference/r.html'>r</a></span><span class='op'>(</span>
+mentality. Here's a simplified version of what happens:</p><pre class='sourceCode r'><code><span class='fu'>callr</span><span class='fu'>::</span><span class='fu'><a href='https://callr.r-lib.org/reference/r.html'>r</a></span><span class='op'>(</span>
   <span class='kw'>function</span><span class='op'>(</span><span class='va'>input</span><span class='op'>)</span> <span class='op'>{</span>
     <span class='fu'>rmarkdown</span><span class='fu'>::</span><span class='fu'><a href='https://pkgs.rstudio.com/rmarkdown/reference/render.html'>render</a></span><span class='op'>(</span><span class='va'>input</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>globalenv</a></span><span class='op'>(</span><span class='op'>)</span>, encoding <span class='op'>=</span> <span class='st'>"UTF-8"</span><span class='op'>)</span>
   <span class='op'>}</span>,
@@ -217,7 +217,7 @@ mentality. Here's a simplified version of what happens:</p><pre><span class='fu'
   spinner <span class='op'>=</span> <span class='fu'>is_interactive</span><span class='op'>(</span><span class='op'>)</span>,
   stdout <span class='op'>=</span> <span class='va'>std_file</span>, stderr <span class='op'>=</span> <span class='va'>std_file</span>
 <span class='op'>)</span>
-</pre>
+</code></pre>
 
 <p>Key features to note</p><ul>
 <li><p><code><a href='https://pkgs.rstudio.com/rmarkdown/reference/render.html'>rmarkdown::render()</a></code> is executed in a new R session, by using
@@ -239,7 +239,7 @@ format, typically through a call to <code><a href='reprex.html'>reprex()</a></co
 with other R Markdown output formats, but it is not well-tested.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>reprex_render</span><span class='op'>(</span><span class='va'>input</span>, html_preview <span class='op'>=</span> <span class='cn'>NULL</span>, encoding <span class='op'>=</span> <span class='st'>"UTF-8"</span><span class='op'>)</span></pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>reprex_render</span><span class='op'>(</span><span class='va'>input</span>, html_preview <span class='op'>=</span> <span class='cn'>NULL</span>, encoding <span class='op'>=</span> <span class='st'>"UTF-8"</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -270,10 +270,10 @@ button in the RStudio IDE.</p></td>
 of the output file.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'>reprex_render</span><span class='op'>(</span><span class='st'>"input.Rmd"</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='fu'>reprex_render</span><span class='op'>(</span><span class='st'>"input.Rmd"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -285,7 +285,7 @@ of the output file.</p>
 
       <footer>
       <div class="tidyverse">
-  <p><p>Developed by <a href="https://jennybryan.org" class="external-link">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.</p>,<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
+  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">

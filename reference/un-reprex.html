@@ -134,7 +134,7 @@ wild-caught reprex." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../articles/index.html">More...</a>
+      <a href="../articles/index.html">More articles...</a>
     </li>
   </ul>
 </li>
@@ -189,7 +189,7 @@ written to file. Three different functions address various forms of
 wild-caught reprex.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>reprex_invert</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>reprex_invert</span><span class='op'>(</span>
   input <span class='op'>=</span> <span class='cn'>NULL</span>,
   wd <span class='op'>=</span> <span class='cn'>NULL</span>,
   venue <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"gh"</span>, <span class='st'>"r"</span><span class='op'>)</span>,
@@ -210,7 +210,7 @@ wild-caught reprex.</p>
   prompt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"prompt"</span><span class='op'>)</span>,
   continue <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"continue"</span><span class='op'>)</span>,
   outfile <span class='op'>=</span> <span class='st'>"DEPRECATED"</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -289,7 +289,7 @@ use <code>wd = "."</code> now, instead of <code>outfile = NA</code>.</p></td>
 <code>venue = "r"</code>, this just calls <code>reprex_clean()</code>.</p></li>
 <li><p><code>reprex_clean</code>: Assumes R code is top-level, possibly interleaved with
 commented output, e.g., a displayed reprex copied from GitHub or the direct
-output of <code><a href='reprex.html'>reprex(..., venue = "R")</a></code>. This function removes commented
+output of <code>reprex(..., venue = "R")</code>. This function removes commented
 output.</p></li>
 <li><p><code>reprex_rescue</code>: Assumes R code lines start with a prompt and that
 printed output is top-level, e.g., what you'd get from copy/paste from the
@@ -298,53 +298,53 @@ commands.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># a roundtrip: R code --&gt; rendered reprex, as gfm --&gt; R code</span>
-<span class='va'>original</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"original.R"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></span><span class='op'>(</span><span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"
-  #' Some text
-  #+ chunk-label-and-options-cannot-be-recovered, message = TRUE
-  (x &lt;- 1:4)
-  #' More text
-  y &lt;- 2:5
-  x + y"</span><span class='op'>)</span>, con <span class='op'>=</span> <span class='va'>original</span><span class='op'>)</span>
-<span class='fu'><a href='reprex.html'>reprex</a></span><span class='op'>(</span>input <span class='op'>=</span> <span class='va'>original</span>, html_preview <span class='op'>=</span> <span class='cn'>FALSE</span>, advertise <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='va'>reprexed</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span><span class='op'>(</span><span class='st'>"[.]R$"</span>, <span class='st'>"_reprex.md"</span>, <span class='va'>original</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='va'>reprexed</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>unreprexed</span> <span class='op'>&lt;-</span> <span class='fu'>reprex_invert</span><span class='op'>(</span>input <span class='op'>=</span> <span class='va'>reprexed</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></span><span class='op'>(</span><span class='va'>unreprexed</span><span class='op'>)</span>
-
-<span class='co'># clean up</span>
-<span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span><span class='op'>(</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span><span class='op'>(</span><span class='va'>original</span><span class='op'>)</span>, pattern <span class='op'>=</span> <span class='st'>"original"</span>, full.names <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='op'>)</span>
-<span class='op'>}</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># a roundtrip: R code --&gt; rendered reprex, as R code --&gt; original R code</span>
-<span class='va'>code_in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-  <span class='st'>"# a regular comment, which is retained"</span>,
-  <span class='st'>"(x &lt;- 1:4)"</span>,
-  <span class='st'>"median(x)"</span>
-<span class='op'>)</span>
-<span class='va'>reprexed</span> <span class='op'>&lt;-</span> <span class='fu'><a href='reprex.html'>reprex</a></span><span class='op'>(</span>input <span class='op'>=</span> <span class='va'>code_in</span>, venue <span class='op'>=</span> <span class='st'>"r"</span>, advertise <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></span><span class='op'>(</span><span class='va'>reprexed</span><span class='op'>)</span>
-<span class='va'>code_out</span> <span class='op'>&lt;-</span> <span class='fu'>reprex_clean</span><span class='op'>(</span>input <span class='op'>=</span> <span class='va'>reprexed</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></span><span class='op'>(</span><span class='va'>code_out</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>code_in</span>, <span class='va'>code_out</span><span class='op'>)</span>
-<span class='op'>}</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># rescue a reprex that was copied from a live R session</span>
-<span class='va'>from_r_console</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-  <span class='st'>"&gt; # a regular comment, which is retained"</span>,
-  <span class='st'>"&gt; (x &lt;- 1:4)"</span>,
-  <span class='st'>"[1] 1 2 3 4"</span>,
-  <span class='st'>"&gt; median(x)"</span>,
-  <span class='st'>"[1] 2.5"</span>
-<span class='op'>)</span>
-<span class='va'>rescued</span> <span class='op'>&lt;-</span> <span class='fu'>reprex_rescue</span><span class='op'>(</span>input <span class='op'>=</span> <span class='va'>from_r_console</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></span><span class='op'>(</span><span class='va'>rescued</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># a roundtrip: R code --&gt; rendered reprex, as gfm --&gt; R code</span></span>
+<span class='r-in'><span class='va'>original</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"original.R"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></span><span class='op'>(</span><span class='fu'>glue</span><span class='fu'>::</span><span class='fu'><a href='https://glue.tidyverse.org/reference/glue.html'>glue</a></span><span class='op'>(</span><span class='st'>"</span>
+<span class='r-in'>  #' Some text</span>
+<span class='r-in'>  #+ chunk-label-and-options-cannot-be-recovered, message = TRUE</span>
+<span class='r-in'>  (x &lt;- 1:4)</span>
+<span class='r-in'>  #' More text</span>
+<span class='r-in'>  y &lt;- 2:5</span>
+<span class='r-in'>  x + y"</span><span class='op'>)</span>, con <span class='op'>=</span> <span class='va'>original</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='reprex.html'>reprex</a></span><span class='op'>(</span>input <span class='op'>=</span> <span class='va'>original</span>, html_preview <span class='op'>=</span> <span class='cn'>FALSE</span>, advertise <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>reprexed</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span><span class='op'>(</span><span class='st'>"[.]R$"</span>, <span class='st'>"_reprex.md"</span>, <span class='va'>original</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span><span class='op'>(</span><span class='va'>reprexed</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>unreprexed</span> <span class='op'>&lt;-</span> <span class='fu'>reprex_invert</span><span class='op'>(</span>input <span class='op'>=</span> <span class='va'>reprexed</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></span><span class='op'>(</span><span class='va'>unreprexed</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># clean up</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/files.html'>file.remove</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/basename.html'>dirname</a></span><span class='op'>(</span><span class='va'>original</span><span class='op'>)</span>, pattern <span class='op'>=</span> <span class='st'>"original"</span>, full.names <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># a roundtrip: R code --&gt; rendered reprex, as R code --&gt; original R code</span></span>
+<span class='r-in'><span class='va'>code_in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='st'>"# a regular comment, which is retained"</span>,</span>
+<span class='r-in'>  <span class='st'>"(x &lt;- 1:4)"</span>,</span>
+<span class='r-in'>  <span class='st'>"median(x)"</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>reprexed</span> <span class='op'>&lt;-</span> <span class='fu'><a href='reprex.html'>reprex</a></span><span class='op'>(</span>input <span class='op'>=</span> <span class='va'>code_in</span>, venue <span class='op'>=</span> <span class='st'>"r"</span>, advertise <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></span><span class='op'>(</span><span class='va'>reprexed</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>code_out</span> <span class='op'>&lt;-</span> <span class='fu'>reprex_clean</span><span class='op'>(</span>input <span class='op'>=</span> <span class='va'>reprexed</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></span><span class='op'>(</span><span class='va'>code_out</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>code_in</span>, <span class='va'>code_out</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># rescue a reprex that was copied from a live R session</span></span>
+<span class='r-in'><span class='va'>from_r_console</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='st'>"&gt; # a regular comment, which is retained"</span>,</span>
+<span class='r-in'>  <span class='st'>"&gt; (x &lt;- 1:4)"</span>,</span>
+<span class='r-in'>  <span class='st'>"[1] 1 2 3 4"</span>,</span>
+<span class='r-in'>  <span class='st'>"&gt; median(x)"</span>,</span>
+<span class='r-in'>  <span class='st'>"[1] 2.5"</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>rescued</span> <span class='op'>&lt;-</span> <span class='fu'>reprex_rescue</span><span class='op'>(</span>input <span class='op'>=</span> <span class='va'>from_r_console</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/writeLines.html'>writeLines</a></span><span class='op'>(</span><span class='va'>rescued</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -356,7 +356,7 @@ commands.</p></li>
 
       <footer>
       <div class="tidyverse">
-  <p><p>Developed by <a href="https://jennybryan.org" class="external-link">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.</p>,<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
+  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">

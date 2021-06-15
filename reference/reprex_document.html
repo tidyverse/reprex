@@ -158,7 +158,7 @@ yourself, you should do same." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../articles/index.html">More...</a>
+      <a href="../articles/index.html">More articles...</a>
     </li>
   </ul>
 </li>
@@ -237,7 +237,7 @@ RStudio "Knit" button to use <code><a href='reprex_render.html'>reprex_render()<
 yourself, you should do same.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>reprex_document</span><span class='op'>(</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>reprex_document</span><span class='op'>(</span>
   venue <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"gh"</span>, <span class='st'>"r"</span>, <span class='st'>"rtf"</span>, <span class='st'>"html"</span>, <span class='st'>"slack"</span>, <span class='st'>"so"</span>, <span class='st'>"ds"</span><span class='op'>)</span>,
   advertise <span class='op'>=</span> <span class='cn'>NULL</span>,
   session_info <span class='op'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span><span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span>,
@@ -246,7 +246,7 @@ yourself, you should do same.</p>
   tidyverse_quiet <span class='op'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span><span class='op'>(</span><span class='cn'>TRUE</span><span class='op'>)</span>,
   std_out_err <span class='op'>=</span> <span class='fu'><a href='reprex_options.html'>opt</a></span><span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span>,
   pandoc_args <span class='op'>=</span> <span class='cn'>NULL</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -328,150 +328,151 @@ more. Read more about <code><a href='reprex_options.html'>opt()</a></code>.</p><
     <p>An R Markdown output format to pass to <code><a href='https://pkgs.rstudio.com/rmarkdown/reference/render.html'>rmarkdown::render()</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>reprex_document</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $knitr
-#&gt; $knitr$opts_chunk
-#&gt; $knitr$opts_chunk$dev
-#&gt; [1] "png"
-#&gt; 
-#&gt; $knitr$opts_chunk$dpi
-#&gt; [1] 96
-#&gt; 
-#&gt; $knitr$opts_chunk$fig.width
-#&gt; [1] 7
-#&gt; 
-#&gt; $knitr$opts_chunk$fig.height
-#&gt; [1] 5
-#&gt; 
-#&gt; $knitr$opts_chunk$fig.retina
-#&gt; NULL
-#&gt; 
-#&gt; $knitr$opts_chunk$collapse
-#&gt; [1] TRUE
-#&gt; 
-#&gt; $knitr$opts_chunk$error
-#&gt; [1] TRUE
-#&gt; 
-#&gt; $knitr$opts_chunk$comment
-#&gt; [1] "#&gt;"
-#&gt; 
-#&gt; $knitr$opts_chunk$R.options
-#&gt; $knitr$opts_chunk$R.options$tidyverse.quiet
-#&gt; [1] TRUE
-#&gt; 
-#&gt; $knitr$opts_chunk$R.options$tidymodels.quiet
-#&gt; [1] TRUE
-#&gt; 
-#&gt; 
-#&gt; 
-#&gt; $knitr$opts_knit
-#&gt; $knitr$opts_knit$upload.fun
-#&gt; function (file, key = "9f3460e67f308f6") 
-#&gt; {
-#&gt;     if (!is.character(key)) 
-#&gt;         stop("The Imgur API Key must be a character string!")
-#&gt;     resp = httr::POST("https://api.imgur.com/3/image.xml", config = httr::add_headers(Authorization = paste("Client-ID", 
-#&gt;         key)), body = list(image = httr::upload_file(file)))
-#&gt;     httr::stop_for_status(resp, "upload to imgur")
-#&gt;     res = httr::content(resp, as = "raw")
-#&gt;     res = if (length(res)) 
-#&gt;         xml2::as_list(xml2::read_xml(res))
-#&gt;     if (packageVersion("xml2") &gt;= "1.2.0") 
-#&gt;         res &lt;- res[[1L]]
-#&gt;     if (is.null(res$link[[1]])) 
-#&gt;         stop("failed to upload ", file)
-#&gt;     structure(res$link[[1]], XML = res)
-#&gt; }
-#&gt; &lt;bytecode: 0x558f87f2dc60&gt;
-#&gt; &lt;environment: namespace:knitr&gt;
-#&gt; 
-#&gt; 
-#&gt; $knitr$knit_hooks
-#&gt; NULL
-#&gt; 
-#&gt; $knitr$opts_hooks
-#&gt; NULL
-#&gt; 
-#&gt; $knitr$opts_template
-#&gt; NULL
-#&gt; 
-#&gt; 
-#&gt; $pandoc
-#&gt; $pandoc$to
-#&gt; [1] "gfm"
-#&gt; 
-#&gt; $pandoc$from
-#&gt; [1] "markdown+autolink_bare_uris+tex_math_single_backslash-implicit_figures"
-#&gt; 
-#&gt; $pandoc$args
-#&gt; [1] "--standalone"    "--wrap=preserve"
-#&gt; 
-#&gt; $pandoc$keep_tex
-#&gt; [1] FALSE
-#&gt; 
-#&gt; $pandoc$latex_engine
-#&gt; [1] "pdflatex"
-#&gt; 
-#&gt; $pandoc$ext
-#&gt; [1] ".md"
-#&gt; 
-#&gt; 
-#&gt; $keep_md
-#&gt; [1] FALSE
-#&gt; 
-#&gt; $clean_supporting
-#&gt; [1] FALSE
-#&gt; 
-#&gt; $df_print
-#&gt; [1] "default"
-#&gt; 
-#&gt; $pre_knit
-#&gt; function (input, ...) 
-#&gt; {
-#&gt;     knit_input &lt;- sub("[.]R$", ".spin.Rmd", input)
-#&gt;     input_lines &lt;- read_lines(knit_input)
-#&gt;     input_lines &lt;- c(rprofile_alert(venue), "", input_lines)
-#&gt;     input_lines &lt;- c(reprex_opts(venue), "", input_lines)
-#&gt;     if (isTRUE(advertise)) {
-#&gt;         input_lines &lt;- c(input_lines, "", ad(venue))
-#&gt;     }
-#&gt;     if (isTRUE(std_out_err)) {
-#&gt;         input_lines &lt;- c(input_lines, "", std_out_err_stub(input, 
-#&gt;             venue))
-#&gt;     }
-#&gt;     if (isTRUE(session_info)) {
-#&gt;         input_lines &lt;- c(input_lines, "", si(venue))
-#&gt;     }
-#&gt;     write_lines(input_lines, knit_input)
-#&gt; }
-#&gt; &lt;bytecode: 0x558f869a9858&gt;
-#&gt; &lt;environment: 0x558f869a7cc0&gt;
-#&gt; 
-#&gt; $post_knit
-#&gt; NULL
-#&gt; 
-#&gt; $pre_processor
-#&gt; NULL
-#&gt; 
-#&gt; $intermediates_generator
-#&gt; NULL
-#&gt; 
-#&gt; $post_processor
-#&gt; NULL
-#&gt; 
-#&gt; $on_exit
-#&gt; function () 
-#&gt; {
-#&gt;     if (is.function(base)) 
-#&gt;         base()
-#&gt;     if (is.function(overlay)) 
-#&gt;         overlay()
-#&gt; }
-#&gt; &lt;bytecode: 0x558f87f966f0&gt;
-#&gt; &lt;environment: 0x558f87f96140&gt;
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "rmarkdown_output_format"</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='fu'>reprex_document</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $knitr</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $knitr$opts_chunk</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $knitr$opts_chunk$dev</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "png"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $knitr$opts_chunk$dpi</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 96</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $knitr$opts_chunk$fig.width</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $knitr$opts_chunk$fig.height</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $knitr$opts_chunk$fig.retina</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $knitr$opts_chunk$collapse</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $knitr$opts_chunk$error</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $knitr$opts_chunk$comment</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "#&gt;"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $knitr$opts_chunk$R.options</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $knitr$opts_chunk$R.options$tidyverse.quiet</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $knitr$opts_chunk$R.options$tidymodels.quiet</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $knitr$opts_knit</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $knitr$opts_knit$upload.fun</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> function (file, key = "9f3460e67f308f6") </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     if (!is.character(key)) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         stop("The Imgur API Key must be a character string!")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     resp = httr::POST("https://api.imgur.com/3/image.xml", config = httr::add_headers(Authorization = paste("Client-ID", </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         key)), body = list(image = httr::upload_file(file)))</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     httr::stop_for_status(resp, "upload to imgur")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     res = httr::content(resp, as = "raw")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     res = if (length(res)) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         xml2::as_list(xml2::read_xml(res))</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     if (packageVersion("xml2") &gt;= "1.2.0") </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         res &lt;- res[[1L]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     if (is.null(res$link[[1]])) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         stop("failed to upload ", file)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     structure(res$link[[1]], XML = res)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> }</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;bytecode: 0x55fc58fdefb8&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: namespace:knitr&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $knitr$knit_hooks</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $knitr$opts_hooks</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $knitr$opts_template</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $pandoc</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $pandoc$to</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "gfm"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $pandoc$from</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "markdown+autolink_bare_uris+tex_math_single_backslash-implicit_figures"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $pandoc$args</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "--standalone"    "--wrap=preserve"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $pandoc$keep_tex</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $pandoc$latex_engine</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "pdflatex"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $pandoc$ext</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] ".md"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $keep_md</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $clean_supporting</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $df_print</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "default"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $pre_knit</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> function (input, ...) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     knit_input &lt;- sub("[.]R$", ".spin.Rmd", input)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     input_lines &lt;- read_lines(knit_input)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     input_lines &lt;- c(rprofile_alert(venue), "", input_lines)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     input_lines &lt;- c(reprex_opts(venue), "", input_lines)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     if (isTRUE(advertise)) {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         input_lines &lt;- c(input_lines, "", ad(venue))</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     }</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     if (isTRUE(std_out_err)) {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         input_lines &lt;- c(input_lines, "", std_out_err_stub(input, </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             venue))</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     }</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     if (isTRUE(session_info)) {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         input_lines &lt;- c(input_lines, "", si(venue))</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     }</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     write_lines(input_lines, knit_input)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> }</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;bytecode: 0x55fc588a4ac0&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x55fc588a6938&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $post_knit</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $pre_processor</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $intermediates_generator</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $post_processor</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $on_exit</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> function () </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> {</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     if (is.function(base)) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         base()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     if (is.function(overlay)) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         overlay()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> }</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;bytecode: 0x55fc59021540&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;environment: 0x55fc59021000&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"class")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "rmarkdown_output_format"</span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -483,7 +484,7 @@ more. Read more about <code><a href='reprex_options.html'>opt()</a></code>.</p><
 
       <footer>
       <div class="tidyverse">
-  <p><p>Developed by <a href="https://jennybryan.org" class="external-link">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.</p>,<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
+  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">

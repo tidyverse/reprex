@@ -183,7 +183,7 @@ your .Rprofile." />
     </li>
     <li class="divider"></li>
     <li>
-      <a href="../articles/index.html">More...</a>
+      <a href="../articles/index.html">More articles...</a>
     </li>
   </ul>
 </li>
@@ -250,7 +250,7 @@ ones:</p><ul>
 <code><a href='reprex_addin.html'>reprex_selection()</a></code> addin.</p></li>
 <li><p><code>reprex.current_venue</code>: Read-only option that is set during
 <code><a href='reprex_render.html'>reprex_render()</a></code>. Other packages that want to generate reprex-compatible
-output can consult it via <code><a href='https://rdrr.io/r/base/options.html'>getOption("reprex.current_venue")</a></code>, if they want
+output can consult it via <code>getOption("reprex.current_venue")</code>, if they want
 to tailor their output to the <code>venue</code>.</p></li>
 <li><p><code>reprex.clipboard</code>: When <code>FALSE</code>, reprex makes no attempt to access the
 user's clipboard, ever. This exists mostly for internal use, i.e. we set it
@@ -267,7 +267,7 @@ in the article
 
 <p>Here's code you could put in <code>.Rprofile</code> to set reprex options. It would be
 rare to want non-default behaviour for all of these! We only do so here for
-the sake of exposition:</p><pre><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>
+the sake of exposition:</p><pre class='sourceCode r'><code><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>
   reprex.advertise       <span class='op'>=</span> <span class='cn'>FALSE</span>,
   reprex.session_info    <span class='op'>=</span> <span class='cn'>TRUE</span>,
   reprex.style           <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -281,7 +281,7 @@ the sake of exposition:</p><pre><span class='fu'><a href='https://rdrr.io/r/base
   reprex.highlight.font_size <span class='op'>=</span> <span class='fl'>35</span>,
   reprex.highlight.other     <span class='op'>=</span> <span class='st'>"--line-numbers"</span>
 <span class='op'>)</span>
-</pre>
+</code></pre>
 
 <p>The function <code>usethis::edit_r_profile()</code> is handy for creating and/or opening
 your <code>.Rprofile</code>.</p>
@@ -293,16 +293,16 @@ your <code>.Rprofile</code>.</p>
 
     
 
-<p>Arguments that appear like so in <code><a href='reprex.html'>reprex()</a></code>:</p><pre><span class='fu'><a href='reprex.html'>reprex</a></span><span class='op'>(</span><span class='va'>...</span>, arg <span class='op'>=</span> <span class='fu'>opt</span><span class='op'>(</span><span class='va'>DEFAULT</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
-</pre>
+<p>Arguments that appear like so in <code><a href='reprex.html'>reprex()</a></code>:</p><pre class='sourceCode r'><code><span class='fu'><a href='reprex.html'>reprex</a></span><span class='op'>(</span><span class='va'>...</span>, arg <span class='op'>=</span> <span class='fu'>opt</span><span class='op'>(</span><span class='va'>DEFAULT</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
+</code></pre>
 
-<p>get their value according to this logic:</p><pre>user-specified value or, if not given,
+<p>get their value according to this logic:</p><pre><code>user-specified value or, if not given,
   getOption("reprex.arg") or, if does not exist,
     DEFAULT
-</pre>
+</code></pre>
 
-<p>It's shorthand for:</p><pre><span class='fu'>f</span><span class='op'>(</span><span class='va'>...</span>, arg <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"reprex.arg"</span>, <span class='va'>DEFAULT</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
-</pre>
+<p>It's shorthand for:</p><pre class='sourceCode r'><code><span class='fu'>f</span><span class='op'>(</span><span class='va'>...</span>, arg <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"reprex.arg"</span>, <span class='va'>DEFAULT</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
+</code></pre>
 
 <p>This is not an exported function and should not be called directly.</p>
 
@@ -317,7 +317,7 @@ your <code>.Rprofile</code>.</p>
 
       <footer>
       <div class="tidyverse">
-  <p><p>Developed by <a href="https://jennybryan.org" class="external-link">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.</p>,<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
+  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">
