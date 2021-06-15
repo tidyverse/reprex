@@ -1,5 +1,8 @@
 # reprex (development version)
 
+`reprex_rtf()` (and the unexported `prex_rtf()`) work again.
+One of the filepaths involved in the highlight call was borked, but now it's not (#379).
+
 # reprex 2.0.0
 
 ## When the clipboard isn't available
