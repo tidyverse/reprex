@@ -3,6 +3,8 @@
 `reprex_rtf()` (and the unexported `prex_rtf()`) work again.
 One of the filepaths involved in the highlight call was borked, but now it's not (#379).
 
+The unexported `prex_*()` functions once again write their files to a temporary directory, as opposed to current working directory (#380).
+
 # reprex 2.0.0
 
 ## When the clipboard isn't available
