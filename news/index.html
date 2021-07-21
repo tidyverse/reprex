@@ -180,6 +180,7 @@
     <div id="reprex-development-version" class="section level1">
 <h1 class="page-header" data-toc-text="development version">
 <a href="#reprex-development-version" class="anchor" aria-hidden="true"></a>reprex (development version)<small> Unreleased </small></h1>
+<p><code><a href="../reference/reprex_document.html">reprex_document()</a></code> has been adjusted for compatibility with changes introduced in Pandoc 2.13 around YAML headers (<a href='https://github.com/tidyverse/reprex/issues/375'>#375</a>, <a href='https://github.com/tidyverse/reprex/issues/383'>#383</a> <a href='https://github.com/cderv'>@cderv</a>).</p>
 <p><code><a href="../reference/reprex_venue.html">reprex_rtf()</a></code> (and the unexported <code>prex_rtf()</code>) work again. One of the filepaths involved in the highlight call was borked, but now it’s not (<a href='https://github.com/tidyverse/reprex/issues/379'>#379</a>).</p>
 <p>The unexported <code>prex_*()</code> functions once again write their files to a temporary directory, as opposed to current working directory (<a href='https://github.com/tidyverse/reprex/issues/380'>#380</a>).</p>
 </div>
