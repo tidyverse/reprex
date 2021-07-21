@@ -116,6 +116,7 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "slack", "so", "
       opts_chunk = opts_chunk
     ),
     pandoc = rmarkdown::pandoc_options(
+      # https://github.com/tidyverse/reprex/issues/375
       to = paste0("gfm", if (rmarkdown::pandoc_available("2.13")) "-yaml_metadata_block"),
       from = rmarkdown::from_rmarkdown(implicit_figures = FALSE),
       ext = ".md",
