@@ -1,5 +1,7 @@
 # reprex (development version)
 
+`reprex_document()` has been adjusted for compatibility with changes introduced in Pandoc 2.13 around YAML headers (#375, #383 @cderv).
+
 `reprex_rtf()` (and the unexported `prex_rtf()`) work again.
 One of the filepaths involved in the highlight call was borked, but now it's not (#379).
 
