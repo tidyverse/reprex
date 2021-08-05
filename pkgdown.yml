@@ -8,7 +8,7 @@ articles:
   rtf: articles/rtf.html
   suppress-startup-messages: articles/suppress-startup-messages.html
   reprex-dos-and-donts: reprex-dos-and-donts.html
-last_built: 2021-07-21T18:53Z
+last_built: 2021-08-05T05:15Z
 urls:
   reference: https://reprex.tidyverse.org/reference
   article: https://reprex.tidyverse.org/articles
