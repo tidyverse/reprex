@@ -136,7 +136,7 @@ rstudio_context <- function() {
 # nocov end
 
 rstudio_text_tidy <- function(x) {
-  if (x == "") {
+  if (identical(x, "")) {
     return(character())
   }
   Encoding(x) <- "UTF-8"
