@@ -1,5 +1,8 @@
 # reprex (development version)
 
+* The RStudio addin no longer displays a warning about condition length when
+selecting 'current file' as the reprex source (#391, @bisaloo).
+
 # reprex 2.0.1
 
 `reprex_document()` has been adjusted for compatibility with changes introduced in Pandoc 2.13 around YAML headers (#375, #383 @cderv).
