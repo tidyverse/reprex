@@ -35,8 +35,6 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
-
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -51,8 +49,8 @@
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../../index.html">reprex</a>
         <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of the <a href="https://tidyverse.org" class="external-link">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9000</span>
+          <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1.9000</span>
         </div>
       </div>
     </div>
@@ -81,9 +79,8 @@
       <a href="../../articles/articles/suppress-startup-messages.html">Suppress package startup messages</a>
     </li>
     <li class="divider">
-    </li>
-<li>
-      <a href="../../articles/index.html">More articles...</a>
+    <li>
+      <a href="../../articles/index.html">More...</a>
     </li>
   </ul>
 </li>
@@ -96,20 +93,19 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Blog posts</li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2021/04/reprex-2-0-0/" class="external-link">reprex 2.0.0</a>
+      <a href="https://www.tidyverse.org/blog/2021/04/reprex-2-0-0/">reprex 2.0.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2021/02/reprex-1-0-0/" class="external-link">reprex 1.0.0</a>
+      <a href="https://www.tidyverse.org/blog/2021/02/reprex-1-0-0/">reprex 1.0.0</a>
     </li>
     <li class="divider">
-    </li>
-<li>
+    <li>
       <a href="../../news/index.html">Change log</a>
     </li>
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/reprex/" class="external-link">
+  <a href="https://github.com/tidyverse/reprex/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -130,7 +126,7 @@
       <h1 data-toc-skip>Suppress package startup messages</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/reprex/blob/HEAD/vignettes/articles/suppress-startup-messages.Rmd" class="external-link"><code>vignettes/articles/suppress-startup-messages.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/reprex/blob/master/vignettes/articles/suppress-startup-messages.Rmd"><code>vignettes/articles/suppress-startup-messages.Rmd</code></a></small>
       <div class="hidden name"><code>suppress-startup-messages.Rmd</code></div>
 
     </div>
@@ -139,36 +135,36 @@
     
 <p>Sometimes your reprex uses packages that emit messages and warnings at startup (dplyr is a very common culprit). In general, these are worth reading! They can alert you to the root cause of your problem, such as a function in one package masking a function in another. But in many cases, this is just distracting, startup noise.</p>
 <p>How can you silence this chatter, specifically? We don’t want to suppress messages and warnings, in general, because they are an important part of the reprex.</p>
-<div class="section level2">
-<h2 id="tldr">TL;DR<a class="anchor" aria-label="anchor" href="#tldr"></a>
-</h2>
+<div id="tldr" class="section level2">
+<h2 class="hasAnchor">
+<a href="#tldr" class="anchor"></a>TL;DR</h2>
 <p>Here’s a quick look at various techniques. They are described in more detail below.</p>
-<p>Call <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> with <code>warn.conflicts = FALSE</code>.</p>
+<p>Call <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> with <code>warn.conflicts = FALSE</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
-<p>Surround a chatty <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> call with <code><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages()</a></code>.</p>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<p>Surround a chatty <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> call with <code><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages()</a></code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>Break your reprex into “chunks”, in the <code>.Rmd</code> sense, and use a special <code>#+</code> comment to silence messages and/or warnings for the chunk that holds a chatty <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> call. Note that the second <code>#+</code> comment is very important, so you don’t silence messages and warnings for the entire reprex.</p>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>Break your reprex into “chunks”, in the <code>.Rmd</code> sense, and use a special <code>#+</code> comment to silence messages and/or warnings for the chunk that holds a chatty <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> call. Note that the second <code>#+</code> comment is very important, so you don’t silence messages and warnings for the entire reprex.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#+ message = FALSE, warning = FALSE</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 
 <span class="co">#+</span>
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <p>If you’re using one or more tidyverse packages, consider using the tidyverse metapackage, literally. <code><a href="../../reference/reprex.html">reprex::reprex()</a></code> has an argument <code>tidyverse_quiet</code>, which defaults to <code>TRUE</code> and silences the startup messages.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span>
 
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">1</span><span class="op">)</span></code></pre></div>
-<p><code>tidyverse_quiet</code> also silences startup messages from the <a href="https://www.tidymodels.org" class="external-link">tidymodels</a> meta-package.</p>
+<span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<p><code>tidyverse_quiet</code> also silences startup messages from the <a href="https://www.tidymodels.org">tidymodels</a> meta-package.</p>
 </div>
-<div class="section level2">
-<h2 id="dplyr-is-chatty-at-startup">dplyr is chatty at startup<a class="anchor" aria-label="anchor" href="#dplyr-is-chatty-at-startup"></a>
-</h2>
+<div id="dplyr-is-chatty-at-startup" class="section level2">
+<h2 class="hasAnchor">
+<a href="#dplyr-is-chatty-at-startup" class="anchor"></a>dplyr is chatty at startup</h2>
 <p>dplyr is a common culprit for noisy startup, so we use it as an example. Note this messaging as a baseline.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'dplyr'</span>
 <span class="co">#&gt; The following objects are masked from 'package:stats':</span>
@@ -178,34 +174,34 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     intersect, setdiff, setequal, union</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="warn-conflicts-false">
-<code>warn.conflicts = FALSE</code><a class="anchor" aria-label="anchor" href="#warn-conflicts-false"></a>
+<div id="warn-conflicts-false" class="section level2">
+<h2 class="hasAnchor">
+<a href="#warn-conflicts-false" class="anchor"></a><code>warn.conflicts = FALSE</code>
 </h2>
-<p>To suppress warnings about conflicts, set the <code>warn.conflicts</code> argument of <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> to <code>FALSE</code>.</p>
+<p>To suppress warnings about conflicts, set the <code>warn.conflicts</code> argument of <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> to <code>FALSE</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">1</span><span class="op">)</span>
+<span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">1</span><span class="op">)</span>
 <span class="co">#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span>
 <span class="co">#&gt; 1          5.1         3.5          1.4         0.2  setosa</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="suppresspackagestartupmessages">
-<code>suppressPackageStartupMessages()</code><a class="anchor" aria-label="anchor" href="#suppresspackagestartupmessages"></a>
+<div id="suppresspackagestartupmessages" class="section level2">
+<h2 class="hasAnchor">
+<a href="#suppresspackagestartupmessages" class="anchor"></a><code>suppressPackageStartupMessages()</code>
 </h2>
-<p>Surround <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> with <code><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages()</a></code>.</p>
+<p>Surround <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> with <code><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages()</a></code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span><span class="op">)</span>
 
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">1</span><span class="op">)</span>
+<span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">1</span><span class="op">)</span>
 <span class="co">#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span>
 <span class="co">#&gt; 1          5.1         3.5          1.4         0.2  setosa</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="set-message-false-and-warning-false-for-a-chunk">Set <code>message = FALSE</code> and <code>warning = FALSE</code> for a chunk<a class="anchor" aria-label="anchor" href="#set-message-false-and-warning-false-for-a-chunk"></a>
-</h2>
-<p>If we were working in R Markdown, we could suppress messages and warnings in the chunk containing <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> calls, then put our “real code” in a different chunk:</p>
+<div id="set-message-false-and-warning-false-for-a-chunk" class="section level2">
+<h2 class="hasAnchor">
+<a href="#set-message-false-and-warning-false-for-a-chunk" class="anchor"></a>Set <code>message = FALSE</code> and <code>warning = FALSE</code> for a chunk</h2>
+<p>If we were working in R Markdown, we could suppress messages and warnings in the chunk containing <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> calls, then put our “real code” in a different chunk:</p>
 <pre><code>```{r, message = FALSE, warning = FALSE}  
 library(dplyr)  
 ```
@@ -218,25 +214,26 @@ slice(iris, 1)
 <p>We can do the same in plain R code, suitable for <code><a href="../../reference/reprex.html">reprex()</a></code>ing, by using special comments that start with <code>#+</code>. Note that the second <code>#+</code> is significant, because it begins a new chunk capable of emitting messages and warnings.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#+ message = FALSE, warning = FALSE</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"You CANNOT hear me!"</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="st">"You CANNOT hear me!"</span><span class="op">)</span>
 
 <span class="co">#+ </span>
-<span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"You can hear me!"</span><span class="op">)</span>
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="st">"You can hear me!"</span><span class="op">)</span>
+<span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">1</span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="reprex-knows-about-tidyverse_quiet">reprex knows about <code>tidyverse_quiet</code><a class="anchor" aria-label="anchor" href="#reprex-knows-about-tidyverse_quiet"></a>
+<div id="reprex-knows-about-tidyverse_quiet" class="section level2">
+<h2 class="hasAnchor">
+<a href="#reprex-knows-about-tidyverse_quiet" class="anchor"></a>reprex knows about <code>tidyverse_quiet</code>
 </h2>
 <p>The <code><a href="../../reference/reprex.html">reprex::reprex()</a></code> function has a <code>tidyverse_quiet</code> argument that defaults to <code>TRUE</code>. If your reprex uses one or more tidyverse packages, consider attaching the tidyverse metapackage, instead of individual packages, in order to enjoy a quiet startup.</p>
 <!-- faking this so I don't have to install tidyverse just for pkgdown -->
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span> <span class="co"># instead of library(dplyr)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span> <span class="co"># instead of library(dplyr)</span>
 
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">1</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span>
-<span class="co">#&gt; 1          5.1         3.5          1.4         0.2  setosa</span></code></pre>
-<p>Note that this default behaviour can be overridden by setting <code>tidyverse_quiet = FALSE</code> in a specific <code><a href="../../reference/reprex.html">reprex()</a></code> call or by setting the option <code>reprex.tidyverse_quiet = FALSE</code> in the <code>.Rprofile</code> startup file. The <code>tidyverse_quiet</code> argument and <code>reprex.tidyverse_quiet</code> option also affect startup messages from the <a href="https://www.tidymodels.org" class="external-link">tidymodels</a> meta-package.</p>
+<span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<pre><code>#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#&gt; 1          5.1         3.5          1.4         0.2  setosa</code></pre>
+<p>Note that this default behaviour can be overridden by setting <code>tidyverse_quiet = FALSE</code> in a specific <code><a href="../../reference/reprex.html">reprex()</a></code> call or by setting the option <code>reprex.tidyverse_quiet = FALSE</code> in the <code>.Rprofile</code> startup file. The <code>tidyverse_quiet</code> argument and <code>reprex.tidyverse_quiet</code> option also affect startup messages from the <a href="https://www.tidymodels.org">tidymodels</a> meta-package.</p>
 </div>
   </div>
 
@@ -251,13 +248,13 @@ slice(iris, 1)
 
 
       <footer><div class="tidyverse">
-  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org" class="external-link">tidyverse.org</a>.</p>
+  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">
   <p>
-    Developed by .
-    Site built by <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a>.
+    Developed by <a href="https://jennybryan.org">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
+    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
 
@@ -266,8 +263,6 @@ slice(iris, 1)
 
   
 
-
-  
 
   </body>
 </html>

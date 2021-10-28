@@ -35,8 +35,6 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
-
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -51,8 +49,8 @@
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../../index.html">reprex</a>
         <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of the <a href="https://tidyverse.org" class="external-link">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9000</span>
+          <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1.9000</span>
         </div>
       </div>
     </div>
@@ -81,9 +79,8 @@
       <a href="../../articles/articles/suppress-startup-messages.html">Suppress package startup messages</a>
     </li>
     <li class="divider">
-    </li>
-<li>
-      <a href="../../articles/index.html">More articles...</a>
+    <li>
+      <a href="../../articles/index.html">More...</a>
     </li>
   </ul>
 </li>
@@ -96,20 +93,19 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Blog posts</li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2021/04/reprex-2-0-0/" class="external-link">reprex 2.0.0</a>
+      <a href="https://www.tidyverse.org/blog/2021/04/reprex-2-0-0/">reprex 2.0.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2021/02/reprex-1-0-0/" class="external-link">reprex 1.0.0</a>
+      <a href="https://www.tidyverse.org/blog/2021/02/reprex-1-0-0/">reprex 1.0.0</a>
     </li>
     <li class="divider">
-    </li>
-<li>
+    <li>
       <a href="../../news/index.html">Change log</a>
     </li>
   </ul>
 </li>
         <li>
-  <a href="https://github.com/tidyverse/reprex/" class="external-link">
+  <a href="https://github.com/tidyverse/reprex/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -130,66 +126,66 @@
       <h1 data-toc-skip>reprex venue RTF</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/reprex/blob/HEAD/vignettes/articles/rtf.Rmd" class="external-link"><code>vignettes/articles/rtf.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/reprex/blob/master/vignettes/articles/rtf.Rmd"><code>vignettes/articles/rtf.Rmd</code></a></small>
       <div class="hidden name"><code>rtf.Rmd</code></div>
 
     </div>
 
     
     
-<p>Use <code><a href="../../reference/reprex_venue.html">reprex_rtf()</a></code> to get output in <a href="https://en.wikipedia.org/wiki/Rich_Text_Format" class="external-link">Rich Text Format</a>. It is a convenience wrapper around <code>reprex(venue = "rtf")</code>. This is useful for creating syntax highlighted code snippets – rendered or not – to paste into software such as Keynote, PowerPoint, or Word.</p>
-<p>Why is RTF special? Although Pandoc can produce RTF and, therefore, so can <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">rmarkdown::render()</a></code> and <code><a href="../../reference/reprex.html">reprex::reprex()</a></code>, Pandoc’s syntax highlighting is unavailable for RTF output. For now, we’ve got to get the functionality from somewhere else. Syntax highlighting is a non-issue for <code>venue = "gh"</code> (GitHub) and <code>venue = "so"</code> (Stack Overflow), because the target sites take care of that when the Markdown content is displayed.</p>
+<p>Use <code><a href="../../reference/reprex_venue.html">reprex_rtf()</a></code> to get output in <a href="https://en.wikipedia.org/wiki/Rich_Text_Format">Rich Text Format</a>. It is a convenience wrapper around <code><a href="../../reference/reprex.html">reprex(venue = "rtf")</a></code>. This is useful for creating syntax highlighted code snippets – rendered or not – to paste into software such as Keynote, PowerPoint, or Word.</p>
+<p>Why is RTF special? Although Pandoc can produce RTF and, therefore, so can <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">rmarkdown::render()</a></code> and <code><a href="../../reference/reprex.html">reprex::reprex()</a></code>, Pandoc’s syntax highlighting is unavailable for RTF output. For now, we’ve got to get the functionality from somewhere else. Syntax highlighting is a non-issue for <code>venue = "gh"</code> (GitHub) and <code>venue = "so"</code> (Stack Overflow), because the target sites take care of that when the Markdown content is displayed.</p>
 <p>
 </p>
 <div style="height: auto">
 <p><img src="https://raw.githubusercontent.com/tidyverse/reprex/main/img/reprex_rtf_jennybryan.gif" alt="Gif of setting options to control highlight and using reprex with the RTF venue" style="width: 100%;max-height: 100%"></p>
 </div>
 
-<p>The “rtf” venue was introduced in reprex v0.2.1 and is experimental. The <a href="http://www.andre-simon.de/doku/highlight/en/highlight.php" class="external-link">highlight</a> command line tool must (1) be installed and (2) be on your <code>PATH</code>. People have successfully used <code><a href="../../reference/reprex_venue.html">reprex_rtf()</a></code> on macOS and Windows (specifically, Windows 10 + Windows PowerShell 5.1). We consider it experimental because of the rather hacky way we shell out to highlight and, long-term, it would be preferable to get syntax-highlighted RTF through a proper R package. The existing <a href="https://cran.r-project.org/package=highlight" class="external-link">highlight R package</a> can’t do this (yet?).</p>
-<div class="section level3">
-<h3 id="how-to-install-highlight">How to install highlight<a class="anchor" aria-label="anchor" href="#how-to-install-highlight"></a>
-</h3>
+<p>The “rtf” venue was introduced in reprex v0.2.1 and is experimental. The <a href="http://www.andre-simon.de/doku/highlight/en/highlight.php">highlight</a> command line tool must (1) be installed and (2) be on your <code>PATH</code>. People have successfully used <code><a href="../../reference/reprex_venue.html">reprex_rtf()</a></code> on macOS and Windows (specifically, Windows 10 + Windows PowerShell 5.1). We consider it experimental because of the rather hacky way we shell out to highlight and, long-term, it would be preferable to get syntax-highlighted RTF through a proper R package. The existing <a href="https://cran.r-project.org/package=highlight">highlight R package</a> can’t do this (yet?).</p>
+<div id="how-to-install-highlight" class="section level3">
+<h3 class="hasAnchor">
+<a href="#how-to-install-highlight" class="anchor"></a>How to install highlight</h3>
 <p>The highlight website offers downloads in various forms, for various OSes:</p>
 <ul>
-<li><a href="http://www.andre-simon.de/zip/download.php" class="external-link uri">http://www.andre-simon.de/zip/download.php</a></li>
+<li><a href="http://www.andre-simon.de/zip/download.php" class="uri">http://www.andre-simon.de/zip/download.php</a></li>
 </ul>
-<p>For macOS users who use <a href="https://brew.sh" class="external-link">homebrew</a>, this works:</p>
+<p>For macOS users who use <a href="https://brew.sh">homebrew</a>, this works:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="ex">brew</span> install highlight</span></code></pre></div>
-<p>For Windows users who use <a href="https://chocolatey.org/" class="external-link">chocolatey</a>, this works:</p>
+<p>For Windows users who use <a href="https://chocolatey.org/">chocolatey</a>, this works:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="ex">choco</span> install highlight</span></code></pre></div>
-<p>On Windows, the chocolatey method did not add highlight to my <code>PATH</code> and this could affect other methods of installation as well. In this case, you’ll <a href="https://www.maketecheasier.com/what-is-the-windows-path/" class="external-link">need to do this manually</a>. In my case, I needed to add <code>C:\Program Files\Highlight</code> to <code>PATH</code>. A second issue we’ve seen is with the scoop package manager for Windows, which uses a shim-based method of making the executables it installs findable. The shim method appears to be less resilient to the different ways of calling highlight from R.</p>
-<p><code><a href="../../reference/reprex_venue.html">reprex_rtf()</a></code> should work when <code>Sys.which("highlight")</code>, executed in R, correctly returns the path to your highlight executable.</p>
+<p>On Windows, the chocolatey method did not add highlight to my <code>PATH</code> and this could affect other methods of installation as well. In this case, you’ll <a href="https://www.maketecheasier.com/what-is-the-windows-path/">need to do this manually</a>. In my case, I needed to add <code>C:\Program Files\Highlight</code> to <code>PATH</code>. A second issue we’ve seen is with the scoop package manager for Windows, which uses a shim-based method of making the executables it installs findable. The shim method appears to be less resilient to the different ways of calling highlight from R.</p>
+<p><code><a href="../../reference/reprex_venue.html">reprex_rtf()</a></code> should work when <code><a href="https://rdrr.io/r/base/Sys.which.html">Sys.which("highlight")</a></code>, executed in R, correctly returns the path to your highlight executable.</p>
 <p>Here’s how that looks for me on macOS:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Sys.which.html" class="external-link">Sys.which</a></span><span class="op">(</span><span class="st">"highlight"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Sys.which.html">Sys.which</a></span><span class="op">(</span><span class="st">"highlight"</span><span class="op">)</span>
 <span class="co">#&gt;                  highlight </span>
 <span class="co">#&gt; "/usr/local/bin/highlight" </span></code></pre></div>
 <p>and on Windows:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Sys.which.html" class="external-link">Sys.which</a></span><span class="op">(</span><span class="st">"highlight"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Sys.which.html">Sys.which</a></span><span class="op">(</span><span class="st">"highlight"</span><span class="op">)</span>
 <span class="co">#&gt;                              highlight </span>
 <span class="co">#&gt; "C:\\PROGRA~1\\HIGHLI~1\\HIGHLI~2.EXE" </span></code></pre></div>
 <p>Here is the highlight call implied by the default behaviour of <code><a href="../../reference/reprex_venue.html">reprex_rtf()</a></code>:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="ex">highlight</span> -i foo_reprex.R --out-format rtf --no-trailing-nl --encoding=UTF-8 --style darkbone --font <span class="st">'Courier Regular'</span> --font-size 50 -o foo_reprex.rtf</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="basic-usage">Basic usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
-</h2>
+<div id="basic-usage" class="section level2">
+<h2 class="hasAnchor">
+<a href="#basic-usage" class="anchor"></a>Basic usage</h2>
 <p>Let’s reprex some code and stick it on a Keynote slide with other non-R “features”.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/reprex.html">reprex</a></span><span class="op">(</span><span class="op">{</span>
-  <span class="op">(</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+  <span class="op">(</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="op">}</span>, venue <span class="op">=</span> <span class="st">"rtf"</span><span class="op">)</span></code></pre></div>
 <p><img src="img/keynote-w00t.png" width="75%"></p>
 </div>
-<div class="section level2">
-<h2 id="highlight-options">highlight options<a class="anchor" aria-label="anchor" href="#highlight-options"></a>
-</h2>
+<div id="highlight-options" class="section level2">
+<h2 class="hasAnchor">
+<a href="#highlight-options" class="anchor"></a>highlight options</h2>
 <p>If you don’t like the defaults, control highlight command line arguments by setting <code>reprex.highlight.*</code> options. Why options? I didn’t want to burden <code><a href="../../reference/reprex.html">reprex()</a></code> with even more arguments and this is usually something you want to set globally for yourself or for an entire project or talk or course.</p>
 <p>Set these options with code like this:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>
   reprex.highlight.hl_style  <span class="op">=</span> <span class="st">"darkbone"</span>,
   reprex.highlight.font      <span class="op">=</span> <span class="st">"Source Code Pro"</span>,
   reprex.highlight.font_size <span class="op">=</span> <span class="fl">50</span>
@@ -202,53 +198,52 @@
 <p>List available themes:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a><span class="ex">highlight</span> --list-scripts=themes</span></code></pre></div>
 <p>But what do these themes <em>look like</em>? Here are some galleries that probably have high overlap with your themes:</p>
-<p><a href="http://www.andre-simon.de/doku/highlight/en/theme-samples.php" class="external-link uri">http://www.andre-simon.de/doku/highlight/en/theme-samples.php</a><br><a href="https://rclickhandbuch.files.wordpress.com/2014/09/knitrthemesoverview.pdf" class="external-link uri">https://rclickhandbuch.files.wordpress.com/2014/09/knitrthemesoverview.pdf</a></p>
+<p><a href="http://www.andre-simon.de/doku/highlight/en/theme-samples.php" class="uri">http://www.andre-simon.de/doku/highlight/en/theme-samples.php</a><br><a href="https://rclickhandbuch.files.wordpress.com/2014/09/knitrthemesoverview.pdf" class="uri">https://rclickhandbuch.files.wordpress.com/2014/09/knitrthemesoverview.pdf</a></p>
 <p>You can also override defaults on-the-fly. Here’s how to do that for a single call using withr and, as a bonus, how to use <code>reprex.highlight.other</code> to send arbitrary command line arguments to highlight:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_options.html" class="external-link">with_options</a></span><span class="op">(</span>
-  new <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_options.html">with_options</a></span><span class="op">(</span>
+  new <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
     reprex.highlight.hl_style  <span class="op">=</span> <span class="st">"dusk"</span>,
     reprex.highlight.font      <span class="op">=</span> <span class="st">"Fira Code Regular"</span>,
     reprex.highlight.font_size <span class="op">=</span> <span class="fl">35</span>,
     reprex.highlight.other     <span class="op">=</span> <span class="st">"--line-numbers --line-number-length=2 --zeroes"</span>
   <span class="op">)</span>,
-  <span class="fu">reprex</span><span class="fu">::</span><span class="fu"><a href="../../reference/reprex.html">reprex</a></span><span class="op">(</span>input <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"(x &lt;- rnorm(3))"</span>, <span class="st">"mean(x)"</span><span class="op">)</span>, venue <span class="op">=</span> <span class="st">"rtf"</span><span class="op">)</span>
+  <span class="fu">reprex</span><span class="fu">::</span><span class="fu"><a href="../../reference/reprex.html">reprex</a></span><span class="op">(</span>input <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"(x &lt;- rnorm(3))"</span>, <span class="st">"mean(x)"</span><span class="op">)</span>, venue <span class="op">=</span> <span class="st">"rtf"</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <p><img src="img/dusk-fira-35-line-numbers.png" width="60%"></p>
 <p>Here’s how to set highlight options for part of an R session:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">op</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">op</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>
   reprex.highlight.hl_style  <span class="op">=</span> <span class="st">"anotherdark"</span>,
   reprex.highlight.font      <span class="op">=</span> <span class="st">"Andale Mono Regular"</span>,
   reprex.highlight.font_size <span class="op">=</span> <span class="fl">60</span>,
   reprex.highlight.other     <span class="op">=</span> <span class="st">"--line-numbers"</span>
 <span class="op">)</span>
 
-<span class="fu">reprex</span><span class="fu">::</span><span class="fu"><a href="../../reference/reprex.html">reprex</a></span><span class="op">(</span>input <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"(x &lt;- rnorm(3))"</span>, <span class="st">"mean(x)"</span><span class="op">)</span>, venue <span class="op">=</span> <span class="st">"rtf"</span><span class="op">)</span>
+<span class="fu">reprex</span><span class="fu">::</span><span class="fu"><a href="../../reference/reprex.html">reprex</a></span><span class="op">(</span>input <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"(x &lt;- rnorm(3))"</span>, <span class="st">"mean(x)"</span><span class="op">)</span>, venue <span class="op">=</span> <span class="st">"rtf"</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="va">op</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span><span class="va">op</span><span class="op">)</span></code></pre></div>
 <p><img src="img/anotherdark-andale-60-line-numbers.png" width="85%"></p>
 <p>Experience has shown that it is hard to predict which aspects of the RTF will be honored when you paste into the target document. We’re talking about things like the font size or background color. This seems to vary greatly across applications and operating systems and you’ll just have to experiment to find a workflow that is practical for you.</p>
-<p>Note that it is even possible to create a custom highlight theme, e.g. to match the theme of a Keynote or Powerpoint slide deck with respect to background color, font, etc. A specific example of this is documented in these <a href="https://github.com/jennybc/debugging/blob/master/how-to/highlight-custom-theme.md" class="external-link">how-to notes</a>.</p>
+<p>Note that it is even possible to create a custom highlight theme, e.g. to match the theme of a Keynote or Powerpoint slide deck with respect to background color, font, etc. A specific example of this is documented in these <a href="https://github.com/jennybc/debugging/blob/master/how-to/highlight-custom-theme.md">how-to notes</a>.</p>
 </div>
-<div class="section level2">
-<h2 id="run-or-not">Run … or not<a class="anchor" aria-label="anchor" href="#run-or-not"></a>
-</h2>
+<div id="run-or-not" class="section level2">
+<h2 class="hasAnchor">
+<a href="#run-or-not" class="anchor"></a>Run … or not</h2>
 <p>If you just want to highlight code, but not run it, set chunk option <code>eval = FALSE</code> option, i.e. put a special comment as the first line of your reprex source:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#+ eval = FALSE</span>
-<span class="op">(</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+<span class="op">(</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
 <p>The above source, when <code><a href="../../reference/reprex.html">reprex()</a></code>ed, will not include the usual output. This is not specific to <code>venue = "rtf"</code>, but it’s more likely to come up in this setting.</p>
 <p><img src="img/eval-false.png" width="20%"></p>
 </div>
-<div class="section level2">
-<h2 id="what-if-each-snippet-cant-be-self-contained">What if each snippet can’t be self-contained?<a class="anchor" aria-label="anchor" href="#what-if-each-snippet-cant-be-self-contained"></a>
-</h2>
-<div class="section level3">
-<h3 id="reprexprex-and-friends">
-<code>reprex:::prex()</code> and friends<a class="anchor" aria-label="anchor" href="#reprexprex-and-friends"></a>
-</h3>
+<div id="what-if-each-snippet-cant-be-self-contained" class="section level2">
+<h2 class="hasAnchor">
+<a href="#what-if-each-snippet-cant-be-self-contained" class="anchor"></a>What if each snippet can’t be self-contained?</h2>
+<div id="reprexprex-and-friends" class="section level3">
+<h3 class="hasAnchor">
+<a href="#reprexprex-and-friends" class="anchor"></a><code>reprex:::prex()</code> and friends</h3>
 <p>When preparing bits of code for a presentation, it can be impractical to make each snippet completely self-contained. You really need to run the snippets in the current workspace and session. But <code><a href="../../reference/reprex.html">reprex()</a></code> does not allow this.</p>
 <p>The <strong>unexported</strong> function <code>prex()</code> addresses this use case. It’s like <code><a href="../../reference/reprex.html">reprex()</a></code>, but much less reproducible!</p>
 <ul>
@@ -262,37 +257,37 @@
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">4</span>
-<span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="st">"blah blah"</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"stuff.txt"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="st">"blah blah"</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"stuff.txt"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Now we can show the difference between <code>prex()</code> and <code><a href="../../reference/reprex.html">reprex()</a></code>.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">prex</span><span class="op">(</span><span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/ls.html" class="external-link">ls</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span><span class="op">)</span>
   <span class="va">x</span> <span class="op">+</span> <span class="va">y</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="st">"stuff.txt"</span><span class="op">)</span>  
+  <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="st">"stuff.txt"</span><span class="op">)</span>  
 <span class="op">}</span><span class="op">)</span></code></pre></div>
 <p>yields</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/ls.html" class="external-link">ls</a></span><span class="op">(</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1] "x" "y"</span>
 <span class="va">x</span> <span class="op">+</span> <span class="va">y</span>
 <span class="co">#&gt; [1] 5</span>
-<span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="st">"stuff.txt"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="st">"stuff.txt"</span><span class="op">)</span>
 <span class="co">#&gt; [1] "blah blah"</span></code></pre></div>
 <p><code>x</code> and <code>y</code> can be found, even though they aren’t defined in the snippet, and <code>stuff.txt</code> can be read.</p>
 <p>This is very different from executing the same code via <code><a href="../../reference/reprex.html">reprex()</a></code>:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/reprex.html">reprex</a></span><span class="op">(</span><span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/ls.html" class="external-link">ls</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span><span class="op">)</span>
   <span class="va">x</span> <span class="op">+</span> <span class="va">y</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="st">"stuff.txt"</span><span class="op">)</span>  
+  <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="st">"stuff.txt"</span><span class="op">)</span>  
 <span class="op">}</span><span class="op">)</span></code></pre></div>
 <p>which yields:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/ls.html" class="external-link">ls</a></span><span class="op">(</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; character(0)</span>
 <span class="va">x</span> <span class="op">+</span> <span class="va">y</span>
 <span class="co">#&gt; Error in eval(expr, envir, enclos): object 'x' not found</span>
-<span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="st">"stuff.txt"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="st">"stuff.txt"</span><span class="op">)</span>
 <span class="co">#&gt; Warning in file(con, "r"): cannot open file 'stuff.txt': No such file or</span>
 <span class="co">#&gt; directory</span>
 <span class="co">#&gt; Error in file(con, "r"): cannot open the connection</span></code></pre></div>
@@ -303,29 +298,29 @@
 <span class="va">prex_rtf</span> <span class="op">&lt;-</span> <span class="fu">reprex</span><span class="fu">:::</span><span class="va">prex_rtf</span></code></pre></div>
 </div>
 </div>
-<div class="section level2">
-<h2 id="selectively-hide-and-reveal-code">Selectively hide and reveal code<a class="anchor" aria-label="anchor" href="#selectively-hide-and-reveal-code"></a>
-</h2>
+<div id="selectively-hide-and-reveal-code" class="section level2">
+<h2 class="hasAnchor">
+<a href="#selectively-hide-and-reveal-code" class="anchor"></a>Selectively hide and reveal code</h2>
 <p><em>Before <code>prex()</code> existed, you had to use a more cumbersome technique to produce small snippets, by hiding code. We leave this here in case it is still useful in some situations.</em></p>
 <p>You can use knitr chunk options to selectively hide code, i.e. to run a large snippet, but only include a small bit in the output.</p>
 <p>This is easiest to show by example. If you <code><a href="../../reference/reprex.html">reprex()</a></code> this code, only the last three lines and their output will appear in the output. But the other lines will be run, i.e. <code>str_reverse()</code> will be defined, as will the <code>bizzaro()</code> generic and default method.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#+ include = FALSE</span>
 <span class="va">str_reverse</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">""</span><span class="op">)</span>,
-    FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">""</span><span class="op">)</span>,
+    FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rev.html">rev</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span>,
     FUN.VALUE <span class="op">=</span> <span class="st">""</span><span class="op">)</span>
 <span class="op">}</span>
 
 <span class="co">#+ include = FALSE</span>
 <span class="va">bizarro</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/UseMethod.html" class="external-link">UseMethod</a></span><span class="op">(</span><span class="st">"bizarro"</span><span class="op">)</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/UseMethod.html">UseMethod</a></span><span class="op">(</span><span class="st">"bizarro"</span><span class="op">)</span>
 <span class="op">}</span>
 <span class="va">bizarro.default</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span>
     <span class="st">"Don't know how to make bizzaro &lt;"</span>,
-    <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="st">"&gt;"</span>,
+    <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="st">"&gt;"</span>,
     call. <span class="op">=</span> <span class="cn">FALSE</span>
   <span class="op">)</span>
 <span class="op">}</span>
@@ -333,7 +328,7 @@
 <span class="co">#+ include = TRUE</span>
 <span class="va">bizarro.character</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">str_reverse</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 
-<span class="fu">bizarro</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"abc"</span>, <span class="st">"def"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu">bizarro</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"abc"</span>, <span class="st">"def"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="fu">bizarro</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></code></pre></div>
 <p><img src="img/bizarro-selective-reveal.png" width="70%"></p>
@@ -351,13 +346,13 @@
 
 
       <footer><div class="tidyverse">
-  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org" class="external-link">tidyverse.org</a>.</p>
+  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">
   <p>
-    Developed by .
-    Site built by <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a>.
+    Developed by <a href="https://jennybryan.org">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
+    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
 
@@ -366,8 +361,6 @@
 
   
 
-
-  
 
   </body>
 </html>

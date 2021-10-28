@@ -1,14 +1,14 @@
 pandoc: 2.7.3
-pkgdown: 1.9000.9000.9000
-pkgdown_sha: 9d071f5e71370873ce1568610d6e362340bf9c22
+pkgdown: 1.6.1
+pkgdown_sha: ~
 articles:
-  datapasta-reprex: articles/datapasta-reprex.html
-  learn-reprex: articles/learn-reprex.html
-  magic-reprex: articles/magic-reprex.html
-  rtf: articles/rtf.html
-  suppress-startup-messages: articles/suppress-startup-messages.html
+  articles/datapasta-reprex: datapasta-reprex.html
+  articles/learn-reprex: learn-reprex.html
+  articles/magic-reprex: magic-reprex.html
+  articles/rtf: rtf.html
+  articles/suppress-startup-messages: suppress-startup-messages.html
   reprex-dos-and-donts: reprex-dos-and-donts.html
-last_built: 2021-10-28T21:52Z
+last_built: 2021-10-28T23:41Z
 urls:
   reference: https://reprex.tidyverse.org/reference
   article: https://reprex.tidyverse.org/articles
