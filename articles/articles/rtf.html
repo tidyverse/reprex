@@ -130,7 +130,7 @@
       <h1 data-toc-skip>reprex venue RTF</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/reprex/blob/master/vignettes/articles/rtf.Rmd" class="external-link"><code>vignettes/articles/rtf.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/reprex/blob/HEAD/vignettes/articles/rtf.Rmd" class="external-link"><code>vignettes/articles/rtf.Rmd</code></a></small>
       <div class="hidden name"><code>rtf.Rmd</code></div>
 
     </div>
@@ -142,13 +142,13 @@
 <p>
 </p>
 <div style="height: auto">
-<p><img src="https://raw.githubusercontent.com/tidyverse/reprex/master/img/reprex_rtf_jennybryan.gif" alt="Gif of setting options to control highlight and using reprex with the RTF venue" style="width: 100%;max-height: 100%"></p>
+<p><img src="https://raw.githubusercontent.com/tidyverse/reprex/main/img/reprex_rtf_jennybryan.gif" alt="Gif of setting options to control highlight and using reprex with the RTF venue" style="width: 100%;max-height: 100%"></p>
 </div>
 
 <p>The “rtf” venue was introduced in reprex v0.2.1 and is experimental. The <a href="http://www.andre-simon.de/doku/highlight/en/highlight.php" class="external-link">highlight</a> command line tool must (1) be installed and (2) be on your <code>PATH</code>. People have successfully used <code><a href="../../reference/reprex_venue.html">reprex_rtf()</a></code> on macOS and Windows (specifically, Windows 10 + Windows PowerShell 5.1). We consider it experimental because of the rather hacky way we shell out to highlight and, long-term, it would be preferable to get syntax-highlighted RTF through a proper R package. The existing <a href="https://cran.r-project.org/package=highlight" class="external-link">highlight R package</a> can’t do this (yet?).</p>
-<div id="how-to-install-highlight" class="section level3">
-<h3 class="hasAnchor">
-<a href="#how-to-install-highlight" class="anchor" aria-hidden="true"></a>How to install highlight</h3>
+<div class="section level3">
+<h3 id="how-to-install-highlight">How to install highlight<a class="anchor" aria-label="anchor" href="#how-to-install-highlight"></a>
+</h3>
 <p>The highlight website offers downloads in various forms, for various OSes:</p>
 <ul>
 <li><a href="http://www.andre-simon.de/zip/download.php" class="external-link uri">http://www.andre-simon.de/zip/download.php</a></li>
@@ -172,9 +172,9 @@
 <p>Here is the highlight call implied by the default behaviour of <code><a href="../../reference/reprex_venue.html">reprex_rtf()</a></code>:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="ex">highlight</span> -i foo_reprex.R --out-format rtf --no-trailing-nl --encoding=UTF-8 --style darkbone --font <span class="st">'Courier Regular'</span> --font-size 50 -o foo_reprex.rtf</span></code></pre></div>
 </div>
-<div id="basic-usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#basic-usage" class="anchor" aria-hidden="true"></a>Basic usage</h2>
+<div class="section level2">
+<h2 id="basic-usage">Basic usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
+</h2>
 <p>Let’s reprex some code and stick it on a Keynote slide with other non-R “features”.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../../reference/reprex.html">reprex</a></span><span class="op">(</span><span class="op">{</span>
@@ -183,9 +183,9 @@
 <span class="op">}</span>, venue <span class="op">=</span> <span class="st">"rtf"</span><span class="op">)</span></code></pre></div>
 <p><img src="img/keynote-w00t.png" width="75%"></p>
 </div>
-<div id="highlight-options" class="section level2">
-<h2 class="hasAnchor">
-<a href="#highlight-options" class="anchor" aria-hidden="true"></a>highlight options</h2>
+<div class="section level2">
+<h2 id="highlight-options">highlight options<a class="anchor" aria-label="anchor" href="#highlight-options"></a>
+</h2>
 <p>If you don’t like the defaults, control highlight command line arguments by setting <code>reprex.highlight.*</code> options. Why options? I didn’t want to burden <code><a href="../../reference/reprex.html">reprex()</a></code> with even more arguments and this is usually something you want to set globally for yourself or for an entire project or talk or course.</p>
 <p>Set these options with code like this:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -231,9 +231,9 @@
 <p>Experience has shown that it is hard to predict which aspects of the RTF will be honored when you paste into the target document. We’re talking about things like the font size or background color. This seems to vary greatly across applications and operating systems and you’ll just have to experiment to find a workflow that is practical for you.</p>
 <p>Note that it is even possible to create a custom highlight theme, e.g. to match the theme of a Keynote or Powerpoint slide deck with respect to background color, font, etc. A specific example of this is documented in these <a href="https://github.com/jennybc/debugging/blob/master/how-to/highlight-custom-theme.md" class="external-link">how-to notes</a>.</p>
 </div>
-<div id="run-or-not" class="section level2">
-<h2 class="hasAnchor">
-<a href="#run-or-not" class="anchor" aria-hidden="true"></a>Run … or not</h2>
+<div class="section level2">
+<h2 id="run-or-not">Run … or not<a class="anchor" aria-label="anchor" href="#run-or-not"></a>
+</h2>
 <p>If you just want to highlight code, but not run it, set chunk option <code>eval = FALSE</code> option, i.e. put a special comment as the first line of your reprex source:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#+ eval = FALSE</span>
@@ -242,12 +242,13 @@
 <p>The above source, when <code><a href="../../reference/reprex.html">reprex()</a></code>ed, will not include the usual output. This is not specific to <code>venue = "rtf"</code>, but it’s more likely to come up in this setting.</p>
 <p><img src="img/eval-false.png" width="20%"></p>
 </div>
-<div id="what-if-each-snippet-cant-be-self-contained" class="section level2">
-<h2 class="hasAnchor">
-<a href="#what-if-each-snippet-cant-be-self-contained" class="anchor" aria-hidden="true"></a>What if each snippet can’t be self-contained?</h2>
-<div id="reprexprex-and-friends" class="section level3">
-<h3 class="hasAnchor">
-<a href="#reprexprex-and-friends" class="anchor" aria-hidden="true"></a><code>reprex:::prex()</code> and friends</h3>
+<div class="section level2">
+<h2 id="what-if-each-snippet-cant-be-self-contained">What if each snippet can’t be self-contained?<a class="anchor" aria-label="anchor" href="#what-if-each-snippet-cant-be-self-contained"></a>
+</h2>
+<div class="section level3">
+<h3 id="reprexprex-and-friends">
+<code>reprex:::prex()</code> and friends<a class="anchor" aria-label="anchor" href="#reprexprex-and-friends"></a>
+</h3>
 <p>When preparing bits of code for a presentation, it can be impractical to make each snippet completely self-contained. You really need to run the snippets in the current workspace and session. But <code><a href="../../reference/reprex.html">reprex()</a></code> does not allow this.</p>
 <p>The <strong>unexported</strong> function <code>prex()</code> addresses this use case. It’s like <code><a href="../../reference/reprex.html">reprex()</a></code>, but much less reproducible!</p>
 <ul>
@@ -302,9 +303,9 @@
 <span class="va">prex_rtf</span> <span class="op">&lt;-</span> <span class="fu">reprex</span><span class="fu">:::</span><span class="va">prex_rtf</span></code></pre></div>
 </div>
 </div>
-<div id="selectively-hide-and-reveal-code" class="section level2">
-<h2 class="hasAnchor">
-<a href="#selectively-hide-and-reveal-code" class="anchor" aria-hidden="true"></a>Selectively hide and reveal code</h2>
+<div class="section level2">
+<h2 id="selectively-hide-and-reveal-code">Selectively hide and reveal code<a class="anchor" aria-label="anchor" href="#selectively-hide-and-reveal-code"></a>
+</h2>
 <p><em>Before <code>prex()</code> existed, you had to use a more cumbersome technique to produce small snippets, by hiding code. We leave this here in case it is still useful in some situations.</em></p>
 <p>You can use knitr chunk options to selectively hide code, i.e. to run a large snippet, but only include a small bit in the output.</p>
 <p>This is easiest to show by example. If you <code><a href="../../reference/reprex.html">reprex()</a></code> this code, only the last three lines and their output will appear in the output. But the other lines will be run, i.e. <code>str_reverse()</code> will be defined, as will the <code>bizzaro()</code> generic and default method.</p>
@@ -355,7 +356,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href="https://jennybryan.org" class="external-link">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
+    Developed by .
     Site built by <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a>.
   </p>
 </div>

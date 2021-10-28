@@ -77,7 +77,7 @@ your .Rprofile."><meta property="og:image" content="https://reprex.tidyverse.org
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">reprex</a>
         <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
+          <span class="partof">part of the <a href="https://tidyverse.org" class="external-link">tidyverse</a></span>
           <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9000</span>
         </div>
       </div>
@@ -117,10 +117,10 @@ your .Rprofile."><meta property="og:image" content="https://reprex.tidyverse.org
   </a>
   <ul class="dropdown-menu" role="menu"><li class="dropdown-header">Blog posts</li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2021/04/reprex-2-0-0/">reprex 2.0.0</a>
+      <a href="https://www.tidyverse.org/blog/2021/04/reprex-2-0-0/" class="external-link">reprex 2.0.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2021/02/reprex-1-0-0/">reprex 1.0.0</a>
+      <a href="https://www.tidyverse.org/blog/2021/02/reprex-1-0-0/" class="external-link">reprex 1.0.0</a>
     </li>
     <li class="divider">
     <li>
@@ -128,7 +128,7 @@ your .Rprofile."><meta property="og:image" content="https://reprex.tidyverse.org
     </li>
   </ul></li>
         <li>
-  <a href="https://github.com/tidyverse/reprex/">
+  <a href="https://github.com/tidyverse/reprex/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -143,7 +143,7 @@ your .Rprofile."><meta property="og:image" content="https://reprex.tidyverse.org
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>reprex options</h1>
-    <small class="dont-index">Source: <a href="https://github.com/tidyverse/reprex/blob/master/R/reprex-options.R"><code>R/reprex-options.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/tidyverse/reprex/blob/HEAD/R/reprex-options.R" class="external-link"><code>R/reprex-options.R</code></a></small>
     <div class="hidden name"><code>reprex_options.Rd</code></div>
     </div>
 
@@ -177,20 +177,20 @@ in the article
 <li><p><code>reprex.highlight.other</code>: See above.</p></li>
 </ul><p>Here's code you could put in <code>.Rprofile</code> to set reprex options. It would be
 rare to want non-default behaviour for all of these! We only do so here for
-the sake of exposition:</p><pre class="sourceCode r"><code><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>
-  reprex.advertise       <span class="op">=</span> <span class="cn">FALSE</span>,
-  reprex.session_info    <span class="op">=</span> <span class="cn">TRUE</span>,
-  reprex.style           <span class="op">=</span> <span class="cn">TRUE</span>,
-  reprex.html_preview    <span class="op">=</span> <span class="cn">FALSE</span>,
-  reprex.comment         <span class="op">=</span> <span class="st">"#;-)"</span>,
-  reprex.tidyverse_quiet <span class="op">=</span> <span class="cn">FALSE</span>,
-  reprex.std_out_err     <span class="op">=</span> <span class="cn">TRUE</span>,
-  reprex.venue           <span class="op">=</span> <span class="st">"html"</span>, <span class="co"># NOTE: only affects reprex_selection()!</span>
-  reprex.highlight.hl_style  <span class="op">=</span> <span class="st">"acid"</span>, <span class="co"># NOTE: only affects RTF venue</span>
-  reprex.highlight.font      <span class="op">=</span> <span class="st">"Andale Mono Regular"</span>,
-  reprex.highlight.font_size <span class="op">=</span> <span class="fl">35</span>,
-  reprex.highlight.other     <span class="op">=</span> <span class="st">"--line-numbers"</span>
-<span class="op">)</span>
+the sake of exposition:</p><pre><code>options(
+  reprex.advertise       = FALSE,
+  reprex.session_info    = TRUE,
+  reprex.style           = TRUE,
+  reprex.html_preview    = FALSE,
+  reprex.comment         = "#;-)",
+  reprex.tidyverse_quiet = FALSE,
+  reprex.std_out_err     = TRUE,
+  reprex.venue           = "html", # NOTE: only affects reprex_selection()!
+  reprex.highlight.hl_style  = "acid", # NOTE: only affects RTF venue
+  reprex.highlight.font      = "Andale Mono Regular",
+  reprex.highlight.font_size = 35,
+  reprex.highlight.other     = "--line-numbers"
+)
 </code></pre>
 
 <p>The function <code>usethis::edit_r_profile()</code> is handy for creating and/or opening
@@ -198,23 +198,23 @@ your <code>.Rprofile</code>.</p>
     </div>
 
 
-
-    <h2 class="hasAnchor" id="explaining-the-opt-helper"><a class="anchor" href="#explaining-the-opt-helper"></a>Explaining the <code>opt()</code> helper</h2>
-
+    <div id="ref-sections">
+    <div id="explaining-the-opt-helper">
+    <h2>Explaining the <code>opt()</code> helper</h2>
     
 
-<p>Arguments that appear like so in <code><a href="reprex.html">reprex()</a></code>:</p><pre class="sourceCode r"><code><span class="fu"><a href="reprex.html">reprex</a></span><span class="op">(</span><span class="va">...</span>, arg <span class="op">=</span> <span class="fu">opt</span><span class="op">(</span><span class="va">DEFAULT</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span>
-</code></pre>
+<p>Arguments that appear like so in <code><a href="reprex.html">reprex()</a></code>:</p><pre><code><span class="fu"><a href="../reference/reprex.html">reprex</a></span><span class="op">(</span><span class="va">...</span>, arg <span class="op">=</span> <span class="fu"><a href="../reference/reprex_options.html">opt</a></span><span class="op">(</span><span class="va">DEFAULT</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></code></pre>
 
 <p>get their value according to this logic:</p><pre><code>user-specified value or, if not given,
   getOption("reprex.arg") or, if does not exist,
     DEFAULT
 </code></pre>
 
-<p>It's shorthand for:</p><pre class="sourceCode r"><code><span class="fu">f</span><span class="op">(</span><span class="va">...</span>, arg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html">getOption</a></span><span class="op">(</span><span class="st">"reprex.arg"</span>, <span class="va">DEFAULT</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span>
-</code></pre>
+<p>It's shorthand for:</p><pre><code><span class="fu">f</span><span class="op">(</span><span class="va">...</span>, arg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"reprex.arg"</span>, <span class="va">DEFAULT</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></code></pre>
 
 <p>This is not an exported function and should not be called directly.</p>
+    </div>
+    </div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -224,13 +224,13 @@ your <code>.Rprofile</code>.</p>
 
 
       <footer><div class="tidyverse">
-  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
+  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org" class="external-link">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">
   <p>
-    Developed by <a href="https://jennybryan.org">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
+    Developed by .
+    Site built by <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a>.
   </p>
 </div>
 

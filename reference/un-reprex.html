@@ -28,7 +28,7 @@ wild-caught reprex."><meta property="og:image" content="https://reprex.tidyverse
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">reprex</a>
         <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
+          <span class="partof">part of the <a href="https://tidyverse.org" class="external-link">tidyverse</a></span>
           <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9000</span>
         </div>
       </div>
@@ -68,10 +68,10 @@ wild-caught reprex."><meta property="og:image" content="https://reprex.tidyverse
   </a>
   <ul class="dropdown-menu" role="menu"><li class="dropdown-header">Blog posts</li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2021/04/reprex-2-0-0/">reprex 2.0.0</a>
+      <a href="https://www.tidyverse.org/blog/2021/04/reprex-2-0-0/" class="external-link">reprex 2.0.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2021/02/reprex-1-0-0/">reprex 1.0.0</a>
+      <a href="https://www.tidyverse.org/blog/2021/02/reprex-1-0-0/" class="external-link">reprex 1.0.0</a>
     </li>
     <li class="divider">
     <li>
@@ -79,7 +79,7 @@ wild-caught reprex."><meta property="og:image" content="https://reprex.tidyverse
     </li>
   </ul></li>
         <li>
-  <a href="https://github.com/tidyverse/reprex/">
+  <a href="https://github.com/tidyverse/reprex/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -94,7 +94,7 @@ wild-caught reprex."><meta property="og:image" content="https://reprex.tidyverse
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Un-render a reprex</h1>
-    <small class="dont-index">Source: <a href="https://github.com/tidyverse/reprex/blob/master/R/reprex-undo.R"><code>R/reprex-undo.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/tidyverse/reprex/blob/HEAD/R/reprex-undo.R" class="external-link"><code>R/reprex-undo.R</code></a></small>
     <div class="hidden name"><code>un-reprex.Rd</code></div>
     </div>
 
@@ -108,7 +108,7 @@ wild-caught reprex.</p>
     <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">reprex_invert</span><span class="op">(</span>
   input <span class="op">=</span> <span class="cn">NULL</span>,
   wd <span class="op">=</span> <span class="cn">NULL</span>,
-  venue <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gh"</span>, <span class="st">"r"</span><span class="op">)</span>,
+  venue <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gh"</span>, <span class="st">"r"</span><span class="op">)</span>,
   comment <span class="op">=</span> <span class="fu"><a href="reprex_options.html">opt</a></span><span class="op">(</span><span class="st">"#&gt;"</span><span class="op">)</span>,
   outfile <span class="op">=</span> <span class="st">"DEPRECATED"</span>
 <span class="op">)</span>
@@ -123,34 +123,36 @@ wild-caught reprex.</p>
 <span class="fu">reprex_rescue</span><span class="op">(</span>
   input <span class="op">=</span> <span class="cn">NULL</span>,
   wd <span class="op">=</span> <span class="cn">NULL</span>,
-  prompt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html">getOption</a></span><span class="op">(</span><span class="st">"prompt"</span><span class="op">)</span>,
-  continue <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html">getOption</a></span><span class="op">(</span><span class="st">"continue"</span><span class="op">)</span>,
+  prompt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"prompt"</span><span class="op">)</span>,
+  continue <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"continue"</span><span class="op">)</span>,
   outfile <span class="op">=</span> <span class="st">"DEPRECATED"</span>
 <span class="op">)</span></code></pre></div>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>input</th>
-      <td><p>Character. If has length one and lacks a terminating newline,
+    <div id="ref-sections">
+    <div id="arguments">
+    <h2>Arguments</h2>
+    <dl><dt>input</dt>
+<dd><p>Character. If has length one and lacks a terminating newline,
 interpreted as the path to a file containing the reprex. Otherwise,
 assumed to hold the reprex as a character vector. If not provided, the
 clipboard is consulted for input. If the clipboard is unavailable and
-we're in RStudio, the current selection is used.</p></td>
-    </tr><tr><th>wd</th>
-      <td><p>An optional filepath that is consulted when <code>input</code> is not a
+we're in RStudio, the current selection is used.</p></dd>
+<dt>wd</dt>
+<dd><p>An optional filepath that is consulted when <code>input</code> is not a
 filepath. (By default, all work is done, quietly, in a subdirectory of the
 session temp directory.)</p>
 <p>The most common use of <code>wd</code> is to set <code>wd = "."</code>, which means "reprex right
 HERE in the current working directory". Do this if you really must
-demonstrate something with local files.</p></td>
-    </tr><tr><th>venue</th>
-      <td><p>Character. Must be one of the following (case insensitive):</p><ul><li><p>"gh" for <a href="https://github.github.com/gfm/">GitHub-Flavored Markdown</a>, the
+demonstrate something with local files.</p></dd>
+<dt>venue</dt>
+<dd><p>Character. Must be one of the following (case insensitive):</p><ul><li><p>"gh" for <a href="https://github.github.com/gfm/" class="external-link">GitHub-Flavored Markdown</a>, the
 default</p></li>
 <li><p>"r" for a runnable R script, with commented output interleaved. Also useful
-for <a href="https://slack.com/intl/en-ca/slack-tips/share-code-snippets">Slack code snippets</a>;
+for <a href="https://slack.com/intl/en-ca/slack-tips/share-code-snippets" class="external-link">Slack code snippets</a>;
 select "R" from the "Type" drop-down menu to enjoy nice syntax
 highlighting.</p></li>
 <li><p>"rtf" for
-<a href="https://en.wikipedia.org/wiki/Rich_Text_Format">Rich Text Format</a>
+<a href="https://en.wikipedia.org/wiki/Rich_Text_Format" class="external-link">Rich Text Format</a>
 (not supported for un-reprexing)</p></li>
 <li><p>"html" for an HTML fragment suitable for inclusion in a larger HTML
 document (not supported for un-reprexing)</p></li>
@@ -158,28 +160,30 @@ document (not supported for un-reprexing)</p></li>
 Slack's WYSIWYG interface and, instead, go to <strong>Preferences &gt; Advanced</strong>
 and select "Format messages with markup".</p></li>
 <li><p>"so" for
-<a href="https://stackoverflow.com/editing-help#syntax-highlighting">Stack Overflow Markdown</a>.
+<a href="https://stackoverflow.com/editing-help#syntax-highlighting" class="external-link">Stack Overflow Markdown</a>.
 Note: this is just an alias for "gh", since Stack Overflow started to
 support CommonMark-style fenced code blocks in January 2019.</p></li>
 <li><p>"ds" for Discourse, e.g.,
-<a href="https://community.rstudio.com">community.rstudio.com</a>. Note: this is
+<a href="https://community.rstudio.com" class="external-link">community.rstudio.com</a>. Note: this is
 currently just an alias for "gh".</p></li>
-</ul></td>
-    </tr><tr><th>comment</th>
-      <td><p>regular expression that matches commented output lines</p></td>
-    </tr><tr><th>outfile</th>
-      <td><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a> in favor of <code>wd</code> or
+</ul></dd>
+<dt>comment</dt>
+<dd><p>regular expression that matches commented output lines</p></dd>
+<dt>outfile</dt>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a> in favor of <code>wd</code> or
 providing a filepath to <code>input</code>. To reprex in current working directory,
-use <code>wd = "."</code> now, instead of <code>outfile = NA</code>.</p></td>
-    </tr><tr><th>prompt</th>
-      <td><p>character, the prompt at the start of R commands</p></td>
-    </tr><tr><th>continue</th>
-      <td><p>character, the prompt for continuation lines</p></td>
-    </tr></table><h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
+use <code>wd = "."</code> now, instead of <code>outfile = NA</code>.</p></dd>
+<dt>prompt</dt>
+<dd><p>character, the prompt at the start of R commands</p></dd>
+<dt>continue</dt>
+<dd><p>character, the prompt for continuation lines</p></dd>
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
     <p>Character vector holding just the clean R code, invisibly</p>
-    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
-
+    </div>
+    <div id="functions">
+    <h2>Functions</h2>
     
 <ul><li><p><code>reprex_invert</code>: Attempts to reverse the effect of <code><a href="reprex.html">reprex()</a></code>. When
 <code>venue = "r"</code>, this just calls <code>reprex_clean()</code>.</p></li>
@@ -191,11 +195,15 @@ output.</p></li>
 printed output is top-level, e.g., what you'd get from copy/paste from the
 R Console. Removes lines of output and strips prompts from lines holding R
 commands.</p></li>
-</ul><h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+</ul></div>
+    </div>
+
+    <div id="examples">
+    <h2>Examples</h2>
     <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
 <span class="r-in"><span class="co"># a roundtrip: R code --&gt; rendered reprex, as gfm --&gt; R code</span></span>
-<span class="r-in"><span class="va">original</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"original.R"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"</span>
+<span class="r-in"><span class="va">original</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"original.R"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue</a></span><span class="op">(</span><span class="st">"</span>
 <span class="r-in">  #' Some text</span>
 <span class="r-in">  #+ chunk-label-and-options-cannot-be-recovered, message = TRUE</span>
 <span class="r-in">  (x &lt;- 1:4)</span>
@@ -203,32 +211,32 @@ commands.</p></li>
 <span class="r-in">  y &lt;- 2:5</span>
 <span class="r-in">  x + y"</span><span class="op">)</span>, con <span class="op">=</span> <span class="va">original</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="reprex.html">reprex</a></span><span class="op">(</span>input <span class="op">=</span> <span class="va">original</span>, html_preview <span class="op">=</span> <span class="cn">FALSE</span>, advertise <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">reprexed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">sub</a></span><span class="op">(</span><span class="st">"[.]R$"</span>, <span class="st">"_reprex.md"</span>, <span class="va">original</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="va">reprexed</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">reprexed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">"[.]R$"</span>, <span class="st">"_reprex.md"</span>, <span class="va">original</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="va">reprexed</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">unreprexed</span> <span class="op">&lt;-</span> <span class="fu">reprex_invert</span><span class="op">(</span>input <span class="op">=</span> <span class="va">reprexed</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="va">unreprexed</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="va">unreprexed</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># clean up</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/files.html">file.remove</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html">dirname</a></span><span class="op">(</span><span class="va">original</span><span class="op">)</span>, pattern <span class="op">=</span> <span class="st">"original"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span></span>
+<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">dirname</a></span><span class="op">(</span><span class="va">original</span><span class="op">)</span>, pattern <span class="op">=</span> <span class="st">"original"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
 <span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
 <span class="r-in"><span class="co"># a roundtrip: R code --&gt; rendered reprex, as R code --&gt; original R code</span></span>
-<span class="r-in"><span class="va">code_in</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span class="r-in"><span class="va">code_in</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span class="r-in">  <span class="st">"# a regular comment, which is retained"</span>,</span>
 <span class="r-in">  <span class="st">"(x &lt;- 1:4)"</span>,</span>
 <span class="r-in">  <span class="st">"median(x)"</span></span>
 <span class="r-in"><span class="op">)</span></span>
 <span class="r-in"><span class="va">reprexed</span> <span class="op">&lt;-</span> <span class="fu"><a href="reprex.html">reprex</a></span><span class="op">(</span>input <span class="op">=</span> <span class="va">code_in</span>, venue <span class="op">=</span> <span class="st">"r"</span>, advertise <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="va">reprexed</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="va">reprexed</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">code_out</span> <span class="op">&lt;-</span> <span class="fu">reprex_clean</span><span class="op">(</span>input <span class="op">=</span> <span class="va">reprexed</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="va">code_out</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="va">code_in</span>, <span class="va">code_out</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="va">code_out</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">code_in</span>, <span class="va">code_out</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
 <span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
 <span class="r-in"><span class="co"># rescue a reprex that was copied from a live R session</span></span>
-<span class="r-in"><span class="va">from_r_console</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span class="r-in"><span class="va">from_r_console</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span class="r-in">  <span class="st">"&gt; # a regular comment, which is retained"</span>,</span>
 <span class="r-in">  <span class="st">"&gt; (x &lt;- 1:4)"</span>,</span>
 <span class="r-in">  <span class="st">"[1] 1 2 3 4"</span>,</span>
@@ -236,9 +244,10 @@ commands.</p></li>
 <span class="r-in">  <span class="st">"[1] 2.5"</span></span>
 <span class="r-in"><span class="op">)</span></span>
 <span class="r-in"><span class="va">rescued</span> <span class="op">&lt;-</span> <span class="fu">reprex_rescue</span><span class="op">(</span>input <span class="op">=</span> <span class="va">from_r_console</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="va">rescued</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="va">rescued</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
 </code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>
@@ -247,13 +256,13 @@ commands.</p></li>
 
 
       <footer><div class="tidyverse">
-  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
+  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org" class="external-link">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">
   <p>
-    Developed by <a href="https://jennybryan.org">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
+    Developed by .
+    Site built by <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a>.
   </p>
 </div>
 

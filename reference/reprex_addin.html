@@ -34,7 +34,7 @@ Suggested shortcut: Cmd + Shift + R (macOS) or Ctrl + Shift + R (Windows).'><met
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">reprex</a>
         <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
+          <span class="partof">part of the <a href="https://tidyverse.org" class="external-link">tidyverse</a></span>
           <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9000</span>
         </div>
       </div>
@@ -74,10 +74,10 @@ Suggested shortcut: Cmd + Shift + R (macOS) or Ctrl + Shift + R (Windows).'><met
   </a>
   <ul class="dropdown-menu" role="menu"><li class="dropdown-header">Blog posts</li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2021/04/reprex-2-0-0/">reprex 2.0.0</a>
+      <a href="https://www.tidyverse.org/blog/2021/04/reprex-2-0-0/" class="external-link">reprex 2.0.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2021/02/reprex-1-0-0/">reprex 1.0.0</a>
+      <a href="https://www.tidyverse.org/blog/2021/02/reprex-1-0-0/" class="external-link">reprex 1.0.0</a>
     </li>
     <li class="divider">
     <li>
@@ -85,7 +85,7 @@ Suggested shortcut: Cmd + Shift + R (macOS) or Ctrl + Shift + R (Windows).'><met
     </li>
   </ul></li>
         <li>
-  <a href="https://github.com/tidyverse/reprex/">
+  <a href="https://github.com/tidyverse/reprex/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -100,37 +100,39 @@ Suggested shortcut: Cmd + Shift + R (macOS) or Ctrl + Shift + R (Windows).'><met
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Render a reprex, conveniently</h1>
-    <small class="dont-index">Source: <a href="https://github.com/tidyverse/reprex/blob/master/R/reprex-addin.R"><code>R/reprex-addin.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/tidyverse/reprex/blob/HEAD/R/reprex-addin.R" class="external-link"><code>R/reprex-addin.R</code></a></small>
     <div class="hidden name"><code>reprex_addin.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>reprex_addin()</code> opens an <a href="https://shiny.rstudio.com/articles/gadgets.html">RStudio gadget</a> and
-<a href="http://rstudio.github.io/rstudioaddins/">addin</a> that allows you to say
+    <p><code>reprex_addin()</code> opens an <a href="https://shiny.rstudio.com/articles/gadgets.html" class="external-link">RStudio gadget</a> and
+<a href="http://rstudio.github.io/rstudioaddins/" class="external-link">addin</a> that allows you to say
 where the reprex source is (clipboard? current selection? active file?
 other file?) and to control a few other arguments. Appears as "Render
 reprex" in the RStudio Addins menu.</p>
 <p><code>reprex_selection()</code> is an
-<a href="http://rstudio.github.io/rstudioaddins/">addin</a> that reprexes the current
+<a href="http://rstudio.github.io/rstudioaddins/" class="external-link">addin</a> that reprexes the current
 selection, optionally customised by options. Appears as "Reprex selection"
-in the RStudio Addins menu. Heavy users might want to <a href="https://support.rstudio.com/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts">create a keyboard shortcut</a>.
+in the RStudio Addins menu. Heavy users might want to <a href="https://support.rstudio.com/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts" class="external-link">create a keyboard shortcut</a>.
 Suggested shortcut: Cmd + Shift + R (macOS) or Ctrl + Shift + R (Windows).</p>
     </div>
 
     <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">reprex_addin</span><span class="op">(</span><span class="op">)</span>
 
-<span class="fu">reprex_selection</span><span class="op">(</span>venue <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html">getOption</a></span><span class="op">(</span><span class="st">"reprex.venue"</span>, <span class="st">"gh"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="fu">reprex_selection</span><span class="op">(</span>venue <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"reprex.venue"</span>, <span class="st">"gh"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>venue</th>
-      <td><p>Character. Must be one of the following (case insensitive):</p><ul><li><p>"gh" for <a href="https://github.github.com/gfm/">GitHub-Flavored Markdown</a>, the
+    <div id="ref-sections">
+    <div id="arguments">
+    <h2>Arguments</h2>
+    <dl><dt>venue</dt>
+<dd><p>Character. Must be one of the following (case insensitive):</p><ul><li><p>"gh" for <a href="https://github.github.com/gfm/" class="external-link">GitHub-Flavored Markdown</a>, the
 default</p></li>
 <li><p>"r" for a runnable R script, with commented output interleaved. Also useful
-for <a href="https://slack.com/intl/en-ca/slack-tips/share-code-snippets">Slack code snippets</a>;
+for <a href="https://slack.com/intl/en-ca/slack-tips/share-code-snippets" class="external-link">Slack code snippets</a>;
 select "R" from the "Type" drop-down menu to enjoy nice syntax
 highlighting.</p></li>
 <li><p>"rtf" for
-<a href="https://en.wikipedia.org/wiki/Rich_Text_Format">Rich Text Format</a>
+<a href="https://en.wikipedia.org/wiki/Rich_Text_Format" class="external-link">Rich Text Format</a>
 (not supported for un-reprexing)</p></li>
 <li><p>"html" for an HTML fragment suitable for inclusion in a larger HTML
 document (not supported for un-reprexing)</p></li>
@@ -138,14 +140,17 @@ document (not supported for un-reprexing)</p></li>
 Slack's WYSIWYG interface and, instead, go to <strong>Preferences &gt; Advanced</strong>
 and select "Format messages with markup".</p></li>
 <li><p>"so" for
-<a href="https://stackoverflow.com/editing-help#syntax-highlighting">Stack Overflow Markdown</a>.
+<a href="https://stackoverflow.com/editing-help#syntax-highlighting" class="external-link">Stack Overflow Markdown</a>.
 Note: this is just an alias for "gh", since Stack Overflow started to
 support CommonMark-style fenced code blocks in January 2019.</p></li>
 <li><p>"ds" for Discourse, e.g.,
-<a href="https://community.rstudio.com">community.rstudio.com</a>. Note: this is
+<a href="https://community.rstudio.com" class="external-link">community.rstudio.com</a>. Note: this is
 currently just an alias for "gh".</p></li>
-</ul></td>
-    </tr></table></div>
+</ul></dd>
+</dl></div>
+    </div>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>
     </nav></div>
@@ -153,13 +158,13 @@ currently just an alias for "gh".</p></li>
 
 
       <footer><div class="tidyverse">
-  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
+  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org" class="external-link">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">
   <p>
-    Developed by <a href="https://jennybryan.org">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
+    Developed by .
+    Site built by <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a>.
   </p>
 </div>
 

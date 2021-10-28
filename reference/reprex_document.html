@@ -52,7 +52,7 @@ yourself, you should do same.'><meta property="og:image" content="https://reprex
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">reprex</a>
         <div class="info hidden-xs hidden-sm">
-          <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
+          <span class="partof">part of the <a href="https://tidyverse.org" class="external-link">tidyverse</a></span>
           <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9000</span>
         </div>
       </div>
@@ -92,10 +92,10 @@ yourself, you should do same.'><meta property="og:image" content="https://reprex
   </a>
   <ul class="dropdown-menu" role="menu"><li class="dropdown-header">Blog posts</li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2021/04/reprex-2-0-0/">reprex 2.0.0</a>
+      <a href="https://www.tidyverse.org/blog/2021/04/reprex-2-0-0/" class="external-link">reprex 2.0.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/blog/2021/02/reprex-1-0-0/">reprex 1.0.0</a>
+      <a href="https://www.tidyverse.org/blog/2021/02/reprex-1-0-0/" class="external-link">reprex 1.0.0</a>
     </li>
     <li class="divider">
     <li>
@@ -103,7 +103,7 @@ yourself, you should do same.'><meta property="og:image" content="https://reprex
     </li>
   </ul></li>
         <li>
-  <a href="https://github.com/tidyverse/reprex/">
+  <a href="https://github.com/tidyverse/reprex/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -118,7 +118,7 @@ yourself, you should do same.'><meta property="og:image" content="https://reprex
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>reprex output format</h1>
-    <small class="dont-index">Source: <a href="https://github.com/tidyverse/reprex/blob/master/R/reprex_document.R"><code>R/reprex_document.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/tidyverse/reprex/blob/HEAD/R/reprex_document.R" class="external-link"><code>R/reprex_document.R</code></a></small>
     <div class="hidden name"><code>reprex_document.Rd</code></div>
     </div>
 
@@ -126,7 +126,7 @@ yourself, you should do same.'><meta property="og:image" content="https://reprex
     <p>This is an R Markdown output format designed specifically for making
 "reprexes", typically created via the <code><a href="reprex.html">reprex()</a></code> function, which ultimately
 renders the document with <code><a href="reprex_render.html">reprex_render()</a></code>. It is a heavily modified version
-of <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/md_document.html">rmarkdown::md_document()</a></code>. The arguments have different spheres of
+of <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/md_document.html" class="external-link">rmarkdown::md_document()</a></code>. The arguments have different spheres of
 influence:</p><ul><li><p><code>venue</code> potentially affects input preparation and <code><a href="reprex_render.html">reprex_render()</a></code>.</p></li>
 <li><p>Add content to the primary input, prior to rendering:</p><ul><li><p><code>advertise</code></p></li>
 <li><p><code>session_info</code></p></li>
@@ -146,7 +146,7 @@ yourself, you should do same.</p>
     </div>
 
     <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">reprex_document</span><span class="op">(</span>
-  venue <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gh"</span>, <span class="st">"r"</span>, <span class="st">"rtf"</span>, <span class="st">"html"</span>, <span class="st">"slack"</span>, <span class="st">"so"</span>, <span class="st">"ds"</span><span class="op">)</span>,
+  venue <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gh"</span>, <span class="st">"r"</span>, <span class="st">"rtf"</span>, <span class="st">"html"</span>, <span class="st">"slack"</span>, <span class="st">"so"</span>, <span class="st">"ds"</span><span class="op">)</span>,
   advertise <span class="op">=</span> <span class="cn">NULL</span>,
   session_info <span class="op">=</span> <span class="fu"><a href="reprex_options.html">opt</a></span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span>,
   style <span class="op">=</span> <span class="fu"><a href="reprex_options.html">opt</a></span><span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span>,
@@ -156,16 +156,18 @@ yourself, you should do same.</p>
   pandoc_args <span class="op">=</span> <span class="cn">NULL</span>
 <span class="op">)</span></code></pre></div>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments"><colgroup><col class="name"><col class="desc"></colgroup><tr><th>venue</th>
-      <td><p>Character. Must be one of the following (case insensitive):</p><ul><li><p>"gh" for <a href="https://github.github.com/gfm/">GitHub-Flavored Markdown</a>, the
+    <div id="ref-sections">
+    <div id="arguments">
+    <h2>Arguments</h2>
+    <dl><dt>venue</dt>
+<dd><p>Character. Must be one of the following (case insensitive):</p><ul><li><p>"gh" for <a href="https://github.github.com/gfm/" class="external-link">GitHub-Flavored Markdown</a>, the
 default</p></li>
 <li><p>"r" for a runnable R script, with commented output interleaved. Also useful
-for <a href="https://slack.com/intl/en-ca/slack-tips/share-code-snippets">Slack code snippets</a>;
+for <a href="https://slack.com/intl/en-ca/slack-tips/share-code-snippets" class="external-link">Slack code snippets</a>;
 select "R" from the "Type" drop-down menu to enjoy nice syntax
 highlighting.</p></li>
 <li><p>"rtf" for
-<a href="https://en.wikipedia.org/wiki/Rich_Text_Format">Rich Text Format</a>
+<a href="https://en.wikipedia.org/wiki/Rich_Text_Format" class="external-link">Rich Text Format</a>
 (not supported for un-reprexing)</p></li>
 <li><p>"html" for an HTML fragment suitable for inclusion in a larger HTML
 document (not supported for un-reprexing)</p></li>
@@ -173,48 +175,52 @@ document (not supported for un-reprexing)</p></li>
 Slack's WYSIWYG interface and, instead, go to <strong>Preferences &gt; Advanced</strong>
 and select "Format messages with markup".</p></li>
 <li><p>"so" for
-<a href="https://stackoverflow.com/editing-help#syntax-highlighting">Stack Overflow Markdown</a>.
+<a href="https://stackoverflow.com/editing-help#syntax-highlighting" class="external-link">Stack Overflow Markdown</a>.
 Note: this is just an alias for "gh", since Stack Overflow started to
 support CommonMark-style fenced code blocks in January 2019.</p></li>
 <li><p>"ds" for Discourse, e.g.,
-<a href="https://community.rstudio.com">community.rstudio.com</a>. Note: this is
+<a href="https://community.rstudio.com" class="external-link">community.rstudio.com</a>. Note: this is
 currently just an alias for "gh".</p></li>
-</ul></td>
-    </tr><tr><th>advertise</th>
-      <td><p>Logical. Whether to include a footer that describes when and
+</ul></dd>
+<dt>advertise</dt>
+<dd><p>Logical. Whether to include a footer that describes when and
 how the reprex was created. If unspecified, the option <code>reprex.advertise</code>
 is consulted and, if that is not defined, default is <code>TRUE</code> for venues
-<code>"gh"</code>, <code>"html"</code>, <code>"so"</code>, <code>"ds"</code> and <code>FALSE</code> for <code>"r"</code>, <code>"rtf"</code>, <code>"slack"</code>.</p></td>
-    </tr><tr><th>session_info</th>
-      <td><p>Logical. Whether to include
-<code><a href="https://rdrr.io/pkg/sessioninfo/man/session_info.html">sessioninfo::session_info()</a></code>, if available, or <code><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo()</a></code> at the end
+<code>"gh"</code>, <code>"html"</code>, <code>"so"</code>, <code>"ds"</code> and <code>FALSE</code> for <code>"r"</code>, <code>"rtf"</code>, <code>"slack"</code>.</p></dd>
+<dt>session_info</dt>
+<dd><p>Logical. Whether to include
+<code><a href="https://rdrr.io/pkg/sessioninfo/man/session_info.html" class="external-link">sessioninfo::session_info()</a></code>, if available, or <code><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo()</a></code> at the end
 of the reprex. When <code>venue</code> is "gh", the session info is wrapped in a
-collapsible details tag. Read more about <code><a href="reprex_options.html">opt()</a></code>.</p></td>
-    </tr><tr><th>style</th>
-      <td><p>Logical. Whether to set the knitr chunk option <code>tidy = "styler"</code>, which re-styles code with the <a href="https://styler.r-lib.org">styler package</a>. Read more about <code><a href="reprex_options.html">opt()</a></code>.</p></td>
-    </tr><tr><th>comment</th>
-      <td><p>Character. Prefix with which to comment out output, defaults
-to <code>"#&gt;"</code>. Read more about <code><a href="reprex_options.html">opt()</a></code>.</p></td>
-    </tr><tr><th>tidyverse_quiet</th>
-      <td><p>Logical. Sets the options <code>tidyverse.quiet</code> and
+collapsible details tag. Read more about <code><a href="reprex_options.html">opt()</a></code>.</p></dd>
+<dt>style</dt>
+<dd><p>Logical. Whether to set the knitr chunk option <code>tidy = "styler"</code>, which re-styles code with the <a href="https://styler.r-lib.org" class="external-link">styler package</a>. Read more about <code><a href="reprex_options.html">opt()</a></code>.</p></dd>
+<dt>comment</dt>
+<dd><p>Character. Prefix with which to comment out output, defaults
+to <code>"#&gt;"</code>. Read more about <code><a href="reprex_options.html">opt()</a></code>.</p></dd>
+<dt>tidyverse_quiet</dt>
+<dd><p>Logical. Sets the options <code>tidyverse.quiet</code> and
 <code>tidymodels.quiet</code>, which suppress (<code>TRUE</code>, the default) or include
 (<code>FALSE</code>) the startup messages for the tidyverse and tidymodels packages.
-Read more about <code><a href="reprex_options.html">opt()</a></code>.</p></td>
-    </tr><tr><th>std_out_err</th>
-      <td><p>Logical. Whether to append a section for output sent to
+Read more about <code><a href="reprex_options.html">opt()</a></code>.</p></dd>
+<dt>std_out_err</dt>
+<dd><p>Logical. Whether to append a section for output sent to
 stdout and stderr by the reprex rendering process. This can be necessary to
-reveal output if the reprex spawns child processes or <code><a href="https://rdrr.io/r/base/system.html">system()</a></code> calls.
+reveal output if the reprex spawns child processes or <code><a href="https://rdrr.io/r/base/system.html" class="external-link">system()</a></code> calls.
 Note this cannot be properly interleaved with output from the main R
 process, nor is there any guarantee that the lines from standard output and
-standard error are in correct chronological order. See <code><a href="https://callr.r-lib.org/reference/r.html">callr::r()</a></code> for
-more. Read more about <code><a href="reprex_options.html">opt()</a></code>.</p></td>
-    </tr><tr><th>pandoc_args</th>
-      <td><p>Additional command line options to pass to pandoc</p></td>
-    </tr></table><h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+standard error are in correct chronological order. See <code><a href="https://callr.r-lib.org/reference/r.html" class="external-link">callr::r()</a></code> for
+more. Read more about <code><a href="reprex_options.html">opt()</a></code>.</p></dd>
+<dt>pandoc_args</dt>
+<dd><p>Additional command line options to pass to pandoc</p></dd>
+</dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    <p>An R Markdown output format to pass to <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html" class="external-link">rmarkdown::render()</a></code>.</p>
+    </div>
+    </div>
 
-    <p>An R Markdown output format to pass to <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/render.html">rmarkdown::render()</a></code>.</p>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <div id="examples">
+    <h2>Examples</h2>
     <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">reprex_document</span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $knitr</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $knitr$opts_chunk</span>
@@ -269,7 +275,7 @@ more. Read more about <code><a href="reprex_options.html">opt()</a></code>.</p><
 <span class="r-out co"><span class="r-pr">#&gt;</span>         stop("failed to upload ", file)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     structure(res$link[[1]], XML = res)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x561809ac25c8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x556f6033c9a8&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: namespace:knitr&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -331,8 +337,8 @@ more. Read more about <code><a href="reprex_options.html">opt()</a></code>.</p><
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     write_lines(input_lines, knit_input)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x561808ddef60&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x561808de0cf8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x556f5f468278&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x556f5f4665f8&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $post_knit</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
@@ -354,12 +360,13 @@ more. Read more about <code><a href="reprex_options.html">opt()</a></code>.</p><
 <span class="r-out co"><span class="r-pr">#&gt;</span>     if (is.function(overlay)) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         overlay()</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x56180988a9e8&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x56180988a4a8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x556f60257aa0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x556f602541b0&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "rmarkdown_output_format"</span>
 </code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>
@@ -368,13 +375,13 @@ more. Read more about <code><a href="reprex_options.html">opt()</a></code>.</p><
 
 
       <footer><div class="tidyverse">
-  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
+  <p>reprex is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org" class="external-link">tidyverse.org</a>.</p>
 </div>
 
 <div class="author">
   <p>
-    Developed by <a href="https://jennybryan.org">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
-    Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
+    Developed by .
+    Site built by <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a>.
   </p>
 </div>
 

@@ -131,7 +131,7 @@
                         <h4 data-toc-skip class="author">Mara Averick</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/tidyverse/reprex/blob/master/vignettes/articles/datapasta-reprex.Rmd" class="external-link"><code>vignettes/articles/datapasta-reprex.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidyverse/reprex/blob/HEAD/vignettes/articles/datapasta-reprex.Rmd" class="external-link"><code>vignettes/articles/datapasta-reprex.Rmd</code></a></small>
       <div class="hidden name"><code>datapasta-reprex.Rmd</code></div>
 
     </div>
@@ -139,9 +139,8 @@
     
     
 <p>While using a built-in dataset for a reprex is ideal, sometimes you need to troubleshoot code with a bit of outside data. Meet <a href="https://github.com/MilesMcBain/datapasta" class="external-link">datapasta</a>, a package by <a href="https://twitter.com/milesmcbain" class="external-link">Miles McBain</a> for “reducing resistance associated with copying and pasting data to and from R.” Like reprex, datapasta has addin functionality, so you can select commands from the RStudio Addins and/or associate keyboard shortcuts with them for easy use.</p>
-<div id="scenario-1-from-spreadsheet-to-reprex-with-tribble_paste" class="section level2">
-<h2 class="hasAnchor">
-<a href="#scenario-1-from-spreadsheet-to-reprex-with-tribble_paste" class="anchor" aria-hidden="true"></a>Scenario 1: From spreadsheet to reprex with <code>tribble_paste()</code>
+<div class="section level2">
+<h2 id="scenario-1-from-spreadsheet-to-reprex-with-tribble_paste">Scenario 1: From spreadsheet to reprex with <code>tribble_paste()</code><a class="anchor" aria-label="anchor" href="#scenario-1-from-spreadsheet-to-reprex-with-tribble_paste"></a>
 </h2>
 <p>It’s easy to copy and paste nicely formatted data from a spreadsheet with datapasta’s <code>tribble_paste()</code> functionality. I’ve found the simplest method to be:</p>
 <ol style="list-style-type: decimal">
@@ -152,26 +151,25 @@
 <li>Be sure to assign your data frame to a name, so you can use it elsewhere in your reprex.</li>
 </ol>
 <div class="figure" style="height: auto">
-<img src="https://raw.githubusercontent.com/tidyverse/reprex/master/img/datapasta_w_reprex_sheet_to_tribble.gif" alt="Gif of using datapasta::tribble_paste() to get data from a spreadsheet as R code for use in a reprex" style="width: 100%;max-height: 100%"><p class="caption">
+<img src="https://raw.githubusercontent.com/tidyverse/reprex/main/img/datapasta_w_reprex_sheet_to_tribble.gif" alt="Gif of using datapasta::tribble_paste() to get data from a spreadsheet as R code for use in a reprex" style="width: 100%;max-height: 100%"><p class="caption">
 <code>datapasta::tribble_paste()</code>
 </p>
 </div>
 <p>While the output of <code>tribble_paste()</code> doesn’t have the same level of detail it would with <a href="https://stat.ethz.ch/R-manual/R-patched/library/base/html/dput.html" class="external-link"><code>dput()</code></a>, it works well enough for most scenarios, with the added benefit of being easy to read on the screen.</p>
 </div>
-<div id="scenario-2-from-r-object-to-tibble-with-dpasta" class="section level2">
-<h2 class="hasAnchor">
-<a href="#scenario-2-from-r-object-to-tibble-with-dpasta" class="anchor" aria-hidden="true"></a>Scenario 2: From R object to tibble with <code>dpasta()</code>
+<div class="section level2">
+<h2 id="scenario-2-from-r-object-to-tibble-with-dpasta">Scenario 2: From R object to tibble with <code>dpasta()</code><a class="anchor" aria-label="anchor" href="#scenario-2-from-r-object-to-tibble-with-dpasta"></a>
 </h2>
 <p>Now let’s say you have a data frame in R that you want to use in a reprex. You can use datapasta’s <code>dpasta()</code> function to render your object into the same format as the result of <code>tribble_paste()</code>, above.</p>
 <div class="figure" style="height: auto">
-<img src="https://raw.githubusercontent.com/tidyverse/reprex/master/img/dpasta_datapasta_reprex.gif" alt="Gif of using datapasta::dpasta() to convert an R data frame into the R code needed to define it in a reprex" style="width: 100%;max-height: 100%"><p class="caption">
+<img src="https://raw.githubusercontent.com/tidyverse/reprex/main/img/dpasta_datapasta_reprex.gif" alt="Gif of using datapasta::dpasta() to convert an R data frame into the R code needed to define it in a reprex" style="width: 100%;max-height: 100%"><p class="caption">
 <code>datapasta::dpasta()</code>
 </p>
 </div>
 </div>
-<div id="fin" class="section level2">
-<h2 class="hasAnchor">
-<a href="#fin" class="anchor" aria-hidden="true"></a>Fin</h2>
+<div class="section level2">
+<h2 id="fin">Fin<a class="anchor" aria-label="anchor" href="#fin"></a>
+</h2>
 <p>There’s more to datapasta than discussed here, so be sure to check out its <a href="https://github.com/MilesMcBain/datapasta" class="external-link">documentation</a>. Don’t forget, when it comes to reprex, less is always more, so wield the power of datapasta wisely.</p>
 </div>
   </div>
@@ -192,7 +190,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href="https://jennybryan.org" class="external-link">Jennifer Bryan</a>, Jim Hester, David Robinson, <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.
+    Developed by .
     Site built by <a href="https://pkgdown.r-lib.org" class="external-link">pkgdown</a>.
   </p>
 </div>
