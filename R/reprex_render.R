@@ -110,6 +110,12 @@ reprex_render_impl <- function(input,
       )
     )
 
+    # reprex has crashed rmarkdown::render()
+    if (is.null(out)) {
+      abort(glue::glue("
+        This reprex appears to halt execution of `rmarkdown::render()`."))
+    }
+
     # reprex has crashed R
     if (inherits(out, "error")) {
       if (!inherits(out, "callr_status_error")) {
