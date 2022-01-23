@@ -3,7 +3,7 @@
 * The RStudio addin no longer displays a warning about condition length when
 selecting 'current file' as the reprex source (#391, @bisaloo).
 * If `rgl` code is run in the snippet, snapshots of the output
-will now be included.
+will now be included (#404, @dmurdoch).
 
 # reprex 2.0.1
 
