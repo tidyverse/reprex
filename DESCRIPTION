@@ -43,6 +43,7 @@ Suggests:
     fortunes,
     miniUI,
     mockr,
+    rgl,
     rprojroot,
     sessioninfo,
     shiny,

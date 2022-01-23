@@ -110,6 +110,9 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "slack", "so", "
     write_lines(input_lines, knit_input)
   }
 
+  setHook(packageEvent("rgl", "onLoad"),
+          function(...) rgl::setupKnitr(autoprint = TRUE))
+
   format <- rmarkdown::output_format(
     knitr = rmarkdown::knitr_options(
       opts_knit = opts_knit,
