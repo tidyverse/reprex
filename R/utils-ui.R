@@ -17,8 +17,7 @@ reprex_alert <- function(text,
   if (quiet) {
     return(invisible())
   }
-  cli_fun <- switch(
-    type,
+  cli_fun <- switch(type,
     success = cli::cli_alert_success,
     info    = cli::cli_alert_info,
     warning = cli::cli_alert_warning,

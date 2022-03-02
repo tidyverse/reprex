@@ -21,7 +21,6 @@ with_mock <- function(..., .parent = parent.frame()) {
 #    - delete the directory
 local_temp_wd <- function(pattern = "reprextests",
                           env = parent.frame()) {
-
   old_wd <- getwd()
   tmp <- withr::local_tempdir(pattern = pattern, .local_envir = env)
   withr::local_dir(tmp, .local_envir = env)

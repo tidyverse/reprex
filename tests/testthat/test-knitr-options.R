@@ -43,7 +43,6 @@ test_that("`tidyverse_quiet` works for tidymodels", {
     tidyverse_quiet = FALSE
   )
   expect_match(ret, "Attaching", all = FALSE)
-
 })
 
 

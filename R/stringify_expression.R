@@ -3,7 +3,9 @@
 ## x <- quote({a + b})
 
 stringify_expression <- function(x) {
-  if (is.null(x)) return(NULL)
+  if (is.null(x)) {
+    return(NULL)
+  }
 
   .srcref <- utils::getSrcref(x)
 

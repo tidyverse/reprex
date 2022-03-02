@@ -96,8 +96,7 @@ reprex_addin <- function() { # nocov start
 
 reprex_guess <- function(source, venue = "gh", source_file = NULL,
                          session_info = FALSE, html_preview = FALSE) {
-  reprex_input <- switch(
-    source,
+  reprex_input <- switch(source,
     clipboard = NULL,
     cur_sel = rstudio_selection(),
     cur_file = rstudio_file(),
@@ -151,4 +150,3 @@ rstudio_text_tidy <- function(x) {
   }
   x
 }
-

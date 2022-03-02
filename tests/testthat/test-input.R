@@ -38,7 +38,7 @@ test_that("reprex: file input works", {
 test_that("reprex: file input in a subdirectory works", {
   local_temp_wd()
   dir_create("foo")
-  write_lines(c("x <- 11:15", "mean(x)"),  path("foo", "foo.R"))
+  write_lines(c("x <- 11:15", "mean(x)"), path("foo", "foo.R"))
   expect_snapshot(cli::cat_line(
     reprex(input = path("foo", "foo.R"), render = FALSE)
   ))

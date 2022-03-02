@@ -154,8 +154,7 @@ reprex_render_impl <- function(input,
   # we can almost use the post_processor of output_format, but sadly we cannot
   # we can't inject std_out_err until the connection to std_file is closed
   # and we can't post process until the injection is done
-  reprex_file <- switch(
-    venue,
+  reprex_file <- switch(venue,
     r     = pp_md_to_r(md_file, comment = comment),
     rtf   = pp_highlight(pp_md_to_r(md_file, comment = comment)),
     slack = pp_slackify(md_file),

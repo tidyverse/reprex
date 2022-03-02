@@ -40,8 +40,7 @@ reprex_impl <- function(x_expr = NULL,
   if (!is.null(outfile)) stopifnot(is.character(outfile) || is.na(outfile))
 
   where <- if (is.null(x_expr)) locate_input(input) else "expr"
-  src <- switch(
-    where,
+  src <- switch(where,
     expr      = stringify_expression(x_expr),
     clipboard = ingest_clipboard(),
     path      = read_lines(input),
@@ -91,8 +90,9 @@ reprex_impl <- function(x_expr = NULL,
   }
 
   reprex_info("Rendering reprex...")
-  reprex_file <-reprex_render_impl(
-    r_file, new_session = new_session, html_preview = html_preview
+  reprex_file <- reprex_render_impl(
+    r_file,
+    new_session = new_session, html_preview = html_preview
   )
 
   if (reprex_files$chatty) {
@@ -136,7 +136,8 @@ style_requires_styler <- function(style) {
 html_preview_requires_interactive <- function(html_preview) {
   if (html_preview && !is_interactive()) {
     reprex_info(
-      "Non-interactive session, setting {.code html_preview = FALSE}.")
+      "Non-interactive session, setting {.code html_preview = FALSE}."
+    )
     html_preview <- FALSE
   }
   invisible(html_preview)

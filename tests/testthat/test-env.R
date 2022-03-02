@@ -26,7 +26,7 @@ test_that("reprex env doesn't bear traces of reprex or its dependencies", {
   # https://github.com/r-lib/debugme/issues/50
   # styler --> tibble --> pillar --> debugme --> tickles RNG
   pkg <- "debugme"
-  if(requireNamespace(pkg, quietly = TRUE)) {
+  if (requireNamespace(pkg, quietly = TRUE)) {
     # until debugme updates on CRAN, let's tolerate .Random.seed, but not
     # require it either
     expect_match(ret, '"a"', all = FALSE)

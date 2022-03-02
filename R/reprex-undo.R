@@ -126,8 +126,7 @@ reprex_undo <- function(input = NULL,
                         comment = NULL, prompt = NULL,
                         outfile = "DEPRECATED") {
   where <- locate_input(input)
-  src <- switch(
-    where,
+  src <- switch(where,
     clipboard = ingest_clipboard(),
     path      = read_lines(input),
     input     = escape_newlines(sub("\n$", "", input)),
@@ -182,7 +181,7 @@ classify_fenced_lines <- function(x, comment = "^#>") {
   x_shift <- c("", utils::head(x, -1))
   cumulative_fences <- cumsum(grepl("^```", x_shift))
   wut <- ifelse(grepl("^```", x), "bt",
-                ifelse(cumulative_fences %% 2 == 1, "code", "prose")
+    ifelse(cumulative_fences %% 2 == 1, "code", "prose")
   )
   wut <- ifelse(wut == "code" & grepl(comment, x), "output", wut)
   wut

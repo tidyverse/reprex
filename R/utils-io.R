@@ -7,7 +7,9 @@ writeLines <- function(...) {
 }
 
 read_lines <- function(path, n = -1L) {
-  if (is.null(path)) return(NULL)
+  if (is.null(path)) {
+    return(NULL)
+  }
   base::readLines(path, n = n, encoding = "UTF-8", warn = FALSE)
 }
 
@@ -271,7 +273,7 @@ rstudio_open_and_select_all <- function(path) {
   # including on RSP, Cloud, using reprex() and the addin and the gadget
   ct <- rstudioapi::getSourceEditorContext()
   i <- 0
-  while(ct$path == '' || path_real(ct$path) != path_real(path)) {
+  while (ct$path == "" || path_real(ct$path) != path_real(path)) {
     if (i > 4) break
     i <- i + 1
     Sys.sleep(1)

@@ -71,8 +71,7 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "slack", "so", "
     opts_chunk[["tidy"]] <- "styler"
   }
   opts_knit <- list(
-    upload.fun = switch(
-      venue,
+    upload.fun = switch(venue,
       r = identity,
       knitr::imgur_upload
     )
