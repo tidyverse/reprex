@@ -41,6 +41,9 @@ test_that("rlang::last_error() and last_trace() work", {
   input <- c(
     "f <- function() rlang::abort('foo')",
     "f()",
+    # as of rlang 1.0.0 (2022-01-26)
+    # https://github.com/r-lib/rlang/blame/0e2718639d7b87effbf47cf17d6e0288a69454e6/NEWS.md#L350-L354
+    "#'", # currently, this must be in a new chunk
     "rlang::last_error()",
     "rlang::last_trace()"
   )
