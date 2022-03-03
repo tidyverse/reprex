@@ -171,29 +171,44 @@ section of the R Installation and Administration manual</p></li>
 <span class="r-in"><span class="fu">reprex_locale</span><span class="op">(</span><span class="st">"a"</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># change messages to a specific language</span></span>
-<span class="r-in"><span class="fu">reprex_locale</span><span class="op">(</span><span class="op">{</span></span>
-<span class="r-in">  <span class="st">"a"</span> <span class="op">/</span> <span class="fl">2</span></span>
-<span class="r-in"><span class="op">}</span>, language <span class="op">=</span> <span class="st">"it"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">reprex_locale</span><span class="op">(</span></span>
+<span class="r-in">  <span class="op">{</span></span>
+<span class="r-in">    <span class="st">"a"</span> <span class="op">/</span> <span class="fl">2</span></span>
+<span class="r-in">  <span class="op">}</span>,</span>
+<span class="r-in">  language <span class="op">=</span> <span class="st">"it"</span></span>
+<span class="r-in"><span class="op">)</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="fu">reprex_locale</span><span class="op">(</span><span class="op">{</span></span>
-<span class="r-in">  <span class="st">"a"</span> <span class="op">/</span> <span class="fl">2</span></span>
-<span class="r-in"><span class="op">}</span>, language <span class="op">=</span> <span class="st">"fr_CA"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">reprex_locale</span><span class="op">(</span></span>
+<span class="r-in">  <span class="op">{</span></span>
+<span class="r-in">    <span class="st">"a"</span> <span class="op">/</span> <span class="fl">2</span></span>
+<span class="r-in">  <span class="op">}</span>,</span>
+<span class="r-in">  language <span class="op">=</span> <span class="st">"fr_CA"</span></span>
+<span class="r-in"><span class="op">)</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="fu">reprex_locale</span><span class="op">(</span><span class="op">{</span></span>
-<span class="r-in">  <span class="st">"a"</span> <span class="op">/</span> <span class="fl">2</span></span>
-<span class="r-in"><span class="op">}</span>, language <span class="op">=</span> <span class="st">"pt_BR"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">reprex_locale</span><span class="op">(</span></span>
+<span class="r-in">  <span class="op">{</span></span>
+<span class="r-in">    <span class="st">"a"</span> <span class="op">/</span> <span class="fl">2</span></span>
+<span class="r-in">  <span class="op">}</span>,</span>
+<span class="r-in">  language <span class="op">=</span> <span class="st">"pt_BR"</span></span>
+<span class="r-in"><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># get day-of-week and month to print in French (not Windows)</span></span>
-<span class="r-in"><span class="fu">reprex_locale</span><span class="op">(</span><span class="op">{</span></span>
-<span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2019-01-01"</span>, <span class="st">"2019-02-01"</span><span class="op">)</span><span class="op">)</span>, <span class="st">"%a %b %d"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span>, locale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>LC_TIME <span class="op">=</span> <span class="st">"fr_FR"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">reprex_locale</span><span class="op">(</span></span>
+<span class="r-in">  <span class="op">{</span></span>
+<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2019-01-01"</span>, <span class="st">"2019-02-01"</span><span class="op">)</span><span class="op">)</span>, <span class="st">"%a %b %d"</span><span class="op">)</span></span>
+<span class="r-in">  <span class="op">}</span>,</span>
+<span class="r-in">  locale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>LC_TIME <span class="op">=</span> <span class="st">"fr_FR"</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># get day-of-week and month to print in French (Windows)</span></span>
 <span class="r-in"><span class="co"># assumes that the relevant language is installed on the system</span></span>
 <span class="r-in"><span class="co"># LC_TIME can also be specified as "French" or "French_France" here</span></span>
-<span class="r-in"> <span class="fu">reprex_locale</span><span class="op">(</span><span class="op">{</span></span>
-<span class="r-in">   <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2019-01-01"</span>, <span class="st">"2019-02-01"</span><span class="op">)</span><span class="op">)</span>, <span class="st">"%a %b %d"</span><span class="op">)</span></span>
-<span class="r-in"> <span class="op">}</span>, locale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>LC_TIME <span class="op">=</span> <span class="st">"French_France.1252"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">reprex_locale</span><span class="op">(</span></span>
+<span class="r-in">  <span class="op">{</span></span>
+<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2019-01-01"</span>, <span class="st">"2019-02-01"</span><span class="op">)</span><span class="op">)</span>, <span class="st">"%a %b %d"</span><span class="op">)</span></span>
+<span class="r-in">  <span class="op">}</span>,</span>
+<span class="r-in">  locale <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>LC_TIME <span class="op">=</span> <span class="st">"French_France.1252"</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
 </code></pre></div>
     </div>
