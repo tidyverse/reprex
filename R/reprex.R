@@ -235,9 +235,6 @@
 #' ## leading prompts are stripped from source
 #' reprex(input = c("> x <- 1:3", "> median(x)"))
 #' }
-#'
-#' @import rlang
-#' @import fs
 #' @export
 reprex <- function(x = NULL,
                    input = NULL, wd = NULL,

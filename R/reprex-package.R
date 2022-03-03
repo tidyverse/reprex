@@ -3,5 +3,7 @@
 "_PACKAGE"
 
 ## usethis namespace: start
+#' @import fs
+#' @import rlang
 ## usethis namespace: end
 NULL
