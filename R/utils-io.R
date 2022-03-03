@@ -1,9 +1,15 @@
 readLines <- function(...) {
-  abort("In this house, we use `read_lines()` for UTF-8 reasons.")
+  cli::cli_abort(
+    "Inside {.pkg reprex}, we use {.fun read_lines}, not {.fun readLines}, for UTF-8 reasons.",
+    .internal = TRUE
+  )
 }
 
 writeLines <- function(...) {
-  abort("In this house, we use `write_lines()` for UTF-8 reasons.")
+  cli::cli_abort(
+    "Inside {.pkg reprex}, we use {.fun write_lines}, not {.fun writeLines}, for UTF-8 reasons.",
+    .internal = TRUE
+  )
 }
 
 read_lines <- function(path, n = -1L) {

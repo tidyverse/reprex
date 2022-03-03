@@ -88,7 +88,10 @@ opt <- optionally
 arg_option <- function(arg) {
   arg_expr <- enexpr(arg)
   if (!is_symbol(arg_expr)) {
-    abort("Internal error: `arg_option()` expects a symbol")
+    cli::cli_abort(
+      "{.fun arg_option} expects a symbol.",
+      .internal = TRUE
+    )
   }
 
   opt_name <- attr(arg, "opt_name") %||% make_opt_name(as_string(arg_expr))

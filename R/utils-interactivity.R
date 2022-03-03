@@ -1,5 +1,9 @@
 interactive <- function(...) {
-  abort("In this house, we use `rlang::is_interactive()`")
+  cli::cli_abort("
+    Inside {.pkg reprex}, we use {.fun rlang::is_interactive}, \\
+    not {.fun interactive}, for mocking reasons.",
+    .internal = TRUE
+  )
 }
 
 ## returns TRUE if user says "no"
