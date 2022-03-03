@@ -28,12 +28,12 @@ Depends:
     R (>= 3.4)
 Imports: 
     callr (>= 3.6.0),
-    cli (>= 2.3.1),
+    cli (>= 3.2.0),
     clipr (>= 0.4.0),
     fs,
     glue,
     knitr (>= 1.23),
-    rlang (>= 0.4.0),
+    rlang (>= 1.0.0),
     rmarkdown,
     rstudioapi,
     utils,

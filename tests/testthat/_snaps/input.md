@@ -53,6 +53,6 @@
 
     Code
       res2 <- reprex(input = input2, render = FALSE)
-    Message <cliMessage>
+    Message
       i Removing leading prompts from reprex source.
 

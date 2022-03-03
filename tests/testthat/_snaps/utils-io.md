@@ -2,7 +2,7 @@
 
     Code
       retrofit_files(wd = "this", outfile = "that")
-    Message <cliMessage>
+    Message
       ! `outfile` is deprecated, in favor of `wd`
     Output
       $infile
@@ -16,7 +16,7 @@
 
     Code
       retrofit_files(outfile = NA)
-    Message <cliMessage>
+    Message
       ! `outfile` is deprecated, in favor of `wd`
       ! Use `reprex(wd = ".")` instead of `reprex(outfile = NA)`
     Output
@@ -31,7 +31,7 @@
 
     Code
       retrofit_files(outfile = "some/path/blah")
-    Message <cliMessage>
+    Message
       ! `outfile` is deprecated
       ! To control output filename, provide a filepath to `input`
       ! Only taking working directory from `outfile`
@@ -47,7 +47,7 @@
 
     Code
       retrofit_files(infile = "a/path/foo.R", outfile = NA)
-    Message <cliMessage>
+    Message
       ! `outfile` is deprecated, working directory will be derived from `input`
     Output
       $infile
@@ -61,7 +61,7 @@
 
     Code
       retrofit_files(infile = "a/path/foo.R", outfile = "other/path/blah")
-    Message <cliMessage>
+    Message
       ! `outfile` is deprecated
       ! Working directory and output filename will be determined from `input`
     Output
