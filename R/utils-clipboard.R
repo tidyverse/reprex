@@ -33,8 +33,11 @@ write_clip_windows_rtf <- function(path) {
 reprex_clipboard <- function() {
   x <- getOption("reprex.clipboard", NA)
   if (length(x) != 1 || !is.logical(x)) {
-    abort(glue::glue("
-      The `reprex.clipboard` option must be TRUE, FALSE, or (logical) NA"))
+    cli::cli_abort("
+      The {.arg reprex.clipboard} option must be {.code TRUE}, {.code FALSE}, \\
+      or (logical) {.code NA}.",
+      call = NULL
+    )
   }
   if (is_rstudio_server()) {
     x <- FALSE

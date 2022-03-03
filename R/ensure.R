@@ -20,7 +20,7 @@ ensure_not_dogfood <- function(x) {
       "In that case, the clipboard or selection now holds the *rendered* result.\n",
       "Carry on with this reprex?"
     )) {
-      abort("Aborting.")
+      cli::cli_abort("Cancelling.", call = quote(reprex()))
     }
   }
 
@@ -32,7 +32,7 @@ ensure_not_dogfood <- function(x) {
       "In that case, the clipboard or selection now holds the *rendered* result.\n",
       "Carry on with this reprex?"
     )) {
-      abort("Aborting.")
+      cli::cli_abort("Cancelling.", call = quote(reprex()))
     }
   }
 
@@ -47,7 +47,7 @@ ensure_not_dogfood <- function(x) {
       "In that case, the clipboard or selection now holds the *rendered* result.\n",
       "Carry on with this reprex?"
     )) {
-      abort("Aborting.")
+      cli::cli_abort("Cancelling.", call = quote(reprex()))
     }
   }
 

@@ -5,7 +5,7 @@ test_that("reprex_clipboard() works", {
 
 test_that("reprex_clipboard() insists on length one logical", {
   withr::local_options(list(reprex.clipboard = function() "wut"))
-  expect_error(reprex_clipboard())
+  expect_snapshot(error = TRUE, reprex_clipboard())
 })
 
 test_that("ingest_clipboard() copes when clipboard not available", {

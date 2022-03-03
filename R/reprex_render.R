@@ -51,7 +51,7 @@ reprex_render <- function(input,
                           html_preview = NULL,
                           encoding = "UTF-8") {
   if (!identical(encoding, "UTF-8")) {
-    abort("`reprex_render()` requires an input file with UTF-8 encoding")
+    cli::cli_abort("The {.arg input} file must have UTF-8 encoding.")
   }
   reprex_render_impl(
     input,
@@ -112,21 +112,27 @@ reprex_render_impl <- function(input,
 
     # reprex has crashed rmarkdown::render()
     if (is.null(out)) {
-      abort(glue::glue("
-        This reprex appears to halt execution of `rmarkdown::render()`."))
+      cli::cli_abort("
+        This reprex appears to halt execution of {.fun rmarkdown::render}.",
+        call = quote(reprex_render())
+      )
     }
 
     # reprex has crashed R
     if (inherits(out, "error")) {
       if (!inherits(out, "callr_status_error")) {
-        abort(glue::glue("
-          Internal error: Unhandled error from `rmarkdown::render()` in the \\
-          external process"))
+        cli::cli_abort(
+          "Unhandled error from {.fun rmarkdown::render} in the external process.",
+          .internal = TRUE
+        )
       }
       if (!isTRUE(std_out_err)) {
-        abort(glue::glue("
-          This reprex appears to crash R
-          Call `reprex()` again with `std_out_err = TRUE` to get more info"))
+        cli::cli_abort("
+          This reprex appears to crash R.
+          Call {.fun reprex} again with {.code std_out_err = TRUE} to get \\
+          more info.",
+          call = quote(reprex_render())
+        )
       }
       md_lines <- c(
         "This reprex appears to crash R.",

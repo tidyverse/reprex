@@ -49,6 +49,30 @@
       x <- 11:15
       mean(x)
 
+# Circular use is detected before source file written
+
+    Code
+      reprex(input = ret, render = FALSE)
+    Condition
+      Error in `reprex()`:
+      ! Cancelling.
+
+---
+
+    Code
+      reprex(input = ret, render = FALSE)
+    Condition
+      Error in `reprex()`:
+      ! Cancelling.
+
+---
+
+    Code
+      reprex(input = ret, render = FALSE)
+    Condition
+      Error in `reprex()`:
+      ! Cancelling.
+
 # Leading prompts are removed
 
     Code
