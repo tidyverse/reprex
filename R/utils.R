@@ -50,7 +50,7 @@ r_chunk <- function(code, label = NULL) {
 details <- function(txt, desc = "Details") {
   c(
     "<details style=\"margin-bottom:10px;\">",
-    glue::glue("<summary>{desc}</summary>"),
+    glue("<summary>{desc}</summary>"),
     txt,
     "</details>"
   )

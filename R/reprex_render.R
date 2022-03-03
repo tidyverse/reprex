@@ -178,7 +178,7 @@ preview <- function(input) {
       "rmarkdown/templates/github_document/resources/github.css"
     )
   )
-  css <- glue::glue("github-markdown-css:{css}")
+  css <- glue("github-markdown-css:{css}")
   template <- rmarkdown::pandoc_path_arg(
     path_package(
       "rmarkdown",
@@ -269,7 +269,7 @@ std_out_err_path <- function(input, std_out_err) {
 }
 
 inject_file <- function(path, inject_path) {
-  regex <- glue::glue("(`)(.*)({inject_path})(`)")
+  regex <- glue("(`)(.*)({inject_path})(`)")
 
   lines <- read_lines(path)
   inject_locus <- grep(regex, lines)
@@ -286,7 +286,7 @@ inject_file <- function(path, inject_path) {
       inject_lines <- "-- nothing to show --"
     }
     inject_lines <- c("``` sh", inject_lines, "```")
-    regex <- glue::glue("(.*){regex}(.*)")
+    regex <- glue("(.*){regex}(.*)")
     lines <- c(
       lines[seq_len(inject_locus - 1)],
       sub(regex, "\\1", lines[inject_locus]),

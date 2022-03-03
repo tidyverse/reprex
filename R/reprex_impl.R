@@ -189,5 +189,5 @@ nv <- function(x) {
   # dQuote didn't gain the `q` argument until R 3.6
   withr::local_options(list(useFancyQuotes = FALSE))
   x[is_character] <- vapply(x[is_character], dQuote, character(1))
-  glue::glue("{name}: {value}", name = names(x), value = x)
+  glue("{name}: {value}", name = names(x), value = x)
 }

@@ -130,7 +130,7 @@ reprex_default_filebase <- function(in_temp_dir) {
   if (in_temp_dir) {
     # wd not specified --> reprex in sub-directory of session temp directory
     # example: /private/var/.../.../.../reprex-98183d9c49-prior-boa/prior-boa
-    target_dir <- path_real(dir_create(glue::glue("{ugly_dir}-{aa}")))
+    target_dir <- path_real(dir_create(glue("{ugly_dir}-{aa}")))
     path(target_dir, aa)
   } else {
     # no infile, wd is specified

@@ -129,7 +129,7 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "slack", "so", "
 }
 
 reprex_opts <- function(venue = "gh") {
-  string <- glue::glue('
+  string <- glue('
     ```{{r reprex-options, include = FALSE}}
     options(
       keep.source = TRUE,
@@ -152,20 +152,20 @@ rprofile_alert <- function(venue = "gh") {
     "include = file.exists('.Rprofile'), eval = file.exists('.Rprofile')"
 
   c(
-    glue::glue("```{{r, results = 'asis', echo = FALSE, {include_eval}}}"),
-    glue::glue('cat(sprintf({fmt}, normalizePath(".Rprofile")))'),
+    glue("```{{r, results = 'asis', echo = FALSE, {include_eval}}}"),
+    glue('cat(sprintf({fmt}, normalizePath(".Rprofile")))'),
     "```"
   )
 }
 
 ad <- function(venue = "gh") {
   if (venue %in% c("gh", "html")) {
-    glue::glue('
+    glue('
       <sup>Created on `r Sys.Date()` by the \\
       [reprex package](https://reprex.tidyverse.org) \\
       (v`r utils::packageVersion("reprex")`)</sup>')
   } else { # venue %in% c("r", "rtf", "slack")
-    glue::glue('
+    glue('
       Created on `r Sys.Date()` by the reprex package \\
       v`r utils::packageVersion("reprex")` https://reprex.tidyverse.org')
   }
