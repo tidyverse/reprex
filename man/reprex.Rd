@@ -280,5 +280,4 @@ reprex({
 ## leading prompts are stripped from source
 reprex(input = c("> x <- 1:3", "> median(x)"))
 }
-
 }
