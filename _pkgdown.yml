@@ -2,28 +2,21 @@ url: https://reprex.tidyverse.org
 
 template:
   package: tidytemplate
+  bootstrap: 5
 
-authors:
-  Jennifer Bryan:
-    href: https://jennybryan.org
+  includes:
+    in_header: |
+      <script defer data-domain="reprex.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
 
-home:
-  strip_header: true
+development:
+  mode: auto
 
-navbar:
-  components:
-    home: ~
-    news:
-      text: News
-      menu:
-      - text: "Blog posts"
-      - text: "reprex 2.0.0"
-        href: https://www.tidyverse.org/blog/2021/04/reprex-2-0-0/
-      - text: "reprex 1.0.0"
-        href: https://www.tidyverse.org/blog/2021/02/reprex-1-0-0/
-      - text: "------------------"
-      - text: "Change log"
-        href: news/index.html
+news:
+  releases:
+  - text: "reprex 2.0.0"
+    href: https://www.tidyverse.org/blog/2021/04/reprex-2-0-0/
+  - text: "reprex 1.0.0"
+    href: https://www.tidyverse.org/blog/2021/02/reprex-1-0-0/
 
 reference:
   - title: The main function
