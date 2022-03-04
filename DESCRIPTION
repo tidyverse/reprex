@@ -63,6 +63,9 @@ Suggests:
     testthat (>= 3.0.2)
 VignetteBuilder: 
     knitr
+Config/Needs/website:
+    dplyr,
+    tidyverse/tidytemplate
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US
