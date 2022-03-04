@@ -18,39 +18,38 @@ If you're asking for R help, reporting a bug, or requesting a new feature, you'r
   - Many of the functions and packages you already use offer a way to create a small data frame "inline":
     - `read.table()` and friends have a `text` argument. Example:
 
-        ``` r
-        read.csv(text = "a,b\n1,2\n3,4")
-        #>   a b
-        #> 1 1 2
-        #> 2 3 4
-        ```
-    
+      ```{r eval = FALSE}
+      read.csv(text = "a,b\n1,2\n3,4")
+      #>   a b
+      #> 1 1 2
+      #> 2 3 4
+      ```
+      
     - `tibble::tribble()` lets you use a natural and readable layout. Example:
     
-        ``` r
-        tibble::tribble(
-          ~ a, ~ b,
-            1,   2,
-            3,   4
-        )
-        #> # A tibble: 2 x 2
-        #>       a     b
-        #>   <dbl> <dbl>
-        #> 1     1     2
-        #> 2     3     4
-        ```
+      ```{r eval = FALSE}
+      tibble::tribble(
+        ~ a, ~ b,
+          1,   2,
+          3,   4
+      )
+      #> # A tibble: 2 x 2
+      #>       a     b
+      #>   <dbl> <dbl>
+      #> 1     1     2
+      #> 2     3     4
+      ```
             
   - Get just a bit of something with `head()` or by indexing with the result of `sample()`. If anything is random, consider using `set.seed()` to make it repeatable.
   - The [datapasta package](https://milesmcbain.github.io/datapasta/) can generate code for `data.frame()`, `tibble::tribble()`, or `data.table::data.table()` based on an existing R data frame. For example, a call to `tribble_format(head(ChickWeight, 3))` leaves this on the clipboard, ready to paste into your reprex:
   
-    ``` r
+    ```{r eval = FALSE}
     tibble::tribble(
      ~weight, ~Time, ~Chick, ~Diet,
           42,     0,    "1",   "1",
           51,     2,    "1",   "1",
           59,     4,    "1",   "1"
     )
-    
     ```
   - `dput()` is a decent last resort, i.e. if you simply cannot make do with built-in or simulated data or inline data creation in a more readable format. But `dput()` output is not very human-readable. Avoid if at all possible.
   - Look at official examples and try to write in that style. Consider adapting one.
@@ -75,13 +74,15 @@ If you're asking for R help, reporting a bug, or requesting a new feature, you'r
   - Don't start with `setwd("C:\Users\jenny\path\that\only\I\have")`, because it won't work on anyone else's computer.
   - Don't mask built-in functions, i.e. don't define a new function named `c` or `mean`.
   - If you change options, store original values at the start, do your thing, then restore them:
-    ``` r
+  
+    ```{r eval = FALSE}
     opar <- par(pch = 19)
     <blah blah blah>
     par(opar)
     ```
   - If you create files, delete them when you're done:
-    ``` r
+  
+    ```{r eval = FALSE}
     write(x, "foo.txt")
     <blah blah blah>
     file.remove("foo.txt")
