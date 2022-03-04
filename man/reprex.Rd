@@ -17,9 +17,9 @@ reprex(
   tidyverse_quiet = opt(TRUE),
   std_out_err = opt(FALSE),
   html_preview = opt(TRUE),
-  outfile = "DEPRECATED",
-  show = "DEPRECATED",
-  si = "DEPRECATED"
+  outfile = deprecated(),
+  show = deprecated(),
+  si = deprecated()
 )
 }
 \arguments{

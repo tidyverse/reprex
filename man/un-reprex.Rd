@@ -12,14 +12,14 @@ reprex_invert(
   wd = NULL,
   venue = c("gh", "r"),
   comment = opt("#>"),
-  outfile = "DEPRECATED"
+  outfile = deprecated()
 )
 
 reprex_clean(
   input = NULL,
   wd = NULL,
   comment = opt("#>"),
-  outfile = "DEPRECATED"
+  outfile = deprecated()
 )
 
 reprex_rescue(
@@ -27,7 +27,7 @@ reprex_rescue(
   wd = NULL,
   prompt = getOption("prompt"),
   continue = getOption("continue"),
-  outfile = "DEPRECATED"
+  outfile = deprecated()
 )
 }
 \arguments{
