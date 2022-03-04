@@ -167,15 +167,23 @@
 </ul>
 <p><strong>Pack it in, pack it out, and don’t take liberties with other people’s computers.</strong> You are asking people to run this code!</p>
 <ul>
-<li>Don’t start with <code>rm(list = ls())</code>. It is anti-social to clobber other people’s workspaces.</li>
-<li>Don’t start with <code>setwd("C:\Users\jenny\path\that\only\I\have")</code>, because it won’t work on anyone else’s computer.</li>
-<li>Don’t mask built-in functions, i.e. don’t define a new function named <code>c</code> or <code>mean</code>.</li>
-<li>If you change options, store original values at the start, do your thing, then restore them: <code>r     opar &lt;- par(pch = 19)     &lt;blah blah blah&gt;     par(opar)</code>
+<li><p>Don’t start with <code>rm(list = ls())</code>. It is anti-social to clobber other people’s workspaces.</p></li>
+<li><p>Don’t start with <code>setwd("C:\Users\jenny\path\that\only\I\have")</code>, because it won’t work on anyone else’s computer.</p></li>
+<li><p>Don’t mask built-in functions, i.e. don’t define a new function named <code>c</code> or <code>mean</code>.</p></li>
+<li>
+<p>If you change options, store original values at the start, do your thing, then restore them:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>opar <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">pch =</span> <span class="dv">19</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&lt;</span>blah blah blah<span class="sc">&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(opar)</span></code></pre></div>
 </li>
-<li>If you create files, delete them when you’re done: <code>r     write(x, "foo.txt")     &lt;blah blah blah&gt;     file.remove("foo.txt")</code>
+<li>
+<p>If you create files, delete them when you’re done:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write</span>(x, <span class="st">"foo.txt"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&lt;</span>blah blah blah<span class="sc">&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">file.remove</span>(<span class="st">"foo.txt"</span>)</span></code></pre></div>
 </li>
-<li>Don’t delete files or objects that you didn’t create in the first place.</li>
-<li>Take advantage of R’s built-in ability to create temporary files and directories. Read up on <a href="https://stat.ethz.ch/R-manual/R-patched/library/base/html/tempfile.html" class="external-link"><code>tempfile()</code> and <code>tempdir()</code></a>.</li>
+<li><p>Don’t delete files or objects that you didn’t create in the first place.</p></li>
+<li><p>Take advantage of R’s built-in ability to create temporary files and directories. Read up on <a href="https://stat.ethz.ch/R-manual/R-patched/library/base/html/tempfile.html" class="external-link"><code>tempfile()</code> and <code>tempdir()</code></a>.</p></li>
 </ul>
 </div>
 <div class="section level2">
