@@ -49,7 +49,7 @@ reprex_invert <- function(input = NULL,
                           wd = NULL,
                           venue = c("gh", "r"),
                           comment = opt("#>"),
-                          outfile = "DEPRECATED") {
+                          outfile = deprecated()) {
   venue <- tolower(venue)
   venue <- match.arg(venue)
 
@@ -84,7 +84,7 @@ reprex_invert <- function(input = NULL,
 reprex_clean <- function(input = NULL,
                          wd = NULL,
                          comment = opt("#>"),
-                         outfile = "DEPRECATED") {
+                         outfile = deprecated()) {
   reprex_undo(input, wd = wd, is_md = FALSE, comment = comment, outfile = outfile)
 }
 
@@ -110,7 +110,7 @@ reprex_rescue <- function(input = NULL,
                           wd = NULL,
                           prompt = getOption("prompt"),
                           continue = getOption("continue"),
-                          outfile = "DEPRECATED") {
+                          outfile = deprecated()) {
   reprex_undo(
     input,
     wd = wd,
@@ -124,7 +124,7 @@ reprex_undo <- function(input = NULL,
                         wd = NULL,
                         is_md = FALSE,
                         comment = NULL, prompt = NULL,
-                        outfile = "DEPRECATED") {
+                        outfile = deprecated()) {
   where <- locate_input(input)
   src <- switch(where,
     clipboard = ingest_clipboard(),

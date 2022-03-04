@@ -1,38 +1,44 @@
 test_that("retrofit_files() works", {
   local_reprex_loud()
+  withr::local_options(lifecycle_verbosity = "warning")
 
-  # when `outfile` has the default value, there's nothing to do
+  # when `outfile` is not specified, there's nothing to do
   expect_equal(
-    retrofit_files(infile = NULL, wd = NULL, outfile = "DEPRECATED"),
+    retrofit_files(infile = NULL, wd = NULL),
     list(infile = NULL, wd = NULL)
   )
   expect_equal(
-    retrofit_files(infile = "foo.R", wd = "whatever", outfile = "DEPRECATED"),
+    retrofit_files(infile = "foo.R", wd = "whatever"),
     list(infile = "foo.R", wd = "whatever")
   )
 
-  # `wd` takes predence over `outfile` and we say something
-  expect_snapshot(
-    retrofit_files(wd = "this", outfile = "that")
+  # `wd` takes precedence over `outfile` and we say something
+  expect_snapshot_warning(
+    x <- retrofit_files(wd = "this", outfile = "that")
   )
+  expect_equal(x, list(infile = NULL, wd = "this"))
 
   # `outfile = NA` morphs into `wd = "."`, if no `infile`
-  expect_snapshot(
-    retrofit_files(outfile = NA),
+  expect_snapshot_warning(
+    x <- retrofit_files(outfile = NA)
   )
+  expect_equal(x, list(infile = NULL, wd = "."))
 
   # only `wd` is salvaged from `outfile = some/path/blah` and we mention `input`
-  expect_snapshot(
-    retrofit_files(outfile = "some/path/blah")
+  expect_snapshot_warning(
+    x <- retrofit_files(outfile = "some/path/blah")
   )
+  expect_equal(x, list(infile = NULL, wd = "some/path"))
 
   # `infile` takes over much of `outfile`'s previous role
-  expect_snapshot(
-    retrofit_files(infile = "a/path/foo.R", outfile = NA)
+  expect_snapshot_warning(
+    x <- retrofit_files(infile = "a/path/foo.R", outfile = NA)
   )
-  expect_snapshot(
-    retrofit_files(infile = "a/path/foo.R", outfile = "other/path/blah")
+  expect_equal(x, list(infile = "a/path/foo.R", wd = NULL))
+  expect_snapshot_warning(
+    x <- retrofit_files(infile = "a/path/foo.R", outfile = "other/path/blah")
   )
+    expect_equal(x, list(infile = "a/path/foo.R", wd = NULL))
 })
 
 # root cause of

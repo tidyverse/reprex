@@ -14,7 +14,7 @@ reprex_impl <- function(x_expr = NULL,
                         std_out_err     = opt(FALSE),
                         html_preview    = opt(TRUE),
 
-                        outfile = "DEPRECATED") {
+                        outfile = deprecated()) {
 
   venue <- tolower(venue)
   venue <- match.arg(venue)
@@ -37,7 +37,9 @@ reprex_impl <- function(x_expr = NULL,
   stopifnot(is.character(comment))
   stopifnot(is_bool(tidyverse_quiet), is_bool(std_out_err))
 
-  if (!is.null(outfile)) stopifnot(is.character(outfile) || is.na(outfile))
+  if (lifecycle::is_present(outfile)) {
+    stopifnot(is.character(outfile) || is.na(outfile))
+  }
 
   where <- if (is.null(x_expr)) locate_input(input) else "expr"
   src <- switch(where,

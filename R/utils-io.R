@@ -44,14 +44,18 @@ locate_input <- function(input) {
   }
 }
 
-retrofit_files <- function(infile = NULL, wd = NULL, outfile = "DEPRECATED") {
-  if (identical(outfile, "DEPRECATED")) {
+retrofit_files <- function(infile = NULL, wd = NULL, outfile = deprecated()) {
+  if (!lifecycle::is_present(outfile)) {
     return(list(infile = infile, wd = wd))
   }
   # `outfile` was specified
 
   if (!is.null(wd)) {
-    reprex_warning("{.code outfile} is deprecated, in favor of {.code wd}")
+    lifecycle::deprecate_warn(
+      when = "2.0.0",
+      what = "reprex(outfile)",
+      with = "reprex(wd)"
+    )
     return(list(infile = infile, wd = wd))
   }
   # `wd` was not specified
@@ -68,41 +72,48 @@ retrofit_files <- function(infile = NULL, wd = NULL, outfile = "DEPRECATED") {
   if (is.na(outfile)) {
     # historically, this was a good way to say "reprex in working directory"
     if (is.null(infile)) {
-      reprex_warning("{.code outfile} is deprecated, in favor of {.code wd}")
-      reprex_warning(
-        'Use {.code reprex(wd = ".")} instead of {.code reprex(outfile = NA)}'
+      lifecycle::deprecate_warn(
+        when = "2.0.0",
+        what = "reprex(outfile)",
+        details = 'Use `reprex(wd = ".")` instead of `reprex(outfile = NA)`.'
       )
       return(list(infile = NULL, wd = "."))
     }
-    reprex_warning(
-      "{.code outfile} is deprecated, working directory will be derived from {.code input}"
+    lifecycle::deprecate_warn(
+      when = "2.0.0",
+      what = "reprex(outfile)",
+      details =  "Working directory will be derived from `input`."
     )
     return(list(infile = infile, wd = NULL))
   }
   # `outfile` is string
 
   if (is.null(infile)) {
-    reprex_warning("{.code outfile} is deprecated")
-    reprex_warning(
-      "To control output filename, provide a filepath to {.code input}"
+    lifecycle::deprecate_warn(
+      when = "2.0.0",
+      what = "reprex(outfile)",
+      details =  c(
+        "To control output filename, provide a filepath to `input`.",
+        "Only taking working directory from `outfile`."
+      )
     )
-    reprex_warning("Only taking working directory from {.code outfile}")
     return(list(infile = NULL, wd = path_dir(outfile)))
   }
   # both `infile` and `outfile` are strings
 
-  reprex_warning("{.code outfile} is deprecated")
-  reprex_warning(
-    "Working directory and output filename will be determined from {.code input}"
+  lifecycle::deprecate_warn(
+    when = "2.0.0",
+    what = "reprex(outfile)",
+    details = "Working directory and output filename will be determined from `input`."
   )
   list(infile = infile, wd = NULL)
 }
 
-plan_files <- function(infile = NULL, wd = NULL, outfile = "DEPRECATED") {
+plan_files <- function(infile = NULL, wd = NULL, outfile = deprecated()) {
   tmp <- retrofit_files(infile, wd, outfile)
   infile <- tmp$infile
   wd <- tmp$wd
-  chatty <- !is.null(infile) || !is.null(wd) || !identical(outfile, "DEPRECATED")
+  chatty <- !is.null(infile) || !is.null(wd) || lifecycle::is_present(outfile)
 
   if (!is.null(infile) && !is.null(wd)) {
     reprex_warning(

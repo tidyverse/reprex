@@ -1,74 +1,26 @@
 # retrofit_files() works
 
-    Code
-      retrofit_files(wd = "this", outfile = "that")
-    Message
-      ! `outfile` is deprecated, in favor of `wd`
-    Output
-      $infile
-      NULL
-      
-      $wd
-      [1] "this"
-      
+    The `outfile` argument of `reprex()` is deprecated as of reprex 2.0.0.
+    Please use the `wd` argument instead.
 
 ---
 
-    Code
-      retrofit_files(outfile = NA)
-    Message
-      ! `outfile` is deprecated, in favor of `wd`
-      ! Use `reprex(wd = ".")` instead of `reprex(outfile = NA)`
-    Output
-      $infile
-      NULL
-      
-      $wd
-      [1] "."
-      
+    The `outfile` argument of `reprex()` is deprecated as of reprex 2.0.0.
+    Use `reprex(wd = ".")` instead of `reprex(outfile = NA)`.
 
 ---
 
-    Code
-      retrofit_files(outfile = "some/path/blah")
-    Message
-      ! `outfile` is deprecated
-      ! To control output filename, provide a filepath to `input`
-      ! Only taking working directory from `outfile`
-    Output
-      $infile
-      NULL
-      
-      $wd
-      [1] "some/path"
-      
+    The `outfile` argument of `reprex()` is deprecated as of reprex 2.0.0.
+    * To control output filename, provide a filepath to `input`.
+    * Only taking working directory from `outfile`.
 
 ---
 
-    Code
-      retrofit_files(infile = "a/path/foo.R", outfile = NA)
-    Message
-      ! `outfile` is deprecated, working directory will be derived from `input`
-    Output
-      $infile
-      [1] "a/path/foo.R"
-      
-      $wd
-      NULL
-      
+    The `outfile` argument of `reprex()` is deprecated as of reprex 2.0.0.
+    Working directory will be derived from `input`.
 
 ---
 
-    Code
-      retrofit_files(infile = "a/path/foo.R", outfile = "other/path/blah")
-    Message
-      ! `outfile` is deprecated
-      ! Working directory and output filename will be determined from `input`
-    Output
-      $infile
-      [1] "a/path/foo.R"
-      
-      $wd
-      NULL
-      
+    The `outfile` argument of `reprex()` is deprecated as of reprex 2.0.0.
+    Working directory and output filename will be determined from `input`.
 

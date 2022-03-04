@@ -33,6 +33,7 @@ Imports:
     fs,
     glue,
     knitr (>= 1.23),
+    lifecycle,
     rlang (>= 1.0.0),
     rmarkdown,
     rstudioapi,

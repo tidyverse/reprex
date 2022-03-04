@@ -124,7 +124,7 @@
 #'   use `wd = "."` now, instead of `outfile = NA`.
 #' @param show `r lifecycle::badge("deprecated")` in favor of `html_preview`,
 #'   for greater consistency with other R Markdown output formats.
-#' @param si  `r lifecycle::badge("deprecated")` in favor of `session_info`.
+#' @param si `r lifecycle::badge("deprecated")` in favor of `session_info`.
 #'
 #' @return Character vector of rendered reprex, invisibly.
 #' @examples
@@ -249,16 +249,18 @@ reprex <- function(x = NULL,
                    tidyverse_quiet = opt(TRUE),
                    std_out_err     = opt(FALSE),
                    html_preview    = opt(TRUE),
-                   outfile = "DEPRECATED",
-                   show = "DEPRECATED", si = "DEPRECATED") {
-  if (!missing(show)) {
+
+                   outfile = deprecated(),
+                   show = deprecated(),
+                   si = deprecated()) {
+  if (lifecycle::is_present(show)) {
     html_preview <- show
+    #deprecate_warn_auth_token("create_from_github")
     reprex_warning(
       "{.code show} is deprecated, please use {.code html_preview} instead"
     )
   }
-
-  if (!missing(si)) {
+  if (lifecycle::is_present(si)) {
     session_info <- si
     # I kind of regret deprecating this, so let's not make a fuss
     # reprex_warning(
