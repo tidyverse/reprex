@@ -255,17 +255,16 @@ reprex <- function(x = NULL,
                    si = deprecated()) {
   if (lifecycle::is_present(show)) {
     html_preview <- show
-    #deprecate_warn_auth_token("create_from_github")
-    reprex_warning(
-      "{.code show} is deprecated, please use {.code html_preview} instead"
+    lifecycle::deprecate_warn(
+      when = "1.0.0",
+      what = "reprex(show)",
+      with = "reprex(html_preview)"
     )
   }
   if (lifecycle::is_present(si)) {
     session_info <- si
     # I kind of regret deprecating this, so let's not make a fuss
-    # reprex_warning(
-    #   "{.code si} is deprecated, please use {.code session_info} instead"
-    # )
+    # I won't throw a warning.
   }
 
   reprex_impl(
