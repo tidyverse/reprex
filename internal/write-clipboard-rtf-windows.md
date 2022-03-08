@@ -70,6 +70,7 @@ clipboard.
 ``` r
 write_clipboard_rtf <- function(path) {
   stopifnot(.Platform$OS.type == "windows")
+  path <- shQuote(path)
   cmd <- glue::glue('
     powershell -Command "\\
     Add-Type -AssemblyName System.Windows.Forms | Out-Null;\\
@@ -271,6 +272,10 @@ When call `powershell` from R, we are using Windows PowerShell.
 I guess that might not be true if the user has explicitly installed PowerShell Core?
 On my Windows 10 VM, I have Windows PowerShell 5.1.
 If my solution doesn’t work for people on different versions of Windows, consider that this may be due to their having a different version of Windows PowerShell.
+
+## Path quoting
+
+On Windows, spaces are allowed in path. Even if we could think we are safe when using temporary directory, it is not because spaces can be present in username which is used in (almost) all writable absolute path we could use. R has a quoting function [`shQuote()`](https://rdrr.io/r/base/shQuote.html) which has no special support for `powershell` shell but only `cmd` on Windows. However, adding double quotes will work most of the time. (There could be edge case with special character that could need escaping but it should be really rare in file path.)
 
 ## Thought and link dump
 
