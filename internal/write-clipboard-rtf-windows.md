@@ -70,7 +70,6 @@ clipboard.
 ``` r
 write_clipboard_rtf <- function(path) {
   stopifnot(.Platform$OS.type == "windows")
-  path <- shQuote(path)
   cmd <- glue::glue('
     powershell -Command "\\
     Add-Type -AssemblyName System.Windows.Forms | Out-Null;\\
@@ -275,7 +274,10 @@ If my solution doesn’t work for people on different versions of Windows, consi
 
 ## Path quoting
 
-On Windows, spaces are allowed in path. Even if we could think we are safe when using temporary directory, it is not because spaces can be present in username which is used in (almost) all writable absolute path we could use. R has a quoting function [`shQuote()`](https://rdrr.io/r/base/shQuote.html) which has no special support for `powershell` shell but only `cmd` on Windows. However, adding double quotes will work most of the time. (There could be edge case with special character that could need escaping but it should be really rare in file path.)
+On Windows, spaces are allowed in path. Even if we could think we are safe when using temporary directory, it is not because spaces can be present in username which is used in (almost) all writable absolute path we could use. R has a quoting function [`shQuote()`](https://rdrr.io/r/base/shQuote.html) which has no special support for `powershell` shell but only `cmd` on Windows. Using this will add double quotes. This will work most of the time but not with `Get Content -Raw {path}` unfortunately. Some solutions that seems to work: 
+
+1. Adding single quotes, with `glue::single_quote()` for example. Using `shQuote(<path>, type = "sh")` would add single quotes, but would add double quote if any single quotes are in the path. However, this is unlikely.
+1. Escaping space in the path for powershell using ``path <- gsub("\\s", "` ", path)``. This will target only space and not other special char in path, but again this is less likely to have some, unless some username with special chars.
 
 ## Thought and link dump
 
