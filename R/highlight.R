@@ -5,7 +5,7 @@ reprex_highlight <- function(rout_file, reprex_file, arg_string = NULL) {
     " -i ", shQuote(rout_file),
     " --out-format=rtf --no-trailing-nl --encoding=UTF-8",
     arg_string,
-    " -o ", reprex_file
+    " -o ", shQuote(reprex_file)
   )
   if (is_windows()) {
     res <- shell(cmd)
