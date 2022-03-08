@@ -1,5 +1,7 @@
 # reprex (development version)
 
+* Using `venue = "rtf"` is now possible on Windows when spaces are somewhere in file paths (e.g in Windows' username) (#409, @pieterjanvc).
+
 * The RStudio addin no longer displays a warning about condition length when
 selecting 'current file' as the reprex source (#391, @bisaloo).
 
