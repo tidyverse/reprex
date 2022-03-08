@@ -2,7 +2,7 @@ reprex_highlight <- function(rout_file, reprex_file, arg_string = NULL) {
   arg_string <- arg_string %||% highlight_args()
   cmd <- paste0(
     "highlight ",
-    " -i ", rout_file,
+    " -i ", shQuote(rout_file),
     " --out-format=rtf --no-trailing-nl --encoding=UTF-8",
     arg_string,
     " -o ", reprex_file
