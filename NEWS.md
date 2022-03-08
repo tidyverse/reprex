@@ -1,5 +1,7 @@
 # reprex (development version)
 
+* `reprex_rtf()` (a shortcut for `reprex(venue = "rtf")`) now works on Windows, even if one of the (possibly temporary) filepaths contains a space, e.g. because the username contains a space (#409, @cderv).
+
 * The RStudio addin no longer displays a warning about condition length when
 selecting 'current file' as the reprex source (#391, @bisaloo).
 

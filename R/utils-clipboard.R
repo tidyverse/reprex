@@ -9,6 +9,7 @@ ingest_clipboard <- function() {
 }
 
 write_clip_windows_rtf <- function(path) {
+  path <- gsub("\\s", "` ", path)
   cmd <- glue('
     powershell -Command "\\
     Add-Type -AssemblyName System.Windows.Forms | Out-Null;\\

@@ -272,6 +272,15 @@ I guess that might not be true if the user has explicitly installed PowerShell C
 On my Windows 10 VM, I have Windows PowerShell 5.1.
 If my solution doesn’t work for people on different versions of Windows, consider that this may be due to their having a different version of Windows PowerShell.
 
+## Path quoting
+
+On Windows, spaces are allowed in file paths. Even if we could think that we are safe when using a temporary directory, it is not the case because spaces can be present in username which is used in (almost) all user-writable absolute file paths we could use. R has a quoting function [`shQuote()`](https://rdrr.io/r/base/shQuote.html) which on Windows has no special support for `powershell` shell but only for `cmd`. Using this function will add double quotes around the file path. This will work most of the time but not with `Get Content -Raw {path}` unfortunately. Some solutions that seems to work: 
+
+1. Adding single quotes, with `glue::single_quote()` for example. Using `shQuote(<path>, type = "sh")` would add single quotes, but would add double quote if any single quotes are in the path. However, this is unlikely.
+1. Escaping space in the path for powershell using ``path <- gsub("\\s", "` ", path)``. This will target only space and not other special char in path, but again this is less likely to have some, unless some username with special chars.
+
+We'll use the second one as it is more specific to the issue encountered (see https://github.com/tidyverse/reprex/issues/409) and less likely to have other unintended side effect.
+
 ## Thought and link dump
 
 Clearing browser tabs and Untitled14, etc.
