@@ -238,6 +238,23 @@ You can supplement or override these options with special comments in your
 code (see examples).</p></li>
 </ul></div>
     <div class="section level2">
+    <h2 id="error-backtraces">Error backtraces<a class="anchor" aria-label="anchor" href="#error-backtraces"></a></h2>
+    
+
+
+<p>reprex sets the rlang option <code>rlang_backtrace_on_error_report = "full"</code>.
+Combined with the knitr option <code>error = TRUE</code>, this means rlang errors are
+displayed with a full backtrace. This basically eliminates the need to call
+<code><a href="https://rlang.r-lib.org/reference/last_error.html" class="external-link">rlang::last_error()</a></code> or <code><a href="https://rlang.r-lib.org/reference/last_error.html" class="external-link">rlang::last_trace()</a></code> explicitly, although these
+functions can be used in a reprex. Insert a line containing the special
+comment <code>#'</code> in between the error-causing code and the <code>last_error()</code> or
+<code>last_trace()</code> call, to fulfill the requirement of being in separate chunks:</p><div class="sourceCode r"><pre><code><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/abort.html" class="external-link">abort</a></span><span class="op">(</span><span class="st">'foo'</span><span class="op">)</span>
+<span class="fu">f</span><span class="op">(</span><span class="op">)</span>
+<span class="co">#'</span>
+<span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/last_error.html" class="external-link">last_error</a></span><span class="op">(</span><span class="op">)</span></code></pre><p></p></div>
+<p>Read more in rlang's documentation: <a href="https://rlang.r-lib.org/reference/rlang_backtrace_on_error.html#errors-in-rmarkdown" class="external-link">Errors in RMarkdown</a>.</p>
+    </div>
+    <div class="section level2">
     <h2 id="syntax-highlighting">Syntax highlighting<a class="anchor" aria-label="anchor" href="#syntax-highlighting"></a></h2>
     
 
@@ -369,7 +386,7 @@ command line tool. The <code>"rtf"</code> venue is documented in <a href="https:
    </div>
   <footer><div class="container">
   <div class="pkgdown-footer-left">
-  <p></p><p>Developed by <a href="https://jennybryan.org" class="external-link">Jennifer Bryan</a>, <a href="https://www.jimhester.com/" class="external-link">Jim Hester</a>, David Robinson, <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
+  <p></p><p>Developed by <a href="https://jennybryan.org" class="external-link">Jennifer Bryan</a>, <a href="https://www.jimhester.com/" class="external-link">Jim Hester</a>, David Robinson, <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://github.com/cderv" class="external-link">Christophe Dervieux</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
