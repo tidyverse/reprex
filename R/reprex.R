@@ -36,6 +36,33 @@
 #' You can supplement or override these options with special comments in your
 #' code (see examples).
 #'
+
+#'
+#' @section Error backtraces:
+#'
+#' reprex sets the rlang option `rlang_backtrace_on_error_report = "full"`.
+#' Combined with the knitr option `error = TRUE`, this means rlang errors are
+#' displayed with a full backtrace. This basically eliminates the need to call
+#' [rlang::last_error()] or [rlang::last_trace()] explicitly, although these
+#' functions can be used in a reprex.
+#'
+
+#' Insert a line containing the special comment `#'` in between the
+#' error-causing code and the `last_error()` or `last_trace()` call, to fulfill
+#' the requirement of being in separate chunks:
+
+#' ``` r
+#' f <- function() rlang::abort('foo')
+#' f()
+#' #'
+#' rlang::last_error()
+#' ```
+#'
+
+#' Read more in rlang's documentation: [Errors in
+#' RMarkdown](https://rlang.r-lib.org/reference/rlang_backtrace_on_error.html#errors-in-rmarkdown).
+
+#'
 #' @section Syntax highlighting:
 #'
 #' `r lifecycle::badge("experimental")`
