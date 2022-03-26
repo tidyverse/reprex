@@ -36,7 +36,11 @@ if (FALSE) {
 x <- 1:2
 {x + 3:4} %>% sum()
   })
-  saveRDS(e, rprojroot::find_testthat_root_file("expressions.rds"))
+  saveRDS(
+    e,
+    rprojroot::find_testthat_root_file("expressions.rds"),
+    version = 2
+  )
 }
 
 e <- readRDS(rprojroot::find_testthat_root_file("expressions.rds"))
