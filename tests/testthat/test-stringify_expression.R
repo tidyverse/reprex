@@ -32,6 +32,10 @@ if (FALSE) {
     #' Trailing comment
   }
   )
+  e$e08 <- quote({
+x <- 1:2
+{x + 3:4} %>% sum()
+  })
   saveRDS(e, rprojroot::find_testthat_root_file("expressions.rds"))
 }
 
@@ -117,6 +121,21 @@ test_that("trailing inline comment AND trailing comment line", {
   )
   expect_identical(
     stringify_expression(e$e07),
+    out
+  )
+})
+
+test_that("leading bracket that should not be removed", {
+  # e$e08 <- quote({
+  #   x <- 1:2
+  #   {x + 3:4} %>% sum()
+  # })
+  out <- c(
+    "x <- 1:2",
+    "{x + 3:4} %>% sum()"
+  )
+  expect_identical(
+    stringify_expression(e$e08),
     out
   )
 })
