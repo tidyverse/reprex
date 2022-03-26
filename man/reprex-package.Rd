@@ -27,6 +27,7 @@ Authors:
   \item Jim Hester \email{james.hester@rstudio.com} (\href{https://orcid.org/0000-0002-2739-7082}{ORCID})
   \item David Robinson \email{admiral.david@gmail.com}
   \item Hadley Wickham \email{hadley@rstudio.com} (\href{https://orcid.org/0000-0003-4757-117X}{ORCID})
+  \item Christophe Dervieux \email{cderv@rstudio.com} (\href{https://orcid.org/0000-0003-4474-2498}{ORCID})
 }
 
 Other contributors:
