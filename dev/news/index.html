@@ -217,8 +217,7 @@ More generally, usage looks like <code>reprex(wd = "path/to/desired/wd")</code>.
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.1" id="reprex-011">reprex 0.1.1<a class="anchor" aria-label="anchor" href="#reprex-011"></a></h2><p class="text-muted">CRAN release: 2017-01-12</p>
-<ul><li>Pandoc added to SystemRequirements.</li>
-</ul></div>
+<ul><li>Pandoc added to SystemRequirements.</li></ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.0" id="reprex-010">reprex 0.1.0<a class="anchor" aria-label="anchor" href="#reprex-010"></a></h2><p class="text-muted">CRAN release: 2017-01-10</p>
 <ul><li><p><code>outfile = NA</code> causes outfiles to be left in working directory. Filenames will be based on the <code>input</code> file, if there was one.</p></li>
@@ -231,8 +230,7 @@ More generally, usage looks like <code>reprex(wd = "path/to/desired/wd")</code>.
 <li><p>The reprex is rendered via <code><a href="https://callr.r-lib.org/reference/r.html" class="external-link">callr::r_safe()</a></code> and is thus run in a clean, separate R process, eliminating any leakage of objects or loaded packages to/from the calling session.</p></li>
 <li>
 <p><code><a href="../reference/reprex.html">reprex()</a></code> gains optional arguments <code>opts_chunk</code> and <code>opts_knit</code>, taking named list as input, in order to supplement or override default knitr chunk and package options, respectively. (<a href="https://github.com/tidyverse/reprex/issues/33" class="external-link">#33</a>)</p>
-<ul><li>This made the explicit <code>upload.fun</code> argument unnecessary, so it’s gone. The <code>upload.fun</code> option defaults to <code><a href="https://rdrr.io/pkg/knitr/man/imgur_upload.html" class="external-link">knitr::imgur_upload</a></code>, which means figures produced by the reprex will be uploaded to <a href="https://imgur.com/" class="external-link">imgur.com</a> and the associated image syntax will be put into the Markdown, e.g. <code>![](https://i.imgur.com/QPU5Cg9.png)</code>. (<a href="https://github.com/tidyverse/reprex/issues/15" class="external-link">#15</a> <a href="https://github.com/paternogbc" class="external-link">@paternogbc</a>)</li>
-</ul></li>
+<ul><li>This made the explicit <code>upload.fun</code> argument unnecessary, so it’s gone. The <code>upload.fun</code> option defaults to <code><a href="https://rdrr.io/pkg/knitr/man/imgur_upload.html" class="external-link">knitr::imgur_upload</a></code>, which means figures produced by the reprex will be uploaded to <a href="https://imgur.com/" class="external-link">imgur.com</a> and the associated image syntax will be put into the Markdown, e.g. <code>![](https://i.imgur.com/QPU5Cg9.png)</code>. (<a href="https://github.com/tidyverse/reprex/issues/15" class="external-link">#15</a> <a href="https://github.com/paternogbc" class="external-link">@paternogbc</a>)</li></ul></li>
 <li><p>Order of <code><a href="../reference/reprex.html">reprex()</a></code> arguments has changed.</p></li>
 <li><p><code><a href="../reference/reprex.html">reprex()</a></code> gains the <code>si</code> argument to request that <code>devtools::session_info()</code> or <code><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo()</a></code> be appended to reprex code (<a href="https://github.com/tidyverse/reprex/issues/6" class="external-link">#6</a> <a href="https://github.com/dgrtwo" class="external-link">@dgrtwo</a>). When <code>si = TRUE</code> and <code>venue = "gh"</code> (the default), session info is wrapped in a collapsible details tag. See <a href="https://github.com/tidyverse/reprex/issues/55" class="external-link">an example</a> (<a href="https://github.com/tidyverse/reprex/issues/55" class="external-link">#55</a>).</p></li>
 <li><p>Reprex code can be provided as an R expression. (<a href="https://github.com/tidyverse/reprex/issues/6" class="external-link">#6</a> <a href="https://github.com/dgrtwo" class="external-link">@dgrtwo</a>, <a href="https://github.com/tidyverse/reprex/issues/35" class="external-link">#35</a>)</p></li>
@@ -240,8 +238,7 @@ More generally, usage looks like <code>reprex(wd = "path/to/desired/wd")</code>.
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9000" id="reprex-0009000">reprex 0.0.0.9000<a class="anchor" aria-label="anchor" href="#reprex-0009000"></a></h2>
-<ul><li>I tweeted about this and some people actually used it!</li>
-</ul></div>
+<ul><li>I tweeted about this and some people actually used it!</li></ul></div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 
@@ -253,7 +250,7 @@ More generally, usage looks like <code>reprex(wd = "path/to/desired/wd")</code>.
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
   </div></footer></body></html>
