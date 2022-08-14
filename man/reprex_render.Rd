@@ -25,7 +25,9 @@ of the output file.
 }
 \description{
 This is a wrapper around \code{\link[rmarkdown:render]{rmarkdown::render()}} that enforces the "reprex"
-mentality. Here's a simplified version of what happens:\preformatted{callr::r(
+mentality. Here's a simplified version of what happens:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{callr::r(
   function(input) \{
     rmarkdown::render(input, envir = globalenv(), encoding = "UTF-8")
   \},
@@ -33,7 +35,7 @@ mentality. Here's a simplified version of what happens:\preformatted{callr::r(
   spinner = is_interactive(),
   stdout = std_file, stderr = std_file
 )
-}
+}\if{html}{\out{</div>}}
 
 Key features to note
 \itemize{

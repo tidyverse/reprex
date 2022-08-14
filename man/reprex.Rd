@@ -169,7 +169,9 @@ functions can be used in a reprex.
 
 Insert a line containing the special comment \verb{#'} in between the
 error-causing code and the \code{last_error()} or \code{last_trace()} call, to fulfill
-the requirement of being in separate chunks:\if{html}{\out{<div class="sourceCode r">}}\preformatted{f <- function() rlang::abort('foo')
+the requirement of being in separate chunks:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{f <- function() rlang::abort('foo')
 f()
 #'
 rlang::last_error()
