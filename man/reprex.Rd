@@ -177,6 +177,7 @@ the requirement of being in separate chunks:
 f()
 #'
 rlang::last_error()
+rlang::last_trace()
 }\if{html}{\out{</div>}}
 
 Read more in rlang's documentation: \href{https://rlang.r-lib.org/reference/rlang_backtrace_on_error.html#errors-in-rmarkdown}{Errors in RMarkdown}.

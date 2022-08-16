@@ -56,6 +56,7 @@
 #' f()
 #' #'
 #' rlang::last_error()
+#' rlang::last_trace()
 #' ```
 #'
 
