@@ -1,3 +1,5 @@
+# reprex 2.0.2
+
 # reprex 2.0.1
 
 `reprex_document()` has been adjusted for compatibility with changes introduced in Pandoc 2.13 around YAML headers (#375, #383 @cderv).

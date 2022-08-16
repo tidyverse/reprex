@@ -1,6 +1,6 @@
 Package: reprex
 Title: Prepare Reproducible Example Code via the Clipboard
-Version: 2.0.1
+Version: 2.0.2
 Authors@R: 
     c(person(given = "Jennifer",
              family = "Bryan",
