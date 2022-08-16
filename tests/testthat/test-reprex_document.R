@@ -7,5 +7,6 @@ test_that("upload.fun responds to venue", {
 
 test_that("ad responds to venue", {
   expect_snapshot(ad("gh"))
+  expect_snapshot(ad("slack"))
   expect_snapshot(ad("r"))
 })

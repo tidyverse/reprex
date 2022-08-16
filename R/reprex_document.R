@@ -157,14 +157,17 @@ rprofile_alert <- function(venue = "gh") {
 }
 
 ad <- function(venue = "gh") {
+  markdown_ad <- glue('
+    Created on `r Sys.Date()` with \\
+    [reprex v`r utils::packageVersion("reprex")`]\\
+    (https://reprex.tidyverse.org)')
   if (venue %in% c("gh", "html")) {
+    glue('<sup>{markdown_ad}</sup>')
+  } else if (venue == "slack") {
+    markdown_ad
+  } else { # venue %in% c("r", "rtf")
     glue('
-      <sup>Created on `r Sys.Date()` by the \\
-      [reprex package](https://reprex.tidyverse.org) \\
-      (v`r utils::packageVersion("reprex")`)</sup>')
-  } else { # venue %in% c("r", "rtf", "slack")
-    glue('
-      Created on `r Sys.Date()` by the reprex package \\
+      Created on `r Sys.Date()` with reprex \\
       v`r utils::packageVersion("reprex")` https://reprex.tidyverse.org')
   }
 }

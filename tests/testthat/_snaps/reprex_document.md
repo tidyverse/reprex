@@ -3,12 +3,19 @@
     Code
       ad("gh")
     Output
-      <sup>Created on `r Sys.Date()` by the [reprex package](https://reprex.tidyverse.org) (v`r utils::packageVersion("reprex")`)</sup>
+      <sup>Created on `r Sys.Date()` with [reprex v`r utils::packageVersion("reprex")`](https://reprex.tidyverse.org)</sup>
+
+---
+
+    Code
+      ad("slack")
+    Output
+      Created on `r Sys.Date()` with [reprex v`r utils::packageVersion("reprex")`](https://reprex.tidyverse.org)
 
 ---
 
     Code
       ad("r")
     Output
-      Created on `r Sys.Date()` by the reprex package v`r utils::packageVersion("reprex")` https://reprex.tidyverse.org
+      Created on `r Sys.Date()` with reprex v`r utils::packageVersion("reprex")` https://reprex.tidyverse.org
 
