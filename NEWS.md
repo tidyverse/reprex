@@ -1,11 +1,15 @@
 # reprex (development version)
 
+* The ad placed by `reprex(advertise = TRUE)` has been tweaked for `venue = "gh"` (and, therefore, for its aliases `"so"` and `"ds"`) and `venue = "slack"` (#395).
+
 * reprex takes advantage of rlang 1.0.0's improved [support for backtraces in knitted documents](https://rlang.r-lib.org/reference/rlang_backtrace_on_error.html#errors-in-rmarkdown) and sets the option `rlang_backtrace_on_error_report = "full"` (#377).
 
 * `reprex_rtf()` (a shortcut for `reprex(venue = "rtf")`) now works on Windows, even if one of the (possibly temporary) filepaths contains a space, e.g. because the username contains a space (#409, @cderv).
 
 * The RStudio addin no longer displays a warning about condition length when
 selecting 'current file' as the reprex source (#391, @bisaloo).
+
+* Internal: reprex's condition signalling has been updated to use the current approaches provided by the cli, rlang, and lifecycle packages.
 
 # reprex 2.0.1
 
