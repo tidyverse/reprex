@@ -91,20 +91,20 @@ wild-caught reprex.
 }
 \section{Functions}{
 \itemize{
-\item \code{reprex_invert}: Attempts to reverse the effect of \code{\link[=reprex]{reprex()}}. When
+\item \code{reprex_invert()}: Attempts to reverse the effect of \code{\link[=reprex]{reprex()}}. When
 \code{venue = "r"}, this just calls \code{reprex_clean()}.
 
-\item \code{reprex_clean}: Assumes R code is top-level, possibly interleaved with
+\item \code{reprex_clean()}: Assumes R code is top-level, possibly interleaved with
 commented output, e.g., a displayed reprex copied from GitHub or the direct
 output of \code{reprex(..., venue = "R")}. This function removes commented
 output.
 
-\item \code{reprex_rescue}: Assumes R code lines start with a prompt and that
+\item \code{reprex_rescue()}: Assumes R code lines start with a prompt and that
 printed output is top-level, e.g., what you'd get from copy/paste from the
 R Console. Removes lines of output and strips prompts from lines holding R
 commands.
-}}
 
+}}
 \examples{
 \dontrun{
 # a roundtrip: R code --> rendered reprex, as gfm --> R code

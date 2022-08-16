@@ -42,7 +42,9 @@ in the article
 
 Here's code you could put in \code{.Rprofile} to set reprex options. It would be
 rare to want non-default behaviour for all of these! We only do so here for
-the sake of exposition:\preformatted{options(
+the sake of exposition:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{options(
   reprex.advertise       = FALSE,
   reprex.session_info    = TRUE,
   reprex.style           = TRUE,
@@ -56,23 +58,29 @@ the sake of exposition:\preformatted{options(
   reprex.highlight.font_size = 35,
   reprex.highlight.other     = "--line-numbers"
 )
-}
+}\if{html}{\out{</div>}}
 
 The function \code{usethis::edit_r_profile()} is handy for creating and/or opening
 your \code{.Rprofile}.
 }
 \section{Explaining the \code{opt()} helper}{
 
-Arguments that appear like so in \code{\link[=reprex]{reprex()}}:\preformatted{reprex(..., arg = opt(DEFAULT), ...)
-}
+Arguments that appear like so in \code{\link[=reprex]{reprex()}}:
 
-get their value according to this logic:\preformatted{user-specified value or, if not given,
+\if{html}{\out{<div class="sourceCode">}}\preformatted{reprex(..., arg = opt(DEFAULT), ...)
+}\if{html}{\out{</div>}}
+
+get their value according to this logic:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{user-specified value or, if not given,
   getOption("reprex.arg") or, if does not exist,
     DEFAULT
-}
+}\if{html}{\out{</div>}}
 
-It's shorthand for:\preformatted{f(..., arg = getOption("reprex.arg", DEFAULT), ...)
-}
+It's shorthand for:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{f(..., arg = getOption("reprex.arg", DEFAULT), ...)
+}\if{html}{\out{</div>}}
 
 This is not an exported function and should not be called directly.
 }

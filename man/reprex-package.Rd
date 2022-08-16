@@ -6,17 +6,9 @@
 \alias{_PACKAGE}
 \title{reprex: Prepare Reproducible Example Code via the Clipboard}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Convenience wrapper that uses the 'rmarkdown'
-    package to render small snippets of code to target formats that
-    include both code and output.  The goal is to encourage the sharing of
-    small, reproducible, and runnable examples on code-oriented websites,
-    such as <https://stackoverflow.com> and <https://github.com>, or in
-    email. The user's clipboard is the default source of input code and
-    the default target for rendered output. 'reprex' also extracts clean,
-    runnable R code from various common formats, such as copy/paste from
-    an R session.
+Convenience wrapper that uses the 'rmarkdown' package to render small snippets of code to target formats that include both code and output. The goal is to encourage the sharing of small, reproducible, and runnable examples on code-oriented websites, such as \url{https://stackoverflow.com} and \url{https://github.com}, or in email. The user's clipboard is the default source of input code and the default target for rendered output. 'reprex' also extracts clean, runnable R code from various common formats, such as copy/paste from an R session.
 }
 \seealso{
 Useful links:
