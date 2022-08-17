@@ -47,8 +47,6 @@ reprex" in the RStudio Addins menu.
 \code{reprex_selection()} is an
 \href{http://rstudio.github.io/rstudioaddins/}{addin} that reprexes the current
 selection, optionally customised by options. Appears as "Reprex selection"
-in the RStudio Addins menu. Heavy users might want to create a keyboard
-shortcut, which is described in
-\verb{https://support.rstudio.com/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts}.
+in the RStudio Addins menu. Heavy users might want to \href{https://support.rstudio.com/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts}{create a keyboard shortcut}.
 Suggested shortcut: Cmd + Shift + R (macOS) or Ctrl + Shift + R (Windows).
 }
