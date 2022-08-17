@@ -11,6 +11,7 @@ Pandoc
 Pandoc's
 PowerShell
 Powerpoint
+RMarkdown
 RStudio's
 RTF
 Romain
@@ -24,6 +25,8 @@ XPG
 YAML
 addin
 andre
+backtrace
+backtraces
 behaviour
 bryan
 callr
@@ -79,6 +82,8 @@ repr
 reprex's
 reprexing
 reproducibility
+rlang
+rlang's
 rmarkdown
 roxygen
 rstudio
@@ -86,10 +91,10 @@ rstudioapi
 rtf
 runnable
 sessioninfo
+signalling
 simon
 speakerdeck
 srcrefs
-stackoverflow
 stderr
 stdout
 styler
