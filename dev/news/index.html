@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">reprex</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.0.1.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.0.2.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,8 +62,9 @@
       <small>Source: <a href="https://github.com/tidyverse/reprex/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2"><h2 class="pkg-version" data-toc-text="development version" id="reprex-development-version">reprex (development version)<a class="anchor" aria-label="anchor" href="#reprex-development-version"></a></h2></div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="reprex-development-version">reprex (development version)<a class="anchor" aria-label="anchor" href="#reprex-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="2.0.2" id="reprex-202">reprex 2.0.2<a class="anchor" aria-label="anchor" href="#reprex-202"></a></h2><p class="text-muted">CRAN release: 2022-08-17</p>
 <ul><li><p>The ad placed by <code>reprex(advertise = TRUE)</code> has been tweaked for <code>venue = "gh"</code> (and, therefore, for its aliases <code>"so"</code> and <code>"ds"</code>) and <code>venue = "slack"</code> (<a href="https://github.com/tidyverse/reprex/issues/395" class="external-link">#395</a>).</p></li>
 <li><p>reprex takes advantage of rlang 1.0.0’s improved <a href="https://rlang.r-lib.org/reference/rlang_backtrace_on_error.html#errors-in-rmarkdown" class="external-link">support for backtraces in knitted documents</a> and sets the option <code>rlang_backtrace_on_error_report = "full"</code> (<a href="https://github.com/tidyverse/reprex/issues/377" class="external-link">#377</a>).</p></li>
 <li><p><code><a href="../reference/reprex_venue.html">reprex_rtf()</a></code> (a shortcut for <code>reprex(venue = "rtf")</code>) now works on Windows, even if one of the (possibly temporary) filepaths contains a space, e.g. because the username contains a space (<a href="https://github.com/tidyverse/reprex/issues/409" class="external-link">#409</a>, <a href="https://github.com/cderv" class="external-link">@cderv</a>).</p></li>
