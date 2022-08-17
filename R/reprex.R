@@ -111,7 +111,7 @@
 #'   of Slack's WYSIWYG interface. Go to
 #'   **Preferences > Advanced > Input options** and select "Format messages with
 #'   markup". (If there is demand for a second Slack venue optimized for use
-#'   with WYWIWYG, please open an issue to discuss.)
+#'   with WYSIWYG, please open an issue to discuss.)
 #' * "so" for
 #'   [Stack Overflow Markdown](https://stackoverflow.com/editing-help#syntax-highlighting).
 #'   Note: this is just an alias for "gh", since Stack Overflow started to
