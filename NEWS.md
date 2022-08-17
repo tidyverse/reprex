@@ -1,4 +1,4 @@
-# reprex (development version)
+# reprex 2.0.2
 
 * The ad placed by `reprex(advertise = TRUE)` has been tweaked for `venue = "gh"` (and, therefore, for its aliases `"so"` and `"ds"`) and `venue = "slack"` (#395).
 
