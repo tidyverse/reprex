@@ -9,7 +9,13 @@
 * The RStudio addin no longer displays a warning about condition length when
 selecting 'current file' as the reprex source (#391, @bisaloo).
 
-* Internal: reprex's condition signalling has been updated to use the current approaches provided by the cli, rlang, and lifecycle packages.
+* Internal matters:
+
+  - Help files below `man/` have been re-generated, so that they give rise to
+    valid HTML5. (This is the impetus for this release, to keep the package
+    safely on CRAN.)
+  - reprex's condition signalling has been updated to use the current approaches
+    provided by the cli, rlang, and lifecycle packages.
 
 # reprex 2.0.1
 
