@@ -68,7 +68,11 @@
 <li><p>reprex takes advantage of rlang 1.0.0’s improved <a href="https://rlang.r-lib.org/reference/rlang_backtrace_on_error.html#errors-in-rmarkdown" class="external-link">support for backtraces in knitted documents</a> and sets the option <code>rlang_backtrace_on_error_report = "full"</code> (<a href="https://github.com/tidyverse/reprex/issues/377" class="external-link">#377</a>).</p></li>
 <li><p><code><a href="../reference/reprex_venue.html">reprex_rtf()</a></code> (a shortcut for <code>reprex(venue = "rtf")</code>) now works on Windows, even if one of the (possibly temporary) filepaths contains a space, e.g. because the username contains a space (<a href="https://github.com/tidyverse/reprex/issues/409" class="external-link">#409</a>, <a href="https://github.com/cderv" class="external-link">@cderv</a>).</p></li>
 <li><p>The RStudio addin no longer displays a warning about condition length when selecting ‘current file’ as the reprex source (<a href="https://github.com/tidyverse/reprex/issues/391" class="external-link">#391</a>, <a href="https://github.com/bisaloo" class="external-link">@bisaloo</a>).</p></li>
-<li><p>Internal: reprex’s condition signalling has been updated to use the current approaches provided by the cli, rlang, and lifecycle packages.</p></li>
+<li>
+<p>Internal matters:</p>
+<ul><li>Help files below <code>man/</code> have been re-generated, so that they give rise to valid HTML5. (This is the impetus for this release, to keep the package safely on CRAN.)</li>
+<li>reprex’s condition signalling has been updated to use the current approaches provided by the cli, rlang, and lifecycle packages.</li>
+</ul></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.1" id="reprex-201">reprex 2.0.1<a class="anchor" aria-label="anchor" href="#reprex-201"></a></h2><p class="text-muted">CRAN release: 2021-08-05</p>
