@@ -128,6 +128,8 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "slack", "so", "
   format
 }
 
+# should be kept in sync with the options (re)stored in reprex_render_impl() in
+# the prex() case (new_session = FALSE)
 reprex_opts <- function(venue = "gh") {
   string <- glue('
     ```{{r reprex-options, include = FALSE}}

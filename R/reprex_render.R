@@ -149,7 +149,14 @@ reprex_render_impl <- function(input,
     if (!is.null(std_file)) {
       inject_file(md_file, std_file)
     }
-  } else {
+  } else { # new_session is FALSE
+    # should be kept in sync with what reprex_opts() sets
+    opts_to_safeguard <- options(
+      "keep.source",
+      "rlang_backtrace_on_error_report",
+      "crayon.enabled"
+    )
+    withr::defer(options(opts_to_safeguard))
     md_file <- rmarkdown::render(
       input,
       quiet = TRUE, envir = globalenv(), encoding = "UTF-8",
