@@ -44,7 +44,8 @@ install.packages("reprex")
 or get a development version from GitHub:
 
 ``` r
-devtools::install_github("tidyverse/reprex")
+# install.packages("pak")
+pak::pak("tidyverse/reprex")
 ```
 
 On Linux, you probably want to install
