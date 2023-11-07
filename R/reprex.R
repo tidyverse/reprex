@@ -40,16 +40,10 @@
 #'
 #' @section Error backtraces:
 #'
-#' reprex sets the rlang option `rlang_backtrace_on_error_report = "full"`.
-#' Combined with the knitr option `error = TRUE`, this means rlang errors are
-#' displayed with a full backtrace. This basically eliminates the need to call
-#' [rlang::last_error()] or [rlang::last_trace()] explicitly, although these
-#' functions can be used in a reprex.
-#'
-
-#' Insert a line containing the special comment `#'` in between the
-#' error-causing code and the `last_error()` or `last_trace()` call, to fulfill
-#' the requirement of being in separate chunks:
+#' To use [rlang::last_error()] or [rlang::last_trace()] within a reprex,
+#' you must place them in a different "chunk" to the code that generates an
+#' error. The easiest way to do is to insert a line containing the special
+#' comment `#'` after error-causing code:
 
 #' ``` r
 #' f <- function() rlang::abort('foo')
