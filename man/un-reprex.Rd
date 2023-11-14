@@ -89,24 +89,19 @@ Character vector holding just the clean R code, invisibly
 Recover clean, runnable code from a reprex captured in the wild and write it
 to user's clipboard. The code is also returned invisibly and optionally
 written to file. Three different functions address various forms of
-wild-caught reprex.
-}
-\section{Functions}{
+wild-caught reprex:
 \itemize{
-\item \code{reprex_invert()}: Attempts to reverse the effect of \code{\link[=reprex]{reprex()}}. When
+\item \code{reprex_invert()} attempts to reverse the effect of \code{\link[=reprex]{reprex()}}. When
 \code{venue = "r"}, this just calls \code{reprex_clean()}.
-
-\item \code{reprex_clean()}: Assumes R code is top-level, possibly interleaved with
-commented output, e.g., a displayed reprex copied from GitHub or the direct
-output of \code{reprex(..., venue = "R")}. This function removes commented
-output.
-
-\item \code{reprex_rescue()}: Assumes R code lines start with a prompt and that
-printed output is top-level, e.g., what you'd get from copy/paste from the
-R Console. Removes lines of output and strips prompts from lines holding R
-commands.
-
-}}
+\item \code{reprex_clean()} removes commented output. This assumes that R code is
+top-level, possibly interleaved with commented output, e.g., a displayed
+reprex copied from GitHub or the output of \code{reprex(..., venue = "R")}.
+\item \code{reprex_rescue()} removes lines of output and strips prompts from lines
+holding R commands. This assumes that R code lines start with a prompt and
+that printed output is top-level, e.g., what you'd if you've copied from
+the R Console.
+}
+}
 \examples{
 \dontrun{
 # a roundtrip: R code --> rendered reprex, as gfm --> R code
