@@ -275,14 +275,10 @@ code (see examples).</p></li>
     
 
 
-<p>reprex sets the rlang option <code>rlang_backtrace_on_error_report = "full"</code>.
-Combined with the knitr option <code>error = TRUE</code>, this means rlang errors are
-displayed with a full backtrace. This basically eliminates the need to call
-<code><a href="https://rlang.r-lib.org/reference/last_error.html" class="external-link">rlang::last_error()</a></code> or <code><a href="https://rlang.r-lib.org/reference/last_error.html" class="external-link">rlang::last_trace()</a></code> explicitly, although these
-functions can be used in a reprex.</p>
-<p>Insert a line containing the special comment <code>#'</code> in between the
-error-causing code and the <code>last_error()</code> or <code>last_trace()</code> call, to fulfill
-the requirement of being in separate chunks:</p>
+<p>To use <code><a href="https://rlang.r-lib.org/reference/last_error.html" class="external-link">rlang::last_error()</a></code> or <code><a href="https://rlang.r-lib.org/reference/last_error.html" class="external-link">rlang::last_trace()</a></code> within a reprex,
+you must place them in a different "chunk" to the code that generates an
+error. The easiest way to do is to insert a line containing the special
+comment <code>#'</code> after error-causing code:</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/abort.html" class="external-link">abort</a></span><span class="op">(</span><span class="st">'foo'</span><span class="op">)</span></span>
 <span><span class="fu">f</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#'</span></span>
