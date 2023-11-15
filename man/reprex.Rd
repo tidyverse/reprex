@@ -163,15 +163,10 @@ code (see examples).
 \section{Error backtraces}{
 
 
-reprex sets the rlang option \code{rlang_backtrace_on_error_report = "full"}.
-Combined with the knitr option \code{error = TRUE}, this means rlang errors are
-displayed with a full backtrace. This basically eliminates the need to call
-\code{\link[rlang:last_error]{rlang::last_error()}} or \code{\link[rlang:last_error]{rlang::last_trace()}} explicitly, although these
-functions can be used in a reprex.
-
-Insert a line containing the special comment \verb{#'} in between the
-error-causing code and the \code{last_error()} or \code{last_trace()} call, to fulfill
-the requirement of being in separate chunks:
+To use \code{\link[rlang:last_error]{rlang::last_error()}} or \code{\link[rlang:last_error]{rlang::last_trace()}} within a reprex,
+you must place them in a different "chunk" to the code that generates an
+error. The easiest way to do is to insert a line containing the special
+comment \verb{#'} after error-causing code:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{f <- function() rlang::abort('foo')
 f()

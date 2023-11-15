@@ -135,7 +135,6 @@ reprex_opts <- function(venue = "gh") {
     ```{{r reprex-options, include = FALSE}}
     options(
       keep.source = TRUE,
-      rlang_backtrace_on_error_report = "full",
       crayon.enabled = FALSE,
       reprex.current_venue = "{venue}"
     )
