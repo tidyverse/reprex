@@ -10,10 +10,6 @@ expect_messages_to_include <- function(haystack, needles) {
   invisible()
 }
 
-with_mock <- function(..., .parent = parent.frame()) {
-  mockr::with_mock(..., .parent = .parent, .env = "reprex")
-}
-
 # 1. creates a subdirectory within session temp
 # 2. makes that the current working directory
 # 3. schedules these cleanup actions for when env goes out of scope:
