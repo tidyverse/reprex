@@ -1,3 +1,7 @@
+
+# Ensure that tests use their own cache directory
+getNamespace("R.cache")$setCachePath(c("styler", styler:::styler_version), tempdir())
+
 expect_error_free <- function(...) {
   expect_error(..., regexp = NA)
 }
