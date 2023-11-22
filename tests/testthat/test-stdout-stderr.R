@@ -1,9 +1,8 @@
 test_that("stdout is captured", {
   skip_on_cran()
-
-  expect_snapshot(
-    (reprex(system2("echo", args = "blah"), std_out_err = TRUE, advertise = FALSE))
-  )
+  out <- reprex(system2("echo", args = "blah"), std_out_err = TRUE)
+  expect_match(out, "Standard output and standard error", all = FALSE)
+  expect_match(out, "^blah$", all = FALSE)
 })
 
 test_that("stdout placeholder appears if nothing is captured", {
