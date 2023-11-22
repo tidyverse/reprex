@@ -3,7 +3,6 @@
 \docType{package}
 \name{reprex-package}
 \alias{reprex-package}
-\alias{_PACKAGE}
 \title{reprex: Prepare Reproducible Example Code via the Clipboard}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
