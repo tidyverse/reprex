@@ -1,6 +1,11 @@
 
-# Ensure that tests use their own cache directory
-getNamespace("R.cache")$setCachePath(c("styler", styler:::styler_version), tempdir())
+# Work around R.cache bug on CI
+dir.create(
+  tools::R_user_dir("R.cache", which = "cache"),
+  recursive = TRUE,
+  showWarnings = FALSE
+)
+# getNamespace("R.cache")$setCachePath(c("styler", styler:::styler_version), tempdir())
 
 expect_error_free <- function(...) {
   expect_error(..., regexp = NA)
