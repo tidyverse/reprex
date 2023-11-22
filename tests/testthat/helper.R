@@ -1,3 +1,13 @@
+
+# Work around R.cache bug on CI
+if (getRversion() >= "4.0.0" && identical(Sys.getenv("CI"), "true")) {
+  dir.create(
+    tools::R_user_dir("R.cache", which = "cache"),
+    recursive = TRUE,
+    showWarnings = FALSE
+  )
+}
+
 expect_error_free <- function(...) {
   expect_error(..., regexp = NA)
 }

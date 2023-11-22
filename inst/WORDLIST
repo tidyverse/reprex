@@ -111,3 +111,7 @@ workspaces
 www
 xclip
 xsel
+PBC
+RStudio
+mockr
+traceback
