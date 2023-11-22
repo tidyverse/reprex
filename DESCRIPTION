@@ -57,6 +57,8 @@ Config/Needs/website:
     dplyr,
     tidyverse/tidytemplate
 Config/testthat/edition: 3
+Config/testthat/parallel: TRUE
+Config/testthat/start-first: knitr-options, venues, reprex
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
