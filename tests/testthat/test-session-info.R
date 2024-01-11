@@ -7,7 +7,7 @@ test_that("session info is omitted / included", {
   }
   input <- c("(y <- 1:4)", "mean(y)")
   ret <- reprex(input = input)
-  expect_false(any(grepl(regex, ret)))
+  expect_no_match(ret, regex)
   ret <- reprex(input = input, session_info = TRUE)
   expect_match(ret, regex, all = FALSE)
 })

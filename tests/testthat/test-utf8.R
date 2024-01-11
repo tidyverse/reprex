@@ -8,16 +8,16 @@ test_that("UTF-8 encoding, string input", {
   )
   out_utf8 <- reprex(input = in_utf8)
 
-  expect_true(all(Encoding(out_utf8) %in% c("unknown", "UTF-8")))
+  expect_in(Encoding(out_utf8), c("unknown", "UTF-8"))
 
-  i_in <-  grep("^x <-", in_utf8)
-  i_out <- grep("^x <-", out_utf8)
-  expect_identical(charToRaw(in_utf8[i_in]), charToRaw(out_utf8[i_out]))
+  line_in <-  grep("^x <-", in_utf8, value = TRUE)
+  line_out <- grep("^x <-", out_utf8, value = TRUE)
+  expect_identical(charToRaw(line_in), charToRaw(line_out))
 
-  i_out <- grep("^#> \\[1\\]", out_utf8)
-  expect_match(out_utf8[i_out], "[\u00C0]")
-  expect_match(out_utf8[i_out], "[\u00CB]")
-  expect_match(out_utf8[i_out], "[\u00D0]")
+  line_out <- grep("^#> \\[1\\]", out_utf8, value = TRUE)
+  expect_match(line_out, "[\u00C0]")
+  expect_match(line_out, "[\u00CB]")
+  expect_match(line_out, "[\u00D0]")
 
   in_latin1 <- iconv(in_utf8, from = "UTF-8", to = "latin1")
   out_latin1 <- reprex(input = in_latin1)

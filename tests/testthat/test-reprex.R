@@ -31,8 +31,7 @@ test_that("rmarkdown::render() context is trimmed from rlang backtrace", {
     "rlang::last_trace()"
   )
   ret <- reprex(input = input, advertise = FALSE)
-  expect_false(any(grepl("tryCatch", ret)))
-  expect_false(any(grepl("rmarkdown::render", ret)))
+  expect_no_match(ret, regexp = "tryCatch|rmarkdown::render")
 })
 
 test_that("rlang::last_error() and last_trace() work", {
@@ -49,28 +48,28 @@ test_that("rlang::last_error() and last_trace() work", {
   )
   ret <- reprex(input = input, advertise = FALSE)
   m <- match("rlang::last_error()", ret)
-  expect_false(grepl("Error", ret[m + 1]))
+  expect_no_match(ret[m + 1], "Error")
   m <- match("rlang::last_trace()", ret)
-  expect_false(grepl("Error", ret[m + 1]))
+  expect_no_match(ret[m + 1], "Error")
 })
 
 test_that("reprex() works even if user uses fancy quotes", {
   skip_on_cran()
   withr::local_options(list(useFancyQuotes = TRUE))
   # use non-default venue to force some quoted yaml to be written
-  expect_error_free(reprex(1, venue = "R"))
+  expect_no_error(reprex(1, venue = "R"))
 })
 
 test_that("reprex() errors for an R crash, by default", {
-  # TODO: consider switching to expect_snapshot() after switch to 3e
+  # TODO: consider switching to expect_snapshot()
   code <- 'utils::getFromNamespace("crash", "callr")()\n'
   expect_error(reprex(input = code), "crash")
 })
 
 test_that("reprex() copes with an R crash, when `std_out_err = TRUE`", {
-  # TODO: consider switching to expect_snapshot() after switch to 3e
+  # TODO: consider switching to expect_snapshot()
   code <- 'utils::getFromNamespace("crash", "callr")()\n'
-  expect_error_free(
+  expect_no_error(
     out <- reprex(input = code, std_out_err = TRUE)
   )
   skip_on_os("windows")
