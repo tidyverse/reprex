@@ -1,5 +1,5 @@
-pandoc: 2.14.2
-pkgdown: 2.0.6
+pandoc: 2.19.2
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   datapasta-reprex: datapasta-reprex.html
@@ -8,7 +8,7 @@ articles:
   rtf: rtf.html
   suppress-startup-messages: suppress-startup-messages.html
   reprex-dos-and-donts: reprex-dos-and-donts.html
-last_built: 2022-08-17T14:38Z
+last_built: 2024-01-11T09:16Z
 urls:
   reference: https://reprex.tidyverse.org/reference
   article: https://reprex.tidyverse.org/articles
