@@ -1,4 +1,4 @@
-# reprex (development version)
+# reprex 2.1.0
 
 * `reprex()` no longer includes the full traceback by default, as this is 
   only useful in relatively rare situations, and otherwise adds a bunch
