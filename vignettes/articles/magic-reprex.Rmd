@@ -1,6 +1,6 @@
 ---
 title: "Magic reprex"
-author: "[Nicholas Tierney](http://www.njtierney.com)"
+author: "[Nicholas Tierney](https://www.njtierney.com/)"
 ---
 
 > This article has been adapted from a post on [Nick Tierney's blog](https://www.njtierney.com/post/2017/01/11/magic-reprex/) to help spread the good word about reprex! :) - **Nick Tierney**
@@ -15,7 +15,7 @@ So, after some sensible swearing and frustration, you might ask yourself somethi
 
 > Surely there's an easy, reproducible way to ... make reproducible examples?
 
-Enter the R package reprex (on [CRAN](https://cran.r-project.org/package=reprex), on [GitHub](https://github.com/tidyverse/reprex)), by [Jenny Bryan](http://www.github.com/jennybc).
+Enter the R package reprex (on [CRAN](https://cran.r-project.org/package=reprex), on [GitHub](https://github.com/tidyverse/reprex)), by [Jenny Bryan](https://www.github.com/jennybc).
 
 In the fashion of the times right now, I'll illustrate reprex with a gif, which shows the following things:
 
@@ -138,7 +138,7 @@ ggplot(data = lm_augmented,
            y = Sepal.Length)) +
   geom_point()
 
-![](http://i.imgur.com/h72ZEKG.png)
+![](https://i.imgur.com/h72ZEKG.png)
 ```
 
 You can even show the results of the `session_info()`, for maximum reproducibility, by adding the argument: `reprex::reprex(session_info = TRUE)`, which adds a super nifty drop down box for the session info.
@@ -156,7 +156,7 @@ I really like these sorts of small tools in R. Squinting at a distance you might
 
 But then when you're actually up close, you realise this means that you don't have to bend your brain around doing this thing, which can range from mildly annoying to mostly infuriating.
 
-You save time and energy, and can focus more on **doing what you want to do**, and less on **fighting against interruptions**. This comic by [Jason Heeris](http://heeris.id.au/2013/this-is-why-you-shouldnt-interrupt-a-programmer/) illustrates this point nicely, I think:
+You save time and energy, and can focus more on **doing what you want to do**, and less on **fighting against interruptions**. This comic by Jason Heeris illustrates this point nicely, I think:
 
 <p>
 <div style="height: auto">
@@ -167,5 +167,5 @@ You save time and energy, and can focus more on **doing what you want to do**, a
 
 Once again thank you to Jenny Bryan for making our lives easier. Jenny will be joining the RStudio team this year and I am really looking forward to seeing what she gets up to.
 
-Read more about reprex on github [here](http://www.github.com/tidyverse/reprex#readme).
+Read more about reprex on GitHub [here](https://github.com/tidyverse/reprex#readme).
 

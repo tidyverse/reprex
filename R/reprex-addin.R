@@ -2,16 +2,16 @@
 #'
 #' @description `reprex_addin()` opens an [RStudio
 #'   gadget](https://shiny.rstudio.com/articles/gadgets.html) and
-#'   [addin](http://rstudio.github.io/rstudioaddins/) that allows you to say
+#'   [addin](https://rstudio.github.io/rstudioaddins/) that allows you to say
 #'   where the reprex source is (clipboard? current selection? active file?
 #'   other file?) and to control a few other arguments. Appears as "Render
 #'   reprex" in the RStudio Addins menu.
 #'
 #' @description `reprex_selection()` is an
-#'   [addin](http://rstudio.github.io/rstudioaddins/) that reprexes the current
+#'   [addin](https://docs.posit.co/ide/user/ide/guide/productivity/add-ins.html) that reprexes the current
 #'   selection, optionally customised by options. Appears as "Reprex selection"
-#'   in the RStudio Addins menu. Heavy users might want to create a keyboard
-#'   shortcut (`https://support.posit.co/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts`).
+#'   in the RStudio Addins menu. Heavy users might want to [create a keyboard
+#'   shortcut](https://docs.posit.co/ide/user/ide/guide/productivity/custom-shortcuts.html).
 #'   Suggested shortcut: Cmd + Shift + R (macOS) or Ctrl + Shift + R (Windows).
 #'
 #' @export
