@@ -11,7 +11,7 @@
 #'   [addin](http://rstudio.github.io/rstudioaddins/) that reprexes the current
 #'   selection, optionally customised by options. Appears as "Reprex selection"
 #'   in the RStudio Addins menu. Heavy users might want to [create a keyboard
-#'   shortcut](https://support.rstudio.com/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts).
+#'   shortcut](https://support.posit.co/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts).
 #'   Suggested shortcut: Cmd + Shift + R (macOS) or Ctrl + Shift + R (Windows).
 #'
 #' @export

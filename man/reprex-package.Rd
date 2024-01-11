@@ -13,7 +13,7 @@ Convenience wrapper that uses the 'rmarkdown' package to render small snippets o
 Useful links:
 \itemize{
   \item \url{https://reprex.tidyverse.org}
-  \item \url{https://github.com/tidyverse/reprex#readme}
+  \item \url{https://github.com/tidyverse/reprex}
   \item Report bugs at \url{https://github.com/tidyverse/reprex/issues}
 }
 

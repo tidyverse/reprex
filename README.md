@@ -12,8 +12,7 @@ Prepare reprexes for posting to [GitHub
 issues](https://docs.github.com/issues/tracking-your-work-with-issues/about-issues),
 [StackOverflow](https://stackoverflow.com/questions/tagged/r), in Slack [messages](https://slack.com/intl/en-ca/help/articles/201457107-Send-and-read-messages) or [snippets](https://slack.com/intl/en-ca/help/articles/204145658-Create-a-snippet), or even to paste into PowerPoint or Keynote slides.
 What is a `reprex`? It’s a **repr**oducible **ex**ample, as coined by
-[Romain
-Francois](https://twitter.com/romain_francois/status/530011023743655936).
+Romain Francois in a tweet from 2014.
 
 <a href="https://media.giphy.com/media/fdLR6LGwAiVNhGQNvf/giphy.gif"><img src="man/figures/help-me-help-you.png" align="right" /></a>
 
