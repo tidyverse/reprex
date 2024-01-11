@@ -145,6 +145,7 @@ reprex_undo <- function(input = NULL,
   )
   r_file <- r_file_clean(undo_files$filebase)
   if (would_clobber(r_file)) {
+    reprex_warning("Cancelling to avoid overwriting a file.")
     return(invisible())
   }
 

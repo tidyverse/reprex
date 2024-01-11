@@ -63,6 +63,7 @@ reprex_impl <- function(x_expr = NULL,
 
   r_file <- r_file(reprex_files$filebase)
   if (would_clobber(r_file)) {
+    reprex_warning("Cancelling to avoid overwriting a file.")
     return(invisible())
   }
 
