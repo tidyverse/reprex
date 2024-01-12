@@ -18,10 +18,6 @@ if (getRversion() >= "4.0.0" && identical(Sys.getenv("CI"), "true")) {
   )
 }
 
-expect_error_free <- function(...) {
-  expect_error(..., regexp = NA)
-}
-
 expect_messages_to_include <- function(haystack, needles) {
   lapply(
     needles,

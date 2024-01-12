@@ -49,7 +49,7 @@ Suggests:
     shiny,
     spelling,
     styler (>= 1.2.0),
-    testthat (>= 3.0.2)
+    testthat (>= 3.2.1)
 VignetteBuilder: 
     knitr
 Config/Needs/website: dplyr, tidyverse/tidytemplate

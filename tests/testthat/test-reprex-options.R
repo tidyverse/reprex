@@ -22,7 +22,7 @@ test_that("`advertise` can be set via option", {
     list(reprex.advertise = FALSE),
     out <- reprex(1, render = FALSE)
   )
-  expect_false(any(grepl("#+ reprex-ad", out, fixed = TRUE)))
+  expect_no_match(out, "#+ reprex-ad", fixed = TRUE)
 })
 
 test_that("`comment` can be set via option", {

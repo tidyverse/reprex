@@ -57,10 +57,10 @@ test_that("expected outfiles are written and messaged, venue = 'html'", {
 
   outfiles <- dir_ls()
   # punting on the issue of the `utf8.md` file and folder of files
-  expect_true(all(
-    c("_reprex.R", "_reprex.md", "_reprex.html") %in%
-      gsub("[a-z-]+(_reprex.+)", "\\1", outfiles)
-  ))
+  expect_contains(
+    gsub("[a-z-]+(_reprex.+)", "\\1", outfiles),
+    c("_reprex.R", "_reprex.md", "_reprex.html")
+  )
   html_file <- grep("_reprex[.]html", outfiles, value = TRUE)
   expect_equal(ret, read_lines(html_file))
 

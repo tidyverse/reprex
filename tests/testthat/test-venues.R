@@ -67,8 +67,9 @@ test_that("local image link is not interrupted by hard line break for 'gh'", {
     "plot(1:3)"
   )
   out <- reprex(input = input, venue = "gh")
-  i <- grep("incredibly-long", out)
-  expect_true(grepl("[)]", out[i]))
+  line <- grep("incredibly-long", out, value = TRUE)
+  expect_length(line, 1)
+  expect_match(line, "[)]")
 })
 
 test_that("venue = 'html' works", {

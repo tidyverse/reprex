@@ -37,5 +37,5 @@ test_that("local .Rprofile not reported when it's not there", {
   msg <- capture_messages(
     reprex(1 + 1, advertise = FALSE)
   )
-  expect_false(any(grepl(".Rprofile", msg, fixed = TRUE)))
+  expect_no_match(msg, ".Rprofile", fixed = TRUE)
 })

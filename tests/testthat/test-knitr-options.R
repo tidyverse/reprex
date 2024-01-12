@@ -8,7 +8,7 @@ test_that("reprex() suppresses tidyverse startup message by default", {
   skip_on_cran()
   skip_if_not_installed("tidyverse", minimum_version = "1.2.1")
   ret <- reprex(input = sprintf("library(%s)\n", "tidyverse"))
-  expect_false(any(grepl("Attaching", ret)))
+  expect_no_match(ret, "Attaching")
 })
 
 test_that("`tidyverse_quiet` works", {
@@ -19,7 +19,7 @@ test_that("`tidyverse_quiet` works", {
     input = "library(tidyverse)\n",
     tidyverse_quiet = TRUE
   )
-  expect_false(any(grepl("Attaching", ret)))
+  expect_no_match(ret, "Attaching")
 
   ret <- reprex(
     input = "library(tidyverse)\n",
@@ -36,7 +36,7 @@ test_that("`tidyverse_quiet` works for tidymodels", {
     input = "library(tidymodels)\n",
     tidyverse_quiet = TRUE
   )
-  expect_false(any(grepl("Attaching", ret)))
+  expect_no_match(ret, "Attaching")
 
   ret <- reprex(
     input = "library(tidymodels)\n",

@@ -15,5 +15,5 @@ test_that("stdout placeholder appears if nothing is captured", {
 test_that("stdout placeholder is absent if explicitly excluded", {
   skip_on_cran()
   out <- reprex(1:4, std_out_err = FALSE)
-  expect_false(any(grepl("standard output and standard error", out)))
+  expect_no_match(out, "standard output and standard error")
 })
