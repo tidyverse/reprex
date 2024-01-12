@@ -61,13 +61,13 @@ test_that("reprex() works even if user uses fancy quotes", {
 })
 
 test_that("reprex() errors for an R crash, by default", {
-  # TODO: consider switching to expect_snapshot()
-  code <- 'utils::getFromNamespace("crash", "callr")()\n'
-  expect_error(reprex(input = code), "crash")
+  expect_snapshot(error = TRUE, {
+    code <- 'utils::getFromNamespace("crash", "callr")()\n'
+    reprex(input = code)
+  })
 })
 
 test_that("reprex() copes with an R crash, when `std_out_err = TRUE`", {
-  # TODO: consider switching to expect_snapshot()
   code <- 'utils::getFromNamespace("crash", "callr")()\n'
   expect_no_error(
     out <- reprex(input = code, std_out_err = TRUE)
