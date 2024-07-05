@@ -67,7 +67,7 @@
 #' Microsoft Word, PowerPoint, or Keynote. Use `venue = "rtf"` for this.
 #'
 #' This feature is experimental and requires the installation of the
-#' [highlight](http://www.andre-simon.de/doku/highlight/en/highlight.php)
+#' [highlight](http://andre-simon.de/doku/highlight/en/highlight.php)
 #' command line tool. The `"rtf"` venue is documented in [its own
 #' article](https://reprex.tidyverse.org/articles/articles/rtf.html)
 #'
@@ -111,7 +111,7 @@
 #'   Note: this is just an alias for "gh", since Stack Overflow started to
 #'   support CommonMark-style fenced code blocks in January 2019.
 #' * "ds" for Discourse, e.g.,
-#'   [community.rstudio.com](https://community.rstudio.com). Note: this is
+#'   [forum.posit.co]( https://forum.posit.co/). Note: this is
 #'   currently just an alias for "gh".
 #' @param advertise Logical. Whether to include a footer that describes when and
 #'   how the reprex was created. If unspecified, the option `reprex.advertise`

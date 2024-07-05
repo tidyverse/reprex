@@ -39,7 +39,7 @@ with WYSIWYG, please open an issue to discuss.)
 Note: this is just an alias for "gh", since Stack Overflow started to
 support CommonMark-style fenced code blocks in January 2019.
 \item "ds" for Discourse, e.g.,
-\href{https://community.rstudio.com}{community.rstudio.com}. Note: this is
+\href{https://forum.posit.co/}{forum.posit.co}. Note: this is
 currently just an alias for "gh".
 }}
 

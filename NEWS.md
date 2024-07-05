@@ -225,7 +225,7 @@ These look like `reprex(..., arg = opt(DEFAULT), ...)` in the help file. This is
   
   * `venue = "so"` has appropriate whitespace at the start.
 
-  * `venue = "ds"` is a new value, corresponding to <https://www.discourse.org>, which is the platform behind [community.rstudio.com](https://community.rstudio.com). This is currently just an alias for the default `"gh"` GitHub venue, because the formatting appears to be compatible. Adding the `"ds"` value so Discourse can be documented and to guard against the possibility that some formatting is actually unique.
+  * `venue = "ds"` is a new value, corresponding to <https://www.discourse.org>, which is the platform behind [community.rstudio.com](https://forum.posit.co/). This is currently just an alias for the default `"gh"` GitHub venue, because the formatting appears to be compatible. Adding the `"ds"` value so Discourse can be documented and to guard against the possibility that some formatting is actually unique.
   
 ## Other changes
 
