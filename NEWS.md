@@ -1,8 +1,12 @@
 # reprex (development version)
 
+* `reprex(style = FALSE)` will never nag about installing styler (#461).
+
+* Various URLs have been updated (#458, @olivroy).
+
 # reprex 2.1.0
 
-* `reprex()` no longer includes the full traceback by default, as this is 
+* `reprex()` no longer includes the full traceback by default, as this is
   only useful in relatively rare situations, and otherwise adds a bunch
   of clutter (#448).
 
