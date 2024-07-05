@@ -10,9 +10,26 @@
 # reprex() errors for an R crash, by default
 
     Code
-      code <- "utils::getFromNamespace(\"crash\", \"callr\")()\n"
+      code <- "rlang::node_car(0)\n"
       reprex(input = code)
     Condition
       Error in `reprex_render()`:
       ! This reprex appears to crash R. Call `reprex()` again with `std_out_err = TRUE` to get more info.
+
+# reprex() copes with an R crash, when `std_out_err = TRUE`
+
+    Code
+      out
+    Output
+      [1] "This reprex appears to crash R."
+      [2] "See standard output and standard error for more details."
+      [3] ""
+      [4] "#### Standard output and error"
+      [5] ""
+      [6] "``` sh"
+      [7] ""
+      [8] " *** caught segfault ***"
+      [9] "address ADDRESS, cause 'CAUSE'"
+      [10] ""
+      [11] "Traceback:"
 

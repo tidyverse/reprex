@@ -61,19 +61,34 @@ test_that("reprex() works even if user uses fancy quotes", {
 })
 
 test_that("reprex() errors for an R crash, by default", {
+  skip_on_cran()
   expect_snapshot(error = TRUE, {
-    code <- 'utils::getFromNamespace("crash", "callr")()\n'
+    code <- 'rlang::node_car(0)\n'
     reprex(input = code)
   })
 })
 
 test_that("reprex() copes with an R crash, when `std_out_err = TRUE`", {
-  code <- 'utils::getFromNamespace("crash", "callr")()\n'
+  skip_on_cran()
+  code <- 'rlang::node_car(0)\n'
   expect_no_error(
     out <- reprex(input = code, std_out_err = TRUE)
   )
+
   skip_on_os("windows")
-  expect_match(out, "crash", all = FALSE)
-  expect_match(out, "segfault", all = FALSE)
-  expect_match(out, "Traceback", all = FALSE)
+
+  scrubber <- function(x) {
+    # I don't want to snapshot the actual traceback
+    out <- x[seq_len(min(grep("Traceback", x)))]
+    # on macOS and windows, cause is 'invalid permissions'
+    # on ubuntu, cause is 'memory not mapped'
+    out <- sub(
+      "address 0x[0-9a-fA-F]+, cause '.*'",
+      "address ADDRESS, cause 'CAUSE'",
+      out
+    )
+    trimws(out)
+  }
+
+  expect_snapshot(out, transform = scrubber)
 })
