@@ -127,7 +127,7 @@ set_advertise <- function(advertise, venue) {
 }
 
 style_requires_styler <- function(style) {
-  if (!requireNamespace("styler", quietly = TRUE)) {
+  if (isTRUE(style) && !requireNamespace("styler", quietly = TRUE)) {
     reprex_danger("
       Install the {.pkg styler} package in order to use
       {.code style = TRUE}.")
