@@ -1,12 +1,16 @@
 /*dark*/
 
-.markdown-body {
+:root {
+  --bg-color: #0d1117;
+}
+
+body {
   color-scheme: dark;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   margin: 0;
   color: #e6edf3;
-  background-color: #0d1117;
+  background-color: var(--bg-color);
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
   font-size: 16px;
   line-height: 1.5;
