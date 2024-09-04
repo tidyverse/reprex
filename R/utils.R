@@ -63,3 +63,12 @@ newline <- function(x) paste0(x, "\n")
 is_testing <- function() {
   identical(Sys.getenv("TESTTHAT"), "true")
 }
+
+is_dark_mode <- function() {
+  if (rstudioapi::isAvailable() && rstudioapi::hasFun("getThemeInfo")) {
+    theme_info <- rstudioapi::getThemeInfo()
+    theme_info$dark
+  } else {
+    FALSE
+  }
+}
