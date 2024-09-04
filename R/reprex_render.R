@@ -184,17 +184,18 @@ reprex_render_impl <- function(input,
 
 # heavily influenced by the post_processor() function of github_document()
 preview <- function(input) {
+  mode <- if (is_dark_mode()) "dark" else "light"
   css <- rmarkdown::pandoc_path_arg(
     path_package(
-      "rmarkdown",
-      "rmarkdown/templates/github_document/resources/github.css"
+      "reprex",
+      glue("rmarkdown/templates/reprex_document/resources/github-{mode}.css")
     )
   )
   css <- glue("github-markdown-css:{css}")
   template <- rmarkdown::pandoc_path_arg(
     path_package(
-      "rmarkdown",
-      "rmarkdown/templates/github_document/resources/preview.html"
+      "reprex",
+      "rmarkdown/templates/reprex_document/resources/preview.html"
     )
   )
   args <- c(
