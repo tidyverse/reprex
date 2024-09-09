@@ -194,6 +194,7 @@ preview <- function(input) {
   )
   args <- c(
     "--standalone", "--embed-resources",
+    "--highlight-style", path(res_dir, glue("starry-nights-{mode}.theme")),
     "--css", path(res_dir, glue("github-{mode}.css")),
     "--metadata", "pagetitle=PREVIEW",
     "--quiet"
