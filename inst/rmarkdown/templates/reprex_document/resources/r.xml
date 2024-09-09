@@ -113,7 +113,7 @@
 			<keyword attribute="Reserved Words" context="#stay" String="words"/>
 			<Float attribute="Float" context="#stay"/>
 			<Int attribute="Int" context="NumericSuffix"/>
-			<RegExpr attribute="Keyword" context="#stay" String="[a-zA-Z_]+[a-zA-Z_\.0-9]*(?=[\s]*[(])|\.[a-zA-Z_\.]+[a-zA-Z_\.0-9]*(?=[\s]*[(])"/>
+			<RegExpr attribute="Function" context="#stay" String="[a-zA-Z_]+[a-zA-Z_\.0-9]*(?=[\s]*[(])|\.[a-zA-Z_\.]+[a-zA-Z_\.0-9]*(?=[\s]*[(])"/>
 			<DetectChar attribute="Symbol" context="parenthesis" char="("/>
 
 			<!-- For (assignment) operators, enter a new context operator_rhs to check what follows (generally, that should not be another op) -->
@@ -146,18 +146,19 @@
 
 	<itemDatas>
 		<itemData name="Normal Text" defStyleNum="dsNormal" spellChecking="false"/>
-		<itemData name="Symbol" defStyleNum="dsNormal" spellChecking="false"/>
-		<itemData name="Keyword" defStyleNum="dsFunction" spellChecking="false"/>
-		<itemData name="Identifier" defStyleNum="dsAttribute" spellChecking="false"/>
+		<itemData name="Symbol" defStyleNum="dsVariable" spellChecking="false"/>
+		<itemData name="Keyword" defStyleNum="dsKeyword" spellChecking="false"/>
+		<itemData name="Function" defStyleNum="dsFunction" spellChecking="false"/>
+		<itemData name="Identifier" defStyleNum="dsVariable" spellChecking="false"/>
 		<itemData name="String" defStyleNum="dsString"/>
 		<itemData name="Headline" defStyleNum="dsDocumentation" bold="1"/>
 		<itemData name="Comment" defStyleNum="dsComment"/>
-		<itemData name="Assign" defStyleNum="dsOthers" bold="1" italic="0" spellChecking="false"/>
+		<itemData name="Assign" defStyleNum="dsOperator" bold="1" italic="0" spellChecking="false"/>
 		<itemData name="Control Structure" defStyleNum="dsControlFlow" spellChecking="false"/>
-		<itemData name="Reserved Words" defStyleNum="dsConstant" spellChecking="false"/>
+		<itemData name="Reserved Words" defStyleNum="dsBuiltIn" spellChecking="false"/>
 		<itemData name="Error" defStyleNum="dsError" spellChecking="false"/>
-		<itemData name="Operator" defStyleNum="dsSpecialChar" spellChecking="false"/>
-		<itemData name="String Char"  defStyleNum="dsSpecialChar" spellChecking="false"/>
+		<itemData name="Operator" defStyleNum="dsOperator" spellChecking="false"/>
+		<itemData name="String Char"  defStyleNum="dsString" spellChecking="false"/>
 		<itemData name="Float" defStyleNum="dsFloat" spellChecking="false"/>
 		<itemData name="Int" defStyleNum="dsDecVal" spellChecking="false"/>
 		<itemData name="Numeric Suffix" defStyleNum="dsDataType" spellChecking="false"/>
