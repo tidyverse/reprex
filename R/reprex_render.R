@@ -199,7 +199,6 @@ preview <- function(input) {
   )
   args <- c(
     "--standalone", "--self-contained",
-    "--highlight-style", "pygments",
     "--template", template,
     "--variable", css,
     "--metadata", "pagetitle=PREVIEW",
