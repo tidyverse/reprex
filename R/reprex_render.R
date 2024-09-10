@@ -212,7 +212,7 @@ preview <- function(input) {
   preview_file <- preview_file(input)
   rmarkdown::pandoc_convert(
     input = input, to = "html", from = "gfm", output = preview_file,
-    options = args, verbose = TRUE
+    options = args, verbose = FALSE
   )
 
   # can be interesting re: detecting how we were called and what we should
