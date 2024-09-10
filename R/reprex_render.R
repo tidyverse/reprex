@@ -182,26 +182,21 @@ reprex_render_impl <- function(input,
   invisible(reprex_file)
 }
 
-# heavily influenced by the post_processor() function of github_document()
+# influenced by the post_processor() function of github_document()
+# but with substantial reprex-specific updates in 2024-09
 preview <- function(input) {
-  css <- rmarkdown::pandoc_path_arg(
+  mode <- if (is_dark_mode()) "dark" else "light"
+  res_dir <- rmarkdown::pandoc_path_arg(
     path_package(
-      "rmarkdown",
-      "rmarkdown/templates/github_document/resources/github.css"
-    )
-  )
-  css <- glue("github-markdown-css:{css}")
-  template <- rmarkdown::pandoc_path_arg(
-    path_package(
-      "rmarkdown",
-      "rmarkdown/templates/github_document/resources/preview.html"
+      "reprex",
+      glue("rmarkdown/templates/reprex_document/resources")
     )
   )
   args <- c(
-    "--standalone", "--self-contained",
-    "--highlight-style", "pygments",
-    "--template", template,
-    "--variable", css,
+    "--standalone", "--embed-resources",
+    "--highlight-style", path(res_dir, glue("starry-nights-{mode}.theme")),
+    "--css", path(res_dir, glue("github-{mode}.css")),
+    "--syntax-definition", path(res_dir, "r.xml"),
     "--metadata", "pagetitle=PREVIEW",
     "--quiet"
   )
