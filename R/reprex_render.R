@@ -335,7 +335,14 @@ remove_info_strings <- function(x) {
 # input:  ![](https://i.imgur.com/woc4vHs.png)
 # output: https://i.imgur.com/woc4vHs.png
 simplify_image_links <- function(x) {
-  sub("(^!\\[\\]\\()(.+)(\\)$)", "\\2", x, perl = TRUE)
+  x <- remove_empty_html_comments(x)
+  sub("(^!\\[\\]\\()(.+)(\\))$", "\\2", x, perl = TRUE)
+}
+
+# input:  ![](https://i.imgur.com/woc4vHs.png)<!-- -->
+# output: ![](https://i.imgur.com/woc4vHs.png)
+remove_empty_html_comments <- function(x){
+  sub("<!--[[:space:]]*-->", "", x, perl = TRUE)
 }
 
 # used when venue is "rtf"
