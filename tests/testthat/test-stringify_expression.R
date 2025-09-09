@@ -46,7 +46,7 @@ if (FALSE) {
     x <- 1:2
     {
       x + 3:4
-    } %>%
+    } |>
       sum()
   })
   saveRDS(
@@ -145,11 +145,11 @@ test_that("trailing inline comment AND trailing comment line", {
 test_that("leading bracket that should not be removed", {
   # e$e08 <- quote({
   #   x <- 1:2
-  #   {x + 3:4} %>% sum()
+  #   {x + 3:4} |> sum()
   # })
   out <- c(
     "x <- 1:2",
-    "{x + 3:4} %>% sum()"
+    "{x + 3:4} |> sum()"
   )
   expect_identical(
     stringify_expression(e$e08),
