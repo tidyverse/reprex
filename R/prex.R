@@ -29,40 +29,42 @@
 #'
 #' reprex(getwd())  # a reprex directory below session temp directory
 #' prex(getwd())    # current working directory
-prex <- function(x = NULL,
-                 input = NULL,
-                 venue = c("gh", "r", "rtf", "html", "slack", "so", "ds"),
+prex <- function(
+  x = NULL,
+  input = NULL,
+  venue = c("gh", "r", "rtf", "html", "slack", "so", "ds"),
 
-                 render = TRUE,
+  render = TRUE,
 
-                 advertise       = FALSE,       # <-- different from reprex
-                 session_info    = opt(FALSE),
-                 style           = opt(FALSE),
-                 html_preview    = opt(TRUE),
-                 comment         = opt("#>"),
-                 tidyverse_quiet = opt(TRUE)) {
+  advertise = FALSE, # <-- different from reprex
+  session_info = opt(FALSE),
+  style = opt(FALSE),
+  html_preview = opt(TRUE),
+  comment = opt("#>"),
+  tidyverse_quiet = opt(TRUE)
+) {
   reprex_impl(
     x_expr = substitute(x),
     input = input,
-    wd = ".",                                   # <-- different from reprex
+    wd = ".", # <-- different from reprex
     venue = venue,
 
     render = render,
-    new_session = FALSE,                        # <-- different from reprex()
+    new_session = FALSE, # <-- different from reprex()
 
-    advertise       = advertise,
-    session_info    = session_info,
-    style           = style,
-    comment         = comment,
+    advertise = advertise,
+    session_info = session_info,
+    style = style,
+    comment = comment,
     tidyverse_quiet = tidyverse_quiet,
-    std_out_err     = FALSE,                    # <-- different from reprex()
-    html_preview    = html_preview
+    std_out_err = FALSE, # <-- different from reprex()
+    html_preview = html_preview
   )
 }
 
-prex_html  <- function(...) prex(..., venue = "html")
-prex_r     <- function(...) prex(..., venue = "r")
-prex_rtf   <- function(...) prex(..., venue = "rtf")
+prex_html <- function(...) prex(..., venue = "html")
+prex_r <- function(...) prex(..., venue = "r")
+prex_rtf <- function(...) prex(..., venue = "rtf")
 prex_slack <- function(...) prex(..., venue = "slack")
 
 # these should exist for completeness, but I predict they'd never get used and

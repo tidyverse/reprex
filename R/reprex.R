@@ -260,23 +260,26 @@
 #' reprex(input = c("> x <- 1:3", "> median(x)"))
 #' }
 #' @export
-reprex <- function(x = NULL,
-                   input = NULL, wd = NULL,
-                   venue = c("gh", "r", "rtf", "html", "slack", "so", "ds"),
+reprex <- function(
+  x = NULL,
+  input = NULL,
+  wd = NULL,
+  venue = c("gh", "r", "rtf", "html", "slack", "so", "ds"),
 
-                   render = TRUE,
+  render = TRUE,
 
-                   advertise       = NULL,
-                   session_info    = opt(FALSE),
-                   style           = opt(FALSE),
-                   comment         = opt("#>"),
-                   tidyverse_quiet = opt(TRUE),
-                   std_out_err     = opt(FALSE),
-                   html_preview    = opt(TRUE),
+  advertise = NULL,
+  session_info = opt(FALSE),
+  style = opt(FALSE),
+  comment = opt("#>"),
+  tidyverse_quiet = opt(TRUE),
+  std_out_err = opt(FALSE),
+  html_preview = opt(TRUE),
 
-                   outfile = deprecated(),
-                   show = deprecated(),
-                   si = deprecated()) {
+  outfile = deprecated(),
+  show = deprecated(),
+  si = deprecated()
+) {
   if (lifecycle::is_present(show)) {
     html_preview <- show
     lifecycle::deprecate_warn(
@@ -300,13 +303,13 @@ reprex <- function(x = NULL,
     render = render,
     new_session = TRUE,
 
-    advertise       = advertise,
-    session_info    = session_info,
-    style           = style,
-    html_preview    = html_preview,
-    comment         = comment,
+    advertise = advertise,
+    session_info = session_info,
+    style = style,
+    html_preview = html_preview,
+    comment = comment,
     tidyverse_quiet = tidyverse_quiet,
-    std_out_err     = std_out_err,
+    std_out_err = std_out_err,
 
     outfile = outfile
   )

@@ -47,9 +47,7 @@
 #' \dontrun{
 #' reprex_render("input.Rmd")
 #' }
-reprex_render <- function(input,
-                          html_preview = NULL,
-                          encoding = "UTF-8") {
+reprex_render <- function(input, html_preview = NULL, encoding = "UTF-8") {
   if (!identical(encoding, "UTF-8")) {
     cli::cli_abort("The {.arg input} file must have UTF-8 encoding.")
   }
@@ -60,8 +58,7 @@ reprex_render <- function(input,
   )
 }
 
-prex_render <- function(input,
-                        html_preview = NULL) {
+prex_render <- function(input, html_preview = NULL) {
   reprex_render_impl(
     input,
     new_session = FALSE,
@@ -69,12 +66,10 @@ prex_render <- function(input,
   )
 }
 
-reprex_render_impl <- function(input,
-                               new_session = TRUE,
-                               html_preview = NULL) {
+reprex_render_impl <- function(input, new_session = TRUE, html_preview = NULL) {
   yaml_opts <- reprex_document_options(input)
 
-  venue   <- yaml_opts[["venue"]] %||% "gh"
+  venue <- yaml_opts[["venue"]] %||% "gh"
   comment <- yaml_opts[["comment"]] %||% "#>"
 
   html_preview <-
@@ -98,7 +93,9 @@ reprex_render_impl <- function(input,
           function(input) {
             rmarkdown::render(
               input,
-              quiet = TRUE, envir = globalenv(), encoding = "UTF-8"
+              quiet = TRUE,
+              envir = globalenv(),
+              encoding = "UTF-8"
             )
           },
           args = list(input = path_file(input)),
@@ -112,7 +109,8 @@ reprex_render_impl <- function(input,
 
     # reprex has crashed rmarkdown::render()
     if (is.null(out)) {
-      cli::cli_abort("
+      cli::cli_abort(
+        "
         This reprex appears to halt execution of {.fun rmarkdown::render}.",
         call = quote(reprex_render())
       )
@@ -127,7 +125,8 @@ reprex_render_impl <- function(input,
         )
       }
       if (!isTRUE(std_out_err)) {
-        cli::cli_abort("
+        cli::cli_abort(
+          "
           This reprex appears to crash R.
           Call {.fun reprex} again with {.code std_out_err = TRUE} to get \\
           more info.",
@@ -149,7 +148,8 @@ reprex_render_impl <- function(input,
     if (!is.null(std_file)) {
       inject_file(md_file, std_file)
     }
-  } else { # new_session is FALSE
+  } else {
+    # new_session is FALSE
     # should be kept in sync with what reprex_opts() sets
     opts_to_safeguard <- options(
       "keep.source",
@@ -158,7 +158,9 @@ reprex_render_impl <- function(input,
     withr::defer(options(opts_to_safeguard))
     md_file <- rmarkdown::render(
       input,
-      quiet = TRUE, envir = globalenv(), encoding = "UTF-8",
+      quiet = TRUE,
+      envir = globalenv(),
+      encoding = "UTF-8",
       knit_root_dir = getwd()
     )
   }
@@ -166,11 +168,12 @@ reprex_render_impl <- function(input,
   # we can almost use the post_processor of output_format, but sadly we cannot
   # we can't inject std_out_err until the connection to std_file is closed
   # and we can't post process until the injection is done
-  reprex_file <- switch(venue,
-    r     = pp_md_to_r(md_file, comment = comment),
-    rtf   = pp_highlight(pp_md_to_r(md_file, comment = comment)),
+  reprex_file <- switch(
+    venue,
+    r = pp_md_to_r(md_file, comment = comment),
+    rtf = pp_highlight(pp_md_to_r(md_file, comment = comment)),
     slack = pp_slackify(md_file),
-    html  = pp_html_render(md_file),
+    html = pp_html_render(md_file),
     md_file
   )
 
@@ -193,11 +196,16 @@ preview <- function(input) {
     )
   )
   args <- c(
-    "--standalone", "--embed-resources",
-    "--highlight-style", path(res_dir, glue("starry-nights-{mode}.theme")),
-    "--css", path(res_dir, glue("github-{mode}.css")),
-    "--syntax-definition", path(res_dir, "r.xml"),
-    "--metadata", "pagetitle=PREVIEW",
+    "--standalone",
+    "--embed-resources",
+    "--highlight-style",
+    path(res_dir, glue("starry-nights-{mode}.theme")),
+    "--css",
+    path(res_dir, glue("github-{mode}.css")),
+    "--syntax-definition",
+    path(res_dir, "r.xml"),
+    "--metadata",
+    "pagetitle=PREVIEW",
     "--quiet"
   )
 
@@ -211,8 +219,12 @@ preview <- function(input) {
   #    a '_preview" suffix to disambiguate)
   preview_file <- preview_file(input)
   rmarkdown::pandoc_convert(
-    input = input, to = "html", from = "gfm", output = preview_file,
-    options = args, verbose = FALSE
+    input = input,
+    to = "html",
+    from = "gfm",
+    output = preview_file,
+    options = args,
+    verbose = FALSE
   )
 
   # can be interesting re: detecting how we were called and what we should

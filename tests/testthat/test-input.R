@@ -8,14 +8,22 @@
 
 test_that("reprex: expression input works", {
   expect_snapshot(cli::cat_line(
-    reprex({x <- 1:5; mean(x)}, render = FALSE)
+    reprex(
+      {
+        x <- 1:5
+        mean(x)
+      },
+      render = FALSE
+    )
   ))
 })
 
 ## https://github.com/tidyverse/reprex/issues/241
 test_that("reprex: expression input preserves `!!`", {
   res <- reprex(
-    {f <- function(c6d573e) rlang::qq_show(how_many(!!rlang::enquo(c6d573e)))},
+    {
+      f <- function(c6d573e) rlang::qq_show(how_many(!!rlang::enquo(c6d573e)))
+    },
     render = FALSE
   )
   expect_match(res, "!!rlang::enquo(c6d573e)", all = FALSE, fixed = TRUE)

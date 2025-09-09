@@ -24,3 +24,5 @@
 ^img/debugging$
 ^data-raw$
 ^CRAN-SUBMISSION$
+^[.]?air[.]toml$
+^\.vscode$

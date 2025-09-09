@@ -92,9 +92,7 @@
 #' )
 #' }
 #' @export
-reprex_locale <- function(...,
-                          language = "en",
-                          locale = NULL) {
+reprex_locale <- function(..., language = "en", locale = NULL) {
   withr::local_envvar(c(LANGUAGE = language))
   if (!is.null(locale)) {
     # If we use withr::local_locale(), the new locale is NOT inherited by the

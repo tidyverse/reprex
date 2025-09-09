@@ -1,6 +1,11 @@
 test_that("simple statements are stringified", {
   expect_identical(stringify_expression(1:5), "1:5")
-  expect_identical(stringify_expression({1:5}), "1:5")
+  expect_identical(
+    stringify_expression({
+      1:5
+    }),
+    "1:5"
+  )
   expect_identical(stringify_expression(quote(mean(x))), "mean(x)")
 })
 
@@ -12,11 +17,16 @@ if (FALSE) {
   e$e01 <- quote({
     1:5
   })
-  e$e02 <- quote({1:5
+  e$e02 <- quote({
+    1:5
   })
   e$e03 <- quote({
-    1:5})
-  e$e04 <- quote({1:3;4:6})
+    1:5
+  })
+  e$e04 <- quote({
+    1:3
+    4:6
+  })
   e$e05 <- quote({
     #' Leading comment
     x <- rnorm(3)
@@ -24,17 +34,20 @@ if (FALSE) {
     mean(x)
     #' Trailing comment
   })
-  e$e06 <- quote({mean(1:4) # comment
+  e$e06 <- quote({
+    mean(1:4) # comment
   })
   e$e07 <- quote({
     #' Leading comment
     y <- 1:4 # comment
     #' Trailing comment
-  }
-  )
+  })
   e$e08 <- quote({
-x <- 1:2
-{x + 3:4} %>% sum()
+    x <- 1:2
+    {
+      x + 3:4
+    } %>%
+      sum()
   })
   saveRDS(
     e,

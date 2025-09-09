@@ -2,10 +2,12 @@ reprex_highlight <- function(rout_file, reprex_file, arg_string = NULL) {
   arg_string <- arg_string %||% highlight_args()
   cmd <- paste0(
     "highlight ",
-    " -i ", shQuote(rout_file),
+    " -i ",
+    shQuote(rout_file),
     " --out-format=rtf --no-trailing-nl --encoding=UTF-8",
     arg_string,
-    " -o ", shQuote(reprex_file)
+    " -o ",
+    shQuote(reprex_file)
   )
   if (is_windows()) {
     res <- shell(cmd)
@@ -37,15 +39,19 @@ rtf_requires_highlight <- function(venue) {
 highlight_found <- function() Sys.which("highlight") != ""
 
 highlight_args <- function() {
-  hl_style  <-         getOption("reprex.highlight.hl_style", "darkbone")
-  font      <- shQuote(getOption("reprex.highlight.font", "Courier Regular"))
-  font_size <-         getOption("reprex.highlight.font_size", 50)
-  other     <-         getOption("reprex.highlight.other", "")
+  hl_style <- getOption("reprex.highlight.hl_style", "darkbone")
+  font <- shQuote(getOption("reprex.highlight.font", "Courier Regular"))
+  font_size <- getOption("reprex.highlight.font_size", 50)
+  other <- getOption("reprex.highlight.other", "")
 
   paste0(
-    " --style ",     hl_style,
-    " --font ",      font,
-    " --font-size ", font_size,
-    " ", other
+    " --style ",
+    hl_style,
+    " --font ",
+    font,
+    " --font-size ",
+    font_size,
+    " ",
+    other
   )
 }

@@ -82,7 +82,7 @@ retrofit_files <- function(infile = NULL, wd = NULL, outfile = deprecated()) {
     lifecycle::deprecate_warn(
       when = "2.0.0",
       what = "reprex(outfile)",
-      details =  "Working directory will be derived from `input`."
+      details = "Working directory will be derived from `input`."
     )
     return(list(infile = infile, wd = NULL))
   }
@@ -92,7 +92,7 @@ retrofit_files <- function(infile = NULL, wd = NULL, outfile = deprecated()) {
     lifecycle::deprecate_warn(
       when = "2.0.0",
       what = "reprex(outfile)",
-      details =  c(
+      details = c(
         "To control output filename, provide a filepath to `input`.",
         "Only taking working directory from `outfile`."
       )
@@ -291,14 +291,16 @@ rstudio_open_and_select_all <- function(path) {
   ct <- rstudioapi::getSourceEditorContext()
   i <- 0
   while (ct$path == "" || path_real(ct$path) != path_real(path)) {
-    if (i > 4) break
+    if (i > 4) {
+      break
+    }
     i <- i + 1
     Sys.sleep(1)
     ct <- rstudioapi::getSourceEditorContext()
   }
   rg <- rstudioapi::document_range(
     start = rstudioapi::document_position(1, 1),
-    end   = rstudioapi::document_position(Inf, Inf)
+    end = rstudioapi::document_position(Inf, Inf)
   )
   rstudioapi::setSelectionRanges(rg, id = ct$id)
   invisible()

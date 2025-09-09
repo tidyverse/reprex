@@ -1,5 +1,6 @@
 interactive <- function(...) {
-  cli::cli_abort("
+  cli::cli_abort(
+    "
     Inside {.pkg reprex}, we use {.fun rlang::is_interactive}, \\
     not {.fun interactive}, for mocking reasons.",
     .internal = TRUE
