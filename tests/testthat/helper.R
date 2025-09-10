@@ -31,8 +31,7 @@ expect_messages_to_include <- function(haystack, needles) {
 # 3. schedules these cleanup actions for when env goes out of scope:
 #    - restore original working directory
 #    - delete the directory
-local_temp_wd <- function(pattern = "reprextests",
-                          env = parent.frame()) {
+local_temp_wd <- function(pattern = "reprextests", env = parent.frame()) {
   old_wd <- getwd()
   tmp <- withr::local_tempdir(pattern = pattern, .local_envir = env)
   withr::local_dir(tmp, .local_envir = env)

@@ -7,6 +7,17 @@
 #   * Normal usage will absolutely and immediately reveal clipboard problems.
 
 test_that("reprex: expression input works", {
+  skip("Expression source refs are tricky")
+
+  # This test stopped passing, with no changes to the reprex package, somewhere
+  # between 2024-09-10 and 2025-09-10. Presumably related to srcref changes in
+  # R itself? Interactive use still produces the correct/expected output. But
+  # when the tests run programmatically, the expression has no srcrefs, leading
+  # to the early exit branch in stringify_expression().
+  # Note that I've also struggled with capturing expression and srcrefs in the
+  # tests for stringify_expression(), so I guess this is just more of the same.
+
+  # fmt: skip
   expect_snapshot(cli::cat_line(
     reprex({x <- 1:5; mean(x)}, render = FALSE)
   ))
@@ -14,6 +25,7 @@ test_that("reprex: expression input works", {
 
 ## https://github.com/tidyverse/reprex/issues/241
 test_that("reprex: expression input preserves `!!`", {
+  # fmt: skip
   res <- reprex(
     {f <- function(c6d573e) rlang::qq_show(how_many(!!rlang::enquo(c6d573e)))},
     render = FALSE

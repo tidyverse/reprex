@@ -260,23 +260,26 @@
 #' reprex(input = c("> x <- 1:3", "> median(x)"))
 #' }
 #' @export
-reprex <- function(x = NULL,
-                   input = NULL, wd = NULL,
-                   venue = c("gh", "r", "rtf", "html", "slack", "so", "ds"),
+reprex <- function(
+  x = NULL,
+  input = NULL,
+  wd = NULL,
+  venue = c("gh", "r", "rtf", "html", "slack", "so", "ds"),
 
-                   render = TRUE,
+  render = TRUE,
 
-                   advertise       = NULL,
-                   session_info    = opt(FALSE),
-                   style           = opt(FALSE),
-                   comment         = opt("#>"),
-                   tidyverse_quiet = opt(TRUE),
-                   std_out_err     = opt(FALSE),
-                   html_preview    = opt(TRUE),
+  advertise = NULL,
+  session_info = opt(FALSE),
+  style = opt(FALSE),
+  comment = opt("#>"),
+  tidyverse_quiet = opt(TRUE),
+  std_out_err = opt(FALSE),
+  html_preview = opt(TRUE),
 
-                   outfile = deprecated(),
-                   show = deprecated(),
-                   si = deprecated()) {
+  outfile = deprecated(),
+  show = deprecated(),
+  si = deprecated()
+) {
   if (lifecycle::is_present(show)) {
     html_preview <- show
     lifecycle::deprecate_warn(
@@ -291,6 +294,7 @@ reprex <- function(x = NULL,
     # I won't throw a warning.
   }
 
+  # fmt: skip
   reprex_impl(
     x_expr = substitute(x),
     input = input,

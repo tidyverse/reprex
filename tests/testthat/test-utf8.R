@@ -10,7 +10,7 @@ test_that("UTF-8 encoding, string input", {
 
   expect_in(Encoding(out_utf8), c("unknown", "UTF-8"))
 
-  line_in <-  grep("^x <-", in_utf8, value = TRUE)
+  line_in <- grep("^x <-", in_utf8, value = TRUE)
   line_out <- grep("^x <-", out_utf8, value = TRUE)
   expect_identical(charToRaw(line_in), charToRaw(line_out))
 

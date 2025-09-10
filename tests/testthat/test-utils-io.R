@@ -38,7 +38,7 @@ test_that("retrofit_files() works", {
   expect_snapshot_warning(
     x <- retrofit_files(infile = "a/path/foo.R", outfile = "other/path/blah")
   )
-    expect_equal(x, list(infile = "a/path/foo.R", wd = NULL))
+  expect_equal(x, list(infile = "a/path/foo.R", wd = NULL))
 })
 
 # root cause of

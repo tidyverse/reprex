@@ -29,18 +29,21 @@
 #'
 #' reprex(getwd())  # a reprex directory below session temp directory
 #' prex(getwd())    # current working directory
-prex <- function(x = NULL,
-                 input = NULL,
-                 venue = c("gh", "r", "rtf", "html", "slack", "so", "ds"),
+prex <- function(
+  x = NULL,
+  input = NULL,
+  venue = c("gh", "r", "rtf", "html", "slack", "so", "ds"),
 
-                 render = TRUE,
+  render = TRUE,
 
-                 advertise       = FALSE,       # <-- different from reprex
-                 session_info    = opt(FALSE),
-                 style           = opt(FALSE),
-                 html_preview    = opt(TRUE),
-                 comment         = opt("#>"),
-                 tidyverse_quiet = opt(TRUE)) {
+  advertise = FALSE, # <-- different from reprex
+  session_info = opt(FALSE),
+  style = opt(FALSE),
+  html_preview = opt(TRUE),
+  comment = opt("#>"),
+  tidyverse_quiet = opt(TRUE)
+) {
+  # fmt: skip
   reprex_impl(
     x_expr = substitute(x),
     input = input,
@@ -60,9 +63,9 @@ prex <- function(x = NULL,
   )
 }
 
-prex_html  <- function(...) prex(..., venue = "html")
-prex_r     <- function(...) prex(..., venue = "r")
-prex_rtf   <- function(...) prex(..., venue = "rtf")
+prex_html <- function(...) prex(..., venue = "html")
+prex_r <- function(...) prex(..., venue = "r")
+prex_rtf <- function(...) prex(..., venue = "rtf")
 prex_slack <- function(...) prex(..., venue = "slack")
 
 # these should exist for completeness, but I predict they'd never get used and

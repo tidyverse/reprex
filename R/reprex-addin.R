@@ -15,7 +15,8 @@
 #'   Suggested shortcut: Cmd + Shift + R (macOS) or Ctrl + Shift + R (Windows).
 #'
 #' @export
-reprex_addin <- function() { # nocov start
+reprex_addin <- function() {
+  # nocov start
 
   check_installed(
     c("shiny", "miniUI"),
@@ -94,9 +95,15 @@ reprex_addin <- function() { # nocov start
   shiny::runGadget(app, viewer = shiny::dialogViewer("Render reprex"))
 }
 
-reprex_guess <- function(source, venue = "gh", source_file = NULL,
-                         session_info = FALSE, html_preview = FALSE) {
-  reprex_input <- switch(source,
+reprex_guess <- function(
+  source,
+  venue = "gh",
+  source_file = NULL,
+  session_info = FALSE,
+  html_preview = FALSE
+) {
+  reprex_input <- switch(
+    source,
     clipboard = NULL,
     cur_sel = rstudio_selection(),
     cur_file = rstudio_file(),

@@ -33,8 +33,28 @@ trim_common_leading_ws <- function(x) {
 }
 
 escape_regex <- function(x) {
-  chars <- c("*", ".", "?", "^", "+", "$", "|", "(", ")", "[", "]", "{", "}", "\\")
-  gsub(paste0("([\\", paste(chars, collapse = "\\"), "])"), "\\\\\\1", x, perl = TRUE)
+  chars <- c(
+    "*",
+    ".",
+    "?",
+    "^",
+    "+",
+    "$",
+    "|",
+    "(",
+    ")",
+    "[",
+    "]",
+    "{",
+    "}",
+    "\\"
+  )
+  gsub(
+    paste0("([\\", paste(chars, collapse = "\\"), "])"),
+    "\\\\\\1",
+    x,
+    perl = TRUE
+  )
 }
 
 escape_newlines <- function(x) {

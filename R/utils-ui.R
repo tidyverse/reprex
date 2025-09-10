@@ -10,18 +10,21 @@ local_reprex_loud <- function(env = parent.frame()) {
   local_reprex_quiet("FALSE", env = env)
 }
 
-reprex_alert <- function(text,
-                         type = c("success", "info", "warning", "danger"),
-                         .envir = parent.frame()) {
+reprex_alert <- function(
+  text,
+  type = c("success", "info", "warning", "danger"),
+  .envir = parent.frame()
+) {
   quiet <- reprex_quiet() %|% is_testing()
   if (quiet) {
     return(invisible())
   }
-  cli_fun <- switch(type,
+  cli_fun <- switch(
+    type,
     success = cli::cli_alert_success,
-    info    = cli::cli_alert_info,
+    info = cli::cli_alert_info,
     warning = cli::cli_alert_warning,
-    danger  = cli::cli_alert_danger,
+    danger = cli::cli_alert_danger,
     cli::cli_alert
   )
   cli_fun(text = text, wrap = TRUE, .envir = .envir)
@@ -45,7 +48,12 @@ reprex_danger <- function(text, .envir = parent.frame()) {
 
 # TODO: if a better built-in solution arises in the semantic UI, use it
 # https://github.com/r-lib/cli/issues/211
-reprex_path <- function(header, path, type = "success", .envir = parent.frame()) {
+reprex_path <- function(
+  header,
+  path,
+  type = "success",
+  .envir = parent.frame()
+) {
   quiet <- reprex_quiet() %|% is_testing()
   if (quiet) {
     return(invisible())
