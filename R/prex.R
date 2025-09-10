@@ -43,6 +43,7 @@ prex <- function(
   comment = opt("#>"),
   tidyverse_quiet = opt(TRUE)
 ) {
+  # fmt: skip
   reprex_impl(
     x_expr = substitute(x),
     input = input,

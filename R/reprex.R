@@ -294,6 +294,7 @@ reprex <- function(
     # I won't throw a warning.
   }
 
+  # fmt: skip
   reprex_impl(
     x_expr = substitute(x),
     input = input,

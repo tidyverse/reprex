@@ -1,5 +1,6 @@
 reprex_highlight <- function(rout_file, reprex_file, arg_string = NULL) {
   arg_string <- arg_string %||% highlight_args()
+  # fmt: skip
   cmd <- paste0(
     "highlight ",
     " -i ",
@@ -37,13 +38,13 @@ rtf_requires_highlight <- function(venue) {
 }
 
 highlight_found <- function() Sys.which("highlight") != ""
-
+# fmt: skip
 highlight_args <- function() {
-  hl_style <- getOption("reprex.highlight.hl_style", "darkbone")
-  font <- shQuote(getOption("reprex.highlight.font", "Courier Regular"))
-  font_size <- getOption("reprex.highlight.font_size", 50)
-  other <- getOption("reprex.highlight.other", "")
-
+  hl_style  <-         getOption("reprex.highlight.hl_style", "darkbone")
+  font      <- shQuote(getOption("reprex.highlight.font", "Courier Regular"))
+  font_size <-         getOption("reprex.highlight.font_size", 50)
+  other     <-         getOption("reprex.highlight.other", "")
+# fmt: skip
   paste0(
     " --style ",
     hl_style,

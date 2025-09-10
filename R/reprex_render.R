@@ -195,6 +195,7 @@ preview <- function(input) {
       glue("rmarkdown/templates/reprex_document/resources")
     )
   )
+  # fmt: skip
   args <- c(
     "--standalone",
     "--embed-resources",
