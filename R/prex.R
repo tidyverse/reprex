@@ -47,19 +47,19 @@ prex <- function(
   reprex_impl(
     x_expr = substitute(x),
     input = input,
-    wd = ".", # <-- different from reprex
+    wd = ".",                                   # <-- different from reprex
     venue = venue,
 
     render = render,
-    new_session = FALSE, # <-- different from reprex()
+    new_session = FALSE,                        # <-- different from reprex()
 
-    advertise = advertise,
-    session_info = session_info,
-    style = style,
-    comment = comment,
+    advertise       = advertise,
+    session_info    = session_info,
+    style           = style,
+    comment         = comment,
     tidyverse_quiet = tidyverse_quiet,
-    std_out_err = FALSE, # <-- different from reprex()
-    html_preview = html_preview
+    std_out_err     = FALSE,                    # <-- different from reprex()
+    html_preview    = html_preview
   )
 }
 

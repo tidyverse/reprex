@@ -197,16 +197,11 @@ preview <- function(input) {
   )
   # fmt: skip
   args <- c(
-    "--standalone",
-    "--embed-resources",
-    "--highlight-style",
-    path(res_dir, glue("starry-nights-{mode}.theme")),
-    "--css",
-    path(res_dir, glue("github-{mode}.css")),
-    "--syntax-definition",
-    path(res_dir, "r.xml"),
-    "--metadata",
-    "pagetitle=PREVIEW",
+    "--standalone", "--embed-resources",
+    "--highlight-style", path(res_dir, glue("starry-nights-{mode}.theme")),
+    "--css", path(res_dir, glue("github-{mode}.css")),
+    "--syntax-definition", path(res_dir, "r.xml"),
+    "--metadata", "pagetitle=PREVIEW",
     "--quiet"
   )
 

@@ -19,8 +19,7 @@ test_that("remove_info_strings() gets rid of 'info strings'", {
     ```
     <
      >
-    ```"
-  )
+    ```")
   expect_equal(x, remove_info_strings(x))
 
   # fmt: skip
@@ -29,8 +28,7 @@ test_that("remove_info_strings() gets rid of 'info strings'", {
     def foo(x)
       return 3
     end
-    ```"
-  )
+    ```")
   expect_equal(sub("ruby", "", x), remove_info_strings(x))
 
   # fmt: skip
@@ -39,8 +37,7 @@ test_that("remove_info_strings() gets rid of 'info strings'", {
     def foo(x)
       return 3
     end
-    ```"
-  )
+    ```")
   expect_equal(c("```", tail(x, -1)), remove_info_strings(x))
 })
 

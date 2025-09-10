@@ -3,12 +3,10 @@ reprex_highlight <- function(rout_file, reprex_file, arg_string = NULL) {
   # fmt: skip
   cmd <- paste0(
     "highlight ",
-    " -i ",
-    shQuote(rout_file),
+    " -i ", shQuote(rout_file),
     " --out-format=rtf --no-trailing-nl --encoding=UTF-8",
     arg_string,
-    " -o ",
-    shQuote(reprex_file)
+    " -o ", shQuote(reprex_file)
   )
   if (is_windows()) {
     res <- shell(cmd)
@@ -46,13 +44,9 @@ highlight_args <- function() {
   other     <-         getOption("reprex.highlight.other", "")
 # fmt: skip
   paste0(
-    " --style ",
-    hl_style,
-    " --font ",
-    font,
-    " --font-size ",
-    font_size,
-    " ",
-    other
+    " --style ",     hl_style,
+    " --font ",      font,
+    " --font-size ", font_size,
+    " ", other
   )
 }

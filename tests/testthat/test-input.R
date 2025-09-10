@@ -19,13 +19,7 @@ test_that("reprex: expression input works", {
 
   # fmt: skip
   expect_snapshot(cli::cat_line(
-    reprex(
-      {
-        x <- 1:5
-        mean(x)
-      },
-      render = FALSE
-    )
+    reprex({x <- 1:5; mean(x)}, render = FALSE)
   ))
 })
 
@@ -33,9 +27,7 @@ test_that("reprex: expression input works", {
 test_that("reprex: expression input preserves `!!`", {
   # fmt: skip
   res <- reprex(
-    {
-      f <- function(c6d573e) rlang::qq_show(how_many(!!rlang::enquo(c6d573e)))
-    },
+    {f <- function(c6d573e) rlang::qq_show(how_many(!!rlang::enquo(c6d573e)))},
     render = FALSE
   )
   expect_match(res, "!!rlang::enquo(c6d573e)", all = FALSE, fixed = TRUE)
