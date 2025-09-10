@@ -55,11 +55,13 @@ NULL
 #'   list.files(dirname(original), pattern = "original", full.names = TRUE)
 #' )
 #' }
-reprex_invert <- function(input = NULL,
-                          wd = NULL,
-                          venue = c("gh", "r"),
-                          comment = opt("#>"),
-                          outfile = deprecated()) {
+reprex_invert <- function(
+  input = NULL,
+  wd = NULL,
+  venue = c("gh", "r"),
+  comment = opt("#>"),
+  outfile = deprecated()
+) {
   venue <- tolower(venue)
   venue <- match.arg(venue)
 
@@ -69,7 +71,13 @@ reprex_invert <- function(input = NULL,
     )
   }
 
-  reprex_undo(input, wd = wd, is_md = TRUE, comment = comment, outfile = outfile)
+  reprex_undo(
+    input,
+    wd = wd,
+    is_md = TRUE,
+    comment = comment,
+    outfile = outfile
+  )
 }
 
 #' @rdname un-reprex
@@ -88,11 +96,19 @@ reprex_invert <- function(input = NULL,
 #' writeLines(code_out)
 #' identical(code_in, code_out)
 #' }
-reprex_clean <- function(input = NULL,
-                         wd = NULL,
-                         comment = opt("#>"),
-                         outfile = deprecated()) {
-  reprex_undo(input, wd = wd, is_md = FALSE, comment = comment, outfile = outfile)
+reprex_clean <- function(
+  input = NULL,
+  wd = NULL,
+  comment = opt("#>"),
+  outfile = deprecated()
+) {
+  reprex_undo(
+    input,
+    wd = wd,
+    is_md = FALSE,
+    comment = comment,
+    outfile = outfile
+  )
 }
 
 #' @rdname un-reprex
@@ -110,11 +126,13 @@ reprex_clean <- function(input = NULL,
 #' rescued <- reprex_rescue(input = from_r_console)
 #' writeLines(rescued)
 #' }
-reprex_rescue <- function(input = NULL,
-                          wd = NULL,
-                          prompt = getOption("prompt"),
-                          continue = getOption("continue"),
-                          outfile = deprecated()) {
+reprex_rescue <- function(
+  input = NULL,
+  wd = NULL,
+  prompt = getOption("prompt"),
+  continue = getOption("continue"),
+  outfile = deprecated()
+) {
   reprex_undo(
     input,
     wd = wd,
@@ -124,16 +142,20 @@ reprex_rescue <- function(input = NULL,
   )
 }
 
-reprex_undo <- function(input = NULL,
-                        wd = NULL,
-                        is_md = FALSE,
-                        comment = NULL, prompt = NULL,
-                        outfile = deprecated()) {
+reprex_undo <- function(
+  input = NULL,
+  wd = NULL,
+  is_md = FALSE,
+  comment = NULL,
+  prompt = NULL,
+  outfile = deprecated()
+) {
   where <- locate_input(input)
-  src <- switch(where,
+  src <- switch(
+    where,
     clipboard = ingest_clipboard(),
-    path      = read_lines(input),
-    input     = escape_newlines(sub("\n$", "", input)),
+    path = read_lines(input),
+    input = escape_newlines(sub("\n$", "", input)),
     selection = rstudio_selection(),
     NULL
   )
@@ -141,7 +163,8 @@ reprex_undo <- function(input = NULL,
 
   undo_files <- plan_files(
     infile = if (where == "path") input else NULL,
-    wd = wd, outfile = outfile
+    wd = wd,
+    outfile = outfile
   )
   r_file <- r_file_clean(undo_files$filebase)
   if (would_clobber(r_file)) {
@@ -149,11 +172,14 @@ reprex_undo <- function(input = NULL,
     return(invisible())
   }
 
-  if (is_md) {                             # reprex_invert
+  if (is_md) {
+    # reprex_invert
     out <- convert_md_to_r(src, comment = comment, drop_output = TRUE)
-  } else if (is.null(prompt)) {            # reprex_clean
+  } else if (is.null(prompt)) {
+    # reprex_clean
     out <- src[!grepl(comment, src)]
-  } else {                                 # reprex_rescue
+  } else {
+    # reprex_rescue
     regex <- paste0("^\\s*", prompt)
     out <- src[grepl(regex, src)]
     out <- sub(regex, "", out)
@@ -169,7 +195,11 @@ reprex_undo <- function(input = NULL,
 
 convert_md_to_r <- function(lines, comment = "#>", drop_output = FALSE) {
   lines_info <- classify_fenced_lines(lines, comment = comment)
-  lines_out <- ifelse(lines_info == "prose" & nzchar(lines), roxygen_comment(lines), lines)
+  lines_out <- ifelse(
+    lines_info == "prose" & nzchar(lines),
+    roxygen_comment(lines),
+    lines
+  )
   drop_classes <- c("bt", if (drop_output) "output")
   lines_out[!lines_info %in% drop_classes]
 }
@@ -185,7 +215,9 @@ convert_md_to_r <- function(lines, comment = "#>", drop_output = FALSE) {
 classify_fenced_lines <- function(x, comment = "^#>") {
   x_shift <- c("", utils::head(x, -1))
   cumulative_fences <- cumsum(grepl("^```", x_shift))
-  wut <- ifelse(grepl("^```", x), "bt",
+  wut <- ifelse(
+    grepl("^```", x),
+    "bt",
     ifelse(cumulative_fences %% 2 == 1, "code", "prose")
   )
   wut <- ifelse(wut == "code" & grepl(comment, x), "output", wut)

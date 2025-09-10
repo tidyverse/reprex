@@ -14,6 +14,7 @@ test_that("reprex additions are added to a *copy* of an Rmd input file", {
 test_that("remove_info_strings() gets rid of 'info strings'", {
   f <- function(x) strsplit(glue::glue(x), split = "\n")[[1]]
   # examples from https://spec.commonmark.org/0.29/#info-string
+  # fmt: skip
   x <- f("
     ```
     <
@@ -21,6 +22,7 @@ test_that("remove_info_strings() gets rid of 'info strings'", {
     ```")
   expect_equal(x, remove_info_strings(x))
 
+  # fmt: skip
   x <- f("
     ```ruby
     def foo(x)
@@ -29,6 +31,7 @@ test_that("remove_info_strings() gets rid of 'info strings'", {
     ```")
   expect_equal(sub("ruby", "", x), remove_info_strings(x))
 
+  # fmt: skip
   x <- f("
     ``` ruby startline=3 $%@#$
     def foo(x)

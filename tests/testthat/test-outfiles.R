@@ -92,8 +92,10 @@ test_that("infile can have path components", {
   expect_messages_to_include(
     msg,
     c(
-      "Preparing reprex as .*.R.* file", "aaa/bbb_reprex.R",
-      "Writing reprex file", "aaa/bbb_reprex.md"
+      "Preparing reprex as .*.R.* file",
+      "aaa/bbb_reprex.R",
+      "Writing reprex file",
+      "aaa/bbb_reprex.md"
     )
   )
 })

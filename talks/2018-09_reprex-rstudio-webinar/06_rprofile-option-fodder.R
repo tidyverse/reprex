@@ -9,10 +9,16 @@ options(
 
 #+ eval = FALSE
 reprex(
-  x = NULL, input = NULL, outfile = NULL,
+  x = NULL,
+  input = NULL,
+  outfile = NULL,
   venue = c("gh", "so", "ds", "r", "rtf"),
-  render = TRUE, advertise = NULL,
-  si = opt(FALSE), style = opt(FALSE),
-  show = opt(TRUE), comment = opt("#>"),
-  tidyverse_quiet = opt(TRUE), std_out_err = opt(FALSE)
+  render = TRUE,
+  advertise = NULL,
+  si = opt(FALSE),
+  style = opt(FALSE),
+  show = opt(TRUE),
+  comment = opt("#>"),
+  tidyverse_quiet = opt(TRUE),
+  std_out_err = opt(FALSE)
 )
