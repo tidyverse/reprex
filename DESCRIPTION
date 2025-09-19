@@ -25,9 +25,9 @@ Description: Convenience wrapper that uses the 'rmarkdown' package to
 License: MIT + file LICENSE
 URL: https://reprex.tidyverse.org, https://github.com/tidyverse/reprex
 BugReports: https://github.com/tidyverse/reprex/issues
-Depends: 
+Depends:
     R (>= 4.1)
-Imports: 
+Imports:
     callr (>= 3.6.0),
     cli (>= 3.2.0),
     clipr (>= 0.4.0),
@@ -40,9 +40,10 @@ Imports:
     rstudioapi,
     utils,
     withr (>= 2.3.0)
-Suggests: 
+Suggests:
     covr,
     fortunes,
+    gh,
     miniUI,
     rprojroot,
     sessioninfo,
@@ -50,7 +51,7 @@ Suggests:
     spelling,
     styler (>= 1.2.0),
     testthat (>= 3.2.1)
-VignetteBuilder: 
+VignetteBuilder:
     knitr
 Config/Needs/website: dplyr, tidyverse/tidytemplate
 Config/testthat/edition: 3
