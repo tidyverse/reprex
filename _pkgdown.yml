@@ -27,6 +27,7 @@ reference:
     - reprex_addin
     - reprex_venue
     - reprex_locale
+    - upload_gist
   - title: Going backwards
     contents:
     - reprex_clean
