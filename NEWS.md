@@ -1,5 +1,8 @@
 # reprex (development version)
 
+* Adds `upload_gist()` to upload reprex to GitHub gists (#481, @tanho63)
+* `reprex(html_preview = FALSE)` now properly avoids opening a preview window, which flows nicer with `upload_gist()` usage.
+
 # reprex 2.1.1
 
 * `reprex(style = FALSE)` will never nag about installing styler (#461).
@@ -59,16 +62,16 @@ Specifically, this applies to use on RStudio Server and RStudio Cloud.
   un-`reprex()` functions, such as `reprex_clean()`.
 * In this context, the file containing the (un)rendered reprex is opened so the
   user can manually copy its contents.
-  
+
 ## Filepaths
 
 `wd` is a new argument to set the reprex working directory.
 As a result, the `outfile` argument is deprecated and the `input` argument has new significance.
 Here's how to use `input` and `wd` to control reprex filepaths:
 
-* To reprex in the current working directory,  
-  Previously: `reprex(outfile = NA)`  
-  Now: `reprex(wd = ".")`  
+* To reprex in the current working directory,
+  Previously: `reprex(outfile = NA)`
+  Now: `reprex(wd = ".")`
   More generally, usage looks like `reprex(wd = "path/to/desired/wd")`.
 * If you really care about reprex filename (and location), write your source to
   `path/to/stuff.R` and call `reprex(input = "path/to/stuff.R")`. When `input`
@@ -199,7 +202,7 @@ R 3.1 and R 3.2 are no longer explicitly supported or tested. Our general practi
 
 reprex has a website: <https://reprex.tidyverse.org>. It includes a contributed article from @njtierney (#103).
 
-reprex has moved to the [tidyverse Organization](https://github.com/tidyverse). It is installed as part of the [tidyverse meta-package](https://www.tidyverse.org) and is [suggested to those seeking help](https://www.tidyverse.org/help/). 
+reprex has moved to the [tidyverse Organization](https://github.com/tidyverse). It is installed as part of the [tidyverse meta-package](https://www.tidyverse.org) and is [suggested to those seeking help](https://www.tidyverse.org/help/).
 
 `reprex()` gains several arguments and many arguments can now be controlled via an option, in case a user wants their own defaults.
 
@@ -224,21 +227,21 @@ These look like `reprex(..., arg = opt(DEFAULT), ...)` in the help file. This is
   * Line wrapping is preserved from source via a Pandoc option (#145 @jimhester, #175).
 
   * `venue = "gh"` now targets CommonMark as the standard for GitHub Flavored Markdown (#77).
-  
+
   * `venue = "so"` has appropriate whitespace at the start.
 
   * `venue = "ds"` is a new value, corresponding to <https://www.discourse.org>, which is the platform behind [community.rstudio.com](https://forum.posit.co/). This is currently just an alias for the default `"gh"` GitHub venue, because the formatting appears to be compatible. Adding the `"ds"` value so Discourse can be documented and to guard against the possibility that some formatting is actually unique.
-  
+
 ## Other changes
 
   * The `keep.source` option is set to `TRUE` when rendering the reprex, so reprexes involving srcrefs should work (#152).
-  
+
   * The "undo" functions (`reprex_invert()`, `reprex_clean()`, `reprex_rescue()`) handle `input` and `outfile` like `reprex()` does. The `outfile` argument is new (#129, #68).
 
   * The default value for knitr's `upload.fun` is now set according to the venue. It is `knitr::imgur_upload()` for all venues except `"r"`, where it is `identity` (#125).
 
   * The HTML preview should appear in the RStudio Viewer more consistently, especially on Windows (#75 @yutannihilation).
-  
+
   * More rigorous use of UTF-8 encoding (#76 @yutannihilation).
 
   * Expression input handling has been refactored. As a result, formatR is no longer Suggested. Trailing comments -- inline and on their own line -- are also now retained (#89, #91, #114, @jennybc and @jimhester).
@@ -273,13 +276,13 @@ This was a non-functioning release created by CRAN maintainers by commenting out
 
   * `reprex()` gains optional arguments `opts_chunk` and `opts_knit`, taking named list as input, in order to supplement or override default knitr chunk and package options, respectively. (#33)
     - This made the explicit `upload.fun` argument unnecessary, so it's gone. The `upload.fun` option defaults to `knitr::imgur_upload`, which means figures produced by the reprex will be uploaded to [imgur.com](https://imgur.com/) and the associated image syntax will be put into the Markdown, e.g. `![](https://i.imgur.com/QPU5Cg9.png)`. (#15 @paternogbc)
-    
+
   * Order of `reprex()` arguments has changed.
 
   * `reprex()` gains the `si` argument to request that `devtools::session_info()` or `sessionInfo()` be appended to reprex code (#6 @dgrtwo). When `si = TRUE` and `venue = "gh"` (the default), session info is wrapped in a collapsible details tag. See [an example](https://github.com/tidyverse/reprex/issues/55) (#55).
 
   * Reprex code can be provided as an R expression. (#6 @dgrtwo, #35)
-  
+
   * `reprex()` uses clipboard functionality from [`clipr`](https://CRAN.R-project.org/package=clipr) and thus should work on Windows and suitably prepared Unix-like systems, in addition to Mac OS. (#16 @mdlincoln)
 
 # reprex 0.0.0.9000
