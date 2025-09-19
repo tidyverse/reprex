@@ -113,7 +113,9 @@ reprex_impl <- function(
     # i.e., consider if the user provided any path info
     reprex_path("Writing reprex file:", reprex_file)
   }
-  expose_reprex_output(reprex_file, rtf = (venue == "rtf"))
+  if (html_preview || reprex_clipboard()) {
+    expose_reprex_output(reprex_file, rtf = (venue == "rtf"))
+  }
   invisible(read_lines(reprex_file))
 }
 
