@@ -6,6 +6,7 @@ template:
 
   includes:
     in_header: |
+      <script src="https://cdn.jsdelivr.net/gh/posit-dev/supported-by-posit/js/badge.min.js" data-max-height="43" data-light-bg="#666f76" data-light-fg="#f9f9f9"></script>
       <script defer data-domain="reprex.tidyverse.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
 
 development:
@@ -19,33 +20,33 @@ news:
     href: https://www.tidyverse.org/blog/2021/02/reprex-1-0-0/
 
 reference:
-  - title: The main function
-    contents:
-    - reprex
-  - title: Convenience
-    contents:
-    - reprex_addin
-    - reprex_venue
-    - reprex_locale
-  - title: Going backwards
-    contents:
-    - reprex_clean
-  - title: Internals
-    contents:
-    - reprex_options
-    - reprex_document
-    - reprex_render
+- title: The main function
+  contents:
+  - reprex
+- title: Convenience
+  contents:
+  - reprex_addin
+  - reprex_venue
+  - reprex_locale
+- title: Going backwards
+  contents:
+  - reprex_clean
+- title: Internals
+  contents:
+  - reprex_options
+  - reprex_document
+  - reprex_render
 
 articles:
-  - title: Pro tips
-    navbar: ~
-    contents:
-    - reprex-dos-and-donts
-    - articles/rtf
-    - articles/datapasta-reprex
-    - articles/suppress-startup-messages
+- title: Pro tips
+  navbar:
+  contents:
+  - reprex-dos-and-donts
+  - articles/rtf
+  - articles/datapasta-reprex
+  - articles/suppress-startup-messages
 
-  - title: How to use reprex
-    contents:
-    - articles/learn-reprex
-    - articles/magic-reprex
+- title: How to use reprex
+  contents:
+  - articles/learn-reprex
+  - articles/magic-reprex
