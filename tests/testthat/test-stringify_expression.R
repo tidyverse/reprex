@@ -1,3 +1,5 @@
+# fmt: skip file
+
 test_that("simple statements are stringified", {
   expect_identical(stringify_expression(1:5), "1:5")
   expect_identical(stringify_expression({1:5}), "1:5")
@@ -34,7 +36,7 @@ if (FALSE) {
   )
   e$e08 <- quote({
 x <- 1:2
-{x + 3:4} %>% sum()
+{x + 3:4} |> sum()
   })
   saveRDS(
     e,
@@ -132,11 +134,11 @@ test_that("trailing inline comment AND trailing comment line", {
 test_that("leading bracket that should not be removed", {
   # e$e08 <- quote({
   #   x <- 1:2
-  #   {x + 3:4} %>% sum()
+  #   {x + 3:4} |> sum()
   # })
   out <- c(
     "x <- 1:2",
-    "{x + 3:4} %>% sum()"
+    "{x + 3:4} |> sum()"
   )
   expect_identical(
     stringify_expression(e$e08),

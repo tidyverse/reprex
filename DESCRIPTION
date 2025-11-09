@@ -26,7 +26,7 @@ License: MIT + file LICENSE
 URL: https://reprex.tidyverse.org, https://github.com/tidyverse/reprex
 BugReports: https://github.com/tidyverse/reprex/issues
 Depends: 
-    R (>= 3.6)
+    R (>= 4.1)
 Imports: 
     callr (>= 3.6.0),
     cli (>= 3.2.0),

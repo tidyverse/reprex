@@ -32,26 +32,28 @@
 #' @export
 #' @examples
 #' reprex_document()
-reprex_document <- function(venue = c("gh", "r", "rtf", "html", "slack", "so", "ds", "discord"),
+reprex_document <- function(
+  venue = c("gh", "r", "rtf", "html", "slack", "so", "ds", "discord")),
 
-                            advertise       = NULL,
-                            session_info    = opt(FALSE),
-                            style           = opt(FALSE),
-                            comment         = opt("#>"),
-                            tidyverse_quiet = opt(TRUE),
-                            std_out_err     = opt(FALSE),
-                            pandoc_args = NULL) {
+  advertise = NULL,
+  session_info = opt(FALSE),
+  style = opt(FALSE),
+  comment = opt("#>"),
+  tidyverse_quiet = opt(TRUE),
+  std_out_err = opt(FALSE),
+  pandoc_args = NULL
+) {
   venue <- tolower(venue)
   venue <- match.arg(venue)
   venue <- normalize_venue(venue)
 
-  advertise       <- set_advertise(advertise, venue)
-  session_info    <- arg_option(session_info)
-  style           <- arg_option(style)
-  style           <- style_requires_styler(style)
-  comment         <- arg_option(comment)
+  advertise <- set_advertise(advertise, venue)
+  session_info <- arg_option(session_info)
+  style <- arg_option(style)
+  style <- style_requires_styler(style)
+  comment <- arg_option(comment)
   tidyverse_quiet <- arg_option(tidyverse_quiet)
-  std_out_err     <- arg_option(std_out_err)
+  std_out_err <- arg_option(std_out_err)
 
   stopifnot(is_bool(advertise), is_bool(session_info), is_bool(style))
   stopifnot(is.character(comment))
@@ -59,7 +61,8 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "slack", "so", "
 
   opts_chunk <- list(
     # fixed defaults
-    collapse = TRUE, error = TRUE,
+    collapse = TRUE,
+    error = TRUE,
     # explicitly exposed for user configuration
     comment = comment,
     R.options = list(
@@ -71,10 +74,7 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "slack", "so", "
     opts_chunk[["tidy"]] <- "styler"
   }
   opts_knit <- list(
-    upload.fun = switch(venue,
-      r = identity,
-      knitr::imgur_upload
-    )
+    upload.fun = switch(venue, r = identity, knitr::imgur_upload)
   )
 
   pandoc_args <- c(
@@ -83,7 +83,6 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "slack", "so", "
   )
 
   pre_knit <- function(input, ...) {
-
     # I don't know why the pre_knit hook operates on the **original** input
     # instead of the to-be-knitted (post-spinning) input, but I need to
     # operate on the latter. So I brute force the correct path.
@@ -116,7 +115,10 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "slack", "so", "
     ),
     pandoc = rmarkdown::pandoc_options(
       # https://github.com/tidyverse/reprex/issues/375
-      to = paste0("gfm", if (rmarkdown::pandoc_available("2.13")) "-yaml_metadata_block"),
+      to = paste0(
+        "gfm",
+        if (rmarkdown::pandoc_available("2.13")) "-yaml_metadata_block"
+      ),
       from = rmarkdown::from_rmarkdown(implicit_figures = FALSE),
       ext = ".md",
       args = pandoc_args
@@ -131,20 +133,23 @@ reprex_document <- function(venue = c("gh", "r", "rtf", "html", "slack", "so", "
 # should be kept in sync with the options (re)stored in reprex_render_impl() in
 # the prex() case (new_session = FALSE)
 reprex_opts <- function(venue = "gh") {
-  string <- glue('
+  string <- glue(
+    '
     ```{{r reprex-options, include = FALSE}}
     options(
       keep.source = TRUE,
       crayon.enabled = FALSE,
       reprex.current_venue = "{venue}"
     )
-    ```')
+    ```'
+  )
 }
 
 rprofile_alert <- function(venue = "gh") {
   if (venue %in% c("gh", "html", "slack")) {
     fmt <- '"*Local `.Rprofile` detected at `%s`*"'
-  } else { # venue %in% c("r", "rtf")
+  } else {
+    # venue %in% c("r", "rtf")
     fmt <- '"Local .Rprofile detected at %s"'
   }
   include_eval <-
@@ -158,18 +163,23 @@ rprofile_alert <- function(venue = "gh") {
 }
 
 ad <- function(venue = "gh") {
-  markdown_ad <- glue('
+  markdown_ad <- glue(
+    '
     Created on `r Sys.Date()` with \\
     [reprex v`r utils::packageVersion("reprex")`]\\
-    (https://reprex.tidyverse.org)')
+    (https://reprex.tidyverse.org)'
+  )
   if (venue %in% c("gh", "html")) {
     glue('<sup>{markdown_ad}</sup>')
   } else if (venue == "slack") {
     markdown_ad
-  } else { # venue %in% c("r", "rtf")
-    glue('
+  } else {
+    # venue %in% c("r", "rtf")
+    glue(
+      '
       Created on `r Sys.Date()` with reprex \\
-      v`r utils::packageVersion("reprex")` https://reprex.tidyverse.org')
+      v`r utils::packageVersion("reprex")` https://reprex.tidyverse.org'
+    )
   }
 }
 
@@ -177,7 +187,8 @@ std_out_err_stub <- function(input, venue = "gh") {
   txt <- backtick(std_file(input))
   if (venue %in% c("gh", "html")) {
     details(txt, desc = "Standard output and standard error")
-  } else { # venue %in% c("r", "rtf", "slack")
+  } else {
+    # venue %in% c("r", "rtf", "slack")
     c("#### Standard output and error", txt)
   }
 }
@@ -186,7 +197,8 @@ si <- function(venue = "gh") {
   txt <- r_chunk(session_info_string())
   if (venue %in% c("gh", "html")) {
     details(txt, "Session info")
-  } else { # venue %in% c("r", "rtf", "slack")
+  } else {
+    # venue %in% c("r", "rtf", "slack")
     txt
   }
 }

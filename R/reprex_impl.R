@@ -1,37 +1,42 @@
-reprex_impl <- function(x_expr = NULL,
-                        input  = NULL,
-                        wd     = NULL,
-                        venue  = c("gh", "r", "rtf", "html", "slack", "so", "ds", "discord"),
+reprex_impl <- function(
+  x_expr = NULL,
+  input = NULL,
+  wd = NULL,
+  venue = c("gh", "r", "rtf", "html", "slack", "so", "ds", "discord"),
 
-                        render = TRUE,
-                        new_session = TRUE,
+  render = TRUE,
+  new_session = TRUE,
 
-                        advertise       = NULL,
-                        session_info    = opt(FALSE),
-                        style           = opt(FALSE),
-                        comment         = opt("#>"),
-                        tidyverse_quiet = opt(TRUE),
-                        std_out_err     = opt(FALSE),
-                        html_preview    = opt(TRUE),
+  advertise = NULL,
+  session_info = opt(FALSE),
+  style = opt(FALSE),
+  comment = opt("#>"),
+  tidyverse_quiet = opt(TRUE),
+  std_out_err = opt(FALSE),
+  html_preview = opt(TRUE),
 
-                        outfile = deprecated()) {
-
+  outfile = deprecated()
+) {
   venue <- tolower(venue)
   venue <- match.arg(venue)
   venue <- normalize_venue(venue)
 
-  advertise       <- set_advertise(advertise, venue)
-  session_info    <- arg_option(session_info)
-  style           <- arg_option(style)
-  style           <- style_requires_styler(style)
-  html_preview    <- arg_option(html_preview)
-  html_preview    <- html_preview_requires_interactive(html_preview)
-  comment         <- arg_option(comment)
+  advertise <- set_advertise(advertise, venue)
+  session_info <- arg_option(session_info)
+  style <- arg_option(style)
+  style <- style_requires_styler(style)
+  html_preview <- arg_option(html_preview)
+  html_preview <- html_preview_requires_interactive(html_preview)
+  comment <- arg_option(comment)
   tidyverse_quiet <- arg_option(tidyverse_quiet)
-  std_out_err     <- arg_option(std_out_err)
+  std_out_err <- arg_option(std_out_err)
 
-  if (!is.null(input)) stopifnot(is.character(input))
-  if (!is.null(wd)) stopifnot(is_string(wd))
+  if (!is.null(input)) {
+    stopifnot(is.character(input))
+  }
+  if (!is.null(wd)) {
+    stopifnot(is_string(wd))
+  }
   stopifnot(is_bool(advertise), is_bool(session_info), is_bool(style))
   stopifnot(is_bool(html_preview), is_bool(render))
   stopifnot(is.character(comment))
@@ -42,11 +47,12 @@ reprex_impl <- function(x_expr = NULL,
   }
 
   where <- if (is.null(x_expr)) locate_input(input) else "expr"
-  src <- switch(where,
-    expr      = stringify_expression(x_expr),
+  src <- switch(
+    where,
+    expr = stringify_expression(x_expr),
     clipboard = ingest_clipboard(),
-    path      = read_lines(input),
-    input     = escape_newlines(sub("\n$", "", enc2utf8(input))),
+    path = read_lines(input),
+    input = escape_newlines(sub("\n$", "", enc2utf8(input))),
     selection = rstudio_selection(),
     NULL
   )
@@ -69,9 +75,12 @@ reprex_impl <- function(x_expr = NULL,
 
   reprex_document_options <- list(
     venue = venue,
-    advertise = advertise, session_info = session_info,
-    style = style, comment = comment,
-    tidyverse_quiet = tidyverse_quiet, std_out_err = std_out_err
+    advertise = advertise,
+    session_info = session_info,
+    style = style,
+    comment = comment,
+    tidyverse_quiet = tidyverse_quiet,
+    std_out_err = std_out_err
   )
   src <- c(yamlify(reprex_document_options), "", src)
   if (reprex_files$chatty) {
@@ -95,7 +104,8 @@ reprex_impl <- function(x_expr = NULL,
   reprex_info("Rendering reprex...")
   reprex_file <- reprex_render_impl(
     r_file,
-    new_session = new_session, html_preview = html_preview
+    new_session = new_session,
+    html_preview = html_preview
   )
 
   if (reprex_files$chatty) {
@@ -109,12 +119,12 @@ reprex_impl <- function(x_expr = NULL,
 
 advertise_default <- function(venue) {
   default <- c(
-    gh    = TRUE,
-    ds    = TRUE,
-    html  = TRUE,
-    so    = TRUE,
-    r     = FALSE,
-    rtf   = FALSE,
+    gh = TRUE,
+    ds = TRUE,
+    html = TRUE,
+    so = TRUE,
+    r = FALSE,
+    rtf = FALSE,
     slack = FALSE,
     discord = FALSE
   )
@@ -129,9 +139,11 @@ set_advertise <- function(advertise, venue) {
 
 style_requires_styler <- function(style) {
   if (isTRUE(style) && !requireNamespace("styler", quietly = TRUE)) {
-    reprex_danger("
+    reprex_danger(
+      "
       Install the {.pkg styler} package in order to use
-      {.code style = TRUE}.")
+      {.code style = TRUE}."
+    )
     style <- FALSE
   }
   invisible(style)
@@ -165,14 +177,14 @@ decorate_yaml <- function(x) roxygen_comment(x <- c("---", x, "---"))
 
 remove_defaults <- function(x) {
   defaults <- list(
-    venue           = "gh",
+    venue = "gh",
     # this is the only conditional default, i.e. that depends on venue
-    advertise       = advertise_default(x[["venue"]]),
-    session_info    = FALSE,
-    style           = FALSE,
-    comment         = "#>",
+    advertise = advertise_default(x[["venue"]]),
+    session_info = FALSE,
+    style = FALSE,
+    comment = "#>",
     tidyverse_quiet = TRUE,
-    std_out_err     = FALSE
+    std_out_err = FALSE
   )
 
   compare_one <- function(nm) identical(x[[nm]], defaults[[nm]])
@@ -180,9 +192,11 @@ remove_defaults <- function(x) {
 
   novel_names <- setdiff(names(x), names(defaults))
   if (length(novel_names) > 0) {
-    reprex_danger("
+    reprex_danger(
+      "
       {?This/These} parameter{?s} {?is/are} not recognized for the
-      {.fun reprex_document} format: {.code {novel_names}}.")
+      {.fun reprex_document} format: {.code {novel_names}}."
+    )
   }
 
   x[!is_default]

@@ -23,10 +23,14 @@ stringify_expression <- function(x) {
   src <- srcref(
     .srcfile,
     c(
-      first_src[[1]], first_src[[2]],
-      last_src[[3]], last_src[[4]],
-      first_src[[5]], last_src[[6]],
-      first_src[[7]], last_src[[8]]
+      first_src[[1]],
+      first_src[[2]],
+      last_src[[3]],
+      last_src[[4]],
+      first_src[[5]],
+      last_src[[6]],
+      first_src[[7]],
+      last_src[[8]]
     )
   )
 

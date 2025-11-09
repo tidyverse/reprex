@@ -50,9 +50,24 @@ test_that("venues = 'ds' and 'so' are aliases for 'gh'", {
     "## comment",
     "1:5"
   )
-  ds <- reprex(input = input, venue = "ds", session_info = TRUE, advertise = FALSE)
-  so <- reprex(input = input, venue = "so", session_info = TRUE, advertise = FALSE)
-  gh <- reprex(input = input, venue = "gh", session_info = TRUE, advertise = FALSE)
+  ds <- reprex(
+    input = input,
+    venue = "ds",
+    session_info = TRUE,
+    advertise = FALSE
+  )
+  so <- reprex(
+    input = input,
+    venue = "so",
+    session_info = TRUE,
+    advertise = FALSE
+  )
+  gh <- reprex(
+    input = input,
+    venue = "gh",
+    session_info = TRUE,
+    advertise = FALSE
+  )
   expect_identical(so, gh)
   expect_identical(ds, gh)
 })

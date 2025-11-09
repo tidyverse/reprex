@@ -25,7 +25,8 @@ pyg |> pluck("text-styles") |> names()
 # noting what they are meant for conceptually,
 # and picking the starry-night color alias/variable that seems the best fit
 
-x <- str_glue('
+x <- str_glue(
+  '
   Alert,"Text style for special words in comments, such as TODO, FIXME, XXXX and WARNING.",\\
   comment,
   Annotation,"Text style for annotations in comments or documentation commands, such as @param in Doxygen or JavaDoc.",\\
@@ -84,9 +85,13 @@ x <- str_glue('
   string,
   Warning,"Text style for warnings, such as the keyword @warning in Doxygen.",\\
   comment,
-')
+'
+)
 
-dat <- read_csv(x, col_names = c("pyg_class", "pyg_note", "pl_text_style", "pl_background_style"))
+dat <- read_csv(
+  x,
+  col_names = c("pyg_class", "pyg_note", "pl_text_style", "pl_background_style")
+)
 dat
 
 # get the starry-night css in order to excavate the colors
