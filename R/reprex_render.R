@@ -366,7 +366,7 @@ simplify_image_links <- function(x) {
 
 # input:  ![](https://i.imgur.com/woc4vHs.png)<!-- -->
 # output: ![](https://i.imgur.com/woc4vHs.png)
-remove_empty_html_comments <- function(x){
+remove_empty_html_comments <- function(x) {
   sub("<!--[[:space:]]*-->", "", x, perl = TRUE)
 }
 
