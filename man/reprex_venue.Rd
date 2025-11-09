@@ -6,7 +6,7 @@
 \alias{reprex_r}
 \alias{reprex_rtf}
 \alias{reprex_slack}
-\alias{reprex_dircord}
+\alias{reprex_discord}
 \title{Venue-specific shortcuts}
 \usage{
 reprex_html(...)
@@ -17,7 +17,7 @@ reprex_rtf(...)
 
 reprex_slack(...)
 
-reprex_dircord(...)
+reprex_discord(...)
 }
 \arguments{
 \item{...}{Passed along to \code{\link[=reprex]{reprex()}}.}
