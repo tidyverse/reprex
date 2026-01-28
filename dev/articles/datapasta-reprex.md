@@ -1,0 +1,53 @@
+# Using datapasta with reprex
+
+While using a built-in dataset for a reprex is ideal, sometimes you need
+to troubleshoot code with a bit of outside data. Meet
+[datapasta](https://github.com/MilesMcBain/datapasta), a package by
+[Miles McBain](https://twitter.com/milesmcbain) for “reducing resistance
+associated with copying and pasting data to and from R.” Like reprex,
+datapasta has addin functionality, so you can select commands from the
+RStudio Addins and/or associate keyboard shortcuts with them for easy
+use.
+
+## Scenario 1: From spreadsheet to reprex with `tribble_paste()`
+
+It’s easy to copy and paste nicely formatted data from a spreadsheet
+with datapasta’s `tribble_paste()` functionality. I’ve found the
+simplest method to be:
+
+1.  Copy data from a source onto your clipboard.  
+2.  Click **Paste as tribble** from the datapasta section of the RStudio
+    Addins drop-down.  
+3.  Be sure to assign your data frame to a name, so you can use it
+    elsewhere in your reprex.
+
+![Gif of using datapasta::tribble_paste() to get data from a spreadsheet
+as R code for use in a
+reprex](https://raw.githubusercontent.com/tidyverse/reprex/main/img/datapasta_w_reprex_sheet_to_tribble.gif)
+
+`datapasta::tribble_paste()`
+
+While the output of `tribble_paste()` doesn’t have the same level of
+detail it would with
+[`dput()`](https://stat.ethz.ch/R-manual/R-patched/library/base/html/dput.html),
+it works well enough for most scenarios, with the added benefit of being
+easy to read on the screen.
+
+## Scenario 2: From R object to tibble with `dpasta()`
+
+Now let’s say you have a data frame in R that you want to use in a
+reprex. You can use datapasta’s `dpasta()` function to render your
+object into the same format as the result of `tribble_paste()`, above.
+
+![Gif of using datapasta::dpasta() to convert an R data frame into the R
+code needed to define it in a
+reprex](https://raw.githubusercontent.com/tidyverse/reprex/main/img/dpasta_datapasta_reprex.gif)
+
+`datapasta::dpasta()`
+
+## Fin
+
+There’s more to datapasta than discussed here, so be sure to check out
+its [documentation](https://github.com/MilesMcBain/datapasta). Don’t
+forget, when it comes to reprex, less is always more, so wield the power
+of datapasta wisely.

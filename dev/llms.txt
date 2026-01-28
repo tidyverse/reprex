@@ -1,0 +1,213 @@
+# reprex
+
+## Overview
+
+Prepare reprexes for posting to [GitHub
+issues](https://docs.github.com/issues/tracking-your-work-with-issues/about-issues),
+[StackOverflow](https://stackoverflow.com/questions/tagged/r), in Slack
+[messages](https://slack.com/intl/en-ca/help/articles/201457107-Send-and-read-messages)
+or
+[snippets](https://slack.com/intl/en-ca/help/articles/204145658-Create-a-snippet),
+or even to paste into PowerPoint or Keynote slides. What is a `reprex`?
+It’s a **repr**oducible **ex**ample, as coined by Romain Francois in a
+tweet from 2014.
+
+[![](reference/figures/help-me-help-you.png)](https://media.giphy.com/media/fdLR6LGwAiVNhGQNvf/giphy.gif)
+
+Given R code on the clipboard, selected in RStudio, as an expression
+(quoted or not), or in a file …
+
+- run it via
+  [`rmarkdown::render()`](https://pkgs.rstudio.com/rmarkdown/reference/render.html),
+- with deliberate choices re: `render()` arguments, knitr options, and
+  Pandoc options.
+
+Get resulting runnable code + output as
+
+- Markdown, suitable for GitHub or Stack Overflow or Slack, or as
+- R code, augmented with commented output, or as
+- Plain HTML or (experimental) Rich Text
+
+The result is returned invisibly, written to a file and, if possible,
+placed on the clipboard. Preview an HTML version in RStudio viewer or
+default browser.
+
+## Installation
+
+Install from CRAN:
+
+``` r
+install.packages("reprex")
+```
+
+or get a development version from GitHub:
+
+``` r
+# install.packages("pak")
+pak::pak("tidyverse/reprex")
+```
+
+On Linux, you probably want to install
+[xclip](https://github.com/astrand/xclip) or
+[xsel](https://www.vergenet.net/~conrad/software/xsel/), so reprex can
+access the X11 clipboard. This is ‘nice to have’, but not mandatory. The
+usual `sudo apt-get install` or `sudo yum install` installation methods
+should work for both xclip and xsel.
+
+## Usage
+
+Let’s say you copy this code onto your clipboard (or, on RStudio Server
+or Cloud, select it):
+
+``` R
+(y <- 1:4)
+mean(y)
+```
+
+Then call
+[`reprex()`](https://reprex.tidyverse.org/dev/reference/reprex.md),
+where the default target venue is GitHub:
+
+``` r
+reprex()
+```
+
+A nicely rendered HTML preview will display in RStudio’s Viewer (if
+you’re in RStudio) or your default browser otherwise.
+
+![](reference/figures/README-viewer-screenshot.png)
+
+The relevant bit of GitHub-flavored Markdown is ready to be pasted from
+your clipboard (on RStudio Server or Cloud, you will need to copy this
+yourself):
+
+```` R
+``` r
+(y <- 1:4)
+#> [1] 1 2 3 4
+mean(y)
+#> [1] 2.5
+```
+````
+
+Here’s what that Markdown would look like rendered in a GitHub issue:
+
+``` r
+(y <- 1:4)
+#> [1] 1 2 3 4
+mean(y)
+#> [1] 2.5
+```
+
+Anyone else can copy, paste, and run this immediately.
+
+In addition to GitHub, this Markdown also works on Stack Overflow and
+Discourse. Those venues can be formally requested via `venue = "so"` and
+`venue = "ds"`, but they are just aliases for `venue = "gh"`.
+
+Instead of reading from the clipboard, you can:
+
+- `reprex(mean(rnorm(10)))` to get code from expression.
+
+- `reprex(input = "mean(rnorm(10))\n")` gets code from character vector
+  (detected via length or terminating newline). Leading prompts are
+  stripped from input source: `reprex(input = "> median(1:3)\n")`
+  produces same output as `reprex(input = "median(1:3)\n")`
+
+- `reprex(input = "my_reprex.R")` gets code from file
+
+- Use one of the RStudio add-ins to use the selected text or current
+  file.
+
+But wait, there’s more!
+
+- Get slightly different Markdown, optimized for Slack messages, with
+  `reprex(..., venue = "slack")`.
+
+- Get a runnable R script, augmented with commented output, with
+  `reprex(..., venue = "R")`. This is useful for Slack code snippets,
+  email, etc.
+
+- Get html with `reprex(..., venue = "html")`. Useful for sites that
+  don’t support Markdown.
+
+- Prepare (un)rendered, syntax-highlighted code snippets to paste into
+  Keynote or PowerPoint, with `reprex(..., venue = "rtf")`. This feature
+  is still experimental; see the [associated
+  article](https://reprex.tidyverse.org/articles/articles/rtf.html) for
+  more.
+
+- By default, figures are uploaded to [imgur.com](https://imgur.com/)
+  and the resulting URL is dropped into an inline image tag.
+
+- If you really need to reprex in a specific directory, use the `wd`
+  argument. For example, `reprex(wd = ".")` requests the current working
+  directory.
+
+- Append session info via `reprex(..., session_info = TRUE)`.
+
+- Get clean, runnable code from wild-caught reprexes with
+
+  - [`reprex_invert()`](https://reprex.tidyverse.org/dev/reference/un-reprex.md)
+    = the opposite of
+    [`reprex()`](https://reprex.tidyverse.org/dev/reference/reprex.md)
+  - [`reprex_clean()`](https://reprex.tidyverse.org/dev/reference/un-reprex.md),
+    e.g. when you copy/paste from GitHub or Stack Overflow
+  - [`reprex_rescue()`](https://reprex.tidyverse.org/dev/reference/un-reprex.md),
+    when you’re dealing with copy/paste from R Console
+
+# Package index
+
+## The main function
+
+- [`reprex()`](https://reprex.tidyverse.org/dev/reference/reprex.md) :
+  Render a reprex
+
+## Convenience
+
+- [`reprex_addin()`](https://reprex.tidyverse.org/dev/reference/reprex_addin.md)
+  [`reprex_selection()`](https://reprex.tidyverse.org/dev/reference/reprex_addin.md)
+  : Render a reprex, conveniently
+- [`reprex_html()`](https://reprex.tidyverse.org/dev/reference/reprex_venue.md)
+  [`reprex_r()`](https://reprex.tidyverse.org/dev/reference/reprex_venue.md)
+  [`reprex_rtf()`](https://reprex.tidyverse.org/dev/reference/reprex_venue.md)
+  [`reprex_slack()`](https://reprex.tidyverse.org/dev/reference/reprex_venue.md)
+  : Venue-specific shortcuts
+- [`reprex_locale()`](https://reprex.tidyverse.org/dev/reference/reprex_locale.md)
+  : Render a reprex in a specific locale
+
+## Going backwards
+
+- [`reprex_invert()`](https://reprex.tidyverse.org/dev/reference/un-reprex.md)
+  [`reprex_clean()`](https://reprex.tidyverse.org/dev/reference/un-reprex.md)
+  [`reprex_rescue()`](https://reprex.tidyverse.org/dev/reference/un-reprex.md)
+  : Un-render a reprex
+
+## Internals
+
+- [`reprex_options`](https://reprex.tidyverse.org/dev/reference/reprex_options.md)
+  [`opt`](https://reprex.tidyverse.org/dev/reference/reprex_options.md)
+  : reprex options
+- [`reprex_document()`](https://reprex.tidyverse.org/dev/reference/reprex_document.md)
+  : reprex output format
+- [`reprex_render()`](https://reprex.tidyverse.org/dev/reference/reprex_render.md)
+  : Render a document in a new R session
+
+# Articles
+
+### Pro tips
+
+- [Reprex do's and
+  don'ts](https://reprex.tidyverse.org/dev/articles/reprex-dos-and-donts.md):
+- [reprex venue RTF](https://reprex.tidyverse.org/dev/articles/rtf.md):
+- [Using datapasta with
+  reprex](https://reprex.tidyverse.org/dev/articles/datapasta-reprex.md):
+- [Suppress package startup
+  messages](https://reprex.tidyverse.org/dev/articles/suppress-startup-messages.md):
+
+### How to use reprex
+
+- [How to use
+  reprex](https://reprex.tidyverse.org/dev/articles/learn-reprex.md):
+- [Magic
+  reprex](https://reprex.tidyverse.org/dev/articles/magic-reprex.md):
