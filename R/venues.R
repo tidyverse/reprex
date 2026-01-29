@@ -26,6 +26,10 @@ reprex_rtf <- function(...) reprex(..., venue = "rtf")
 #' @rdname reprex_venue
 reprex_slack <- function(...) reprex(..., venue = "slack")
 
+#' @export
+#' @rdname reprex_venue
+reprex_discord <- function(...) reprex(..., venue = "discord")
+
 # these should exist for completeness, but I predict they'd never get used and
 # they just clutter the auto-complete landscape
 # reprex_gh <- function(...) reprex(..., venue = "gh")

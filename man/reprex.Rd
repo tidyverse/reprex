@@ -8,7 +8,7 @@ reprex(
   x = NULL,
   input = NULL,
   wd = NULL,
-  venue = c("gh", "r", "rtf", "html", "slack", "so", "ds"),
+  venue = c("gh", "r", "rtf", "html", "slack", "so", "ds", "discord"),
   render = TRUE,
   advertise = NULL,
   session_info = opt(FALSE),
@@ -69,6 +69,9 @@ support CommonMark-style fenced code blocks in January 2019.
 \item "ds" for Discourse, e.g.,
 \href{https://forum.posit.co/}{forum.posit.co}. Note: this is
 currently just an alias for "gh".
+\item "discord" for pasting into a Discord message. This is almost exactly the same
+as "slack" but it removes a blank space between the opening backticks and the
+language name, i.e. it returns " \verb{```r} " instead of " \verb{``` r} ".
 }}
 
 \item{render}{Logical. Whether to call \code{\link[rmarkdown:render]{rmarkdown::render()}} on the templated

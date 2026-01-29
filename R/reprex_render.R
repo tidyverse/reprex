@@ -173,6 +173,7 @@ reprex_render_impl <- function(input, new_session = TRUE, html_preview = NULL) {
     r = pp_md_to_r(md_file, comment = comment),
     rtf = pp_highlight(pp_md_to_r(md_file, comment = comment)),
     slack = pp_slackify(md_file),
+    discord = pp_discordify(md_file),
     html = pp_html_render(md_file),
     md_file
   )
@@ -334,16 +335,39 @@ pp_slackify <- function(input) {
   slack_file
 }
 
+# used when venue is "discord"
+# https://www.markdownguide.org/tools/discord/
+pp_discordify <- function(input) {
+  output_lines <- read_lines(md_file(input))
+  output_lines <- discord_info_string(output_lines)
+  output_lines <- simplify_image_links(output_lines)
+  discord_file <- md_file_discord(input)
+  write_lines(output_lines, discord_file)
+  discord_file
+}
+
 # remove "info strings" from opening code fences, e.g. ```r
 # https://spec.commonmark.org/0.29/#info-string
 remove_info_strings <- function(x) {
   sub("^```[^`]*$", "```", x, perl = TRUE)
 }
 
+# remove blank space from opening code fences, e.g. ``` r
+discord_info_string <- function(x) {
+  sub("^```[[:blank:]]?", "```", x, perl = TRUE)
+}
+
 # input:  ![](https://i.imgur.com/woc4vHs.png)
 # output: https://i.imgur.com/woc4vHs.png
 simplify_image_links <- function(x) {
-  sub("(^!\\[\\]\\()(.+)(\\)$)", "\\2", x, perl = TRUE)
+  x <- remove_empty_html_comments(x)
+  sub("(^!\\[\\]\\()(.+)(\\))$", "\\2", x, perl = TRUE)
+}
+
+# input:  ![](https://i.imgur.com/woc4vHs.png)<!-- -->
+# output: ![](https://i.imgur.com/woc4vHs.png)
+remove_empty_html_comments <- function(x) {
+  sub("<!--[[:space:]]*-->", "", x, perl = TRUE)
 }
 
 # used when venue is "rtf"

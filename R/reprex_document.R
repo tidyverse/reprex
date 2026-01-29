@@ -33,7 +33,7 @@
 #' @examples
 #' reprex_document()
 reprex_document <- function(
-  venue = c("gh", "r", "rtf", "html", "slack", "so", "ds"),
+  venue = c("gh", "r", "rtf", "html", "slack", "so", "ds", "discord"),
 
   advertise = NULL,
   session_info = opt(FALSE),
