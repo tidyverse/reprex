@@ -119,6 +119,6 @@ test_that("reprex() works with bare expression from sourced file with #line dire
   write_lines(code, tmp)
 
   expect_snapshot({
-    base::writeLines(source(tmp)$value)
+    base::writeLines(source(tmp, keep.source = TRUE)$value)
   })
 })
