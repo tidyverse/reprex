@@ -33,3 +33,13 @@
       [10] ""
       [11] "Traceback:"
 
+# reprex() works with bare expression from sourced file with #line directive
+
+    Code
+      base::writeLines(source(tmp)$value)
+    Output
+      ``` r
+      1 + 1
+      #> [1] 2
+      ```
+
