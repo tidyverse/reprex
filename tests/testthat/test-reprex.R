@@ -92,3 +92,33 @@ test_that("reprex() copes with an R crash, when `std_out_err = TRUE`", {
 
   expect_snapshot(out, transform = scrubber)
 })
+
+## https://github.com/posit-dev/positron/issues/11578
+test_that("reprex() works with bare expression from sourced file with #line directive", {
+  skip_on_cran()
+
+  code <- c(
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "",
+    "#line 1",
+    "reprex::reprex({",
+    "  1 + 1",
+    "}, advertise = FALSE)"
+  )
+
+  tmp <- withr::local_tempfile(fileext = ".R")
+  write_lines(code, tmp)
+
+  expect_snapshot({
+    base::writeLines(source(tmp, keep.source = TRUE)$value)
+  })
+})

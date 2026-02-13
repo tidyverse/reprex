@@ -43,7 +43,7 @@ stringify_expression <- function(x) {
   }
 
   ## identify the last source line affiliated with an expression
-  n <- utils::getSrcLocation(last_src, which = "line", first = FALSE)
+  n <- utils::getSrcLocation(last_src, which = "parse", first = FALSE)
 
   ## rescue trailing comment on (current) last surviving line
   last_source_line <- getSrcLines(.srcfile, n, n) ## "raw"
