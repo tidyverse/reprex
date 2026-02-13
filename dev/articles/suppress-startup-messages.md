@@ -19,6 +19,7 @@ Call [`library()`](https://rdrr.io/r/base/library.html) with
 `warn.conflicts = FALSE`.
 
 ``` r
+
 library(dplyr, warn.conflicts = FALSE)
 ```
 
@@ -27,6 +28,7 @@ call with
 [`suppressPackageStartupMessages()`](https://rdrr.io/r/base/message.html).
 
 ``` r
+
 suppressPackageStartupMessages(library(dplyr))
 ```
 
@@ -37,6 +39,7 @@ Note that the second `#+` comment is very important, so you don’t
 silence messages and warnings for the entire reprex.
 
 ``` r
+
 #+ message = FALSE, warning = FALSE
 library(dplyr)
 
@@ -51,6 +54,7 @@ has an argument `tidyverse_quiet`, which defaults to `TRUE` and silences
 the startup messages.
 
 ``` r
+
 library(tidyverse)
 
 slice(iris, 1)
@@ -65,6 +69,7 @@ dplyr is a common culprit for noisy startup, so we use it as an example.
 Note this messaging as a baseline.
 
 ``` r
+
 library(dplyr)
 #> 
 #> Attaching package: 'dplyr'
@@ -82,6 +87,7 @@ To suppress warnings about conflicts, set the `warn.conflicts` argument
 of [`library()`](https://rdrr.io/r/base/library.html) to `FALSE`.
 
 ``` r
+
 library(dplyr, warn.conflicts = FALSE)
 
 slice(iris, 1)
@@ -95,6 +101,7 @@ Surround [`library()`](https://rdrr.io/r/base/library.html) with
 [`suppressPackageStartupMessages()`](https://rdrr.io/r/base/message.html).
 
 ``` r
+
 suppressPackageStartupMessages(library(dplyr))
 
 slice(iris, 1)
@@ -126,6 +133,7 @@ by using special comments that start with `#+`. Note that the second
 messages and warnings.
 
 ``` r
+
 #+ message = FALSE, warning = FALSE
 library(dplyr)
 message("You CANNOT hear me!")
@@ -145,6 +153,7 @@ tidyverse metapackage, instead of individual packages, in order to enjoy
 a quiet startup.
 
 ``` r
+
 library(tidyverse) # instead of library(dplyr)
 
 slice(iris, 1)

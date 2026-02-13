@@ -15,9 +15,9 @@ It’s easy to copy and paste nicely formatted data from a spreadsheet
 with datapasta’s `tribble_paste()` functionality. I’ve found the
 simplest method to be:
 
-1.  Copy data from a source onto your clipboard.  
+1.  Copy data from a source onto your clipboard.\
 2.  Click **Paste as tribble** from the datapasta section of the RStudio
-    Addins drop-down.  
+    Addins drop-down.\
 3.  Be sure to assign your data frame to a name, so you can use it
     elsewhere in your reprex.
 

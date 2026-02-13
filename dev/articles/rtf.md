@@ -72,6 +72,7 @@ returns the path to your highlight executable.
 Here’s how that looks for me on macOS:
 
 ``` r
+
 Sys.which("highlight")
 #>                  highlight 
 #> "/usr/local/bin/highlight" 
@@ -80,6 +81,7 @@ Sys.which("highlight")
 and on Windows:
 
 ``` r
+
 Sys.which("highlight")
 #>                              highlight 
 #> "C:\\PROGRA~1\\HIGHLI~1\\HIGHLI~2.EXE" 
@@ -98,6 +100,7 @@ Let’s reprex some code and stick it on a Keynote slide with other non-R
 “features”.
 
 ``` r
+
 reprex({
   (x <- rnorm(3))
   mean(x)
@@ -118,6 +121,7 @@ globally for yourself or for an entire project or talk or course.
 Set these options with code like this:
 
 ``` r
+
 options(
   reprex.highlight.hl_style  = "darkbone",
   reprex.highlight.font      = "Source Code Pro",
@@ -154,7 +158,7 @@ highlight --list-scripts=themes
 But what do these themes *look like*? Here are some galleries that
 probably have high overlap with your themes:
 
-<http://www.andre-simon.de/doku/highlight/en/theme-samples.php>  
+<http://www.andre-simon.de/doku/highlight/en/theme-samples.php>\
 <https://rclickhandbuch.files.wordpress.com/2014/09/knitrthemesoverview.pdf>
 
 You can also override defaults on-the-fly. Here’s how to do that for a
@@ -163,6 +167,7 @@ single call using withr and, as a bonus, how to use
 highlight:
 
 ``` r
+
 withr::with_options(
   new = c(
     reprex.highlight.hl_style  = "dusk",
@@ -179,6 +184,7 @@ withr::with_options(
 Here’s how to set highlight options for part of an R session:
 
 ``` r
+
 op <- options(
   reprex.highlight.hl_style  = "anotherdark",
   reprex.highlight.font      = "Andale Mono Regular",
@@ -212,6 +218,7 @@ If you just want to highlight code, but not run it, set chunk option
 your reprex source:
 
 ``` r
+
 #+ eval = FALSE
 (x <- rnorm(3))
 mean(x)
@@ -250,6 +257,7 @@ This code defines `x` and `y` in the current workspace and writes the
 file `stuff.txt` to the current working directory.
 
 ``` r
+
 x <- 1
 y <- 4
 writeLines("blah blah", file.path(getwd(), "stuff.txt"))
@@ -259,6 +267,7 @@ Now we can show the difference between `prex()` and
 [`reprex()`](https://reprex.tidyverse.org/dev/reference/reprex.md).
 
 ``` r
+
 prex({
   ls()
   x + y
@@ -269,6 +278,7 @@ prex({
 yields
 
 ``` r
+
 ls()
 #> [1] "x" "y"
 x + y
@@ -284,6 +294,7 @@ This is very different from executing the same code via
 [`reprex()`](https://reprex.tidyverse.org/dev/reference/reprex.md):
 
 ``` r
+
 reprex({
   ls()
   x + y
@@ -294,6 +305,7 @@ reprex({
 which yields:
 
 ``` r
+
 ls()
 #> character(0)
 x + y
@@ -315,6 +327,7 @@ in your `.R` file of snippets or in the project-specific or user-level
 `.Rprofile`:
 
 ``` r
+
 prex <- reprex:::prex
 prex_rtf <- reprex:::prex_rtf
 ```
@@ -335,6 +348,7 @@ output. But the other lines will be run, i.e. `str_reverse()` will be
 defined, as will the `bizzaro()` generic and default method.
 
 ``` r
+
 #+ include = FALSE
 str_reverse <- function(x) {
   vapply(

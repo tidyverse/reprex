@@ -20,6 +20,7 @@ possible.**
     friends have a `text` argument. Example:
 
     ``` r
+
     read.csv(text = "a,b\n1,2\n3,4")
     #>   a b
     #> 1 1 2
@@ -30,6 +31,7 @@ possible.**
     lets you use a natural and readable layout. Example:
 
     ``` r
+
     tibble::tribble(
       ~ a, ~ b,
         1,   2,
@@ -58,6 +60,7 @@ possible.**
   on the clipboard, ready to paste into your reprex:
 
   ``` r
+
   tibble::tribble(
    ~weight, ~Time, ~Chick, ~Diet,
         42,     0,    "1",   "1",

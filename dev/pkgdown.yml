@@ -1,4 +1,4 @@
-pandoc: 3.1.11
+pandoc: '3.9'
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
@@ -8,7 +8,7 @@ articles:
   reprex-dos-and-donts: reprex-dos-and-donts.html
   articles/rtf: rtf.html
   articles/suppress-startup-messages: suppress-startup-messages.html
-last_built: 2026-02-13T18:46Z
+last_built: 2026-02-13T18:55Z
 urls:
   reference: https://reprex.tidyverse.org/reference
   article: https://reprex.tidyverse.org/articles

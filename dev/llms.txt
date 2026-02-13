@@ -37,12 +37,14 @@ default browser.
 Install from CRAN:
 
 ``` r
+
 install.packages("reprex")
 ```
 
 or get a development version from GitHub:
 
 ``` r
+
 # install.packages("pak")
 pak::pak("tidyverse/reprex")
 ```
@@ -69,6 +71,7 @@ Then call
 where the default target venue is GitHub:
 
 ``` r
+
 reprex()
 ```
 
@@ -93,6 +96,7 @@ mean(y)
 Here’s what that Markdown would look like rendered in a GitHub issue:
 
 ``` r
+
 (y <- 1:4)
 #> [1] 1 2 3 4
 mean(y)

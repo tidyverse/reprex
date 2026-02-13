@@ -119,9 +119,9 @@ the `outfile` argument is deprecated and the `input` argument has new
 significance. Here’s how to use `input` and `wd` to control reprex
 filepaths:
 
-- To reprex in the current working directory,  
-  Previously: `reprex(outfile = NA)`  
-  Now: `reprex(wd = ".")`  
+- To reprex in the current working directory,\
+  Previously: `reprex(outfile = NA)`\
+  Now: `reprex(wd = ".")`\
   More generally, usage looks like `reprex(wd = "path/to/desired/wd")`.
 - If you really care about reprex filename (and location), write your
   source to `path/to/stuff.R` and call
