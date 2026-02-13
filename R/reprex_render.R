@@ -195,10 +195,16 @@ preview <- function(input) {
       glue("rmarkdown/templates/reprex_document/resources")
     )
   )
+  # pandoc 3.8 deprecated --highlight-style in favor of --syntax-highlighting
+  highlighting_flag <- if (rmarkdown::pandoc_available("3.8")) {
+    "--syntax-highlighting"
+  } else {
+    "--highlight-style"
+  }
   # fmt: skip
   args <- c(
     "--standalone", "--embed-resources",
-    "--syntax-highlighting", path(res_dir, glue("starry-nights-{mode}.theme")),
+    highlighting_flag, path(res_dir, glue("starry-nights-{mode}.theme")),
     "--css", path(res_dir, glue("github-{mode}.css")),
     "--syntax-definition", path(res_dir, "r.xml"),
     "--metadata", "pagetitle=PREVIEW",
