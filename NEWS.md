@@ -1,5 +1,8 @@
 # reprex (development version)
 
+* New reprex `venue = "discord"` returns output that allows syntax highlighting in discord. (#474)
+* Reprex venues `"slack"`, and `"discord"` now correctly simplify image hyperlinks. (#474)
+
 # reprex 2.1.1
 
 * `reprex(style = FALSE)` will never nag about installing styler (#461).
