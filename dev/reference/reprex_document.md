@@ -198,7 +198,7 @@ reprex_document()
 #> {
 #>     xfun::upload_imgur(file, key, ..., include_xml = TRUE)
 #> }
-#> <bytecode: 0x55ae355bf588>
+#> <bytecode: 0x561975599d68>
 #> <environment: namespace:knitr>
 #> 
 #> 
@@ -263,8 +263,8 @@ reprex_document()
 #>     }
 #>     write_lines(input_lines, knit_input)
 #> }
-#> <bytecode: 0x55ae354e3248>
-#> <environment: 0x55ae354e4c98>
+#> <bytecode: 0x561975502878>
+#> <environment: 0x56197550fd58>
 #> 
 #> $post_knit
 #> NULL
@@ -289,8 +289,8 @@ reprex_document()
 #>     if (is.function(overlay)) 
 #>         overlay()
 #> }
-#> <bytecode: 0x55ae35710080>
-#> <environment: 0x55ae3570fb08>
+#> <bytecode: 0x5619756d45a8>
+#> <environment: 0x5619756ddd88>
 #> 
 #> attr(,"class")
 #> [1] "rmarkdown_output_format"
