@@ -216,6 +216,10 @@ md_file_slack <- function(path) {
   path_mutate(path, suffix = "slack", ext = "md")
 }
 
+md_file_discord <- function(path) {
+  path_mutate(path, suffix = "discord", ext = "md")
+}
+
 std_file <- function(path) {
   path_mutate(path, suffix = "std_out_err", ext = "txt")
 }

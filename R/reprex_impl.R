@@ -2,7 +2,7 @@ reprex_impl <- function(
   x_expr = NULL,
   input = NULL,
   wd = NULL,
-  venue = c("gh", "r", "rtf", "html", "slack", "so", "ds"),
+  venue = c("gh", "r", "rtf", "html", "slack", "so", "ds", "discord"),
 
   render = TRUE,
   new_session = TRUE,
@@ -125,7 +125,8 @@ advertise_default <- function(venue) {
     so = TRUE,
     r = FALSE,
     rtf = FALSE,
-    slack = FALSE
+    slack = FALSE,
+    discord = FALSE
   )
   default[[venue]]
 }
