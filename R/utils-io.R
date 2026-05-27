@@ -30,7 +30,7 @@ locate_input <- function(input) {
     if (reprex_clipboard()) {
       return("clipboard")
     }
-    if (in_rstudio()) {
+    if (in_rstudio() || in_positron()) {
       return("selection")
     }
     cli::cli_abort(
