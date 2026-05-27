@@ -11,7 +11,7 @@ test_that("locate_input() works", {
   with_mocked_bindings(
     reprex_clipboard = function() FALSE,
     in_rstudio = function() FALSE,
-    expect_null(locate_input(NULL))
+    expect_snapshot(locate_input(NULL), error = TRUE)
   )
   expect_identical("path", locate_input(path_temp()))
   expect_identical("input", locate_input(c("a", "b")))
