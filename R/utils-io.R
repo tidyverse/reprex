@@ -30,11 +30,19 @@ locate_input <- function(input) {
     if (reprex_clipboard()) {
       return("clipboard")
     }
-    if (in_rstudio()) {
+    if (in_rstudio() || in_positron()) {
       return("selection")
-    } else {
-      return(NULL)
     }
+    cli::cli_abort(
+      c(
+        "Clipboard is not available and no input provided.",
+        i = "
+        Run {.run clipr::dr_clipr()} for clipboard troubleshooting
+        advice or provide code via the {.arg x} or {.arg input}
+        argument."
+      ),
+      call = quote(reprex())
+    )
   }
 
   if (is_path(input)) {

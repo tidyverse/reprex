@@ -20,6 +20,10 @@ in_rstudio <- function() {
   .Platform$GUI == "RStudio"
 }
 
+in_positron <- function() {
+  .Platform$GUI == "Positron"
+}
+
 trim_ws <- function(x) {
   sub("\\s*$", "", sub("^\\s*", "", x))
 }
