@@ -35,7 +35,7 @@ locate_input <- function(input) {
     }
     cli::cli_abort(
       c(
-        "No input provided and clipboard is not available.",
+        "Clipboard is not available and no input provided.",
         i = "
         Run {.run clipr::dr_clipr()} for clipboard troubleshooting
         advice or provide code via the {.arg x} or {.arg input}
