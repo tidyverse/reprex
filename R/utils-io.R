@@ -32,9 +32,15 @@ locate_input <- function(input) {
     }
     if (in_rstudio()) {
       return("selection")
-    } else {
-      return(NULL)
     }
+    cli::cli_abort(c(
+      "No input provided and clipboard is not available.",
+      i = "
+        Install a clipboard tool for your system or
+        provide code via the {.arg x} or {.arg input} argument.",
+      i = "
+        Call {.fun clipr::dr_clipr} for clipboard troubleshooting advice."
+    ))
   }
 
   if (is_path(input)) {
