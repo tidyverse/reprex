@@ -37,10 +37,9 @@ locate_input <- function(input) {
       c(
         "No input provided and clipboard is not available.",
         i = "
-        Install a clipboard tool for your system or
-        provide code via the {.arg x} or {.arg input} argument.",
-        i = "
-        Call {.fun clipr::dr_clipr} for clipboard troubleshooting advice."
+        Run {.run clipr::dr_clipr()} for clipboard troubleshooting
+        advice or provide code via the {.arg x} or {.arg input}
+        argument."
       ),
       call = quote(reprex())
     )
